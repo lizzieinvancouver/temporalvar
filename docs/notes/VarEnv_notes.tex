@@ -12,16 +12,18 @@
 
 \usepackage{fancyhdr}
 \pagestyle{fancy}
-\fancyhead[LO]{July 2011}
+\fancyhead[LO]{August 2012}
 \fancyhead[RO]{Variable environments \& climate change}
 
 \begin{document}
 \renewcommand{\labelitemi}{$ $}
 \title{Coexistence and climate change: \\The role of
     temporal-variability in structuring future communities}
-    \author{Wolkovich, Donahue \& Cleland}
-\date{Last updated: 19 July 2011}
+    \author{Wolkovich, Donahue . . .}
+\date{Last updated: 17 August 2012}
 \maketitle
+\noindent {\Large Lizzie! Finish writing up all your August 2012 notes soon! That includes re-doing the dimensional analysis neatly and scanning any important notes!}
+
 \begin{abstract} Predicting community shifts
 with climate change requires fundamental appreciation of the
 mechanisms that govern how communities assemble. Most work to date has
@@ -54,7 +56,10 @@ scales here, if we manage to make that happen well.}
 \end{abstract}
 
 \newpage
-\section{Next steps, September-October 2011 goals}
+
+\section{Next steps, fall 2012 goals!}
+\noindent {\bf \emph{Was} September-October 2011 goals, ohbother}\\
+\\
 \noindent We have Matlab and R code running the model as a 2 species
 (we decided to start here, and then debate whether and how to extend
 to a more diverse community, but the code is in matrix format so the
@@ -64,12 +69,9 @@ to:
 \item Check that it's running well and time-scales issues (intra- to
   inter-annual variability) are handled well. {\bf Megan} needs to do
   this, including deciding if we need to ODE solve the intra-annual
-  dynamics, then use the discretized version only inter-annually.
-\item Dimensional analysis: {\bf Lizzie} could get started on this then have
-  Megan check. A nice final product would be a units table for all
-  variables. We'll need this for the manuscript anyway and it's a good
-  check.
-\item Start moving towards figures for part 1 (figure 2 in this draft)!
+  dynamics, then use the discretized version only inter-annually. Note from Lizzie: best ODE solver is now in package `desolve.'
+\item{\bf Soon!:} Lizzie needs to clean up notes on dimensions and re-do dimension analysis given table 1 here.
+\item{\bf Soon!:} Megan needs to update this with new equation for phenological tracking.
 \end{enumerate}
 
 \section{Introduction}
@@ -305,6 +307,13 @@ compared to the start of season. (And the model follows this.)
 \begin{enumerate}
 \item Done:
 \begin{enumerate}
+\item In August 2012 Megan came up with a new way to model phenological tracking, it's linear and better than the one presented here. We also discussed three key ways to think of tracking:
+\begin{enumerate}
+\item Species can have fixed flowering/leafing (not track).
+\item Species can phenological track pulse.
+\item Species can phenological track something at least at one time in history correlated with the pulse.
+\end{enumerate}
+We agreed that while (3) is interesting---would allow you to look at mismatch ideas etc.---(1) and (2) have more biological support for plants and are interesting enough in and of themselves, so we will focus on and mode (1) and (2) and not (3).
 \item In July 2011, I looked at whether the start of spring
 has gotten more variable (using some key datasets from NECTAR) and it
 hasn't, at all. No change.
@@ -330,6 +339,13 @@ his seed predation work.
 \item Does lower snowpack mean earlier seasons?
 \end{enumerate}
 \end{enumerate}
+
+\section{Scratch notes from August 2012}
+\begin{itemize}
+\item  Issue we worried about: Will tracker always win? Answers: No, not if it's a poor competitor, that is, if it responds quickly but does poorly at low resource levels. I also think it's important to remember that not all tracking species will track perfectly so some species should grow before trackers some years, when their fixed \(\tau_{i}\) corresponds well to \(\tau_{p}\). Also, we have a note high intraspecific competition could dampen trackers, especially when greater than interspecific competition.
+\item . . . 
+\item I need to enter the rest soon.
+\end{itemize} 
 
 \newpage
 \section{Equations and related notes}
@@ -452,6 +468,45 @@ growing season. Thus I changed this `season-length' \(h\) to
 \\
 \noindent Finally, equations for \(\frac{dB_{i}}{dt}, f_{i}R, g_{i},
 \frac{dR}{dt}\) were taken from the appendix of \cite{Chesson:2004eo} (\emph{Oecologia}).
+
+\newpage 
+\noindent {\bf Dimensional analysis}\\
+\noindent \emph{Exciting new product as of August 2012, oh la la!}
+\\
+\begin{center}
+\begin{table}[h!]
+\caption{Table of parameter values, their definitions and lightweight version of their dimensions (i.e., not yet deemed `grams' or such).}
+\begin{tabular}{ | p{3.0cm} | p{6.0cm} | p{4.0cm} |}
+\hline 
+Parameter & Definition & Unit \\ \hline 
+\end{tabular}
+\begin{tabular}{ | p{3.0cm} | p{6.0cm} | p{4.0cm} |}
+\(N_{i}\) & seedbank of species \(i\) & seeds \\ \hline
+\(s_{i}\) & survival of species \(i\) & unitless \\ \hline
+\(\delta\) & total length of growing season & days\\ \hline
+\(B_{i}\) & biomass of species \(i\) & biomass \\ \hline
+\(R\) & resource & resource\\ \hline
+\(f_{i}\) & resource uptake rate &  \(\frac{\text{resource}}{(\text{days})(\text{biomass})}\)\\ \hline
+\(c_{i}\) & conversion of \(R\) uptake to biomass of species \(i\) &  \(\frac{\text{biomass}}{\text{resource}}\) \\ \hline
+\(m_{i}\) & maintenance costs of species \(i\) & \(\text{days}^{-1}\) \\ \hline
+\(a_{i}\) & uptake increase as \(R\) increases for species \(i\) & \(\text{days}^{-1}\) \\ \hline
+\(d_{i}\) & max uptake for species \(i\) & \(\frac{(\text{days})(\text{biomass})}{\text{resource}}\) \\ \hline
+\(\phi_{i}\) & converesion of biomass to seedbank for species \(i\) & \(\text{biomass}^{-1}\), but conceptually \(\frac{\text{seeds}}{(\text{biomass})(\text{seeds})}\) \\ \hline
+\(\epsilon\) & abiotic loss of \(R\) &  \(\text{days}^{-1}\) \\ \hline
+\(G_{i}\) & max germination of species \(i\) & unitless \\ \hline
+\(h_{i}\) & max germination of species \(i\) following \(R\) pulse & \(\text{days}^{-2}\) \\ \hline
+\(g_{i}\) & germination fraction & unitless \\ \hline
+\(\tau_{p}\) & timing of pulse & days \\ \hline
+\(\tau_{i}\) & timing of max germination of species \(i\) & days \\ \hline
+\(\alpha_{i}\) & phenological tracking of species \(i\) & unitless \\ \hline
+\(\theta_{i}\) & shape of uptake for species \(i\) & unitless\\ \hline
+\hline
+\(b_{i}\) & seedling biomass of species_{i} & \(\frac{\text{biomass}}{\text{seeds}}\) \\ \hline
+\(f_{i}(R)\) & \(R\) uptake \(f(x)\) for species \(i\) & \(\frac{\text{resource}}{(\text{days})(\text{biomass})}\)\\
+\hline
+\end{tabular}
+\end{table}
+\end{center}
 
 
 \newpage
