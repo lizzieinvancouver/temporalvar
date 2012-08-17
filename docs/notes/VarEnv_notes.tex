@@ -1,0 +1,258 @@
+\documentclass[11pt,a4paper,oneside]{article}
+\renewcommand{\baselinestretch}{1.2}
+\usepackage{sectsty,setspace,natbib,wasysym} 
+\usepackage[top=1.00in, bottom=1.0in, left=1in, right=1.25in]{geometry} 
+\usepackage{graphicx}
+\usepackage{latexsym,amssymb,epsf} 
+\usepackage{epstopdf}
+\usepackage{exceltex}
+\usepackage{amsmath}
+\usepackage{natbib}
+
+
+\usepackage{fancyhdr}
+\pagestyle{fancy}
+\fancyhead[LO]{February 2011}
+\fancyhead[RO]{Variable environments \& climate change}
+
+\begin{document}
+\renewcommand{\labelitemi}{$ $}
+\title{Coexistence and climate change: \\The role of
+    temporal-variability in structuring future communities}
+    \author{Wolkovich, Donohue \& Cleland}
+\date{11 February 2011}
+\maketitle
+\noindent \emph{Abstract:} Understanding how communities will shift
+with climate change requires a fundamental appreciation of the
+mechanisms that govern how communities assemble. Most work to date has
+focused on how warmer mean temperatures may affect individual species
+via physiology, generally producing range shifts towards the poles and
+uphill, which fails to predict the wide diversity of observed shifts.
+Climate change has and is predicted to affect far more than mean
+temperatures, including widespread affects on growing season
+length, variability and shifts in extreme events. Additionally,
+cascading effects on species and communities are qualitatively
+predicted but there have been no efforts, to our knowledge, to predict
+shifts based on coexistence theory. Here we extend the two possible
+mechanisms for species coexistence based on variable environments---
+relative nonlinearity and the storage effect---to predict how
+communities will respond to changes in climate variability, extreme
+events and several scenarios of how changes in the mean may influence
+stabilizing coexistence mechanisms. \emph{We find out stuff and tell you
+about how our results have implications for the whole damn
+world. Also, we add an emphasis on integrating intra and inter-annual
+scales here, if we manage to make that happen well.}
+
+\section{Notes and some text}
+\noindent We consider the effects of climate variation at both the
+intra-annual and inter-annual scale and scale up responses to
+short-term (1-10 yr?) and long-term (\(>\)100 yr) dynamics. \\
+\\
+\noindent We
+consider 2 primary traits of the environment (\(\epsilon, R\), which
+code to evaporative stress and inter-annual variability for our approach basically) and 1
+species response trait (phenology, specifically flexibility in
+phenology as modeled by a species` ability to shift \(\tau_{i}\)) to model
+the dominant expectations of current and future climate change:
+\begin{enumerate}
+\item Shifts in climate means and variability (greater var \(\approx\)
+  extreme events) as modeled by changes to \(\mu\) and \(var\) of R,
+  which can lead to:
+\begin{enumerate}
+\item Changes to relative non-linearity (shifts on the X axis due to
+  new extremes etc.)
+\item Changes in inter-annual covar(E, C)
+\item For variability: changes related to buffered population growth:
+  for example, when the periodicity of certain extreme events declines
+  such that species with certain buffering times no longer get their
+  'good` years enough (e.g., periodicty of rainy years every 5 years,
+  swicthes to 10 and the species seedbank is 7 years).
+\end{enumerate}
+\item Shifts in climate means that lead to greater abiotic stress on
+  environments, as modeled by changes to \(\epsilon\). For example,
+  warmer growing seasons may produce greater evapotranspiration,
+  shifting competition for the remaining resource. (By the way, we
+  have notes about treating \(\epsilon\) as a function itself.) This should
+  affect:
+\begin{enumerate}
+\item Changes to relative non-linearity
+\item Changes in inter-annual covar(E, C)
+\end{enumerate}
+\item Longer growing seasons, with several scenarios:
+\begin{enumerate}
+\item Season is longer (earlier \(\tau_{p}\) but community of species
+  do not shift their timing (e.g., no change to  \(\tau_{i \cdots
+    n}\)) 
+\item Season is longer (earlier \(\tau_{p}\) and some species ('climate-trackers`) change
+  their timing (community shift in temporal (phenological) synchrony),
+  that is (e.g., certain species change to  \(\tau_{i \cdots
+    n}\)) such that the distance \(\tau_{p}-\tau_{i}\) is constant
+  across years.
+\item Could also look at complementarity (histogram of variation in \(\tau_{i \cdots
+    n}\); could pull \(\tau_{i \cdots
+    n}\) from a beta distribution. (Note: I also wonder if we
+  shouldn't just use variation due to above to look at this, versus a
+  whole new approach.)
+\end{enumerate}
+\end{enumerate}
+\\
+\noindent We assume that:
+\begin{enumerate}
+\item All species `go' each year, at least a little; that is, we're
+  not looking at a communities where some species have true
+  supra-annual strategies.
+\item There is one dominant pulse of the limiting resource (e.g.,
+  light or water) at the
+  start of each growing season; thus we model a  single pulse per
+  season.
+\item While interactions between the above-considered 'traits` may be
+  important, first understanding how each of these forces act alone is
+  critical enough to let alone interactions for this manuscipt.
+\end{enumerate}
+\\
+\noindent We also discusses mucking with \(m_{i}\) to play around with
+shifts in extreme events such as more frost dates following spring
+warmth. But the above is more well-demonstrated or expected as
+climate-related issues so we're not going there.
+\\
+\\
+\noindent {\bf Some notes for writing}\\
+\begin{enumerate}
+\item Understanding the variable responses of communities and species
+  due to climate shifts is a major aim of current
+ecology.
+\begin{enumerate}
+\item Varied responses
+\begin{enumerate}
+\item reversed phenology \citep{yu2010} 
+\item downhill shifts \citep{Crimmins:2011dq}
+\end{enumerate}
+\item Effects of climate change extend well beyond shifts in the mean
+\end{enumerate}
+\item Models of community assembly in ecology build upon coexistence
+  via environmental variability.
+\item Launch into set-up.
+\end{enumerate}
+\noindent Some key refs we worked with:
+\citep{Chesson:1993gi,Chesson:2000ak,Chesson:2000vd,Chesson:2004eo}. Some
+papers using storage effect model or Armstong and McGhee with field data: \citep{Angert:2009ng,Kuang:2008ri,Kuang:2009rj,Levine:2009ym}.
+\\
+\noindent The 3 ingredients of the storage effect are:
+\begin{enumerate}
+\item differential response to the environment (subadditivity)
+\item covar(E, C)
+\item buffered population growth
+\end{enumerate}
+
+\newpage
+\section{Equations and notes from whiteboard session}
+
+\noindent For a species \(i\) let:
+\begin{align*}
+N_{i} & \text{   seedbank of species } i
+\\
+s_{i} & \text{   survival of seedbank of species } i \text{, buffered pop'ln
+  growth occurs via this constant}
+\\
+\delta & \text{   total time of growing season}
+\\
+B_{i} &  \text{   biomass of species } i
+\\
+R &   \text{   resource}
+\\
+f_{i}(R) & \text{  resource uptake rate of species } i \text{ of } R
+\\
+c_{i} & \text{   conversion of uptake to biomass of species } i
+\\
+m_{i} & \text{   partial mortality of species } i
+\\
+a_{i} & \text{   uptake increase with increased uptake for species } i
+\\
+\theta_{i} & \text{   shape of uptake of species } i
+\\
+d_{i}^{-1} & \text{   max uptake of species } i
+\\
+G_{i} & \text{   max germination of species } i
+\\
+h_{i} & \text{   max rate of germination decrease of species } i
+\text{ following a pulse}
+\\
+\tau_{p} & \text{   time of pulse }
+\\
+\tau_{p} & \text{   time of max germination of species } i
+\\
+\epsilon & \text{   abiotic loss of resource}
+\\
+\phi_{i} & \text{   conversion of biomass of species } i \text{ to seedbank}
+\end{align*}
+\newpage
+\noindent System of equations, for a community of \(n\) species based
+on resource competition:
+\begin{align*}
+N_{i}(t+1)& = s_{i}N_{i}(t)\int_t^{t+\delta}\phi_{i}g_{i}[c_{i}f_{i}(R) -
+m_{i}]B_{i}dt
+\\
+\\
+\frac{dR}{dt} & = - \sum_{i=1}^{n}f_{i}(R)B_{i} -\epsilon R
+\\
+\\
+\frac{dB_{i}}{dt} &  = [c_{i}f_{i}(R) - m_{i}]B_{i}
+\\
+\\
+\text{where:} 
+\\
+\\
+g & = G_{i}e^{-h(\tau_{p}-\tau_{i})^2}
+\\
+\\
+f_{i}(R) & = \frac{a_{i}R^{\theta_{i}}}{1+a_{i}d_{i}R^{\theta_{i}}}
+\\
+\end{align*}
+\noindent note that we may end up shifting \(\int_t^{t+h}\phi_{i}g_{i}[c_{i}f_{i}(R) -
+m_{i}]B_{i}dt\) to something more like \(J_{i}(N_{i}, \text{total
+}R)\) for scaling up this thought-out-as-intra-annual (within season)
+model to inter-annual.
+\\
+\\
+\noindent Also note that I made one change from the board: I think we
+used \(h\) accidentally twice for different meanings: one was in the
+equation for \(g_{i}\) which we stole from \cite{Chesson:2004eo}
+(appendix, see next note), and then one was for the total length of time for the
+growing season. Thus I changed this `season-length' \(h\) to
+\(\delta\).
+\\
+\\
+\noindent Finally, equations for \(\frac{dB_{i}}{dt}, f_{i}R, g_{i},
+\frac{dR}{dt}\) were taken from the appendix of \cite{Chesson:2004eo} (\emph{Oikos}).
+\newpage
+\noindent {\bf Some random notes from the whiteboard:}\\
+\noindent Relative nonlinearity is:
+\begin{align*}
+\left(\frac{d^{2}}{dR^{2}}\right)(var(R))
+\end{align*}
+\noindent Non-additivity (\(\gamma\)) is (in general, still working on
+what it is for our equations) when considering population growth
+(\(r_{i}\)):
+\begin{align*}
+r_{i} & = \omega_{i}(E_{i}, C)
+\\
+\\
+\gamma & = \frac{\partial \omega}{\partial E \partial C} 
+\end{align*}
+
+\noindent but, what is \(E\) and \(C\) in our system?
+\begin{align*}
+C & = - \sum_{i=1}^{n}f_{i}(R)B_{i} \rightarrow f_{i}R
+\end{align*}
+\noindent is this (above) the response to
+  competition? An alternative note we had with many question marks
+  was:
+\begin{align*}
+covar(E,C) \approx covar\left(R_{i}, \sum_{i=1}^{n}B_{i}\right)
+\end{align*}
+
+\newpage
+\bibliography{/Users/Lizzie/Documents/EndnoteRelated/Bibtex/LizzieMainMinimal}
+\bibliographystyle{/Users/Lizzie/Documents/EndnoteRelated/Bibtex/styles/ecolett.bst}
+
+\end{document}
