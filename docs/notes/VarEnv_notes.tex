@@ -12,7 +12,7 @@
 
 \usepackage{fancyhdr}
 \pagestyle{fancy}
-\fancyhead[LO]{August 2012}
+\fancyhead[LO]{September 2012}
 \fancyhead[RO]{Variable environments \& climate change}
 
 \begin{document}
@@ -20,9 +20,8 @@
 \title{Coexistence and climate change: \\The role of
     temporal-variability in structuring future communities}
     \author{Wolkovich, Donahue . . .}
-\date{Last updated: 17 August 2012}
+\date{Last updated: 21 September 2012}
 \maketitle
-\noindent {\Large Lizzie! Finish writing up all your August 2012 notes soon! That includes re-doing the dimensional analysis neatly and scanning any important notes!}
 
 \begin{abstract} Predicting community shifts
 with climate change requires fundamental appreciation of the
@@ -59,6 +58,7 @@ scales here, if we manage to make that happen well.}
 
 \section{Next steps, fall 2012 goals!}
 \noindent {\bf \emph{Was} September-October 2011 goals, ohbother}\\
+\noindent Be sure to check out \emph{Notes from August 2012} section below.\\
 \\
 \noindent We have Matlab and R code running the model as a 2 species
 (we decided to start here, and then debate whether and how to extend
@@ -70,7 +70,6 @@ to:
   inter-annual variability) are handled well. {\bf Megan} needs to do
   this, including deciding if we need to ODE solve the intra-annual
   dynamics, then use the discretized version only inter-annually. Note from Lizzie: best ODE solver is now in package `desolve.'
-\item{\bf Soon!:} Lizzie needs to clean up notes on dimensions and re-do dimension analysis given table 1 here.
 \item{\bf Soon!:} Megan needs to update this with new equation for phenological tracking.
 \end{enumerate}
 
@@ -340,11 +339,23 @@ his seed predation work.
 \end{enumerate}
 \end{enumerate}
 
-\section{Scratch notes from August 2012}
+\section{Notes from August 2012}
 \begin{itemize}
-\item  Issue we worried about: Will tracker always win? Answers: No, not if it's a poor competitor, that is, if it responds quickly but does poorly at low resource levels. I also think it's important to remember that not all tracking species will track perfectly so some species should grow before trackers some years, when their fixed \(\tau_{i}\) corresponds well to \(\tau_{p}\). Also, we have a note high intraspecific competition could dampen trackers, especially when greater than interspecific competition.
-\item . . . 
-\item I need to enter the rest soon.
+\item  Issue we worried about: Will tracker always win? Answers: No, not if it's a poor competitor, that is, if it responds quickly to resource pulse but then does poorly at low resource levels. I also think it's important to remember that not all tracking species will track perfectly so some species should grow before trackers some years, when their fixed \(\tau_{i}\) corresponds well to \(\tau_{p}\). Also, we have a note high intraspecific competition could dampen trackers, especially when greater than interspecific competition.
+\item New things we came up with that we want to look at in regards to {\bf phenological tracking}:
+\begin{itemize}
+\item How big do trade-offs have to be for tracking to be non-advantageous (to allow coexistence with other species)?
+\item Has climate change made tracking more advantageous? That is, is tracking the dominant strategy with a shifting environment (distribution) vs. stationary environment distribution?
+\end{itemize}
+\item Remember to worry a little about how biomass is converted to seed: It happens for all species at $\delta$---so, eary species may have peaker and have lower-than-their-peak biomass at $\delta$ while later season species may be at peak. Ways around this?
+\begin{enumerate}
+\item Use peak biomass instead of biomass at $\delta$ (when the growth rate goes below 0). 
+\item Set different $\delta$ for each species ($\delta_{i}$)
+\end{enumerate}
+\item Worries over growing season continue! Worries over very short growing seasons (agree to stay with what we have for now, but keep in mind this possible issue and idea of continuous $R$ dripping in (or cyclically) for `growing season.'
+\item New response variables, perhaps? What are the traits of species that persist?
+\item {\bf Note:} Before our topic of interest was pretty damn significant: Do drivers of coexistence change with climate change (\emph{schwing! Sexy!})? So we should work this up, if not right away then soon after!
+\item We decided on \emph{no analytical solutions} to storage effect versus relative nonlinearity (which are the main coexistence mechanisms), but we could do some of this conceptually post-simulations.
 \end{itemize} 
 
 \newpage
@@ -560,7 +571,7 @@ covar(E,C) \approx covar\left(R_{i}, \sum_{i=1}^{n}B_{i}\right)
   alters coexistence. Single variables will be simple graphs, while
   contour plots will come in for varying more than one variable
   together. (There is no phenological tracking by species in this
-  section of the paper.)}
+  section of the paper.) From July 2011 meeting.}
 \end{figure}
 
 \newpage
@@ -570,7 +581,7 @@ covar(E,C) \approx covar\left(R_{i}, \sum_{i=1}^{n}B_{i}\right)
 \caption{{\bf Phenological tracking and coexistence under climate
     change.}  We didn't quite nail these down: do we vary both species
 so they both track or look at one tracking and one not tracking?
-Hoping this will become clear as we get the model up and running.}
+Hoping this will become clear as we get the model up and running. From July 2011 meeting.}
 \end{figure}
 
 \end{document}
