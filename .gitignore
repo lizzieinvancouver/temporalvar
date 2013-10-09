@@ -220,3 +220,4 @@ pip-log.txt
 *.Rproj
 *.Rhistory
 *.RData
+.Rproj.user
