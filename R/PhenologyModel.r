@@ -6,7 +6,7 @@
 # define all parameters
 
 nsp <- 2    # number of spp
-nyrs <- 10  # number of yrs
+nyrs <- 100  # number of yrs
 ndays <- 10  # number of days in a growing season
 dt <- 0.001 # within yr timestep
 y <- c(1:nyrs)
@@ -26,7 +26,7 @@ m <-  c(0.05,.05)     # mortality
 G <-  c(0.5, 0.5)     # max germination fraction
 h <-  100             # max rate of germination decrease following pulse
 phi <- c(0.05,0.05)     # conversion of end-of-season plant biomass to seeds
-tauI <- c(0.35, 0.4)    # time of max germ for sp i
+tauI <- c(0.3, 0.4)    # time of max germ for sp i
 theta <- c(1,1)         # shape of species i uptake curve
 N0 <- c(10,10)          # initial number of seeds
 Rstar <- (m/(a*(c-m*d)))^(1/theta)
@@ -34,10 +34,11 @@ Rstar <- (m/(a*(c-m*d)))^(1/theta)
 ##
 ## time-varying env variables
 ##
-R0 <- matrix(rep(5), nyrs,1) # rlnorm(nyrs, 1, 1) # intial R in a season
+R0 <- rlnorm(nyrs, ln(2), 0.2) # intial R in a season
 eps <- 1              # evaporative stress
-tauP <- 0.3           # timing of pulse
-
+#tauP <- 0.3           # timing of pulse
+p <- 2  #first parameter for beta distribution of tau
+q <- 2  #second parameter for beta distribution of tau
 ##
 ## Within-growing season dynamics set-up
 ##
@@ -53,6 +54,7 @@ Bfin <- matrix(rep(0),nyrs,nsp) # biomass at end of year y
 ##
 
 for (y in c(1:nyrs)){
+  tauP <- rbeta(1,p,q)
   g <- G*exp(-h*(tauP-tauI)^2)
   t <- 1
   R[y,t] <- R0[y]
@@ -74,3 +76,6 @@ for (y in c(1:nyrs)){
   print(y)
   Bfin[y,] <- apply(B[y,,], 1, max)
 }
+plot(Bfin[,1]~c(1:nyrs),xlab="year",ylab="Abundance",type="l")
+points(Bfin[,2]~c(1:nyrs),col='blue',type="l")
+
