@@ -73,8 +73,15 @@ for (y in c(1:nyrs)){
       #J <- which(R[y, t-1]-Rstar < 0)
       #  B[y,,t][J] <- 0
     }
-  print(y)
+  #print(y)
   Bfin[y,] <- apply(B[y,,], 1, max)
+  #Megan's lame plotting.  It would be nice to call a plot function that showed within year increase in biomass of all species on the left axis
+  # and within year decrease in resource on the right axis
+  if (y%%10 == 0) {
+    plot(B[y,1,]~c(1:tsteps),xlab="year",ylab="Abundance",type="l")
+    points(B[y,2,]~c(1:tsteps),col='blue',type="l")
+    plot(R[y,]~c(1:tsteps),col='green',type='l')
+  }
 }
 plot(Bfin[,1]~c(1:nyrs),xlab="year",ylab="Abundance",type="l")
 points(Bfin[,2]~c(1:nyrs),col='blue',type="l")
