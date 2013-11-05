@@ -3,39 +3,46 @@
 
 ## VarEnvironments & Coexistence ##
 
-# define all parameters
+#set.seed(2)
 
-nsp <- 2    # number of spp
+# define all parameters
+nsp <- 20    # number of spp
 nyrs <- 100  # number of yrs
 ndays <- 10  # number of days in a growing season
-dt <- 0.001 # within yr timestep
+dt <- 0.01 # within yr timestep
 y <- c(1:nyrs)
 tsteps <- ndays/dt
 t <-c(1:tsteps)
 
-
+## Extinction Threshold:  1 seed per hectare (assuming that initial density is 10 seeds per meter)
+ext <- 1/10000
 ##
 ## species characteristics
 ##
-b <-  c(1,1)          # biomass of seedling
-s <-  c(0.8,0.8)      # seedbank survival overwinter
-a <-  c(20,20)        # slope of species uptake rate with increasing R
-d <-  c(1,1)          # inverse of the max uptake rate
-c <-  c(12,12)        # conversion of resource to biomass
-m <-  c(0.05,.05)     # mortality
-G <-  c(0.5, 0.5)     # max germination fraction
-h <-  100             # max rate of germination decrease following pulse
-phi <- c(0.05,0.05)     # conversion of end-of-season plant biomass to seeds
-tauI <- c(0.3, 0.4)    # time of max germ for sp i
-theta <- c(1,1)         # shape of species i uptake curve
-N0 <- c(10,10)          # initial number of seeds
+b <-  rep(1,nsp)          # biomass of seedling
+s <-  rep(0.8,nsp)      # seedbank survival overwinter
+a <-  rep(20,nsp)        # slope of species uptake rate with increasing R
+d <-  rep(1,nsp)          # inverse of the max uptake rate
+c <-  rep(12,nsp)        # conversion of resource to biomass
+m <-  rep(0.05,nsp)     # mortality
+G <-  rep(0.5,nsp)     # max germination fraction
+h <-  rep(100,nsp)             # max rate of germination decrease following pulse
+phi <- rep(0.05,nsp)     # conversion of end-of-season plant biomass to seeds
+tauI <- runif(nsp,0.1, 0.9)    # time of max germ for sp i
+
+theta <- rep(1,nsp)         # shape of species i uptake curve
+N0 <- rep(10,nsp)          # initial number of seeds (per meter square?)
 Rstar <- (m/(a*(c-m*d)))^(1/theta)
 
 ##
 ## time-varying env variables
 ##
-R0 <- rlnorm(nyrs, dlnorm(2), 0.2) # intial R in a season
+mu <- log(10)  #mean of resource distribution
+sigma <- 0.2  #sd of resource distribution
+R0 <- rlnorm(nyrs, mu, sigma) # intial R in a season
 ## alert, lizzie changed ln above because my computer was confused by it, log-normal command okay?
+##response: I changed it to have a mean of log 2 rather than dlnorm, which would give the density of a log normal at 2.  Sorry if I used ln before.  
+
 eps <- 1              # evaporative stress
 #tauP <- 0.3           # timing of pulse
 p <- 2  #first parameter for beta distribution of tau
@@ -73,7 +80,7 @@ for (y in c(1:nyrs)){
   print(y)
   if(y==1) N[y,] <- N0
   else N[y,] <- s*(N[y-1,]*(1-g)+phi*Bfin[y-1,])
-  B[y,, t] <- b*g*N[y,]
+  B[y,, t] <- b*g*N[y,]*(b*g*N[y,]<ext)
   f <- (a*R[y,1]^theta)/(1+a*d*R[y,1]^theta)
   print(f)
   while (R[y,t]>min(Rstar)){
@@ -88,6 +95,7 @@ for (y in c(1:nyrs)){
   #print(y)
   Bfin[y,] <- apply(B[y,,], 1, max)
 } 
+
   #Megan's lame plotting.  It would be nice to call a plot function that showed within year increase in biomass of all species on the left axis
   # and within year decrease in resource on the right axis
   if (y%%10 == 0) {
@@ -106,8 +114,9 @@ for (y in c(1:nyrs)){
 dev.new(width=14, height=10)
 plot(Bfin[,1]~c(1:nyrs), ylim=c(min(Bfin), max(Bfin)),
     xlab="year", ylab="Abundance", type="n")
-lines(Bfin[,1]~c(1:nyrs), col=colerz[1], lty=lspbyrs, lwd=lwd)
-lines(Bfin[,2]~c(1:nyrs), col=colerz[2], lty=lspbyrs, lwd=lwd)
+for (i in 1:nsp) {
+  lines(Bfin[,i]~c(1:nyrs), col=colerz[i], lty=lspbyrs, lwd=lwd)
+}
 
 # within years plots
 # B[is.na(B)] <- 0 
@@ -146,3 +155,5 @@ for (yr in seq_along(selectyrs)){
 # t is within years
 
 # %% is mod (integer division: it's the remainder once a even division)
+
+print(c("The number of coexisting species are",sum(Bfin[max(y),]>0),"out of",nsp))
