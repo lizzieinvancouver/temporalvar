@@ -8,11 +8,11 @@
 # define all parameters
 nsp <- 20    # number of spp
 nyrs <- 100  # number of yrs
-ndays <- 10  # number of days in a growing season
-dt <- 0.01 # within yr timestep
+ndays <- 2  # number of days in a growing season
+dt <- 0.001 # within yr timestep
 y <- c(1:nyrs)
 tsteps <- ndays/dt
-t <-c(1:tsteps)
+
 
 ## Extinction Threshold:  1 seed per hectare (assuming that initial density is 10 seeds per meter)
 ext <- 1/10000
@@ -37,23 +37,23 @@ Rstar <- (m/(a*(c-m*d)))^(1/theta)
 ##
 ## time-varying env variables
 ##
-mu <- log(10)  #mean of resource distribution
+mu <- log(2)  #mean of resource distribution
 sigma <- 0.2  #sd of resource distribution
 R0 <- rlnorm(nyrs, mu, sigma) # intial R in a season
-## alert, lizzie changed ln above because my computer was confused by it, log-normal command okay?
-##response: I changed it to have a mean of log 2 rather than dlnorm, which would give the density of a log normal at 2.  Sorry if I used ln before.  
 
 eps <- 1              # evaporative stress
 #tauP <- 0.3           # timing of pulse
 p <- 2  #first parameter for beta distribution of tau
 q <- 2  #second parameter for beta distribution of tau
+tauP <- rbeta(nyrs,p,q)
 ##
 ## Within-growing season dynamics set-up
 ##
 R <- matrix(rep(0), nyrs, ndays/dt) # R is the resource level through the growing season (each yr)
-B <- array(rep(0), dim=c(nyrs,nsp,ndays/dt)) # where B is an array with yr (nyrs), spp biomass
+B <- array(rep(0), dim=c(nyrs,nsp,tsteps)) # where B is an array with yr (nyrs), spp biomass
     # through growing season (ndays)
 N <- matrix(rep(0), nyrs, nsp) # number of seeds by yr and spp
+N[1,] <- N0  #initialize
 Bfin <- matrix(rep(0),nyrs,nsp) # biomass at end of year y
 
 ##
@@ -72,43 +72,39 @@ lwd=2
 ## Better to use ODE solver within each year?
 ##
 
-for (y in c(1:nyrs)){
-  tauP <- rbeta(1,p,q)
-  g <- G*exp(-h*(tauP-tauI)^2)
-  t <- 1
-  R[y,t] <- R0[y]
-  print(y)
-  if(y==1) N[y,] <- N0
-  else N[y,] <- s*(N[y-1,]*(1-g)+phi*Bfin[y-1,])
-  B[y,, t] <- b*g*N[y,]*(b*g*N[y,]<ext)
-  f <- (a*R[y,1]^theta)/(1+a*d*R[y,1]^theta)
-  print(f)
-  while (R[y,t]>min(Rstar)){
-      t <- t+1
-      f <- (a*R[y,t-1]^theta)/(1+a*d*R[y,t-1]^theta)
-      if((sum(c*f<m)>0)) print(paste("c*f-m=", c*f-m,", t=",t)) #c*f<m is asking whether any species is below its R*
-      B[y,,t] <- B[y,,t-1]+(c*f-m)*B[y,,t-1]*dt
-      R[y,t] <- R[y, t-1]-dt*(t(B[y,,t-1]) %*% f - eps*R[y,t-1])
-      #J <- which(R[y, t-1]-Rstar < 0)
-      #  B[y,,t][J] <- 0
+for (y in c(1:(nyrs-1))){
+  g <- G*exp(-h*(tauP[y]-tauI)^2)  #germination fraction in year y
+  k<-1
+  R[y,k] <- R0[y]
+  B[y,,k] <- b*g*N[y,]
+  while (R[y,k]>min(Rstar)){
+      f <- (a*R[y,k]^theta)/(1+a*d*R[y,k]^theta)
+      B[y,,k+1] <- B[y,,k]+(c*f-m)*B[y,,k]*dt
+      R[y,k+1] <- R[y, k] -dt*(t(B[y,,k]) %*% f + eps*R[y,k])
+      R[y,k+1] <- R[y,k+1]*(R[y,k+1]>0)
+      k <- k+1
     }
-  #print(y)
-  Bfin[y,] <- apply(B[y,,], 1, max)
+  Bfin[y,] <- apply(B[y,,], 1, max)  #final biomass
+  N[y+1,] <- s*(N[y,]*(1-g)+phi*Bfin[y,])  #convert biomass to seeds and overwinter
+  N[y+1,] <- N[y+1,]*(N[y+1,]>ext)  #if density does not exceed ext, set to zero
 } 
 
   #Megan's lame plotting.  It would be nice to call a plot function that showed within year increase in biomass of all species on the left axis
   # and within year decrease in resource on the right axis
-  if (y%%10 == 0) {
-    dev.new(width=14, height=10)
-    plot(B[y,1,]~c(1:tsteps), ylim=c(min(B[y,,]), max(B[y,,])),
-        xlab="year", ylab="Abundance", type="n")
-    lines(B[y,1,]~c(1:tsteps), col=colerz[1], lty=lspbyrs, lwd=lwd)
-    lines(B[y,2,]~c(1:tsteps), col=colerz[2], lty=lspbyrs, lwd=lwd)
-    lines(R[y,]~c(1:tsteps), col=rcol, lty=lresbyrs, lwd=lwd)
-    legend(nyrs, (max(B[y,,])-(0.1*max(B[y,,]))), "resource",
-       col=c(rcol), lty=c(lresbyrs), lwd=1, bty="n")
-  }
-}
+#   if (y%%10 == 0) {
+#     dev.new(width=14, height=10)
+#     plot(B[y,1,]~c(1:tsteps), ylim=c(min(B[y,,]), max(B[y,,])),
+#         xlab="year", ylab="Abundance", type="n")
+#     #lines(B[y,1,]~c(1:tsteps), col=colerz[1], lty=lspbyrs, lwd=lwd)
+#     #lines(B[y,2,]~c(1:tsteps), col=colerz[2], lty=lspbyrs, lwd=lwd)
+#     lines(R[y,]~c(1:tsteps), col=rcol, lty=lresbyrs, lwd=lwd)
+#     for (sp in c(1:nsp)){
+#       lines(B[y,sp,]~c(1:tsteps), col=colerz[i], lty=lspbyrs, lwd=lwd)
+#     }
+#     legend(nyrs, (max(B[y,,])-(0.1*max(B[y,,]))), "resource",
+#        col=c(rcol), lty=c(lresbyrs), lwd=1, bty="n")
+#   }
+# }
 
 # between years plot
 dev.new(width=14, height=10)
@@ -117,6 +113,15 @@ plot(Bfin[,1]~c(1:nyrs), ylim=c(min(Bfin), max(Bfin)),
 for (i in 1:nsp) {
   lines(Bfin[,i]~c(1:nyrs), col=colerz[i], lty=lspbyrs, lwd=lwd)
 }
+
+dev.new(width=14, height=10)
+range=c(1:(tsteps/3))
+plot(R[1,range]~range, ylim=c(min(R), max(R)),
+     xlab="step, step, step", ylab="Resource", type="n")
+for (i in 2:nyrs) {
+  lines(R[i,range]~range, col=colerz[i], lty=lspbyrs, lwd=lwd)
+}
+
 
 # within years plots
 # B[is.na(B)] <- 0 
