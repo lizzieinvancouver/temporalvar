@@ -3,7 +3,7 @@
 
 ## VarEnvironments & Coexistence ##
 
-# safety features
+# safety feature(s)
 options(stringsAsFactors=FALSE)
 
 # packages
