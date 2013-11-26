@@ -18,7 +18,7 @@
 
 \usepackage{fancyhdr}
 \pagestyle{fancy}
-\fancyhead[LO]{October 2013}
+\fancyhead[LO]{November 2013}
 \fancyhead[RO]{Variable environments \& climate change}
 
 \begin{document}
@@ -26,7 +26,7 @@
 \title{Coexistence and climate change: \\The role of
     temporal-variability in structuring future communities}
     \author{Wolkovich \& Donahue}
-\date{Last updated: 28 October 2013}
+\date{Last updated: 14 November 2013}
 \maketitle
 
 \begin{abstract} Predicting community shifts
@@ -253,6 +253,15 @@ We agreed that while (3) is interesting---would allow you to look at mismatch id
 \item Question: do we need to make sure that for all \(i\), \(\int g_{i}\) are equal, or is it that \(\int g_{i}(t)\tau_{p}(t)\mathrm{d}t\) should be constant (the latter being the average of \(g_{i}\) weighted by the distribution of \(\tau_{p}\) through time.
 \end{itemize}
 
+\noindent \emph{New notes on trade-offs from 12 November 2013:}\\
+In nature early species have quicker-return-investments on growth and early is often high tracking, so it's hard to tell whether early \emph{or} high-tracking trades off with this quicker-return angle. So what we plan on doing:\\
+
+For now, for coexistence: we'll trade off \(c_{i}\) and \(\tau_{i}\), when we add in alpha we'll leave this above trade-off and maybe:
+\begin{itemize}
+\item get some coexisting species and add high tracking randomly to all and see what happens
+\item get some coexisting species and add high tracking to the early ones and see what happens
+\end{itemize}
+
 \noindent \emph{Megan's thoughts from the plane home:} Can think of trade-off as competition-colonization one: rapid response to resource availability (colonization) versus special case of competition.\\
 {\bf Megan! We would all benefit if you fix my hack of the following:} Without tracking we may predict benefits to early-colonizers decline with earlier seasons. As start-date moves earlier, early folks lose benefit and you get more late folks. Late species may be less different than one another---and less responsive to environment. Early folks, effectively, become more similar to environment. 
 
@@ -290,11 +299,11 @@ Otherwise, not sure anyone has looked at this at all in precip systems and for s
 \item Correlations in \(R_{0}\) and \(\tau\) nothing to date or in future? Maybe in alpine systems?
 \end{enumerate}
 
-So, where did we arrive at after all this? Even though we used to be interested in correlated shifts in these we're no so much anymore. Instead the \emph{best place to start} seems to be: earlier \(tau_{p}\) and increases in \(\epsilon\) and \(\epsilon\) extreme events. Then maybe move on to \(R_{0}\) (mean and extreme events). And again, just skip correlations.\\
+So, where did we arrive at after all this? Even though we used to be interested in correlated shifts in these we're no so much anymore. Instead the \emph{best place to start} seems to be: earlier \(\tau_{p}\) and increases in \(\epsilon\) and \(\epsilon\) extreme events. Then maybe move on to \(R_{0}\) (mean and extreme events). And again, just skip correlations.\\
 
 Note that increased extreme events for \(\epsilon\)  will effectively reduce biomass (you could also consider modeling this so it ties to \(m_{i}\) or modify \(g_{i}\) to lead to total loss, perhaps).\\
 
-While here, though, I will mention that we discussed \emph{which} correlations will shift with climate change and the big one seems to be the North American alpine story: where the relationship between how \(tau_{p}\) affects mortality has shifted with species` \(tau_{i}\) such that there is now higher mortality imposed on species with earlier \(tau_{i}\). We did briefly discuss how to model this and think maybe the best way is to add in, external to the within-year integral, a fraction that germinated and died as a f(x) of \(tau_{i}\)  and frost event time.\\
+While here, though, I will mention that we discussed \emph{which} correlations will shift with climate change and the big one seems to be the North American alpine story: where the relationship between how \(\tau_{p}\) affects mortality has shifted with species` \(\tau_{i}\) such that there is now higher mortality imposed on species with earlier \(\tau_{i}\). We did briefly discuss how to model this and think maybe the best way is to add in, external to the within-year integral, a fraction that germinated and died as a f(x) of \(\tau_{i}\)  and frost event time.\\
 
 \section{Random things to remember, worry over, generally absorb}
 
@@ -303,7 +312,7 @@ While here, though, I will mention that we discussed \emph{which} correlations w
 \noindent {\bf Key stuff:} We will build in trade-offs (versus running a bunch of random parameter space models where---in order to get stability---we end up with related trade-offs) such that we're effectively saying `the world works this way now, we add climate change and see what happens. . . .' We think these trade-offs should be:
 \begin{itemize}
 \item decrease \(\phi_{i}\) correlated with  \(\tau_{i}\) close to  \(\tau_{p}\)
-\item (for phenological tracking questions) decrease \(\phi_{i}\) correlated with higher tracking\footnote{though we could also alter \(c_{i}\) or \(d_{i}\), or might work better to adjust \(a_{i}\) so you can make earlier faster growers (or adjust \(a_{i}/d_{i}\) so when you're faster you're a higher R*, but we need to check through all this thinking more.}
+\item (for phenological tracking questions) decrease \(\phi_{i}\) correlated with higher tracking\footnote{though we could also alter \(c_{i}\) or \(d_{i}\), or might work better to adjust \(a_{i}\) so you can make earlier faster growers (or adjust \(a_{i}/d_{i}\) so when you're faster you're a higher R*), but we need to check through all this thinking more.}
 \end{itemize}
 
 \noindent Remember to worry a little about how biomass is converted to seed: It happens for all species at $\delta$---so, early species may have peaked and have lower-than-their-peak biomass at $\delta$ while later season species may be at peak. Ways around this?\\
