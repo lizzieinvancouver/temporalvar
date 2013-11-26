@@ -9,6 +9,14 @@ options(stringsAsFactors=FALSE)
 # packages
 library(ggplot2)
 
+# set up graphics parameters
+colerz <- topo.colors(nsp)
+rcol <- "darkslateblue"
+linez <- rep(1:6, 100) # enough for 600 species for now
+lspbyrs <- 1
+lresbyrs <- 2
+lwd=2
+
 #set.seed(2)
 
 # define all parameters
@@ -19,9 +27,19 @@ dt <- 0.001 # within yr timestep
 y <- c(1:nyrs)
 tsteps <- ndays/dt
 
-
 ## Extinction Threshold:  1 seed per hectare (assuming that initial density is 10 seeds per meter)
 ext <- 1/10000
+
+## Setting up loop for multiple model runs
+# To do still:
+# (1) add in everything crossyrsvars need (was lazy about this)
+# (2) add in resource stuff to withinyrs
+# (3) decide on list for each run, versus some other format
+
+modelruns <- list() # place to store output of runs
+nruns <- 2 # number of model runs to make
+for (j in c(1:nruns)){ # assuming, we will vary species characteristics between yrs ... 
+  
 ##
 ## species characteristics
 ##
@@ -39,6 +57,8 @@ tauI <- runif(nsp,0.1, 0.9)    # time of max germ for sp i
 theta <- rep(1,nsp)         # shape of species i uptake curve
 N0 <- rep(10,nsp)          # initial number of seeds (per meter square?)
 Rstar <- (m/(a*(c-m*d)))^(1/theta)
+
+crossyrsvars <- as.data.frame(cbind(b, s, a, d, c, m, G, h, phi, theta))
 
 ##
 ## time-varying env variables
@@ -62,15 +82,6 @@ N <- matrix(rep(0), nyrs, nsp) # number of seeds by yr and spp
 N[1,] <- N0  #initialize
 Bfin <- matrix(rep(0),nyrs,nsp) # biomass at end of year y
 
-##
-## set up graphics parameters
-##
-colerz <- topo.colors(nsp)
-rcol <- "darkslateblue"
-linez <- rep(1:6, 100) # enough for 600 species for now
-lspbyrs <- 1
-lresbyrs <- 2
-lwd=2
 
 ##
 ## change to mapply someday?
@@ -93,7 +104,14 @@ for (y in c(1:(nyrs-1))){
   Bfin[y,] <- apply(B[y,,], 1, max)  #final biomass
   N[y+1,] <- s*(N[y,]*(1-g)+phi*Bfin[y,])  #convert biomass to seeds and overwinter
   N[y+1,] <- N[y+1,]*(N[y+1,]>ext)  #if density does not exceed ext, set to zero
-} 
+}
+
+## here, below is the bit that needs more thought
+# could also make each run a list, so something like:
+# modelruns[[y]] <- list(crossyrsvars, Bfin)
+modelruns[[paste("crossyrs", j, sep="")]] <- crossyrsvars
+modelruns[[paste("withinyrs", j, sep="")]] <- Bfin
+}
 
   #Megan's lame plotting.  It would be nice to call a plot function that showed within year increase in biomass of all species on the left axis
   # and within year decrease in resource on the right axis
