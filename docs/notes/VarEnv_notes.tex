@@ -18,15 +18,15 @@
 
 \usepackage{fancyhdr}
 \pagestyle{fancy}
-\fancyhead[LO]{November 2013}
+\fancyhead[LO]{December 2013}
 \fancyhead[RO]{Variable environments \& climate change}
 
 \begin{document}
-\renewcommand{\labelitemi}{$ $}
+\renewcommand{\labelitemi}{$-$}
 \title{Coexistence and climate change: \\The role of
     temporal-variability in structuring future communities}
     \author{Wolkovich \& Donahue}
-\date{Last updated: 14 November 2013}
+\date{Last updated: 11 December 2013}
 \maketitle
 
 \begin{abstract} Predicting community shifts
@@ -227,7 +227,7 @@ In August 2012 Megan came up with a new way to model phenological tracking, it's
 \begin{enumerate}
 \item Species can have fixed flowering/leafing (not track).
 \item Species can phenologically track pulse.
-\item Species can phenological track something at least at one time in history correlated with the pulse.
+\item Species can phenologically track something at least at one time in history correlated with the pulse.
 \end{enumerate}
 We agreed that while (3) is interesting---would allow you to look at mismatch ideas etc.---(1) and (2) have more biological support for plants and are interesting enough in and of themselves, so we will focus on and mode (1) and (2) and not (3).\\
 
@@ -247,16 +247,16 @@ We agreed that while (3) is interesting---would allow you to look at mismatch id
 \item We have to create some species differences for the storage effect to `ameliorate' (EMW phrasing here, probably not ideal), so how do we want to do that?
 \begin{itemize}
 \item mean species differences in \(c_{i}\) and storage effect through \(g_{i}\) 
-\item mean species differences in \(G_{i}\) and make them totally equivalent within season and temporal storage effect through \(\tau_{p}-\tau_{i}\) 
+\item mean species differences in \(g_{max,i}\) and make them totally equivalent within season and temporal storage effect through \(\tau_{p}-\tau_{i}\) 
 \end{itemize}
 \item Note: \(h\) yields different bet hedging strategies (you could think of it as `germination plasticity')
-\item Question: do we need to make sure that for all \(i\), \(\int g_{i}\) are equal, or is it that \(\int g_{i}(t)\tau_{p}(t)\mathrm{d}t\) should be constant (the latter being the average of \(g_{i}\) weighted by the distribution of \(\tau_{p}\) through time.
+\item Question: do we need to make sure that for all \(i\), \(\int g_{i}\) are equal, or is it that \(\int g_{i}(t)\tau_{p}(t)\mathrm{d}t\) should be constant (the latter being the average of \(g_{i}\) weighted by the distribution of \(\tau_{p}\) through time).
 \end{itemize}
 
 \noindent \emph{New notes on trade-offs from 12 November 2013:}\\
 In nature early species have quicker-return-investments on growth and early is often high tracking, so it's hard to tell whether early \emph{or} high-tracking trades off with this quicker-return angle. So what we plan on doing:\\
 
-For now, for coexistence: we'll trade off \(c_{i}\) and \(\tau_{i}\), when we add in alpha we'll leave this above trade-off and maybe:
+\noindent For now, for coexistence: we'll trade off \(c_{i}\) and \(\tau_{i}\), when we add in alpha we'll leave this above trade-off and maybe:
 \begin{itemize}
 \item get some coexisting species and add high tracking randomly to all and see what happens
 \item get some coexisting species and add high tracking to the early ones and see what happens
@@ -276,11 +276,11 @@ hasn't, at all. No change.\\
 \item Get on top of climate change lit: which variables will shift?
   Which ones are coupled and how will their coupling shift with
   climate change (go from uncoupled to coupled, or vice-versa, or just
-  the coupling itself changes). 
+  the coupling itself changes)?
 \item Does evaporative stress increase with climate change (absolute,
-  versus relative, oceans burn off while temperatures increase etc.)
+  versus relative, oceans burn off while temperatures increase etc.)?
 \item When seasons start earlier does evaporative stress increase (I
-  suspect so, but need to pull together refs)
+  suspect so, but need to pull together refs)?
 \item Does lower snowpack mean earlier seasons?
 \end{itemize}
 
@@ -299,11 +299,11 @@ Otherwise, not sure anyone has looked at this at all in precip systems and for s
 \item Correlations in \(R_{0}\) and \(\tau\) nothing to date or in future? Maybe in alpine systems?
 \end{enumerate}
 
-So, where did we arrive at after all this? Even though we used to be interested in correlated shifts in these we're no so much anymore. Instead the \emph{best place to start} seems to be: earlier \(\tau_{p}\) and increases in \(\epsilon\) and \(\epsilon\) extreme events. Then maybe move on to \(R_{0}\) (mean and extreme events). And again, just skip correlations.\\
+So, where did we arrive at after all this? Even though we used to be interested in correlated shifts in these we're not so much anymore. Instead the \emph{best place to start} seems to be: earlier \(\tau_{p}\) and increases in \(\epsilon\) and \(\epsilon\) extreme events. Then maybe move on to \(R_{0}\) (mean and extreme events). And again, just skip correlations.\\
 
 Note that increased extreme events for \(\epsilon\)  will effectively reduce biomass (you could also consider modeling this so it ties to \(m_{i}\) or modify \(g_{i}\) to lead to total loss, perhaps).\\
 
-While here, though, I will mention that we discussed \emph{which} correlations will shift with climate change and the big one seems to be the North American alpine story: where the relationship between how \(\tau_{p}\) affects mortality has shifted with species` \(\tau_{i}\) such that there is now higher mortality imposed on species with earlier \(\tau_{i}\). We did briefly discuss how to model this and think maybe the best way is to add in, external to the within-year integral, a fraction that germinated and died as a f(x) of \(\tau_{i}\)  and frost event time.\\
+While here, though, I will mention that we discussed \emph{which} correlations will shift with climate change and the big one seems to be the North American alpine story: where the relationship between how \(\tau_{p}\) affects mortality has shifted with species' \(\tau_{i}\) such that there is now higher mortality imposed on species with earlier \(\tau_{i}\). We did briefly discuss how to model this and think maybe the best way is to add in, external to the within-year integral, a fraction that germinated and died as a f(x) of \(\tau_{i}\)  and frost event time.\\
 
 \section{Random things to remember, worry over, generally absorb}
 
@@ -312,7 +312,7 @@ While here, though, I will mention that we discussed \emph{which} correlations w
 \noindent {\bf Key stuff:} We will build in trade-offs (versus running a bunch of random parameter space models where---in order to get stability---we end up with related trade-offs) such that we're effectively saying `the world works this way now, we add climate change and see what happens. . . .' We think these trade-offs should be:
 \begin{itemize}
 \item decrease \(\phi_{i}\) correlated with  \(\tau_{i}\) close to  \(\tau_{p}\)
-\item (for phenological tracking questions) decrease \(\phi_{i}\) correlated with higher tracking\footnote{though we could also alter \(c_{i}\) or \(d_{i}\), or might work better to adjust \(a_{i}\) so you can make earlier faster growers (or adjust \(a_{i}/d_{i}\) so when you're faster you're a higher R*), but we need to check through all this thinking more.}
+\item (for phenological tracking questions) decrease \(\phi_{i}\) correlated with higher tracking\footnote{though we could also alter \(c_{i}\) or \(u_{i}\), or might work better to adjust \(a_{i}\) so you can make earlier faster growers (or adjust \(a_{i}/u_{i}\) so when you're faster you're a higher R*), but we need to check through all this thinking more.}
 \end{itemize}
 
 \noindent Remember to worry a little about how biomass is converted to seed: It happens for all species at $\delta$---so, early species may have peaked and have lower-than-their-peak biomass at $\delta$ while later season species may be at peak. Ways around this?\\
@@ -333,7 +333,8 @@ often consistent. For the end of the season effects have been more
 muted and variable---suggesting plants in someway do seem to set the
 end of the growing season more than abiotic cues do, at least when
 compared to the start of season. (And the model follows this.)\\
-Worries over growing season continue (from August 2012 notes)! Worries over very short growing seasons (agree to stay with what we have for now, but keep in mind this possible issue and idea of continuous $R$ dripping in (or cyclically) for `growing season.'
+
+Worries over growing season continue (from August 2012 notes)! Worries over very short growing seasons (agree to stay with what we have for now, but keep in mind this possible issue and idea of continuous $R$ dripping in (or cyclically) for `growing season').\\
 
 \noindent The intra-annual model does not have a useful closed solution (I
   have some Maxima code that shows only the trivial solution gives an
@@ -390,7 +391,7 @@ ecology.
 \noindent Some key refs we worked with:
 \citep{Chesson:1993gi,Chesson:2000ak,Chesson:2000vd,Chesson:2004eo}. Some
 papers using storage effect model or Armstong and McGhee with field
-data: \citep{Angert:2009ng,Kuang:2008ri,Kuang:2009rj,Levine:2009ym}.\\
+data: \citep{Angert:2009,Kuang:2008ri,Kuang:2009rj,Levine:2009ym}.\\
 
 \newpage
 \section{Equations and related notes}
@@ -418,9 +419,9 @@ a_{i} & \text{   uptake increase for species } i \text{ as R increases}
 \\
 \theta_{i} & \text{   shape of uptake of species } i
 \\
-d_{i}^{-1} & \text{   max uptake of species } i
+u_{i}^{-1} & \text{   max uptake of species } i
 \\
-G_{i} & \text{   max germination of species } i
+g_{max,i} & \text{   max germination of species } i
 \\
 h_{i} & \text{   max rate of germination decrease of species } i
 \text{ following a pulse}
@@ -432,7 +433,7 @@ h_{i} & \text{   max rate of germination decrease of species } i
 \epsilon & \text{   abiotic loss of resource}
 \\
 \phi_{i} & \text{   conversion of biomass of species } i \text{ to
-  seedbank}
+  seedbank, includes overwintering of seeds (as of December 2013)}
 \\
 b_{i} & \text{   seedling biomass of species } i
 \\
@@ -470,10 +471,10 @@ s_{i}(N_{i}(t)(1-g_{i})+N_{i}(t)g_{i}\phi_{i}\int_t^{t+\delta}[c_{i}f_{i}(R(t))-
 & \text{where:} 
 \\
 \\
-g_{i} & = G_{i}e^{-h(\tau_{p}-\tau_{i})^2}
+g_{i} & = g_{max,i}e^{-h(\tau_{p}-\tau_{i})^2}
 \\
 \\
-f_{i}(R) & = \frac{a_{i}R^{\theta_{i}}}{1+a_{i}d_{i}R^{\theta_{i}}}
+f_{i}(R) & = \frac{a_{i}R^{\theta_{i}}}{1+a_{i}u_{i}R^{\theta_{i}}}
 \\
 \end{align*}
 
@@ -545,15 +546,14 @@ Parameter & Definition & Unit \\ \hline
 \(\delta\) & total length of growing season & days\\ \hline
 \(B_{i}\) & biomass of species \(i\) & biomass \\ \hline
 \(R\) & resource & resource\\ \hline
-\(f_{i}\) & resource uptake rate &  \(\frac{\text{resource}}{(\text{days})(\text{biomass})}\)\\ \hline
 \(c_{i}\) & conversion of \(R\) uptake to biomass of species \(i\) &  \(\frac{\text{biomass}}{\text{resource}}\) \\ \hline
 \(m_{i}\) & maintenance costs of species \(i\) & \(\text{days}^{-1}\) \\ \hline
 \(a_{i}\) & uptake increase as \(R\) increases for species \(i\) & \(\text{days}^{-1}\) \\ \hline
-\(d_{i}\) & max uptake for species \(i\) & \(\frac{(\text{days})(\text{biomass})}{\text{resource}}\) \\ \hline
-\(\phi_{i}\) & converesion of biomass to seedbank for species \(i\) & \(\text{biomass}^{-1}\), but conceptually \(\frac{\text{seeds}}{(\text{biomass})(\text{seeds})}\) \\ \hline
+\(u_{i}\) & max uptake for species \(i\) & \(\frac{(\text{days})(\text{biomass})}{\text{resource}}\) \\ \hline
+\(\phi_{i}\) & converesion of biomass to seedbank for species, includes overwintering of seeds \(i\) & \(\text{biomass}^{-1}\), but conceptually \(\frac{\text{seeds}}{(\text{biomass})(\text{seeds})}\) \\ \hline
 \(\epsilon\) & abiotic loss of \(R\) &  \(\text{days}^{-1}\) \\ \hline
-\(G_{i}\) & max germination of species \(i\) & unitless \\ \hline
-\(h_{i}\) & max germination of species \(i\) following \(R\) pulse & \(\text{days}^{-2}\) \\ \hline
+\(g_{max,i}\) & max germination of species \(i\) & unitless \\ \hline
+\(h_{i}\) &  controls the the rate at which germination declines as \(\tau_{p}\) deviates from optimum for species \(i\)  & \(\text{days}^{-2}\) \\ \hline
 \(g_{i}\) & germination fraction & unitless \\ \hline
 \(\tau_{p}\) & timing of pulse & days \\ \hline
 \(\tau_{i}\) & timing of max germination of species \(i\) & days \\ \hline
@@ -561,7 +561,10 @@ Parameter & Definition & Unit \\ \hline
 \(\theta_{i}\) & shape of uptake for species \(i\) & unitless\\ \hline
 \hline
 \(b_{i}\) & seedling biomass of species \(i\) & \(\frac{\text{biomass}}{\text{seeds}}\) \\ \hline
-\(f_{i}(R)\) & \(R\) uptake \(f(x)\) for species \(i\) & \(\frac{\text{resource}}{(\text{days})(\text{biomass})}\)\\
+\(f_{i}(R)\) & \(R\) uptake \(f(x)\) for species \(i\) & \(\frac{\text{resource}}{(\text{days})(\text{biomass})}\)\\ \hline
+\(d_{i}\) & death rate of species \(i\), used in calculations of lifespan & unitless \\ \hline
+\(T\) & between year time & years \\ \hline
+\(\tau\) & within season time & days \\ \hline
 \hline
 \end{tabular}
 \end{table}
@@ -658,7 +661,7 @@ the paper lied in focusing on single vs. multiple variables, then
 putting in tracking as subordinate. 
 \end{itemize}
 
-\subsection{Do drivers of coexistence change with climate change? Scwing!}
+\subsection{Do drivers of coexistence change with climate change? Schwing!}
 \noindent We decided not to work on this (for now) as of October 2013 meeting.\\
 
 \noindent  {\bf Note:} Before our topic of interest was pretty damn significant: Do drivers of coexistence change with climate change (\emph{schwing! Sexy!})? So we should work this up, if not right away then soon after!\\

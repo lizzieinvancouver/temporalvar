@@ -1,0 +1,46 @@
+Started 7 October 2013
+
+To do for 20 November 2013
+    
+- work on the outside loop to collate multiple runs of the model
+a couple notes on this:
++ do a list of lists (each run gets 1 list probably with 2 pieces)
++ save the constants in one vector or such
++ save the time-varying parameters (R, taus etc.) in a dataframe that also includes the peak biomass for each species, and final resource for each year (years going by row)
++ include the seed somewhere perhaps
+
+- set up an issue tracker/to-do site for Megan and I?
+
+
+
+Megan will:
+- check Otto notes
+- work on measuring storage effect in model (!!!)
+- add in tracking of tau i or work on it some
+
+emails:
+
++++++++++++++++++++++++
+5 Nov 2013 (from Megan):
+
+Hi Lizzie,
+    I need to migrate from working at home to the office. 
+Here's what I have done so far:
+
+    * Extended the code nsp species
+    * Generalized parameter calls, although left all as constants except tau_i
+    * Changed the abundance plot to generalize to nsp (made a loop with your plot)
+    * Applied a cutoff for extinction ( I.e., when biomass falls below cutoff, then really a zero):
+          o In Peter's model, the biomass arising from the germination inf a single seedling is given a unit of 1.  And initial population sizes are 10.  So, I am going to assume this is a per area measure.  E.g., per meter squared.  So, if the population declined to less than 1 per hectare, perhaps we call that extinct.
+    * My initial look at the tau_i's of those coexisting made me think that early season is better, and then early and late together are ok, but ones in the middle don't persist
+    * To look at this, I want to (but haven't yet) plot the theoretical distribution of tauP (i.e., dbeta(p,q)), the stochastic values of tauP over the simulation, and then the tauI values for coexisting species (in one color) and for the exticnt species (in a second color)
+    * Lastly, we need to think about how to structure the code to scale to our next task: save out the coexisting communities, so we can shift the envt and see who wins
+    * Note that we still have not invoked a tradeoff.  Instead, we have made all species equal except for timing of germination
+
+M
+
+How best to do a bunch of runs and pull 
+
+
+Some literature notes:
+- Mathias & Chesson 2013 (TPB) is about within year coexistence from temporally-varying environments, but they specifically add environmental weather variation within year to do it, which is different than what we do (and it's a lot about speciation).
