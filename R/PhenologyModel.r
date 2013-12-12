@@ -38,7 +38,7 @@ lwd=2
 # (3) decide on list for each run, versus some other format
 
 modelruns <- list() # place to store output of runs
-nruns <- 2 # number of model runs to make
+nruns <- 2 # number of model runs to do
 for (j in c(1:nruns)){ # assuming, we will vary species characteristics between yrs ... 
   
 ##
@@ -57,9 +57,9 @@ tauI <- runif(nsp,0.1, 0.9)    # time of max germ for sp i
 
 theta <- rep(1,nsp)         # shape of species i uptake curve
 N0 <- rep(10,nsp)          # initial number of seeds (per meter square?)
-Rstar <- (m/(a*(c-m*d)))^(1/theta)
+Rstar <- (m/(a*(c-m*u)))^(1/theta)
 
-crossyrsvars <- as.data.frame(cbind(b, s, a, u, c, m, gmax, h, phi, theta))
+crossyrsvars <- as.data.frame(cbind(b, s, a, u, c, m, gmax, h, phi, theta, tauI, Rstar))
 
 ##
 ## time-varying env variables
@@ -82,6 +82,9 @@ B <- array(rep(0), dim=c(nyrs,nsp,tsteps)) # where B is an array with yr (nyrs),
 N <- matrix(rep(0), nyrs, nsp) # number of seeds by yr and spp
 N[1,] <- N0  #initialize
 Bfin <- matrix(rep(0),nyrs,nsp) # biomass at end of year y
+##
+## set-up for different coexistence mechanisms
+##
 E <- matrix(rep(0),nyrs,nsp)
 
 ##
@@ -109,30 +112,14 @@ for (y in c(1:(nyrs-1))){
   N[y+1,] <- N[y+1,]*(N[y+1,]>ext)  #if density does not exceed ext, set to zero
 }
 
-## here, below is the bit that needs more thought
-# could also make each run a list, so something like:
-# modelruns[[y]] <- list(crossyrsvars, Bfin)
 
-modelruns[[paste("crossyrs", j, sep="")]] <- crossyrsvars
-modelruns[[paste("withinyrs", j, sep="")]] <- Bfin
+modelruns[[j]] <- list(crossyrsvars, Bfin, E)
+# could also make each run a multi-part dataframe with common names
+# so something like:
+# modelruns[[paste("crossyrs", j, sep="")]] <- crossyrsvars
+# modelruns[[paste("withinyrs", j, sep="")]] <- Bfin
 }
 
-  #Megan's lame plotting.  It would be nice to call a plot function that showed within year increase in biomass of all species on the left axis
-  # and within year decrease in resource on the right axis
-#   if (y%%10 == 0) {
-#     dev.new(width=14, height=10)
-#     plot(B[y,1,]~c(1:tsteps), ylim=c(min(B[y,,]), max(B[y,,])),
-#         xlab="year", ylab="Abundance", type="n")
-#     #lines(B[y,1,]~c(1:tsteps), col=colerz[1], lty=lspbyrs, lwd=lwd)
-#     #lines(B[y,2,]~c(1:tsteps), col=colerz[2], lty=lspbyrs, lwd=lwd)
-#     lines(R[y,]~c(1:tsteps), col=rcol, lty=lresbyrs, lwd=lwd)
-#     for (sp in c(1:nsp)){
-#       lines(B[y,sp,]~c(1:tsteps), col=colerz[i], lty=lspbyrs, lwd=lwd)
-#     }
-#     legend(nyrs, (max(B[y,,])-(0.1*max(B[y,,]))), "resource",
-#        col=c(rcol), lty=c(lresbyrs), lwd=1, bty="n")
-#   }
-# }
 
 # between years plot
 dev.new(width=14, height=10)
