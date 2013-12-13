@@ -9,7 +9,6 @@ options(stringsAsFactors=FALSE)
 # packages
 library(ggplot2)
 
-
 #set.seed(2)
 
 # define all parameters
@@ -57,8 +56,10 @@ gmax <-  rep(0.5,nsp)     # max germination fraction
 h <-  rep(100,nsp)             # max rate of germination decrease following pulse
 phi <- rep(0.05,nsp)     # conversion of end-of-season plant biomass to seeds
 tauI <- runif(nsp,0.1, 0.9)    # time of max germ for sp i
+# set up tracking (to do for Lizzie, there should be code under here someday)
 
-theta <- rep(1,nsp)         # shape of species i uptake curve
+
+theta <- rep(1,nsp)         # shape of species i uptake curve, remember it should be an integer!
 N0 <- rep(10,nsp)          # initial number of seeds (per meter square?)
 Rstar <- (m/(a*(c-m*u)))^(1/theta)
 
@@ -91,10 +92,14 @@ B <- array(rep(0), dim=c(nyrs,nsp,tsteps)) # where B is an array with yr (nyrs),
 N <- matrix(rep(0), nyrs, nsp) # number of seeds by yr and spp
 N[1,] <- N0  #initialize
 Bfin <- matrix(rep(0),nyrs,nsp) # biomass at end of year y
+
 ##
 ## set-up for different coexistence mechanisms
 ##
+tauIstar <- matrix(rep(0),nyrs,nsp)
+Bnocomp <- matrix(rep(0),nyrs,nsp) # B without competition at end of year y
 E <- matrix(rep(0),nyrs,nsp)
+C <- matrix(rep(0),nyrs,nsp)
 
 ##
 ## change to mapply someday?
@@ -115,8 +120,12 @@ for (y in c(1:(nyrs-1))){
       k <- k+1
     }
   Bfin[y,] <- apply(B[y,,], 1, max)  #final biomass
-  E[y,] <- log(s*g*phi)+log(B[y,,1]*((1+a*u*R0[y]^theta)/
-      (1+a*u*R0[y]^theta*exp(-eps*ndays*theta)))*exp((-c/(u*eps*theta))-m*ndays))
+  # add some internal calculations to make other calculations easier
+  tauIstar[y,] <- (log(R0[y])/eps)-(1/(theta*eps))*log(m/(a*c-a*u*m))
+  Bnocomp[y,] <- B[y,,1]*((1+a*u*R0[y]^theta)/(1+a*u*R0[y]^theta*exp(-eps*tauIstar[y,]*theta)))*
+      exp((-c/(u*eps*theta))-m*tauIstar[y,])
+  # E[y,] <- log(s*g*(phi*Bnocomp[y,]-1))
+  # C[y,] <- log((phi*Bnocomp[y,]-1)/(phi*Bfin[y,]-1))
   N[y+1,] <- s*(N[y,]*(1-g)+phi*Bfin[y,])  #convert biomass to seeds and overwinter
   N[y+1,] <- N[y+1,]*(N[y+1,]>ext)  #if density does not exceed ext, set to zero
 }
