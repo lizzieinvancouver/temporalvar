@@ -1,0 +1,50 @@
+\documentclass[11pt,a4paper,oneside]{article}
+\renewcommand{\baselinestretch}{1.2}
+\usepackage[top=1.00in, bottom=1.0in, left=1in, right=1.25in]{geometry} 
+\usepackage{graphicx}
+\usepackage{latexsym,amssymb,epsf} 
+\usepackage{epstopdf}
+\usepackage{amsmath}
+\usepackage{hyperref}
+
+% Optional, you can get rid of this:
+\usepackage{fancyhdr}
+\pagestyle{fancy}
+\fancyhead[LO]{Leftside header here}
+\fancyhead[RO]{Rightside header here}
+
+\begin{document}
+
+You can put inline math in with blackslash-parenthesis, then math, then blackslash-parenthesis, like this: \(\psi+\phi\).\\
+
+For longer series you can use align (add an asterisk to remove automatic numbering of equations) and the \& sign (saying where you want the alignment to happen, e.g., the equals sign or such):
+
+\begin{align}
+x_{i} =& y+g^{\theta} \text{   :basic fun} 
+\\
+s_{i} =& x+i
+\end{align}
+
+\noindent Handy websites:\\
+\href {http://en.wikibooks.org/wiki/LaTeX/Mathematics}{Latex Wikibooks: Math}\\
+\href{http://en.wikibooks.org/wiki/LaTeX/Advanced_Mathematics}{Latex Wikibooks: Advanced Math}\\
+\href{http://detexify.kirelabs.org/classify.html}{Draw your symbol in order to find it!}
+
+\end{document}
+
+% Handy commands %
+\noindent 
+\section{name}
+\subsection{name}
+\emph{italics!} 
+{\bf for bold}
+\newpage 
+
+% Options to fancy up first page (but these after begin{document})
+\title{}
+    \author{moi}
+\date{\today}
+\maketitle
+
+\begin{abstract} 
+\end{abstract}
