@@ -14,11 +14,14 @@ library(ggplot2)
 
 # define all parameters
 nsp <- 20    # number of spp
-nyrs <- 100  # number of yrs 
+nyrs1 <- 100  # number of yrs to run first stationary period
 ndays <- 1  # number of days in a growing season
 dt <- 0.001 # within yr timestep
-y <- c(1:nyrs)
 tsteps <- ndays/dt
+# params for adding on a nonstationary run after stationary run
+nyrs2 <- 50 # number of yrs for second run (nonstationary for now)
+nyrs <- nyrs1+nyrs2 # ALERT! change below once not doing stationary+nonstationary run
+y <- c(1:nyrs)
 
 ## Extinction Threshold:  1 seed per hectare (assuming that initial density is 10 seeds per meter)
 ext <- 1/10000
@@ -71,7 +74,13 @@ eps <- 1              # evaporative stress
 #tauP <- 0.3           # timing of pulse
 p <- 2  #first parameter for beta distribution of tau
 q <- 2  #second parameter for beta distribution of tau
-tauP <- rbeta(nyrs,p,q) 
+tauPs <- rbeta(nyrs1, p, q) # change once not doing stationary+nonstationary run
+
+# nonstationary tauP, change once not doing stationary+nonstationary run
+qns <- seq(2, 20, length.out=nyrs2)
+tauPns <- rbeta(nyrs2, p, qns) # yes, it takes a vector! Yay!
+plot(tauPns~c(1:50))
+tauP <- c(tauPs, tauPns)
 
 ##
 ## Within-growing season dynamics set-up
@@ -186,7 +195,8 @@ tau.df$coexisted[tau.df$coexisted==FALSE] <- "doomed"
 tauP.df <- data.frame(coexisted=rep("tauP"), tauP=tauP)
 
 ggplot(tau.df, aes(tauI, fill = coexisted)) + geom_histogram(alpha=0.5) +
-    geom_density(data=tauP.df, aes(tauP),  alpha = 0.2) +
+    geom_density(data=tauP.df[1:100,], aes(tauP),  alpha = 0.2) +
+    geom_density(data=tauP.df[101:150,], aes(tauP),  alpha = 0.4) +
     labs(title=paste(sum(Bfin[max(y),]>0), "out of", nsp, "coexisted", sep=" "))
 
 
