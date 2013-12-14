@@ -6,7 +6,7 @@
 \usepackage{latexsym,amssymb,epsf} 
 \usepackage{epstopdf}
 \usepackage{amsmath}
-\usepackage{natbib}
+\usepackage{hyperref}
 
 \newenvironment{smitemize}{
 \begin{itemize}
@@ -26,7 +26,7 @@
 \title{Coexistence and climate change: \\The role of
     temporal-variability in structuring future communities}
     \author{Wolkovich \& Donahue}
-\date{Last updated: 11 December 2013}
+\date{Last updated: 13 December 2013}
 \maketitle
 
 \begin{abstract} Predicting community shifts
@@ -52,15 +52,30 @@ ability of species to phenologically track the timing of major climate events. \
 \end{abstract}
 
 \newpage
-
-
-
+\tableofcontents
 
 \section{Next steps, goals!}
-\noindent World of possibilities goes here soon.
+\subsection{Finalize equations for mechanisms of coexistence}
+Go Megan! See file \verb@VarEnv_CoexistEqns.tex@
+
+\subsection{Would be really nice to have to give talk in January}
+Code in \verb@PhenologyModel.R@ that spits out the storage effect, relative nonlinearity and maybe something about other mechanisms of coexistence so Lizzie can code how they shift with nonstationarity.
+
+\subsection{Figure out rankings of species}
+This should come be R* (fluctuation independent) plus the equalizing bits (fluctuation dependent). Once we have this, it will be good to look at: (1) if the cut-off in coexistence shifts with nonstationarity and (2) how the spread between species shifts with nonstationarity.
+
+\subsection{Get phenological tracking up and running}
+First, to make life easy I (Lizzie) will swap the hats when coding. So what we call \(\hat{\tau_{i}}\) I will call \(\tau_{i}\) and vice versa.\\
+
+\noindent Next up, I need to work on how to make joint distributions in R (all different types, not just multivariate normal ones) so we can link \(\alpha_{i}\) with \(c_{i}\). For this I need to look into copulas and the R package \verb@copula@. See also these pages:\\
+\url{http://www.r-bloggers.com/copulas-made-easy/}\\
+\url{https://sites.google.com/a/wisc.edu/jed-frees/multivariate-regression-using-copulas}
+
+\subsection{Get on a weekly meeting schedule as of February 2014}
+Oui!
+
 
 \section{Introduction}
-\noindent \emph{Need to write more someday} \\
 \noindent Understanding how plant communities will respond to climate change
 requires synthesizing information on both direct effects of climate on species
 and indirect effects driven by responses to other species'
@@ -75,32 +90,312 @@ other species.)
 \item We consider the effects of climate variation at both the
 intra-annual and inter-annual scale and scale up responses to
 short-term (1-10 yr?) and long-term (\(>\)100 yr) dynamics. 
-\item We focus (for now) only on the storage effect. We leave out relative non-linearity. ({\bf Check!} As of December 2013 it seems all options are back on the table!)
 \item We also look at how species traits related to their responses to
   climate variability effect coexistence and long-term diversity
   maintenance. (This is the tracking part of the project.) 
 \end{enumerate}
 
-\noindent We also note that one possible way to make this project more
-interesting, useful and forward-thinking than others is to make
+\noindent We also aim to make  this project more
+interesting, useful and forward-thinking than others by making
 scenarios most realistic---link to real climate scenarios or use
 existing data to rule out and in shifts in abiotic variables (and
 possibly species traits---we should have the data to estimate the
-percentage of species that track, maximum tracking and if only
+percentage of species that track, trade-offs between competition and early flowering, maximum tracking and if only
 early-season species track, we could add that in, and of course we
-have a lot of climate data on hand). The new \emph{Physical Sciences Basis} of the IPCC came out in September 2013 so we have good recent estimates of how climate has and will shift (and Lizzie can slog through this).
+have a lot of climate data on hand). The new \emph{Physical Sciences Basis} of the IPCC came out in September 2013 so we have good recent estimates of how climate has and will shift (and Lizzie can slog through this).\\
 
-\subsection{Do drivers of coexistence change with climate change? Schwing!}
-\noindent We decided not to work on this (for now) as of October 2013 meeting. But then we did an about face and were all over it by the December 2013 meeting!\\
+\noindent {\bf Predictions:} Even though we are not shifting \(var(R0), var(\tau_{p}), var(\epsilon)\) we are shifting E (species' responses to environment) and thus \(var(E)\) may increase. That could be cool.\\
 
-\noindent  {\bf Note:} Before our topic of interest was pretty damn significant: Do drivers of coexistence change with climate change (\emph{schwing! Sexy!})? So we should work this up, if not right away then soon after!\\
+\noindent {\bf Products:} We currently envision two papers: 
+\begin{enumerate}
+\item \emph{Shifting drivers of coexistence with climate change}, which includes all the work to date (December 2013), plus phenological tracking
+\item  \emph{Mayan megadroughts and climate change} 
+\end{enumerate}
+See below for outlines and info on each.
 
-We decided on \emph{no analytical solutions} to storage effect versus relative nonlinearity (which are the main coexistence mechanisms), but we could do some of this conceptually post-simulations. We noted in October 2013 that even if we come up with these analytical solutions we'll still need an example, that is we would have to start with a community of \(n\) species that coexists via \(z\%\) relative non-linearity, \(x\%\) storage effect etc. and then we would impose climate change and see how \(z\%\) etc. change.\\
+\newpage
+\section{Equations and related notes}
 
-Again in October 2013: We again discussed the urge to partition out relative non-linearity and storage effect and how they will shift with climate change (fluctuation independent mechanisms seem less important here) but again we felt this was tricky and still depends on the simulations we run so we focused on how we will alter the equations to focus on shifts in the storage effect with climate change.
+\noindent For a species \(i\) let:
+\begin{align*}
+N_{i} & \text{   seedbank of species } i
+\\
+s_{i} & \text{   survival of seedbank of species } i \text{, buffered pop'ln
+  growth occurs via this constant}
+\\
+\delta & \text{   total time of growing season}
+\\
+B_{i} &  \text{   biomass of species } i
+\\
+R &   \text{   resource}
+\\
+f_{i}(R) & \text{  resource uptake rate of species } i \text{ of } R
+\\
+c_{i} & \text{   conversion of uptake to biomass of species } i
+\\
+m_{i} & \text{   partial mortality of species } i
+\\
+a_{i} & \text{   uptake increase for species } i \text{ as R increases}
+\\
+\theta_{i} & \text{   shape of uptake of species } i
+\\
+u_{i}^{-1} & \text{   max uptake of species } i
+\\
+g_{max,i} & \text{   max germination of species } i
+\\
+h_{i} & \text{   max rate of germination decrease of species } i
+\text{ following a pulse}
+\\
+\tau_{p} & \text{   time of pulse }
+\\
+\tau_{i} & \text{   time of max germination of species } i
+\\
+\epsilon & \text{   abiotic loss of resource}
+\\
+\phi_{i} & \text{   conversion of biomass of species } i \text{ to
+  seedbank, includes overwintering of seeds (as of December 2013)}
+\\
+b_{i} & \text{   seedling biomass of species } i
+\\
+\alpha & \text{   phenological tracking of species  } i
+\\
+\end{align*}
+
+\newpage 
+\subsection{Dimensional analysis}
+\noindent \emph{Exciting new product as of August 2012, oh la la!}
+\begin{center}
+\begin{table}[h!]
+\caption{Table of parameter values, their definitions and lightweight version of their dimensions (i.e., not yet deemed `grams' or such).}
+\begin{tabular}{ | p{3.0cm} | p{6.0cm} | p{4.0cm} |}
+\hline 
+Parameter & Definition & Unit \\ \hline 
+\end{tabular}
+\begin{tabular}{ | p{3.0cm} | p{6.0cm} | p{4.0cm} |}
+\(N_{i}\) & seedbank of species \(i\) & seeds \\ \hline
+\(s_{i}\) & survival of species \(i\) & unitless \\ \hline
+\(\delta\) & total length of growing season & days\\ \hline
+\(B_{i}\) & biomass of species \(i\) & biomass \\ \hline
+\(R\) & resource & resource\\ \hline
+\(c_{i}\) & conversion of \(R\) uptake to biomass of species \(i\) &  \(\frac{\text{biomass}}{\text{resource}}\) \\ \hline
+\(m_{i}\) & maintenance costs of species \(i\) & \(\text{days}^{-1}\) \\ \hline
+\(a_{i}\) & uptake increase as \(R\) increases for species \(i\) & \(\text{days}^{-1}\) \\ \hline
+\(u_{i}\) & max uptake for species \(i\) & \(\frac{(\text{days})(\text{biomass})}{\text{resource}}\) \\ \hline
+\(\phi_{i}\) & converesion of biomass to seedbank for species, includes overwintering of seeds \(i\) & \(\text{biomass}^{-1}\), but conceptually \(\frac{\text{seeds}}{(\text{biomass})(\text{seeds})}\) \\ \hline
+\(\epsilon\) & abiotic loss of \(R\) &  \(\text{days}^{-1}\) \\ \hline
+\(g_{max,i}\) & max germination of species \(i\) & unitless \\ \hline
+\(h_{i}\) &  controls the the rate at which germination declines as \(\tau_{p}\) deviates from optimum for species \(i\)  & \(\text{days}^{-2}\) \\ \hline
+\(g_{i}\) & germination fraction & unitless \\ \hline
+\(\tau_{p}\) & timing of pulse & days \\ \hline
+\(\tau_{i}\) & timing of max germination of species \(i\) & days \\ \hline
+\(\alpha_{i}\) & phenological tracking of species \(i\) & unitless \\ \hline
+\(\theta_{i}\) & shape of uptake for species \(i\) & unitless\\ \hline
+\hline
+\(b_{i}\) & seedling biomass of species \(i\) & \(\frac{\text{biomass}}{\text{seeds}}\) \\ \hline
+\(f_{i}(R)\) & \(R\) uptake \(f(x)\) for species \(i\) & \(\frac{\text{resource}}{(\text{days})(\text{biomass})}\)\\ \hline
+\(d_{i}\) & death rate of species \(i\), used in calculations of lifespan & unitless \\ \hline
+\(T\) & between year time & years \\ \hline
+\(\tau\) & within season time & days \\ \hline
+\hline
+\end{tabular}
+\end{table}
+\end{center}
+
+\newpage
+\subsection{System of equations}
+\noindent System of equations, for a community of \(n\) species based
+on resource competition:
+\begin{align*}
+N_{i}(t+1) & = N_{i}(t+\delta)s_{i}
+\\
+\\
+& \text{where}
+\\
+\\
+N_{i}(t+\delta) & = N_{i}(t) [\text{germination fraction}][\text{seeds
+  produced per germinant}]
+\\
+\\
+& \text{so then:}
+\\
+\\
+N_{i}(t+1) & =
+s_{i}(N_{i}(t)(1-g_{i})+N_{i}(t)g_{i}\phi_{i}\int_t^{t+\delta}[c_{i}f_{i}(R(t))-m_{i}]B_{i}(t)\mathrm{d}t)
+\\
+\\
+\frac{\mathrm{d}R}{\mathrm{d}t} & = - \sum_{i=1}^{n}f_{i}(R)B_{i} -\epsilon R
+\\
+\\
+\frac{\mathrm{d}B_{i}}{\mathrm{d}t} &  = [c_{i}f_{i}(R) - m_{i}]B_{i}
+\\
+\\
+& \text{where:} 
+\\
+\\
+g_{i} & = g_{max,i}e^{-h(\tau_{p}-\tau_{i})^2}
+\\
+\\
+f_{i}(R) & = \frac{a_{i}R^{\theta_{i}}}{1+a_{i}u_{i}R^{\theta_{i}}}
+\\
+\end{align*}
+
+\noindent Adding phenological tracking to model (October 2013 version): \\
+\begin{align*}
+& \alpha \in 0 \rightarrow 1
+\\
+&\hat{\tau_{i}} = \alpha \tau_{p} + (1-\alpha)\tau_{i}\\
+\end{align*}
+\noindent thus:
+\begin{align*}
+\text{when } \alpha = 0: & \hat{\tau_{i}}=\tau_{i}
+\\
+\text{when }  \alpha = 1: & \hat{\tau_{i}}=\tau_{p}
+\end{align*}
+
+\noindent Getting this into simulation-landia means:
+\begin{align*}
+B_{i}(0) & = [\text{number of seeds}][\text{germination
+  fraction}][\text{seedling biomass}]
+\\
+\\
+\text{which also looks like:}
+\\
+\\
+B_{i}(0) & = N_{i}(t) g_{i}b_{i}
+\\
+\\
+B_{i}(t+\mathrm{d}t) & =B_{i}(t)+[c_{i}f_{i}R(t)-m_{i}]B_{i}(t)\mathrm{d}t
+\end{align*}
+
+\subsection{Notes related to equations}
+
+\noindent Also note that I (Lizzie) made one change from the February 2011 board: I think we
+used \(h\) accidentally twice for different meanings: one was in the
+equation for \(g_{i}\) which we stole from \cite{Chesson:2004eo}
+(appendix, see next note), and then one was for the total length of time for the
+growing season. Thus I changed this `season-length' \(h\) to
+\(\delta\).\\
+
+\noindent Finally, equations for \(\frac{dB_{i}}{dt}, f_{i}(R), g_{i},
+\frac{dR}{dt}\) were taken from the appendix of \cite{Chesson:2004eo} (\emph{Oecologia}).\\
+
+\noindent R* does not change with nonstationarity because it is based solely on species-specific characteristics not related to the environment (says Megan, December 2013).
+
+\subsection{Definitions of coexistence}
+\noindent In December 2013, we discussed how we will define coexistence. There are a couple options, the second one is better:
+\begin{enumerate}
+\item Persistence of species in simulations: This is not ideal since you would have to run things a long time and still not know what would truly coexist. But if we do have to do this it is not all bad: if we run stationary then nonstationary environments (one after another, not separate) we can think of it as `here are the species co-occurring. Sure, some maybe be on Hubbellian random walk to extinction, but that is probably how the real world works anyway.' 
+\item Recovery from low-density: For this we need to calculate long-term low density growth rate from either (1) simulations or (2) equations. Equations would be better and would allow us to run stationary and nonstationary simulations separately. This equation should come out of final storage effect equations.
+\end{enumerate}
 
 
-\section{Current outline}
+\subsection{How biomass is converted to seed and growing seasons end}
+
+
+\noindent \emph{The way the growing season ends in the equations is
+interesting.} First, as brilliantly stated: the growing seasons ends
+[in these equations] when plants stop growing. And related, the
+equations do not deal with setting the end of the growing season. In
+my head (Lizzie), abiotic forces can stop a growing season, but in
+reality with plant phenology data, the start and end of the growing
+season are fundamentally different: at the start species are most
+sensitive to abiotic cues and climate change effects are large and
+often consistent. For the end of the season effects have been more
+muted and variable---suggesting plants in someway do seem to set the
+end of the growing season more than abiotic cues do, at least when
+compared to the start of season. (And the model follows this.)\\
+
+\noindent \emph{So what we do about it...} It used to happen for all species at $\delta$---so, early species may have peaked and have lower-than-their-peak biomass at $\delta$ while later season species may be at peak. Instead now we let resources go to  the lowest R* and then we take peak biomass instead of biomass at $\delta$ (when the growth rate goes below 0) to convert to seeds.
+
+
+\subsection{Conceptualization of our germination equations}
+\noindent A long debate with much thought in October 2013 (see also notes on meeting with Sally Otto, which offers an equation with a clearer cost, but also effectively assumes plants are dumber. Or to say that last bit more positively, `Peter's model assumes plants are smarter,' says Megan). Below are mainly Lizzie's thoughts in December 2013. \\
+I think you can compare our formulation to the basically 2-cue system discussed in \citet{Chesson:2004eo}. From pg. 238 he describes how each species basically has a temperature-dependent germination and how far from the pulse is from that optimum determines how much a species germinates each year. Importantly, he notes `The phenological difference in germination discussed
+above involves timing that is independent of water
+availability, in the sense that rain at the wrong time of
+the year or wrong temperature would not bring on
+germination or physiological activity.' I can think of two examples you could conceptualize that are similar to this and relevant to the systems we have been thinking about.
+\begin{itemize}
+\item Snow meltout date in alpine communities as the pulse and temperature requirements (the sum of chilling and spring warming) as the other cue (this maybe works also for some other meadow communities).
+\item Nutrient flush date (due to microbial biomass turnover) in temperate systems as the pulse and temperature requirements (again, winter chilling and spring warming together) as the other cues. 
+\end{itemize}
+These are a little sloppy in that the pulse is supposed to be separate from the cue I think (according to \citet{Chesson:2004eo}, see page 244); but this is sloppy in almost all systems in reality because climate is correlated and evolution means that species probably use that to their benefit.\\
+
+\noindent So, basically I am happy with either the \citet{Chesson:2004eo} formulation or the Otto formulation (which is Table 6.1, model 2 in \cite{chesson2008}, ours is actually also in Table 6.1; it's model 3 but with variable adult biomass). The \citet{Chesson:2004eo} seems one step ahead of Otto: costs in Otto's model would eventually remove most species with \(\tau_{i}\) before the pulse while Chesson says species never germinate before the pulse, they just germinate to varying amounts depending on \(\tau_{p}\).  One benefit of Sally's model though is that it may be better for climate change scenarios because it allows species to make `bad decisions' (if you will) and get hammered for them; as many species have in recent years \citep[e.g.,][]{Inouye:2008gj}.\\
+
+\noindent Note: \(h\) yields different bet hedging strategies.
+
+\subsection{A few assumptions spelled out}
+\noindent We assume that:
+\begin{enumerate}
+\item All species `go' each year, at least a little; that is, we're
+  not looking at a communities where some species have true
+  supra-annual strategies.
+\item There is one dominant pulse of the limiting resource (e.g.,
+  light or water) at the
+  start of each growing season; thus we model a  single pulse per
+  season.
+\end{enumerate}
+
+\subsection{Simplifying within-year dynamics thoughts}
+Can we simplify within-year dynamics to focus on a better model for timing (see photo of October 2013 whiteboard that Megan has)? To rephrase this: Our internal equation is basically R* rankings could we create a `deterministic look up table' for the within-year dynamic so we can make think more carefully about the timing part of this.  (Related note from 2012 meeting: Decide if we need to ODE solve the intra-annual
+  dynamics, then use the discretized version only inter-annually. Note from Lizzie: best ODE solver is now in package `desolve.')\\
+
+
+\subsection{Tiny notes about the storage effect to help Lizzie}
+\noindent The 3 ingredients of the storage effect are:
+\begin{enumerate}
+\item differential response to the environment (subadditivity)
+\item covar(E, C)
+\item buffered population growth
+\end{enumerate}
+
+\noindent Ingredients for the storage effect \emph{in our model:}
+\begin{itemize}
+\item buffered population growth: \(s_{i}\)
+\item variable response to the environment: \(\tau_{i}\), which generates:
+\item \(covar(E,C)\)
+\end{itemize}
+
+
+\section{Tracking thoughts \& fun}
+In August 2012 Megan came up with a new way to model phenological tracking, it's linear and better than the one presented here. We also discussed three key ways to think of tracking:
+\begin{enumerate}
+\item Species can have fixed flowering/leafing (not track).
+\item Species can phenologically track pulse.
+\item Species can phenologically track something at least at one time in history correlated with the pulse.
+\end{enumerate}
+We agreed that while (3) is interesting---would allow you to look at mismatch ideas etc.---(1) and (2) have more biological support for plants and are interesting enough in and of themselves, so we will focus on and mode (1) and (2) and not (3).\\
+
+\noindent In August 2013 an issue we worried about: Will tracker always win? Answers: No, not if it's a poor competitor, that is, if it responds quickly to resource pulse but then does poorly at low resource levels. I also think it's important to remember that not all tracking species will track perfectly so some species should grow before trackers some years, when their fixed \(\tau_{i}\) corresponds well to \(\tau_{p}\). Also, we have a note high intraspecific competition could dampen trackers, especially when greater than interspecific competition.\\
+
+\noindent New things we came up with that we want to look at in regards to {\bf phenological tracking}. First off, we have a lot of versions of similar questions. 
+\begin{itemize}
+\item Has climate change made tracking more advantageous? Or, how prevalent is tracking in a stationary versus nonstationary system? Basically, one hoped for outcome (by Lizzie) is to show that with stationary climate tracking strategies and non-tracking strategies may coexist happily, but when you add nonstationarity the world shifts that tracking is so strongly favoured as to make non-tracking rare or to require a very huge trade-off etc.. So we have a bunch of related questions to this:
+\begin{itemize}
+\item How big do trade-offs have to be for tracking to be non-advantageous (to allow coexistence with other species)?
+\item Another angle, is tracking the dominant strategy with a shifting environment (distribution) vs. stationary environment distribution?
+\end{itemize}
+\item Follow up from October 2013: How much does climate have to shift (non-stationarity in system) given some level of fitness differences trading off with tracking for tracking to become the dominant strategy?
+\end{itemize}
+{\bf It would be great to add real data here!} Some options: First, Lizzie may be able to track down information about negative correlations between tracking and competitive abilities (for nutrient resources). This would put some of the trade-off questions in perspectives. Next, we could also see  \emph{what we know about climate projections} and from there see how big do the trade-offs have to be with climate change to make non-tracking a feasible strategy strategy (this `feasible' and `dominant' terminology is a little wobbly; I admit that))?\\
+
+\noindent This tracking angle matches to the `Generalists, specialists and plasticity' section of \citet{Chesson:2004eo}. You could imagine by removing the benefit of trade-offs associated with not being plastic, then nonstationarity could favour generalists (plastic species, that is). Here's the most relevant bit (according to Lizzie):
+\begin{quote}
+However, plasticity, or any generalist resource consumption
+behaviors, including those involving drought resistance,
+may come at a cost .... In such circumstances, there is no
+contradiction that a generalist can coexist with specialists
+so long as the specialists are in fact superior performers
+during the times or conditions that favor them, and there 
+are some times when no specialists are favored so that the
+generalist is then superior.
+\end{quote}
+
+
+\section{Coexistence with climate change: Notes related to implementing and writing}
+
+\subsection{Current outline for paper}
 \begin{enumerate}
 \item Introduction
 \begin{enumerate}
@@ -118,7 +413,7 @@ Again in October 2013: We again discussed the urge to partition out relative non
 \item Species traits and climate change: phenological tracking
 \item Goals of paper
 \end{enumerate}
-\item Model description (a whole section on this below)
+\item Model description 
 \begin{enumerate}
 \item Basic storage effect model
 \item Our version of the storage effect model
@@ -148,9 +443,7 @@ year.
 \item Derivation of aspects of the storage effect and relative
   non-linearity in our model (this is a big \emph{to do}).
 \end{enumerate}
-\item Results: Response variables are (1) probability of extinction,
-  (2) relative
-  densities in 2 spp models, and as of 2012-2013, what are the traits of species that persist? How much of a trade-off is needed to offset shifts in coexistence favouring early or tracking species with non-stationary climate change?\\
+\item Results: Response variables are (1) number of species coexisting, (2) relative shifts in coexistence via storage effect, relative nonlinearity and other factors and (3) the traits of species that persist? Additionally, response variables (probably \(\alpha, \tau_{i}, c_{i}\)) related to how much of a trade-off is needed to offset shifts in coexistence favouring early or tracking species with non-stationary climate change?
 \begin{enumerate}
 \item Section 1: Shifting abiotic variables
 \item Section 2: Species traits: Phenological tracking and shifting
@@ -159,7 +452,7 @@ year.
 \item Discussion
 \end{enumerate}
 
-\section{Variables of interest}
+\subsection{Variables of interest}
 We consider 3 primary traits of the environment (\(\epsilon, R, \tau_{p}\), which
 code to evaporative stress, inter-annual variability, and start of season pulse for our approach basically) and 1
 species response trait (phenology, specifically flexibility in
@@ -231,83 +524,6 @@ depletion ....
 \end{enumerate}
 \end{enumerate}
 
-\noindent We assume that:
-\begin{enumerate}
-\item All species `go' each year, at least a little; that is, we're
-  not looking at a communities where some species have true
-  supra-annual strategies.
-\item There is one dominant pulse of the limiting resource (e.g.,
-  light or water) at the
-  start of each growing season; thus we model a  single pulse per
-  season.
-\item While interactions between the above-considered `traits' may be
-  important, first understanding how each of these forces act alone is
-  critical enough to let alone interactions for this manuscript.
-\end{enumerate}
-
-\subsection{Tracking thoughts \& fun}
-In August 2012 Megan came up with a new way to model phenological tracking, it's linear and better than the one presented here. We also discussed three key ways to think of tracking:
-\begin{enumerate}
-\item Species can have fixed flowering/leafing (not track).
-\item Species can phenologically track pulse.
-\item Species can phenologically track something at least at one time in history correlated with the pulse.
-\end{enumerate}
-We agreed that while (3) is interesting---would allow you to look at mismatch ideas etc.---(1) and (2) have more biological support for plants and are interesting enough in and of themselves, so we will focus on and mode (1) and (2) and not (3).\\
-
-\noindent In August 2013 an issue we worried about: Will tracker always win? Answers: No, not if it's a poor competitor, that is, if it responds quickly to resource pulse but then does poorly at low resource levels. I also think it's important to remember that not all tracking species will track perfectly so some species should grow before trackers some years, when their fixed \(\tau_{i}\) corresponds well to \(\tau_{p}\). Also, we have a note high intraspecific competition could dampen trackers, especially when greater than interspecific competition.\\
-
-\noindent New things we came up with that we want to look at in regards to {\bf phenological tracking}. First off, we have a lot of versions of similar questions. 
-\begin{itemize}
-\item Has climate change made tracking more advantageous? Or, how prevalent is tracking in a stationary versus nonstationary system? Basically, one hoped for outcome (by Lizzie) is to show that with stationary climate tracking strategies and non-tracking strategies may coexist happily, but when you add nonstationarity the world shifts that tracking is so strongly favoured as to make non-tracking rare or to require a very huge trade-off etc.. So we have a bunch of related questions to this:
-\begin{itemize}
-\item How big do trade-offs have to be for tracking to be non-advantageous (to allow coexistence with other species)?
-\item Another angle, is tracking the dominant strategy with a shifting environment (distribution) vs. stationary environment distribution?
-\end{itemize}
-\item Follow up from October 2013: How much does climate have to shift (non-stationarity in system) given some level of fitness differences trading off with tracking for tracking to become the dominant strategy?
-\end{itemize}
-{\bf It would be great to add real data here!} Some options: First, Lizzie may be able to track down information about negative correlations between tracking and competitive abilities (for nutrient resources). This would put some of the trade-off questions in perspectives. Next, we could also see  \emph{what we know about climate projections} and from there see how big do the trade-offs have to be with climate change to make non-tracking a feasible strategy strategy (this `feasible' and `dominant' terminology is a little wobbly; I admit that))?\\
-
-\noindent This tracking angle matches to the `Generalists, specialists and plasticity' section of \citet{Chesson:2004eo}. You could imagine by removing the benefit of trade-offs associated with not being plastic, then nonstationarity could favour generalists (plastic species, that is). Here's the most relevant bit (according to Lizzie):
-\begin{quote}
-However,plasticity, or any generalist resource consumption
-behaviors, including those involving drought resistance,
-may come at a cost .... In such circumstances, there is no
-contradiction that a generalist can coexist with specialists
-so long as the specialists are in fact superior performers
-during the times or conditions that favor them, and there 
-are some times when no specialists are favored so that the
-generalist is then superior.
-\end{quote}
-
-\noindent New notes as of October 2013:\\
-\emph{How will we adjust the equations for simulations about shifts in the environment?\footnote{Not phenological tracking, which are other simulations.}'}
-\begin{itemize}
-\item We do {\bf not} have relative nonlinearity: So we set all species \(f(R)\) the same. ({\bf Check!} As of December 2013 it seems all options are back on the table!)
-\item We have to create some species differences for the storage effect to `ameliorate' (EMW phrasing here, probably not ideal), so how do we want to do that?
-\begin{itemize}
-\item mean species differences in \(c_{i}\) and storage effect through \(g_{i}\) 
-\item mean species differences in \(g_{max,i}\) and make them totally equivalent within season and temporal storage effect through \(\tau_{p}-\tau_{i}\) 
-\item As of 9 Dec 2013 Megan says: \(\phi, c, m\) should be constant across species, while \(a, u, \psi\) could vary between species (but we did not discuss this much, it was just proclaimed quietly in passing).
-\end{itemize}
-\item Note that one possible trade-off is earlier \(\tau_{i}\) could correlate with lower competitive ability, which is mentioned in \citet{Chesson:2004eo} on page 245: Coexistence would be promoted
-only when this temporal pattern entails tradeoffs, e.g.,
-when later pulse users are able to draw down soil moisture
-to lower levels than are early users.
-\item Note: \(h\) yields different bet hedging strategies (you could think of it as `germination plasticity')
-\item Question: do we need to make sure that for all \(i\), \(\int g_{i}\) are equal, or is it that \(\int g_{i}(t)\tau_{p}(t)\mathrm{d}t\) should be constant (the latter being the average of \(g_{i}\) weighted by the distribution of \(\tau_{p}\) through time).
-\end{itemize}
-
-\noindent \emph{New notes on trade-offs from 12 November 2013:}\\
-In nature early species have quicker-return-investments on growth and early is often high tracking, so it's hard to tell whether early \emph{or} high-tracking trades off with this quicker-return angle. So what we plan on doing:\\
-
-\noindent For now, for coexistence: we'll trade off \(c_{i}\) and \(\tau_{i}\), when we add in alpha we'll leave this above trade-off and maybe:
-\begin{itemize}
-\item get some coexisting species and add high tracking randomly to all and see what happens
-\item get some coexisting species and add high tracking to the early ones and see what happens
-\end{itemize}
-
-\noindent \emph{Megan's thoughts from the plane home:} Can think of trade-off as competition-colonization one: rapid response to resource availability (colonization) versus special case of competition.\\
-{\bf Megan! We would all benefit if you fix my hack of the following:} Without tracking we may predict benefits to early-colonizers decline with earlier seasons. As start-date moves earlier, early folks lose benefit and you get more late folks. Late species may be less different than one another---and less responsive to environment. Early folks, effectively, become more similar to environment. 
 
 \subsection{How the world changes with climate change}
 
@@ -336,63 +552,47 @@ Note that increased extreme events for \(\epsilon\)  will effectively reduce bio
 
 While here, though, I will mention that we discussed \emph{which} correlations will shift with climate change and the big one seems to be the North American alpine story: where the relationship between how \(\tau_{p}\) affects mortality has shifted with species' \(\tau_{i}\) such that there is now higher mortality imposed on species with earlier \(\tau_{i}\). We did briefly discuss how to model this and think maybe the best way is to add in, external to the within-year integral, a fraction that germinated and died as a f(x) of \(\tau_{i}\)  and frost event time.\\
 
-\section{Random things to remember, worry over, generally absorb}
+\subsection{Species differences: How to thoughts}
+\noindent New notes as of October-December 2013: \emph{Models without tracking:}\\
+How will we adjust the equations for simulations about shifts in the environment? For now we plan to let parameters vary some and see if we can pick out patterns. If this gets tricky we can switch to trade-offs between \(\tau_{i}\) and \(c_{i}\). \\
+Note that one possible trade-off is earlier \(\tau_{i}\) could correlate with lower competitive ability, which is mentioned in \citet{Chesson:2004eo} on page 245: Coexistence would be promoted
+only when this temporal pattern entails tradeoffs, e.g.,
+when later pulse users are able to draw down soil moisture
+to lower levels than are early users.
+\\
+(Old question from October 2013, maybe should cut): Do we need to make sure that for all \(i\), \(\int g_{i}\) are equal, or is it that \(\int g_{i}(t)\tau_{p}(t)\mathrm{d}t\) should be constant (the latter being the average of \(g_{i}\) weighted by the distribution of \(\tau_{p}\) through time).\\
 
-\noindent {\bf Key question:} Should we add asymmetry in \(g_{i}\) such that \(\tau_{i}\) earlier than \(\tau_{p}\) is worse than \(\tau_{i}\) later than \(\tau_{p}\)?\\
+\noindent \emph{Models with tracking:}\\
+In nature early species have quicker-return-investments on growth and early is often high tracking, so it's hard to tell whether early \emph{or} high-tracking trades off with this quicker-return angle. So what we plan on doing:\\
 
-\noindent {\bf Key stuff:} We will build in trade-offs (versus running a bunch of random parameter space models where---in order to get stability---we end up with related trade-offs) such that we're effectively saying `the world works this way now, we add climate change and see what happens. . . .' We think these trade-offs should be:
+\noindent For now, for coexistence: we'll trade off \(c_{i}\) and \(\tau_{i}\), when we add in alpha we'll leave this above trade-off and maybe:
 \begin{itemize}
-\item decrease \(\phi_{i}\) correlated with  \(\tau_{i}\) close to  \(\tau_{p}\)
-\item (for phenological tracking questions) decrease \(\phi_{i}\) correlated with higher tracking\footnote{though we could also alter \(c_{i}\) or \(u_{i}\), or might work better to adjust \(a_{i}\) so you can make earlier faster growers (or adjust \(a_{i}/u_{i}\) so when you're faster you're a higher R*), but we need to check through all this thinking more.}
+\item get some coexisting species and add high tracking randomly to all and see what happens
+\item get some coexisting species and add high tracking to the early ones and see what happens
+\item add weak versus strong tracking
 \end{itemize}
 
-\noindent ({\bf Note:} As of December 2013 I think code has been adjusted to deal with this.) Remember to worry a little about how biomass is converted to seed: It happens for all species at $\delta$---so, early species may have peaked and have lower-than-their-peak biomass at $\delta$ while later season species may be at peak. Ways around this?\\
+\noindent \emph{Comparisons with competition/colonization trade-offs:} Can think of trade-off as competition-colonization one: rapid response to resource availability (colonization) versus special case of competition.\\
 
-\noindent Use peak biomass instead of biomass at $\delta$ (when the growth rate goes below 0). \\
+Without tracking we may predict benefits to early-colonizers decline with earlier seasons. As start-date moves earlier, early folks lose benefit (assuming they tend to often go at optimum time) and you get more late folks. Late species may be less different than one another---and less responsive to environment. Early folks, effectively, become more similar to environment. 
 
-\noindent Set different $\delta$ for each species ($\delta_{i}$)\\
+\newpage
+\section{Notes on megadroughts paper}
+\begin{center}
+{\Large Temporal redness, Mayan megadroughts and Californian invaders\\ or\\ Red noise and the sunset of Mayans and European invaders}
+\end{center}
 
-\noindent \emph{The way the growing season ends in the equations is
-interesting.} First, as brilliantly stated: the growing seasons ends
-[in these equations] when plants stop growing. And related, the
-equations do not deal with setting the end of the growing season. In
-my head (Lizzie), abiotic forces can stop a growing season, but in
-reality with plant phenology data, the start and end of the growing
-season are fundamentally different: at the start species are most
-sensitive to abiotic cues and climate change effects are large and
-often consistent. For the end of the season effects have been more
-muted and variable---suggesting plants in someway do seem to set the
-end of the growing season more than abiotic cues do, at least when
-compared to the start of season. (And the model follows this.)\\
+\noindent Can we use this model to test if certain strategies (say, high tracking) can increase over shorter timescales but be completely excluded from this system given rarer, long-term (red) periods of environmental `harshness'?\\
 
-Worries over growing season continue (from August 2012 notes)! Worries over very short growing seasons (agree to stay with what we have for now, but keep in mind this possible issue and idea of continuous $R$ dripping in (or cyclically) for `growing season').\\
+To expand: My theory works as such: If a closed population of a species has a relatively short length for its buffered population growth---for example, imagine an annual grass with a 3 year seedbank---and enters a new system where the climate has long term fluctuations, could that population possibly due well during certain environmental phases, but be completely excluded (local extinction) during others. For example, the scenario is California annual invasive grasses: they do great now, but less well in drought years and large very long droughts (Mayan megadroughts are part of the ENSO cycle, possibly, and are decade or multi-decadal) could possibly throw them entirely out of the system. Thus the answer to the question I always get: If European annual grasses do so well in coastal sage scrub why weren't there any native annual grasses? would be---wait a while and  then you'll see. \\
 
-\noindent The intra-annual model does not have a useful closed solution (I
-  have some Maxima code that shows only the trivial solution gives an
-  equilibrium). This actually makes sense since the model is not a
-  chemostat (a la Tilman \(R^{*}\)), we have a pulse that drains out
-  and is not balanced by inputs.\\
+There is also an evolutionary angle to this: short lifespans and short seedbanks with these sorts of long-term cycles could lead to evolving quickly, during one climate phase, towards a damn stupid strategy when the next climate phase kicks in. But I don't want to go there, just to point it out.\\
 
-\noindent {\bf Key question:} Can we simplify within-year dynamics to focus on a better model for timing (see photo of October 2013 whiteboard that Megan has)? To rephrase this: Our internal equation is basically R* rankings could we create a `deterministic look up table' for the within-year dynamic so we can make think more carefully about the timing part of this.  (Related note from 2012 meeting: Decide if we need to ODE solve the intra-annual
-  dynamics, then use the discretized version only inter-annually. Note from Lizzie: best ODE solver is now in package `desolve.')\\
+\noindent Opportunity to coin new term (from one term I hate and one that I like): {\bf invasion extinction debt}, the number of invaders that would go extinct if you wait a very long time. \\
 
-\noindent The 3 ingredients of the storage effect are:
-\begin{enumerate}
-\item differential response to the environment (subadditivity)
-\item covar(E, C)
-\item buffered population growth
-\end{enumerate}
+\noindent We could bring Ben Cook on this project to give us some info on how frequencies of droughts have shifted over the past 2K years or so in North America. Or, maybe we could look at some shifts in drought periodicities globally just to press home the message that these can vary a lot across time. 
 
-\noindent Ingredients for the storage effect \emph{in our model:}
-\begin{itemize}
-\item buffered population growth: \(s_{i}\)
-\item variable response to the environment: \(\tau_{i}\), which generates:
-\item \(covar(E,C)\)
-\end{itemize}
-
-\(\tau_{p}\) is conceptualized as a photoperiod cue, it's a species going on the same day every year---for our phenological tracking we adjust it so it can vary year-to-year for some species.\\
-
-
+\section{Miscellaneous notes}
 \noindent We keep an eye on who has cited Chesson et al. 2004
 and for actual modeling work it's just Chesson, and for that it's all
 his seed predation work.\\
@@ -401,8 +601,7 @@ his seed predation work.\\
 - species can coexist via intra-annual temporal mechanisms (for example, maybe this is what most mid-season species in the mesic temperate zone do), and/or\\
 - species can coexist via inter-annual temporal mechanisms (maybe early-season species in most mesic temperate environments)\\
 
-
-\noindent {\bf Some notes for writing}
+\subsection{Some notes for writing}
 \begin{enumerate}
 \item Understanding the variable responses of communities and species
   due to climate shifts is a major aim of current
@@ -424,200 +623,7 @@ ecology.
 papers using storage effect model or Armstong and McGhee with field
 data: \citep{Angert:2009,Kuang:2008ri,Kuang:2009rj,Levine:2009ym}.\\
 
-\newpage
-\section{Equations and related notes}
-
-\noindent For a species \(i\) let:
-\begin{align*}
-N_{i} & \text{   seedbank of species } i
-\\
-s_{i} & \text{   survival of seedbank of species } i \text{, buffered pop'ln
-  growth occurs via this constant}
-\\
-\delta & \text{   total time of growing season}
-\\
-B_{i} &  \text{   biomass of species } i
-\\
-R &   \text{   resource}
-\\
-f_{i}(R) & \text{  resource uptake rate of species } i \text{ of } R
-\\
-c_{i} & \text{   conversion of uptake to biomass of species } i
-\\
-m_{i} & \text{   partial mortality of species } i
-\\
-a_{i} & \text{   uptake increase for species } i \text{ as R increases}
-\\
-\theta_{i} & \text{   shape of uptake of species } i
-\\
-u_{i}^{-1} & \text{   max uptake of species } i
-\\
-g_{max,i} & \text{   max germination of species } i
-\\
-h_{i} & \text{   max rate of germination decrease of species } i
-\text{ following a pulse}
-\\
-\tau_{p} & \text{   time of pulse }
-\\
-\tau_{i} & \text{   time of max germination of species } i
-\\
-\epsilon & \text{   abiotic loss of resource}
-\\
-\phi_{i} & \text{   conversion of biomass of species } i \text{ to
-  seedbank, includes overwintering of seeds (as of December 2013)}
-\\
-b_{i} & \text{   seedling biomass of species } i
-\\
-\alpha & \text{   phenological tracking of species  } i
-\\
-\end{align*}
-
-\newpage
-\noindent System of equations, for a community of \(n\) species based
-on resource competition:
-\begin{align*}
-N_{i}(t+1) & = N_{i}(t+\delta)s_{i}
-\\
-\\
-& \text{where}
-\\
-\\
-N_{i}(t+\delta) & = N_{i}(t) [\text{germination fraction}][\text{seeds
-  produced per germinant}]
-\\
-\\
-& \text{so then:}
-\\
-\\
-N_{i}(t+1) & =
-s_{i}(N_{i}(t)(1-g_{i})+N_{i}(t)g_{i}\phi_{i}\int_t^{t+\delta}[c_{i}f_{i}(R(t))-m_{i}]B_{i}(t)\mathrm{d}t)
-\\
-\\
-\frac{\mathrm{d}R}{\mathrm{d}t} & = - \sum_{i=1}^{n}f_{i}(R)B_{i} -\epsilon R
-\\
-\\
-\frac{\mathrm{d}B_{i}}{\mathrm{d}t} &  = [c_{i}f_{i}(R) - m_{i}]B_{i}
-\\
-\\
-& \text{where:} 
-\\
-\\
-g_{i} & = g_{max,i}e^{-h(\tau_{p}-\tau_{i})^2}
-\\
-\\
-f_{i}(R) & = \frac{a_{i}R^{\theta_{i}}}{1+a_{i}u_{i}R^{\theta_{i}}}
-\\
-\end{align*}
-
-\noindent Adding phenological tracking to model (October 2013 version): \\
-\begin{align*}
-& \alpha \in 0 \rightarrow 1
-\\
-&\hat{\tau_{i}} = \alpha \tau_{p} + (1-\alpha)\tau_{i}\\
-\end{align*}
-\noindent thus:
-\begin{align*}
-\text{when } \alpha = 0: & \hat{\tau_{i}}=\tau_{i}
-\\
-\text{when }  \alpha = 1: & \hat{\tau_{i}}=\tau_{p}
-\end{align*}
-
-
-\noindent Getting this into simulation-landia means:
-\begin{align*}
-B_{i}(0) & = [\text{number of seeds}][\text{germination
-  fraction}][\text{seedling biomass}]
-\\
-\\
-\text{which also looks like:}
-\\
-\\
-B_{i}(0) & = N_{i}(t) g_{i}b_{i}
-\\
-\\
-B_{i}(t+\mathrm{d}t) & =B_{i}(t)+[c_{i}f_{i}R(t)-m_{i}]B_{i}(t)\mathrm{d}t
-\end{align*}
-\\
-\\
-\noindent Also note that I made one change from the February 2011 board: I think we
-used \(h\) accidentally twice for different meanings: one was in the
-equation for \(g_{i}\) which we stole from \cite{Chesson:2004eo}
-(appendix, see next note), and then one was for the total length of time for the
-growing season. Thus I changed this `season-length' \(h\) to
-\(\delta\).
-\\
-\\
-\noindent Finally, equations for \(\frac{dB_{i}}{dt}, f_{i}(R), g_{i},
-\frac{dR}{dt}\) were taken from the appendix of \cite{Chesson:2004eo} (\emph{Oecologia}).\\
-
-\noindent Old (pre 2012) vesion of adding phenological tracking to the model:
-\begin{align*}
-\hat{\tau_{i}} & = \tau_{p}-(\tau_{p}-\tau_{i})e^{-\alpha}
-\end{align*}
-\noindent thus, when:
-\begin{align*}
-& \alpha=0, \hat{\tau_{i}}=\tau_{i}
-\\
-& \alpha=\infty, \hat{\tau_{i}}=\tau_{p}
-\end{align*}
-
-\noindent {\bf Conceptualization of our germination equations:} \\
-\noindent A long debate with much thought in October 2013 (see also notes on meeting with Sally Otto, which offers an equation with a clearer cost, but also effectively assumes plants are dumber. Or to say that last bit more positively, `Peter's model assumes plants are smarter,' says Megan). Below are mainly Lizzie's thoughts in December 2013. \\
-I think you can compare our formulation to the basically 2-cue system discussed in \citet{Chesson:2004eo}. From pg. 238 he describes how each species basically has a temperature-dependent germination and how far from the pulse is from that optimum determines how much a species germinates each year. Importantly, he notes `The phenological difference in germination discussed
-above involves timing that is independent of water
-availability, in the sense that rain at the wrong time of
-the year or wrong temperature would not bring on
-germination or physiological activity.' I can think of two examples you could conceptualize that are similar to this and relevant to the systems we have been thinking about.
-\begin{itemize}
-\item Snow meltout date in alpine communities as the pulse and temperature requirements (the sum of chilling and spring warming) as the other cue (this maybe works also for some other meadow communities).
-\item Nutrient flush date (due to microbial biomass turnover) in temperate systems as the pulse and temperature requirements (again, winter chilling and spring warming together) as the other cues. 
-\end{itemize}
-These are a little sloppy in that the pulse is supposed to be separate from the cue I think (according to \citet{Chesson:2004eo}, see page 244); but this is sloppy in almost all systems in reality because climate is correlated and evolution means that species probably use that to their benefit.\\
-
-\noindent So, basically I am happy with either the \citet{Chesson:2004eo} formulation or the Otto formulation (which is Table 6.1, model 2 in \cite{chesson2008}, ours is actually also in Table 6.1; it's model 3 but with variable adult biomass). The \citet{Chesson:2004eo} seems one step ahead of Otto: costs in Otto's model would eventually remove most species with \(\tau_{i}\) before the pulse while Chesson says species never germinate before the pulse, they just germinate to varying amounts depending on \(\tau_{p}\).  One benefit of Sally's model though is that it may be better for climate change scenarios because it allows species to make `bad decisions' (if you will) and get hammered for them; as many species have in recent years \citep[e.g.,][]{Inouye:2008gj}.
-\newpage 
-\noindent {\bf Dimensional analysis}\\
-\noindent \emph{Exciting new product as of August 2012, oh la la!}
-\begin{center}
-\begin{table}[h!]
-\caption{Table of parameter values, their definitions and lightweight version of their dimensions (i.e., not yet deemed `grams' or such).}
-\begin{tabular}{ | p{3.0cm} | p{6.0cm} | p{4.0cm} |}
-\hline 
-Parameter & Definition & Unit \\ \hline 
-\end{tabular}
-\begin{tabular}{ | p{3.0cm} | p{6.0cm} | p{4.0cm} |}
-\(N_{i}\) & seedbank of species \(i\) & seeds \\ \hline
-\(s_{i}\) & survival of species \(i\) & unitless \\ \hline
-\(\delta\) & total length of growing season & days\\ \hline
-\(B_{i}\) & biomass of species \(i\) & biomass \\ \hline
-\(R\) & resource & resource\\ \hline
-\(c_{i}\) & conversion of \(R\) uptake to biomass of species \(i\) &  \(\frac{\text{biomass}}{\text{resource}}\) \\ \hline
-\(m_{i}\) & maintenance costs of species \(i\) & \(\text{days}^{-1}\) \\ \hline
-\(a_{i}\) & uptake increase as \(R\) increases for species \(i\) & \(\text{days}^{-1}\) \\ \hline
-\(u_{i}\) & max uptake for species \(i\) & \(\frac{(\text{days})(\text{biomass})}{\text{resource}}\) \\ \hline
-\(\phi_{i}\) & converesion of biomass to seedbank for species, includes overwintering of seeds \(i\) & \(\text{biomass}^{-1}\), but conceptually \(\frac{\text{seeds}}{(\text{biomass})(\text{seeds})}\) \\ \hline
-\(\epsilon\) & abiotic loss of \(R\) &  \(\text{days}^{-1}\) \\ \hline
-\(g_{max,i}\) & max germination of species \(i\) & unitless \\ \hline
-\(h_{i}\) &  controls the the rate at which germination declines as \(\tau_{p}\) deviates from optimum for species \(i\)  & \(\text{days}^{-2}\) \\ \hline
-\(g_{i}\) & germination fraction & unitless \\ \hline
-\(\tau_{p}\) & timing of pulse & days \\ \hline
-\(\tau_{i}\) & timing of max germination of species \(i\) & days \\ \hline
-\(\alpha_{i}\) & phenological tracking of species \(i\) & unitless \\ \hline
-\(\theta_{i}\) & shape of uptake for species \(i\) & unitless\\ \hline
-\hline
-\(b_{i}\) & seedling biomass of species \(i\) & \(\frac{\text{biomass}}{\text{seeds}}\) \\ \hline
-\(f_{i}(R)\) & \(R\) uptake \(f(x)\) for species \(i\) & \(\frac{\text{resource}}{(\text{days})(\text{biomass})}\)\\ \hline
-\(d_{i}\) & death rate of species \(i\), used in calculations of lifespan & unitless \\ \hline
-\(T\) & between year time & years \\ \hline
-\(\tau\) & within season time & days \\ \hline
-\hline
-\end{tabular}
-\end{table}
-\end{center}
-
-
-\newpage
-\noindent {\bf Some random notes from the whiteboard:}\\
+\subsection{Some random notes from the whiteboard}
 \noindent Relative nonlinearity is:
 \begin{align*}
 \left(\frac{d^{2}}{dR^{2}}\right)(var(R))
@@ -643,7 +649,19 @@ C & = - \sum_{i=1}^{n}f_{i}(R)B_{i} \rightarrow f_{i}R
 covar(E,C) \approx covar\left(R_{i}, \sum_{i=1}^{n}B_{i}\right)
 \end{align*}
 
+\subsection{Small, somewhat random but fascinating questions} 
+\noindent So what does it mean if species co-exist in the same community via mechanisms operating on totally different timescales?\\
+
+\noindent  New random query: Is there humidity without plants?\\
+
+\noindent  Also, someday, you could wonder if earlier \(\tau_{p}\) allows for more niche space for species at the end of the season that have a really low R* (but for this we have to vary R* among species, which we don't plan on doing now).\\
+
+\noindent  \emph{Also, totally random note for Lizzie:} Trees use previous year' resources to flush leaves/flowers in current year.
+
+
+
 \newpage
+\section{References}
 \bibliography{/Users/Lizzie/Documents/git/bibtex/LizzieMainMinimal}
 \bibliographystyle{/Users/Lizzie/Documents/git/bibtex/styles/ecolett.bst}
 
@@ -673,153 +691,6 @@ covar(E,C) \approx covar\left(R_{i}, \sum_{i=1}^{n}B_{i}\right)
 \noindent \includegraphics[width=0.8\textwidth]{/Users/Lizzie/Documents/git/temporalvar/figures/figurehopes_tracking.png}
 \caption{{\bf How does the prevalence of tracking shift with nonstationarity?} See the section on tracking questions above for the full plethora of questions related to this (e.g., this is also the ream of how strong does the negative correlation between tracking and competitive ability have to be to make tracking non-advantageous). But, basically we want to look at how tracking shifts in stationary versus nonstationary systems. So we could do something like this (we also discussed looking at trackers with random \(\tau_{i}\) versus trackers with early \(\tau_{i}\) as you usually see in nature) and/or we could re-do the mechanisms of coexistence figures above with trackers in the mix.}
 \end{figure}
-
-\newpage
-\section{Small, somewhat random but fascinating questions} 
-\noindent So what does it mean if species co-exist in the same community via mechanisms operating on totally different timescales?\\
-
-\noindent  New random query: Is there humidity without plants?\\
-
-\noindent  Also, someday, you could wonder if earlier \(\tau_{p}\) allows for more niche space for species at the end of the season that have a really low R* (but for this we have to vary R* among species, which we don't plan on doing now).\\
-
-\noindent  \emph{Also, totally random note for Lizzie:} Trees use previous year' resources to flush leaves/flowers in current year.
-
-\newpage
-\begin{center}
-{\Large Temporal redness, Mayan megadroughts and Californian invaders\\ or\\ Red noise and the sunset of Mayans and European invaders}
-\end{center}
-
-\noindent Can we use this model to test if certain strategies (say, high tracking) can increase over shorter timescales but be completely excluded from this system given rarer, long-term (red) periods of environmental `harshness'?\\
-
-To expand: My theory works as such: If a closed population of a species has a relatively short length for its buffered population growth---for example, imagine an annual grass with a 3 year seedbank---and enters a new system where the climate has long term fluctuations, could that population possibly due well during certain environmental phases, but be completely excluded (local extinction) during others. For example, the scenario is California annual invasive grasses: they do great now, but less well in drought years and large very long droughts (Mayan megadroughts are part of the ENSO cycle, possibly, and are decade or multi-decadal) could possibly throw them entirely out of the system. Thus the answer to the question I always get: If European annual grasses do so well in coastal sage scrub why weren't there any native annual grasses? would be---wait a while and  then you'll see. \\
-
-There is also an evolutionary angle to this: short lifespans and short seedbanks with these sorts of long-term cycles could lead to evolving quickly, during one climate phase, towards a damn stupid strategy when the next climate phase kicks in. But I don't want to go there, just to point it out.\\
-
-\noindent Opportunity to coin new term (from one term I hate and one that I like): {\bf invasion extinction debt}, the number of invaders that would go extinct if you wait a very long time. \\
-
-\noindent We could bring Ben Cook on this project to give us some info on how frequencies of droughts have shifted over the past 2K years or so in North America. Or, maybe we could look at some shifts in drought periodicities globally just to press home the message that these can vary a lot across time. 
-
-\newpage
-\section{Old ideas}
-
-\subsection{Mortality \& phenology}
-
-\noindent We also discussed mucking with \(m_{i}\) (the partial
-mortality of species) to play around with
-shifts in extreme events such as more frost dates following spring
-warmth. But the above is more well-demonstrated or expected as
-climate-related issues so we're not going there. (Note from Lizzie in
-July 2011: I think this topic will be cool someday as it might be a
-real issue in subalpine communities, but for now it's not for
-sure. And given the equations we're using, it's not as crisp as the
-above to get from \(environment\rightarrow m_{i}\). Note from Lizzie in October 2013: there is more on this now and it's been demonstrated for multiple communities. I have a literature review of this in the Appendix to my \emph{New Phytologist} Tansley paper if we ever want to look at this. But I continue to think it is still a touch ahead of its time (which, really, just means that everyone is already excited about it and thus working on it without good data, so once I go running after truly just hot topics, this would be the one to do! But, luckily, I am not there yet).)\\ 
-
-\subsection{Correlated climate change variables}
-\noindent \emph{From an old version of the abstract:} Specifically we examine how
-synergistic effects of climate on multiple abiotic variables---for
-example, earlier precipitation pulses and higher evapotranspiration
-associated with earlier snowpack melting in the Sierras---alter
-coexistence compared to single, unlinked variables ... We
-  (might) find out that synergistic effects of multiple shifting
-  abiotic variables reduce coexistence greater than single
-  variables. \\
-
-This was our big plan in July 2011, notes include:\\
-\begin{itemize}
-\item We compare the compounding effect of climate change: examining
-  how shifts in single versus multiple environmental variables affect
-  coexistence.
-\item As of July 2011 I would say that the greatest interest in setting up
-the paper lied in focusing on single vs. multiple variables, then
-putting in tracking as subordinate. 
-\end{itemize}
-
-\noindent Old list of tasks on this I should make sure are thought through:
-\begin{itemize}
-\item Get on top of climate change lit: which variables will shift?
-  Which ones are coupled and how will their coupling shift with
-  climate change (go from uncoupled to coupled, or vice-versa, or just
-  the coupling itself changes)?
-\item Does evaporative stress increase with climate change (absolute,
-  versus relative, oceans burn off while temperatures increase etc.)?
-\item When seasons start earlier does evaporative stress increase (I
-  suspect so, but need to pull together refs)?
-\item Does lower snowpack mean earlier seasons?
-\end{itemize}
-
-
-\newpage
-\section{Notes from meeting with various people}
-
-\noindent \emph{Meeting with Jenn Williams} \\
-
-\noindent 15 October 2013\\
-
-\noindent  There are two big areas in modeling flowering reproduction stuff in plants:
-\begin{enumerate}
-\item When (which year) to reproduce
-\item Bet-hedging across years (how much to reproduce)
-\end{enumerate}
-
-\noindent There is not much (anything of which she is aware) of when within a year to reproduce. She pointed out that this is probably because it's easy to measure how fitness varies year to year but there not very good estimates of how fitness varies with weather a species' phenology is early or late.\\
-
-\noindent Once she said this I though 'right!' and this jives with my reading of the literature (especially late 1970s and early 1980s, culminating a little with Ollerton \& Lack's TREE paper). But, interestingly, climate change seems to be making this issue of how fitness correlates with phenology a critical topic (and something I realized I sort of work on, ugh). Also, Jeff Diez (new prof at Riverside) is doing some of this with a snowpack study he has started in the Alps (Levine lab).\\
-
-++\\
-
-\noindent Most of the models include multiple decisions. And almost models to date work on death as the cost of reproduction (her and Tom Miller are actually pioneering how to model non-lethal costs such as `if I reproduce I grow less').\\
-
-\noindent How do models handle competition? They generally include density dependence in the seedling stage. Some sort of DD is necessary for any of the ESS (evolutionary stable strategy) models and everyone just tosses it in at the seedling stage.\\
-
-\noindent Costs vs. trade-offs: costs manifest as trade-offs in many models. She thinks we should totally just toss in a trade-off and go for it. She does this a lot, she is just sure to apply the cost at several different doses (levels) although sometimes she only presents one level.\\
-
-++\\
-
-\noindent She doesn't know the plasticity literature, Pigliucci (looks like he's in UT-Knoxville, I think) does some very general theory and plasticity stuff. \\
-
-\newpage
-\noindent \emph{Meeting with Sally Otto} \\
-
-\noindent 22 October 2013\\
-
-\noindent Okay, so she didn't really answer my costs versus trade-offs question directly. She just dove in and suggested a new formulation with costs. She felt like a model that incurred mortality when germination occurred before the pulse would be better. You could then treat \(g_{i}\) possibly as a constant or such. I pointed out that \(g_{i}\) often creates \(covar(E,C)\) but I think her model may as well, but through the intra-annual part of the equation. I think there are probably other issues with her conceptualization as well (like how we would make tracking happen) but I haven't got there yet.\\
-
-\noindent Let:
-\begin{align*}
-D & = \text{normal distribution representing time of germination of species }i\\
-T & = \text{intra-annual time}
-\end{align*}
-
-\noindent Then, how about this (with a less funky equation for \(g_{i}\)):
-
-\begin{align*}
-N_{i}(t+1) & =
-s_{i}(N_{i}(t)(1-g_{i})+N_{i}(t)g_{i}\phi_{i}\int_{D=\tau_{p}}^{\infty}norm(\mu_{p}, \sigma_{p})_{D} [\int_{T=D}^{t+\delta}B_{i}(T) \mathrm{d}T] \mathrm{d}D)
-\end{align*}
-
-\newpage
-\begin{figure}[h!]
-\centering
-\noindent \includegraphics[width=1\textwidth]{/Users/Lizzie/Documents/git/temporalvar/figures/figurehopes_1.png}
-\caption{{\bf Synergistic environmental effects (from 2011).}  Figure aspirations
-  for part 1 of the paper, which covers how varying environmental
-  variables (\(\tau_{p}\), \(R_{\theta}\), \(\epsilon\)) alone and in concert (as predicted by climate change)
-  alters coexistence. Single variables will be simple graphs, while
-  contour plots will come in for varying more than one variable
-  together. (There is no phenological tracking by species in this
-  section of the paper.) From July 2011 meeting.}
-\end{figure}
-
-\newpage
-\begin{figure}[h!]
-\centering
-\noindent \includegraphics[width=1\textwidth]{/Users/Lizzie/Documents/git/temporalvar/figures/figurehopes_2.png}
-\caption{{\bf Phenological tracking and coexistence under climate
-    change (from 2011).}  We didn't quite nail these down: do we vary both species
-so they both track or look at one tracking and one not tracking?
-Hoping this will become clear as we get the model up and running. From July 2011 meeting.}
-\end{figure}
-
 
 
 \end{document}
