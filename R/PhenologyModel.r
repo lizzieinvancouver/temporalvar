@@ -14,11 +14,11 @@ library(ggplot2)
 # define all parameters
 nsp <- 20    # number of spp
 nyrs1 <- 100  # number of yrs to run first stationary period
-ndays <- 1  # number of days in a growing season
-dt <- 0.001 # within yr timestep
+ndays <- 20  # number of days in a growing season
+dt <- 0.01 # within yr timestep
 tsteps <- ndays/dt
 # params for adding on a nonstationary run after stationary run
-nyrs2 <- 50 # number of yrs for second run (nonstationary for now)
+nyrs2 <- 0 # number of yrs for second run (nonstationary for now)
 nyrs <- nyrs1+nyrs2 # ALERT! change below once not doing stationary+nonstationary run
 y <- c(1:nyrs)
 
@@ -71,7 +71,7 @@ crossyrsvars <- as.data.frame(cbind(b, s, a, u, c, m, gmax, h, phi, theta, tauI,
 mu <- log(2)  #mean of resource distribution
 sigma <- 0.2  #sd of resource distribution
 R0 <- rlnorm(nyrs, mu, sigma) # intial R in a season
-eps <- 1              # evaporative stress
+eps <- 1              # evaporative stress 
 #tauP <- 0.3           # timing of pulse
 p <- 2  #first parameter for beta distribution of tau
 q <- 2  #second parameter for beta distribution of tau
@@ -86,18 +86,20 @@ tauP <- c(tauPs, tauPns)
 ##
 ## Within-growing season dynamics set-up
 ##
-R <- matrix(rep(0), nyrs, ndays/dt) # R is the resource level through the growing season (each yr)
+R <- matrix(rep(0), nyrs, tsteps) # R is the resource level through the growing season (each yr)
 B <- array(rep(0), dim=c(nyrs,nsp,tsteps)) # where B is an array with yr (nyrs), spp biomass
     # through growing season (ndays)
 N <- matrix(rep(0), nyrs, nsp) # number of seeds by yr and spp
 N[1,] <- N0  #initialize
 Bfin <- matrix(rep(0),nyrs,nsp) # biomass at end of year y
+B0  <- matrix(rep(0),nyrs,nsp) # biomass at beginning of year y
+rcrt <- matrix(rep(0),nyrs,nsp) # recruitment in year y
 
 ##
 ## set-up for different coexistence mechanisms
 ##
 tauIstar <- matrix(rep(0),nyrs,nsp)
-Bnocomp <- matrix(rep(0),nyrs,nsp) # B without competition at end of year y
+BnoC <- matrix(rep(0),nyrs,nsp) # B without competition at end of year y
 E <- matrix(rep(0),nyrs,nsp)
 C <- matrix(rep(0),nyrs,nsp)
 
@@ -112,7 +114,7 @@ for (y in c(1:(nyrs-1))){
   k<-1
   R[y,k] <- R0[y]
   B[y,,k] <- b*g*N[y,]
-  while (R[y,k]>min(Rstar)){
+  while (R[y,k] > min(Rstar)){
       f <- (a*R[y,k]^theta)/(1+a*u*R[y,k]^theta)
       B[y,,k+1] <- B[y,,k]+(c*f-m)*B[y,,k]*dt
       R[y,k+1] <- R[y, k] -dt*(t(B[y,,k]) %*% f + eps*R[y,k])
@@ -120,13 +122,19 @@ for (y in c(1:(nyrs-1))){
       k <- k+1
     }
   Bfin[y,] <- apply(B[y,,], 1, max)  #final biomass
-  # add some internal calculations to make other calculations easier
-  tauIstar[y,] <- (log(R0[y])/eps)-(1/(theta*eps))*log(m/(a*c-a*u*m))
-  Bnocomp[y,] <- B[y,,1]*((1+a*u*R0[y]^theta)/(1+a*u*R0[y]^theta*exp(-eps*tauIstar[y,]*theta)))*
-      exp((-c/(u*eps*theta))-m*tauIstar[y,])
-  # E[y,] <- log(s*g*(phi*Bnocomp[y,]-1))
-  # C[y,] <- log((phi*Bnocomp[y,]-1)/(phi*Bfin[y,]-1))
-  N[y+1,] <- s*(N[y,]*(1-g)+phi*Bfin[y,])  #convert biomass to seeds and overwinter
+  rcrt[y+1,] <- s*g*(phi*Bfin[y,]-1)   #to recruit, convert biomass to seeds and overwinter
+  
+  #calculate E and C
+  #tstar is the end of the season when there is no competition
+  tstar <- (1/eps)*(log(R0[y]-(1/theta)*log(m/(a*c-a*d*m))))
+  e1 <- 1+a*d*R0[y]^theta
+  e2 <- 1+a*d*R0[y]^theta*exp(-eps*tstar*theta)
+  e3 <- c/d/eps/theta
+  BnoC[y,] <- B0[y,] * e1^(-e3) * e2^(-e3) * exp(-m*tstar)
+  E[y,] <- s*g*(phi*BnoC[y,]-1)      #the -1 accounts for the loss of adults to germination
+  C[y,] <- E[y,]/rcrt[y,]
+
+  N[y+1,] <- s*(N[y,]) + rcrt[y+1,]    #N(t+1) = survival + recruitment
   N[y+1,] <- N[y+1,]*(N[y+1,]>ext)  #if density does not exceed ext, set to zero
 }
 
