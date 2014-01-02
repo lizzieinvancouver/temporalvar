@@ -116,7 +116,10 @@ B <- array(rep(0), dim=c(nyrs,nsp,tsteps)) # where B is an array with yr (nyrs),
     # through growing season (ndays)
 N <- matrix(rep(0), nyrs, nsp) # number of seeds by yr and spp
 N[1,] <- N0  #initialize
+B0 <- matrix(rep(0),nyrs,nsp) # biomass at beginning of year y
 Bfin <- matrix(rep(0),nyrs,nsp) # biomass at end of year y
+BnoC <- matrix(rep(0),nyrs,nsp) # biomass at end of year y
+rcrt <- matrix(rep(0),nyrs,nsp) # recruitment in year y
 E <- matrix(rep(0),nyrs,nsp)
 
 ##
@@ -127,9 +130,10 @@ E <- matrix(rep(0),nyrs,nsp)
 
 for (y in c(1:(nyrs-1))){
   g <- G*exp(-h*(tauP[y]-tauI)^2)  #germination fraction in year y
-  k<-1
-  R[y,k] <- R0[y]
-  B[y,,k] <- b*g*N[y,]
+  k<-1  #k is the within year step
+  R[y,] <- R0[y]
+  B0[y,] <- b*g*N[y,]
+  B[y,,k] <- B0[y,]
   while (R[y,k]>min(Rstar)){
       f <- (a*R[y,k]^theta)/(1+a*d*R[y,k]^theta)
       B[y,,k+1] <- B[y,,k]+(c*f-m)*B[y,,k]*dt
@@ -137,11 +141,18 @@ for (y in c(1:(nyrs-1))){
       R[y,k+1] <- R[y,k+1]*(R[y,k+1]>0)
       k <- k+1
     }
-  Bfin[y,] <- apply(B[y,,], 1, max)  #final biomass
-  E[y,] <- log(s*g*phi)+log(B[y,,1]*((1+a*d*R0[y]^theta)/
-      (1+a*d*R0[y]^theta*exp(-eps*ndays*theta)))*exp((-c/(d*eps*theta))-m*ndays))
-  N[y+1,] <- s*(N[y,]*(1-g)+phi*Bfin[y,])  #convert biomass to seeds and overwinter
-  N[y+1,] <- N[y+1,]*(N[y+1,]>ext)  #if density does not exceed ext, set to zero
+  #final biomass: max biomass for each species; assumes seed set for sp j at the point that R<R*(sp=j)
+  Bfin[y,] <- apply(B[y,,], 1, max)  
+  tstar <- (1/eps)*(log(R0[y]-(1/theta)*log(m/(a*c-a*d*m))))
+  e1 <- 1+a*d*R0[y]^theta
+  e2 <- 1+a*d*R0[y]^theta*exp(-eps*tstar*theta)
+  e3 <- c/d/eps/theta
+  BnoC[y,] <- B0[y,] * e1^(-e3) * e2^(-e3) * exp(-m*tstar)
+  E[y,] <- s*g*(phi*BnoC[y,]-1)      #the -1 accounts for the loss of adults to germination
+  rcrt[y,] <- s*g*(phi*Bfin[y,]-1)   #to recruit, convert biomass to seeds and overwinter
+  C[y,] <- E[y,]/rcrt[y,]
+  N[y+1,] <- s*(N[y,]) + rcrt[y,]    #survival + recruitment
+  N[y+1,] <- N[y+1,]*(N[y+1,]>ext)   #if density does not exceed ext, set to zero
 }
 
 
@@ -154,8 +165,13 @@ stop(print("Shifting focus here..."))
 
 
 # double-coding to try to avoid errors
-tauIstar <- (log(R0[y])/eps)-1/(theta*eps)*log(m/(a*c-a*u*m))
-Bnocomp <- B[y,,1]*((1+a*u*R0[y]^theta)/(1+a*u*(R0[y]^theta)*exp(-eps*tauIstar*theta)))*exp((-c/(u*eps*theta))-m*tauIstar)
+#tauIstar <- (log(R0[y])/eps)-1/(theta*eps)*log(m/(a*c-a*u*m))
+#Bnocomp <- B[y,,1]*((1+a*u*R0[y]^theta)/(1+a*u*(R0[y]^theta)*exp(-eps*tauIstar*theta)))*exp((-c/(u#*eps*theta))-m*tauIstar)
+tstar <- (1/eps)*(log(R0[y]-(1/theta)*log(m/(a*c-a*d*m))))
+e1 <- 1+a*d*R0[y]^theta
+e2 <- 1+a*d*R0[y]^theta*exp(-eps*tstar*theta)
+e3 <- c/d/eps/theta
+BnoC[y,] <- B0[y,] * e1^(-e3) * e2^(-e3) * exp(-m*tstar)
 
 ## simulation without competition
 
@@ -168,7 +184,7 @@ B <- array(rep(0), dim=c(nyrs,nsp,tsteps)) # where B is an array with yr (nyrs),
 N <- matrix(rep(0), nyrs, nsp) # number of seeds by yr and spp
 N[1,] <- N0  #initialize
 Bfin <- matrix(rep(0),nyrs,nsp) # biomass at end of year y
-Bnocomp <- matrix(rep(0),nyrs,nsp) # B without competition at end of year y
+BnoC <- matrix(rep(0),nyrs,nsp) # B without competition at end of year y
 ##
 
 for (y in c(1:(nyrs-1))){
@@ -185,11 +201,20 @@ for (y in c(1:(nyrs-1))){
     }
   Bfin[y,] <- apply(B[y,,], 1, max)  #final biomass
   # add some internal calculations to make other calculations easier
-  tauIstar <- (log(R0[y])/eps)-(1/(theta*eps))*log(m/(a*c-a*u*m))
-  Bnocomp[y,] <- B[y,,1]*((1+a*u*R0[y]^theta)/(1+a*u*R0[y]^theta*
-      exp(-eps*tauIstar*theta)))*exp((-c/(u*eps*theta))-m*tauIstar) # ack! Why so small?
+#  ts <- (log(R0[y])/eps)-(1/(theta*eps))*log(m/(a*c-a*u*m))
+#  Bnocomp[y,] <- B[y,,1]*((1+a*u*R0[y]^theta)/(1+a*u*R0[y]^theta*
+#      exp(-eps*tauIstar*theta)))*exp((-c/(u*eps*theta))-m*tauIstar) # ack! Why so small?
+  tstar <- (1/eps)*(log(R0[y]-(1/theta)*log(m/(a*c-a*d*m))))
+  e1 <- 1+a*d*R0[y]^theta
+  e2 <- 1+a*d*R0[y]^theta*exp(-eps*tstar*theta)
+  e3 <- c/d/eps/theta
+  BnoC[y,] <- B0[y,] * e1^(-e3) * e2^(-e3) * exp(-m*tstar)
+  E[y,] <- s*g*(phi*BnoC[y,]-1)      #the -1 accounts for the loss of adults to germination
+  rcrt[y,] <- s*g*(phi*Bfin[y,]-1)   #to recruit, convert biomass to seeds and overwinter
+  C[y,] <- E[y,]/rcrt[y,]
+  N[y+1,] <- s*(N[y,]) + rcrt[y,]    #survival + recruitment
   #E[y,] <- log(s*g*(phi*Bnocomp[y,]-1))
   #C[y,] <- log((phi*Bnocomp[y,]-1)/(phi*Bfin[y,]-1))
-  N[y+1,] <- s*(N[y,]*(1-g)+phi*Bfin[y,])  #convert biomass to seeds and overwinter
+  #N[y+1,] <- s*(N[y,]*(1-g)+phi*Bfin[y,])  #convert biomass to seeds and overwinter
   N[y+1,] <- N[y+1,]*(N[y+1,]>ext)  #if density does not exceed ext, set to zero
 }
