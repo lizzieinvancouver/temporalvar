@@ -104,7 +104,7 @@ percentage of species that track, trade-offs between competition and early flowe
 early-season species track, we could add that in, and of course we
 have a lot of climate data on hand). The new \emph{Physical Sciences Basis} of the IPCC came out in September 2013 so we have good recent estimates of how climate has and will shift (and Lizzie can slog through this).\\
 
-\noindent {\bf Predictions:} Even though we are not shifting \(var(R0), var(\tau_{p}), var(\epsilon)\) we are shifting E (species' responses to environment) and thus \(var(E)\) may increase. That could be cool.\\
+\noindent {\bf Predictions:} Even though we are not shifting \(var(R_{0}), var(\tau_{p}), var(\epsilon)\) we are shifting E (species' responses to environment) and thus \(var(E)\) may increase. That could be cool.\\
 
 \noindent {\bf Products:} We currently envision two papers: 
 \begin{enumerate}
@@ -284,7 +284,7 @@ growing season. Thus I changed this `season-length' \(h\) to
 \subsection{Definitions of coexistence}
 \noindent In December 2013, we discussed how we will define coexistence. There are a couple options, the second one is better:
 \begin{enumerate}
-\item Persistence of species in simulations: This is not ideal since you would have to run things a long time and still not know what would truly coexist. But if we do have to do this it is not all bad: if we run stationary then nonstationary environments (one after another, not separate) we can think of it as `here are the species co-occurring. Sure, some maybe be on Hubbellian random walk to extinction, but that is probably how the real world works anyway.' 
+\item Persistence of species in simulations: This is not ideal since you would have to run things a long time and still not know what would truly coexist. But if we do have to do this it is not all bad: if we run stationary then nonstationary environments (one after another, not separate) we can think of it as `here are the species co-occurring. Sure, some may be on Hubbellian random walk to extinction, but that is probably how the real world works anyway.' 
 \item Recovery from low-density: For this we need to calculate long-term low density growth rate from either (1) simulations or (2) equations. Equations would be better and would allow us to run stationary and nonstationary simulations separately. This equation should come out of final storage effect equations.
 \end{enumerate}
 
@@ -294,22 +294,23 @@ growing season. Thus I changed this `season-length' \(h\) to
 
 \noindent \emph{The way the growing season ends in the equations is
 interesting.} First, as brilliantly stated: the growing seasons ends
-[in these equations] when plants stop growing. And related, the
+[in these equations] when plants stop growing. And, related, the
 equations do not deal with setting the end of the growing season. In
 my head (Lizzie), abiotic forces can stop a growing season, but in
 reality with plant phenology data, the start and end of the growing
 season are fundamentally different: at the start species are most
 sensitive to abiotic cues and climate change effects are large and
-often consistent. For the end of the season effects have been more
-muted and variable---suggesting plants in someway do seem to set the
+often consistent. For the end of the season climate change effects have been more
+muted and variable---suggesting plants in some way do seem to set the
 end of the growing season more than abiotic cues do, at least when
 compared to the start of season. (And the model follows this.)\\
 
-\noindent \emph{So what we do about it...} It used to happen for all species at $\delta$---so, early species may have peaked and have lower-than-their-peak biomass at $\delta$ while later season species may be at peak. Instead now we let resources go to  the lowest R* and then we take peak biomass instead of biomass at $\delta$ (when the growth rate goes below 0) to convert to seeds.
+\noindent \emph{So what we do about it...} It used to happen for all species at $\delta$---so, early species may have peaked and have lower-than-their-peak biomass at $\delta$ while later season species may be at peak. Instead now we let resources go to  the lowest R* and then we take peak biomass (for each species) instead of biomass at $\delta$ (when the growth rate goes below 0), to convert to seeds.
 
 
 \subsection{Conceptualization of our germination equations}
 \noindent A long debate with much thought in October 2013 (see also notes on meeting with Sally Otto, which offers an equation with a clearer cost, but also effectively assumes plants are dumber. Or to say that last bit more positively, `Peter's model assumes plants are smarter,' says Megan). Below are mainly Lizzie's thoughts in December 2013. \\
+
 I think you can compare our formulation to the basically 2-cue system discussed in \citet{Chesson:2004eo}. From pg. 238 he describes how each species basically has a temperature-dependent germination and how far from the pulse is from that optimum determines how much a species germinates each year. Importantly, he notes `The phenological difference in germination discussed
 above involves timing that is independent of water
 availability, in the sense that rain at the wrong time of
@@ -329,7 +330,7 @@ These are a little sloppy in that the pulse is supposed to be separate from the 
 \noindent We assume that:
 \begin{enumerate}
 \item All species `go' each year, at least a little; that is, we're
-  not looking at a communities where some species have true
+  not looking at communities where some species have true
   supra-annual strategies.
 \item There is one dominant pulse of the limiting resource (e.g.,
   light or water) at the
@@ -338,7 +339,7 @@ These are a little sloppy in that the pulse is supposed to be separate from the 
 \end{enumerate}
 
 \subsection{Simplifying within-year dynamics thoughts}
-Can we simplify within-year dynamics to focus on a better model for timing (see photo of October 2013 whiteboard that Megan has)? To rephrase this: Our internal equation is basically R* rankings could we create a `deterministic look up table' for the within-year dynamic so we can make think more carefully about the timing part of this.  (Related note from 2012 meeting: Decide if we need to ODE solve the intra-annual
+Can we simplify within-year dynamics to focus on a better model for timing (see photo of October 2013 whiteboard that Megan has)? To rephrase this: Our internal equation is basically R* rankings, so could we create a `deterministic look up table' for the within-year dynamics so we can think more carefully about the timing part of this.  (Related note from 2012 meeting: Decide if we need to ODE solve the intra-annual
   dynamics, then use the discretized version only inter-annually. Note from Lizzie: best ODE solver is now in package `desolve.')\\
 
 
@@ -365,20 +366,20 @@ In August 2012 Megan came up with a new way to model phenological tracking, it's
 \item Species can phenologically track pulse.
 \item Species can phenologically track something at least at one time in history correlated with the pulse.
 \end{enumerate}
-We agreed that while (3) is interesting---would allow you to look at mismatch ideas etc.---(1) and (2) have more biological support for plants and are interesting enough in and of themselves, so we will focus on and mode (1) and (2) and not (3).\\
+We agreed that while (3) is interesting---would allow you to look at mismatch ideas etc.---(1) and (2) have more biological support for plants and are interesting enough in and of themselves, so we will focus on and model (1) and (2) and not (3).\\
 
-\noindent In August 2013 an issue we worried about: Will tracker always win? Answers: No, not if it's a poor competitor, that is, if it responds quickly to resource pulse but then does poorly at low resource levels. I also think it's important to remember that not all tracking species will track perfectly so some species should grow before trackers some years, when their fixed \(\tau_{i}\) corresponds well to \(\tau_{p}\). Also, we have a note high intraspecific competition could dampen trackers, especially when greater than interspecific competition.\\
+\noindent In August 2013 an issue we worried about: Will tracker always win? Answers: No, not if it's a poor competitor, that is, if it responds quickly to resource pulse but then does poorly at low resource levels. I also think it's important to remember that not all tracking species will track perfectly so some species should grow before trackers some years, when their fixed \(\tau_{i}\) corresponds well to \(\tau_{p}\). Also, we have a note that high intraspecific competition could dampen trackers, especially when greater than interspecific competition.\\
 
 \noindent New things we came up with that we want to look at in regards to {\bf phenological tracking}. First off, we have a lot of versions of similar questions. 
 \begin{itemize}
-\item Has climate change made tracking more advantageous? Or, how prevalent is tracking in a stationary versus nonstationary system? Basically, one hoped for outcome (by Lizzie) is to show that with stationary climate tracking strategies and non-tracking strategies may coexist happily, but when you add nonstationarity the world shifts that tracking is so strongly favoured as to make non-tracking rare or to require a very huge trade-off etc.. So we have a bunch of related questions to this:
+\item Has climate change made tracking more advantageous? Or, how prevalent is tracking in a stationary versus nonstationary system? Basically, one hoped-for outcome (by Lizzie) is to show that with stationary climate tracking strategies and non-tracking strategies may coexist happily, but when you add nonstationarity the world shifts that tracking is so strongly favoured as to make non-tracking rare or to require a very huge trade-off etc.. So we have a bunch of related questions to this:
 \begin{itemize}
 \item How big do trade-offs have to be for tracking to be non-advantageous (to allow coexistence with other species)?
 \item Another angle, is tracking the dominant strategy with a shifting environment (distribution) vs. stationary environment distribution?
 \end{itemize}
 \item Follow up from October 2013: How much does climate have to shift (non-stationarity in system) given some level of fitness differences trading off with tracking for tracking to become the dominant strategy?
 \end{itemize}
-{\bf It would be great to add real data here!} Some options: First, Lizzie may be able to track down information about negative correlations between tracking and competitive abilities (for nutrient resources). This would put some of the trade-off questions in perspectives. Next, we could also see  \emph{what we know about climate projections} and from there see how big do the trade-offs have to be with climate change to make non-tracking a feasible strategy strategy (this `feasible' and `dominant' terminology is a little wobbly; I admit that))?\\
+{\bf It would be great to add real data here!} Some options: First, Lizzie may be able to track down information about negative correlations between tracking and competitive abilities (for nutrient resources). This would put some of the trade-off questions in perspective. Next, we could also see  \emph{what we know about climate projections} and from there see how big do the trade-offs have to be with climate change to make non-tracking a feasible strategy strategy (this `feasible' and `dominant' terminology is a little wobbly; I admit that)?\\
 
 \noindent This tracking angle matches to the `Generalists, specialists and plasticity' section of \citet{Chesson:2004eo}. You could imagine by removing the benefit of trade-offs associated with not being plastic, then nonstationarity could favour generalists (plastic species, that is). Here's the most relevant bit (according to Lizzie):
 \begin{quote}
@@ -418,7 +419,7 @@ generalist is then superior.
 \item Basic storage effect model
 \item Our version of the storage effect model
 \item Systems for which model is applicable: This is effectively a system with a single large pulse of
-resource, that, in a plant-free scenario is lost exponentially each
+resource, that, in a plant-free scenario, is lost exponentially each
 year. 
 \begin{enumerate}
 \item Alpine systems (resource is water): initial large pulse of precipitation from
@@ -465,7 +466,6 @@ the dominant expectations of current and future climate change:
   which can lead to:
 \begin{enumerate}
 \item Changes in inter-annual covar(E, C)
-\item We ignore, for now, possible changes related to this in relative non-linearity
 \item For variability: changes related to buffered population growth:
   for example, when the periodicity of certain extreme events declines
   such that species with certain buffering times no longer get their
@@ -482,7 +482,6 @@ the dominant expectations of current and future climate change:
   affect:
 \begin{enumerate}
 \item Changes in inter-annual covar(E, C)
-\item We ignore, for now, possible changes related to this in relative non-linearity
 \item Note that one basic prediction could be a decline in the storage effect with declines in \(\epsilon\). From \citet{Chesson:2004eo}:
 \begin{quote}
 ... large evaporational [sic] water
@@ -503,7 +502,7 @@ depletion ....
   do not shift their timing (e.g., no change to  \(\tau_{i \cdots
     n}\)) 
 \item Season is longer (earlier \(\tau_{p}\) and some species (`climate-trackers') change
-  their timing (community shift in temporal (phenological) synchrony),
+  their timing (community shift in temporal---phenological---synchrony),
   that is (e.g., certain species change to  \(\tau_{i \cdots
     n}\)) such that the distance \(\tau_{p}-\tau_{i}\) is constant
   across years.
@@ -555,16 +554,16 @@ While here, though, I will mention that we discussed \emph{which} correlations w
 \subsection{Species differences: How to thoughts}
 \noindent New notes as of October-December 2013: \emph{Models without tracking:}\\
 How will we adjust the equations for simulations about shifts in the environment? For now we plan to let parameters vary some and see if we can pick out patterns. If this gets tricky we can switch to trade-offs between \(\tau_{i}\) and \(c_{i}\). \\
+
 Note that one possible trade-off is earlier \(\tau_{i}\) could correlate with lower competitive ability, which is mentioned in \citet{Chesson:2004eo} on page 245: Coexistence would be promoted
 only when this temporal pattern entails tradeoffs, e.g.,
 when later pulse users are able to draw down soil moisture
-to lower levels than are early users.
-\\
+to lower levels than are early users.\\
+
 (Old question from October 2013, maybe should cut): Do we need to make sure that for all \(i\), \(\int g_{i}\) are equal, or is it that \(\int g_{i}(t)\tau_{p}(t)\mathrm{d}t\) should be constant (the latter being the average of \(g_{i}\) weighted by the distribution of \(\tau_{p}\) through time).\\
 
 \noindent \emph{Models with tracking:}\\
-In nature early species have quicker-return-investments on growth and early is often high tracking, so it's hard to tell whether early \emph{or} high-tracking trades off with this quicker-return angle. So what we plan on doing:\\
-
+In nature early species have quicker-return investments on growth and early is often high tracking, so it's hard to tell whether early \emph{or} high-tracking trades off with this quicker-return angle. So what we plan on doing:\\
 \noindent For now, for coexistence: we'll trade off \(c_{i}\) and \(\tau_{i}\), when we add in alpha we'll leave this above trade-off and maybe:
 \begin{itemize}
 \item get some coexisting species and add high tracking randomly to all and see what happens
@@ -584,7 +583,7 @@ Without tracking we may predict benefits to early-colonizers decline with earlie
 
 \noindent Can we use this model to test if certain strategies (say, high tracking) can increase over shorter timescales but be completely excluded from this system given rarer, long-term (red) periods of environmental `harshness'?\\
 
-To expand: My theory works as such: If a closed population of a species has a relatively short length for its buffered population growth---for example, imagine an annual grass with a 3 year seedbank---and enters a new system where the climate has long term fluctuations, could that population possibly due well during certain environmental phases, but be completely excluded (local extinction) during others. For example, the scenario is California annual invasive grasses: they do great now, but less well in drought years and large very long droughts (Mayan megadroughts are part of the ENSO cycle, possibly, and are decade or multi-decadal) could possibly throw them entirely out of the system. Thus the answer to the question I always get: If European annual grasses do so well in coastal sage scrub why weren't there any native annual grasses? would be---wait a while and  then you'll see. \\
+To expand: My theory works as such: If a closed population of a species has a relatively short length for its buffered population growth---for example, imagine an annual grass with a 3 year seedbank---and enters a new system where the climate has long term fluctuations, could that population possibly do well during certain environmental phases, but be completely excluded (local extinction) during others. For example, the scenario of California annual invasive grasses: they do great now, but less well in drought years and large very long droughts (Mayan megadroughts are part of the ENSO cycle, possibly, and are decade or multi-decadal) could possibly throw them entirely out of the system. Thus the answer to the question I always get: If European annual grasses do so well in coastal sage scrub why weren't there any native annual grasses? would be---wait a while and  then you'll see. \\
 
 There is also an evolutionary angle to this: short lifespans and short seedbanks with these sorts of long-term cycles could lead to evolving quickly, during one climate phase, towards a damn stupid strategy when the next climate phase kicks in. But I don't want to go there, just to point it out.\\
 
@@ -649,12 +648,12 @@ C & = - \sum_{i=1}^{n}f_{i}(R)B_{i} \rightarrow f_{i}R
 covar(E,C) \approx covar\left(R_{i}, \sum_{i=1}^{n}B_{i}\right)
 \end{align*}
 
-\subsection{Small, somewhat random but fascinating questions} 
+\subsection{Small, somewhat random, but \emph{fascinating} questions} 
 \noindent So what does it mean if species co-exist in the same community via mechanisms operating on totally different timescales?\\
 
 \noindent  New random query: Is there humidity without plants?\\
 
-\noindent  Also, someday, you could wonder if earlier \(\tau_{p}\) allows for more niche space for species at the end of the season that have a really low R* (but for this we have to vary R* among species, which we don't plan on doing now).\\
+\noindent  Also, someday, you could wonder if earlier \(\tau_{p}\) allows for more niche space for species at the end of the season that have a really low R*.\\
 
 \noindent  \emph{Also, totally random note for Lizzie:} Trees use previous year' resources to flush leaves/flowers in current year.
 
@@ -682,14 +681,14 @@ covar(E,C) \approx covar\left(R_{i}, \sum_{i=1}^{n}B_{i}\right)
 \begin{figure}[h!]
 \centering
 \noindent \includegraphics[width=0.8\textwidth]{/Users/Lizzie/Documents/git/temporalvar/figures/figurehopes_MoC.png}
-\caption{{\bf How does climate change affect mechanisms of coexistence?} Two figures: the first is simple it's just the number (or percent of total possible) of species coexisting; the second figure is to look at how mechanisms shift with scenarios that are stationary, weakly nonstationary or strongly nonstationary. Each of these figures should be one panel for each variable manipulated (\(\epsilon, \tau_{p} and maybe R_{0}\)).}
+\caption{{\bf How does climate change affect mechanisms of coexistence?} Two figures: the first is simple it's just the number (or percent of total possible) of species coexisting; the second figure is to look at how mechanisms shift with scenarios that are stationary, weakly nonstationary or strongly nonstationary. Each of these figures should be one panel for each variable manipulated (\(\epsilon, \tau_{p}\) and maybe \(R_{0}\)).}
 \end{figure}
 
 \newpage
 \begin{figure}[h!]
 \centering
 \noindent \includegraphics[width=0.8\textwidth]{/Users/Lizzie/Documents/git/temporalvar/figures/figurehopes_tracking.png}
-\caption{{\bf How does the prevalence of tracking shift with nonstationarity?} See the section on tracking questions above for the full plethora of questions related to this (e.g., this is also the ream of how strong does the negative correlation between tracking and competitive ability have to be to make tracking non-advantageous). But, basically we want to look at how tracking shifts in stationary versus nonstationary systems. So we could do something like this (we also discussed looking at trackers with random \(\tau_{i}\) versus trackers with early \(\tau_{i}\) as you usually see in nature) and/or we could re-do the mechanisms of coexistence figures above with trackers in the mix.}
+\caption{{\bf How does the prevalence of tracking shift with nonstationarity?} See the section on tracking questions above for the full plethora of questions related to this (e.g., this is also the realm of how strong does the negative correlation between tracking and competitive ability have to be to make tracking non-advantageous). But, basically we want to look at how tracking shifts in stationary versus nonstationary systems. So we could do something like this (we also discussed looking at trackers with random \(\tau_{i}\) versus trackers with early \(\tau_{i}\) as you usually see in nature) and/or we could re-do the mechanisms of coexistence figures above with trackers in the mix.}
 \end{figure}
 
 
