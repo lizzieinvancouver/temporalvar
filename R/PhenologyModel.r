@@ -39,11 +39,12 @@ lwd=2
 # (2) add in resource stuff to withinyrs
 # (3) decide on list for each run, versus some other format
 
-modelruns <- list() # place to store output of runs
-nruns <- 2 # number of model runs to do
-for (j in c(1:nruns)){ # assuming, we will vary species characteristics between yrs ... 
+#Temporarily disabling the multiple runs
+#modelruns <- list() # place to store output of runs
+#nruns <- 2 # number of model runs to do
+#for (j in c(1:nruns)){ # assuming, we will vary species characteristics between yrs ... 
   
-##
+
 ## species characteristics
 ##
 b <-  rep(1,nsp)          # biomass of seedling
@@ -51,6 +52,7 @@ s <-  rep(0.8,nsp)      # seedbank survival overwinter
 a <-  rep(20,nsp)        # slope of species uptake rate with increasing R
 u <-  rep(1,nsp)          # inverse of the max uptake rate
 c <-  rep(12,nsp)        # conversion of resource to biomass
+theta <- rep(1,nsp)         # shape of species i uptake curve, remember it should be an integer!
 m <-  rep(0.05,nsp)     # mortality
 gmax <-  rep(0.5,nsp)     # max germination fraction
 h <-  rep(100,nsp)             # max rate of germination decrease following pulse
@@ -59,7 +61,6 @@ tauI <- runif(nsp,0.1, 0.9)    # time of max germ for sp i
 # set up tracking (to do for Lizzie, there should be code under here someday)
 
 
-theta <- rep(1,nsp)         # shape of species i uptake curve, remember it should be an integer!
 N0 <- rep(10,nsp)          # initial number of seeds (per meter square?)
 Rstar <- (m/(a*(c-m*u)))^(1/theta)
 
@@ -95,6 +96,17 @@ Bfin <- matrix(rep(0),nyrs,nsp) # biomass at end of year y
 B0  <- matrix(rep(0),nyrs,nsp) # biomass at beginning of year y
 rcrt <- matrix(rep(0),nyrs,nsp) # recruitment in year y
 
+##define function for ODE solver
+ResCompN <- function(Time,Inits,Pars) {
+  with(as.list(c(State,Pars)),{
+    dB = (c*a*R^theta/(1+a*u*R^theta)-m)*B
+    dR  = -eps*R - sum(B*a*R^theta/(1+a*u*R^theta))
+    return(list(c(dB,dR)))
+  })
+}
+Pars <- c(c=rep(12,nsp),a=rep(20,nsp),u=rep(1,nsp),m=rep(0.05,nsp),theta=rep(1,nsp),eps=1)
+Time <- seq(0,ndays,by=dt)
+
 ##
 ## set-up for different coexistence mechanisms
 ##
@@ -104,8 +116,6 @@ E <- matrix(rep(0),nyrs,nsp)
 C <- matrix(rep(0),nyrs,nsp)
 
 ##
-## change to mapply someday?
-## for now, a loop
 ## Better to use ODE solver within each year?
 ##
 
@@ -114,6 +124,8 @@ for (y in c(1:(nyrs-1))){
   k<-1
   R[y,k] <- R0[y]
   B[y,,k] <- b*g*N[y,]
+  Inits <- c(N=seq(1,12,by=1),R=100) 
+  out <- as.data.frame(ode(func = ResCompN, y = Inits, parms = Pars, times = Time))
   while (R[y,k] > min(Rstar)){
       f <- (a*R[y,k]^theta)/(1+a*u*R[y,k]^theta)
       B[y,,k+1] <- B[y,,k]+(c*f-m)*B[y,,k]*dt
@@ -139,12 +151,15 @@ for (y in c(1:(nyrs-1))){
 }
 
 
-modelruns[[j]] <- list(crossyrsvars, Bfin, E)
+##Temporarily disabling multiple runs
+#modelruns[[j]] <- list(crossyrsvars, Bfin, E)
+
 # could also make each run a multi-part dataframe with common names
 # so something like:
 # modelruns[[paste("crossyrs", j, sep="")]] <- crossyrsvars
 # modelruns[[paste("withinyrs", j, sep="")]] <- Bfin
-}
+
+#}
 
 
 # between years plot
