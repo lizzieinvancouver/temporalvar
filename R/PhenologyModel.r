@@ -39,7 +39,7 @@ source("getSpecies.R")  #get species characteristics and Rstar
 
 #Define arrays
 #interannual dynamics set-up (R0 is in getEnvt.R)
-N0 <- rep(100,nsp)          # initial number of seeds (per meter square?)
+N0 <- rep(1,nsp)          # initial number of seeds (per meter square?)
 N <- matrix(rep(0), nyrs, nsp) # number of seeds by yr and spp
 N[1,] <- N0  #initialize
 rcrt <- matrix(rep(0),nyrs,nsp) # recruitment in year y
@@ -65,17 +65,18 @@ C <- matrix(rep(0),nyrs,nsp)
 
 for (y in c(1:(nyrs-1))){
   #get initial biomass for year y
-  B0[y,] <- b*g[y,]*N[y,]
-
+  B0[y,] <- b*g[y,]*N[y,] 
   #use deSolve for ResCompN
   R<-R0[y]
   B<-B0[y,]
   State<-c(R=R,B=B)
   Time <- seq(0,ndays,by=dt)
-  #Bout[[y]] <- as.data.frame(ode(func = ResCompN, y = State, parms = Pars, times = Time))
-  Bout[[y]] <- as.data.frame(lsodar(func = ResCompN, y = State, parms = Pars, times = Time,rootfun=rootfun))
+  Bout[[y]] <- as.data.frame(ode(func = ResCompN, y = State, parms = Pars, times = Time))
+  #Bout[[y]] <- as.data.frame(lsodar(func = ResCompN, y = State, parms = Pars, times = Time,rootfun=rootfun))
   Bfin[y,] <-  apply(Bout[[y]][3:(2+nsp)],2,FUN=max)  #final biomass
-
+  N[y+1,] <- N[y,]*s*(1-g[y,]) + phi*Bfin[y,]    #note Bfin already includes N(t) as init cond
+  N[y+1,] <- N[y+1,]*(N[y+1,]>ext)  #if density does not exceed ext, set to zero
+    
   #use deSolve for NoCompN to solve for noCompetition condition
   #would be faster to used solved equation, but calculations were coming out wrong
   #tstar is when species cross their Rstar threshold and we stop the season under the no competition condition; checked against ODE solver, it is when the  biomass starts decreasing
@@ -91,8 +92,6 @@ for (y in c(1:(nyrs-1))){
   E[y,] <- log(g[y,]*phi*BnoC[y,])         #defn 4
   C[y,] <- log(BnoC[y,]/Bfin[y,])         #defn 4   
   
-  N[y+1,] <- N[y,]*(s + rcrt[y,])    #N(t+1) = N(t)* (survival + recruitment)
-  N[y+1,] <- N[y+1,]*(N[y+1,]>ext)  #if density does not exceed ext, set to zero
 }
                                                                      
 
