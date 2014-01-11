@@ -10,6 +10,8 @@ h <-  rep(100,nsp)             # max rate of germination decrease following puls
 phi <- rep(0.05,nsp)     # conversion of end-of-season plant biomass to seeds
 if (nsp==2) tauI <- c(.35,.3) else tauI <-runif(nsp,0.1, 0.9)  # time of max germ for sp i
 
+g <- gmax*exp(-h*(matrix(rep(tauP,nsp),nrow=length(tauP),ncol=nsp)-matrix(rep(tauI,nyrs),ncol=nsp,nrow=nyrs,2))^2)  #germination fraction in year y
+
 #competition
 a <-  rep(20,nsp)        # slope of species uptake rate with increasing R
 u <-  rep(1,nsp)          # inverse of the max uptake rate
