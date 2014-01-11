@@ -5,3 +5,6 @@ linez <- rep(1:6, 100) # enough for 600 species for now
 lspbyrs <- 1
 lresbyrs <- 2
 lwd=2
+
+#years to plot for within-year dynamics
+plotyrs<- floor(seq(1,nyrs-1,length.out=9))
