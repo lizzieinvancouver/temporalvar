@@ -103,45 +103,12 @@ for (y in c(1:(nyrs-1))){
 
 #}
 
+source("plotNyears.R")  #plots dynamics of seedbank abundance over years
 
-# between years plot
-par(mfrow=c(1,1))
-dev.new(width=14, height=10)
-par(mar=c(5,4,4,5)+.1)
-plot(Bfin[,1]~c(1:nyrs), ylim=c(min(Bfin), max(Bfin)),
-    xlab="year", ylab="Abundance", type="n")
-for (i in 1:nsp) {
-  lines(Bfin[,i]~c(1:nyrs), col=colerz[i], lty=lspbyrs, lwd=lwd)
-}
-#overlay germination fraction
-par(new=TRUE)
- plot(g[,i]~c(1:nyrs),type="n",xaxt="n",yaxt="n",xlab="",ylab="")
- axis(4)
- mtext("germination fraction (+)",side=4,line=3)
-for (i in 1:nsp) {
-  points(g[,i]~c(1:nyrs),col=colerz[i],pch="+")
-}
-#OVerlays Resource level, R0, each year
-# par(new=TRUE)
-# plot(R0~c(1:nyrs),type="l",col="black",lty=2,xaxt="n",yaxt="n",xlab="",ylab="")
-# axis(4)
-# mtext("R0",side=4,line=3)
+source("plotBinSeason.R")  #plot within season dynamics of biomass & R for a subset of years
 
-dev.new(width=14, height=10)
-par(mfrow=c(3,3))
-for (i in 1:length(plotyrs)){
-  q=plotyrs[i]
-  plot(Bout[[q]][,3]~Bout[[q]]$time, ylim=c(0, max(Bfin[plotyrs,])),
-     xlab="step, step, step", ylab="Biomass", type="n",main=plotyrs[i])
-  for (j in 1:nsp){
-    lines(Bout[[q]][,2+j]~Bout[[q]]$time, col=colerz[j], lty=lspbyrs, lwd=lwd)
-  }
-  #overlay R on a second y axis
-  par(new=TRUE)
-  plot(Bout[[q]]$R~Bout[[q]]$time,type="l",col="black",lty=2,ylim=c(0,max(R0)),xaxt="n",yaxt="n",xlab="",ylab="")
-  axis(4)
-  #mtext("Resource",side=4,line=3,cex=0.7)
-}
+source("plotBwCnoC.R")  #plot within season biomass resource dynamics w and wo competition
+
 
 ###Megan stopped tweaking plots here, but they will need to be adjusted for new within-year output structure from ode
 
