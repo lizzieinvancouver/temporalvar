@@ -8,6 +8,7 @@ options(stringsAsFactors=FALSE)
 
 # packages
 library(ggplot2)
+library(deSolve)
 
 #set.seed(2)
 
@@ -32,9 +33,9 @@ source("getRunParms.R") #define runtime parameters
 
 source("getGraphParms.R")  #define graphics parameters
 
-source("getSpecies.R")  #get species characteristics and Rstar
-
 source("getEnvt.R")  #get constant and time-varying envt parms
+
+source("getSpecies.R")  #get species characteristics and Rstar
 
 #Define arrays
 #interannual dynamics set-up (R0 is in getEnvt.R)
@@ -57,17 +58,15 @@ E <- matrix(rep(0),nyrs,nsp)
 C <- matrix(rep(0),nyrs,nsp)
 
 for (y in c(1:(nyrs-1))){
-  g <- gmax*exp(-h*(tauP[y]-tauI)^2)  #germination fraction in year y
   #get initial biomass for year y
-  B0[y,] <- b*g*N[y,]
+  B0[y,] <- b*g[y,]*N[y,]
   #use deSolve for ResCompN
   R<-R0[y]
   B<-B0[y,]
   State<-c(R=R,B=B)
   Time <- seq(0,ndays,by=dt)
-  Bout[[y]] <- as.data.frame(ode(func = ResCompN, y = State, parms = Pars, times = Time))
-  #matplot(Bout[[y]]$time,Bout[[y]][,-1],type="l",ylim=c(0,2.5))
-  #legend("right",names(Bout[[y]])[2:(nsp+2)],lty = 1:5,col=1:6)
+  #Bout[[y]] <- as.data.frame(ode(func = ResCompN, y = State, parms = Pars, times = Time))
+  Bout[[y]] <- as.data.frame(lsodar(func = ResCompN, y = State, parms = Pars, times = Time,rootfun=rootfun))
   Bfin[y,] <-  apply(Bout[[y]][3:(2+nsp)],2,FUN=max)  #final biomass
   
   #use deSolve for NoCompN to solve for noCompetition condition
@@ -76,10 +75,8 @@ for (y in c(1:(nyrs-1))){
   TimeNC <- seq(0,max(tstar)+5*dt,by=dt)
   BnoCout[[y]] <- as.data.frame(ode(func = NoCompN, y = State, parms = Pars, times = TimeNC))
   BnoC[y,] <- apply(BnoCout[[y]][3:(2+nsp)],2,FUN=max)
-  #matplot(BnoCout[[y]]$time,BnoCout[[y]][,-1],type="l")
-  #legend("right",names(BnoCout[[y]])[2:(nsp+2)],lty = 1:5,col=1:6)
   
-  rcrt[y,] <- s*g*(phi*Bfin[y,]-1)   #to recruit, convert biomass to seeds and overwinter
+  rcrt[y,] <- s*g[y,]*(phi*Bfin[y,]-1)   #to recruit, convert biomass to seeds and overwinter
   
   #calculate E and C
   #tstar is when species cross their Rstar threshold and we stop the season under the no competition condition
@@ -89,7 +86,7 @@ for (y in c(1:(nyrs-1))){
   #e2 <- 1+a*u*R0[y]^theta*exp(-eps*tstar*theta)
   #e3 <- c/(u*eps*theta)
   #BnoC[y,] <- B0[y,] * e1^(-e3) * e2^(-e3) * exp(-m*tstar)
-  E[y,] <- s*g*(phi*BnoC[y,]-1)      #the -1 accounts for the loss of adults to germination
+  E[y,] <- s*g[y,]*(phi*BnoC[y,]-1)      #the -1 accounts for the loss of adults to germination
   C[y,] <- E[y,]/rcrt[y,]
 
   N[y+1,] <- N[y,]*(s + rcrt[y,])    #N(t+1) = N(t)* (survival + recruitment)
@@ -97,7 +94,6 @@ for (y in c(1:(nyrs-1))){
 }
 
 
-##Temporarily disabling multiple runs
 #modelruns[[j]] <- list(crossyrsvars, Bfin, E)
 
 # could also make each run a multi-part dataframe with common names
@@ -109,20 +105,42 @@ for (y in c(1:(nyrs-1))){
 
 
 # between years plot
+par(mfrow=c(1,1))
 dev.new(width=14, height=10)
+par(mar=c(5,4,4,5)+.1)
 plot(Bfin[,1]~c(1:nyrs), ylim=c(min(Bfin), max(Bfin)),
     xlab="year", ylab="Abundance", type="n")
 for (i in 1:nsp) {
   lines(Bfin[,i]~c(1:nyrs), col=colerz[i], lty=lspbyrs, lwd=lwd)
 }
+#overlay germination fraction
+par(new=TRUE)
+ plot(g[,i]~c(1:nyrs),type="n",xaxt="n",yaxt="n",xlab="",ylab="")
+ axis(4)
+ mtext("germination fraction (+)",side=4,line=3)
+for (i in 1:nsp) {
+  points(g[,i]~c(1:nyrs),col=colerz[i],pch="+")
+}
+#OVerlays Resource level, R0, each year
+# par(new=TRUE)
+# plot(R0~c(1:nyrs),type="l",col="black",lty=2,xaxt="n",yaxt="n",xlab="",ylab="")
+# axis(4)
+# mtext("R0",side=4,line=3)
 
 dev.new(width=14, height=10)
-#range=c(1:(tsteps/3))
-plot(Bout[[1]]$R~Bout[[1]]$time, ylim=c(0, max(R0)),
-     xlab="step, step, step", ylab="Resource", type="n")
-#hmm, something I did messed up the colors so I had to leave that out
-for (i in 1:(nyrs-1)) {
-  lines(Bout[[i]]$R~Bout[[i]]$time)#, col=colerz[i], lty=lspbyrs, lwd=lwd)
+par(mfrow=c(3,3))
+for (i in 1:length(plotyrs)){
+  q=plotyrs[i]
+  plot(Bout[[q]][,3]~Bout[[q]]$time, ylim=c(0, max(Bfin[plotyrs,])),
+     xlab="step, step, step", ylab="Biomass", type="n",main=plotyrs[i])
+  for (j in 1:nsp){
+    lines(Bout[[q]][,2+j]~Bout[[q]]$time, col=colerz[j], lty=lspbyrs, lwd=lwd)
+  }
+  #overlay R on a second y axis
+  par(new=TRUE)
+  plot(Bout[[q]]$R~Bout[[q]]$time,type="l",col="black",lty=2,ylim=c(0,max(R0)),xaxt="n",yaxt="n",xlab="",ylab="")
+  axis(4)
+  #mtext("Resource",side=4,line=3,cex=0.7)
 }
 
 ###Megan stopped tweaking plots here, but they will need to be adjusted for new within-year output structure from ode
