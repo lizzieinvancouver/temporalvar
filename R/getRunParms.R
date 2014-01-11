@@ -1,7 +1,7 @@
 #Runtime Parameters
 
 #between year
-nyrs <- 20  # number of yrs to run if nonsta=0
+nyrs <- 500  # number of yrs to run if nonsta=0
 if (nonsta > 0) {
   nyrs <- nyrs + nonsta
 }
