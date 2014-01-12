@@ -8,17 +8,18 @@ options(stringsAsFactors=FALSE)
 
 # packages
 library(ggplot2)
+library(abind)
 
 #set.seed(2)
 
 # define all parameters
 nsp <- 20    # number of spp
-nyrs1 <- 100  # number of yrs to run first stationary period
+nyrs1 <- 50  # number of yrs to run first stationary period
 ndays <- 1  # number of days in a growing season
 dt <- 0.0005 # within yr timestep for competing species
 tsteps <- ndays/dt
 # params for adding on a nonstationary run after stationary run
-nyrs2 <- 50 # number of yrs for second run (nonstationary for now)
+nyrs2 <- 0 # number of yrs for second run (nonstationary for now)
 nyrs <- nyrs1+nyrs2 # ALERT! change below once not doing stationary+nonstationary run
 y <- c(1:nyrs)
 
@@ -86,8 +87,9 @@ tauP <- c(tauPs, tauPns)
 ##
 ## Within-growing season dynamics set-up
 ##
-R <- matrix(rep(0), nyrs, ndays/dt) # R is the resource level through the growing season (each yr)
-B <- array(rep(0), dim=c(nyrs,nsp,tsteps)) # where B is an array with yr (nyrs), spp biomass
+R <- list(NULL)#matrix(rep(0), nyrs, ndays/dt) # R is the resource level through the growing season (each yr)
+Bt<-matrix(rep(0), nrow=nsp,ncol=1) #within season holder- temporary
+B <- list(NULL)#array(rep(0), dim=c(nyrs,nsp,tsteps)) # where B is an array with yr (nyrs), spp biomass
 # through growing season (ndays)
 N <- matrix(rep(0), nyrs, nsp) # number of seeds by yr and spp
 N[1,] <- N0  #initialize
@@ -97,8 +99,9 @@ Bfin <- matrix(rep(0),nyrs,nsp) # biomass at end of year y
 ## set-up for different coexistence mechanisms
 ##
 tauIstar <- matrix(rep(0),nyrs,nsp)
-RnoC <- array(rep(0), dim=c(nyrs,nsp,tsteps)) # R in noComp sim, must have different R for each sp
-BnoC <- array(rep(0), dim=c(nyrs,nsp,tsteps)) # B in noComp sim
+RnoC <- list(NULL)  # R in noComp sim, will be a list with each year containing a list for each sp
+#RnoCt <- list(NULL)  #temp list containing a R in noComp sim, must have different R for each sp
+BnoC <- list(NULL)#array(rep(0), dim=c(nyrs,nsp,tsteps)) # B in noComp sim
 BnoCfin <- matrix(rep(0),nyrs,nsp) # biomass at end of year y
 E <- matrix(rep(0),nyrs,nsp)
 C <- matrix(rep(0),nyrs,nsp)
@@ -112,41 +115,45 @@ C <- matrix(rep(0),nyrs,nsp)
 for (y in c(1:(nyrs-1))){
   g <- gmax*exp(-h*(tauP[y]-tauI)^2)  #germination fraction in year y
   g <- g*(g>ext)
-  R[y,1] <- R0[y]
-  B[y,,1] <- b*g*N[y,]
+  Rt <- R0[y]
   k<-1
-  while (R[y,k]>min(Rstar)){
+  Bt<-matrix(rep(0), nrow=nsp,ncol=1)
+  Bt[,k] <- b*g*N[y,]
+  while (Rt[k]>min(Rstar)){
     #with competition from the whole community
-    f <- (a*R[y,k]^theta)/(1+a*u*R[y,k]^theta)
-    B[y,,k+1] <- B[y,,k] + (c*f-m) * B[y,,k] * dt
-    R[y,k+1] <- R[y, k] -dt*(t(B[y,,k]) %*% f + eps*R[y,k])
-    R[y,k+1] <- R[y,k+1]*(R[y,k+1]>0)
+    f <- (a*Rt[k]^theta)/(1+a*u*Rt[k]^theta)
+    Bt <- abind(Bt,Bt[,k] + dt*(c*f-m)*Bt[,k])
+    Rt[k+1] <- Rt[k] -dt*(t(Bt[,k]) %*% f + eps*Rt[k])
+    Rt[k+1] <- Rt[k+1]*(Rt[k+1]>0)
     k <- k+1
   }
-  Bfin[y,] <- apply(B[y,,], 1, max)  #final biomass
+  Bfin[y,] <- apply(Bt[,], 1, max)  #final biomass
+  for (i in c(1:nsp)){B[[paste(y)]][[paste("B",i,sep="")]]<-Bt[i,]}
+  R[[y]]<-Rt
+  
   #rcrt[y,] <- s*(N[y,]*(1-g)+phi*Bfin[y,])
   N[y+1,] <- s*(N[y,]*(1-g))+phi*Bfin[y,]  #convert biomass to seeds and overwinter
   N[y+1,] <- N[y+1,]*(N[y+1,]>ext)  #if density does not exceed ext, set to zero
-  
-  #without competition from other species  (need a separate loop bc of end condition)  
-  for (s in c(1:nsp)){
-    j<-1
-    RnoC[y,s,j] <- R0[y]
-    BnoC[y,s,j] <- b[s]*g[s]*N[y,s]
-    if (BnoC[y,s,j] > 0) {  #don't go through the loop if species s didn't  germinate this year
-      while (RnoC[y,s,j]>Rstar[s]) {  #run until species s crosses its the Rstar threshold
-        f <- (a[s]*RnoC[y,s,j]^theta[s])/(1+a[s]*u[s]*RnoC[y,s,j]^theta[s])
-        BnoC[y,s,j+1] <- BnoC[y,s,j] + dt * (c[s]*f-m[s]) * BnoC[y,s,j]
-        RnoC[y,s,j+1] <- RnoC[y,s,j] - dt * (BnoC[y,s,j]*f + eps*RnoC[y,s,j])
-        RnoC[y,s,j+1] <- RnoC[y,s,j+1]*(RnoC[y,s,j+1]>0)    
-        j <- j+1
-      }
-    }
-    BnoCfin[y,s] <- max(BnoC[y,s,])  #final biomass
-  }
+ 
+#   #without competition from other species  (need a separate loop bc of end condition)  
+#   for (s in c(1:nsp)){
+#     j<-1
+#     RnoC[y,s,j] <- R0[y]
+#     BnoC[y,s,j] <- b[s]*g[s]*N[y,s]
+#     if (BnoC[y,s,j] > 0) {  #don't go through the loop if species s didn't  germinate this year
+#       while (RnoC[y,s,j]>Rstar[s]) {  #run until species s crosses its the Rstar threshold
+#         f <- (a[s]*RnoC[y,s,j]^theta[s])/(1+a[s]*u[s]*RnoC[y,s,j]^theta[s])
+#         BnoC[y,s,j+1] <- BnoC[y,s,j] + dt * (c[s]*f-m[s]) * BnoC[y,s,j]
+#         RnoC[y,s,j+1] <- RnoC[y,s,j] - dt * (BnoC[y,s,j]*f + eps*RnoC[y,s,j])
+#         RnoC[y,s,j+1] <- RnoC[y,s,j+1]*(RnoC[y,s,j+1]>0)    
+#         j <- j+1
+#       }
+#     }
+#     BnoCfin[y,s] <- max(BnoC[y,s,])  #final biomass
+#  }
 
   #Calculate E and C
-  
+
 }
 
 
@@ -167,11 +174,14 @@ for (i in 1:nsp) {
 }
 
 dev.new(width=14, height=10)
-range=c(1:(tsteps/3))
-plot(R[1,range]~range, ylim=c(min(R), max(R)),
+#range=c(1:(tsteps/3))
+maxR <- max(unlist(lapply(R,max)))
+minR <- min(unlist(lapply(R,min)))
+maxtR <- max(unlist(lapply(R,length)))
+plot(R[[1]]~c(1:length(R[[1]])), ylim=c(minR, maxR),xlim=c(0,maxtR),
      xlab="step, step, step", ylab="Resource", type="n")
-for (i in 2:nyrs) {
-  lines(R[i,range]~range, col=colerz[i], lty=lspbyrs, lwd=lwd)
+for (i in 1:(nyrs-1)) {
+  lines(R[[i]]~c(1:length(R[[i]])), lty=lspbyrs, lwd=lwd)
 }
 
 
