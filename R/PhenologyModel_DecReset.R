@@ -15,15 +15,16 @@ library(ggplot2)
 nsp <- 20    # number of spp
 nyrs1 <- 100  # number of yrs to run first stationary period
 ndays <- 1  # number of days in a growing season
-dt <- 0.001 # within yr timestep
+dt <- 0.0005 # within yr timestep for competing species
+dtnc <- 0.01 #within yr timestep when no comp & R declines much more slowly
 tsteps <- ndays/dt
 # params for adding on a nonstationary run after stationary run
 nyrs2 <- 50 # number of yrs for second run (nonstationary for now)
 nyrs <- nyrs1+nyrs2 # ALERT! change below once not doing stationary+nonstationary run
 y <- c(1:nyrs)
 
-## Extinction Threshold:  1 seed per hectare (assuming that initial density is 10 seeds per meter)
-ext <- 1/10000
+## Extinction Threshold:  .01 seed per hectare (assuming that initial density is 10 seeds per meter)
+ext <- 1e-6
 
 # set up graphics parameters
 colerz <- topo.colors(nsp)
@@ -39,104 +40,118 @@ lwd=2
 # (2) add in resource stuff to withinyrs
 # (3) decide on list for each run, versus some other format
 
-modelruns <- list() # place to store output of runs
-nruns <- 2 # number of model runs to do
-for (j in c(1:nruns)){ # assuming, we will vary species characteristics between yrs ... 
-  
-  ##
-  ## species characteristics
-  ##
-  b <-  rep(1,nsp)          # biomass of seedling
-  s <-  rep(0.8,nsp)      # seedbank survival overwinter
-  a <-  rep(20,nsp)        # slope of species uptake rate with increasing R
-  u <-  rep(1,nsp)          # inverse of the max uptake rate
-  c <-  rep(12,nsp)        # conversion of resource to biomass
-  m <-  rep(0.05,nsp)     # mortality
-  gmax <-  rep(0.5,nsp)     # max germination fraction
-  h <-  rep(100,nsp)             # max rate of germination decrease following pulse
-  phi <- rep(0.05,nsp)     # conversion of end-of-season plant biomass to seeds
-  tauI <- runif(nsp,0.1, 0.9)    # time of max germ for sp i
-  # set up tracking (to do for Lizzie, there should be code under here someday)
-  
-  
-  theta <- rep(1,nsp)         # shape of species i uptake curve, remember it should be an integer!
-  N0 <- rep(10,nsp)          # initial number of seeds (per meter square?)
-  Rstar <- (m/(a*(c-m*u)))^(1/theta)
-  
-  crossyrsvars <- as.data.frame(cbind(b, s, a, u, c, m, gmax, h, phi, theta, tauI, Rstar))
-  
-  ##
-  ## time-varying env variables
-  ##
-  mu <- log(2)  #mean of resource distribution
-  sigma <- 0.2  #sd of resource distribution
-  R0 <- rlnorm(nyrs, mu, sigma) # intial R in a season
-  eps <- 1              # evaporative stress
-  #tauP <- 0.3           # timing of pulse
-  p <- 2  #first parameter for beta distribution of tau
-  q <- 2  #second parameter for beta distribution of tau
-  tauPs <- rbeta(nyrs1, p, q) # change once not doing stationary+nonstationary run
-  
-  # nonstationary tauP, change once not doing stationary+nonstationary run
-  qns <- seq(2, 20, length.out=nyrs2)
-  tauPns <- rbeta(nyrs2, p, qns) # yes, it takes a vector! Yay!
-  plot(tauPns~c(1:50))
-  tauP <- c(tauPs, tauPns)
-  
-  ##
-  ## Within-growing season dynamics set-up
-  ##
-  R <- matrix(rep(0), nyrs, ndays/dt) # R is the resource level through the growing season (each yr)
-  B <- array(rep(0), dim=c(nyrs,nsp,tsteps)) # where B is an array with yr (nyrs), spp biomass
-  # through growing season (ndays)
-  N <- matrix(rep(0), nyrs, nsp) # number of seeds by yr and spp
-  N[1,] <- N0  #initialize
-  Bfin <- matrix(rep(0),nyrs,nsp) # biomass at end of year y
-  
-  ##
-  ## set-up for different coexistence mechanisms
-  ##
-  tauIstar <- matrix(rep(0),nyrs,nsp)
-  Bnocomp <- matrix(rep(0),nyrs,nsp) # B without competition at end of year y
-  E <- matrix(rep(0),nyrs,nsp)
-  C <- matrix(rep(0),nyrs,nsp)
-  
-  ##
-  ## change to mapply someday?
-  ## for now, a loop
-  ## Better to use ODE solver within each year?
-  ##
-  
-  for (y in c(1:(nyrs-1))){
-    g <- gmax*exp(-h*(tauP[y]-tauI)^2)  #germination fraction in year y
-    k<-1
-    R[y,k] <- R0[y]
-    B[y,,k] <- b*g*N[y,]
-    while (R[y,k]>min(Rstar)){
-      f <- (a*R[y,k]^theta)/(1+a*u*R[y,k]^theta)
-      B[y,,k+1] <- B[y,,k]+(c*f-m)*B[y,,k]*dt
-      R[y,k+1] <- R[y, k] -dt*(t(B[y,,k]) %*% f + eps*R[y,k])
-      R[y,k+1] <- R[y,k+1]*(R[y,k+1]>0)
-      k <- k+1
-    }
-    Bfin[y,] <- apply(B[y,,], 1, max)  #final biomass
-    # add some internal calculations to make other calculations easier
-    tauIstar[y,] <- (log(R0[y])/eps)-(1/(theta*eps))*log(m/(a*c-a*u*m))
-    Bnocomp[y,] <- B[y,,1]*((1+a*u*R0[y]^theta)/(1+a*u*R0[y]^theta*exp(-eps*tauIstar[y,]*theta)))*
-      exp((-c/(u*eps*theta))-m*tauIstar[y,])
-    # E[y,] <- log(s*g*(phi*Bnocomp[y,]-1))
-    # C[y,] <- log((phi*Bnocomp[y,]-1)/(phi*Bfin[y,]-1))
-    N[y+1,] <- s*(N[y,]*(1-g)+phi*Bfin[y,])  #convert biomass to seeds and overwinter
-    N[y+1,] <- N[y+1,]*(N[y+1,]>ext)  #if density does not exceed ext, set to zero
+# modelruns <- list() # place to store output of runs
+# nruns <- 2 # number of model runs to do
+# for (j in c(1:nruns)){ # assuming, we will vary species characteristics between yrs ... 
+
+##
+## species characteristics
+##
+b <-  rep(1,nsp)          # biomass of seedling
+s <-  rep(0.8,nsp)      # seedbank survival overwinter
+a <-  rep(20,nsp)        # slope of species uptake rate with increasing R
+u <-  rep(1,nsp)          # inverse of the max uptake rate
+c <-  rep(12,nsp)        # conversion of resource to biomass
+m <-  rep(0.05,nsp)     # mortality
+gmax <-  rep(0.5,nsp)     # max germination fraction
+h <-  rep(100,nsp)             # max rate of germination decrease following pulse
+phi <- rep(0.05,nsp)     # conversion of end-of-season plant biomass to seeds
+tauI <- runif(nsp,0.1, 0.9)    # time of max germ for sp i
+# set up tracking (to do for Lizzie, there should be code under here someday)
+
+
+theta <- rep(1,nsp)         # shape of species i uptake curve, remember it should be an integer!
+N0 <- rep(10,nsp)          # initial number of seeds (per meter square?)
+Rstar <- (m/(a*(c-m*u)))^(1/theta)
+
+crossyrsvars <- as.data.frame(cbind(b, s, a, u, c, m, gmax, h, phi, theta, tauI, Rstar))
+
+##
+## time-varying env variables
+##
+mu <- log(2)  #mean of resource distribution
+sigma <- 0.2  #sd of resource distribution
+R0 <- rlnorm(nyrs, mu, sigma) # intial R in a season
+eps <- 1              # evaporative stress
+#tauP <- 0.3           # timing of pulse
+p <- 2  #first parameter for beta distribution of tau
+q <- 2  #second parameter for beta distribution of tau
+tauPs <- rbeta(nyrs1, p, q) # change once not doing stationary+nonstationary run
+
+# nonstationary tauP, change once not doing stationary+nonstationary run
+qns <- seq(2, 20, length.out=nyrs2)
+tauPns <- rbeta(nyrs2, p, qns) # yes, it takes a vector! Yay!
+plot(tauPns~c(1:50))
+tauP <- c(tauPs, tauPns)
+
+##
+## Within-growing season dynamics set-up
+##
+R <- matrix(rep(0), nyrs, ndays/dt) # R is the resource level through the growing season (each yr)
+B <- array(rep(0), dim=c(nyrs,nsp,tsteps)) # where B is an array with yr (nyrs), spp biomass
+# through growing season (ndays)
+N <- matrix(rep(0), nyrs, nsp) # number of seeds by yr and spp
+N[1,] <- N0  #initialize
+Bfin <- matrix(rep(0),nyrs,nsp) # biomass at end of year y
+
+##
+## set-up for different coexistence mechanisms
+##
+tauIstar <- matrix(rep(0),nyrs,nsp)
+RnoC <- matrix(rep(0), nyrs, ndays/dt) # R in noComp sim
+BnoC <- array(rep(0), dim=c(nyrs,nsp,tsteps)) # B in noComp sim
+BnoCfin <- matrix(rep(0),nyrs,nsp) # biomass at end of year y
+E <- matrix(rep(0),nyrs,nsp)
+C <- matrix(rep(0),nyrs,nsp)
+
+##
+## change to mapply someday?
+## for now, a loop
+## Better to use ODE solver within each year?
+##
+
+for (y in c(1:(nyrs-1))){
+  g <- gmax*exp(-h*(tauP[y]-tauI)^2)  #germination fraction in year y
+  g <- g*(g>ext)
+  R[y,1] <- R0[y]
+  B[y,,1] <- b*g*N[y,]
+  k<-1
+  while (R[y,k]>min(Rstar)){
+    #with competition
+    f <- (a*R[y,k]^theta)/(1+a*u*R[y,k]^theta)
+    B[y,,k+1] <- B[y,,k] + (c*f-m) * B[y,,k] * dt
+    R[y,k+1] <- R[y, k] -dt*(t(B[y,,k]) %*% f + eps*R[y,k])
+    R[y,k+1] <- R[y,k+1]*(R[y,k+1]>0)
+    k <- k+1
   }
+  Bfin[y,] <- apply(B[y,,], 1, max)  #final biomass
+  #rcrt[y,] <- s*(N[y,]*(1-g)+phi*Bfin[y,])
+  N[y+1,] <- s*(N[y,]*(1-g))+phi*Bfin[y,]  #convert biomass to seeds and overwinter
+  N[y+1,] <- N[y+1,]*(N[y+1,]>ext)  #if density does not exceed ext, set to zero
   
+  #without competition  (need a separate loop bc of end condition)  
+  RnoC[y,1] <- R0[y]
+  BnoC[y,,1] <- b*g*N[y,]
+  j<-1
+  while (RnoC[y,j]>min(Rstar)){
+    f <- (a*RnoC[y,j]^theta)/(1+a*u*RnoC[y,j]^theta)
+    BnoC[y,,j+1] <- BnoC[y,,j]+(c*f-m)*BnoC[y,,j]*dtnc
+    RnoC[y,j+1] <- RnoC[y, j] -dtnc*(eps*RnoC[y,j])
+    RnoC[y,j+1] <- RnoC[y,j+1]*(RnoC[y,j+1]>0)    
+    j <- j+1
+  }
+  BnoCfin[y,] <- apply(BnoC[y,,], 1, max)  #final biomass
+  #Calculate E and C
   
-  modelruns[[j]] <- list(crossyrsvars, Bfin, E)
-  # could also make each run a multi-part dataframe with common names
-  # so something like:
-  # modelruns[[paste("crossyrs", j, sep="")]] <- crossyrsvars
-  # modelruns[[paste("withinyrs", j, sep="")]] <- Bfin
 }
+
+
+#   modelruns[[j]] <- list(crossyrsvars, Bfin, E)
+#   # could also make each run a multi-part dataframe with common names
+#   # so something like:
+#   # modelruns[[paste("crossyrs", j, sep="")]] <- crossyrsvars
+#   # modelruns[[paste("withinyrs", j, sep="")]] <- Bfin
+# }
 
 
 # between years plot
