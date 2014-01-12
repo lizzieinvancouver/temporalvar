@@ -27,7 +27,7 @@ set.seed(2)
 nonsta = 0  #flag for stationary (0) vs nonstationary (=num yrs nonstationary)
 
 #Number of species to start?
-nsp = 5  #when nsp=2, tauI is assigned known values from chesson 2004
+nsp = 20  #when nsp=2, tauI is assigned known values from chesson 2004
 
 source("getRunParms.R") #define runtime parameters
 
@@ -110,60 +110,55 @@ source("plotBinSeason.R")  #plot within season dynamics of biomass & R for a sub
 
 source("plotBwCnoC.R")  #plot within season biomass resource dynamics w and wo competition
 
-
+source("plotBinSeason_Lizzie.R")
 ###Megan stopped tweaking plots here, but they will need to be adjusted for new within-year output structure from ode
 
 # within years plots
 # tweaked a little to make biomass differences among years clearer
-dev.new(width=14, height=10)
-par(mfrow=c(3,3))
-par(mar=c(5, 4, 4, 8) + 0.1)
-selectyrs <- seq(1, nyrs, by=floor(nyrs/8))
-yrlength <- ndays/dt
-for (yr in seq_along(selectyrs)){
-    allsp <- B[selectyrs[yr], ,]
-    plot(B[selectyrs[yr], 1,]~c(1:yrlength), ylim=c(min(allsp), max(B)), 
-        xlab="step, step, step",  ylab="Abundance", type="n",
-        main=paste("year: ", selectyrs[yr], sep=""))
-    for (sp in c(1:nsp)){
-        lines(B[selectyrs[yr], sp ,]~c(1:yrlength), ylim=c(min(allsp), max(B)),
-            col=colerz[sp])
-    }
-    par(new=TRUE)
-    plot(R[selectyrs[yr],]~c(1:yrlength), axes=FALSE, xlab="", ylab="",
-        ylim=c(min(R[selectyrs[yr],]), max(R[selectyrs[yr],])), type="l",
-        col=rcol, lty=lresbyrs, lwd=lwd)
-    raxis <- seq(0, max(R[selectyrs[yr],]), by=max(R[selectyrs[yr],])/10)
-    axis(4, at=raxis, labels=round(raxis, digits=2))
-    mtext("Resource", side=4, line=3, cex=0.75)
-}
+# dev.new(width=14, height=10)
+# par(mfrow=c(3,3))
+# par(mar=c(5, 4, 4, 8) + 0.1)
+# selectyrs <- seq(1, nyrs, by=floor(nyrs/8))
+# yrlength <- ndays/dt
+# for (yr in seq_along(selectyrs)){
+#     allsp <- B[selectyrs[yr], ,]
+#     plot(B[selectyrs[yr], 1,]~c(1:yrlength), ylim=c(min(allsp), max(B)), 
+#         xlab="step, step, step",  ylab="Abundance", type="n",
+#         main=paste("year: ", selectyrs[yr], sep=""))
+#     for (sp in c(1:nsp)){
+#         lines(B[selectyrs[yr], sp ,]~c(1:yrlength), ylim=c(min(allsp), max(B)),
+#             col=colerz[sp])
+#     }
+#     par(new=TRUE)
+#     plot(R[selectyrs[yr],]~c(1:yrlength), axes=FALSE, xlab="", ylab="",
+#         ylim=c(min(R[selectyrs[yr],]), max(R[selectyrs[yr],])), type="l",
+#         col=rcol, lty=lresbyrs, lwd=lwd)
+#     raxis <- seq(0, max(R[selectyrs[yr],]), by=max(R[selectyrs[yr],])/10)
+#     axis(4, at=raxis, labels=round(raxis, digits=2))
+#     mtext("Resource", side=4, line=3, cex=0.75)
+# }
 
-
-
-# two options for overlay histograms
-par(mfrow=c(1,1))
-
-dev.new(width=5, height=6)
-# (1) using the base package (I hate this, let's rm it)
-maxhist <- max(tauI, tauP)*1.1
-tauIfin <- tauI[which(Bfin[max(y),]>0)]
-tauIlosers <- tauI[which(Bfin[max(y),]<=0)]
-hist(tauIfin, col=rgb(1, 0, 0, 0.5), xlim=c(0, maxhist), ylim=c(0, nsp),
-    main=paste(sum(Bfin[max(y),]>0), "out of", nsp, "coexisted", sep=" "), xlab="taus")
-hist(tauP, col=rgb(0, 0, 1, 0.5), add=TRUE)
-hist(tauIlosers, col=rgb(0, 0, 1, 0.5), add=TRUE)
 
 dev.new(width=7, height=6)
+
 # (2) using ggplot, which really is good for this sort of thing
 tau.df <- data.frame(coexisted=Bfin[max(y),]>0, tauI=tauI)
 tau.df$coexisted[tau.df$coexisted==TRUE] <- "coexisted"
 tau.df$coexisted[tau.df$coexisted==FALSE] <- "doomed"
 tauP.df <- data.frame(coexisted=rep("tauP"), tauP=tauP)
 
-ggplot(tau.df, aes(tauI, fill = coexisted)) + geom_histogram(alpha=0.5) +
-    geom_density(data=tauP.df[1:100,], aes(tauP),  alpha = 0.2) +
-    geom_density(data=tauP.df[101:150,], aes(tauP),  alpha = 0.4) +
+if (nonsta>0){
+  ggplot(tau.df, aes(tauI, fill = coexisted)) + geom_histogram(alpha=0.5) +
+    geom_density(data=tauP.df[1:(nyrs-nonsta),], aes(tauP),  alpha = 0.2) +
+    geom_density(data=tauP.df[(nonsta+1):nyrs,], aes(tauP),  alpha = 0.4) +
     labs(title=paste(sum(Bfin[max(y),]>0), "out of", nsp, "coexisted", sep=" "))
+}else {
+  ggplot(tau.df, aes(tauI, fill = coexisted)) + geom_histogram(alpha=0.5) +
+    geom_density(data=tauP.df[1:nyrs,], aes(tauP),  alpha = 0.2) +
+    labs(title=paste(sum(Bfin[max(y),]>0), "out of", nsp, "coexisted", sep=" "))
+}
+
+
 
 
 ## notes for lizzie (by lizzie):
