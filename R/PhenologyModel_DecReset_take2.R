@@ -19,7 +19,7 @@ dt <- 0.0005 # within yr timestep
 dtnc <- 10*dt
 tsteps <- ndays/dt
 # params for adding on a nonstationary run after stationary run
-nyrs2 <- 50 # number of yrs for second run (nonstationary for now)
+nyrs2 <- 100 # number of yrs for second run (nonstationary for now)
 nyrs <- nyrs1+nyrs2 # ALERT! change below once not doing stationary+nonstationary run
 y <- c(1:nyrs)
 
@@ -102,15 +102,15 @@ for (j in c(1:nruns)){ # assuming, we will vary species characteristics between 
   BnoCfin <- matrix(rep(0),nyrs,nsp) # biomass at end of year y
   tauIstar <- matrix(rep(0),nyrs,nsp)
 #  Bnocomp <- matrix(rep(0),nyrs,nsp) # B without competition at end of year y
-  E <- matrix(rep(0),nyrs,nsp)
-  C <- matrix(rep(0),nyrs,nsp)
+  E <- matrix(rep(0),nyrs-1,nsp)
+  C <- matrix(rep(0),nyrs-1,nsp)
   
   ##
   ## change to mapply someday?
   ## for now, a loop
   ## Better to use ODE solver within each year?
   ##
-  
+  #COMPETITION MODEL
   for (y in c(1:(nyrs-1))){
     g <- gmax*exp(-h*(tauP[y]-tauI)^2)  #germination fraction in year y
     k<-1
@@ -124,34 +124,70 @@ for (j in c(1:nruns)){ # assuming, we will vary species characteristics between 
       k <- k+1
     }
     Bfin[y,] <- apply(B[y,,], 1, max)  #final biomass
-    # add some internal calculations to make other calculations easier
-    tauIstar[y,] <- (log(R0[y])/eps)-(1/(theta*eps))*log(m/(a*c-a*u*m))
-    Bnocomp[y,] <- B[y,,1]*((1+a*u*R0[y]^theta)/(1+a*u*R0[y]^theta*exp(-eps*tauIstar[y,]*theta)))*
-      exp((-c/(u*eps*theta))-m*tauIstar[y,])
-    # E[y,] <- log(s*g*(phi*Bnocomp[y,]-1))
-    # C[y,] <- log((phi*Bnocomp[y,]-1)/(phi*Bfin[y,]-1))
     N[y+1,] <- s*(N[y,]*(1-g)+phi*Bfin[y,])  #convert biomass to seeds and overwinter
     N[y+1,] <- N[y+1,]*(N[y+1,]>ext)  #if density does not exceed ext, set to zero
   }
  
-  for (y in c(1:(nyrs-1))){
-    for (s in c(1:nsp)){
-      g <- gmax[s]*exp(-h[s]*(tauP[y]-tauI[s])^2)  #germination fraction in year y
-      k<-1
-      RnoC[y,s,k] <- R0[y]
-      BnoC[y,s,k] <- b[s]*g*N[y,s]
-      while (RnoC[y,s,k]>min(Rstar[s])){
-        f <- (a[s]*RnoC[y,s,k]^theta[s])/(1+a[s]*u[s]*RnoC[y,s,k]^theta[s])
-        BnoC[y,s,k+1] <- BnoC[y,s,k]+(c[s]*f-m[s])*BnoC[y,s,k]*dtnc
-        RnoC[y,s,k+1] <- RnoC[y,s,k] -dtnc*(t(BnoC[y,s,k]) %*% f + eps*RnoC[y,s,k])
-        RnoC[y,s,k+1] <- RnoC[y,s,k+1]*(RnoC[y,s,k+1]>0)
-        k <- k+1
-      }
-
-    BnoCfin[y,] <- max(B[y,s,])  #max biomass
-    }
- }
-  
+#   #NO INTERSPECIFIC COMPETITION 
+#   #note that bc spp are all currently the same, all outcomes are equal - but should this be true since each species has a different initial condition bc of germination?
+#   for (y in c(1:(nyrs-1))){
+#     for (q in c(1:nsp)){
+#       g <- gmax[q]*exp(-h[q]*(tauP[y]-tauI[q])^2)  #germination fraction in year y
+#       k<-1
+#       RnoC[y,q,k] <- R0[y]
+#       BnoC[y,q,k] <- b[q]*g*N[y,q]
+#       while (RnoC[y,q,k]>min(Rstar[q])){
+#         f <- (a[q]*RnoC[y,q,k]^theta[q])/(1+a[q]*u[q]*RnoC[y,q,k]^theta[q])
+#         BnoC[y,q,k+1] <- BnoC[y,q,k]+(c[q]*f-m[q])*BnoC[y,q,k]*dtnc
+#         RnoC[y,q,k+1] <- RnoC[y,q,k] -dtnc*(t(BnoC[y,q,k]) %*% f + eps*RnoC[y,q,k])
+#         RnoC[y,q,k+1] <- RnoC[y,q,k+1]*(RnoC[y,q,k+1]>0)
+#         k <- k+1
+#       }
+#       BnoCfin[y,] <- max(BnoC[y,q,])  #max biomass
+#     }
+#  }
+#   
+  #   #Calculate E and C for each species and y  #NOTE: igonoring the per capita Bfin prob
+#   for (y in (1:nyrs-1)){
+#     g <- gmax*exp(-h*(tauP[y]-tauI)^2)
+#     #pcBnoCfin <- BnoCfin/(g*phi*N[y,])  #per capita BnoCfin
+#     #pcBnoCfin <- pcBnoCfin*(is.finite(pcBnoCfin))  #make infinities 0
+#     #print(paste("y=",y," ",sum(is.infinite(pcBnoCfin))))
+#     #pcBfin <- Bfin/(g*phi*N[y,])        #per capita Bfin
+#     #E[y,] <- g*(BnoCfin[y,] - s)
+#     #C[y,] <- E[y,]/(g*(Bfin[y,] - s))
+#     E[y,] <- log(g*phi*(BnoCfin[y,])+1)
+#     C[y,] <- log(Bfin[y,]/BnoCfin[y,]+1)
+#   }
+#   
+#   #Calculate Covariance for sp i as invader
+#   gmean_sta <-array(rep(0),nsp)
+#   gmean_nonsta <-array(rep(0),nsp)
+#   covECi_sta <-array(rep(0),nsp)
+#   covECi_nonsta <-array(rep(0),nsp)
+#   par(mfrow=c(4,5))
+#   for (q in c(1:nsp)){
+#     gmean_sta[q] <- mean(gmax[q]*exp(-h[q]*(tauP[1:nyrs1]-tauI[q])^2))
+#     #covar of Ci and Ei for each species i as an invader
+#     covECi_sta[q] <- cov(E[1:nyrs1,q],C[1:nyrs1,q])  
+#     plot(E[1:nyrs1,q],C[1:nyrs1,q])
+#   }
+#   par(mfrow=c(4,5))
+#   for (q in c(1:nsp)){
+#     gmean_nonsta[q] <- mean(gmax[q]*exp(-h[q]*(tauP[(nyrs1):(nyrs-1)]-tauI[q])^2))
+#     #covar of Ci and Ei for each species i as an
+#     index <- !(is.na(C[(nyrs1):(nyrs-1),q]))
+#     covECi_nonsta[q] <- cov(E[index,q],C[index,q])  
+#     plot(E[(nyrs1):(nyrs-1),q],C[(nyrs1):(nyrs-1),q])
+#   }
+#   
+#   
+#   #Calculate storage effect:  Delta I/di
+#   StEff_sta <- mean(s*(1-gmean_sta)*covECi_sta) - s*(1-gmean_sta)*covECi_sta
+#   StEff_nonsta <- mean(s*(1-gmean_nonsta)*covECi_nonsta) - s*(1-gmean_nonsta)*covECi_nonsta
+#   
+#   mui <- apply(E,FUN=mean,MARGIN=2)-log(s)
+#   EquilMech <- mui - mean(mui) 
   
   modelruns[[j]] <- list(crossyrsvars, Bfin, E)
   # could also make each run a multi-part dataframe with common names
