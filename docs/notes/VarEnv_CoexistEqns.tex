@@ -34,11 +34,24 @@ s_{i} =& x+i
 \noindent Chesson 2003, Eqn 1
 \begin{align}
 N_{j}(t+1) = (1-d_{j}) N_{j} + R_{t}N_{j}
-d_{j} is \emph{per capita} death of persistent stage (for us, seeds)\\
-R_{j} is \emph{per capita} number of new recruits
+\end{align}
+where 
+\\d_{j} is \emph{per capita} death of persistent stage (for us, seeds)
+\\and
+\\R_{j} is \emph{per capita} number of new recruits
 
-\end{align} 
+This is the general form of the model.  When translating our model (from Chesson 2004) into these terms, we must decide how to measure survivorship (i.e., \((1-d_{j})).  It can be either \(s_{j}) or \(s_{j}(1-g_{j}(t)).
+\\The first case is cleaner -- each species has a characteristic survivorship and all the germination dynamics are in the recruitment function.  But survivorship is used later to scale for generation time.  In that case, what is the appropriate generation time?  
 
+The equivalent in our model is 
+\begin{align}
+N_{j}(t+1) = s_{j}N_{j}(t)(1-g_{j}(t)) + s_{j}N_{j}(t)g_{j}(t)\phi_{j}B_{j}(t+\delta)
+N_{j}(t+1) = \text{survival of persistent stage and loss to germination} + \text{recruitment to persistent stage from germinants}
+=s_{j}N_{j}(t) + N_{j} + R_{t}N_{j}
+= \text{survivorship of persistent stage} + \text{recruitment to persistent stage}
+\\ \text{where}
+R_{t} = g_{j}(t)s_{j}N_{j}(t)[\phi B_{j}(t+\delta)-1]
+\\ R_{t}\text is now germination, growth, conversion back to seeds, and overwinter survival 
 
 Equivalents in our model (from Chesson 2004)
 \end{document}
