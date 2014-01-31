@@ -39,14 +39,14 @@ where
 \\d_{j} is \emph{per capita} death of persistent stage (for us, seeds)
 \\and
 \\R_{j} is \emph{per capita} number of new recruits
-
-This is the general form of the model.  When translating our model (from Chesson 2004) into these terms, we must decide how to measure survivorship (i.e., \((1-d_{j})).  It can be either \(s_{j}) or \(s_{j}(1-g_{j}(t)).
-\\The first case is cleaner -- each species has a characteristic survivorship and all the germination dynamics are in the recruitment function.  But survivorship is used later to scale for generation time.  In that case, what is the appropriate generation time?  
-
-The equivalent in our model is 
+The equivalent in our model (from Chesson 2004) is 
 \begin{align}
 N_{j}(t+1) = s_{j}N_{j}(t)(1-g_{j}(t)) + s_{j}N_{j}(t)g_{j}(t)\phi_{j}B_{j}(t+\delta)
 N_{j}(t+1) = \text{survival of persistent stage and loss to germination} + \text{recruitment to persistent stage from germinants}
+\end{align}
+When translating our model into these terms, we must decide how to measure survivorship (i.e., \((1-d_{j})).  It can be either \(s_{j}) or \(s_{j}(1-g_{j}(t)).
+\\The first case is cleaner -- each species has a characteristic survivorship and all the germination dynamics are in the recruitment function.  But survivorship is later used to scale by average lifespan.  In that case, what is the appropriate generation time?  
+
 =s_{j}N_{j}(t) + N_{j} + R_{t}N_{j}
 = \text{survivorship of persistent stage} + \text{recruitment to persistent stage}
 \\ \text{where}
