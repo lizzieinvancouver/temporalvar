@@ -39,27 +39,25 @@ matplot(outResComp2[,-1], type = "l", xlab = "time", ylab = "population")
 
 
 #try N consumers, 1 resource
-nsp = 20
-ndays=3
-dt=.0001
-eps=1
+nonsta=0
+source("getRunParms.R")
+source("getEnvt.R")
 source("getSpecies.R")
 source("ResCompN.R")
-# ResCompN <- function(Time,State,Pars) {
-#   with(as.list(c(State,Pars)),{
-#     dR  = -eps*R - sum(B*a*R^theta/(1+a*u*R^theta))
-#     dB = (c*a*R^theta/(1+a*u*R^theta)-m)*B
-#     return(list(c(dR,dB)))
-#   })
-# }
-#Pars <- c(c=c,a=a,u=u,m=m,theta=theta,eps=eps)
+
+#Create a root function that will stop the integration when R changes less than 
+rootfun<-function(Time, State, Pars) {
+  dstate <- unlist(ResCompN(Time, State, Pars))
+  hh <- abs(dstate[1]) - 1e-30
+  return(hh)
+}
 R0=20
 B0=c(rep(0,10), seq(5,10,length.out=10))
 B=B0
 State <- c(R=R0,B=B)
-#Time <- seq(0,3,by=.1)
-outResCompN <- as.data.frame(ode(func = ResCompN, y = State, parms = Pars, times = Time))
-matplot(Time, outResCompN[,-1],type = "l", xlab = "time", ylab = "population")
+Time <- seq(0,3,by=.1)
+outResCompN <- as.data.frame(lsodar(func = ResCompN, y = State, parms = Pars, times = Time, rootfun=rootfun))
+matplot(Time[1:length(outResCompN[,1])],outResCompN[,-1],type = "l", xlab = "time", ylab = "population")
 
 #No competition model
 NoCompN <- function(Time,State,Pars) {
