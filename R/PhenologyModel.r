@@ -4,6 +4,7 @@
 ## VarEnvironments & Coexistence ##
 
 # safety feature(s)
+setwd(getwd())
 options(stringsAsFactors=FALSE)
 
 # packages
@@ -29,13 +30,13 @@ nonsta = 0  #flag for stationary (0) vs nonstationary (=num yrs nonstationary)
 #Number of species to start?
 nsp = 20  #when nsp=2, tauI is assigned known values from chesson 2004
 
-source("getRunParms.R") #define runtime parameters
+source("./sourcefiles/getRunParms.R") #define runtime parameters
 
-source("getGraphParms.R")  #define graphics parameters
+source("./sourcefiles/getGraphParms.R")  #define graphics parameters
 
-source("getEnvt.R")  #get constant and time-varying envt parms
+source("./sourcefiles/getEnvt.R")  #get constant and time-varying envt parms
 
-source("getSpecies.R")  #get species characteristics and Rstar
+source("./sourcefiles/getSpecies.R")  #get species characteristics and Rstar
 
 #Define arrays
 #interannual dynamics set-up (R0 is in getEnvt.R)
@@ -49,8 +50,8 @@ rcrt0 <- matrix(rep(0),nyrs,nsp) # recruitment WO competition in year y
 Bfin <- matrix(rep(0),nyrs,nsp) # biomass at end of year y
 B0  <- matrix(rep(0),nyrs,nsp) # biomass at beginning of year y
 Bout <- list() #each year has a dataframe with time,R(t),Bi(t) of dims(2+nsp,tsteps)
-source("ResCompN.R") # define within-season ode solver
-source("NoCompN.R")  # define within-season ode solver for no competition
+source("./sourcefiles/ResCompN.R") # define within-season ode solver
+source("./sourcefiles/NoCompN.R")  # define within-season ode solver for no competition
 
 ## set-up for different coexistence mechanisms
 #I have considered 3 defns for E and C, but only one isn't problematic numerically
@@ -104,13 +105,13 @@ for (y in c(1:(nyrs-1))){
 
 #}
 
-source("plotNyears.R")  #plots dynamics of seedbank abundance over years
+source("./sourcefiles/plotNyears.R")  #plots dynamics of seedbank abundance over years
 
-source("plotBinSeason.R")  #plot within season dynamics of biomass & R for a subset of years
+source("./sourcefiles/plotBinSeason.R")  #plot within season dynamics of biomass & R for a subset of years
 
-source("plotBwCnoC.R")  #plot within season biomass resource dynamics w and wo competition
+source("./sourcefiles/plotBwCnoC.R")  #plot within season biomass resource dynamics w and wo competition
 
-source("plotBinSeason_Lizzie.R")
+source("./sourcefiles/plotBinSeason_Lizzie.R")
 ###Megan stopped tweaking plots here, but they will need to be adjusted for new within-year output structure from ode
 
 # within years plots
