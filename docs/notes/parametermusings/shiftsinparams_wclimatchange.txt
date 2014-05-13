@@ -1,0 +1,66 @@
+Started 12 May 2014
+By Lizzie
+
+Updated 13 May 2014
+
+++++++++++++++++++++++++++++++++++++++++
+Thinking about how epsilon, R and tauP will change with climate change.
+++++++++++++++++++++++++++++++++++++++++
+
+- First off I think I have good estimates of changes in tauP and we should just use some estimate that I come up with (what will that be?!).
+
+- So, here I go through some papers and the IPCC WG1 (AR5) report to think more on R and epsilon. 
+
+- For epsilon (eps): most stuff discusses ‘evaporation minus precipitation (E-P).’ For example, in Held & Soden 2006 (Robust responses of the hydrological cycle to global warming) it says ‘These responses include the decrease in convective mass fluxes, the increase in horizontal moisture transport, the associated enhancement of the pattern of evaporation minus precipitation and its temporal variance, and the decrease in the horizontal sensible heat transport in the extratropics.’
+
+I think what is going on becomes clear from the IPCC — there are not super good records of evaporation so who knows what has (or, perhaps, will become of that). More below. 
+
+++++++++++++++++++++++++++++++++++++++++
+From IPCC WG 1 AR5: tauP thoughts
+++++++++++++++++++++++++++++++++++++++++
+ 
+Technical summary:
+- One of the big advances of AR5 was to say that humans are likely altering the global water cycle (pg 72 ‘major advance since AR4’).
+
+- Lots about how temperate mid-latitudes have become more saline — I was thinking this was due to an increase in humidity, but …  (pg 42): “The movement of water in the climate system is essential to life on land, as much of the water that falls on land as precipitation and supplies the soil moisture and river flow has been evaporated from the ocean and transported to land by the atmosphere.”
+
+Also, (pg 42): “Although direct trends in precipitation and evaporation are difficult to measure with the available records, the observed oceanic surface salinity, which is strongly dependent on the difference between evaporation and precipitation, shows significant trends (TFE.1, Figure 1).”
+
+Check out TFE.1 Fig. 3: suggests most parts of the globe will see an increase in evaporation up to 1 mm/day.
+
+So, you ask, what percentage is 1 mm per day? Good question! I think it could be 33-100% but am not sure at all. Follow up her as needed: http://www.ntsg.umt.edu/project/mod16
+
+(pg 88, projected near term changes): Over the next few decades increases in near-surface specific humidity are very likely. It is likely that there will be increases in evaporation in many regions. There is low confidence in projected changes in soil moisture and surface runoff. {11.3.2}
+
+(pg 91, projected long-term changes) Annual surface evaporation is projected to increase as global temperatures rise over most of the ocean and is projected to change over landfollowing a similar pattern as precipitation. Decreases in annual runoff are likely in parts of southern Europe, the Middle East and southern Africa by the end of this century under the RCP8.5 scenario… Soil moisture drying in the Mediterranean and southern African regions is consistent with projected changes in Hadley Circulation and increased surface temperatures, so surface drying in these regions as global temperaturesincrease is likely with high confidence by the end of this century under the RCP8.5 scenario. In regions where surface moistening is projected, changes are generally smaller than natural variability on the 20-year time scale. A summary of the projected changes in the water cycle from the CMIP5 models is shown in TFE.1, Figure 1. {12.4.5; Box 12.1}
+
+Section 11.3.2.3.2 seems to be what we want: Changes in evaporation, evaporation minus precipitation, runoff, soil moisture, relative humidity and specific humidity (pg 986).
+
+This evaporation issue is messy since plants affect it (pg 986).
+
+The global distribution of the 2016–2035 changes in annual meanevaporation, evaporation minus precipitation (E – P), surface runoff, soilmoisture, relative humidity and surface-level specific humidity from theCMIP5 multi-model ensemble under RCP4.5 are shown in Figure 11.14.Changes in evaporation over land (Figure11.14a), are mostly positivewith the largest values at northern high latitudes, in agreement withprojected temperature increases (Figure 11.10). (pg. 986)
+
+Figure 11.14 is great! First panel shows increases in evaporation of up to 20% in the next 20 years.
+
+There is nothing on “evaporative stress” in the report.
+
+They do mention that extremes of heat stress should increase (pg 90); also there is a Diffenbaugh reference about this on page 239 for Mediterranean systems.
+
+pg 1066: Heat stress, defined as the combined effect of temperature and humidity, is expected toincrease along with warming temperatures and dominates the local decrease in summer relative humidity due to soil drying (Diffenbaugh et al., 2007; Fischer et al., 2012b; Dunne et al., 2013). Areas with abundant atmospheric moisture availability and high present-day temperatures such as Mediterranean coastal regions are expected to experience the greatest heat stress changes because the heat stress response scales with humidity which thus becomes increasingly important to heat stress at higher temperatures (Fischer and Schär, 2010; Sherwood and Huber, 2010; Willett and Sherwood, 2012).
+
+
+++++++++++++++++++++++++++++++++++++++++
+R thoughts: From IPCC WG 1 AR5 and other papers
+++++++++++++++++++++++++++++++++++++++++
+
+Onward to R (as in resource): Thinking about snowpack to start:
+
+Ugh, basically the know nothing about this either. 
+- To start, things are location specific for the most part (I think snowpack is location specific). So there are many papers on the Sierras, some on the Alps and a few from Australia.
+- Then you run into issues of how dust and such can affect snowpack decline. 
+- So, we may want to take the Sierras or such as a test-case. In that case Mote et al. 2005 (in BAMS) shows declines are the norm: “For locations where observations are available,negative trends are the rule, and the largest relative losses (many in excess of 50%, some in excess of 75%) occurred in western Washington, western Oregon, and northern California.” Pierce et al. 2008 did an attribution study:”The mean model estimate is that about half of the SWE/P reductions observed in the west from 1950 to 1999 are the result of climate changes forced by anthropogenic greenhouse gases, ozone, and aerosols.” But that did not include ‘modification of snow albedo’ so human-induced effects could be greater than 50%. There’s also a new [paper (Luce et al. 2013 (Science) that says that slower westerlies are also part of the problem.
+
+Just as a note: The Pederson et al. 2011 article is about how *unusual* the Sierran snowpack declines are. So they compare them to a bunch of time-series data.
+
+Note that I could ask Greg for help, if that would help:
+McCabe, G., and D. Wolock, 2010: Long-term variability in Northern Hemispheresnow cover and associations with warmer winters. Clim. Change, doi:10.1007/s10584-009-9675-2, 141–153.

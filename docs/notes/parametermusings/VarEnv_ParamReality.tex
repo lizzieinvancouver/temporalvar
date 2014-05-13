@@ -1,0 +1,76 @@
+\documentclass[11pt,a4paper,oneside]{article}
+\renewcommand{\baselinestretch}{1.2}
+\usepackage{sectsty,setspace,natbib,wasysym} 
+\usepackage[top=1.00in, bottom=1.0in, left=1in, right=1.25in]{geometry} 
+\usepackage{graphicx}
+\usepackage{latexsym,amssymb,epsf} 
+% \usepackage{amsmath}
+\usepackage{hyperref}
+
+\usepackage{fancyhdr}
+\pagestyle{fancy}
+\fancyhead[LO]{March-May 2014}
+\fancyhead[RO]{Lizzie goes wild on parameters}
+
+\begin{document}
+\renewcommand{\labelitemi}{$-$}
+
+
+\noindent \emph{Parameter reality table}
+\begin{center}
+\begin{table}[h!]
+\caption{Table of parameter values, their definitions and whether we could get data on these things ... anywhere.}
+\begin{tabular}{ | p{3cm} | p{6cm} | p{4.0cm} |}
+\hline 
+Parameter & Definition & Reality notes \\ \hline 
+\end{tabular}
+\begin{tabular}{ | p{3.0cm} | p{6.0cm} | p{4.0cm} |}
+\(N_{i}\) & seedbank of species \(i\) & data possible, sure (RCN with Elsa?) \\ \hline
+\(s_{i}\) & survival of species \(i\) & data possible, sure \\ \hline
+\(\delta\) & total length of growing season & yes! I have those data\\ \hline
+\(B_{i}\) & biomass of species \(i\) & yes \\ \hline
+\(R\) & resource & blargg, no?\\ \hline
+\(c_{i}\) & conversion of \(R\) uptake to biomass of species \(i\) &  someone has something like this \\ \hline
+\(m_{i}\) & maintenance costs of species \(i\) & someone has something like this \\ \hline
+\(a_{i}\) & uptake increase as \(R\) increases for species \(i\) & someone has something like this, maybe\\ \hline
+\(u_{i}\) & max uptake for species \(i\) & someone has something like this, maybe \\ \hline
+\(\phi_{i}\) & converesion of biomass to seedbank for species, includes overwintering of seeds \(i\) & this is totally weird, must ask Megan \\ \hline
+\(\epsilon\) & abiotic loss of \(R\) & hmm, could look at water draw down curves? Would not be the same thing ... \\ \hline
+\(g_{max,i}\) & max germination of species \(i\) & data possible \\ \hline
+\(h_{i}\) &  controls the the rate at which germination declines as \(\tau_{p}\) deviates from optimum for species \(i\)  & I think this is possible \\ \hline
+\(g_{i}\) & germination fraction & yes, someone has these \\ \hline
+\(\tau_{p}\) & timing of pulse & well, I have data on SOS \\ \hline
+\(\tau_{i}\) & timing of max germination of species \(i\) & uh, I don't think anyone on earth has these ...\\ \hline
+\(\alpha_{i}\) & phenological tracking of species \(i\) & I have these data! \\ \hline
+\(\theta_{i}\) & shape of uptake for species \(i\) & sure, someone has these\\ \hline
+\hline
+\(b_{i}\) & seedling biomass of species \(i\) & uh, ask Megan \\ \hline
+\(f_{i}(R)\) & \(R\) uptake \(f(x)\) for species \(i\) & NA -- only a conglomeration of other params\\ \hline
+\(d_{i}\) & death rate of species \(i\), used in calculations of lifespan & uh, ask Megan \\ \hline
+\(T\) & between year time & years \\ \hline
+\(\tau\) & within season time & days \\ \hline
+\hline
+\end{tabular}
+\end{table}
+\end{center}
+
+\newpage
+\noindent \emph{Thoughts, Friday-style:}\\
+
+\noindent There are basically 5 categories for these variables:
+\begin{enumerate}
+\item Resource uptake f(x)s which exist somewhere for a bunch of species for exactly the model stuff here I suspect: R*
+\item Germination curves: Different folks have these data; Margie Mayfield approached me about starting a group to pull such data together; Elsa knows someone with some data like these---we were discussing running an RCN together. (For our current models, our curves are too simple to take in these data. Megan suggested looking at different shapes of curves could be interesting, like do truncated on one side decrease coexistence. Would be cool also to know how often different cues are at play and flexibility versus our abstraction of flexible vs. not flexible.) % Megan used a big word: instantiated, as in instantiated for a particular model. 
+\item Parameters I don't quite get or suspect are impossible to measure: \(d_{i}\) (natural death rate of seedbank; notoriously difficult to measure -- would Jim Brown have any data on this?), \(b_{i}\) (Megan thinks this could be seed size or seed biomass), \(\phi_{i}\) (dry weight versus seed number)
+\item [Megan and I stopped here.] Data I actually have: related all to start of season and phenologically-tracking. I should note that I have the {\bf biological} start of season (SOS), not a climatic one (if we wanted that we could work with Ben Cook to get it though); and also I have weird data because I have ground-collected data. Some might argue satellites would be better for SOS because there is no bias in species studied etc. -- but then you argue back that I might have the little baby species that actually start the seasons, not the green wave.
+\item Stuff not on the list here that I think were interested in: namely, what changes with climate change and how much! Must add that to the list!
+\end{enumerate}
+
+
+%\newpage
+%\section{References}
+%\bibliography{/Users/Lizzie/Documents/git/bibtex/LizzieMainMinimal}
+%\bibliographystyle{/Users/Lizzie/Documents/git/bibtex/styles/ecolett.bst}
+
+
+\end{document}
