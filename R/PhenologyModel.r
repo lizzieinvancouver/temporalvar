@@ -4,7 +4,7 @@
 ## VarEnvironments & Coexistence ##
 
 # safety feature(s)
-setwd(getwd())
+setwd(getwd()) # Lizzie: setwd("~/Documents/git/temporalvar/R")
 options(stringsAsFactors=FALSE)
 
 # packages
@@ -30,23 +30,14 @@ nonsta = 0  #flag for stationary (0) vs nonstationary (=num yrs nonstationary)
 #Number of species to start?
 nsp = 20  #when nsp=2, tauI is assigned known values from chesson 2004
 
-<<<<<<< HEAD
 source("sourcefiles/getRunParms.R") #define runtime parameters
-
 source("sourcefiles/getGraphParms.R")  #define graphics parameters
-
 source("sourcefiles/getEnvt.R")  #get constant and time-varying envt parms
-
 source("sourcefiles/getSpecies.R")  #get species characteristics and Rstar
-=======
-source("./sourcefiles/getRunParms.R") #define runtime parameters
-
-source("./sourcefiles/getGraphParms.R")  #define graphics parameters
-
-source("./sourcefiles/getEnvt.R")  #get constant and time-varying envt parms
-
-source("./sourcefiles/getSpecies.R")  #get species characteristics and Rstar
->>>>>>> 243751ac06ca722826ac154294eefea1afd364c5
+# source("./sourcefiles/getRunParms.R") #define runtime parameters
+# source("./sourcefiles/getGraphParms.R")  #define graphics parameters
+# source("./sourcefiles/getEnvt.R")  #get constant and time-varying envt parms
+# source("./sourcefiles/getSpecies.R")  #get species characteristics and Rstar
 
 #Define arrays
 #interannual dynamics set-up (R0 is in getEnvt.R)
@@ -60,8 +51,8 @@ rcrt0 <- matrix(rep(0),nyrs,nsp) # recruitment WO competition in year y
 Bfin <- matrix(rep(0),nyrs,nsp) # biomass at end of year y
 B0  <- matrix(rep(0),nyrs,nsp) # biomass at beginning of year y
 Bout <- list() #each year has a dataframe with time,R(t),Bi(t) of dims(2+nsp,tsteps)
-source("./sourcefiles/ResCompN.R") # define within-season ode solver
-source("./sourcefiles/NoCompN.R")  # define within-season ode solver for no competition
+source("sourcefiles/ResCompN.R") # define within-season ode solver
+source("sourcefiles/NoCompN.R")  # define within-season ode solver for no competition
 
 ## set-up for different coexistence mechanisms
 #I have considered 3 defns for E and C, but only one isn't problematic numerically
