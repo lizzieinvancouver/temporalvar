@@ -20,9 +20,9 @@ set.seed(2)
 # (3) decide on list for each run, versus some other format
 
 #Temporarily disabling the multiple runs
-#modelruns <- list() # place to store output of runs
-#nruns <- 2 # number of model runs to do
-#for (j in c(1:nruns)){ # assuming, we will vary species characteristics between yrs ... 
+modelruns <- list() # place to store output of runs
+nruns <- 2 # number of model runs to do
+for (j in c(1:nruns)){ # assuming, we will vary species characteristics between yrs ... 
   
 #Stationarity in this run?
 nonsta = 0  #flag for stationary (0) vs nonstationary (=num yrs nonstationary)
@@ -97,32 +97,28 @@ for (y in c(1:(nyrs-1))){
 }
                                                                      
 
-#modelruns[[j]] <- list(crossyrsvars, Bfin, E)
+modelruns[[j]] <- list("crossyrsvars"=crossyrsvars, "Bfin"=Bfin, "E"=E)
 
 # could also make each run a multi-part dataframe with common names
 # so something like:
 # modelruns[[paste("crossyrs", j, sep="")]] <- crossyrsvars
 # modelruns[[paste("withinyrs", j, sep="")]] <- Bfin
 
-#}
+}
 
-<<<<<<< HEAD
+## indexing out list of lists
+# call something
+modelruns[[2]][1][[1]]$gmax
+# call internal list by name
+modelruns[[2]]["crossyrsvars"]
+# so you can also do this
+modelruns[[2]]["crossyrvars"][[1]]$gmax
+
 source("sourcefiles/plotNyears.R")  #plots dynamics of seedbank abundance over years
-
 source("sourcefiles/plotBinSeason.R")  #plot within season dynamics of biomass & R for a subset of years
-
 source("sourcefiles/plotBwCnoC.R")  #plot within season biomass resource dynamics w and wo competition
-
 source("sourcefiles/plotBinSeason_Lizzie.R")
-=======
-source("./sourcefiles/plotNyears.R")  #plots dynamics of seedbank abundance over years
 
-source("./sourcefiles/plotBinSeason.R")  #plot within season dynamics of biomass & R for a subset of years
-
-source("./sourcefiles/plotBwCnoC.R")  #plot within season biomass resource dynamics w and wo competition
-
-source("./sourcefiles/plotBinSeason_Lizzie.R")
->>>>>>> 243751ac06ca722826ac154294eefea1afd364c5
 ###Megan stopped tweaking plots here, but they will need to be adjusted for new within-year output structure from ode
 
 # within years plots
