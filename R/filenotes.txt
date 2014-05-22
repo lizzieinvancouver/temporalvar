@@ -1,0 +1,28 @@
+Started 14 May 2014
+By Lizzie & Megan, masters of the universe, as ye shall see below
+
++++++++++++++++++++++++++++++++++++++++++++++++++++
+Oy! A place to keep track of general file craziness
+For those days when git is just not enough.
++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+
++++++++++++++++++++++++++++++++++++++++++++++++++++
+Model files relating to phenologymodel_DecReset.R files:
+
+On 11 Jan 2014 Megan pulled the 13 December code (from the end of our Hawaii meeting)named it ***phenologyModel_DecReset.R*** and started from there to work on the modeling add-ins she had been doing with an odesolver (but wasn’t quite working and I had to give a talk at ASN in Asilomar!). 
+
+Things changed in phenologyModel_DecReset.R:
+- no competition now has intraspecific competition
+- so RnoC goes by species (versus just being for R)
+- she added in some list structure for R, B, noC matrices so they would not be so big and unwieldy
+
+phenologyModel_DecReset_ugh.R is similar to phenologyModel_DecReset.R — it’s a renamed version of it with some small changes. 
+
+phenologyModel_DecReset_take2.R then includes:
+- an abandonment of the lists
+- added C and E and storage effect calculation attempts 
+- it’s basically as far as she got
+
+* Just as a note, lest we forget, for Lizzie’s ASN talk she [I] used the code pulled from December, as in I pulled the code from the end of the meeting and ran it. I did not use any of this reset code. 
++++++++++++++++++++++++++++++++++++++++++++++++++++

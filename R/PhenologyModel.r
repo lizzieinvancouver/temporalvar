@@ -19,16 +19,17 @@ set.seed(2)
 # (2) add in resource stuff to withinyrs
 # (3) decide on list for each run, versus some other format
 
-#Temporarily disabling the multiple runs
+# set up model runs
 modelruns <- list() # place to store output of runs
-nruns <- 2 # number of model runs to do
+runspecies <- c() 
+nruns <- 10 # number of model runs to do
 for (j in c(1:nruns)){ # assuming, we will vary species characteristics between yrs ... 
   
 #Stationarity in this run?
 nonsta = 0  #flag for stationary (0) vs nonstationary (=num yrs nonstationary)
 
 #Number of species to start?
-nsp = 20  #when nsp=2, tauI is assigned known values from chesson 2004
+nsp = 2  #when nsp=2, tauI is assigned known values from chesson 2004
 
 source("sourcefiles/getRunParms.R") #define runtime parameters
 source("sourcefiles/getGraphParms.R")  #define graphics parameters
@@ -92,11 +93,11 @@ for (y in c(1:(nyrs-1))){
   
   #calculate E and C
   E[y,] <- log(g[y,]*phi*BnoC[y,])         #defn 4
-  C[y,] <- log(BnoC[y,]/Bfin[y,])         #defn 4   
+  C[y,] <- log(BnoC[y,]/Bfin[y,])         #defn 4
   
 }
                                                                      
-
+runspecies[j] <- sum(Bfin[98,]>0) # alert Will Rogers!
 modelruns[[j]] <- list("crossyrsvars"=crossyrsvars, "Bfin"=Bfin, "E"=E)
 
 # could also make each run a multi-part dataframe with common names
