@@ -26,7 +26,7 @@
 \title{Coexistence and climate change: \\The role of
     temporal-variability in structuring future communities}
     \author{Wolkovich \& Donahue}
-\date{Last updated: 13 December 2013}
+\date{Last updated: 22 May 2014}
 \maketitle
 
 \begin{abstract} Predicting community shifts
@@ -56,10 +56,10 @@ ability of species to phenologically track the timing of major climate events. \
 
 \section{Next steps, goals!}
 \subsection{Finalize equations for mechanisms of coexistence}
-Go Megan! See file \verb@VarEnv_CoexistEqns.tex@
+Go Megan! See file \verb|VarEnv_CoexistEqns.tex|
 
-\subsection{Would be really nice to have to give talk in January}
-Code in \verb@PhenologyModel.R@ that spits out the storage effect, relative nonlinearity and maybe something about other mechanisms of coexistence so Lizzie can code how they shift with nonstationarity.
+\subsection{Code that spits mechanisms!}
+Code in \verb|PhenologyModel.R| that spits out the storage effect, relative nonlinearity and maybe something about other mechanisms of coexistence so Lizzie can code how they shift with nonstationarity.
 
 \subsection{Figure out rankings of species}
 This should come be R* (fluctuation independent) plus the equalizing bits (fluctuation dependent). Once we have this, it will be good to look at: (1) if the cut-off in coexistence shifts with nonstationarity and (2) how the spread between species shifts with nonstationarity.
@@ -71,8 +71,13 @@ First, to make life easy I (Lizzie) will swap the hats when coding. So what we c
 \url{http://www.r-bloggers.com/copulas-made-easy/}\\
 \url{https://sites.google.com/a/wisc.edu/jed-frees/multivariate-regression-using-copulas}
 
-\subsection{Get on a weekly meeting schedule as of February 2014}
-Oui!
+\subsection{The nitty-gritty list by Lizzie from May 2014}
+To review, the goal really is the Mayan invaders project. Once we're there we're in good shape. But here's the short version of my notes (really short as I decided I don't have time just now to transcrive the hand-written scribblings on randomize code etc., maybe someday---or maybe I will just get it done!):
+\begin{enumerate}
+\item calculate storage effect; niche differences and relative non-linearity (or at least the first one)
+\item add phenological tracking
+\item add copulas (see above)
+\end{enumerate}
 
 
 \section{Introduction}
@@ -116,7 +121,7 @@ See below for outlines and info on each.
 \newpage
 \section{Equations and related notes}
 
-\noindent For a species \(i\) let:
+\noindent For a species \(i\) let (note: see dimensional analysis for full list of current terms, I need to update this here someday):
 \begin{align*}
 N_{i} & \text{   seedbank of species } i
 \\
@@ -174,7 +179,7 @@ Parameter & Definition & Unit \\ \hline
 \begin{tabular}{ | p{3.0cm} | p{6.0cm} | p{4.0cm} |}
 \(N_{i}\) & seedbank of species \(i\) & seeds \\ \hline
 \(s_{i}\) & survival of species \(i\) & unitless \\ \hline
-\(\delta\) & total length of growing season & days\\ \hline
+\(\delta\) (peak biomass) & total length of growing season & days\\ \hline
 \(B_{i}\) & biomass of species \(i\) & biomass \\ \hline
 \(R\) & resource & resource\\ \hline
 \(c_{i}\) & conversion of \(R\) uptake to biomass of species \(i\) &  \(\frac{\text{biomass}}{\text{resource}}\) \\ \hline
@@ -194,12 +199,16 @@ Parameter & Definition & Unit \\ \hline
 \(b_{i}\) & seedling biomass of species \(i\) & \(\frac{\text{biomass}}{\text{seeds}}\) \\ \hline
 \(f_{i}(R)\) & \(R\) uptake \(f(x)\) for species \(i\) & \(\frac{\text{resource}}{(\text{days})(\text{biomass})}\)\\ \hline
 \(d_{i}\) & death rate of species \(i\), used in calculations of lifespan & unitless \\ \hline
-\(T\) & between year time & years \\ \hline
-\(\tau\) & within season time & days \\ \hline
+\(t\) & between year time (formerly T) & years \\ \hline
+\(0\) \rightarrow \(\delta\) & within season time (formerly \(\tau\)) & days \\ \hline
+\(b_{0}\) & initial biomass per germinant (seed) & biomass \\ \hline
+\(\xi\) & \(\frac{\text{final biomass}}{\text{initial biomass}}\) & unitless \\ \hline
 \hline
 \end{tabular}
 \end{table}
 \end{center}
+\noindent Note for \(\delta\): \(B(t+0)\) is start of season biomass while \(B(t+\delta)\) is the end of season biomass.\\
+\noindent Also note: that \(s\) applies to seeds \emph{in} seedbank, while \(\phi\) thus includes some death for current season seeds (see red/blue diagram from 12 May 2014 whiteboard photos).
 
 \newpage
 \subsection{System of equations}
@@ -209,27 +218,34 @@ on resource competition:
 N_{i}(t+1) & = N_{i}(t+\delta)s_{i}
 \\
 \\
-& \text{where}
+\text{where}
 \\
 \\
 N_{i}(t+\delta) & = N_{i}(t) [\text{germination fraction}][\text{seeds
   produced per germinant}]
 \\
 \\
-& \text{so then:}
+\text{so then:}
 \\
 \\
 N_{i}(t+1) & =
-s_{i}(N_{i}(t)(1-g_{i})+N_{i}(t)g_{i}\phi_{i}\int_t^{t+\delta}[c_{i}f_{i}(R(t))-m_{i}]B_{i}(t)\mathrm{d}t)
+s_{i}(N_{i}(t)(1-g_{i}(t))+\phi_{i}B(t+\delta)
 \\
 \\
-\frac{\mathrm{d}R}{\mathrm{d}t} & = - \sum_{i=1}^{n}f_{i}(R)B_{i} -\epsilon R
+\text{where:}\\
+\\
+\frac{\mathrm{d}R}{\mathrm{d}t} & = - \sum_{i=1}^{n}f_{i}(R)B_{i} -\epsilon R\\
 \\
 \\
 \frac{\mathrm{d}B_{i}}{\mathrm{d}t} &  = [c_{i}f_{i}(R) - m_{i}]B_{i}
 \\
 \\
-& \text{where:} 
+\text{and the initial condition is:}\\
+\\
+B(t+0) & = N_{i}(t)g_{i}(t)b_{0,i}
+\\
+\\
+\text{where:} 
 \\
 \\
 g_{i} & = g_{max,i}e^{-h(\tau_{p}-\tau_{i})^2}
