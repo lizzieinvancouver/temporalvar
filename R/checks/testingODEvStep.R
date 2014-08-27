@@ -7,7 +7,7 @@
 
 library(deSolve)
 nonsta=0
-nsp = 20  #when nsp=2, tauI is assigned known values from chesson 2004
+nsp = 2  #when nsp=2, tauI is assigned known values from chesson 2004
 
 source("sourcefiles/getRunParms.R") #define runtime parameters
 source("sourcefiles/getGraphParms.R")  #define graphics parameters
@@ -67,3 +67,4 @@ Bout <- as.data.frame(ode(func = ResCompN, y = State, parms = Pars, times = Time
 plot(Bout$R~Bout$time,main="ODE", ylim = c(0,3),xlim = c(0,8))
 timess<-seq(1,k)*dt
 plot(Rss~seq(1,200),main="Step-step", xlim=c(0,8))
+plot(Bss[2,]~seq(1,200),main="Step-step", xlim=c(0,8))
