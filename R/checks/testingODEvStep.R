@@ -69,10 +69,25 @@ Bout <- as.data.frame(ode(func = ResCompN, y = State, parms = Pars, times = Time
 
 
 #COmpare output
-plot(Bout$R~Bout$time,main="ODE", ylim = c(0,3),xlim = c(0,8))
-plot(Bout$B1~Bout$time,main="ODE",xlim = c(0,8))
-points(Bout$B2~Bout$time,main="ODE", col="Blue")
+# plot(Bout$R~Bout$time,main="ODE", type="l",ylim = c(0,3),xlim = c(0,4))
+# plot(Bout$B1~Bout$time,main="ODE",type="l",xlim = c(0,4))
+# points(Bout$B2~Bout$time,type="l",main="ODE", col="Blue")
+par(mar = c(5,4,4,4+.3))
+plot(Bout$B1~Bout$time,main="ODE",type="l",col="red",xlim = c(0,4),ylab="Biomass",xlab="Time")
+points(Bout$B2~Bout$time,type="l", col="Blue")
+par(new=TRUE)
+plot(Bout$R~Bout$time,type="l",axes=FALSE,bty="n",xlab="",ylab="")
+axis(side=4,at=pretty(range(Bout$R)))
+mtext("Resource",side=4,line=3)
+mtext(Sys.time(),side=3,line=0)
+png("Biomass_R_time_ODE.png",width=6, height=4,units="in",res=400)
 
-timess<-seq(1,k)*dt
-plot(Rss~seq(1,200),main="Step-step", xlim=c(0,8))
-plot(Bss[2,]~seq(1,200),main="Step-step", xlim=c(0,8))
+par(mar = c(5,4,4,4+.3))
+plot(Bss[1,]~tss,main="Step-Step",type="l",col="red",xlim = c(0,40000),ylab="Biomass", xlab="Time")
+points(Bss[2,]~tss,type="l", col="Blue")
+par(new=TRUE)
+plot(Rss~tss,type="l",axes=FALSE,bty="n",xlab="",ylab="")
+axis(side=4,at=pretty(range(Rss)))
+mtext("Resource",side=4,line=3)
+mtext(Sys.time(),side=3,line=0)
+png("Biomass_R_time_Step.png",width=6, height=4,units="in",res=400)

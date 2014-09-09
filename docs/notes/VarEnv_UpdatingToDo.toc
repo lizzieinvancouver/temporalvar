@@ -1,2 +1,3 @@
-\contentsline {section}{\numberline {1}Short Meeting Notes}{2}{section.1}
-\contentsline {subsection}{\numberline {1.1}August 24, 2014}{2}{subsection.1.1}
+\contentsline {section}{\numberline {1}Notes}{2}{section.1}
+\contentsline {subsection}{\numberline {1.1}Skype Meeting - August 24, 2014}{2}{subsection.1.1}
+\contentsline {subsection}{\numberline {1.2}Megan: September 8, 2014}{2}{subsection.1.2}
