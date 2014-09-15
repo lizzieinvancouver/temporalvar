@@ -7,4 +7,4 @@ lresbyrs <- 2
 lwd=2
 
 #years to plot for within-year dynamics
-plotyrs<- floor(seq(1,nyrs-1,length.out=9))
+plotyrs<- seq(1, nyrs, by=floor(nyrs/8))
