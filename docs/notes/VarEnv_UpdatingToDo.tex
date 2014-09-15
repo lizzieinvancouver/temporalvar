@@ -34,8 +34,7 @@
 \newpage
 \tableofcontents
 
-\section{Notes}
-\subsection{Skype Meeting - August 24, 2014}
+\section{Skype Meeting - August 24, 2014}
 \begin{itemize}
 \item Running PhenologyModel.R does not produce coexistence even with two species set with the same parameters as Chesson et al 2004.  In Chesson et al 2004, species' biomasses bounce around 0.2.  Our sims drop to very low numbers by year 30.  Why?
 \item Previous sims which stepped thru within year dynamics resulted in coexistence
@@ -46,19 +45,25 @@
 \item: To do: when preparing for ASN, I changed the within-year simulation from a for-loop to an ode solver.  I did this because the within-season step size needed to be adjusted for differences in initial biomass and resource level: if step size was small enough to catch the crossing of the Rstar threshold, then it took forever the rest of the season.  However, I never completed the comparison of the ode solver and the within year for-loop.  That is the next task
 \end{itemize}
 
-\subsection{Megan: September 8, 2014}
-
+\section{Megan: September 8 & 15, 2014}
 \begin{figure}[h!]
 \centering
-\noindent \includegraphics[width=0.8\textwidth]{/20140908_1122am_ODEplot.png}
+\noindent \includegraphics[width=0.8\textwidth]{/20140908_1122am_ODEplot.pdf}
 \caption{{\bf Compare ODE and StepStep solutions to our equations}}
 \end{figure}
 
 \begin{figure}[h!]
 \centering
-\noindent \includegraphics[width=0.8\textwidth]{/20140908_1122am_StepStepPlot.png}
+\noindent \includegraphics[width=0.8\textwidth]{/20140908_1122am_StepStepPlot.pdf}
 \caption{{\bf Compare ODE and StepStep solutions to our equations}}
 \end{figure}
+
+\begin{itemize}
+\item Step-step solution is clearly incorrect: the resource does not decline exponentially, as it should, and there is no apparent relationship between the decline of resources and the biomass of competing plants
+\item The ODE solution appears to be correct.
+\item Re-running the Nov 6, 2013 code that Lizzie dug up shows that in that simulation which we thought was working, resources do not decline exponentially.  The Biomasses do stop rising abruptly when R reaches R*, but that is because the loop is forced to end when R < min(R*).  The ODE solution does not end when R<R*.
+\item 
+\end{itemize}
 
 
 \end{document}

@@ -15,15 +15,15 @@ source("sourcefiles/getGraphParms.R")  #define graphics parameters
 source("sourcefiles/getEnvt.R")  #get constant and time-varying envt parms
 source("sourcefiles/getSpecies.R")  #get species characteristics and Rstar
 
-N0 <- rep(1,nsp)          # initial number of seeds (per meter square?)
+N0 <- rep(10,nsp)          # initial number of seeds (per meter square?)
 B0<- b*g[1,]*N0 
 ## Within-season dynamics set-up- ODE
 source("sourcefiles/ResCompN_temp.R") # define within-season ode solver
 source("sourcefiles/NoCompN.R")  # define within-season ode solver for no competition
 
 ## Within Season set up for STEP
-ndays = 1.0
-dt = 0.00001
+ndays = 2.0
+dt = 0.001
 tss <- seq(1,ndays/dt)
 Rss <- array(rep(0),length(tss)) # R is the resource level through the growing season
 Bss <- matrix(rep(0), nrow=nsp,ncol=length(tss)) # where B is spp biomass within the year
@@ -72,6 +72,7 @@ Bout <- as.data.frame(ode(func = ResCompN, y = State, parms = Pars, times = Time
 # plot(Bout$R~Bout$time,main="ODE", type="l",ylim = c(0,3),xlim = c(0,4))
 # plot(Bout$B1~Bout$time,main="ODE",type="l",xlim = c(0,4))
 # points(Bout$B2~Bout$time,type="l",main="ODE", col="Blue")
+png("Biomass_R_time_ODE.png",width=6, height=4,units="in",res=400)
 par(mar = c(5,4,4,4+.3))
 plot(Bout$B1~Bout$time,main="ODE",type="l",col="red",xlim = c(0,4),ylab="Biomass",xlab="Time")
 points(Bout$B2~Bout$time,type="l", col="Blue")
@@ -80,8 +81,9 @@ plot(Bout$R~Bout$time,type="l",axes=FALSE,bty="n",xlab="",ylab="")
 axis(side=4,at=pretty(range(Bout$R)))
 mtext("Resource",side=4,line=3)
 mtext(Sys.time(),side=3,line=0)
-png("Biomass_R_time_ODE.png",width=6, height=4,units="in",res=400)
+dev.off()
 
+png("Biomass_R_time_Step.png",width=6, height=4,units="in",res=400)
 par(mar = c(5,4,4,4+.3))
 plot(Bss[1,]~tss,main="Step-Step",type="l",col="red",xlim = c(0,40000),ylab="Biomass", xlab="Time")
 points(Bss[2,]~tss,type="l", col="Blue")
@@ -90,4 +92,4 @@ plot(Rss~tss,type="l",axes=FALSE,bty="n",xlab="",ylab="")
 axis(side=4,at=pretty(range(Rss)))
 mtext("Resource",side=4,line=3)
 mtext(Sys.time(),side=3,line=0)
-png("Biomass_R_time_Step.png",width=6, height=4,units="in",res=400)
+dev.off()
