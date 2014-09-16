@@ -42,7 +42,7 @@ source("sourcefiles/getSpecies.R")  #get species characteristics and Rstar
 
 #Define arrays
 #interannual dynamics set-up (R0 is in getEnvt.R)
-N0 <- rep(1,nsp)          # initial number of seeds (per meter square?)
+N0 <- rep(10,nsp)          # initial number of seeds (per meter square?)
 N <- matrix(rep(0), nyrs, nsp) # number of seeds by yr and spp
 N[1,] <- N0  #initialize
 rcrt <- matrix(rep(0),nyrs,nsp) # recruitment in year y
@@ -116,7 +116,7 @@ modelruns[[2]]["crossyrsvars"]
 modelruns[[2]]["crossyrvars"][[1]]$gmax
 
 source("sourcefiles/plotNyears.R")  #plots dynamics of seedbank abundance over years
-source("sourcefiles/plotBinSeason.R")  #plot within season dynamics of biomass & R for a subset of years
+#source("sourcefiles/plotBinSeason.R")  #plot within season dynamics of biomass & R for a subset of years
 source("sourcefiles/plotBwCnoC.R")  #plot within season biomass resource dynamics w and wo competition
 source("sourcefiles/plotBinSeason_Lizzie.R")
 
