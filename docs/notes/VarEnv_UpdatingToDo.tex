@@ -8,7 +8,8 @@
 \usepackage{amsmath}
 \usepackage{hyperref}
 
-\graphicspath{{/Users/megan/Documents/GitHub/temporalvar/figures}}
+%\graphicspath{{D:/Documents/Github/temporalvar/figures}{C:/Documents/Github/temporalvar/figures}}
+\graphicspath{{../../figures/}}
 
 \newenvironment{smitemize}{
 \begin{itemize}
@@ -45,7 +46,7 @@
 \item: To do: when preparing for ASN, I changed the within-year simulation from a for-loop to an ode solver.  I did this because the within-season step size needed to be adjusted for differences in initial biomass and resource level: if step size was small enough to catch the crossing of the Rstar threshold, then it took forever the rest of the season.  However, I never completed the comparison of the ode solver and the within year for-loop.  That is the next task
 \end{itemize}
 
-\section{Megan: September 8 & 15, 2014}
+\section{Megan: September 8 and  15, 2014}
 \begin{figure}[h!]
 \centering
 \noindent \includegraphics[width=0.8\textwidth]{/20140908_1122am_ODEplot.pdf}
@@ -62,11 +63,37 @@
 \item Step-step solution is clearly incorrect: the resource does not decline exponentially, as it should, and there is no apparent relationship between the decline of resources and the biomass of competing plants
 \item The ODE solution appears to be correct.
 \item Re-running the Nov 6, 2013 code that Lizzie dug up shows that in that simulation which we thought was working, resources do not decline exponentially.  The Biomasses do stop rising abruptly when R reaches R*, but that is because the loop is forced to end when R < min(R*).  The ODE solution does not end when R<R*.
-\item: NEXT  STEPS: 
+\item NEXT  STEPS: 
 \item solve for long-term equilibrium solution for fixed value of R and g -- where do we expect the equilibrium to be?
 \item 
 \end{itemize}
 
+\section{Megan: September 22, 2014}
+\begin{itemize}
+\item Within year dynamics: with the current model runs, the only thing that changes from year to year are the initial conditions.  The equations describing the within year dynamics are exactly the same - including the constants.  The *only* differences are R0 (initial condition for resources) and tauI and tauP, which determine the germination fraction and, therefore, B0 for each species.
+\item essentially, create a map showing the end-of-year biomass of species 1 as a function of beginning of year biomass for species 1, beginning of year biomass for sp2, and R0 (this is what the ODE solver does each time)
+\item then the question is simply: how do we get a long-run positive average of BiomassOut/BiomassIn for each species?  
+\end{itemize}
+
+
+\section{Megan: September 29, 2014}
+\begin{itemize}
+\item So, create two 3 dimensional matrix with axes: initial biomass for sp1, initial biomass for sp2, and R0.  Fill one with final biomass for sp 1 and fill the other with final biomass for sp2.
+\item Need to figure out how to make ode solver stop when R reaches Rstar.  Runs would be much faster if I could get that to work
+\end{itemize}
+\begin{figure}[h!]
+\centering
+\noindent \includegraphics[width=0.8\textwidth]{/WithinYear_BiomassOutvBiomassInvR.png}
+\caption{{\bf Contour plots of Biomass Out of Sp 1 (blue) and Sp 2 (Red) for BiomassIn of Sp1 (x-axis) and Sp2 (y-axis) at different levels of R0}}
+\end{figure}
+
+\section{Megan & Lizzie meeting: Oct 8, 2014}
+\begin{itemize}
+\item need to run within year dynamics longer for higher resource levels:  the reason R0=-4 is parallel is because we aren't actually seeing competitive dynamics yet
+\item  also plot (Bio1In/Bio1out)/(Bio2In/Bio2Out)
+\item figure out how to break ODE solver when R= Rstar
+\item does it make sense to convert things to log scale to look at multiplicative rates of increase
+\end{itemize}
 
 \end{document}
 
