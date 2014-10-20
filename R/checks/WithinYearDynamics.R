@@ -22,7 +22,7 @@ B2out <- array(NA,c(length(Bin)/nsp,length(Bin)/nsp,length(R0)))
 ## Within-season dynamics set-up- ODE
 source("sourcefiles/ResCompN.R") # define within-season ode solver AND defines Pars
 source("sourcefiles/NoCompN.R")  # define within-season ode solver for no competition
-Time <- seq(0,1,by=dt)  #need to extend within season time for higher resource levels
+Time <- seq(0,4,by=dt)  
 
 for (r in seq(1,length(R0))) {
   for (b1 in seq(1,length(Bin)/nsp)) {
@@ -43,7 +43,7 @@ par(mfrow=c(2,2))
 for (r in c(1,11,21,31)) {
   contour(Bin[,1],Bin[,2],B1out[,,r],xlab="BiomassIn_Sp1",ylab="BiomassIn_Sp2",main = paste("BiomassOut for R0 = ",R0[r]),col="blue",lwd=2)
   contour(Bin[,1],Bin[,2],B2out[,,r],add=TRUE,col="red",lwd=2)
-  legend("bottomright",c("Bfin_Sp1","Bfin_Sp2"),bty="o", col=c("blue","red"),lwd=2,cex=0.7)
+  legend("topright",c("Bfin_Sp1","Bfin_Sp2"),bty="o", col=c("blue","red"),lwd=2,cex=0.7)
 }
 dev.off()
 
