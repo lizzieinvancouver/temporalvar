@@ -47,7 +47,19 @@ for (r in c(1,11,21,31)) {
 }
 dev.off()
 
+#New plot option from Lizzie, not sure if this is on the right track?
+require(plot3D)
 
+quartz(width=9, height=4)
+par(mfrow=c(1,2))
+
+persp3D(z=B1out[,,r], x=Bin[,1], y=Bin[,2], theta=30, phi=30, expand=0.75,
+    clab="biomass out Sp1", shade = 0.5, ticktype = "detailed", bty = "b2",
+    xlab="inputs Sp1", ylab="input Sp2", zlab="biomass out")
+
+persp3D(z=B2out[,,r], x=Bin[,1], y=Bin[,2], theta=120, phi=30, expand=0.75,
+    clab="biomass out Sp2", shade = 0.5, ticktype = "detailed", bty = "b2",
+    xlab="inputs Sp1", ylab="input Sp2", zlab="biomass out")
 
 
 # #Plot dynamics of a single year
