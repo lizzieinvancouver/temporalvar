@@ -1,7 +1,7 @@
 ### Started 28 Jan 2015 ###
 ### By Lizzie & Megan ###
 
-## Simpler model for within year dynamics (L-V within year, with variable between year germination##
+## Simpler model for within year dynamics (L-V within year), with variable between year germination ##
 
 # safety feature(s)
 setwd(getwd()) # Lizzie: setwd("~/Documents/git/temporalvar/R")
@@ -15,6 +15,12 @@ set.seed(2)
 
 #Number of species
 nsp = 2  #when nsp=2, tauI is assigned known values from chesson 2004
+
+# get tauI and get extinction threshold (the latter taken from getRunParams.R)
+# source("sourcefiles/simple/getBromusEarly.R")  #get species characteristics, yep Bromus usually wins
+# source("sourcefiles/simple/getBromusMiddle.R")  #get species characteristics, natives win!
+source("sourcefiles/simple/getSimilarSpp.R")  #get species characteristics, made intra slightly stronger than inter
+ext <- 1/10000  #Extinction Threshold:  1 seed/ha (assuming that initial density is 10 seeds per meter)
 
 #Number of years to run
 nyrs <- 100
@@ -31,15 +37,8 @@ N[1,] <- N0  #initialize
 p <- 2  #first parameter for beta distribution of tau
 q <- 2  #second parameter for beta distribution of tau
 tauP <- rbeta(nyrs, p, q) # change once not doing stationary+nonstationary run
-gmax <-  c(.32,.12)#rep(0.5,nsp)   # max germination fraction
 h <-  rep(100,nsp)      # max rate of germination decrease following pulseif (nsp==2) tauI <- c(0.35, 0.4) else tauI <-runif(nsp,0.1, 0.9)  # time of max germ for sp i
 g <- gmax*exp(-h*(matrix(rep(tauP,nsp),nrow=length(tauP),ncol=nsp)-matrix(rep(tauI,nyrs),ncol=nsp,nrow=nyrs,2))^2)  #germination fraction in year y
-
-
-#Define plant parameters
-alpha <- matrix(data = c(.122,.0017,.0132,.0018),nrow=nsp, ncol=nsp)  #interaction coefficients; the ith column is the competition experienced by sp i
-lambda <- c(1993,23)    #seeds produced per germinant
-s <-  c(.02,.31)      # seedbank survival for non-germinating seeds
 
 
 for (y in c(1:(nyrs-1))){
