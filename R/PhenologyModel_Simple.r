@@ -43,9 +43,7 @@ g <- gmax*exp(-h*(matrix(rep(tauP,nsp),nrow=length(tauP),ncol=nsp)-matrix(rep(ta
 
 for (y in c(1:(nyrs-1))){
   C <- rep(NA,nsp)
-  for (i in c(1:nsp)){
-    C[i] <- sum(alpha[,i]*g*N[y,])
-  }
+  source("sourcefiles/simple/EC_calcs.R")
   N[y+1,] <- N[y,]*s*(1-g[y,]) + lambda*g[y,]*N[y,]/(1+C)
   N[y+1,] <- N[y+1,]*(N[y+1,]>ext)  #if density does not exceed ext, set to zero
 }
