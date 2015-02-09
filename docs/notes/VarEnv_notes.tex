@@ -7,6 +7,8 @@
 \usepackage{epstopdf}
 \usepackage{amsmath}
 \usepackage{hyperref}
+\usepackage{gensymb}
+
 
 \newenvironment{smitemize}{
 \begin{itemize}
@@ -18,7 +20,7 @@
 
 \usepackage{fancyhdr}
 \pagestyle{fancy}
-\fancyhead[LO]{December 2013}
+\fancyhead[LO]{February 2015}
 \fancyhead[RO]{Variable environments \& climate change}
 
 \begin{document}
@@ -26,7 +28,7 @@
 \title{Coexistence and climate change: \\The role of
     temporal-variability in structuring future communities}
     \author{Wolkovich \& Donahue}
-\date{Last updated: 22 May 2014}
+\date{Last updated: 9 February 2015}
 \maketitle
 
 \begin{abstract} Predicting community shifts
@@ -119,7 +121,64 @@ have a lot of climate data on hand). The new \emph{Physical Sciences Basis} of t
 See below for outlines and info on each.
 
 \newpage
-\section{Equations and related notes}
+\section{Equations and related notes: January-February 2015}
+
+Megan's notes from 27 January 2015, following \citet{chesson2003} and \citet{godoy2014}. Note that $j$ is the species index (focal species), $i$ is the invader and $l$ is the supplementary index (that is, all the other species):
+
+\begin{align}
+\label{fulleqn} 
+N_{j}(t+1) = & (1-d_{j})N_{j}(t) + R_{j}(t)N_{j}(t)  
+\\
+\label{eqngF} 
+g_{j}F_{j} & = \frac{\lambda_{j}}{1+\sum\limits_{l}\alpha_{jl}g_{l,t}N_{l,t}} 
+\end{align}
+
+Some operational definitions, let:
+\begin{align*}
+E_{j} & = \ln R_{j} \degree (t) \leftarrow \text{recruitment without competition}
+\\
+C_{j} & = \frac{\ln R_{j} \degree (t)}{R_{j}(t)} \leftarrow \text{recruitment with competition}
+\end{align*}
+
+Breaking down equation \ref{fulleqn} and following how \cite{godoy2014} treat $d$:
+\begin{align}
+(1-d_{j}) & = \text{ survival in seedbank } = s_{j}(1-g_{j})
+\\
+R_{j}(t) & = \text{ germination \& death in seedbank } = 0(1-g_{j})(1-s_{j})+g_{j}F_{j} = g_{j}F_{j}
+\\
+g_{j}F_{j} & = \frac{g_{j}\lambda_{j}}{1+\sum\limits_{l}\alpha_{jl}g_{l,t}N_{l,t}}
+\\
+& = \underbrace{\ln(g_{j}\lambda_{j})}_\text{$E_{j}(t)$} -\underbrace{\ln(1+\sum\limits_{l}\alpha_{jl}g_{l,t}N_{l,t})}_\text{$-C_{j}(t)$}
+\end{align}
+
+From equation 6 of \citet{chesson2003}:
+
+\begin{align*}
+C_{j}(t) & = \sum_{l=1}^{n}a_{l}\underbrace{\e^{E_{l}(t)}N_{l}(t)}_\text{$g_{l}N$}
+\end{align*}
+
+\begin{align*}
+N_{j} &  \text{ density of adults of species } j \text{ at time } t 
+\\
+d_{j} & \text{ fraction of adults dying during one unit of time}
+\\
+R_{j} & \text{ per capita number of new recruits to species} j \text{in the time interval } t \text{ to} + 1
+\\
+\lambda_{i} & \text{ per-germinant fecundity in the absence of competition}
+\\
+g_{j} & = 
+\\
+\alpha_{ij} & = \text{ per capita effect of species } j \text{ on species } i
+\\
+a_{l} & = \text{ competitive effect of a $sp_{l}$ individual (related to eqn 6 of \cite{chesson2003})
+\\ 
+\end{align*}
+
+
+... okay, now Lizzie thinks we should figure out the major stuff to write first, and will fill in more later.
+
+\newpage
+\section{Equations and related notes: pre-2015}
 
 \noindent For a species \(i\) let (note: see dimensional analysis for full list of current terms, I need to update this here someday):
 \begin{align*}
