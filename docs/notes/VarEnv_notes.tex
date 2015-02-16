@@ -1,6 +1,6 @@
 \documentclass[11pt,a4paper,oneside]{article}
 \renewcommand{\baselinestretch}{1.2}
-\usepackage{sectsty,setspace,natbib,wasysym} 
+\usepackage{sectsty,setspace,natbib} % deleted wasysym 
 \usepackage[top=1.00in, bottom=1.0in, left=1in, right=1.25in]{geometry} 
 \usepackage{graphicx}
 \usepackage{latexsym,amssymb,epsf} 
@@ -28,7 +28,7 @@
 \title{Coexistence and climate change: \\The role of
     temporal-variability in structuring future communities}
     \author{Wolkovich \& Donahue}
-\date{Last updated: 9 February 2015}
+\date{Last updated: 13 February 2015}
 \maketitle
 
 \begin{abstract} Predicting community shifts
@@ -123,7 +123,7 @@ See below for outlines and info on each.
 \newpage
 \section{Equations and related notes: January-February 2015}
 
-Megan's notes from 27 January 2015, following \citet{chesson2003} and \citet{godoy2014}. Note that $j$ is the species index (focal species), $i$ is the invader and $l$ is the supplementary index (that is, all the other species):
+\nonindent Megan's notes from 27 January 2015, following \citet{chesson2003} and \citet{godoy2014}. Note that $j$ is the species index (focal species), $i$ is the invader and $l$ is the supplementary index (that is, all the other species):
 
 \begin{align}
 \label{fulleqn} 
@@ -133,14 +133,14 @@ N_{j}(t+1) = & (1-d_{j})N_{j}(t) + R_{j}(t)N_{j}(t)
 g_{j}F_{j} & = \frac{\lambda_{j}}{1+\sum\limits_{l}\alpha_{jl}g_{l,t}N_{l,t}} 
 \end{align}
 
-Some operational definitions, let:
+Some operational definitions for experimental approaches, let:
 \begin{align*}
-E_{j} & = \ln R_{j} \degree (t) \leftarrow \text{recruitment without competition}
+E_{j} & = \ln R_{j}^{0} \leftarrow \text{recruitment without competition}
 \\
-C_{j} & = \frac{\ln R_{j} \degree (t)}{R_{j}(t)} \leftarrow \text{recruitment with competition}
+C_{j} & = \frac{\ln R_{j}^{0} (t)}{R_{j}(t)} \leftarrow \text{recruitment with competition}
 \end{align*}
 
-Breaking down equation \ref{fulleqn} and following how \cite{godoy2014} treat $d$:
+\nonindent Breaking down equation \ref{fulleqn} and following how \cite{godoy2014} treat $d$:
 \begin{align}
 (1-d_{j}) & = \text{ survival in seedbank } = s_{j}(1-g_{j})
 \\
@@ -151,11 +151,102 @@ g_{j}F_{j} & = \frac{g_{j}\lambda_{j}}{1+\sum\limits_{l}\alpha_{jl}g_{l,t}N_{l,t
 & = \underbrace{\ln(g_{j}\lambda_{j})}_\text{$E_{j}(t)$} -\underbrace{\ln(1+\sum\limits_{l}\alpha_{jl}g_{l,t}N_{l,t})}_\text{$-C_{j}(t)$}
 \end{align}
 
-From equation 6 of \citet{chesson2003}:
+\nonindent This all brings about the question: Should \(\lambda_{j}\) be part of \(E_{j}\) or \(C_{j}\)? It seems to fall out naturally as part of \(E_{j}\).\\
+
+\nonindent Potential problem: with current definition \(d\) varies with time:
+
+\begin{align}
+\frac{N_{j}(t+1)}{N_{t}} = & (1-d_{j})N_{j}(t) + R_{j}(t)N_{j}(t) \\
+= & \underbrace{s_{j}}_\text{surv.}\underbrace{(1-g_{j}(t))}_\text{did not germ.}N_{j}(t)+g_{j}(t)F_{j}(t)N_{j}(t)\\
+= & s_{j}N_{j}(t) +g_{j}(t)F_{j}(t)N_{j}(t)
+\end{align} 
+
+\nonindent Thinking about germination and survival (sidebar from notes):
+\begin{align*}
+s_{j}(1-g_{j})+g_{j}(t)F_{j}(t)\\
+s_{j}-s_{j}g_{j}(t) + g_{j}(t)F_{j}(t)\\
+s_{j}-g_{j}(t)(F_{j}(t)-s_{j})
+\end{align*}
+\nonindent Thinking on the above, how do we conceptualize the \(-g_{j}s_{j}\) term?\\
+
+\nonindent Skipping sidebar notes on post-season count, here's how it works with a pre-season count (which is what we're doing):
+\begin{align*}
+NgF+N(1-g)s*1+N(1-g)(1-s)*0\\
+gFN+s(1-g)N\\
+sN-sgN+gFN\\
+sN+g(F-s)N
+\end{align*}
+
+\nonindent {\bf If we stick with the pre-season count, then:}
+
+\begin{align}
+\frac{N_{j}(t+1)}{N_{t}} = & (1-d_{j})N_{j}(t) + R_{j}(t)N_{j}(t) \\
+= & s_{j}N_{j,t} +g_{j,t}(F_{j,t}-s_{j})N_{j,t}\\
+\ln R_{j,t}= & \ln(g_{j,t}(\frac{\lambda_{j}}{1+\sum\limits_{l}\alpha_{jl}g_{l,t}N_{l,t}} -s_{j}))\\
+= & \underbrace{\ln g_{j,t}}_\text{$E_{j,t}$} + \underbrace{ \ln(\frac{\lambda_{j}}{1+\sum\limits_{l}\alpha_{jl}g_{l,t}N_{l,t}}-s_{j})}_\text{$-C_{j,t}$}
+\end{align}
+
+\noindent  Mean long term fitness: \(\bar{r_{i}} \approx \underbrace{\bar{r_{i}\prime}}_\text{eq. measures of coexist.} + \overbrace{\Delta N_{i}}^\text{rel. nonlin.}+\overbrace{\Delta I_{i}}^\text{storage effect}\)\\
+
+\noindent  Can we calculate the values from Table 1 in \citet{chesson2003}.\\
+
+\noindent  Thinking about two species \citet{chesson2003} Table 1, note that $r=j$ and means resident, and $s$ is used for all other species and $l$ is a counter to go through all species, with or without invader:
+\begin{align*}
+\frac{\bar{r_{i}\prime}}{d_{i}} = & \delta \mu_{i} + \delta V_{i}\\
+\delta \mu_{i} = & \mu_{i}-\mu_{r} \\
+\mu _{j} = & \langle E_{j} \rangle -\ln d_{j}\\
+\delta \mu_{i} = & \mu_{i} \bar{\mu _{j}}^{(s \neq i)}\\
+\sigma_{j}^{2} = & var(E_{j})\\
+\delta V_{i} = & \frac{1}{2}(1-d_{i})\sigma_{j}^{2}-bar{\frac{1}{2}(1-d_{s}) \sigma_{s}^{2}}^{(s \neq i)}
+\end{align*}
+
+\noindent Onward! WHAT IS capital S?!\\
 
 \begin{align*}
-C_{j}(t) & = \sum_{l=1}^{n}a_{l}\underbrace{\e^{E_{l}(t)}N_{l}(t)}_\text{$g_{l}N$}
+ \langle E_{j} \rangle = & \langle \ln g_{j,t} \rangle\\
+\mu_{j} = & \langle \ln g_{j,t} \rangle - \ln(1-s_{j})\\
+\delta \mu_{i} = & \mu_{i} - \mu_{r} \text{ or }  \mu_{i} - \bar{\mu_{r}} \text{ where $\bar{\mu_{r}}$ is average over resident spp.} \\
+var(E_{j}) = & var(\ln(g_{j,t}))\\
+\delta V_{i} = & \frac{1}{2} S_{i} var(\ln(g_{j,t}))-\frac{1}{2} S_{r} var(\ln(g_{r,t})) \text{ or } \\
+& = \frac{1}{2} S_{i} var(\ln(g_{i,t}))-\bar{\frac{1}{2} S_{r} var(\ln(g_{r,t}))} \text{ again, average over all residents}\\
+g_{j,t} = & G_{max} e^{-h(\tau_{p}-\tau_{i})^2}\\
+\ln g_{j,t} = & \ln G_{max}-h(\tau_{p}-\tau_{i})^2\\
+\langle \ln g_{j,t} \rangle = & \ln G_{max} - h \langle (\tau_{p}-\tau_{i})^2 \rangle\\
+& \text{...skipping some intervening equation work...}\\
+= & \ln G_{max} - h [\sigma^{2}_{\tau_{p}}+\mu^{2}_{\tau_{p}}-2\tau_{i}\mu_{\tau_{p}}+\tau_{i}^{2}]
 \end{align*}
+
+\begin{align*}
+\tau_{p} \sim & \beta(p,q)\\
+var (\tau_{p}) = & E \langle \tau_{p}^{2}\rangle - \langle E \langle \tau_{p} \rangle\rangle ^{2}\\
+ & var(\tau_{p})+ E \langle \tau_{p}\rangle ^{2} \text{ Megan, is this extra from above or ...?}\\
+E \langle \tau_{p} \rangle = & \frac{p}{p+q}\\
+var(\tau_{p}) = & \frac{pq}{(p+q)^{2}(p+q+1)}
+\end{align*}
+
+
+\noindent Starting page 4 ... special case of two species:
+\begin{align*}
+\frac{\Delta I_{i}}{d_{i}} = & \overline{(1-d_{s})\chi_{s}^{-i)}}^{(s\neq i)} - (1-d_{i})\chi_{i}^{(-i)}\\
+\chi_{j}^{(-i)} = & cov(E_{j},C^{(-i)}) \text{ where $C_{(-i)}$ is competition when sp $i$ is invader}\\
+\chi_{j}^{(-i)}  = & cov(\ln g_{j,t}, \ln(\frac{\lambda_{r}}{1+\alpha_{jj}g_{j,t}N_{j,t}}-s_{r}))\\
+= & cov(\ln g_{r,t}, \ln(\frac{\lambda_{r}}{1+\sum \limits_{l \neq i} \alpha_{rl}g_{r,t}N_{j,t}}-s_{r}))\\
+\chi_{i}^{(-i)}  = & cov(\ln g_{i,t}, \ln(\frac{\lambda_{i}}{1+\sum \limits_{l=r} \alpha_{il}g_{l,t}N_{l,t}}-s_{i}))\\
+\frac{\Delta N_{i}}{d_{i}} = & \frac{1}{2}var(C^{(-i)})(d_{i}-\bar{d_{s}}^{(s \neq i)})\\
+var(C^{(-i)}) = & var(\ln \frac{\lambda_{j}}{1+\sum \limits_{l} \alpha_{il}g_{l,t}N_{l,t}}-s_{j})\\
+\bar{d_{s}}^{(s \neq i)} = & \frac{1}{n-1}\sum \limits_{l=i}(1-s_{l})
+\end{align*}
+
+\noindent {\bf \(C_t}\) versus \(C_{j,t}\):}\\
+
+\noindent Assumption: all species experience the same amount of competition: \( \leftarrow C_{j}(t)=C(t)\)\\
+More general solution: \(C_{j}\) are proportional between species (not sure what this means)\\
+In both of the above situations, equilibrial coexistence is excluded: in the absence of fluctuations, no existence\\
+We don'ty really want to make this assumption, I don't think, which may make the calculation more challenging.\\
+This comes down to the assumption that all \(\alpha_{i,l}\) are equal; i.e., that intra and inter-specific competition coefficients are equal.\\
+We could make this assumption to start, and then break from that assumption.\\
+
+
 
 \begin{align*}
 N_{j} &  \text{ density of adults of species } j \text{ at time } t 
@@ -173,9 +264,6 @@ g_{j} & =
 a_{l} & = \text{ competitive effect of a $sp_{l}$ individual (related to eqn 6 of \cite{chesson2003})
 \\ 
 \end{align*}
-
-
-... okay, now Lizzie thinks we should figure out the major stuff to write first, and will fill in more later.
 
 \newpage
 \section{Equations and related notes: pre-2015}
