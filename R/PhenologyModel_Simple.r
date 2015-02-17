@@ -43,8 +43,11 @@ g <- gmax*exp(-h*(matrix(rep(tauP,nsp),nrow=length(tauP),ncol=nsp)-matrix(rep(ta
 
 for (y in c(1:(nyrs-1))){
   C <- rep(NA,nsp)
-  source("sourcefiles/simple/EC_calcs.R")
-  N[y+1,] <- N[y,]*s*(1-g[y,]) + lambda*g[y,]*N[y,]/(1+C)
+  for (i in c(1:nsp)){
+    a <- sum(alpha[i,]*g[y,]*N[y,])
+    C <- log(lambda[i]/(1+ a) -s[i])
+  }
+  N[y+1,] <- N[y,]*s + g[y,]*N[y,]*(lambda/(1+C) - s)
   N[y+1,] <- N[y+1,]*(N[y+1,]>ext)  #if density does not exceed ext, set to zero
 }
 
@@ -52,32 +55,9 @@ for (y in c(1:(nyrs-1))){
 plot(c(1:nyrs),N[,1],type="l")
 lines(c(1:nyrs),N[,2],col="red")
 
+source("sourcefiles/simple/Envt & Comp Calcs.R")
+source("sourcefiles/simple/Fitness_Components.R")
 
+bars<- matrix(c(meanFit,storEff,relNL),nrow=3,ncol = nsp, byrow = TRUE)
+barplot(bars,main= "Fitness Components by species",xlab = "Species", col = c("black","red","blue"),legend = rownames(bars))
 
-# source("sourcefiles/plotNyears.R")  #plots dynamics of seedbank abundance over years
-# #source("sourcefiles/plotBinSeason.R")  #plot within season dynamics of biomass & R for a subset of years
-# source("sourcefiles/plotBwCnoC.R")  #plot within season biomass resource dynamics w and wo competition
-# source("sourcefiles/plotBinSeason_Lizzie.R")
-# 
-# 
-# dev.new(width=7, height=6)
-# 
-# # (2) using ggplot, which really is good for this sort of thing
-# tau.df <- data.frame(coexisted=Bfin[max(y),]>0, tauI=tauI)
-# tau.df$coexisted[tau.df$coexisted==TRUE] <- "coexisted"
-# tau.df$coexisted[tau.df$coexisted==FALSE] <- "doomed"
-# tauP.df <- data.frame(coexisted=rep("tauP"), tauP=tauP)
-# 
-# if (nonsta>0){
-#   ggplot(tau.df, aes(tauI, fill = coexisted)) + geom_histogram(alpha=0.5) +
-#     geom_density(data=tauP.df[1:(nyrs-nonsta),], aes(tauP),  alpha = 0.2) +
-#     geom_density(data=tauP.df[(nonsta+1):nyrs,], aes(tauP),  alpha = 0.4) +
-#     labs(title=paste(sum(Bfin[max(y),]>0), "out of", nsp, "coexisted", sep=" "))
-# }else {
-#   ggplot(tau.df, aes(tauI, fill = coexisted)) + geom_histogram(alpha=0.5) +
-#     geom_density(data=tauP.df[1:nyrs,], aes(tauP),  alpha = 0.2) +
-#     labs(title=paste(sum(Bfin[max(y),]>0), "out of", nsp, "coexisted", sep=" "))
-# }
-# 
-# 
-# print(c("The number of coexisting species are",sum(Bfin[max(y),]>0),"out of",nsp))
