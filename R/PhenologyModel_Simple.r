@@ -20,10 +20,10 @@ nsp = 2  #when nsp=2, tauI is assigned known values from chesson 2004
 # source("sourcefiles/simple/getBromusEarly.R")  #get species characteristics, yep Bromus usually wins
 # source("sourcefiles/simple/getBromusMiddle.R")  #get species characteristics, natives win!
 source("sourcefiles/simple/getSimilarSpp.R")  #get species characteristics, made intra slightly stronger than inter
-ext <- 1/10000  #Extinction Threshold:  1 seed/ha (assuming that initial density is 10 seeds per meter)
+ext <- 1/100000  #Extinction Threshold:  1 seed/ha (assuming that initial density is 10 seeds per meter)
 
 #Number of years to run
-nyrs <- 100
+nyrs <- 1000
 
 #Define arrays
 #interannual dynamics set-up (R0 is in getEnvt.R)
@@ -45,19 +45,21 @@ for (y in c(1:(nyrs-1))){
   C <- rep(NA,nsp)
   for (i in c(1:nsp)){
     a <- sum(alpha[i,]*g[y,]*N[y,])
-    C <- log(lambda[i]/(1+ a) -s[i])
   }
-  N[y+1,] <- N[y,]*s + g[y,]*N[y,]*(lambda/(1+C) - s)
+  N[y+1,] <- N[y,]*s + g[y,]*N[y,]*(lambda/(1+a) - s)
   N[y+1,] <- N[y+1,]*(N[y+1,]>ext)  #if density does not exceed ext, set to zero
 }
-
-#most basic plot
-plot(c(1:nyrs),N[,1],type="l")
-lines(c(1:nyrs),N[,2],col="red")
 
 source("sourcefiles/simple/Envt & Comp Calcs.R")
 source("sourcefiles/simple/Fitness_Components.R")
 
-bars<- matrix(c(meanFit,storEff,relNL),nrow=3,ncol = nsp, byrow = TRUE)
-barplot(bars,main= "Fitness Components by species",xlab = "Species", col = c("black","red","blue"),legend = rownames(bars))
+#most basic plot
+plot(c(1:nyrs),N[,1],type="l",ylim=c(0,max(N)), main="Abundance")
+lines(c(1:nyrs),N[,2],col="red")
+#plot(c(1:nyrs),g[,1],type="l",col="black",main = "Germination")
+#lines(c(1:nyrs),g[,2],col="red")
+
+#Fitness Components plot by species
+bars<- matrix(c(meanFit + storEff - relNL,meanFit,storEff,-relNL),nrow=4,ncol = nsp, byrow = TRUE)
+barplot(bars,main= "Fitness Components by species",beside = TRUE, xlab = "Species", col = c("black","gray","red","blue"),legend=c("p.c. Growth Rate","Mean Fitness","Storage Effect", "Rel Nonlin"),args.legend=c(cex=0.7))
 
