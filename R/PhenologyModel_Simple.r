@@ -16,10 +16,22 @@ set.seed(2)
 #Number of species
 nsp = 2  #when nsp=2, tauI is assigned known values from chesson 2004
 
-# get tauI and get extinction threshold (the latter taken from getRunParams.R)
-# source("sourcefiles/simple/getBromusEarly.R")  #get species characteristics, yep Bromus usually wins
-# source("sourcefiles/simple/getBromusMiddle.R")  #get species characteristics, natives win!
-source("sourcefiles/simple/getSimilarSpp.R")  #get species characteristics, made intra slightly stronger than inter
+# multiple runs
+nruns <- 10
+
+# Set up dataframes to hold data from multiple runs
+# Assumes lambda, gmax, s, etc. (see below) are constant across species
+sppabund <- data.frame(matrix(ncol = nsp, nrow = nruns))
+colnames(sppabund) <- c(1:nsp)
+modelparams <- data.frame(nsp=numeric(), lambda=numeric(), gmax=numeric(),
+    s=numeric(), h=numeric(), p=numeric(), q=numeric())
+coexist <- data.frame(meanFit=numeric(), storEff=numeric(), relN=numeric())
+   # need to finish coexist below once finalized (format here may not be correct)
+alphas <- array(dim=c(nsp, nsp, nruns))
+
+for (arun in (c(1:nruns))){
+
+source("sourcefiles/simple/getVaryingTauAlpha.R")  #get species characteristics
 ext <- 1/100000  #Extinction Threshold:  1 seed/ha (assuming that initial density is 10 seeds per meter)
 
 #Number of years to run
@@ -38,7 +50,8 @@ p <- 2  #first parameter for beta distribution of tau
 q <- 2  #second parameter for beta distribution of tau
 tauP <- rbeta(nyrs, p, q) # change once not doing stationary+nonstationary run
 h <-  rep(100,nsp)      # max rate of germination decrease following pulseif (nsp==2) tauI <- c(0.35, 0.4) else tauI <-runif(nsp,0.1, 0.9)  # time of max germ for sp i
-g <- gmax*exp(-h*(matrix(rep(tauP,nsp),nrow=length(tauP),ncol=nsp)-matrix(rep(tauI,nyrs),ncol=nsp,nrow=nyrs,2))^2)  #germination fraction in year y
+g <- gmax*exp(-h*(matrix(rep(tauP,nsp),nrow=length(tauP),ncol=nsp)-
+    matrix(rep(tauI,nyrs),ncol=nsp,nrow=nyrs,2))^2)  #germination fraction in year y
 
 
 for (y in c(1:(nyrs-1))){
@@ -53,6 +66,13 @@ for (y in c(1:(nyrs-1))){
 source("sourcefiles/simple/Envt & Comp Calcs.R")
 source("sourcefiles/simple/Fitness_Components.R")
 
+sppabund[arun,] <- colMeans(N[1:5,], na.rm=TRUE)
+modelparams[arun,] <- data.frame(nsp=nsp, lambda=lambda[1], gmax=gmax[1],
+    s=s[1], h=h[1], p=p, q=q)
+alphas[,,arun] <- alpha
+
+}
+     
 #most basic plot
 plot(c(1:nyrs),N[,1],type="l",ylim=c(0,max(N)), main="Abundance")
 lines(c(1:nyrs),N[,2],col="red")

@@ -1,6 +1,187 @@
 Started 7 October 2013
+By Lizzie
 
-To do for 20 November 2013
+
+++++++++++++++++++
+To do in general:
+- redo the dimensional analysis
+- make up notes on recent progress and equations
+++++++++++++++++++
+
+
+***************
+25 May 2015:
+
+To do next on PhenologyModel_SimpleTRY.R:
+	(1) Add to the bottom of the loop writing output for coexist dataframe (I need to better understand from Megan how the output works, I think we get each one for each species?
+	(2) Do we need modelparams df? Guess it’s fine to have for now
+
+So 5 dataframes in the end:
+		(1) sppabundances: each col gives abundance (averaged over last 5 timesteps of model) for one species, each row is a run
+		(2) tauI: each col gives tauI for one species, each row is a run
+		(3) alpha: matrix of alphas, third dimension is the run number
+		(4) modelparams: params that should not vary from run to run (nsp, p, q, etc.)
+		(5) coexsit: relnonlin, meanFit and storage effect (each a column) for each run (run is in the row)
+
+From email with Megan/plus added thoughts:
+
+I thought on needs for the CAREER award I need to write soon and I think I need:
+    (a) equations, all very correct
+    (b) some output under a stationary and non-stationary scenario - ideal to show shifting relevance of storage effect versus other coexistence mechanisms but also showing differing time-series dynamics for small community (1 figure) and favoring of different tauI (second fig) would work
+    (c) I could also use your help trying to brainstorm how to combine the two portions of my grant (testing for niche/neutrality in Gothic data and this project) better.
+    (d*) (Did NOT include in email) some phenological tracking output? Maybe? *this seemed doable two weeks ago when I wrote and now seems unnecessary, but I guess we could add it easily and perhaps a simple graph showing tauP on the X axis and tauI on the Y axis of a tracking and non-tracking species could be interesting.... I think we can definitively table this until I get a draft of the grant going.
+
+Meet up with Megan?
+	- Me post Vancouver to Hawaii (or all to Whiteley Center?)
+	- Me in December to Hawaii
+	- Me in January before/after Asilomar (10-14 Jan)
+	- We meet in Asilomar?
+	- She comes here in the fall/summer
+
+* ASK MEGAN! * Do alphas only range 0-1 or can they be -1 to 1?
+* ASK MEGAN! See (1) above about the coexistence stuff
+
+
+***************
+
+28 April 2015:
+
+** Slowly working on my code tasks! **
+What I need …
+	- to vary: tau_i, alpha_ii, alpha_ij (latter two are intra and interspecific competition)
+	- to keep from each param run:
+	(1) population of each species at the end (or average of last couple years, eventually some true coexistence solution like long-term growth rate or such?) — MAKE THIS one matrix!
+	(2) coexistence values (storage effect, rel. nonlinearity etc.)
+	(3) full params of run
+	(*) So maybe make 2+3 one dataframe and include abundance of 1st species to check other matrix?
+
+
+4 February 2015:
+
+** Talk with Megan **
+- I email RC…..
+
+
+January 29 2015:
+
+** Talk with Megan AM:
+- Calculating E, C is easier with LV because:
+(1) There is no resource draw down throughout the season
+(2) Convert numbers to biomass and then back again
+- Beyond that, Peter tends to lays out empirical cases where C is not species-specific, so that all the alphaIs are the same: all the intraspecific and interspecific competition is equal
+- When you do that your niche overlap is complete so all coexistence is due to the storage effect
+- A good place to start, Megan thinks but someday (I said) we have to let them covary with tauI
+
+- Megan is working on storage effect and mean fitness differences …
+
+** Talk with Megan PM:
+
+- RC?!
+- I do latex work once I receive scanned docs
+- s is constant, sg is not
+- goal: get to where she can ask if I find coexistence with param ranges she says should coexist!
+- check-in around 6pm EST? Otherwise before middle of next week!
+
+
+++++++++++++++++++
+January 28 2015:
+
+** Misc notes:
+- When to show Megan my job talk?
+- In BromusEarly, the natives win every so often, but everything seems dead at the end
+
+
+** Talk with Megan AM:
+- How do Godoy & Levine model germination timing? They don’t, they just have the different densities of planting.
+- What we want to do is find alphas that would NOT predict coexistence but where tauI and temporal variation do allow coexistence.
+- We also need to *calculate the storage effect.* To do that we need to find an average competitive effect on the focal species. 
+- We still need to be able to calculate coexistence internally, no? Rank species? How to determine long-term coexistence?
+	- Megan says we can do this by getting the long-term low-density growth rate (good)
+	- say they coexist for X number of years (a less good approach)
+
+* I will work on:
+- going through the parameter space
+- I will set lambda, s, and intraspecific competition as static
+- vary interspecific competition, and g
+- then calculate:
+(1) persistence
+(2) A.16 from Godoy & Levine based on long-run average of g
+(3) rho
+(4) fitness rations (k/k)
+
+* Megan will work on:
+- How to calculate the storage effect.
+- How to calculate the long-term low density growth rate.
+
+
+++++++++++++++++++
+January 27 2015:
+
+
+** Talk with Megan: Morning: 
+- Look at Godoy appendix
+- Look at empirical papers: TPB 2003 paper, or Chesson 2008 book chapter could work or Sears & Chesson paper
+- Copula follow-up: just generate multivariate normal (function in R) with correlations to link tauI and ci (or whatever we decided). Marginal distribution of each one is normal so together you get a multivariate normal: it should take the mean and var of each, plus the correlation!
+- Goal for later chat: tasks for Lizzie
+
+** Talk with Megan later: 6pm my time:
+
+- empirical work: we would run model with and without competition and then use those methods
+
+* Megan’s quandary: all of Peter’s work assume heterospecific intxns are of equal magnitude; she thinks this means you end up assuming no
+- also in Godoy & Levine they have alphas based on ‘community’ — no different ones for each species
+- sort of akin to assuming diffuse competition, which is okay
+
+* my task tomorrow!
+- simplify our code so within-yr dynamics follow LV model
+- no need for odesolve
+- see second half of eqn A.6 in Godoy & Levine supp
+
+
+++++++++++++++++++
+January 26 2015:
+
+Talked to Megan about:
+- NSF reviews
+- Kraft/Godoy papers
+
+Godoy paper:
+- reminds Megan we should think about an empirical approach to estimating fecundity in absence of and with competition (versus looking for neat solution to E, C I believe)
+- appears to have no correlation with variance but Megan will look into this.
+- only one year of dynamics but they vary space for time: by adjusting the germination densities they can look at a variety of population dynamics in one year.
+- essentially they use Lotka-Volterra (LV) instead of R*
+
+NSF reviews:
+- Megan thought they were long, impressive; I was still grumpy about them
+- we will NOT get analytical solutions for nonstationary storage effect model 
+- will not be a general solution (even though *maybe* one is possible) — this will be unsatisfying to some — but a lot to still be gained by it
+- should be upfront about the above; could mention Peter appears to be working on this (maybe cite an ESA abstract?)
+- our model does vary gemination, we should make this clear — also Peter makes some comments about things like germination versus fecundity and what is most likely to lead to a storage effect, we should look at these
+
+End thoughts:
+- try simpler within-yr competition model? 
+	- it would preclude nonlinearity and we would lose evapotranspiration (could still model as a stress on some species parameters though)
+	- if we did LV, we would have germination be the same and still have pulse
+- try empirical approach to calculating E, C?
+
+Thoughts:
+- where the blabbidy are all my notes?
+- I just have this note in my to do:
+- thinking of ways to represent each species biomass in and out each season (and how to break code when R=R*)
+
+
+++++++++++++++++++
+Chat with Megan on 25 August 2014
+
+- Last version did not coexist, she is trying to figure out why
+- she got them to coexist by extending dates and decreasing extinction threshold (see getRunParms.R)
+- we also don’t know how Peter converted from biomass to seed
+- [note that we both think we had this running and matching Peter’s work way back when]
+
+
+++++++++++++++++++
+
+To do from 20 November 2013
     
 - work on the outside loop to collate multiple runs of the model
 a couple notes on this:
