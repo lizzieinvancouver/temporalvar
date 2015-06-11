@@ -123,7 +123,7 @@ See below for outlines and info on each.
 \newpage
 \section{Equations and related notes: January-February 2015}
 
-\nonindent Megan's notes from 27 January 2015, following \citet{chesson2003} and \citet{godoy2014}. Note that $j$ is the species index (focal species), $i$ is the invader and $l$ is the supplementary index (that is, all the other species):
+\noindent Megan's notes from 27 January 2015, following \citet{chesson2003} and \citet{godoy2014}. Note that $j$ is the species index (focal species), $i$ is the invader and $l$ is the supplementary index (that is, all the other species):
 
 \begin{align}
 \label{fulleqn} 
@@ -133,14 +133,7 @@ N_{j}(t+1) = & (1-d_{j})N_{j}(t) + R_{j}(t)N_{j}(t)
 g_{j}F_{j} & = \frac{\lambda_{j}}{1+\sum\limits_{l}\alpha_{jl}g_{l,t}N_{l,t}} 
 \end{align}
 
-Some operational definitions for experimental approaches, let:
-\begin{align*}
-E_{j} & = \ln R_{j}^{0} \leftarrow \text{recruitment without competition}
-\\
-C_{j} & = \frac{\ln R_{j}^{0} (t)}{R_{j}(t)} \leftarrow \text{recruitment with competition}
-\end{align*}
-
-\nonindent Breaking down equation \ref{fulleqn} and following how \cite{godoy2014} treat $d$:
+\noindent Breaking down equation \ref{fulleqn} and following how \cite{godoy2014} treats $d$ we can separate $E$ and $C$ in the following way:
 \begin{align}
 (1-d_{j}) & = \text{ survival in seedbank } = s_{j}(1-g_{j})
 \\
@@ -151,73 +144,81 @@ g_{j}F_{j} & = \frac{g_{j}\lambda_{j}}{1+\sum\limits_{l}\alpha_{jl}g_{l,t}N_{l,t
 & = \underbrace{\ln(g_{j}\lambda_{j})}_\text{$E_{j}(t)$} -\underbrace{\ln(1+\sum\limits_{l}\alpha_{jl}g_{l,t}N_{l,t})}_\text{$-C_{j}(t)$}
 \end{align}
 
-\nonindent This all brings about the question: Should \(\lambda_{j}\) be part of \(E_{j}\) or \(C_{j}\)? It seems to fall out naturally as part of \(E_{j}\).\\
+\noindent However, this definition of $E$ and $C$ results in $d$ that varies with time because $d$ includes $g{j}(t)$.  How do we avoid this?
 
-\nonindent Potential problem: with current definition \(d\) varies with time:
+\noindent  Currently:
 
 \begin{align}
-\frac{N_{j}(t+1)}{N_{t}} = & (1-d_{j})N_{j}(t) + R_{j}(t)N_{j}(t) \\
+N_{j}(t+1) = & (1-d_{j})N_{j}(t) + R_{j}(t)N_{j}(t) \\
 = & \underbrace{s_{j}}_\text{surv.}\underbrace{(1-g_{j}(t))}_\text{did not germ.}N_{j}(t)+g_{j}(t)F_{j}(t)N_{j}(t)\\
 = & s_{j}N_{j}(t) +g_{j}(t)F_{j}(t)N_{j}(t)
 \end{align} 
 
-\nonindent Thinking about germination and survival (sidebar from notes):
-\begin{align*}
-s_{j}(1-g_{j})+g_{j}(t)F_{j}(t)\\
-s_{j}-s_{j}g_{j}(t) + g_{j}(t)F_{j}(t)\\
-s_{j}-g_{j}(t)(F_{j}(t)-s_{j})
-\end{align*}
-\nonindent Thinking on the above, how do we conceptualize the \(-g_{j}s_{j}\) term?\\
+\noindent Alternatively, we can rearrange the equation so that $sN$ is a distinct term (i.e., $d$ does not vary with time).  If we continue to assume a pre-season count, then rearrange:
 
-\nonindent Skipping sidebar notes on post-season count, here's how it works with a pre-season count (which is what we're doing):
 \begin{align*}
-NgF+N(1-g)s*1+N(1-g)(1-s)*0\\
-gFN+s(1-g)N\\
-sN-sgN+gFN\\
-sN+g(F-s)N
+NgF + N(1-g)s*1 + N(1-g)(1-s)*0
+\\
+gFN + s(1-g)N
+\\
+sN - sgN + gFN
+\\
+sN+g(F-s)H
+\\
 \end{align*}
 
-\nonindent {\bf If we stick with the pre-season count, then:}
-
+\noindent Reorganizing the survival and germination terms in this way gives equation:
 \begin{align}
-\frac{N_{j}(t+1)}{N_{t}} = & (1-d_{j})N_{j}(t) + R_{j}(t)N_{j}(t) \\
+N_{j}(t+1) = & (1-d_{j})N_{j}(t) + R_{j}(t)N_{j}(t) \\
 = & s_{j}N_{j,t} +g_{j,t}(F_{j,t}-s_{j})N_{j,t}\\
 \ln R_{j,t}= & \ln(g_{j,t}(\frac{\lambda_{j}}{1+\sum\limits_{l}\alpha_{jl}g_{l,t}N_{l,t}} -s_{j}))\\
 = & \underbrace{\ln g_{j,t}}_\text{$E_{j,t}$} + \underbrace{ \ln(\frac{\lambda_{j}}{1+\sum\limits_{l}\alpha_{jl}g_{l,t}N_{l,t}}-s_{j})}_\text{$-C_{j,t}$}
 \end{align}
 
-\noindent  Mean long term fitness: \(\bar{r_{i}} \approx \underbrace{\bar{r_{i}\prime}}_\text{eq. measures of coexist.} + \overbrace{\Delta N_{i}}^\text{rel. nonlin.}+\overbrace{\Delta I_{i}}^\text{storage effect}\)\\
+\noindent  Now that we have defined the general form of the equation, we can calculate the long-term low density growth rate for each species as invader (i.e., invasibility criterion for coexistence).  The long-term low-density growth rate (including temporal but not spatial variability) has three components (Table 1 in \citet{chesson2003}: \textbf{mean fitness}, \textbf{storage effect}, and \textbf{relative nonlinearity}.  
 
-\noindent  Can we calculate the values from Table 1 in \citet{chesson2003}.\\
+%\noindent  Long-term low-density growth rate: \\
+%\begin{align}
+%\bar{r_{i}} \approx \underbrace{\bar{r_{i}\prime}}_\text{eq. measures of coexist.} \\
+% +& \overbrace{\Delta N_{i}}^\text{rel. nonlin.}\\
+% +& \overbrace{\Delta I_{i}}^\text{storage effect})\\
+%\end{align}
 
-\noindent  Thinking about two species \citet{chesson2003} Table 1, note that $r=j$ and means resident, and $s$ is used for all other species and $l$ is a counter to go through all species, with or without invader:
+\noindent  Evaluate the growth rate of each species as invader.  Note that $i$ is for invader, $j$ is any species, and $l$ is a counter to go through all species, with or without invader.
+
+\noindent \textbf{Mean Fitness}
 \begin{align*}
 \frac{\bar{r_{i}\prime}}{d_{i}} = & \delta \mu_{i} + \delta V_{i}\\
-\delta \mu_{i} = & \mu_{i}-\mu_{r} \\
+\delta \mu_{i} = & \mu_{i}-\bar{\mu_{l}}^{({l}\neq {i})} \\
+= & \mu_{i}-\frac{1}{n-1}\sum\limits_{{l}\neq{i}}^{n}\mu_{l}\\
 \mu _{j} = & \langle E_{j} \rangle -\ln d_{j}\\
-\delta \mu_{i} = & \mu_{i} \bar{\mu _{j}}^{(s \neq i)}\\
+= &\langle {E_{j}} \rangle -\ln (1-{s_j})\\
 \sigma_{j}^{2} = & var(E_{j})\\
-\delta V_{i} = & \frac{1}{2}(1-d_{i})\sigma_{j}^{2}-bar{\frac{1}{2}(1-d_{s}) \sigma_{s}^{2}}^{(s \neq i)}
+\delta V_{i} = & \frac{1}{2}(1-d_{i})\sigma_{i}^{2}-\bar{\frac{1}{2}(1-d_{j}) \sigma_{j}^{2}}^{(j \neq i)}\\
+= & \frac{1}{2}(s_{i}\sigma_{i}^{2} - \frac{1}{2}\sum\limits_{l \neq i}^{n}s_{l}var(E_{l})
 \end{align*}
 
-\noindent Onward! WHAT IS capital S?!\\
-
-\begin{align*}
- \langle E_{j} \rangle = & \langle \ln g_{j,t} \rangle\\
-\mu_{j} = & \langle \ln g_{j,t} \rangle - \ln(1-s_{j})\\
-\delta \mu_{i} = & \mu_{i} - \mu_{r} \text{ or }  \mu_{i} - \bar{\mu_{r}} \text{ where $\bar{\mu_{r}}$ is average over resident spp.} \\
+\begin{align}
+ \langle E_{j} \rangle = & \langle \ln g_{j,t} \rangle \\
+\mu_{j} = & \langle \ln g_{j,t} \rangle - \ln(1-s_{j}) \\
+\end{align}
+\begin{align}
 var(E_{j}) = & var(\ln(g_{j,t}))\\
-\delta V_{i} = & \frac{1}{2} S_{i} var(\ln(g_{j,t}))-\frac{1}{2} S_{r} var(\ln(g_{r,t})) \text{ or } \\
-& = \frac{1}{2} S_{i} var(\ln(g_{i,t}))-\bar{\frac{1}{2} S_{r} var(\ln(g_{r,t}))} \text{ again, average over all residents}\\
-g_{j,t} = & G_{max} e^{-h(\tau_{p}-\tau_{i})^2}\\
-\ln g_{j,t} = & \ln G_{max}-h(\tau_{p}-\tau_{i})^2\\
-\langle \ln g_{j,t} \rangle = & \ln G_{max} - h \langle (\tau_{p}-\tau_{i})^2 \rangle\\
+\delta V_{i} = & \frac{1}{2} s_{i} var(\ln(g_{i,t}))-\bar{\frac{1}{2} s_{j} var(\ln(g_{j,t}))}^{(j \neq i)} \\
+var(\ln g_{j,t}) = h^2 var(\tau_{p,t}^{2} - 2 \tau_{p,t}\tau_{i})\\
+\end{align}
+\begin{align}
+g_{j,t} = & G_{max} e^{-h(\tau_{p,t}-\tau_{i})^2}\\
+\ln g_{j,t} = & \ln G_{max}-h(\tau_{p,t}-\tau_{i})^2\\
+\langle \ln g_{j,t} \rangle = & \ln G_{max} - h \langle (\tau_{p,t}-\tau_{i})^2 \rangle\\
 & \text{...skipping some intervening equation work...}\\
-= & \ln G_{max} - h [\sigma^{2}_{\tau_{p}}+\mu^{2}_{\tau_{p}}-2\tau_{i}\mu_{\tau_{p}}+\tau_{i}^{2}]
-\end{align*}
+= & \ln G_{max} - h (\sigma^{2}_{\tau_{p,t}}+(\mu_{\tau_{p,t}}-\tau_{i})^{2})
+\end{align}
 
 \begin{align*}
+\noindent For the case where 
 \tau_{p} \sim & \beta(p,q)\\
+\noindent we can calculate the expected value and variance of \tau_{p,t} explicitly: 
 var (\tau_{p}) = & E \langle \tau_{p}^{2}\rangle - \langle E \langle \tau_{p} \rangle\rangle ^{2}\\
  & var(\tau_{p})+ E \langle \tau_{p}\rangle ^{2} \text{ Megan, is this extra from above or ...?}\\
 E \langle \tau_{p} \rangle = & \frac{p}{p+q}\\
@@ -225,26 +226,27 @@ var(\tau_{p}) = & \frac{pq}{(p+q)^{2}(p+q+1)}
 \end{align*}
 
 
-\noindent Starting page 4 ... special case of two species:
+\noindent \textbf{Storage Effect}
 \begin{align*}
-\frac{\Delta I_{i}}{d_{i}} = & \overline{(1-d_{s})\chi_{s}^{-i)}}^{(s\neq i)} - (1-d_{i})\chi_{i}^{(-i)}\\
+\frac{\Delta I_{i}}{d_{i}} = & \overline{(1-d_{j})\chi_{j}^{(-i)}}^{(j\neq i)} - (1-d_{i})\chi_{i}^{(-i)}\\
+= & \sum\limits{j \neq i}^{n} s_j \chi_{j}^{(-i)} - s_{i} \chi_{i}^{-i}\\
 \chi_{j}^{(-i)} = & cov(E_{j},C^{(-i)}) \text{ where $C_{(-i)}$ is competition when sp $i$ is invader}\\
-\chi_{j}^{(-i)}  = & cov(\ln g_{j,t}, \ln(\frac{\lambda_{r}}{1+\alpha_{jj}g_{j,t}N_{j,t}}-s_{r}))\\
-= & cov(\ln g_{r,t}, \ln(\frac{\lambda_{r}}{1+\sum \limits_{l \neq i} \alpha_{rl}g_{r,t}N_{j,t}}-s_{r}))\\
-\chi_{i}^{(-i)}  = & cov(\ln g_{i,t}, \ln(\frac{\lambda_{i}}{1+\sum \limits_{l=r} \alpha_{il}g_{l,t}N_{l,t}}-s_{i}))\\
-\frac{\Delta N_{i}}{d_{i}} = & \frac{1}{2}var(C^{(-i)})(d_{i}-\bar{d_{s}}^{(s \neq i)})\\
+\chi_{j}^{(-i)}  = & cov(\ln g_{j,t}, \ln(\frac{\lambda_{j}}{1+\sum \limits_{l \neq i} \alpha_{jl}g_{l,t}N_{l,t}}-s_{j}))\\
+\chi_{i}^{(-i)}  = & cov(\ln g_{i,t}, \ln(\frac{\lambda_{i}}{1+\sum \limits_{l \neq i} \alpha_{il}g_{l,t}N_{l,t}}-s_{i}))\\
+\end{align*}
+
+\noindent \textbf{Relative Nonlinearity}
+\begin{align*}
+\frac{\Delta N_{i}}{d_{i}} = & \frac{1}{2}var(C^{(-i)})(d_{i}-\bar{d_{j}}^{(j \neq i)})\\
 var(C^{(-i)}) = & var(\ln \frac{\lambda_{j}}{1+\sum \limits_{l} \alpha_{il}g_{l,t}N_{l,t}}-s_{j})\\
 \bar{d_{s}}^{(s \neq i)} = & \frac{1}{n-1}\sum \limits_{l=i}(1-s_{l})
 \end{align*}
 
-\noindent {\bf \(C_t}\) versus \(C_{j,t}\):}\\
-
-\noindent Assumption: all species experience the same amount of competition: \( \leftarrow C_{j}(t)=C(t)\)\\
-More general solution: \(C_{j}\) are proportional between species (not sure what this means)\\
-In both of the above situations, equilibrial coexistence is excluded: in the absence of fluctuations, no existence\\
-We don'ty really want to make this assumption, I don't think, which may make the calculation more challenging.\\
-This comes down to the assumption that all \(\alpha_{i,l}\) are equal; i.e., that intra and inter-specific competition coefficients are equal.\\
-We could make this assumption to start, and then break from that assumption.\\
+\noindent \textbf{Calculation of ${C_{t}}$}
+In Chesson 2003, the calculations in Table 1 are for $C_{t}^{(-i)}$, i.e., the community competition with the invader absent.  In principle this makes sense: if we consider competition experienced by the invader to reflect the level of resource remaining after consumption by all resident species, then  $C_{t}^{(-i)}$ depends only on the identity of the invader.  
+For calculate the storage effect, we must calculate the covariance between environment and competion:  $Cov(C_{j,t},E_{j,t}$.  In this case, we can calculate species-specific $C_{j,t}$ and $E_{j,t}$, with $C_{j,t}$ as the annual competition experienced by species $j$, i.e.,
+$C_{j,t} = \ln (\frac{\lambda_{j}}{1+\sum\limits{l \neq i}^{n} \alpha_{jl}g_{l,t}N_{l,t}}-s_{j})$
+However, when we calculate relative nonlinearity using the equation in Chesson (2003) Table 1, we need to calculate $var(C_{t}^{(-i)})$, which should be the same for all species.  It is not clear how the annual community competitive effect should be calculated.  The denominator in the equation for $C$ is easy to calculate for all but the invader.  But ths is multiplied by a species-specific term ($\lambda_{j}$) and a species-specific term is subtracted $s_{j}$.  Therefore, I wonder if the simple equations in Table 1 are not appropriate for this case.  Even if the competitive effects were proportional by species (not the case because of the subtraction of $s_{j}$) then the terms in Table 1 would need to be scaled by $\lambda_{j}$.  \\
 
 
 
