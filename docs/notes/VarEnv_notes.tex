@@ -20,7 +20,7 @@
 
 \usepackage{fancyhdr}
 \pagestyle{fancy}
-\fancyhead[LO]{February 2015}
+\fancyhead[LO]{August 2015}
 \fancyhead[RO]{Variable environments \& climate change}
 
 \begin{document}
@@ -28,12 +28,12 @@
 \title{Coexistence and climate change: \\The role of
     temporal-variability in structuring future communities}
     \author{Wolkovich \& Donahue}
-\date{Last updated: 13 February 2015}
+\date{Last updated:  16 August 2015}
 \maketitle
 
 \begin{abstract} Predicting community shifts
 with climate change requires fundamental appreciation of the
-mechanisms that govern how communities assemble. Most work to date has
+mechanisms that govern how communities assemble. Much work to date has
 focused on how warmer mean temperatures may affect individual species
 via physiology, generally producing range shifts towards the poles and
 uphill, which fails to predict the wide diversity of observed shifts.
@@ -57,30 +57,26 @@ ability of species to phenologically track the timing of major climate events. \
 \tableofcontents
 
 \section{Next steps, goals!}
-\subsection{Finalize equations for mechanisms of coexistence}
-Go Megan! See file \verb|VarEnv_CoexistEqns.tex|
+\subsection{Write-up current state of progress for mechanisms of coexistence} 
+Megan will write up where she arrived at as of 8 August 2015 working off Chesson 1994 (TPB) and Chesson 2003 (TPB also I think). See file \verb|VarEnv_CoexistEqns.tex|.
 
-\subsection{Code that spits mechanisms!}
-Code in \verb|PhenologyModel.R| that spits out the storage effect, relative nonlinearity and maybe something about other mechanisms of coexistence so Lizzie can code how they shift with nonstationarity.
+\subsection{Get $R^*$ model running by 7 September 2015}
+So, Megan needs to (1) confirm issue we left last were working on with model and (2) help solve it (note, we think the problem was how to get ODE solver to end a season for each species when it reaches its $R^*$ value). 
 
-\subsection{Figure out rankings of species}
+\subsection{Get parameter simulations running by 7 Septemner 2015}
+So, Lizzie needs to get the code to run through sweeps of parameters running, including figuring out how to get it up on Research Computing.
+
+\subsection{Figure out rankings of species?} % from Dec 2013
 This should come be R* (fluctuation independent) plus the equalizing bits (fluctuation dependent). Once we have this, it will be good to look at: (1) if the cut-off in coexistence shifts with nonstationarity and (2) how the spread between species shifts with nonstationarity.
 
 \subsection{Get phenological tracking up and running}
-First, to make life easy I (Lizzie) will swap the hats when coding. So what we call \(\hat{\tau_{i}}\) I will call \(\tau_{i}\) and vice versa.\\
+\emph{Old note, does this still apply?} First, to make life easy I (Lizzie) will swap the hats when coding. So what we call \(\hat{\tau_{i}}\) I will call \(\tau_{i}\) and vice versa.
 
-\noindent Next up, I need to work on how to make joint distributions in R (all different types, not just multivariate normal ones) so we can link \(\alpha_{i}\) with \(c_{i}\). For this I need to look into copulas and the R package \verb@copula@. See also these pages:\\
-\url{http://www.r-bloggers.com/copulas-made-easy/}\\
-\url{https://sites.google.com/a/wisc.edu/jed-frees/multivariate-regression-using-copulas}
+\subsection{Writing tasks for Lizzie}
+(1) Write out clear questions to address in each paper and (2) add references for Chesson citations above and below. Also, maybe (3) remove equations from Feb-Jan 2015 below. And add in any references to other files that Megan works up. \emph{And then read all these notes over for clarity etc..}
 
-\subsection{The nitty-gritty list by Lizzie from May 2014}
-To review, the goal really is the Mayan invaders project. Once we're there we're in good shape. But here's the short version of my notes (really short as I decided I don't have time just now to transcrive the hand-written scribblings on randomize code etc., maybe someday---or maybe I will just get it done!):
-\begin{enumerate}
-\item calculate storage effect; niche differences and relative non-linearity (or at least the first one)
-\item add phenological tracking
-\item add copulas (see above)
-\end{enumerate}
-
+\subsection{Schedule when to next meet}
+Right-o.
 
 \section{Introduction}
 \noindent Understanding how plant communities will respond to climate change
@@ -119,6 +115,102 @@ have a lot of climate data on hand). The new \emph{Physical Sciences Basis} of t
 \item  \emph{Mayan megadroughts and climate change} 
 \end{enumerate}
 See below for outlines and info on each.
+
+\newpage
+
+\section{Notes from 8 August 2015}
+
+In May 2014 we wrote, `To review, the goal really is the Mayan invaders project. Once we're there we're in good shape.' And that's basically back where we ended up after a week of work in August 2015, skipping for now all the mechanisms of coexistence.\\
+
+\noindent The longer story behind this outcome is that we spent about a week working through Chesson 1994 (TPB, section 5.5) and Chesson 2003 (TPB also I think) trying to figure out how to fully sort out the mechanisms of coexistence using a simple Lotka-Volterra model we started working on in January-February 2015 (though I think we started re-working on mechanisms of coexistence as of December 2013 at least). We decided for now to table this work and switch back to the $R^*$ with a focus on the phenological tracking questions. 
+
+\subsection{Overview}
+After thought, discussion, up and downs we have decided to move ahead
+on... {\bf the $R^*$ model of 2014 and before and phenological
+  tracking.} This has several benefits:
+\begin{smitemize}
+\item It focuses the work on a biologically-meaningful topic Lizzie
+  can write easily about.
+\item It makes the work hinge less strongly on how we model
+  nonstationarity.
+\item It does not require calculating the mechanisms of coexistence,
+  which really would be handy to make sense out of any project where
+  we focused more broadly on answering `What happens to communities when the environment
+  becomes nonstationary?'
+\item The $R^*$ is complicated enough to have interesting dynamics and
+  make it less obvious why we do not calculate mechanisms of
+  coexistence.
+\item It still lets us get to the Mayan megadrought question (which
+  requires a pulse size to have droughts occur). Yay!
+\end{smitemize}
+
+\subsection{Three-part approach to project}
+
+Possible titles: `Phenological tracking: It's more complicated than you think' (we hope) or `Phenological tracking: Is it naive?'
+\begin{enumerate}
+\item Under a stationary environment what trade-off is required with tracking to allow coexistence?
+\begin{enumerate}
+\item Two species ($i, j$) case
+\begin{enumerate}
+\item Vary $\tau_P$ by drawing from a stationary distribution and let $R^*$ and $\alpha$ also vary by being drawn from each of their own (non-joint) distributions, run a bunch of models of 2 species communities and extract co-existing ones. 
+\item Plot $\frac{\alpha_i}{\alpha_j}$ (or, perhaps better: realized proximity to $\tau_P$) by  $\frac{R^{*}_{i}}{R^{*}_{j}}$ for coexisting pairs of species (PhenTrackFig. 1, not currently shown here, see paper notes) -- we expect a cloud of space where coexistence is possible.
+\end{enumerate}
+\item Multi-species case
+\begin{enumerate}
+\item (Similar to above) Vary $\tau_P$ by drawing from a stationary distribution and let $R^*$ and $\alpha$ also vary by being drawn from each of their own (non-joint) distributions for a $n>2$ set of species, and pull out coexisting species from each run. 
+\item Plot $\alpha$ (or realized proximity to $\tau_P$) against $R^*$ for each community of coexisting species (PhenTrackFig. 2, not currently shown here, see paper notes), measure the correlation and the noise around it.
+\item Examine the distribution of correlations (and maybe noise) for all communities (PhenTrackFig. 3, not currently shown here, see paper notes).
+\end{enumerate}
+\end{enumerate}
+\item Under a non-stationary environment of earlier $\tau_P$ how: (1) does this trade-off change and (2) do communities change?\footnote{Megan may have better notes on this section}
+\begin{enumerate}
+\item Two species case: take the coexisting 2-species communities from part I and add nonstationarity in $\tau_P$ and ...
+\begin{enumerate}
+\item see how long it takes to lose one species. 
+\item see which ones persist longest and mark on PhenTrackFig. 1 (e.g., re-do PhenTrackFig. 1 with bubble plots or such for how long the two species persist together).
+\end{enumerate}
+\item Multi-species case: take the coexisting multi-species communities from part I and add nonstationarity in $\tau_P$ and ...
+\begin{enumerate}
+\item stop at $X$ timepoint and re-do PhenTrackFig. 2 and 3 to see how they have shiften (e.g., you may lose the middle species --- those that are not the best competitors nor the best trackers ...).
+\item extract timepoints when 10\% and/or 50\% of species are lost. 
+\item extract when each species is lost in a community and order the species loss of PhenTrackFig. 2.
+\end{enumerate}
+\end{enumerate}
+\item Are there environmental conditions under which tracking won't work as a strategy?
+\begin{enumerate}
+\item Thinking about environmental correlations (e.g., spring gets earlier and drier or such), are there some where tracking will not be favored?
+\item Answer: Yes, probably whenever you shift the environment in another way (in addition to earlier $\tau_P$) that does not impact the competitive dominant but does negatively impact the competitve inferior/tracker (See also Figure 1 below). 
+\item So, for example if $\tau_P$ gets earlier \emph{and} $R_0$ gets smaller then the trackers may decline.  
+\end{enumerate}
+\end{enumerate}
+
+A few things:
+\begin{smitemize}
+\item We may also need to think about how $\tau_i$ works in these simulations to better understand how $\alpha_i$ works.
+\item Measuring coexistence, a couple options
+\begin{smitemize}
+\item Long-term persistence
+\item Run the model to persistent-looking conditions and show each species can increase from low-density using long-term mean densities of other species.
+\end{smitemize}
+\end{smitemize}
+
+\subsection{Connections to Mayan Megadroughts project}
+
+We broke down this trade-off to: Wider (probably shorter) germination curves trade off with shorter seedbank life such that ...
+\begin{smitemize}
+\item Exotics have wider (probably shorter) germination curves -- so they go basically whenever a pulse is, no matter what size it is.
+\item Natives have narrower (probably taller) germination curves -- so they go only when a pulse happens at a certain time.
+\item Exotics have short-life seedbanks, natives have longer-life seedbanks. 
+\item Thus, if you add in mega-droughts (repetitive low-pulse size years) the exotic species will continue to germinate a high fraction of seeds each year, but get little biomass and new seeds out of the germinating seeds, leading to a negative growth rate that does not rebound before the whole seedbank is wiped out. Natives don't do this. (See also Figure 1 below). 
+\end{smitemize}
+
+\noindent This is similar to the tracking in that both have to do with how \emph{responsive to the environment} species are. 
+
+\begin{figure}[h!]
+\centering
+\noindent \includegraphics[width=0.9\textwidth]{/Users/Lizzie/Documents/git/temporalvar/figures/figure_tradeoff.png}
+\caption{{\bf How drought could negatively impact phenological trackers}: Two curves for the same species---a competitively-inferior phenological tracking species---one showing how it responds to a drought (low resource pulse, $R_0$) and another to how it responds in a high drought year (high resource pulse).}
+\end{figure}
 
 \newpage
 \section{Equations and related notes: January-February 2015}
@@ -216,9 +308,8 @@ g_{j,t} = & G_{max} e^{-h(\tau_{p,t}-\tau_{i})^2}\\
 \end{align}
 
 \begin{align*}
-\noindent For the case where 
-\tau_{p} \sim & \beta(p,q)\\
-\noindent we can calculate the expected value and variance of \tau_{p,t} explicitly: 
+\text{For the case where } \tau_{p} \sim & \beta(p,q)\\
+\text{we can calculate the expected value and variance of }&\tau_{p,t} \text{ explicitly}: \\
 var (\tau_{p}) = & E \langle \tau_{p}^{2}\rangle - \langle E \langle \tau_{p} \rangle\rangle ^{2}\\
  & var(\tau_{p})+ E \langle \tau_{p}\rangle ^{2} \text{ Megan, is this extra from above or ...?}\\
 E \langle \tau_{p} \rangle = & \frac{p}{p+q}\\
@@ -246,7 +337,7 @@ var(C^{(-i)}) = & var(\ln \frac{\lambda_{j}}{1+\sum \limits_{l} \alpha_{il}g_{l,
 In Chesson 2003, the calculations in Table 1 are for $C_{t}^{(-i)}$, i.e., the community competition with the invader absent.  In principle this makes sense: if we consider competition experienced by the invader to reflect the level of resource remaining after consumption by all resident species, then  $C_{t}^{(-i)}$ depends only on the identity of the invader.  
 For calculate the storage effect, we must calculate the covariance between environment and competion:  $Cov(C_{j,t},E_{j,t}$.  In this case, we can calculate species-specific $C_{j,t}$ and $E_{j,t}$, with $C_{j,t}$ as the annual competition experienced by species $j$, i.e.,
 $C_{j,t} = \ln (\frac{\lambda_{j}}{1+\sum\limits{l \neq i}^{n} \alpha_{jl}g_{l,t}N_{l,t}}-s_{j})$
-However, when we calculate relative nonlinearity using the equation in Chesson (2003) Table 1, we need to calculate $var(C_{t}^{(-i)})$, which should be the same for all species.  It is not clear how the annual community competitive effect should be calculated.  The denominator in the equation for $C$ is easy to calculate for all but the invader.  But ths is multiplied by a species-specific term ($\lambda_{j}$) and a species-specific term is subtracted $s_{j}$.  Therefore, I wonder if the simple equations in Table 1 are not appropriate for this case.  Even if the competitive effects were proportional by species (not the case because of the subtraction of $s_{j}$) then the terms in Table 1 would need to be scaled by $\lambda_{j}$.  \\
+However, when we calculate relative nonlinearity using the equation in Chesson (2003) Table 1, we need to calculate $var(C_{t}^{(-i)})$, which should be the same for all species.  It is not clear how the annual community competitive effect should be calculated.  The denominator in the equation for $C$ is easy to calculate for all but the invader.  But this is multiplied by a species-specific term ($\lambda_{j}$) and a species-specific term is subtracted $s_{j}$.  Therefore, I wonder if the simple equations in Table 1 are not appropriate for this case.  Even if the competitive effects were proportional by species (not the case because of the subtraction of $s_{j}$) then the terms in Table 1 would need to be scaled by $\lambda_{j}$.  \\
 
 
 
@@ -268,7 +359,7 @@ a_{l} & = \text{ competitive effect of a $sp_{l}$ individual (related to eqn 6 o
 \end{align*}
 
 \newpage
-\section{Equations and related notes: pre-2015}
+\section{Equations and related notes: $R^*$ model}
 
 \noindent For a species \(i\) let (note: see dimensional analysis for full list of current terms, I need to update this here someday):
 \begin{align*}
@@ -558,6 +649,12 @@ are some times when no specialists are favored so that the
 generalist is then superior.
 \end{quote}
 
+As of August 2015 we decided {\bf against doing tracking with join distributions}, but here are the old notes on it:
+\begin{quote}
+Next up, I need to work on how to make joint distributions in R (all different types, not just multivariate normal ones) so we can link \(\alpha_{i}\) with \(c_{i}\). For this I need to look into copulas and the R package \verb@copula@. See also these pages:\\
+\url{http://www.r-bloggers.com/copulas-made-easy/}\\
+\url{https://sites.google.com/a/wisc.edu/jed-frees/multivariate-regression-using-copulas}
+\end{quote}
 
 \section{Coexistence with climate change: Notes related to implementing and writing}
 
@@ -831,7 +928,7 @@ covar(E,C) \approx covar\left(R_{i}, \sum_{i=1}^{n}B_{i}\right)
 
 \newpage
 \section{Almighty figure aspirations} 
-\noindent Figure 2 and 3 are ideas from Lizzie as of 11 December 2013, see also some older figure ideas at end of the paper (from 2011). 
+\noindent Figure 3 and 4 are ideas from Lizzie as of 11 December 2013, see also some older figure ideas at end of the paper (from 2011). 
 
 \begin{figure}[h!]
 \centering

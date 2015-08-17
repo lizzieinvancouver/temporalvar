@@ -10,7 +10,27 @@ To do in general:
 
 
 ***************
-25 May 2015:
+17 June 2015: Skype with Megan
+
+Two possible issues with coexistence equations:
+
+(1) 2003 TPB paper assumes competition can be measured at the community level (so all species have same C, for example they all compete equally for water) — which is okay, but not what we’re doing (rephrased, from Megan’s email on 11 Jun 2015: I have identified a potential source of the discrepancy in our storage effect and relative nonlinearity calcs (essentially, the coexist equations I have been using assume that competition is the same for all species, but our calcs assume species specific C), so I am trying to resolve that.  I'm not sure where things are at on your end and what would be most helpful right now wrt your proposal.
+… 1994 TPB assumptions help understand the 2003 TPB paper.
+… seed model from Oecologia paper is in section 5.5 of 1993 paper.
+(2) “Time-varying death is unfortunate” — Dealing with death varying by time — this is related to issue of germination being part of dying (and all her counting seeds work)
+
+
+We discussed when to next meet-up:
+	- She suggested probably first week of August (so she can go to ESA after)
+	- Then we meet in fall/winter (probably January)
+		- In Hawaii 	
+		- Or at Whiteley Center?
+		- Or before/after Asilomar (10-14 Jan)
+
+Note many things below (25 May) we did not get to!
+
+***************
+25 May 2015: Still some to dos here!!!
 
 To do next on PhenologyModel_SimpleTRY.R:
 	(1) Add to the bottom of the loop writing output for coexist dataframe (I need to better understand from Megan how the output works, I think we get each one for each species?
@@ -31,12 +51,7 @@ I thought on needs for the CAREER award I need to write soon and I think I need:
     (c) I could also use your help trying to brainstorm how to combine the two portions of my grant (testing for niche/neutrality in Gothic data and this project) better.
     (d*) (Did NOT include in email) some phenological tracking output? Maybe? *this seemed doable two weeks ago when I wrote and now seems unnecessary, but I guess we could add it easily and perhaps a simple graph showing tauP on the X axis and tauI on the Y axis of a tracking and non-tracking species could be interesting.... I think we can definitively table this until I get a draft of the grant going.
 
-Meet up with Megan?
-	- Me post Vancouver to Hawaii (or all to Whiteley Center?)
-	- Me in December to Hawaii
-	- Me in January before/after Asilomar (10-14 Jan)
-	- We meet in Asilomar?
-	- She comes here in the fall/summer
+
 
 * ASK MEGAN! * Do alphas only range 0-1 or can they be -1 to 1?
 * ASK MEGAN! See (1) above about the coexistence stuff
