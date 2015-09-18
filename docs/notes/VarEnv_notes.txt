@@ -4,10 +4,33 @@ By Lizzie
 
 ++++++++++++++++++
 To do in general:
-- redo the dimensional analysis
 - make up notes on recent progress and equations
+- redo the dimensional analysis (if we switch to Lotka-Volterra)
 ++++++++++++++++++
 
+
+++++++++++++++++++
+To do next (20 August 2015):
+- (Megan) push notes
+- (Lizzie) re-do notes once Megan pushes her notes
+- (Lizzie) work on the loop for parameter sweeps 
+- (Megan) make ODEsolver work
+- (both) when to meet next
+++++++++++++++++++
+
+***************
+20 August 2015: Skype with Megan
+
+Peter’s talk at ESA:
+- Takes Beverton-Holt model (which you can write in closed form), divides into two chunks, one goes to infinity was t approaches zero (and it depends on initial conditions) and the other is the long-term equilibrium (intrinsic dynamics).
+- Most of his models do not allow to solve for equilibrium (but they allow you to solve for coexistence). 
+- He said you could say equilibrium is if the community tracks the environment (but that doesn’t work about the lottery model so he does not like that).
+- So he says that equilibrium stuff is okay even with a non stationary environment.
+- She suspects he will ‘don’t worry about equilibrium, it’s approximately in equilibrium.’
+
+
+From Dynamic Ecology blog (Jeremy Fox’s blogged impressions of ESA):
+I’ve been expecting and hoping for this for a couple of years, and this is the year it finally happened: modern coexistence theory, as developed by Peter Chesson and collaborators, is going mainstream. I’ll even go out on a limb and predict that it’s the next big thing in community ecology. Deborah Goldberg stood up in front of a huge Ignite session crowd and named it as one of the two most important ideas in community ecology right now. A number of people besides the usual suspects gave talks on it, including about how to apply it to new problems. Steve Ellner has invented a new statistical approach that should make estimates of the temporal storage effect (a particularly important component of modern coexistence theory) both easier to do and more accurate. And Peter Chesson presented what may be a major extension of the theory. 
 
 ***************
 17 June 2015: Skype with Megan
