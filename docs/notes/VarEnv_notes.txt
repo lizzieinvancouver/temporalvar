@@ -19,6 +19,26 @@ To do next (20 August 2015):
 ++++++++++++++++++
 
 ***************
+23 Sept 2015: tauI issues
+
+OK, I think I can clarify.
+tauI is used in getSpecies.R,  line 16
+
+g <- gmax*exp(-h*(matrix(rep(tauP,nsp),nrow=length(tauP),ncol=nsp)-matrix(rep(tauI,nyrs),ncol=nsp,nrow=nyrs,2))^2)
+
+This defines the germination fraction in each year.  It creates a yrs x spp matrix of the difference between year t tauP and species specific tauI 
+
+….
+
+Actually, I'm not sure what you are using as the primary file at this point.
+
+There is also a file PhenologyModel_Simple.r
+
+In that file, g is defined in line 53 in the same way as it is defined in getSpecies.R
+
+If you are using a version of PhenologyModel.r, then the source call to getSpecies.R defines the variable g and g itself is called in line 80. 
+
+***************
 20 August 2015: Skype with Megan
 
 Peter’s talk at ESA:

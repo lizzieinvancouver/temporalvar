@@ -10,10 +10,12 @@ h <-  rep(100,nsp)             # max rate of germination decrease following puls
 phi <- rep(0.05,nsp)     # conversion of end-of-season plant biomass to seeds
 #germination: tau I and alpha below
 if (nsp==2) tauIhat <- c(0.35, 0.4) else tauIhat <-runif(nsp,0.1, 0.9)  # time of max germ for sp i
-alpha <- runif(nsp,0.1, 0.3)
-tauI <- alpha*tauP+(1-alpha)*tauIhat
+tauIhat <- matrix(rep(tauIhat),nyrs,nsp, byrow = TRUE)
+alpha <- runif(nsp,0.1, 0.8) #rep(0, nsp) 
+alpha <- matrix(rep(alpha),nyrs,nsp, byrow = TRUE)
+tauI <- alpha*tauP+(1-alpha)*tauIhat 
 
-g <- gmax*exp(-h*(matrix(rep(tauP,nsp),nrow=length(tauP),ncol=nsp)-matrix(rep(tauI,nyrs),ncol=nsp,nrow=nyrs,2))^2)  #germination fraction in year y
+g <- gmax*exp(-h*(matrix(rep(tauP,nsp),nrow=length(tauP),ncol=nsp)-tauI)^2)  #germination fraction in year y
 
 #competition
 a <-  rep(20,nsp)        # slope of species uptake rate with increasing R
