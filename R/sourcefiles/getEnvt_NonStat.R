@@ -14,6 +14,5 @@ eps <- 1              # evaporative stress
 if (nonsta > 0) {
   qns <- seq(2, 20, length.out=nonsta)
   tauPns <- rbeta(nonsta, p, qns) # yes, it takes a vector! Yay!
-  plot(tauPns~c(1:50))
-  tauP <- c(tauP, tauPns)
+  tauP <- tauPns
 }

@@ -8,6 +8,23 @@ For those days when git is just not enough.
 
 
 +++++++++++++++++++++++++++++++++++++++++++++++++++
+Changes and thoughts by Lizzie on 9 October 2015
+Right after working on model for Phenology Conference talk
+
+Trying to get non stationary runs — things I had to do:
+- I think the code is set up to try to run stationary FOLLOWED by non-stationary but it doesn’t seem to work, so I just tried to get non stationary to run
+- turned on nonsta (to 100) in PhenologyModel.r
+- added a new file getEnvt_NonStat.R — this removes the line ‘tauP <- c(tauP, tauPns)’ which seemed to make tauP bigger than nyrs and thus caused cascading matrix agreement problems 
+- sourced getEnvt_NonStat.R I then sourced in PhenologyModel.r
+- changed getRunParms.R — as it says in the file
+
+nyrs <- 0 + nonsta # replacing nyrs with 0 on 6 Oct 2015 to do just a nonstationary run,
+                   # otherwise could not get it to run
+
+Otherwise adjusted some stuff for tauI varying by year!
+
+
++++++++++++++++++++++++++++++++++++++++++++++++++++
 Model files relating to phenologymodel_DecReset.R files:
 
 On 11 Jan 2014 Megan pulled the 13 December code (from the end of our Hawaii meeting)named it ***phenologyModel_DecReset.R*** and started from there to work on the modeling add-ins she had been doing with an odesolver (but wasn’t quite working and I had to give a talk at ASN in Asilomar!). 

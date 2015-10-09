@@ -4,7 +4,7 @@
 ## VarEnvironments & Coexistence ##
 
 # safety feature(s)
-setwd(getwd()) # Lizzie: setwd("~/Documents/git/temporalvar/R")
+setwd(getwd()) # Lizzie: setwd("~/Documents/git/projects/temporalvar/R")
 options(stringsAsFactors=FALSE)
 
 # packages
@@ -18,18 +18,19 @@ set.seed(2)
 # (1) add in everything crossyrsvars need (was lazy about this)
 # (2) add in resource stuff to withinyrs
 # (3) decide on list for each run, versus some other format
+# (4) Figure out how to write output here and on RC 
 
 # set up model runs
 modelruns <- list() # place to store output of runs
 runspecies <- c() 
-nruns <- 10 # number of model runs to do
+nruns <- 1 # number of model runs to do
 for (j in c(1:nruns)){ # assuming, we will vary species characteristics between yrs ... 
   
 #Stationarity in this run?
 nonsta = 0  #flag for stationary (0) vs nonstationary (=num yrs nonstationary)
 
 #Number of species to start?
-nsp = 2  #when nsp=2, tauI is assigned known values from chesson 2004
+nsp = 30  #when nsp=2, tauI is assigned known values from chesson 2004  
 
 source("sourcefiles/getRunParms.R") #define runtime parameters
 source("sourcefiles/getGraphParms.R")  #define graphics parameters
@@ -45,7 +46,7 @@ source("sourcefiles/getSpecies.R")  #get species characteristics and Rstar
 N0 <- rep(10,nsp)          # initial number of seeds (per meter square?)
 N <- matrix(rep(0), nyrs, nsp) # number of seeds by yr and spp
 N[1,] <- N0  #initialize
-rcrt <- matrix(rep(0),nyrs,nsp) # recruitment in year y
+rcrt <-  # recruitment in year y
 rcrt0 <- matrix(rep(0),nyrs,nsp) # recruitment WO competition in year y
 
 ## Within-season dynamics set-up
@@ -77,7 +78,7 @@ for (y in c(1:(nyrs-1))){
   Bout[[y]] <- as.data.frame(ode(func = ResCompN, y = State, parms = Pars, times = Time))
   #Bout[[y]] <- as.data.frame(lsodar(func = ResCompN, y = State, parms = Pars, times = Time,rootfun=rootfun))
   Bfin[y,] <-  apply(Bout[[y]][3:(2+nsp)],2,FUN=max)  #final biomass
-  N[y+1,] <- N[y,]*s*(1-g[y,]) + phi*Bfin[y,]    #note Bfin already includes N(t) as init cond
+  N[y+1,] <- N[y,]*s*(1-g[y,]) + phi*Bfin[y,]    #note Bfin already includes N(t) as init cond; USES g here!
   N[y+1,] <- N[y+1,]*(N[y+1,]>ext)  #if density does not exceed ext, set to zero
     
   #use deSolve for NoCompN to solve for noCompetition condition
@@ -98,14 +99,21 @@ for (y in c(1:(nyrs-1))){
 }
                                                                      
 runspecies[j] <- sum(Bfin[98,]>0) # alert Will Rogers!
-modelruns[[j]] <- list("crossyrsvars"=crossyrsvars, "Bfin"=Bfin, "E"=E)
+modelruns[[j]] <- list("crossyrsvars"=crossyrsvars, "tauI"=tauI, "tauP"=tauP, "Bfin"=Bfin, "E"=E)
 
-# could also make each run a multi-part dataframe with common names
+
+## could also make each run a multi-part dataframe with common names
 # so something like:
 # modelruns[[paste("crossyrs", j, sep="")]] <- crossyrsvars
 # modelruns[[paste("withinyrs", j, sep="")]] <- Bfin
+## This is how I did it in the other file
+# sppabund <- data.frame(matrix(ncol = nsp, nrow = nruns))
+# colnames(sppabund) <- c(1:nsp)
+# modelparams <- data.frame(nsp=numeric(), lambda=numeric(), gmax=numeric(),
+#     s=numeric(), h=numeric(), p=numeric(), q=numeric())
+# coexist <- data.frame(meanFit=numeric(), storEff=numeric(), relN=numeric())
 
-}
+} # close the model run loop
 
 ## indexing out list of lists
 # call something
@@ -114,13 +122,14 @@ modelruns[[2]][1][[1]]$gmax
 modelruns[[2]]["crossyrsvars"]
 # so you can also do this
 modelruns[[2]]["crossyrvars"][[1]]$gmax
+# modelruns[[8]]$crossyrsvars["tauI"]
 
-source("sourcefiles/plotNyears.R")  #plots dynamics of seedbank abundance over years
+#source("sourcefiles/plotNyears.R")  #plots dynamics of seedbank abundance over years
 #source("sourcefiles/plotBinSeason.R")  #plot within season dynamics of biomass & R for a subset of years
-source("sourcefiles/plotBwCnoC.R")  #plot within season biomass resource dynamics w and wo competition
-source("sourcefiles/plotBinSeason_Lizzie.R")
+#source("sourcefiles/plotBwCnoC.R")  #plot within season biomass resource dynamics w and wo competition
+#source("sourcefiles/plotBinSeason_Lizzie.R")
 
-###Megan stopped tweaking plots here, but they will need to be adjusted for new within-year output structure from ode
+### Megan stopped tweaking plots here, but they will need to be adjusted for new within-year output structure from ode
 
 # within years plots
 # tweaked a little to make biomass differences among years clearer
@@ -148,13 +157,16 @@ source("sourcefiles/plotBinSeason_Lizzie.R")
 # }
 
 
-dev.new(width=7, height=6)
+dev.new(width=4, height=3)
 
 # (2) using ggplot, which really is good for this sort of thing
-tau.df <- data.frame(coexisted=Bfin[max(y),]>0, tauI=tauI)
+# need to update this now that tauI varies by year
+tau.df <- data.frame(coexisted=Bfin[max(y),]>0, tauI=colMeans(tauI[,]),
+    tauIhat=colMeans(tauIhat[,]), alpha=colMeans(alpha[,]))
 tau.df$coexisted[tau.df$coexisted==TRUE] <- "coexisted"
 tau.df$coexisted[tau.df$coexisted==FALSE] <- "doomed"
 tauP.df <- data.frame(coexisted=rep("tauP"), tauP=tauP)
+
 
 if (nonsta>0){
   ggplot(tau.df, aes(tauI, fill = coexisted)) + geom_histogram(alpha=0.5) +
@@ -168,7 +180,9 @@ if (nonsta>0){
 }
 
 
-
+# plot(tauP, type="l")
+# lines(tauI[,34], col="red", pch=16, cex=0.5) 
+# lines(tauI[,49], col="blue", pch=16, cex=0.5)
 
 ## notes for lizzie (by lizzie):
 # length of vectors is nsp
