@@ -9,6 +9,9 @@
 \usepackage{hyperref}
 \usepackage{gensymb}
 
+% Set below to your filepath, was best I could figure ...
+\graphicspath{{/Users/Lizzie/Documents/git/projects/temporalvar/figures/}} 
+
 
 \newenvironment{smitemize}{
 \begin{itemize}
@@ -133,7 +136,7 @@ We spent a substantial amount of time carefully working through Chesson 1994.  A
 \item  the approximations are made with the assumption of a stationary process, without temporal autocorrelation and drawn from the same distribution through time.  This approximation is the one that makes studying nonstationarity with these approximations difficult. 
 \item  we came up with a couple ideas about how coexistence mechanism partitioning might still be useful, even without stationarity.  For example, you could compare coexistence and coexistence mechanisms present at the beginning and end of a period of change.  The likely outcome is that species will continue to persist after they shoudl have gone extinct because of lags.  It is hard to think of a case when the converse would be true, at least under the case of mean change.  If the variance is changiing, then the outcomes are less obvious and might include increased coexistence
 \end{itemize}
-I worked through Section 4: Analysis of the General Model, however, actually doing those calculations with any particular model is tricky, particularly making an assumption for E*,C*.  Using Section 5.5 as an example, I tried to work through the calculations for our simple model.  Equation 95 is largely equivalent to our simple model. The only difference is that we originally parameterized competition as (1+ sum_over_j(g(j,t)*X(j,t)*alpha(ij))), but equation 96 has competition as a simple sum, with no additional +1.  
+I worked through Section 4: Analysis of the General Model, however, actually doing those calculations with any particular model is tricky, particularly making an assumption for E*,C*.  Using Section 5.5 as an example, I tried to work through the calculations for our simple model.  Equation 95 is largely equivalent to our simple model. The only difference is that we originally parameterized competition as $(1+ \sum j(g_{j,t}*X_{j,t}*\alpha_{ij}))$ (CHECK this equation, where does $j$ belong?), but equation 96 has competition as a simple sum, with no additional +1. %Lizzie changed the above a little to make math work, may want to check  
 
 Section 5.5 is the same as our simplified model.  Understanding through Equation 99 is clear.  Table II lists the parameters of the seedbank model, and the definition of these terms is clear.  To understand the terms in Table III, we still need to define rho and sigma and to make the correct assumption about the value of E* and C*.  The assumptions around E*, C* are a sticking point and where I got stuck. 
 Looking back at the notes now, however, it seems like there may still be some room forward here.  We are proceeding on the simulations, but Megan will spend a little more time to see if we can actually make the calculations in Table III.
@@ -222,7 +225,7 @@ We broke down this trade-off to: Wider (probably shorter) germination curves tra
 
 \begin{figure}[h!]
 \centering
-\noindent \includegraphics[width=0.9\textwidth]{/Users/Lizzie/Documents/git/temporalvar/figures/figure_tradeoff.png}
+\noindent \includegraphics[width=0.9\textwidth]{figure_tradeoff.png}
 \caption{{\bf How drought could negatively impact phenological trackers}: Two curves for the same species---a competitively-inferior phenological tracking species---one showing how it responds to a drought (low resource pulse, $R_0$) and another to how it responds in a high drought year (high resource pulse).}
 \end{figure}
 
@@ -946,7 +949,7 @@ covar(E,C) \approx covar\left(R_{i}, \sum_{i=1}^{n}B_{i}\right)
 
 \begin{figure}[h!]
 \centering
-\noindent \includegraphics[width=0.8\textwidth]{/Users/Lizzie/Documents/git/temporalvar/figures/varenv_varying.png}
+\noindent \includegraphics[width=0.8\textwidth]{varenv_varying.png}
 \caption{{\bf Major coexistence variables directly affected by
     climate change}  We focus on three major coexistence variables
   that have been (or will be) influenced by climate change---a couple
@@ -956,14 +959,14 @@ covar(E,C) \approx covar\left(R_{i}, \sum_{i=1}^{n}B_{i}\right)
 \newpage
 \begin{figure}[h!]
 \centering
-\noindent \includegraphics[width=0.8\textwidth]{/Users/Lizzie/Documents/git/temporalvar/figures/figurehopes_MoC.png}
+\noindent \includegraphics[width=0.8\textwidth]{figurehopes_MoC.png}
 \caption{{\bf How does climate change affect mechanisms of coexistence?} Two figures: the first is simple it's just the number (or percent of total possible) of species coexisting; the second figure is to look at how mechanisms shift with scenarios that are stationary, weakly nonstationary or strongly nonstationary. Each of these figures should be one panel for each variable manipulated (\(\epsilon, \tau_{p}\) and maybe \(R_{0}\)).}
 \end{figure}
 
 \newpage
 \begin{figure}[h!]
 \centering
-\noindent \includegraphics[width=0.8\textwidth]{/Users/Lizzie/Documents/git/temporalvar/figures/figurehopes_tracking.png}
+\noindent \includegraphics[width=0.8\textwidth]{figurehopes_tracking.png}
 \caption{{\bf How does the prevalence of tracking shift with nonstationarity?} See the section on tracking questions above for the full plethora of questions related to this (e.g., this is also the realm of how strong does the negative correlation between tracking and competitive ability have to be to make tracking non-advantageous). But, basically we want to look at how tracking shifts in stationary versus nonstationary systems. So we could do something like this (we also discussed looking at trackers with random \(\tau_{i}\) versus trackers with early \(\tau_{i}\) as you usually see in nature) and/or we could re-do the mechanisms of coexistence figures above with trackers in the mix.}
 \end{figure}
 
