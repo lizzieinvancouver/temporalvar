@@ -46,7 +46,7 @@ source("sourcefiles/getSpecies.R")  #get species characteristics and Rstar
 N0 <- rep(10,nsp)          # initial number of seeds (per meter square?)
 N <- matrix(rep(0), nyrs, nsp) # number of seeds by yr and spp
 N[1,] <- N0  #initialize
-rcrt <-  # recruitment in year y
+rcrt <-  matrix(rep(0),nyrs,nsp) # recruitment in year y
 rcrt0 <- matrix(rep(0),nyrs,nsp) # recruitment WO competition in year y
 
 ## Within-season dynamics set-up

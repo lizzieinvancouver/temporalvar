@@ -62,10 +62,9 @@
 \begin{itemize}
 \item Step-step solution is clearly incorrect: the resource does not decline exponentially, as it should, and there is no apparent relationship between the decline of resources and the biomass of competing plants
 \item The ODE solution appears to be correct.
-\item Re-running the Nov 6, 2013 code that Lizzie dug up shows that in that simulation which we thought was working, resources do not decline exponentially.  The Biomasses do stop rising abruptly when R reaches R*, but that is because the loop is forced to end when R < min(R*).  The ODE solution does not end when R<R*.
+\item Re-running the Nov 6, 2013 code that Lizzie dug up shows that in that simulation which we thought was working, resources do not decline exponentially.  The Biomasses do stop rising abruptly when R reaches R*, but that is because the loop is forced to end when $R < min(R^{*})$.  The ODE solution does not end when $R<R^{*}$.
 \item NEXT  STEPS: 
 \item solve for long-term equilibrium solution for fixed value of R and g -- where do we expect the equilibrium to be?
-\item 
 \end{itemize}
 
 \section{Megan: September 22, 2014}
@@ -87,7 +86,7 @@
 \caption{{\bf Contour plots of Biomass Out of Sp 1 (blue) and Sp 2 (Red) for BiomassIn of Sp1 (x-axis) and Sp2 (y-axis) at different levels of R0}}
 \end{figure}
 
-\section{Megan & Lizzie meeting: Oct 8, 2014}
+\section{Megan \& Lizzie meeting: Oct 8, 2014}
 \begin{itemize}
 \item need to run within year dynamics longer for higher resource levels:  the reason R0=-4 is parallel is because we aren't actually seeing competitive dynamics yet
 \item  also plot (Bio1In/Bio1out)/(Bio2In/Bio2Out)
@@ -95,14 +94,22 @@
 \item does it make sense to convert things to log scale to look at multiplicative rates of increase
 \end{itemize}
 
-\section{Megan & Lizzie}: October 20, 2014}
+\section{Megan \& Lizzie: October 20, 2014}
 \begin{itemize}
 \item Ok, so now we have these plots of BiomassIn vs BiomassOut.  What does this tell us?  Coexistence depends on the long run average of BioOut/BioIn for both species >1.  
 \item need to reframe this as per capita within season growth
 \item calculate the relative rate of increase for each species given initial conditions
 \item if all species are identical then can calculate this as a function of total biomass because all species have same effect
-\item so calculate the p.c. increase in each year as a function of beginning of year total biomass.  then look what distribution of germination fraction leads to a long-run average pc growth rate > 1
+\item so calculate the p.c. increase in each year as a function of beginning of year total biomass.  then look what distribution of germination fraction leads to a long-run average pc growth rate $> 1$
 \item if we can identify what distribution of g leads to coexistence, then we can ask, are we doing something wrong when we generate the g distributions?  or in the within year dynamics?
 \end{itemize}
+
+\section{Megan \& Lizzie: January 7, 2016}
+\begin{itemize}
+\item Look-up table: Only remotely useful for two species case and,
+  even then, not so useful. Don't bother.
+\item It is \emph{still} very useful to be able to jump out of ODE
+  solver when you reach a threshold.
+\item Keep in mind: ODE solver needs to be able to handle $n+1$
 
 \end{document}
