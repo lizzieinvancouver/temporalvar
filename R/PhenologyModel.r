@@ -3,9 +3,16 @@
 
 ## VarEnvironments & Coexistence ##
 
+## 8 Jan 2016 we deleted all calculations of E and C (and relations)
+# the last commit with those calcs was 4af34aa, the 131st commit ##
+
 # safety feature(s)
-setwd(getwd()) # Lizzie: setwd("~/Documents/git/projects/temporalvar/R")
+rm(list=ls()) 
 options(stringsAsFactors=FALSE)
+
+# set the working directory
+print("Hey! you need to set the correct working directory here")
+setwd(getwd()) # Lizzie: setwd("~/Documents/git/projects/temporalvar/R")
 
 # packages
 library(ggplot2)
@@ -23,23 +30,20 @@ set.seed(2)
 # set up model runs
 modelruns <- list() # place to store output of runs
 runspecies <- c() 
-nruns <- 1 # number of model runs to do
+nruns <- 2 # number of model runs to do
 for (j in c(1:nruns)){ # assuming, we will vary species characteristics between yrs ... 
   
 #Stationarity in this run?
 nonsta = 0  #flag for stationary (0) vs nonstationary (=num yrs nonstationary)
 
 #Number of species to start?
-nsp = 30  #when nsp=2, tauI is assigned known values from chesson 2004  
+nsp = 30  # when nsp=2, tauI is assigned known values from chesson 2004  
 
 source("sourcefiles/getRunParms.R") #define runtime parameters
 source("sourcefiles/getGraphParms.R")  #define graphics parameters
 source("sourcefiles/getEnvt.R")  #get constant and time-varying envt parms
 source("sourcefiles/getSpecies.R")  #get species characteristics and Rstar
-# source("./sourcefiles/getRunParms.R") #define runtime parameters
-# source("./sourcefiles/getGraphParms.R")  #define graphics parameters
-# source("./sourcefiles/getEnvt.R")  #get constant and time-varying envt parms
-# source("./sourcefiles/getSpecies.R")  #get species characteristics and Rstar
+
 
 #Define arrays
 #interannual dynamics set-up (R0 is in getEnvt.R)
@@ -47,26 +51,14 @@ N0 <- rep(10,nsp)          # initial number of seeds (per meter square?)
 N <- matrix(rep(0), nyrs, nsp) # number of seeds by yr and spp
 N[1,] <- N0  #initialize
 rcrt <-  matrix(rep(0),nyrs,nsp) # recruitment in year y
-rcrt0 <- matrix(rep(0),nyrs,nsp) # recruitment WO competition in year y
 
 ## Within-season dynamics set-up
 Bfin <- matrix(rep(0),nyrs,nsp) # biomass at end of year y
 B0  <- matrix(rep(0),nyrs,nsp) # biomass at beginning of year y
 Bout <- list() #each year has a dataframe with time,R(t),Bi(t) of dims(2+nsp,tsteps)
 source("sourcefiles/ResCompN.R") # define within-season ode solver
-source("sourcefiles/NoCompN.R")  # define within-season ode solver for no competition
 
-## set-up for different coexistence mechanisms
-#I have considered 3 defns for E and C, but only one isn't problematic numerically
-  #defn1: E= ln(rcrt0), C=ln(rcrt0/rcrt)  ->compare recruitment w and wo comp
-  #defn2: E= ln(g), C=-ln(phi*Bfin-s) -> this the easiest division of the eqn for rcrt
-  #defn3: E =ln(g), C=-ln(phi*Bfin)  -> in this case, (1-g) is included in the seedback lifespan
-  #defn4: E = ln(g*phi*BnoC), C=ln(BnoC/Bfin)
-BnoCout <- list()
-BnoC <- matrix(rep(0),nyrs,nsp) # B without competition at end of year y
-E <- matrix(rep(0),nyrs,nsp)  
-C <- matrix(rep(0),nyrs,nsp)  
-
+## And away we go!
 for (y in c(1:(nyrs-1))){
   #get initial biomass for year y
   B0[y,] <- b*g[y,]*N[y,] 
@@ -81,26 +73,17 @@ for (y in c(1:(nyrs-1))){
   N[y+1,] <- N[y,]*s*(1-g[y,]) + phi*Bfin[y,]    #note Bfin already includes N(t) as init cond; USES g here!
   N[y+1,] <- N[y+1,]*(N[y+1,]>ext)  #if density does not exceed ext, set to zero
     
-  #use deSolve for NoCompN to solve for noCompetition condition
-  #would be faster to used solved equation, but calculations were coming out wrong
-  #tstar is when species cross their Rstar threshold and we stop the season under the no competition condition; checked against ODE solver, it is when the  biomass starts decreasing
-  tstar <- (1/eps)*(log(R0[y]) - (1/theta)*log(m/(a*c-a*u*m)))  
-  TimeNC <- seq(0,max(tstar)+5*dt,by=dt)
-  BnoCout[[y]] <- as.data.frame(ode(func = NoCompN, y = State, parms = Pars, times = TimeNC))
-  BnoC[y,] <- apply(BnoCout[[y]][3:(2+nsp)],2,FUN=max)
-  
   rcrt[y,] <- g[y,]*(phi*Bfin[y,]-s)   #to recruit, convert biomass to seeds and overwinter
-  #rcrt0[y,] <- g[y,]*(phi*BnoC[y,]-s)   #no-competition recruitment
   
-  #calculate E and C
-  E[y,] <- log(g[y,]*phi*BnoC[y,])         #defn 4
-  C[y,] <- log(BnoC[y,]/Bfin[y,])         #defn 4
   
 }
-                                                                     
-runspecies[j] <- sum(Bfin[98,]>0) # alert Will Rogers!
-modelruns[[j]] <- list("crossyrsvars"=crossyrsvars, "tauI"=tauI, "tauP"=tauP, "Bfin"=Bfin, "E"=E)
 
+## write out the model run output
+# runspecies records the number of species above 0 close to end of each run
+runspecies[j] <- sum(Bfin[98,]>0) # alert Will Rogers!
+## modelruns includes the variables that are constant across years in one dataframe...
+# then tauI, tauP and Bfin for each year
+modelruns[[j]] <- list("crossyrsvars"=crossyrsvars, "tauI"=tauI, "tauP"=tauP, "Bfin"=Bfin)
 
 ## could also make each run a multi-part dataframe with common names
 # so something like:
@@ -111,22 +94,21 @@ modelruns[[j]] <- list("crossyrsvars"=crossyrsvars, "tauI"=tauI, "tauP"=tauP, "B
 # colnames(sppabund) <- c(1:nsp)
 # modelparams <- data.frame(nsp=numeric(), lambda=numeric(), gmax=numeric(),
 #     s=numeric(), h=numeric(), p=numeric(), q=numeric())
-# coexist <- data.frame(meanFit=numeric(), storEff=numeric(), relN=numeric())
 
 } # close the model run loop
 
-## indexing out list of lists
-# call something
+## Helpful reminders on indexing within lists
+# how to call something (given that you have at least 2 runs) ....
 modelruns[[2]][1][[1]]$gmax
-# call internal list by name
+# how to call internal list by name
 modelruns[[2]]["crossyrsvars"]
-# so you can also do this
-modelruns[[2]]["crossyrvars"][[1]]$gmax
-# modelruns[[8]]$crossyrsvars["tauI"]
+# when slicing out bits of vector within a list you have to get beyond the $ 
+# this is often something I forget so here are two examples
+modelruns[[2]]["crossyrsvars"][[1]]$gmax
+modelruns[[2]]["tauP"][[1]][1:10]
 
 #source("sourcefiles/plotNyears.R")  #plots dynamics of seedbank abundance over years
 #source("sourcefiles/plotBinSeason.R")  #plot within season dynamics of biomass & R for a subset of years
-#source("sourcefiles/plotBwCnoC.R")  #plot within season biomass resource dynamics w and wo competition
 #source("sourcefiles/plotBinSeason_Lizzie.R")
 
 ### Megan stopped tweaking plots here, but they will need to be adjusted for new within-year output structure from ode
