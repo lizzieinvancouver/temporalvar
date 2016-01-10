@@ -20,3 +20,8 @@ for (yr in seq_along(plotyrs)){
     axis(4, at=raxis, labels=round(raxis, digits=2))
     mtext("Resource", side=4, line=3, cex=0.75)
 }
+
+## Did program ever jump out of loop?
+for (i in c(1:100)){
+   print(length(Bout[[i]]$time))
+}

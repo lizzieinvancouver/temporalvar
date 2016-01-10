@@ -37,7 +37,7 @@ for (j in c(1:nruns)){ # assuming, we will vary species characteristics between 
 nonsta = 0  #flag for stationary (0) vs nonstationary (=num yrs nonstationary)
 
 #Number of species to start?
-nsp = 30  # when nsp=2, tauI is assigned known values from chesson 2004  
+nsp = 2  # when nsp=2, tauI is assigned known values from chesson 2004  
 
 source("sourcefiles/getRunParms.R") #define runtime parameters
 source("sourcefiles/getGraphParms.R")  #define graphics parameters
@@ -67,7 +67,8 @@ for (y in c(1:(nyrs-1))){
   B<-B0[y,]
   State<-c(R=R,B=B)
   Time <- seq(0,ndays,by=dt)
-  Bout[[y]] <- as.data.frame(ode(func = ResCompN, y = State, parms = Pars, times = Time))
+  Bout[[y]] <- as.data.frame(ode(func = ResCompN, y = State, parms = Pars, times = Time,
+     rootfun=rootfun))
   #Bout[[y]] <- as.data.frame(lsodar(func = ResCompN, y = State, parms = Pars, times = Time,rootfun=rootfun))
   Bfin[y,] <-  apply(Bout[[y]][3:(2+nsp)],2,FUN=max)  #final biomass
   N[y+1,] <- N[y,]*s*(1-g[y,]) + phi*Bfin[y,]    #note Bfin already includes N(t) as init cond; USES g here!
@@ -110,6 +111,11 @@ modelruns[[2]]["tauP"][[1]][1:10]
 #source("sourcefiles/plotNyears.R")  #plots dynamics of seedbank abundance over years
 #source("sourcefiles/plotBinSeason.R")  #plot within season dynamics of biomass & R for a subset of years
 #source("sourcefiles/plotBinSeason_Lizzie.R")
+
+## Did program ever jump out of loop?
+for (i in c(1:100)){
+   print(length(Bout[[i]]$time))
+}
 
 ### Megan stopped tweaking plots here, but they will need to be adjusted for new within-year output structure from ode
 
