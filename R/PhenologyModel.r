@@ -30,14 +30,14 @@ set.seed(2)
 # set up model runs
 modelruns <- list() # place to store output of runs
 runspecies <- c() 
-nruns <- 2 # number of model runs to do
+nruns <- 1 # number of model runs to do
 for (j in c(1:nruns)){ # assuming, we will vary species characteristics between yrs ... 
   
 #Stationarity in this run?
 nonsta = 0  #flag for stationary (0) vs nonstationary (=num yrs nonstationary)
 
 #Number of species to start?
-nsp = 2  # when nsp=2, tauI is assigned known values from chesson 2004  
+nsp = 20  # when nsp=2, tauI is assigned known values from chesson 2004  
 
 source("sourcefiles/getRunParms.R") #define runtime parameters
 source("sourcefiles/getGraphParms.R")  #define graphics parameters
@@ -112,10 +112,12 @@ modelruns[[2]]["tauP"][[1]][1:10]
 #source("sourcefiles/plotBinSeason.R")  #plot within season dynamics of biomass & R for a subset of years
 #source("sourcefiles/plotBinSeason_Lizzie.R")
 
-## Did program ever jump out of loop?
+## Did program ever jump out of loop? YES!
 for (i in c(1:100)){
    print(length(Bout[[i]]$time))
 }
+# looking at R for last run (compare to min(Rstar))
+Bout[[99]]$R
 
 ### Megan stopped tweaking plots here, but they will need to be adjusted for new within-year output structure from ode
 

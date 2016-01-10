@@ -25,3 +25,31 @@ for (yr in seq_along(plotyrs)){
 for (i in c(1:100)){
    print(length(Bout[[i]]$time))
 }
+
+# more plots
+for (yr in seq_along(plotyrs)){
+    plot(Bout[[plotyrs[yr]]][,3]~Bout[[plotyrs[yr]]]$time, 
+         ylim=c(0, max(Bout[[plotyrs[yr]]][3:(nsp+2)])), 
+         xlab="step, step, step",  ylab="Change rate", type="n",
+         main=paste("year: ", plotyrs[yr], sep=""))
+    for (sp in c(1:nsp)){
+        lines(Bout[[plotyrs[yr]]][,2+sp]~Bout[[plotyrs[yr]]]$time, 
+              ylim=c(0, max(Bout[[plotyrs[yr]]][,nsp+2])),
+              col=colerz[sp])
+    }
+    par(new=TRUE)
+    plot(Bout[[plotyrs[yr]]]$R~Bout[[plotyrs[yr]]]$time, axes=FALSE, xlab="", ylab="",
+        ylim=c(min(Bout[[plotyrs[yr]]]$R), max(Bout[[plotyrs[yr]]]$R)), type="l",
+        col=rcol, lty=lresbyrs, lwd=lwd)
+    raxis <- seq(0, max(Bout[[plotyrs[yr]]]$R), by=max(Bout[[plotyrs[yr]]]$R)/10)
+    axis(4, at=raxis, labels=round(raxis, digits=2))
+    mtext("Resource", side=4, line=3, cex=0.75)
+}
+
+yearz <- seq(1:nyrs)
+sp <- 1
+tryjustone <- c()
+for (i in c(2:length(Bout[[20[1]]][,2+sp]))){
+tryjustone[i] <- (Bout[[20[1]]][,2+sp][i])-(Bout[[20[1]]][,2+sp][i-1])
+}
+plot(tryjustone~c(1:693))
