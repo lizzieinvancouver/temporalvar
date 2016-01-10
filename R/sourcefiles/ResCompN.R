@@ -11,7 +11,7 @@ ResCompN <- function(Time,State,Pars) {
 Pars <- c(c=c,a=a,u=u,m=m,theta=theta,eps=eps)
 
 ##add rootfunction so that the integration stops once (opt1) R is numerically 0 (threshold hh)
-rootfun <- function(Time, State, Pars) R - min(Rstar)
+rootfun <- function(Time, State, Pars) State[1] -min(Rstar)
 eventfun <- function(Time, State, Pars) State
 events <- list(func = eventfun, root = TRUE, terminalroot = 1)
 
