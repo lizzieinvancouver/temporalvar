@@ -23,7 +23,7 @@
 
 \usepackage{fancyhdr}
 \pagestyle{fancy}
-\fancyhead[LO]{August 2015}
+\fancyhead[LO]{January 2016}
 \fancyhead[RO]{Variable environments \& climate change}
 
 \begin{document}
@@ -31,8 +31,12 @@
 \title{Coexistence and climate change: \\The role of
     temporal-variability in structuring future communities}
     \author{Wolkovich \& Donahue}
-\date{Last updated:  16 August 2015}
+\date{Last updated:  11 January 2016 \\ North Shore of Oahu}
 \maketitle
+
+\begin{center}
+\emph{Question:} Which species are doomed?
+\end{center}
 
 \begin{abstract} Predicting community shifts
 with climate change requires fundamental appreciation of the
@@ -59,27 +63,32 @@ ability of species to phenologically track the timing of major climate events. \
 \newpage
 \tableofcontents
 
-\section{Next steps, goals!}
-\subsection{Write-up current state of progress for mechanisms of coexistence} 
-Megan will write up where she arrived at as of 8 August 2015 working off Chesson 1994 (TPB) and Chesson 2003 (TPB also I think). See file \verb|VarEnv_CoexistEqns.tex|.
+\newpage
+\section{Next steps, goals in January 2016}
+\subsection{Get the model to run on the server}
+Lizzie needs to do this. 
 
-\subsection{Get $R^*$ model running by 7 September 2015}
-So, Megan needs to (1) confirm issue we left last were working on with model and (2) help solve it (note, we think the problem was how to get ODE solver to end a season for each species when it reaches its $R^*$ value). 
+\subsection{Check $R^{*}$ component of model is working}
+Megan needs to check on two things:
+\begin{itemize}
+\item Behavior of each species once $R^{*}$ is reached
+\item Why do all species have a positive change at the last timestep?
+\end{itemize}
 
-\subsection{Get parameter simulations running by 7 Septemner 2015}
-So, Lizzie needs to get the code to run through sweeps of parameters running, including figuring out how to get it up on Research Computing.
+\subsection{Make model take biomass for each species at its peak value}
+Not at its end of season biomass.
 
-\subsection{Figure out rankings of species?} % from Dec 2013
-This should come be R* (fluctuation independent) plus the equalizing bits (fluctuation dependent). Once we have this, it will be good to look at: (1) if the cut-off in coexistence shifts with nonstationarity and (2) how the spread between species shifts with nonstationarity.
+\subsection{Decide on very specific model runs}
+Yes, we should totally do this.
 
-\subsection{Get phenological tracking up and running}
-\emph{Old note, does this still apply?} First, to make life easy I (Lizzie) will swap the hats when coding. So what we call \(\hat{\tau_{i}}\) I will call \(\tau_{i}\) and vice versa.
-
-\subsection{Writing tasks for Lizzie}
-(1) Write out clear questions to address in each paper and (2) add references for Chesson citations above and below. Also, maybe (3) remove equations from Feb-Jan 2015 below. And add in any references to other files that Megan works up. \emph{And then read all these notes over for clarity etc..}
+\subsection{Decide on $q$ parameter values}
+Lizzie needs to do this by getting some estimates of how much SOS will shift and then make it work that way in the mode. Some info on the model bit: $q$ is part of the $\beta$ distribution that define $\tau_{p}$ so we need to define an appropriate $q$ to start with and what $q$ to end with that will yeild a realstic amount of environmental change for our simulations. Right now we starts with $p$ and $q$ each being 2, yielding a normal distribution centered on 0.5 and pretty wide (remember $\beta$ is bounded at $0,1$ and 1, 1 would yield a uniform---as the numbers get bigger the distribution gets narrower), but then we just vary $q$ so we end up with a skewed distribution.. something like $5,15$ may be better.
 
 \subsection{Schedule when to next meet}
-Right-o.
+Maybe March 2016---Megan comes to Boston?
+
+% \subsection{Figure out rankings of species?} % from Dec 2013
+% This should come be R* (fluctuation independent) plus the equalizing bits (fluctuation dependent). Once we have this, it will be good to look at: (1) if the cut-off in coexistence shifts with nonstationarity and (2) how the spread between species shifts with nonstationarity.
 
 \section{Introduction}
 \noindent Understanding how plant communities will respond to climate change
@@ -108,40 +117,64 @@ existing data to rule out and in shifts in abiotic variables (and
 possibly species traits---we should have the data to estimate the
 percentage of species that track, trade-offs between competition and early flowering, maximum tracking and if only
 early-season species track, we could add that in, and of course we
-have a lot of climate data on hand). The new \emph{Physical Sciences Basis} of the IPCC came out in September 2013 so we have good recent estimates of how climate has and will shift (and Lizzie can slog through this).\\
-
-\noindent {\bf Predictions:} Even though we are not shifting \(var(R_{0}), var(\tau_{p}), var(\epsilon)\) we are shifting E (species' responses to environment) and thus \(var(E)\) may increase. That could be cool.\\
+have a lot of climate data on hand). The new \emph{Physical Sciences Basis} of the IPCC came out in September 2013 so we have good recent estimates of how climate has and will shift.\\
 
 \noindent {\bf Products:} We currently envision two papers: 
 \begin{enumerate}
-\item \emph{Shifting drivers of coexistence with climate change}, which includes all the work to date (December 2013), plus phenological tracking
-\item  \emph{Mayan megadroughts and climate change} 
+\item \emph{How phenology and climate change structures future communities}
+\item \emph{Mayan megadroughts and climate change} 
 \end{enumerate}
 See below for outlines and info on each.
-
 \newpage
 
-\section{Notes from 8 August 2015}
+\section{Notes from 7-13 January 2016}
+We started up in the library on Coconut Island and reviewed ...
+\begin{enumerate}
+\item Project that modeled how nonstationary environments shift coexistence via storage effect and other coexistence mechanisms. 
+\begin{enumerate}
+\item We reviewed two ways to try to do this.
+\begin{enumerate}
+\item Empirical -- thinking about papers that have actually done this as reviewing papers suggesting how to do it in the past (e.g., work by Sears and Chesson) has proved difficult
+\begin{enumerate}
+\item \citet{godoy2014} does it, but they use Lotka-Volterra, which is not super relevant to us
+\item \citet{Angert:2009} does it, but does not include species loss and is sort of weird
+\end{enumerate}
+\item Analytical: We tried this, defining $E^{*}, C^{*}$ given $R^{*}$ model was too hard, so tried Lota-Volterra models, but stilll really tricky. 
+\end{enumerate}
+\item We decided we really need to table this for now (really, even though we have said that a lot in the past)
+\end{enumerate}
+\item Project focused on concepts and simulations. Yeah, let's do this!
+\end{enumerate}
+
+We made some decisions about how to model nonstationarity and coexistence:
+\begin{enumerate}
+\item Nonstationary: We will do runs:
+\begin{enumerate}
+\item with a stationary period, followed by a nonstationary period, followed by a stationary period (that's 1 run with 3 pieces) 
+\item same as above but no nonstationary period and each stationary period is run separately (compare results to above)
+\end{enumerate}
+\item Coexistence, see also \ref{definecoexist} below
+\begin{enumerate}
+\item Long-term persistence from time-series data we will have from simulations.
+\item Show distributions of each species abundance over $x$ number of years at start of stationary period and end of stationary period do not change.
+\item Return from low density: We think we should only do this if we really need to (e.g., reviewers ask for it) because it will probably require more simulations to do formal invasibility criterion. Megan thought perhaps the time-series we will have could work for a cheaper version of it.
+\end{enumerate}
+\end{enumerate}
+
+We also:
+\begin{enumerate}
+\item Fixed the ODE solver so it jumps out when $R^{*}=min(R^{*})$
+\item Made it so the model updates each year to figure out the $min(R^{*})$
+\item Decided we should vary $c$ in order to vary $R^{*}$.
+\end{enumerate}
+
+\subsection{Notes from 8 August 2015 that are still true in January 2016}
 
 In May 2014 we wrote, `To review, the goal really is the Mayan invaders project. Once we're there we're in good shape.' And that's basically back where we ended up after a week of work in August 2015, skipping for now all the mechanisms of coexistence.\\
 
 \noindent The longer story behind this outcome is that we spent about a week working through Chesson 1994 (TPB, section 5.5) and Chesson 2003 (TPB also I think) trying to figure out how to fully sort out the mechanisms of coexistence using a simple Lotka-Volterra model we started working on in January-February 2015 (though I think we started re-working on mechanisms of coexistence as of December 2013 at least). We decided for now to table this work and switch back to the $R^*$ with a focus on the phenological tracking questions. 
 
-\section{Notes on coexistence mechanisms}
-We spent a substantial amount of time carefully working through Chesson 1994.  A few notes on how this might apply to nonstationarity
-\begin{itemize}
-\item In the General Model, growth rate is divided into E and C components.  To examinte the effects of fluctuations using a Taylor approximation, r is examined around E*, C*, where growth rate is 0.  
-\item  The model is reparameterized in terms of curly-E, curly-C, which is the complete growth function, reparameterized around C* and E*, respectively.  To make the taylor approximation, it is limimted to variability around E*, C* of order O2
-\item the approximation is also limited to the behavior of the function around the point E*,C*, such that if the curvature of the function changed at a point far from E*, C*, this nonlinearity would not be captured.
-\item  the approximations are made with the assumption of a stationary process, without temporal autocorrelation and drawn from the same distribution through time.  This approximation is the one that makes studying nonstationarity with these approximations difficult. 
-\item  we came up with a couple ideas about how coexistence mechanism partitioning might still be useful, even without stationarity.  For example, you could compare coexistence and coexistence mechanisms present at the beginning and end of a period of change.  The likely outcome is that species will continue to persist after they shoudl have gone extinct because of lags.  It is hard to think of a case when the converse would be true, at least under the case of mean change.  If the variance is changiing, then the outcomes are less obvious and might include increased coexistence
-\end{itemize}
-I worked through Section 4: Analysis of the General Model, however, actually doing those calculations with any particular model is tricky, particularly making an assumption for E*,C*.  Using Section 5.5 as an example, I tried to work through the calculations for our simple model.  Equation 95 is largely equivalent to our simple model. The only difference is that we originally parameterized competition as $(1+ \sum\limits_{j=1}^{j=n}g_{j,t}*X_{j,t}*\alpha_{ij})$, but equation 96 has competition as a simple sum, with no additional +1. %Lizzie changed the above a little to make math work, may want to check  
-
-Section 5.5 is the same as our simplified model.  Understanding through Equation 99 is clear.  Table II lists the parameters of the seedbank model, and the definition of these terms is clear.  To understand the terms in Table III, we still need to define rho and sigma and to make the correct assumption about the value of E* and C*.  The assumptions around E*, C* are a sticking point and where I got stuck. 
-Looking back at the notes now, however, it seems like there may still be some room forward here.  We are proceeding on the simulations, but Megan will spend a little more time to see if we can actually make the calculations in Table III.
-
-\subsection{Overview}
+\subsection{Overview (August 2015, still true in January 2016)}
 After thought, discussion, up and downs we have decided to move ahead
 on... {\bf the $R^*$ model of 2014 and before and phenological
   tracking.} This has several benefits:
@@ -161,10 +194,33 @@ on... {\bf the $R^*$ model of 2014 and before and phenological
   requires a pulse size to have droughts occur). Yay!
 \end{smitemize}
 
-\subsection{Three-part approach to project}
+\section{Current plans for products}
+\subsection{Phenology \& climate change paper}\label{phenCCpaper}
 
-Possible titles: `Phenological tracking: It's more complicated than you think' (we hope) or `Phenological tracking: Is it naive?'
+See also \ref{trackingthoughs} and \ref{genoutline}, both below.\\
+
+\noindent Possible titles: `Phenological tracking: It's more complicated than you think' (we hope) or `Phenological tracking: Is it naive?'
 \begin{enumerate}
+\item Opening
+\begin{enumerate}
+\item Communities shifting due to climate change (species increasing and decreasing)
+\item Phenology has been implicated in driving this 
+\item The theory goes that as seasons get earlier, earlier species win out over later species (don't get into tracking yet)
+\item Yet no one to date has ever examined whether this hypothesis is supported through community coexistence theory and models
+\item So here we provide the first test using a model that explicitly considers how within and between year dynamics can drive coexistence
+\end{enumerate}
+\item Under this model climate change critically alters the environment in a couple ways
+\begin{enumerate}
+\item Climate change...
+\begin{enumerate}
+\item $\tau_{P}$ gets earlier (i.e., start of season gets earlier)
+\item $\R_{0} \downarrow$ (e.g., in systems started by a pulse of water from snowpack)
+\item $var(\R_{0}) \uparrow$ 
+\item $\epsilon} \uparrow$ (i.e., it gets hotter and resources like water evaporate quicker)
+\end{enumerate}
+\item Of these, changes in $\tau_{P}$ are aguably the most observed and should be most important to impacts on coexistence via phenology thus we focus on how shifts in $\tau_{P}$ impact coexistence.
+\item We first examine the role of phenology in a stationary environment ... then to X, Y, Z.
+\end{enumerate}
 \item Under a stationary environment what trade-off is required with tracking to allow coexistence?
 \begin{enumerate}
 \item Two species ($i, j$) case
@@ -193,7 +249,7 @@ Possible titles: `Phenological tracking: It's more complicated than you think' (
 \item extract when each species is lost in a community and order the species loss of PhenTrackFig. 2.
 \end{enumerate}
 \end{enumerate}
-\item Are there environmental conditions under which tracking won't work as a strategy?
+\item Are there environmental conditions under which tracking won't work as a strategy? (This is the section where we return to $\R_{0}$ and $\epsilon$, which we just mentioned earlier.
 \begin{enumerate}
 \item Thinking about environmental correlations (e.g., spring gets earlier and drier or such), are there some where tracking will not be favored?
 \item Answer: Yes, probably whenever you shift the environment in another way (in addition to earlier $\tau_P$) that does not impact the competitive dominant but does negatively impact the competitve inferior/tracker (See also Figure 1 below). 
@@ -212,8 +268,9 @@ A few things:
 \end{smitemize}
 
 \subsection{Connections to Mayan Megadroughts project}
+See also \ref{mayannotes} below.\\
 
-We broke down this trade-off to: Wider (probably shorter) germination curves trade off with shorter seedbank life such that ...
+\noindent We broke down this trade-off to: Wider (probably shorter) germination curves trade off with shorter seedbank life such that ...
 \begin{smitemize}
 \item Exotics have wider (probably shorter) germination curves -- so they go basically whenever a pulse is, no matter what size it is.
 \item Natives have narrower (probably taller) germination curves -- so they go only when a pulse happens at a certain time.
@@ -554,7 +611,7 @@ growing season. Thus I changed this `season-length' \(h\) to
 
 \noindent R* does not change with nonstationarity because it is based solely on species-specific characteristics not related to the environment (says Megan, December 2013).
 
-\subsection{Definitions of coexistence}
+\subsection{Definitions of coexistence}\label{definecoexist}
 \noindent In December 2013, we discussed how we will define coexistence. There are a couple options, the second one is better:
 \begin{enumerate}
 \item Persistence of species in simulations: This is not ideal since you would have to run things a long time and still not know what would truly coexist. But if we do have to do this it is not all bad: if we run stationary then nonstationary environments (one after another, not separate) we can think of it as `here are the species co-occurring. Sure, some may be on Hubbellian random walk to extinction, but that is probably how the real world works anyway.' 
@@ -613,67 +670,9 @@ These are a little sloppy in that the pulse is supposed to be separate from the 
 
 \subsection{Simplifying within-year dynamics thoughts}
 Can we simplify within-year dynamics to focus on a better model for timing (see photo of October 2013 whiteboard that Megan has)? To rephrase this: Our internal equation is basically R* rankings, so could we create a `deterministic look up table' for the within-year dynamics so we can think more carefully about the timing part of this.  (Related note from 2012 meeting: Decide if we need to ODE solve the intra-annual
-  dynamics, then use the discretized version only inter-annually. Note from Lizzie: best ODE solver is now in package `desolve.')\\
+  dynamics, then use the discretized version only inter-annually. Note from Lizzie: best ODE solver is now in package `desolve.')
 
-
-\subsection{Tiny notes about the storage effect to help Lizzie}
-\noindent The 3 ingredients of the storage effect are:
-\begin{enumerate}
-\item differential response to the environment (subadditivity)
-\item covar(E, C)
-\item buffered population growth
-\end{enumerate}
-
-\noindent Ingredients for the storage effect \emph{in our model:}
-\begin{itemize}
-\item buffered population growth: \(s_{i}\)
-\item variable response to the environment: \(\tau_{i}\), which generates:
-\item \(covar(E,C)\)
-\end{itemize}
-
-
-\section{Tracking thoughts \& fun}
-In August 2012 Megan came up with a new way to model phenological tracking, it's linear and better than the one presented here. We also discussed three key ways to think of tracking:
-\begin{enumerate}
-\item Species can have fixed flowering/leafing (not track).
-\item Species can phenologically track pulse.
-\item Species can phenologically track something at least at one time in history correlated with the pulse.
-\end{enumerate}
-We agreed that while (3) is interesting---would allow you to look at mismatch ideas etc.---(1) and (2) have more biological support for plants and are interesting enough in and of themselves, so we will focus on and model (1) and (2) and not (3).\\
-
-\noindent In August 2013 an issue we worried about: Will tracker always win? Answers: No, not if it's a poor competitor, that is, if it responds quickly to resource pulse but then does poorly at low resource levels. I also think it's important to remember that not all tracking species will track perfectly so some species should grow before trackers some years, when their fixed \(\tau_{i}\) corresponds well to \(\tau_{p}\). Also, we have a note that high intraspecific competition could dampen trackers, especially when greater than interspecific competition.\\
-
-\noindent New things we came up with that we want to look at in regards to {\bf phenological tracking}. First off, we have a lot of versions of similar questions. 
-\begin{itemize}
-\item Has climate change made tracking more advantageous? Or, how prevalent is tracking in a stationary versus nonstationary system? Basically, one hoped-for outcome (by Lizzie) is to show that with stationary climate tracking strategies and non-tracking strategies may coexist happily, but when you add nonstationarity the world shifts that tracking is so strongly favoured as to make non-tracking rare or to require a very huge trade-off etc.. So we have a bunch of related questions to this:
-\begin{itemize}
-\item How big do trade-offs have to be for tracking to be non-advantageous (to allow coexistence with other species)?
-\item Another angle, is tracking the dominant strategy with a shifting environment (distribution) vs. stationary environment distribution?
-\end{itemize}
-\item Follow up from October 2013: How much does climate have to shift (non-stationarity in system) given some level of fitness differences trading off with tracking for tracking to become the dominant strategy?
-\end{itemize}
-{\bf It would be great to add real data here!} Some options: First, Lizzie may be able to track down information about negative correlations between tracking and competitive abilities (for nutrient resources). This would put some of the trade-off questions in perspective. Next, we could also see  \emph{what we know about climate projections} and from there see how big do the trade-offs have to be with climate change to make non-tracking a feasible strategy strategy (this `feasible' and `dominant' terminology is a little wobbly; I admit that)?\\
-
-\noindent This tracking angle matches to the `Generalists, specialists and plasticity' section of \citet{Chesson:2004eo}. You could imagine by removing the benefit of trade-offs associated with not being plastic, then nonstationarity could favour generalists (plastic species, that is). Here's the most relevant bit (according to Lizzie):
-\begin{quote}
-However, plasticity, or any generalist resource consumption
-behaviors, including those involving drought resistance,
-may come at a cost .... In such circumstances, there is no
-contradiction that a generalist can coexist with specialists
-so long as the specialists are in fact superior performers
-during the times or conditions that favor them, and there 
-are some times when no specialists are favored so that the
-generalist is then superior.
-\end{quote}
-
-As of August 2015 we decided {\bf against doing tracking with join distributions}, but here are the old notes on it:
-\begin{quote}
-Next up, I need to work on how to make joint distributions in R (all different types, not just multivariate normal ones) so we can link \(\alpha_{i}\) with \(c_{i}\). For this I need to look into copulas and the R package \verb@copula@. See also these pages:\\
-\url{http://www.r-bloggers.com/copulas-made-easy/}\\
-\url{https://sites.google.com/a/wisc.edu/jed-frees/multivariate-regression-using-copulas}
-\end{quote}
-
-\section{Coexistence with climate change: Notes related to implementing and writing}
+\section{Coexistence with climate change: Notes related to implementing and writing}\label{genoutline}
 
 \subsection{Current outline for paper}
 \begin{enumerate}
@@ -855,7 +854,50 @@ In nature early species have quicker-return investments on growth and early is o
 Without tracking we may predict benefits to early-colonizers decline with earlier seasons. As start-date moves earlier, early folks lose benefit (assuming they tend to often go at optimum time) and you get more late folks. Late species may be less different than one another---and less responsive to environment. Early folks, effectively, become more similar to environment. 
 
 \newpage
-\section{Notes on megadroughts paper}
+\section{Tracking thoughts \& fun}\label{trackingthoughs}
+In August 2012 Megan came up with a new way to model phenological tracking, it's linear and better than the one presented here. We also discussed three key ways to think of tracking:
+\begin{enumerate}
+\item Species can have fixed flowering/leafing (not track).
+\item Species can phenologically track pulse.
+\item Species can phenologically track something at least at one time in history correlated with the pulse.
+\end{enumerate}
+We agreed that while (3) is interesting---would allow you to look at mismatch ideas etc.---(1) and (2) have more biological support for plants and are interesting enough in and of themselves, so we will focus on and model (1) and (2) and not (3).\\
+
+\noindent In August 2013 an issue we worried about: Will tracker always win? Answers: No, not if it's a poor competitor, that is, if it responds quickly to resource pulse but then does poorly at low resource levels. I also think it's important to remember that not all tracking species will track perfectly so some species should grow before trackers some years, when their fixed \(\tau_{i}\) corresponds well to \(\tau_{p}\). Also, we have a note that high intraspecific competition could dampen trackers, especially when greater than interspecific competition.\\
+
+\noindent New things we came up with that we want to look at in regards to {\bf phenological tracking}. First off, we have a lot of versions of similar questions. 
+\begin{itemize}
+\item Has climate change made tracking more advantageous? Or, how prevalent is tracking in a stationary versus nonstationary system? Basically, one hoped-for outcome (by Lizzie) is to show that with stationary climate tracking strategies and non-tracking strategies may coexist happily, but when you add nonstationarity the world shifts that tracking is so strongly favoured as to make non-tracking rare or to require a very huge trade-off etc.. So we have a bunch of related questions to this:
+\begin{itemize}
+\item How big do trade-offs have to be for tracking to be non-advantageous (to allow coexistence with other species)?
+\item Another angle, is tracking the dominant strategy with a shifting environment (distribution) vs. stationary environment distribution?
+\end{itemize}
+\item Follow up from October 2013: How much does climate have to shift (non-stationarity in system) given some level of fitness differences trading off with tracking for tracking to become the dominant strategy?
+\end{itemize}
+{\bf It would be great to add real data here!} Some options: First, Lizzie may be able to track down information about negative correlations between tracking and competitive abilities (for nutrient resources). This would put some of the trade-off questions in perspective. Next, we could also see  \emph{what we know about climate projections} and from there see how big do the trade-offs have to be with climate change to make non-tracking a feasible strategy strategy (this `feasible' and `dominant' terminology is a little wobbly; I admit that)?\\
+
+\noindent This tracking angle matches to the `Generalists, specialists and plasticity' section of \citet{Chesson:2004eo}. You could imagine by removing the benefit of trade-offs associated with not being plastic, then nonstationarity could favour generalists (plastic species, that is). Here's the most relevant bit (according to Lizzie):
+\begin{quote}
+However, plasticity, or any generalist resource consumption
+behaviors, including those involving drought resistance,
+may come at a cost .... In such circumstances, there is no
+contradiction that a generalist can coexist with specialists
+so long as the specialists are in fact superior performers
+during the times or conditions that favor them, and there 
+are some times when no specialists are favored so that the
+generalist is then superior.
+\end{quote}
+
+As of August 2015 we decided {\bf against doing tracking with joint distributions} (see notes above\ref{phenCCpaper}), but here are the old notes on it:
+\begin{quote}
+Next up, I need to work on how to make joint distributions in R (all different types, not just multivariate normal ones) so we can link \(\alpha_{i}\) with \(c_{i}\). For this I need to look into copulas and the R package \verb@copula@. See also these pages:\\
+\url{http://www.r-bloggers.com/copulas-made-easy/}\\
+\url{https://sites.google.com/a/wisc.edu/jed-frees/multivariate-regression-using-copulas}
+\end{quote}
+
+
+\newpage
+\section{Notes on megadroughts paper}\label{mayannotes}
 \begin{center}
 {\Large Temporal redness, Mayan megadroughts and Californian invaders\\ or\\ Red noise and the sunset of Mayans and European invaders}
 \end{center}
@@ -869,6 +911,43 @@ There is also an evolutionary angle to this: short lifespans and short seedbanks
 \noindent Opportunity to coin new term (from one term I hate and one that I like): {\bf invasion extinction debt}, the number of invaders that would go extinct if you wait a very long time. \\
 
 \noindent We could bring Ben Cook on this project to give us some info on how frequencies of droughts have shifted over the past 2K years or so in North America. Or, maybe we could look at some shifts in drought periodicities globally just to press home the message that these can vary a lot across time. 
+
+\section{Storage effect notes}
+
+\subsection{Miscellaneous notes}
+
+\noindet The lost paper: \emph{Shifting drivers of coexistence with climate change}, which includes all the work to date (December 2013), plus phenological tracking.\\
+
+\noindent {\bf Predictions:} Even though we are not shifting \(var(R_{0}), var(\tau_{p}), var(\epsilon)\) we are shifting E (species' responses to environment) and thus \(var(E)\) may increase. That could be cool.\\
+
+\subsection{Notes on coexistence mechanisms}
+We spent a substantial amount of time carefully working through Chesson 1994.  A few notes on how this might apply to nonstationarity
+\begin{itemize}
+\item In the General Model, growth rate is divided into E and C components.  To examinte the effects of fluctuations using a Taylor approximation, r is examined around E*, C*, where growth rate is 0.  
+\item  The model is reparameterized in terms of curly-E, curly-C, which is the complete growth function, reparameterized around C* and E*, respectively.  To make the taylor approximation, it is limimted to variability around E*, C* of order O2
+\item the approximation is also limited to the behavior of the function around the point E*,C*, such that if the curvature of the function changed at a point far from E*, C*, this nonlinearity would not be captured.
+\item  the approximations are made with the assumption of a stationary process, without temporal autocorrelation and drawn from the same distribution through time.  This approximation is the one that makes studying nonstationarity with these approximations difficult. 
+\item  we came up with a couple ideas about how coexistence mechanism partitioning might still be useful, even without stationarity.  For example, you could compare coexistence and coexistence mechanisms present at the beginning and end of a period of change.  The likely outcome is that species will continue to persist after they shoudl have gone extinct because of lags.  It is hard to think of a case when the converse would be true, at least under the case of mean change.  If the variance is changiing, then the outcomes are less obvious and might include increased coexistence
+\end{itemize}
+I worked through Section 4: Analysis of the General Model, however, actually doing those calculations with any particular model is tricky, particularly making an assumption for E*,C*.  Using Section 5.5 as an example, I tried to work through the calculations for our simple model.  Equation 95 is largely equivalent to our simple model. The only difference is that we originally parameterized competition as $(1+ \sum\limits_{j=1}^{j=n}g_{j,t}*X_{j,t}*\alpha_{ij})$, but equation 96 has competition as a simple sum, with no additional +1. %Lizzie changed the above a little to make math work, may want to check  
+
+Section 5.5 is the same as our simplified model.  Understanding through Equation 99 is clear.  Table II lists the parameters of the seedbank model, and the definition of these terms is clear.  To understand the terms in Table III, we still need to define rho and sigma and to make the correct assumption about the value of E* and C*.  The assumptions around E*, C* are a sticking point and where I got stuck. 
+Looking back at the notes now, however, it seems like there may still be some room forward here.  We are proceeding on the simulations, but Megan will spend a little more time to see if we can actually make the calculations in Table III.
+
+\subsection{Tiny notes about the storage effect to help Lizzie}
+\noindent The 3 ingredients of the storage effect are:
+\begin{enumerate}
+\item differential response to the environment (subadditivity)
+\item covar(E, C)
+\item buffered population growth
+\end{enumerate}
+
+\noindent Ingredients for the storage effect \emph{in our model:}
+\begin{itemize}
+\item buffered population growth: \(s_{i}\)
+\item variable response to the environment: \(\tau_{i}\), which generates:
+\item \(covar(E,C)\)
+\end{itemize}
 
 \section{Miscellaneous notes}
 \noindent We keep an eye on who has cited Chesson et al. 2004

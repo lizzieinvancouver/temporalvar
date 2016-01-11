@@ -2,6 +2,13 @@
 *.RData
 *.Rhistory
 
+### tex files to ignore
+*.aux
+*.out
+*.log
+*.synctex.gz
+*.toc
+
 #################
 ## Eclipse
 #################
