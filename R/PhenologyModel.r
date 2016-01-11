@@ -73,10 +73,10 @@ for (y in c(1:(nyrs-1))){
   Bfin[y,] <-  apply(Bout[[y]][3:(2+nsp)],2,FUN=max)  #final biomass
   N[y+1,] <- N[y,]*s*(1-g[y,]) + phi*Bfin[y,]    #note Bfin already includes N(t) as init cond; USES g here!
   N[y+1,] <- N[y+1,]*(N[y+1,]>ext)  #if density does not exceed ext, set to zero
-    
   rcrt[y,] <- g[y,]*(phi*Bfin[y,]-s)   #to recruit, convert biomass to seeds and overwinter
-  
-  
+  #set Rstarmin threshold & update rootfun; this accounts for case where the spp with min R* goes extinct
+  Rstarmin <- min(Rstar[(N[y+1,]!=0)])
+  rootfun <- function(Time, State, Pars) State[1] -Rstarmin
 }
 
 ## write out the model run output
