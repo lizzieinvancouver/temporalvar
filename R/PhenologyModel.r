@@ -31,19 +31,17 @@ set.seed(2)
 modelruns <- list() # place to store output of runs
 runspecies <- c() 
 nruns <- 1 # number of model runs to do
+
+nonsta = 0  #flag for stationary (0) vs nonstationary c(# years nonsta, #years final stationary)
+tracking = 1   #tracking in these runs?
+nsp = 2   #Number of species to start in these runs?
+
 for (j in c(1:nruns)){ # assuming, we will vary species characteristics between yrs ... 
   
-#Stationarity in this run?
-nonsta = 0  #flag for stationary (0) vs nonstationary c(# years nonsta, #years final stationary)
-
-#Number of species to start?
-nsp = 2  # when nsp=2, tauI is assigned known values from chesson 2004  
-
 source("sourcefiles/getRunParms.R") #define runtime parameters
 source("sourcefiles/getGraphParms.R")  #define graphics parameters
 source("sourcefiles/getEnvt.R")  #get constant and time-varying envt parms
 source("sourcefiles/getSpecies.R")  #get species characteristics and Rstar
-
 
 #Define arrays
 #interannual dynamics set-up (R0 is in getEnvt.R)
