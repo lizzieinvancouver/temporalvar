@@ -30,11 +30,12 @@ set.seed(2)
 # set up model runs
 modelruns <- list() # place to store output of runs
 runspecies <- c() 
-nruns <- 1 # number of model runs to do
+nruns <- 100 # number of model runs to do
 
-nonsta = 0  #flag for stationary (0) vs nonstationary c(# years nonsta, #years final stationary)
+nonsta = 0     #flag for stationary (0) vs nonstationary c(# years nonsta, #years final stationary)
 tracking = 1   #tracking in these runs?
-nsp = 2   #Number of species to start in these runs?
+varRstar = 1   #flag for variation in Rstar; if 1, then c is drawn randomly, and R* varies
+nsp = 2        #Number of species to start in these runs?
 
 for (j in c(1:nruns)){ # assuming, we will vary species characteristics between yrs ... 
   

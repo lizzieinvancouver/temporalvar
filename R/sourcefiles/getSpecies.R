@@ -9,7 +9,7 @@ gmax <-  rep(0.5,nsp)     # max germination fraction
 h <-  rep(100,nsp)             # max rate of germination decrease following pulse
 phi <- rep(0.05,nsp)     # conversion of end-of-season plant biomass to seeds
 #germination: tau I and alpha below
-tauI <-runif(nsp,0.1, 0.9)  # time of max germ for sp i
+tauI <-runif(nsp,0.01,0.99)  # time of max germ for sp i
 tauI <- matrix(rep(tauI),nyrs,nsp, byrow = TRUE)
 #add tracking with alpha to create tauIhat
 if tracking > 0 {
@@ -21,10 +21,13 @@ if tracking > 0 {
 g <- gmax*exp(-h*(matrix(rep(tauP,nsp),nrow=length(tauP),ncol=nsp)-tauI)^2)  #germination fraction in year y
 
 #competition
+if (varRstar>0) {
+  c <- runif(nsp, 2, 20) # this leads to much lower coexistence when I checked it on 6 Oct 2015
+} else {
+    c <-  rep(12,nsp)        # conversion of resource to biomass
+}
 a <-  rep(20,nsp)        # slope of species uptake rate with increasing R
 u <-  rep(1,nsp)          # inverse of the max uptake rate
-#c <-  rep(12,nsp)        # conversion of resource to biomass
- c <- runif(nsp, 2, 20) # this leads to much lower coexistence when I checked it on 6 Oct 2015
 theta <- rep(1,nsp)      #nonlinearity in resource response
 m <-  rep(0.05,nsp)     # mortality
 Rstar <- (m/(a*(c-m*u)))^(1/theta)
