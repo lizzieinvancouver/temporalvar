@@ -1,11 +1,8 @@
 #Runtime Parameters
 
 #between year
-nyrs <- 100  # number of yrs to run if nonsta=0
-if (nonsta > 0) {
-  nyrs <- 0 + nonsta # replacing nyrs with 0 on 6 Oct 2015 to do just a nonstationary run,
-                      # otherwise could not get it to run
-}
+nyrs <- sum(nonsta)  # number of yrs to run if nonsta=0 or for initial period if nonsta>0
+
 y <- c(1:nyrs)
 ext <- 1/10000  #Extinction Threshold:  1 seed/ha (assuming that initial density is 10 seeds per meter)
 
