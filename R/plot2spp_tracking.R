@@ -12,10 +12,16 @@ modelruns[[2]]["sppvars"][[1]]$gmax
 modelruns[[2]]["tauP"][[1]][1:10]
 
 gtauIPini <- matrix(0,nruns,nsp)
+gtauIPns <- matrix(0,nruns,nsp)
+gtauIPfin <- matrix(0,nruns,nsp)
 gRstar <- matrix(0,nruns,nsp)
 
 for (i in seq(1,nruns)){
   gtauIPini[i,] <- modelruns[[i]][[1]]$tauIPini
+  gtauIPns[i,] <- modelruns[[i]][[1]]$tauIPns
+  gtauIPfin[i,] <- modelruns[[i]][[1]]$tauIPfin  
   gRstar[i,] <- modelruns[[i]][[1]]$Rstar
 }
-plot(gRstar[,1]-gRstar[,2], gtauIPini[,1]-gtauIPini[,2],col=numcoexist+1)
+plot(gRstar[,1]-gRstar[,2], gtauIPini[,1]-gtauIPini[,2],col=numcoexist+1,main="initial")
+plot(gRstar[,1]-gRstar[,2], gtauIPns[,1]-gtauIPns[,2],col=numcoexist+1, main="nonstationary")
+plot(gRstar[,1]-gRstar[,2], gtauIPfin[,1]-gtauIPfin[,2],col=numcoexist+1,main = "final")
