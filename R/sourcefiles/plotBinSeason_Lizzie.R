@@ -47,9 +47,16 @@ for (yr in seq_along(plotyrs)){
 }
 
 yearz <- seq(1:nyrs)
-sp <- 1
-tryjustone <- c()
-for (i in c(2:length(Bout[[20[1]]][,2+sp]))){
-tryjustone[i] <- (Bout[[20[1]]][,2+sp][i])-(Bout[[20[1]]][,2+sp][i-1])
+for (s in c(1:nsp)){
+  sp <- s
+  yr <- 25
+  steps = length(Bout[[yr]][,sp])
+  tryjustone <- c()
+  for (i in c(2:length(Bout[[yr[1]]][,2+sp]))){
+    tryjustone[i] <- (Bout[[yr[1]]][,2+sp][i])-(Bout[[yr[1]]][,2+sp][i-1])
+  }
+  plot(tryjustone[1:steps]~c(1:steps),main = c("sp ",sp))
 }
-plot(tryjustone~c(1:693))
+
+#Check dynamics of species i when R crosses R*[i]
+
