@@ -11,6 +11,14 @@ modelruns[[2]]["sppvars"]
 modelruns[[2]]["sppvars"][[1]]$gmax
 modelruns[[2]]["tauP"][[1]][1:10]
 
+
+gtauIPini <- matrix(0,nruns)
+
+for (j in seq(1, nruns)){
+numcoexist[j,1] <- sum(Bfin[(nonsta[1]-2),]>0)
+if (nonsta[2]>0) numcoexist[j,2] <- sum(Bfin[(nonsta[1]+nonsta[2]-2),]>0)
+if (nonsta[3]>0) numcoexist[j,3] <- sum(Bfin[(nyrs-2),]>0) 
+
 gtauIPini <- matrix(0,nruns,nsp)
 gtauIPns <- matrix(0,nruns,nsp)
 gtauIPfin <- matrix(0,nruns,nsp)
