@@ -49,7 +49,7 @@ for (j in c(1:nruns)){
   
   ## modelruns includes the variables that are constant across years in one dataframe...
   # then tauI, tauP and Bfin for each year
-  save(sppvars, tauI, tauP,Bfin,file=paste("output/",jobID,"out_",j,".Rdata",sep="")) #("/n/regal/wolkovich_lab/tempvar/out_",i,".Rdata"))
+  save(sppvars, tauI, tauP,Bfin,file=paste("output/",jobID,"out_",j,".Rdata",sep="")) 
   if (writeBout>0) {
     save(Bout,file=paste("output/",jobID,"Bout_",j,".Rdata",sep="")) #("out_",i,".Rdata"))
   }
