@@ -1,10 +1,10 @@
 #!/bin/bash                                                                                               
 
-#SBATCH --job-name=TestBatch_20160312  #
+#SBATCH --job-name=Test  #
 
-#SBATCH --output=TestBatch_20160312-%A-%a.out  # Standard out goes to this file
+#SBATCH --output=Test-%A-%a.out  # Standard out goes to this file
 
-#SBATCH --error=TestBatch_20160312-%A-%a.err		  # Standard err goes to this file                                          
+#SBATCH --error=Test-%A-%a.err		  # Standard err goes to this file                                          
 
 #SBATCH -n 1 # Number of cores requested                                                                 
 
@@ -23,7 +23,7 @@
 source new-modules.sh
 module load R_packages
 
-R CMD BATCH --quiet --no-restore --no-save R/batchtest.R R/output/batchtest.txt 
+R CMD BATCH --quiet --no-restore --no-save R/PhenologyModel.R
 
 ###run this with the following command from the temporalvar folder
 
