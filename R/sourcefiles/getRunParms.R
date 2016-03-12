@@ -23,7 +23,7 @@ tracking = 1   #tracking in these runs?
 varRstar = 1   #flag for variation in Rstar; if 1, then c is drawn randomly, and R* varies
 nsp = 2        #Number of species to start in these runs?
 jobID <- ""
-if (batch==1) {jobjd <- Sys.getenv(c("SLURM_ARRAY_JOB_ID","SLURM_ARRAY_TASK_ID"))}
+if (batch==1) {jobID <- Sys.getenv(c("SLURM_ARRAY_JOB_ID","SLURM_ARRAY_TASK_ID"))}
 
 
 #between year
