@@ -23,7 +23,7 @@
 source new-modules.sh
 module load R_packages
 
-R CMD BATCH --quiet --no-restore --no-save R/PhenologyModel.R
+R CMD BATCH --quiet --no-restore --no-save R/PhenologyModel.r
 
 ###run this with the following command from the temporalvar folder
 

@@ -8,7 +8,7 @@ library(deSolve)
 # set the working directory
 #setwd(getwd()) # Lizzie: setwd("~/Documents/git/projects/temporalvar")
 #setwd(getwd()) # Megan: setwd("~/Documents/GitHub/temporalvar")
-setwd("~/n/regal/wolkovich_lab/temporalvar")
+#setwd("~/n/regal/wolkovich_lab/temporalvar")
 
 #random seed
 set.seed(2)
