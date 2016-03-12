@@ -6,22 +6,24 @@ options(stringsAsFactors=FALSE)
 library(deSolve)
 
 # set the working directory
-setwd(getwd()) # Lizzie: setwd("~/Documents/git/projects/temporalvar/R")
-#SCRATCH:  setwd("~/n/regal/wolkovich_lab/tempvar")
+#setwd(getwd()) # Lizzie: setwd("~/Documents/git/projects/temporalvar")
+#setwd(getwd()) # Megan: setwd("~/Documents/GitHub/temporalvar")
+setwd("~/n/regal/wolkovich_lab/temporalvar")
 
 #random seed
 set.seed(2)
 
 #Runtime Parameters
-batch <-0  #flag if running as batch file w SLURM
-nruns <- 5
+runname <- "testrun"
+batch <-1  #flag if running as batch array w SLURM
+nruns <- 1
 writeBout <- 0  #flag indicating whether Bout should be written
-nonsta = c(100,100,100)   #number of [1] initial stationary,[2]nonstationary,[3]final nonstationary years
+nonsta = c(1000,100,1000)   #number of [1] initial stationary,[2]nonstationary,[3]final nonstationary years
 tracking = 1   #tracking in these runs?
 varRstar = 1   #flag for variation in Rstar; if 1, then c is drawn randomly, and R* varies
-nsp = 2        #Number of species to start in these runs?
+nsp = 30        #Number of species to start in these runs?
 jobID <- ""
-if (batch==1) {jobID <- Sys.getenv("SLURM_JOB_ID")}
+if (batch==1) {jobjd <- Sys.getenv(c("SLURM_ARRAY_JOB_ID","SLURM_ARRAY_TASK_ID"))}
 
 
 #between year
