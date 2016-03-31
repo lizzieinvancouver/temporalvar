@@ -14,11 +14,11 @@ library(deSolve)
 set.seed(2)
 
 #Runtime Parameters
-runname <- "testrun"
+runname <- "Track_varR_2spp"
 batch <-1  #flag if running as batch array w SLURM
-nruns <- 2
-writeBout <- 0  #flag indicating whether Bout should be written
-nonsta = c(100,100,100)   #number of [1] initial stationary,[2]nonstationary,[3]final nonstationary years
+nruns <- 100
+writeBout <- 1  #flag indicating whether Bout should be written
+nonsta = c(200,0,0)   #number of [1] initial stationary,[2]nonstationary,[3]final nonstationary years
 tracking = 1   #tracking in these runs?
 varRstar = 1   #flag for variation in Rstar; if 1, then c is drawn randomly, and R* varies
 nsp = 2        #Number of species to start in these runs?
