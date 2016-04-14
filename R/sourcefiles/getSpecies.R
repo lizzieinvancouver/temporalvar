@@ -14,7 +14,7 @@ alpha <- rep(0,nsp)
 #add tracking with alpha to create tauIhat
 if (tracking > 0) {
   alpha <- runif(nsp,0.3, 0.99)
-  tauI <- matrix(rep(alpha),nyrs,nsp, byrow = TRUE)*tauP+(1-alpha)*tauI 
+  tauI <- matrix(rep(alpha),nyrs,nsp, byrow = TRUE)*tauP+matrix((1-alpha)*tauI, nyrs, nsp, byrow = TRUE)
 } 
 #effective tauI for initial, nonstationary, and final periods 
 tauIPini <- colMeans(abs(tauP[1:nonsta[1]] - tauI[1:nonsta[1],]))
