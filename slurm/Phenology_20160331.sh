@@ -27,7 +27,7 @@ R CMD BATCH --quiet --no-restore --no-save R/PhenologyModel.r
 
 ###run this with the following command from the temporalvar folder
 
-###sbatch --array=1-10 slurm/Phenology_20130331.sh
+###sbatch --array=1-10 slurm/Phenology_20160331.sh
 
 ###where 10 is the number of jobs in the array
 ###where Phenology_20130331.sh is the name of the batch script
