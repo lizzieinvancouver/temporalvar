@@ -1,10 +1,10 @@
 #concatenate output files
-#run in regal/temporalvar/R
+#run in regal/temporalvar
 #should save to n/wolkovich_lab/temporalvar/R, but currently saves to regal/temporalvar/R/output
 
-filelocIN <- "output/"
+filelocIN <- "R/output/"
 #filelocOUT <-"/n/wolkovich_lab/temporalvar/R/modelruns"
-filelocOUT <-"output/"
+filelocOUT <-"R/output/"
 
 nruns <- 100
 narrays <- 10
@@ -28,7 +28,7 @@ for (a in c(1:narrays)){
     }
   }
 }
-save(modelruns,file=paste(fileloc,prefix,"_",jobID))
+save(modelruns,file=paste(fileloc,prefix,"_",jobID,".Rdata",sep=""))
 rm(modelruns)
 
 if (rem==1){
