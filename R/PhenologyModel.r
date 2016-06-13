@@ -51,6 +51,6 @@ for (j in c(1:nruns)){
   # then tauI, tauP and Bfin for each year
   save(sppvars, tauI, tauP,Bfin,file=paste("R/output/",runname,"_", jobID[1],"-",jobID[2],"-run",j,".Rdata",sep="")) 
   if (writeBout>0) {
-    save(Bout,file=paste("R/output/",runname,"_Bout_",jobID[1],"-",jobID[2],j,".Rdata",sep="")) #("out_",i,".Rdata"))
+    save(Bout,file=paste("R/output/",runname,"_Bout_",jobID[1],"-",jobID[2],"-run",j,".Rdata",sep="")) #("out_",i,".Rdata"))
   }
 }
