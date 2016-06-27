@@ -1,5 +1,6 @@
 ###directories to ignore
 R/output/
+notposting/
 
 ###R files to ignore
 *.RData
