@@ -1,3 +1,8 @@
+###directories to ignore
+R/output/
+notposting/
+temporalvar/ModelRuns/
+
 ###R files to ignore
 *.RData
 *.Rhistory

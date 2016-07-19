@@ -3,12 +3,12 @@
 ### This executes a single run of the model and writes out
 
 #define run conditions
-source("sourcefiles/getRunParms.R") #define runtime parameters
+source("R/sourcefiles/getRunParms.R") #define runtime parameters
 
 #define parameters and functions for this run
-source("sourcefiles/getEnvt.R")  #get constant and time-varying envt parms
-source("sourcefiles/getSpecies.R")  #get species characteristics and Rstar
-source("sourcefiles/ResCompN.R") # define within-season ode solver
+source("R/sourcefiles/getEnvt.R")  #get constant and time-varying envt parms
+source("R/sourcefiles/getSpecies.R")  #get species characteristics and Rstar
+source("R/sourcefiles/ResCompN.R") # define within-season ode solver
 
 for (j in c(1:nruns)){
   #Define arrays
@@ -49,8 +49,8 @@ for (j in c(1:nruns)){
   
   ## modelruns includes the variables that are constant across years in one dataframe...
   # then tauI, tauP and Bfin for each year
-  save(sppvars, tauI, tauP,Bfin,file=paste("output/",jobID,"out_",j,".Rdata",sep="")) 
+  save(sppvars, tauI, tauP,Bfin,file=paste("R/output/",runname,"_", jobID[1],"-",jobID[2],"-run",j,".Rdata",sep="")) 
   if (writeBout>0) {
-    save(Bout,file=paste("output/",jobID,"Bout_",j,".Rdata",sep="")) #("out_",i,".Rdata"))
+    save(Bout,file=paste("R/output/",runname,"_Bout_",jobID[1],"-",jobID[2],"-run",j,".Rdata",sep="")) #("out_",i,".Rdata"))
   }
 }

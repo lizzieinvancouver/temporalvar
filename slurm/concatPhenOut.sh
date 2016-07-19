@@ -14,7 +14,11 @@
 
 #SBATCH -p wolkovich # Partition to submit to (mine!)                                                    
 
+
 #SBATCH --mem=10000 # Memory per cpu in MB (see also --mem-per-cpu)                                       
+
+                                
+
 
 #SBATCH --mail-type=END
  
@@ -23,7 +27,11 @@
 source new-modules.sh
 module load R_packages
 
+
 R CMD BATCH --quiet --no-restore --no-save R/sourcefiles/concatPhenologyOut.R
+
+
+
 
 ###run this with the following command from the temporalvar folder
 

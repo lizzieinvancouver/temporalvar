@@ -2,10 +2,10 @@
 #run in regal/temporalvar
 #should save to n/wolkovich_lab/temporalvar/R, but currently saves to regal/temporalvar/R/output
 
+
 print(getwd())
 filelocIN <- "R/output/"
 filelocOUT <-"ModelRuns/"#"/n/wolkovich_lab/temporalvar/R/modelruns"
-
 
 nruns <- 100
 narrays <- 10
