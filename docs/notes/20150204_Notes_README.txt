@@ -1,6 +1,6 @@
 Notes from skyping with Megan 
 4 February 2015
-About her scanned notes
+About her scanned notes.
 +++ separate my notes I wrote on each of her pages ….
 
 Notes from Page 1:
