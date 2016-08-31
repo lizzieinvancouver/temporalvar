@@ -4,7 +4,7 @@
 ## Analyzing the runs data for the storage effect model! ##
 
 ## Questions: ##
-# Do we want to extract R from the model runs? #
+# None just now! #
 
 
 ## To do ##
@@ -24,8 +24,8 @@ setwd("~/Documents/git/projects/temporalvar/R")
 load('..//notposting/workon/Track_varR_2spp_60120935.Rdata')
 
 # Here's the structure:
-# list(jobID=jobID, arrayNum=a, runNum=r,sppvars=sppvars,
-#    tauI=tauI, tauP=tauP, Bfin=Bfin,Bout=Bout)
+# list(jobID=jobID, arrayNum=a, runNum=r, sppvars=sppvars,
+#    tauI=tauI, tauP=tauP, Bfin=Bfin,Bout=Bout (within Bout is time, R, B1, B2) )
 
 ## some plots
 
