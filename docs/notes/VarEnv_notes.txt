@@ -1,13 +1,11 @@
 Started 7 October 2013
 By Lizzie
 
-
 ++++++++++++++++++
 To do in general:
 - make up notes on recent progress and equations
 - redo the dimensional analysis (if we switch to Lotka-Volterra)
 ++++++++++++++++++
-
 
 ++++++++++++++++++
 To do next (20 August 2015):
