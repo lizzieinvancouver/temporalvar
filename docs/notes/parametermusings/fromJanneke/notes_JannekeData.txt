@@ -1,0 +1,40 @@
+26 September 2016	
+By Lizzie
+
+Notes on Janneke HilleRisLambers’ data that she shared for storage effect modeling
+
+Dat received on 15 Sept 2015. Here’s Janneke’s email:
+
+<><><><><><><><><><><><><><><><><><><><><><><><><><><><>
+
+Hey Lizzie,
+
+Here, finally, is the data you were interested in (MidlandControlData.xls).
+
+I really apologize that this took so long - I got more swamped with field work this summer than expected and it took me longer than expected to unearth data I had collected 10 years back and organize it in a way that (I hope) is useful to you. This has definitely strengthened my resolve to publish data and scripts with papers, as time consuming as that might be, it is far more time consuming to do it later!
+
+
+A couple of notes / thoughts:
+- The excel file has multiple worksheets, including a meta tab (which has explanations of the columns in the data worksheets) and worksheets with the data.
+
+- Data are from ungrazed plots in 5 blocks, for 11 species (5 native, 6 exotic). Plot composition included no plants (i.e. bare ground) all species in monoculture, A mixture with all species, a mixture with only exotics and a mixture with only natives (we never did anything with the data from the latter mixtures). There were 12 species in the original design, but 1 failed to germinate (Mm a native).
+
+- I also included a script (DataScript_CAData_09152016.R) that goes through and calculates some quantities that (from my memory of your email) I think are of interest - including Rstar values for various resources (light, soil moisture, P, N), relative abundance of species in mixture (as biomass, seed), and biomass per m2 for all species when growing in monoculture. The script reads in the .csv files attached (which are the same as the identically called worksheets in the xcel file).
+
+- As you might remember, the data were not collected on a (individual) per plant basis (everything was collected to estimate various things on a per m2 basis) - which may make it challenging to use for anything demographic. I didn't estimate per plant biomass for any of the species. I can give you rough sense of the relative hierarchy of size - the largest (Cp) was probably ~10x the size of the smallest species (Vo, Cc).
+
+- Also note that infloresences were collected over the course of 1-2 months (depending on species phenology - basically as close to maturation as possible) while above and below ground biomass were collected for all species at the same time, towards the end of the season, at roughly peak biomass. Peak biomass was after or while most species were dispersing seeds, which is why seed biomass estimates / m2 are sometimes greater than aboveground biomass estimates (which included any inflorescences present, but not necessarily seeds if they had dispersed). Data were also collected over different areas / parts of the plot, which of course also contributes variation. All this to say that this is something to think about if you want to use this data to think about allocation to reproduction vs. something else.
+
+
+Anyhow, I hope the data are useful, and please do let me know if you have any questions. Apologies again for the delay!
+
+Janneke
+
+<><><><><><><><><><><><><><><><><><><><><><><><><><><><>
+
+Parameters …
+
+Can get from data:
+
+
+Maybe can get?
