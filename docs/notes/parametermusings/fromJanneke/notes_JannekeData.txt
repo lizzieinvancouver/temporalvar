@@ -32,9 +32,48 @@ Janneke
 
 <><><><><><><><><><><><><><><><><><><><><><><><><><><><>
 
-Parameters …
+From HilleRisLambers et al. 2010:
 
-Can get from data:
+Seeds went in in October/Autumn 2005 (following first rain).
+Seems like all the measurements happened in 2006.
 
+My notes …
 
-Maybe can get?
+Parameters … can use:
+- seed weight (b_i or b_0) 
+- Rstar
+
+Things in general we can get from data:
+- Biomass of species per plot (not per individual…)
+- RStar for all species (11 species)
+- Seed weight for all species (11 species)
+- Biomass to seed number (NOT including overwintering)
+- Moisture, DIN, P, light at peak biomass
+
+- Belowground biomass was only recorded per species in the monoculture plots (because, in mixture plots, it would be crazy impossible work to assign below ground biomass to one species!)
+
+** To do **
+
+(A) Tying to also extract:
+- Biomass to seed conversion per species (without overwintering)…
+	(Question 1) How to calculate given that I have seed weight and biomass weight? Note what Janneeke said above in her email: Peak biomass was after or while most species were dispersing seeds, which is why seed biomass estimates / m2 are sometimes greater than aboveground biomass estimates (which included any inflorescences present, but not necessarily seeds if they had dispersed). 
+	(Question 2) From mixtures or monocultures?
+
+(B) Ask Janneke:
+- If the seeddat.csv and the seed data are in GRAMS (I think so, just triple-checking).
+
+<><><><><><><><><><><><><><><><><><><><><><><><><><><><>
+Species list (don’t use Muhlenbergia microsperma data, it’s basically bare ground — see notes from Janneke) 
+
+Avena barbata
+Amsinckia menziesii
+Bromus hordeaceus
+Calandrinia ciliata
+Clarkia purpurea
+Hordeum murinum
+Lamarckia aurea
+Muhlenbergia microsperma (did not germinate, see HilleRisLambers et al. 2010)
+Polypogon monspeliensis 
+Vulpia microstachys 
+Vulpia myuros
+Vulpia octoflora

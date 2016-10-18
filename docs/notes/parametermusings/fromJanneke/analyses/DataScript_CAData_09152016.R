@@ -1,6 +1,8 @@
 ### Data Exploration for Lizzie
 ## Exploring R*, relative abundance, seed production for 11 California Annuals
 
+## October 2016, small edits by Lizzie ##
+
 ## Set home directory
 setwd("~/Documents/git/projects/temporalvar/docs/notes/parametermusings/fromJanneke/analyses")
 
@@ -33,7 +35,7 @@ dimnames(MixtureDat)[[2]][8:9] <- c("Total Biomass","RAb")
 mrelabun <- tapply(MixtureDat[,9], as.factor(MixtureDat[,4]), mean)
 
 #Merge
-RstarBio <- merge(Rstarall,mrelabun, by="row.names")
+RstarBio <- merge(Rstarall, mrelabun, by="row.names")
 dimnames(RstarBio)[[2]][c(1,6)] <- c("Spp","RA")
 
 #plot
@@ -51,7 +53,7 @@ for(i in 2:5){
 ##Calucate biomass of aboveground, belowground, seeds in monoculture
 #Subset monocultures
 MonoDat <- PlotDat[PlotDat[,3]!="All"&PlotDat[,3]!="Exotic"&PlotDat[,3]!="Native"
-                      &PlotDat[,3]!="Bare"&PlotDat[,3]!="Mm",] #only monocultures that had significant germination
+                      &PlotDat[,3]!="Bare"&PlotDat[,3]!="Mm",] # only monocultures that had significant germination
 
 #Scale aboveground / below ground biomass to m2 basis
 MonoDat[,8] <- MonoDat[,8] / (0.5*0.1) #clipstrip of 0.5 x 0.1 meters
@@ -139,3 +141,15 @@ barplot(RAbio[order(RAbio,decreasing=TRUE)], cex.names=0.75, ylab="Relative Abun
 title("Aboveground Biomass")
 barplot(RAseed[order(RAseed,decreasing=TRUE)], cex.names=0.75, ylab="Relative Abundance")
 title("Seed production")
+
+
+## Below is by Lizzie ##
+## Try to get biomass to seed conversion ##
+
+## From MidlandControlData.xlsx: #
+# NReproInfl --	Number of reproductive infloresences at peak biomass in Inflorescence plot.
+# Can multiply by seed weight/inflorescence to get an estimate of seed biomass / m2
+# But Janneke did all this above!
+
+monobiotoseed <- AbvBio/SdBio
+mixbiotoseed <- RAbio/RAseed
