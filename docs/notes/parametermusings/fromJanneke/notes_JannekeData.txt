@@ -52,15 +52,11 @@ Things in general we can get from data:
 
 - Belowground biomass was only recorded per species in the monoculture plots (because, in mixture plots, it would be crazy impossible work to assign below ground biomass to one species!)
 
-** To do **
 
-(A) Tying to also extract:
 - Biomass to seed conversion per species (without overwintering)…
-	(Question 1) How to calculate given that I have seed weight and biomass weight? Note what Janneeke said above in her email: Peak biomass was after or while most species were dispersing seeds, which is why seed biomass estimates / m2 are sometimes greater than aboveground biomass estimates (which included any inflorescences present, but not necessarily seeds if they had dispersed). 
-	(Question 2) From mixtures or monocultures?
+—> Decided to: give biomass seeds/biomass of plant — make note that this is not exactly PHI and be clear what it is … Megan says to take estimate over all conditions (mixtures and monocultures, unless there is an equal number of mixture and monoculture plots)
 
-(B) Ask Janneke:
-- If the seeddat.csv and the seed data are in GRAMS (I think so, just triple-checking).
+- Asked Janneke: If the seeddat.csv and the seed data are in GRAMS (I think so, just triple-checking).
 
 <><><><><><><><><><><><><><><><><><><><><><><><><><><><>
 Species list (don’t use Muhlenbergia microsperma data, it’s basically bare ground — see notes from Janneke) 

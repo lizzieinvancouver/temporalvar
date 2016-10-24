@@ -149,7 +149,30 @@ title("Seed production")
 ## From MidlandControlData.xlsx: #
 # NReproInfl --	Number of reproductive infloresences at peak biomass in Inflorescence plot.
 # Can multiply by seed weight/inflorescence to get an estimate of seed biomass / m2
-# But Janneke did all this above!
+# ...but, wait, Janneke did all this above!
 
-monobiotoseed <- AbvBio/SdBio
-mixbiotoseed <- RAbio/RAseed
+##
+## Geeting seed per unit biomass info ...
+
+# I believe that ...
+# - Seed weight is calculated per m2
+# - Clip strips were 0.5 x 0.1 m and are what's given in Abvbiom for mixtures
+# So for the mixture plots I will take MixtureDat$Abvbiom x 20 and use that for the biomass to compare to seed weight....
+
+## Mixture plots: Biomass & seeds
+Mixbio <- tapply(MixtureDat$Abvbiom*20, as.factor(MixtureDat$Species), mean) 
+Mixseed <- tapply(MixtureDat$Sdwght, as.factor(MixtureDat$Species), mean)
+Mixseed/Mixbio
+
+## Monoculture plots: Biomass & seeds
+SdBio/AbvBio
+
+## Across all mixture and monoculture plots
+MonoDat.sm <- subset(MonoDat, Comp!="Bare" | Comp!="All" | Comp != "Exotic" | Comp !="Native")
+
+Allbio <- tapply(c(MonoDat.sm$AbvBiomass, MixtureDat$Abvbiom*20), c(as.factor(MixtureDat$Species),
+    as.factor(MonoDat.sm$Comp)), mean) 
+Allseed <- tapply(c(MonoDat.sm$Sdwght, MixtureDat$Sdwght), c(as.factor(MixtureDat$Species),
+    as.factor(MonoDat.sm$Comp)), mean) 
+
+Allseed/Allbio
