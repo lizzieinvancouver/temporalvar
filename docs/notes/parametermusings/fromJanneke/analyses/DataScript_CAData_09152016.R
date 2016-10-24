@@ -168,11 +168,9 @@ Mixseed/Mixbio
 SdBio/AbvBio
 
 ## Across all mixture and monoculture plots
-MonoDat.sm <- subset(MonoDat, Comp!="Bare" | Comp!="All" | Comp != "Exotic" | Comp !="Native")
-
-Allbio <- tapply(c(MonoDat.sm$AbvBiomass, MixtureDat$Abvbiom*20), c(as.factor(MixtureDat$Species),
-    as.factor(MonoDat.sm$Comp)), mean) 
-Allseed <- tapply(c(MonoDat.sm$Sdwght, MixtureDat$Sdwght), c(as.factor(MixtureDat$Species),
-    as.factor(MonoDat.sm$Comp)), mean) 
+Allbio <- tapply(c(MonoDat$AbvBiomass, MixtureDat$Abvbiom*20), c(as.character(MixtureDat$Species),
+    as.character(MonoDat$Comp)), mean) 
+Allseed <- tapply(c(MonoDat$Sdwght, MixtureDat$Sdwght), c(as.character(MixtureDat$Species),
+    as.character(MonoDat$Comp)), mean) 
 
 Allseed/Allbio
