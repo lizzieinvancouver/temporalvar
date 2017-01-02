@@ -2,15 +2,16 @@
 ### By Lizzie & Megan ###
 ### This executes a single run of the model and writes out
 
-#define run conditions
-source("R/sourcefiles/getRunParms.R") #define runtime parameters
-
-#define parameters and functions for this run
-source("R/sourcefiles/getEnvt.R")  #get constant and time-varying envt parms
-source("R/sourcefiles/getSpecies.R")  #get species characteristics and Rstar
-source("R/sourcefiles/ResCompN.R") # define within-season ode solver
 
 for (j in c(1:nruns)){
+  #define run conditions
+  source("R/sourcefiles/getRunParms.R") #define runtime parameters
+  
+  #define parameters and functions for this run
+  source("R/sourcefiles/getEnvt.R")  #get constant and time-varying envt parms
+  source("R/sourcefiles/getSpecies.R")  #get species characteristics and Rstar
+  source("R/sourcefiles/ResCompN.R") # define within-season ode solver
+  
   #Define arrays
   #interannual dynamics set-up (R0 is in getEnvt.R)
   N0 <- rep(100,nsp)          # initial number of seeds (per meter square?)
@@ -19,6 +20,7 @@ for (j in c(1:nruns)){
   rcrt <-  matrix(rep(0),nyrs,nsp) # recruitment in year y
   
   ## Within-season dynamics set-up
+  
   Bfin <- matrix(rep(0),nyrs,nsp) # biomass at end of year y
   B0  <- matrix(rep(0),nyrs,nsp) # biomass at beginning of year y
   Bout <- list() #each year has a dataframe with time,R(t),Bi(t) of dims(2+nsp,tsteps)
@@ -49,7 +51,7 @@ for (j in c(1:nruns)){
   
   ## modelruns includes the variables that are constant across years in one dataframe...
   # then tauI, tauP and Bfin for each year
-  save(sppvars, tauI, tauP,Bfin,file=paste("R/output/",runname,"_", jobID[1],"-",jobID[2],"-run",j,".Rdata",sep="")) 
+  save(sppvars, envtvars,Bfin,file=paste("R/output/",runname,"_", jobID[1],"-",jobID[2],"-run",j,".Rdata",sep="")) 
   if (writeBout>0) {
     save(Bout,file=paste("R/output/",runname,"_Bout_",jobID[1],"-",jobID[2],"-run",j,".Rdata",sep="")) #("out_",i,".Rdata"))
   }
