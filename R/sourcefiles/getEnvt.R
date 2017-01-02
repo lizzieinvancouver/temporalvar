@@ -21,3 +21,5 @@ if (sum(nonsta[2:3]) > 0) {
   tauP <- c(tauP, tauPns,tauPfin)
   #plot(tauP~c(1:nyrs))
 }
+
+envtvars <- as.data.frame(cbind(R0,tauP, eps))
