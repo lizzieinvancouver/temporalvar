@@ -11,7 +11,7 @@ library(deSolve)
 #setwd("~/n/regal/wolkovich_lab/temporalvar")
 
 #random seed
-set.seed(2)
+#set.seed(2)
 
 #Runtime Parameters
 runname <- "Track_varR_2spp"
