@@ -2,10 +2,10 @@
 ### By Lizzie & Megan ###
 ### This executes a single run of the model and writes out
 
+#define run conditions
+source("R/sourcefiles/getRunParms.R") #define runtime parameters
 
 for (j in c(1:nruns)){
-  #define run conditions
-  source("R/sourcefiles/getRunParms.R") #define runtime parameters
   
   #define parameters and functions for this run
   source("R/sourcefiles/getEnvt.R")  #get constant and time-varying envt parms

@@ -5,11 +5,11 @@
 
 print(getwd())
 filelocIN <- "R/output/"
-filelocOUT <-"ModelRuns/"#"/n/wolkovich_lab/temporalvar/R/modelruns"
+filelocOUT <-"R/output/" #"/n/wolkovich_lab/temporalvar/R/modelruns"
 
 nruns <- 100
 narrays <- 10
-jobID <- 60120935
+jobID <- 78345799
 prefix <- "Track_varR_2spp"
 rem <- 0  #flag to indicate that small files should be deleted after concatenating
 Boutflag <- 1  #flag to indicate whether to include Bout files in modelruns list  
@@ -20,13 +20,12 @@ for (a in c(1:narrays)){
     load(paste(filelocIN,prefix,"_",jobID,"-",a,"-run",r,".Rdata",sep=""))
     print(paste(filelocIN,prefix,"_",jobID,"-",a,"-run",r,".Rdata",sep=""))
     if (Boutflag >0) {
-      load(paste(filelocIN,prefix,"_Bout_",jobID,"-",a,r,".Rdata",sep=""))  #old syntax
-      #load(paste(filelocIN,prefix,"_Bout_",jobID,"-",a,"-run",r,".Rdata",sep=""))  #new syntax
+      load(paste(filelocIN,prefix,"_Bout_",jobID,"-",a,"-run",r,".Rdata",sep=""))  #new syntax
       modelruns[[(a-1)*nruns + r]] <- list(jobID=jobID, arrayNum=a, runNum=r,sppvars=sppvars,
-                                            tauI=tauI, tauP=tauP, Bfin=Bfin,Bout=Bout)
+                                            envtvars=envtvars, Bfin=Bfin,Bout=Bout)
     } else {
       modelruns[[(a-1)*nruns + r]] <- list(jobID=jobID, arrayNum=a, runNum=r,sppvars=sppvars,
-                                           tauI=tauI, tauP=tauP, Bfin=Bfin)
+                                           envtvars=envtvars, Bfin=Bfin)
     }
   }
 }
