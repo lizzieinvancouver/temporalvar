@@ -56,7 +56,7 @@ Things in general we can get from data:
 - Biomass to seed conversion per species (without overwintering)…
 —> Decided to: give biomass seeds/biomass of plant — make note that this is not exactly PHI and be clear what it is … Megan says to take estimate over all conditions (mixtures and monocultures, unless there is an equal number of mixture and monoculture plots)
 
-- Asked Janneke: If the seeddat.csv and the seed data are in GRAMS (I think so, just triple-checking).
+- Asked Janneke: If the seeddat.csv and the seed data are in GRAMS (I think so, just triple-checking). And she confirmed on 24 Oct 2016 “Yes! in grams. Can't believe I didn't specify that. Janneke.”
 
 <><><><><><><><><><><><><><><><><><><><><><><><><><><><>
 Species list (don’t use Muhlenbergia microsperma data, it’s basically bare ground — see notes from Janneke) 
