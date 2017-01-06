@@ -5,7 +5,7 @@
 
 print(getwd())
 filelocIN <- "R/output/"
-filelocOUT <-"ModelRuns/"#"/n/wolkovich_lab/temporalvar/R/modelruns"
+filelocOUT <-"R/output/" #"/n/wolkovich_lab/temporalvar/R/modelruns"
 
 nruns <- 100
 narrays <- 10
