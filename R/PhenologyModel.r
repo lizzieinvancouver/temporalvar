@@ -21,7 +21,7 @@ for (j in c(1:nruns)){
   
   ## Within-season dynamics set-up
   
-  Bfin <- matrix(rep(0),nyrs,nsp) # biomass at end of year y
+  Bfin <- matrix(rep(0),nyrs-1,nsp) # biomass at end of year y
   B0  <- matrix(rep(0),nyrs,nsp) # biomass at beginning of year y
   Bout <- list() #each year has a dataframe with time,R(t),Bi(t) of dims(2+nsp,tsteps)
   
@@ -51,7 +51,7 @@ for (j in c(1:nruns)){
   
   ## modelruns includes the variables that are constant across years in one dataframe...
   # then tauI, tauP and Bfin for each year
-  save(sppvars, tauI, envtvars,Bfin,file=paste("R/output/",runname,"_", jobID[1],"-",jobID[2],"-run",j,".Rdata",sep="")) 
+  save(sppvars, envtvars,tauIhat,Bfin,g, file=paste("R/output/",runname,"_", jobID[1],"-",jobID[2],"-run",j,".Rdata",sep="")) 
   if (writeBout>0) {
     save(Bout,file=paste("R/output/",runname,"_Bout_",jobID[1],"-",jobID[2],"-run",j,".Rdata",sep="")) #("out_",i,".Rdata"))
   }

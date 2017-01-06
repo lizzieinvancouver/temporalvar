@@ -21,11 +21,12 @@ for (a in c(1:narrays)){
     print(paste(filelocIN,prefix,"_",jobID,"-",a,"-run",r,".Rdata",sep=""))
     if (Boutflag >0) {
       load(paste(filelocIN,prefix,"_Bout_",jobID,"-",a,"-run",r,".Rdata",sep=""))  #new syntax
+      print(paste(filelocIN,prefix,"_Bout_",jobID,"-",a,"-run",r,".Rdata",sep=""))  #new syntax
       modelruns[[(a-1)*nruns + r]] <- list(jobID=jobID, arrayNum=a, runNum=r,sppvars=sppvars,
-                                            tauI=tauI, envtvars=envtvars, Bfin=Bfin,Bout=Bout)
+                                            envtvars=envtvars, tauIhat=tauIhat, Bfin=Bfin,g=g,Bout=Bout)
     } else {
       modelruns[[(a-1)*nruns + r]] <- list(jobID=jobID, arrayNum=a, runNum=r,sppvars=sppvars,
-                                           tauI=tauI, envtvars=envtvars, Bfin=Bfin)
+                                           envtvars=envtvars, tauIhat=tauIhat, Bfin=Bfin,g=g)
     }
   }
 }
