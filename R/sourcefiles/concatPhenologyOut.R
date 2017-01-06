@@ -22,10 +22,10 @@ for (a in c(1:narrays)){
     if (Boutflag >0) {
       load(paste(filelocIN,prefix,"_Bout_",jobID,"-",a,"-run",r,".Rdata",sep=""))  #new syntax
       modelruns[[(a-1)*nruns + r]] <- list(jobID=jobID, arrayNum=a, runNum=r,sppvars=sppvars,
-                                            envtvars=envtvars, Bfin=Bfin,Bout=Bout)
+                                            tauI=tauI, envtvars=envtvars, Bfin=Bfin,Bout=Bout)
     } else {
       modelruns[[(a-1)*nruns + r]] <- list(jobID=jobID, arrayNum=a, runNum=r,sppvars=sppvars,
-                                           envtvars=envtvars, Bfin=Bfin)
+                                           tauI=tauI, envtvars=envtvars, Bfin=Bfin)
     }
   }
 }
