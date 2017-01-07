@@ -4,7 +4,7 @@
 ## October 2016, small edits by Lizzie ##
 
 ## Set home directory
-setwd("~/Documents/git/projects/temporalvar/docs/notes/parametermusings/fromJanneke/analyses")
+setwd("~/Documents/git/projects/temporalvar/parameternotes/fromJanneke/analyses")
 
 ## Read in data
 PlotDat <- read.csv("input/PlotDat.csv", header = TRUE)
