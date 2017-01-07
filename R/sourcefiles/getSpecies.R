@@ -14,22 +14,25 @@ alpha <- rep(0,nsp)
 #add tracking with alpha to create tauIhat
 if (tracking > 0) {
   alpha <- runif(nsp,0.3, 0.99)
-  tauI <- matrix(rep(alpha),nyrs,nsp, byrow = TRUE)*tauP+matrix((1-alpha)*tauI, nyrs, nsp, byrow = TRUE)
+  tauIhat <- matrix(rep(alpha),nyrs,nsp, byrow = TRUE)*tauP+matrix((1-alpha)*tauI, nyrs, nsp, byrow = TRUE)
+} else {
+  tauIhat <- tauI
 } 
-#effective tauI for initial, nonstationary, and final periods 
-tauIPini <- colMeans(abs(tauP[1:nonsta[1]] - tauI[1:nonsta[1],]))
+
+#effective tauI (=tauIhat) for initial, nonstationary, and final periods 
+tauIPini <- colMeans(abs(tauP[1:nonsta[1]] - tauIhat[1:nonsta[1],]))
 if (nonsta[2]>0) {
-  tauIPns <- colMeans(abs(tauP[(nonsta[1]+1):(nonsta[1]+nonsta[2])] - tauI[(nonsta[1]+1):(nonsta[1]+nonsta[2]),]))
+  tauIPns <- colMeans(abs(tauP[(nonsta[1]+1):(nonsta[1]+nonsta[2])] - tauIhat[(nonsta[1]+1):(nonsta[1]+nonsta[2]),]))
 } else {  
   tauIPns <-  rep(NA,nsp)
 }
 if (nonsta[3]>0){
-  tauIPfin <- colMeans(abs(tauP[(nonsta[1]+nonsta[2]+1):nyrs] - tauI[(nonsta[1]+nonsta[2]+1):nyrs,]))
+  tauIPfin <- colMeans(abs(tauP[(nonsta[1]+nonsta[2]+1):nyrs] - tauIhat[(nonsta[1]+nonsta[2]+1):nyrs,]))
 }else{
   tauIPfin <- rep(NA,nsp)
 }
 
-g <- gmax*exp(-h*(matrix(rep(tauP,nsp),nrow=length(tauP),ncol=nsp)-tauI)^2)  #germination fraction in year y
+g <- gmax*exp(-h*(matrix(rep(tauP,nsp),nrow=length(tauP),ncol=nsp)-tauIhat)^2)  #germination fraction in year y
 
 #competition
 if (varRstar>0) {
@@ -44,4 +47,4 @@ m <-  rep(0.05,nsp)     # mortality
 Rstar <- (m/(a*(c-m*u)))^(1/theta)
 
 #concatenate all the parms to save
-sppvars <- as.data.frame(cbind(b, s, phi, a, u, c, m, theta, Rstar, gmax, h, alpha, tauIPini,tauIPns,tauIPfin))
+sppvars <- as.data.frame(cbind(b, s, phi, a, u, c, m, theta, Rstar, gmax, h, alpha, tauI,tauIPini,tauIPns,tauIPfin))
