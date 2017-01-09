@@ -23,7 +23,7 @@
 # Plant Water Use Affects Competition for Nitrogen: Why Drought Favors Invasive 
 # Species in California. American Naturalist 175:85-97.
 
-## Janueary 2017, small edits by Lizzie ##
+## Janueary 2017, edits and calculations by Lizzie ##
 
 # Clear all existing data
 rm(list=ls())
@@ -177,10 +177,51 @@ ggplot(df,
 
 
 # some calculations ...
+
+## from invade-exp-file-descriptions.txt:
+# plntmass	Mean mass of a single plant (g)
+# seedmass	Mean mass of a single seed (g)
+# sds.plt	Mean number of seeds per plant
+# sdms.plt	Mean mass of seeds per plant (g)
+
+# leaving in unseeded annual watering plot
+# but remove the seeded plots
+df.control <- subset(df, seed==0)
+df.control$biomasstoseed <- (df.control$sds.plt/df.control$plntmass)
+# sanity check that I understand the data ...
+seedmass.calc <- df.control$seedmass * df.control$sds.plt
+plot(df.control$sdms.plt~seedmass.calc)
+
 param.summary <-
-      ddply(df, c("taxa", "trt", "plant.txt", "year"), summarise,
-      mean.seedmass = mean(seedmass), sd = sd(seedmass),
-      mean.plntmass = mean(plntmass), sd = sd(plntmass))
+    ddply(df.control, c("taxa", "trt", "plant.txt", "year"), summarise,
+        mean.seedmass = mean(seedmass), sd = sd(seedmass),
+          # Mean mass of a single plant (g)
+        mean.plntmass = mean(plntmass), sd = sd(plntmass),
+          # Mean mass of a single seed (g)
+        mean.sds.plt = mean(sds.plt), sd = sd(sds.plt),
+          # Mean number of seeds per plant (we don't really need this)
+        mean.sdms.plt = mean(sdms.plt), sd = sd(sdms.plt),
+          # Mean mass of seeds per plant (g)
+        mean.biomasstoseed = mean(biomasstoseed), sd = sd(biomasstoseed))
+          # biomass to seed number conversion
+
+# get min max for parameters spreadsheet
+param.minmax <-
+      ddply(param.summary, c("taxa"), summarise,
+      minofmean.seedmass = min(mean.seedmass), maxofmean.seedmass=max(mean.seedmass),
+          meanofmean.seedmass=mean(mean.seedmass),
+      minofmean.plntmass = min(mean.plntmass), maxofmean.plntmass=max(mean.plntmass),
+          meanofmean.plntmass=mean(mean.plntmass),
+      minofmean.sds.plt = min(mean.sds.plt), maxofmean.sds.plt=max(mean.sds.plt),
+          meanofmean.sds.plt=mean(mean.sds.plt),
+      minofmean.mean.sdms.plt = min(mean.sdms.plt),
+          maxofmean.mean.sdms.plt=max(mean.sdms.plt),
+          meanofmean.sdms.plt=mean(mean.sdms.plt),
+      minofmean.biomasstoseed = min(mean.biomasstoseed),
+          maxofmean.biomasstoseed=max(mean.biomasstoseed),
+          meanofmean.biomasstoseed=mean(mean.biomasstoseed))
+
+### Hmm the biomasstoseed values are now way different than HillRisLambers, need to check both!
 
 # and some plots of those calculations
 ggplot(param.summary, aes(x=year,y=mean.seedmass, fill=trt))+
@@ -188,5 +229,9 @@ ggplot(param.summary, aes(x=year,y=mean.seedmass, fill=trt))+
     geom_boxplot()
 
 ggplot(param.summary, aes(x=year,y=mean.seedmass, fill=plant.txt))+
+    facet_wrap(~taxa, nrow=3) +
+    geom_boxplot()
+
+ggplot(param.summary, aes(x=year,y=mean.biomasstoseed, fill=trt))+
     facet_wrap(~taxa, nrow=3) +
     geom_boxplot()

@@ -3,6 +3,9 @@ By Lizzie
 
 Notes on Eric Seabloom’s data that she shared for storage effect modeling
 
+** Current status as of 8 Jan 2017 (see notes below): **
+** I have calculated what we can but am waiting on some info from Eric to move my calculations out of Seabloom2003_data tab in parameters.xlsx to params tab (same file) **
+
 Dat received on 8 November 2016. Here’s Janneke’s email:
 
 <><><><><><><><><><><><><><><><><><><><><><><><><><><><>
@@ -10,3 +13,33 @@ I am still alive!Sorry to be dreadful in getting you some seed data, but I have
 invade-exp-ann-seed-analysis.R - This file reads in the annual seed data and does somequick plots and analyses to give you a feel for the data.I am trying to get this well documented enough to submit to Dryad, but I hope this isworkable. I know it is a bit clunky now. If it is interesting for you but confusing, wecould have a Skype call.OK... I am going to open a bottle of wine and pray that the electorate at large is atleast somewhat sane!Sorry again for being dreadful. Now that I have blown off the dust from these data, Ithink I can get you the perennial grass seed data reasonably quickly.Best!Eric
 
 <><><><><><><><><><><><><><><><><><><><><><><><><><><><>
+
+Update as of 8 January 2017
+
+I emailed Eric the following queries today:
+
+(1) Is plntmass (defined as ‘Mean mass of a single plant (g)’) vegetative only? That is, if I want to calculate total plant mass should I add together plntmass and sdms.plt (defined as ‘mean mass of seeds per plant (g)’)?
+
+(2) Is plntmass above and belowground or just aboveground?
+
+(3) Is plntmass really in grams? I ask because I am trying to estimate seeds produced per gram (ideally end of season) biomass and if I divide sds.plt (‘Mean number of seeds per plant’) by plntmass I get numbers in the hundreds. Plus plants of generally less than 1 g seem small to me, even for a scraggly annual. 
+
+More notes by me:
+
+Data we have:
+- seed mass (per individual plant)
+- plant mass (per individual plant)
+- mass of one seed
+- seeds per individual plant
+
+So I think we can calculate the following for annuals (we don’t yet have the perennial data and note that if we did have it it would be on an area basis — see Eric’s email above):
+- B_i (biomass per individual) 
+- phi_i (but without overwintering) … biomass to seed number conversion
+- b_0 (per seed biomass)
+- and we have m_i from Everard (just annual vs. perennial) already
+
+In the R code from invade-exp-ann-seed-analysis.R I calculated the above for just the UNSEEDED plots but across treatments and year. I included the mean, min and max of these values in the parameters.xlsx file. 
+
+
+<><><><><><><><><><><><><><><><><><><><><><><><><><><><>
+
