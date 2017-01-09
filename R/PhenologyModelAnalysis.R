@@ -2,6 +2,7 @@
 ### By Lizzie ###
 
 ## Analyzing the runs data for the storage effect model! ##
+## Last updated 8 January 2017 (from Oahu) ##
 
 ## Questions: ##
 # None just now! #
@@ -24,7 +25,7 @@ setwd("~/Documents/git/projects/temporalvar/R")
 source("sourcefiles/multiplot.R")
 
 jobID <- "78476247"
-load(paste("..//notposting/workon/Track_varR_2spp_", jobID, ".Rdata", sep=""))
+load(paste("..//ModelRuns/Track_varR_2spp_", jobID, ".Rdata", sep=""))
 
 # Here's the structure:
 # list(jobID=jobID, arrayNum=a, runNum=r, sppvars=sppvars (the unchanging ones and means of the changing ones),
@@ -74,7 +75,10 @@ length(whocoexisted[which(whocoexisted>1)])
 
 tauI.coexist.df <- data.frame(modelrun=rep(0, length(modelruns)),
     tauI.sp1=rep(0, length(modelruns)), tauI.sp2=rep(0, length(modelruns)),
+    alpha.sp1=rep(0, length(modelruns)), alpha.sp2=rep(0, length(modelruns)), 
     tauIhat.sp1=rep(0, length(modelruns)), tauIhat.sp2=rep(0, length(modelruns)),
+    gi.sp1= rep(0, length(modelruns)), gi.sp2= rep(0, length(modelruns)),
+    c.sp1=rep(0, length(modelruns)), c.sp2=rep(0, length(modelruns)),
     rstar.sp1=rep(0, length(modelruns)), rstar.sp2=rep(0, length(modelruns)),
     coexist=whocoexisted)
 
@@ -82,8 +86,14 @@ for (k in c(1:length(modelruns))){
     tauI.coexist.df$modelrun[k] <- k
     tauI.coexist.df$tauI.sp1[k] <- modelruns[[k]]$sppvars[["tauIPini"]][1]
     tauI.coexist.df$tauI.sp2[k] <- modelruns[[k]]$sppvars[["tauIPini"]][2]
+    tauI.coexist.df$alpha.sp1[k] <- modelruns[[k]]$sppvars[["alpha"]][1]
+    tauI.coexist.df$alpha.sp2[k] <- modelruns[[k]]$sppvars[["alpha"]][2]
     tauI.coexist.df$tauIhat.sp1[k] <- mean(modelruns[[k]]$tauIhat[,1])
     tauI.coexist.df$tauIhat.sp2[k] <- mean(modelruns[[k]]$tauIhat[,2])
+    tauI.coexist.df$gi.sp1[k] <- mean(modelruns[[k]]$g[,1])
+    tauI.coexist.df$gi.sp2[k] <- mean(modelruns[[k]]$g[,2])
+    tauI.coexist.df$c.sp1[k] <- modelruns[[k]]$sppvars[["c"]][1]
+    tauI.coexist.df$c.sp2[k] <- modelruns[[k]]$sppvars[["c"]][2]
     tauI.coexist.df$rstar.sp1[k] <- modelruns[[k]]$sppvars[["Rstar"]][1]
     tauI.coexist.df$rstar.sp2[k] <- modelruns[[k]]$sppvars[["Rstar"]][2]
     }
@@ -91,6 +101,12 @@ for (k in c(1:length(modelruns))){
 tauI.coexist.df$coexist <- as.factor(tauI.coexist.df$coexist)
 tauI.coexist.df$diff.rstar <- tauI.coexist.df$rstar.sp1-tauI.coexist.df$rstar.sp2
 tauI.coexist.df$diff.tauIhat <- tauI.coexist.df$tauIhat.sp1-tauI.coexist.df$tauIhat.sp2
+tauI.coexist.df$diff.alpha <- tauI.coexist.df$alpha.sp1-tauI.coexist.df$alpha.sp2
+tauI.coexist.df$diff.gi <- tauI.coexist.df$gi.sp1-tauI.coexist.df$gi.sp2
+tauI.coexist.df$diff.c <- tauI.coexist.df$gi.sp1-tauI.coexist.df$gi.sp2
+
+
+
 
 ###############################################
 ## some plots ##
@@ -100,7 +116,7 @@ tauI.coexist.df$diff.tauIhat <- tauI.coexist.df$tauIhat.sp1-tauI.coexist.df$tauI
 ## Step 1: check out a couple runs
 runstouse <- c(1, 110, 851)
 
-pdf(paste("graphs/Track_varR_2spp_", jobID, "_3runs.pdf", sep=""), width=5, height=7)
+pdf(paste("graphs/modelruns/Track_varR_2spp_", jobID, "_3runs.pdf", sep=""), width=5, height=7)
 par(mfrow=c(3,2))
 
 for (whichrun in seq_along(runstouse)){
@@ -160,16 +176,28 @@ rstar3 <- ggplot(data=tauI.coexist.df, aes(x=rstar.sp1, y=rstar.sp2, colour=coex
 rstar1 <- ggplot(data=subset(tauI.coexist.df, coexist==2), aes(x=rstar.sp1, y=rstar.sp2)) +
     geom_point()
 
-quartz()
-multiplot(tauI3, tauIhat3, rstar3, tauI1, tauIhat1, rstar1, cols=2)
+alpha1 <- ggplot(data=tauI.coexist.df, aes(x=alpha.sp1, y=alpha.sp2, colour=coexist)) +
+    geom_point()
 
+alpha2 <- ggplot(data=subset(tauI.coexist.df, coexist==2), aes(x=alpha.sp1, y=alpha.sp2)) +
+    geom_point()
+
+
+# called Track_varR_2spp_78476247_coexist1.pdf now, but need better name
+quartz()
+multiplot(tauI3, tauIhat3, rstar3, alpha3, tauI1, tauIhat1, rstar1, alpha1, cols=2)
 
 ## Step 3: g_i ~ eff|tauI-tauP|
-# try to pick a run that coexisted!
+## ADD histogram of tauP as underlay as side by side plot
 
+# try to pick a run that coexisted!
 quartz()
 plot(modelruns[[1]]$g[,1]~modelruns[[1]]$tauIhat[,1])
 points(modelruns[[1]]$g[,2]~modelruns[[1]]$tauIhat[,2], col="blue")
+
+quartz()
+plot(modelruns[[3]]$g[,1]~modelruns[[3]]$tauIhat[,1])
+points(modelruns[[3]]$g[,2]~modelruns[[3]]$tauIhat[,2], col="blue")
 
 ## Step 4: diff in Rstar between spp versus diff in tauI between spp
 
@@ -180,10 +208,27 @@ tauIhatdiff <- ggplot(data=subset(tauI.coexist.df, coexist==2),
     aes(x=diff.rstar, y=diff.tauIhat, colour=coexist)) +
     geom_point()
 
+# called Track_varR_2spp_78476247_coexist2.pdf now, but need better name
 quartz()
 multiplot(rstardiff, tauIhatdiff, cols=2)
 
 
+
+## Few new ones:
+
+# mean gi versus alpha
+ ggplot(data=tauI.coexist.df, aes(x=alpha.sp1, y=gi.sp1, colour=coexist)) +
+    geom_point()
+
+# diff gi versus diff rstar
+ggplot(data=tauI.coexist.df, aes(x=diff.gi, y=diff.rstar, colour=coexist)) +
+    geom_point()
+ggplot(data=subset(tauI.coexist.df, coexist==2), aes(x=diff.gi, y=diff.rstar, colour=coexist)) +
+    geom_point()
+
+# diff gi versus diff c
+ggplot(data=subset(tauI.coexist.df, coexist==2), aes(x=diff.gi, y=diff.c, colour=coexist)) +
+    geom_point()
 
 ####
 ####
