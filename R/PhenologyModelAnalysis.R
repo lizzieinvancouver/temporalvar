@@ -263,6 +263,15 @@ plot.paramdiffs(df, df.coexist, "gi_vs_c", "diff.c", "diff.gi")
 
 stop(print("stop here! Below is just list help notes ..."))
 
+## Wait, first a plot of the alpha-rstar result ...
+plot(diff.rstar~diff.alpha, data=df.coexist, pch=16, col="deeppink4",
+     ylab="R* difference between 2 species",
+     xlab="Tracking difference between 2 species")
+
+plot(diff.rstar~diff.tauIPini, data=df.coexist, pch=16, col="deepskyblue4",
+     ylab="R* difference between 2 species",
+     xlab="Effective tracking difference between 2 species")
+
 ## Lizzie's random notes and such on how to use lists
 # A never-ending battle ...
 
