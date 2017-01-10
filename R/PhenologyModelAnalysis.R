@@ -2,13 +2,14 @@
 ### By Lizzie ###
 
 ## Analyzing the runs data for the storage effect model! ##
-## Last updated 8 January 2017 (from Oahu) ##
+## Last updated 9 January 2017 (flight from Oahu) ##
 
 ## Questions: ##
 # None just now! #
 
 ## To do ##
-# Change all the file paths so they use the jobID? #
+# Get away from using multiplot for ggplot (there must be something better!)
+# Make tauP histogram be an underlay?
 
 ## housekeeping
 rm(list=ls()) 
@@ -32,7 +33,9 @@ load(paste("..//ModelRuns/Track_varR_2spp_", jobID, ".Rdata", sep=""))
 #    envtvars=envtvars (within which is R0, tauP, eps),
 #    tauIhat, Bfin=Bfin, g,
 #    Bout=Bout (within Bout is time, R, B1, B2),
-# head(modelruns[[1]]) # err, not always working so check the top of what you get with:
+# To look at the structure try:
+# head(modelruns[[1]])
+# ... though, err, not always working so also check the top of what you get with:
 # str(modelruns)
 
 # checking out Rstar ratios of the two species model
@@ -70,53 +73,58 @@ for (j in c(1:length(modelruns))){
 length(whocoexisted[which(whocoexisted>1)])
 # preserve row numbers: subset(as.data.frame(whocoexisted), whocoexisted>1)
 
+# make a dataframe with necessary info
+# this isn't really necessary but c'mon, it makes quick plotting easier!
 
-# make a dataframe with necessary info for step 2-4
-
-tauI.coexist.df <- data.frame(modelrun=rep(0, length(modelruns)),
+df <- data.frame(modelrun=rep(0, length(modelruns)),
     tauI.sp1=rep(0, length(modelruns)), tauI.sp2=rep(0, length(modelruns)),
     alpha.sp1=rep(0, length(modelruns)), alpha.sp2=rep(0, length(modelruns)), 
     tauIhat.sp1=rep(0, length(modelruns)), tauIhat.sp2=rep(0, length(modelruns)),
+    tauIPini.sp1=rep(0, length(modelruns)), tauIPini.sp2=rep(0, length(modelruns)),
     gi.sp1= rep(0, length(modelruns)), gi.sp2= rep(0, length(modelruns)),
     c.sp1=rep(0, length(modelruns)), c.sp2=rep(0, length(modelruns)),
     rstar.sp1=rep(0, length(modelruns)), rstar.sp2=rep(0, length(modelruns)),
     coexist=whocoexisted)
 
+## impt note! This only uses tauIP initial just now (ignores nonstationary runs)
+# tauIPini is defined in getSpecies.R and is the average difference between tauP and ...tauIhat for stationary perion
 for (k in c(1:length(modelruns))){
-    tauI.coexist.df$modelrun[k] <- k
-    tauI.coexist.df$tauI.sp1[k] <- modelruns[[k]]$sppvars[["tauIPini"]][1]
-    tauI.coexist.df$tauI.sp2[k] <- modelruns[[k]]$sppvars[["tauIPini"]][2]
-    tauI.coexist.df$alpha.sp1[k] <- modelruns[[k]]$sppvars[["alpha"]][1]
-    tauI.coexist.df$alpha.sp2[k] <- modelruns[[k]]$sppvars[["alpha"]][2]
-    tauI.coexist.df$tauIhat.sp1[k] <- mean(modelruns[[k]]$tauIhat[,1])
-    tauI.coexist.df$tauIhat.sp2[k] <- mean(modelruns[[k]]$tauIhat[,2])
-    tauI.coexist.df$gi.sp1[k] <- mean(modelruns[[k]]$g[,1])
-    tauI.coexist.df$gi.sp2[k] <- mean(modelruns[[k]]$g[,2])
-    tauI.coexist.df$c.sp1[k] <- modelruns[[k]]$sppvars[["c"]][1]
-    tauI.coexist.df$c.sp2[k] <- modelruns[[k]]$sppvars[["c"]][2]
-    tauI.coexist.df$rstar.sp1[k] <- modelruns[[k]]$sppvars[["Rstar"]][1]
-    tauI.coexist.df$rstar.sp2[k] <- modelruns[[k]]$sppvars[["Rstar"]][2]
+    df$modelrun[k] <- k
+    df$tauI.sp1[k] <- modelruns[[k]]$sppvars[["tauI"]][1]
+    df$tauI.sp2[k] <- modelruns[[k]]$sppvars[["tauI"]][2]
+    df$alpha.sp1[k] <- modelruns[[k]]$sppvars[["alpha"]][1]
+    df$alpha.sp2[k] <- modelruns[[k]]$sppvars[["alpha"]][2]
+    df$tauIhat.sp1[k] <- mean(modelruns[[k]]$tauIhat[,1])
+    df$tauIhat.sp2[k] <- mean(modelruns[[k]]$tauIhat[,2])
+    df$tauIPini.sp1[k] <- modelruns[[k]]$sppvars[["tauIPini"]][1]
+    df$tauIPini.sp2[k] <- modelruns[[k]]$sppvars[["tauIPini"]][2]
+    df$gi.sp1[k] <- mean(modelruns[[k]]$g[,1])
+    df$gi.sp2[k] <- mean(modelruns[[k]]$g[,2])
+    df$c.sp1[k] <- modelruns[[k]]$sppvars[["c"]][1]
+    df$c.sp2[k] <- modelruns[[k]]$sppvars[["c"]][2]
+    df$rstar.sp1[k] <- modelruns[[k]]$sppvars[["Rstar"]][1]
+    df$rstar.sp2[k] <- modelruns[[k]]$sppvars[["Rstar"]][2]
     }
 
-tauI.coexist.df$coexist <- as.factor(tauI.coexist.df$coexist)
-tauI.coexist.df$diff.rstar <- tauI.coexist.df$rstar.sp1-tauI.coexist.df$rstar.sp2
-tauI.coexist.df$diff.tauIhat <- tauI.coexist.df$tauIhat.sp1-tauI.coexist.df$tauIhat.sp2
-tauI.coexist.df$diff.alpha <- tauI.coexist.df$alpha.sp1-tauI.coexist.df$alpha.sp2
-tauI.coexist.df$diff.gi <- tauI.coexist.df$gi.sp1-tauI.coexist.df$gi.sp2
-tauI.coexist.df$diff.c <- tauI.coexist.df$gi.sp1-tauI.coexist.df$gi.sp2
-
-
+df$coexist <- as.factor(df$coexist)
+df$diff.tauI <- df$tauI.sp1-df$tauI.sp2
+df$diff.alpha <- df$alpha.sp1-df$alpha.sp2
+df$diff.tauIhat <- df$tauIhat.sp1-df$tauIhat.sp2
+df$diff.tauIPini <- df$tauIPini.sp1-df$tauIPini.sp2
+df$diff.gi <- df$gi.sp1-df$gi.sp2
+df$diff.c <- df$c.sp1-df$c.sp2
+df$diff.rstar <- df$rstar.sp1-df$rstar.sp2
 
 
 ###############################################
-## some plots ##
+## A few plots ##
 ## (working off 20160420_2sppCoexistFigs.pdf)
 ###############################################
 
 ## Step 1: check out a couple runs
 runstouse <- c(1, 110, 851)
 
-pdf(paste("graphs/modelruns/Track_varR_2spp_", jobID, "_3runs.pdf", sep=""), width=5, height=7)
+pdf(paste("graphs/modelruns/Track_varR_2spp_", jobID, "_3sampleruns.pdf", sep=""), width=5, height=7)
 par(mfrow=c(3,2))
 
 for (whichrun in seq_along(runstouse)){
@@ -131,7 +139,7 @@ leg.txt <- c("tauP", "Bfin sp1", "Bfin sp2")
 lty.here <- c(rep(1, 3))
 
 plot(modelruns[[whichrun]]$envtvars[["tauP"]]~xhere, type="l", ylim=yhere, col=colorz[1], lty=lty.here[1],
-    xlab=xname, ylab=yname, main=paste("run ", whichrun))
+    xlab=xname, ylab=yname, main=paste("run ", runstouse[whichrun]))
 lines(modelruns[[whichrun]]$Bfin[,1]~xheretauI, ylim=yhere, col=colorz[2], lty=lty.here[2],
     xlab=xname, ylab=yname)
 lines(modelruns[[whichrun]]$Bfin[,2]~xheretauI, ylim=yhere, col=colorz[3], lty=lty.here[3],
@@ -154,85 +162,106 @@ legend("topright", leg.txt, lwd=2, lty=lty.here, col=colorz)
 
 dev.off()
 
-## Step 2: tauI_sp1 vs tauI_sp2 and color dots by coexisting yay or nay
-# and while I was at it, I added some rstar comparisons
+## Step 2: Look at the differences in parameters between the two species
+# and color dots by coexisting yay or nay
 
-# here comes your plot!
-tauI3 <- ggplot(data=tauI.coexist.df, aes(x=tauI.sp1, y=tauI.sp2, colour=coexist)) +
-    geom_point()
+df.coexist <- subset(df, coexist==2)
 
-tauI1 <- ggplot(data=subset(tauI.coexist.df, coexist==2), aes(x=tauI.sp1, y=tauI.sp2)) +
-    geom_point()
+plot.params <- function(df, df.coexist, colname, colname.sp1, colname.sp2){
+    pdf(paste("graphs/modelruns/params/Track_varR_2spp_", jobID, colname, "_compare.pdf", sep=""),
+        width=9, height=4)
+    plot.allruns <- ggplot(data=df, aes(x=df[colname.sp1], y=df[colname.sp2],
+        colour=coexist)) +
+        geom_point() +
+        labs(x = colname.sp1, y=colname.sp2)
+    plot.coexistruns <- ggplot(data=df.coexist, aes(x=df.coexist[colname.sp1], 
+        y=df.coexist[colname.sp2], colour=coexist)) +
+        geom_point() +
+        labs(x = colname.sp1, y=colname.sp2)
+    multiplot(plot.allruns, plot.coexistruns, cols=2)
+    dev.off()
+}
 
-tauIhat3 <- ggplot(data=tauI.coexist.df, aes(x=tauIhat.sp1, y=tauIhat.sp2, colour=coexist)) +
-    geom_point()
+plot.params(df, df.coexist, "alpha", "alpha.sp1", "alpha.sp2")
+plot.params(df, df.coexist, "tauI", "tauI.sp1", "tauI.sp2")
+plot.params(df, df.coexist, "tauIPini", "tauIPini.sp1", "tauIPini.sp2")
+plot.params(df, df.coexist, "tauIhat", "tauIhat.sp1", "tauIhat.sp2")
+plot.params(df, df.coexist, "c", "c.sp1", "c.sp2")
+plot.params(df, df.coexist, "rstar", "rstar.sp1", "rstar.sp2")
 
-tauIhat1 <- ggplot(data=subset(tauI.coexist.df, coexist==2), aes(x=tauIhat.sp1, y=tauIhat.sp2)) +
-    geom_point()
-
-rstar3 <- ggplot(data=tauI.coexist.df, aes(x=rstar.sp1, y=rstar.sp2, colour=coexist)) +
-    geom_point()
-
-rstar1 <- ggplot(data=subset(tauI.coexist.df, coexist==2), aes(x=rstar.sp1, y=rstar.sp2)) +
-    geom_point()
-
-alpha1 <- ggplot(data=tauI.coexist.df, aes(x=alpha.sp1, y=alpha.sp2, colour=coexist)) +
-    geom_point()
-
-alpha2 <- ggplot(data=subset(tauI.coexist.df, coexist==2), aes(x=alpha.sp1, y=alpha.sp2)) +
-    geom_point()
-
-
-# called Track_varR_2spp_78476247_coexist1.pdf now, but need better name
-quartz()
-multiplot(tauI3, tauIhat3, rstar3, alpha3, tauI1, tauIhat1, rstar1, alpha1, cols=2)
 
 ## Step 3: g_i ~ eff|tauI-tauP|
-## ADD histogram of tauP as underlay as side by side plot
+# for a couple coexisting runs and a couple not coexisting
 
-# try to pick a run that coexisted!
-quartz()
-plot(modelruns[[1]]$g[,1]~modelruns[[1]]$tauIhat[,1])
-points(modelruns[[1]]$g[,2]~modelruns[[1]]$tauIhat[,2], col="blue")
+gi.runstouse <- as.numeric(row.names(subset(as.data.frame(whocoexisted), whocoexisted>1))[1:3])
+gi.runstouse.nocoexist <- as.numeric(row.names(subset(as.data.frame(whocoexisted),
+    whocoexisted==1))[1:3])
 
-quartz()
-plot(modelruns[[3]]$g[,1]~modelruns[[3]]$tauIhat[,1])
-points(modelruns[[3]]$g[,2]~modelruns[[3]]$tauIhat[,2], col="blue")
+xlim <- c(0,1)
 
-## Step 4: diff in Rstar between spp versus diff in tauI between spp
+pdf(paste("graphs/modelruns/gi_dynamics/Track_varR_2spp_", jobID, "_gi_3coexistruns.pdf", sep=""), width=5, height=7)
+par(mfrow=c(3,2))
+for (whichrun in seq_along(gi.runstouse)){
+    runhere <- gi.runstouse[whichrun]
+    colorz <- c("black", "blue")
+    ylab <- "gi"
+    xlab <- "tauIhat"
+    plot(modelruns[[runhere]]$g[,1]~modelruns[[runhere]]$tauIhat[,1], ylab=ylab,
+        xlab=xlab, xlim=xlim)
+    points(modelruns[[runhere]]$g[,2]~modelruns[[runhere]]$tauIhat[,2], col=colorz[2],
+        xlim=xlim)
+    hist(modelruns[[runhere]]$envtvars[["tauP"]], main=paste("run", runhere), xlim=xlim)
+}
+dev.off()
 
-rstardiff <- ggplot(data=tauI.coexist.df, aes(x=diff.rstar, y=diff.tauIhat, colour=coexist)) +
-    geom_point()
+pdf(paste("graphs/modelruns/gi_dynamics/Track_varR_2spp_", jobID, "_gi_3nocoexistruns.pdf", sep=""), width=5, height=7)
+par(mfrow=c(3,2))
+for (whichrun in seq_along(gi.runstouse.nocoexist)){
+    runhere <- gi.runstouse.nocoexist[whichrun]
+    colorz <- c("black", "blue")
+    ylab <- "gi"
+    xlab <- "tauIhat"
+    plot(modelruns[[runhere]]$g[,1]~modelruns[[runhere]]$tauIhat[,1], ylab=ylab,
+        xlab=xlab, xlim=xlim)
+    points(modelruns[[runhere]]$g[,2]~modelruns[[runhere]]$tauIhat[,2], col=colorz[2],
+        xlim=xlim)
+    hist(modelruns[[runhere]]$envtvars[["tauP"]], main=paste("run", runhere), xlim=xlim)
+}
+dev.off()
 
-tauIhatdiff <- ggplot(data=subset(tauI.coexist.df, coexist==2),
-    aes(x=diff.rstar, y=diff.tauIhat, colour=coexist)) +
-    geom_point()
+## Step 4: Look at parameter differences between species
 
-# called Track_varR_2spp_78476247_coexist2.pdf now, but need better name
-quartz()
-multiplot(rstardiff, tauIhatdiff, cols=2)
+plot.paramdiffs <- function(df, df.coexist, figname, colname.x, colname.y){
+    pdf(paste("graphs/modelruns/paramdiffs/Track_varR_2spp_", jobID, figname, ".pdf", sep=""),
+        width=9, height=4)
+    plot.allruns <- ggplot(data=df, aes(x=df[colname.x], y=df[colname.y],
+        colour=coexist)) +
+        geom_point() +
+        labs(x = colname.x, y=colname.y)
+    plot.coexistruns <- ggplot(data=df.coexist, aes(x=df.coexist[colname.x], 
+        y=df.coexist[colname.y], colour=coexist)) +
+        geom_point() +
+        labs(x = colname.x, y=colname.y)
+    multiplot(plot.allruns, plot.coexistruns, cols=2)
+    dev.off()
+}
+
+plot.paramdiffs(df, df.coexist, "rstar_vs_tauI", "diff.tauI", "diff.rstar")
+plot.paramdiffs(df, df.coexist, "rstar_vs_alpha", "diff.alpha", "diff.rstar")
+plot.paramdiffs(df, df.coexist, "rstar_vs_tauIhat", "diff.tauIhat", "diff.rstar")
+plot.paramdiffs(df, df.coexist, "rstar_vs_tauIPini", "diff.tauIPini", "diff.rstar")
+plot.paramdiffs(df, df.coexist, "gi_vs_tauI", "diff.tauI", "diff.gi")
+plot.paramdiffs(df, df.coexist, "gi_vs_tauIPini", "diff.tauIPini", "diff.gi")
+plot.paramdiffs(df, df.coexist, "gi_vs_alpha", "diff.alpha", "diff.gi")
+plot.paramdiffs(df, df.coexist, "gi_vs_c", "diff.c", "diff.gi")
 
 
-
-## Few new ones:
-
-# mean gi versus alpha
- ggplot(data=tauI.coexist.df, aes(x=alpha.sp1, y=gi.sp1, colour=coexist)) +
-    geom_point()
-
-# diff gi versus diff rstar
-ggplot(data=tauI.coexist.df, aes(x=diff.gi, y=diff.rstar, colour=coexist)) +
-    geom_point()
-ggplot(data=subset(tauI.coexist.df, coexist==2), aes(x=diff.gi, y=diff.rstar, colour=coexist)) +
-    geom_point()
-
-# diff gi versus diff c
-ggplot(data=subset(tauI.coexist.df, coexist==2), aes(x=diff.gi, y=diff.c, colour=coexist)) +
-    geom_point()
 
 ####
 ####
 ####
+
+stop(print("stop here! Below is just list help notes ..."))
 
 ## Lizzie's random notes and such on how to use lists
 # A never-ending battle ...
