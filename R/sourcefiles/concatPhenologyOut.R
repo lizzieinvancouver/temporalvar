@@ -5,21 +5,21 @@
 
 print(getwd())
 filelocIN <- "R/output/"
-filelocOUT <-"R/output/" #"/n/wolkovich_lab/temporalvar/R/modelruns"
+filelocOUT <-"ModelRuns/" #R/output/" #"/n/wolkovich_lab/temporalvar/R/modelruns"
 
 nruns <- 100
 narrays <- 10
 jobID <- 78345799
 prefix <- "Track_varR_2spp"
 rem <- 0  #flag to indicate that small files should be deleted after concatenating
-Boutflag <- 1  #flag to indicate whether to include Bout files in modelruns list  
+Boutflag <- 1  #flag indicating how often Bout was written (0=never, n = every n runs)  
 
 modelruns <- list()
 for (a in c(1:narrays)){
   for (r in c(1:nruns)){
     load(paste(filelocIN,prefix,"_",jobID,"-",a,"-run",r,".Rdata",sep=""))
     print(paste(filelocIN,prefix,"_",jobID,"-",a,"-run",r,".Rdata",sep=""))
-    if (Boutflag >0) {
+    if (Boutflag >0 && r%%Boutflag==0) {
       load(paste(filelocIN,prefix,"_Bout_",jobID,"-",a,"-run",r,".Rdata",sep=""))  #new syntax
       print(paste(filelocIN,prefix,"_Bout_",jobID,"-",a,"-run",r,".Rdata",sep=""))  #new syntax
       modelruns[[(a-1)*nruns + r]] <- list(jobID=jobID, arrayNum=a, runNum=r,sppvars=sppvars,
@@ -37,8 +37,8 @@ if (rem==1){
 for (a in c(1:narrays)){
   for (r in c(1:nruns)){
     file.remove(paste(filelocIN,prefix,"_",jobID,"-",a,"-run",r,".Rdata",sep=""))
-    file.remove(paste(filelocIN,prefix,"_Bout_",jobID,"-",a,r,".Rdata",sep=""))  #old synatx
-    #file.remove(paste(filelocIN,prefix,"_Bout_",jobID,"-",a,"-run",r,".Rdata",sep=""))  #new syntax
+    #file.remove(paste(filelocIN,prefix,"_Bout_",jobID,"-",a,r,".Rdata",sep=""))  #old synatx
+    file.remove(paste(filelocIN,prefix,"_Bout_",jobID,"-",a,"-run",r,".Rdata",sep=""))  #new syntax
   }
 }
 }

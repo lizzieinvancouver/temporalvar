@@ -17,7 +17,7 @@ library(deSolve)
 runname <- "Track_varR_2spp"
 batch <-1  #flag if running as batch array w SLURM
 nruns <- 100
-writeBout <- 1  #flag indicating whether Bout should be written
+writeBout <- 1  #flag indicating how often Bout should be written (0=never, n = every n runs)
 nonsta = c(200,0,0)   #number of [1] initial stationary,[2]nonstationary,[3]final nonstationary years
 tracking = 1   #tracking in these runs?
 varRstar = 1   #flag for variation in Rstar; if 1, then c is drawn randomly, and R* varies
