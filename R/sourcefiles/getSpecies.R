@@ -16,7 +16,7 @@ if (tracking > 0) {
   alpha <- runif(nsp,0.3, 0.99)
   tauIhat <- matrix(rep(alpha),nyrs,nsp, byrow = TRUE)*tauP+matrix((1-alpha)*tauI, nyrs, nsp, byrow = TRUE)
 } else {
-  tauIhat <- tauI
+  tauIhat <- matrix(rep(tauI),nyrs,nsp, byrow = TRUE)
 } 
 
 #effective tauI (=tauIhat) for initial, nonstationary, and final periods 
