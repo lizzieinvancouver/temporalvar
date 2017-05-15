@@ -25,7 +25,7 @@ setwd("~/Documents/git/projects/temporalvar/R")
 # source some stuff
 source("sourcefiles/multiplot.R")
 
-jobID <- "78476247"
+jobID <- "87783087" # "78476247"
 load(paste("..//ModelRuns/Track_varR_2spp_", jobID, ".Rdata", sep=""))
 
 # Here's the structure:
