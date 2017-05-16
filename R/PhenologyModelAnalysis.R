@@ -122,7 +122,7 @@ df$diff.rstar <- df$rstar.sp1-df$rstar.sp2
 ###############################################
 
 ## Step 1: check out a couple runs
-runstouse <- c(1, 110, 851)
+runstouse <- c(1, 110, 8)
 
 pdf(paste("graphs/modelruns/Track_varR_2spp_", jobID, "_3sampleruns.pdf", sep=""), width=5, height=7)
 par(mfrow=c(3,2))
