@@ -1,0 +1,11 @@
+Date,runname (file prefix),JobID for runs,JobID for concatenation,narrays,nsp,varRstar,nonsta,tracking,fixTauI,Bout,Purpose
+5/15/2017,Track_varR_2spp,87783087,87815600,,2,1,"200,0,0",1,0,1,
+5/15/2017,Track0_varR_2spp,87839120,88000370,,2,1,"200,0,0",0,0,1,
+5/15/2017,TrackNS_varR_2spp,87783509,87817014,,2,1,"100,200,100",1,0,0,
+5/17/2017,Track0_varR_2spp,88003925,,100,2,1,"1000,0,0",0,0,20,"Stationary, simple temporal niche: coexistence when R* tradesoff with tauI (fixed)"
+,Track0_novarR_2spp,,,,2,0,"1000,0,0",0,0,1,"Stationary, simple temporal niche exclusion: if R* equal, tauI close to tauP always wins, ""tauI* rule"""
+,Track_varR_fixtauI_2spp,,,,2,1,"1000,0,0",1,1,1,"Stationary, dynamic temporal niche: for tauI fixed, coexistence tradeoff between R* and tracking"
+,Track_varR_2spp,,,,2,1,"1000,0,0",1,0,1,"Stationary, dynamic temporal niche: coexistence tradeoff between R* and tracking with tauI varying; tauIhat is the important parm"
+,,,,,,,,,,,"Nonstationary, simple temporal niche: species with lower R* and tauI further from tauP coexists with a species with higher R* and tauI closer to tauP_initial; under NS, coexsitence switches to a species with tauI close to tauP_final"
+,,,,,,,,,,,"Nonstationary, dynamic temporal niche: show that species with more tracking wins"
+,,,,,,,,,,,"Nonstationary, dynamic temporal niche: show that tracking can trump R*?"
