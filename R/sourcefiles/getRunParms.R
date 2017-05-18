@@ -20,7 +20,11 @@ nruns <- 100
 writeBout <- 1  #flag indicating how often Bout should be written (0=never, n = every n runs)
 nonsta = c(200,0,0)   #number of [1] initial stationary,[2]nonstationary,[3]final nonstationary years
 tracking = 1   #tracking in these runs?
-varRstar = 1   #flag for variation in Rstar; if 1, then c is drawn randomly, and R* varies
+varRstar = 1   #flag for variation in Rstar; (1) draw c randomly for each spp so R* varies by species; 
+                                            #(0) draw c randomly then assign to all species, so R* varies by run but equal bt spp; 
+                                            #(-1) make c constant and equal to default (c=12 for all spp)
+                                            #c(x,x,x) if varRstar is vector (length(R*>1)) then it gives the specific values of c for all spp
+vartauI = 1    #flag that indicates that tauI should vary (1) or be the same (0) between species; if vartauI is vector, then it is giving the tauI values for each species.
 nsp = 2        #Number of species to start in these runs?
 jobID <- ""
 if (batch==1) {jobID <- Sys.getenv(c("SLURM_ARRAY_JOB_ID","SLURM_ARRAY_TASK_ID"))}
