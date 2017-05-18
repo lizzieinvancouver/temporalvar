@@ -14,7 +14,7 @@ if (length(vartauI)>1) {  #if vartauI is a vector, then it is giving particular 
   tauI = vartauI
 } else if (vartauI == 0) {  #if vartauI is 0, then give all species the same randomly selected tauI
   tauI <-rep(runif(1,0.1,0.9),nsp)
-} else                     #if vartauI is 1, then give random values for tauI for each species
+} else {                     #if vartauI is 1, then give random values for tauI for each species
   tauI <-runif(nsp,0.1,0.9)  
 }
 
