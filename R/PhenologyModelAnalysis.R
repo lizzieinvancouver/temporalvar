@@ -28,6 +28,10 @@ source("sourcefiles/multiplot.R")
 jobID <- "87783087" # "78476247"
 load(paste("..//ModelRuns/Track_varR_2spp_", jobID, ".Rdata", sep=""))
 
+# Checking the 0 track runs.... 
+# load('..//ModelRuns/Track0_varR_2spp_87839120.Rdata')
+# load('..//ModelRuns/Track0_varR_2spp_88003925.Rdata')
+
 # Here's the structure:
 # list(jobID=jobID, arrayNum=a, runNum=r, sppvars=sppvars (the unchanging ones and means of the changing ones),
 #    envtvars=envtvars (within which is R0, tauP, eps),
@@ -122,7 +126,7 @@ df$diff.rstar <- df$rstar.sp1-df$rstar.sp2
 ###############################################
 
 ## Step 1: check out a couple runs
-runstouse <- c(1, 110, 8)
+runstouse <- c(1, 8, 110)
 
 pdf(paste("graphs/modelruns/Track_varR_2spp_", jobID, "_3sampleruns.pdf", sep=""), width=5, height=7)
 par(mfrow=c(3,2))

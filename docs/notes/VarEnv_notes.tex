@@ -23,7 +23,7 @@
 
 \usepackage{fancyhdr}
 \pagestyle{fancy}
-\fancyhead[LO]{March 2016}
+\fancyhead[LO]{May 2017}
 \fancyhead[RO]{Variable environments \& climate change}
 
 \begin{document}
@@ -73,24 +73,24 @@ ability of species to phenologically track the timing of major climate events. \
 \item In a stationary world (SW):
 \begin{enumerate} 
 \item In a stationary world (SW) with no multispecies temporal niche: species with $min(\tau_i - \tau_{P.one.wold})$ wins. 
-\item  Simple temporal niche: $R*$ trades off with $\tau_i$ (species with $\tau_i$ further from $\tau_P$ must have lower $R*$.
-\item Dynamic temporal niche scenario 1: with no difference in $R*$ among species, then the best tracker ($\alpha$) often wins, with some nuance about $\tau_i$ ... i.e., $\tau_i - \tau_p$ versus $\hat{\tau_i} - \tau_p$ ... something that is weakly tracking may be out-competed by a species with a better mean $\tau_i$. So we need to find cases where tracking does not beat out non-tracker. 
-\item  Dynamic temporal niche scenario 2:  $R*$ trades off with $\alpha$ ... and the more complex version where $R*$ trades off with $\alpha$ and $\tau_i$ combo: main point here is that what matter is $\hat{\tau_i}-\tau_P$
+\item  Simple temporal niche: $R^*$ trades off with $\tau_i$ (species with $\tau_i$ further from $\tau_P$ must have lower $R^*$.
+\item Dynamic temporal niche scenario 1: with no difference in $R^*$ among species, then the best tracker ($\alpha$) often wins, with some nuance about $\tau_i$ ... i.e., $\tau_i - \tau_p$ versus $\hat{\tau_i} - \tau_p$ ... something that is weakly tracking may be out-competed by a species with a better mean $\tau_i$. So we need to find cases where tracking does not beat out non-tracker. 
+\item  Dynamic temporal niche scenario 2:  $R^*$ trades off with $\alpha$ ... and the more complex version where $R^*$ trades off with $\alpha$ and $\tau_i$ combo: main point here is that what matter is $\hat{\tau_i}-\tau_P$
 \end{enumerate} 
 \item  In a non-stationary world (NSW):
 \begin{enumerate} 
 \item No multispecies temporal niche (just vary $\tau_i$ across species): with you shift from species $min(\tau_i - \tau_{p.old.world})$ to species with $min(\tau_i - \tau_{p.new.world})$ wins. 
 \item With dynamic temporal niche: consider just varying $\alpha$, then species with $max(\alpha)$ wins. 
 \item What happens to communities that were coexisting via $R*-\alpha$ trade-off? 
-\item And tracking can trump $\R*$ ... Look at: cases where tracker outcompetes species with lower $\R*$ in nonstationary simulations. 
+\begin{enumerate}
+\item Perhaps tracking can trump $R^*$ ... Look at: cases where tracker outcompetes species with lower $R^*$ in nonstationary simulations.
+\item Maybe do runs with stationarity, then non-stationarity: this could tell you things like `these species will stop coexisting or X\% of runs now go extinct or this part of parameter space that was coexisting goes away first' ... we could also do runs with same params started non-stationary period and see if combinations become possible. \\ 
+\end{enumerate}
 \end{enumerate} 
 \end{enumerate} 
 
 \subsection{Misc:} 
-Look at 1 species coexistence where the better tracker went extinct. \\
-
-Maybe do runs with stationarity, then non-stationarity: this could tell you things like `these species will stop coexisting or X\% of runs now go extinct or this part of parameter space that was coexisting goes away first' ... we could also do runs with same params started non-stationary period and see if combinations become possible, see 2d above. \\
-
+Look at 1 species coexistence where the better tracker went extinct. This is sort of just another version of take two coexisting species and show that the tracker can drive the lower $R^*$ extinct.\\
 
 Plot for `this part of parameter space that was coexisting goes away first' could be the old coexisting parameter space with color coding for how quickly during the non-stationary period they go away. 
 
