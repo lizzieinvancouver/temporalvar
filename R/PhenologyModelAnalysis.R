@@ -41,6 +41,9 @@ load(paste("..//ModelRuns/Track_varR_2spp_", jobID, ".Rdata", sep=""))
 # head(modelruns[[1]])
 # ... though, err, not always working so also check the top of what you get with:
 # str(modelruns)
+# tauIPini: tauP-tauIhat using initial tauP (from stationary period)
+# tauIPns:  tauP-tauIhat using tauP from non-stationary period
+# tauIPfin: tauP-tauIhat using last stage of tauP (from second stationary period, when there is one)
 
 # checking out Rstar ratios of the two species model
 rstarz <- c()
@@ -118,6 +121,13 @@ df$diff.tauIPini <- df$tauIPini.sp1-df$tauIPini.sp2
 df$diff.gi <- df$gi.sp1-df$gi.sp2
 df$diff.c <- df$c.sp1-df$c.sp2
 df$diff.rstar <- df$rstar.sp1-df$rstar.sp2
+df$rstar.ratio <- df$rstar.sp1/df$rstar.sp2
+df$tauI.ratio <- df$tauI.sp1/df$tauI.sp2
+df$alpha.ratio <- df$alpha.sp1/df$alpha.sp2
+df$tauIhat.ratio <- df$tauIhat.sp1/df$tauIhat.sp2
+df$tauIPini.ratio <- df$tauIPini.sp1/df$tauIPini.sp2
+df$diff.gi <- df$gi.sp1-df$gi.sp2
+df$diff.c <- df$c.sp1-df$c.sp2
 
 
 ###############################################
@@ -259,6 +269,10 @@ plot.paramdiffs(df, df.coexist, "gi_vs_tauIPini", "diff.tauIPini", "diff.gi")
 plot.paramdiffs(df, df.coexist, "gi_vs_alpha", "diff.alpha", "diff.gi")
 plot.paramdiffs(df, df.coexist, "gi_vs_c", "diff.c", "diff.gi")
 
+plot.paramdiffs(df, df.coexist, "rstar_vs_tauI_ratios", "tauI.ratio", "rstar.ratio")
+plot.paramdiffs(df, df.coexist, "rstar_vs_alpha_ratios", "alpha.ratio", "rstar.ratio")
+plot.paramdiffs(df, df.coexist, "rstar_vs_tauIhat_ratios", "tauIhat.ratio", "rstar.ratio")
+plot.paramdiffs(df, df.coexist, "rstar_vs_tauIPini_ratios", "tauIPini.ratio", "rstar.ratio")
 
 
 ####
