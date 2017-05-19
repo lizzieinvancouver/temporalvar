@@ -17,10 +17,12 @@ Boutflag <- 25  #flag indicating which Bout files to concatenate (0=never, n = e
 modelruns <- list()
 for (a in c(1:narrays)){
   for (r in c(1:nruns)){
-    load(paste(filelocIN,prefix,"_",jobID,"-",a,"-run",r,".Rdata",sep=""))
-    #print(paste(filelocIN,prefix,"_",jobID,"-",a,"-run",r,".Rdata",sep=""))
-    modelruns[[(a-1)*nruns + r]] <- list(jobID=jobID, arrayNum=a, runNum=r,sppvars=sppvars,
+    filename = paste(filelocIN,prefix,"_",jobID,"-",a,"-run",r,".Rdata",sep="")
+    if (file.exists(filename)) {
+      load(filename)
+      modelruns[[(a-1)*nruns + r]] <- list(jobID=jobID, arrayNum=a, runNum=r,sppvars=sppvars,
                                          envtvars=envtvars, tauIhat=tauIhat, Bfin=Bfin,g=g)
+    }
   }
 }
 save(modelruns,file=paste(filelocOUT,prefix,"_",jobID,".Rdata",sep=""))
@@ -30,23 +32,26 @@ modelruns_Bout <- list()
 for (a in c(1:narrays)){
   for (r in c(1:nruns)){
     if (Boutflag >0 && r%%Boutflag==0) {
-      load(paste(filelocIN,prefix,"_Bout_",jobID,"-",a,"-run",r,".Rdata",sep=""))  #new syntax
-      #print(paste(filelocIN,prefix,"_Bout_",jobID,"-",a,"-run",r,".Rdata",sep=""))  #new syntax
-      modelruns_Bout[[(a-1)*nruns + r]] <- list(jobID=jobID, arrayNum=a, runNum=r,Bout=Bout)
-      rm(Bout)
+      filename=paste(filelocIN,prefix,"_Bout_",jobID,"-",a,"-run",r,".Rdata",sep="")
+      if (file.exists(filename)) {
+        load(filename)  #new syntax
+        modelruns_Bout[[(a-1)*nruns + r]] <- list(jobID=jobID, arrayNum=a, runNum=r,Bout=Bout)
+        rm(Bout)
+      }
     }
   }
 }
 save(modelruns_Bout,file=paste(filelocOUT,prefix,"_Bout_",jobID,".Rdata",sep=""))
-rm(modelruns)
+rm(modelruns_Bout)
 
 
 if (rem==1){
 for (a in c(1:narrays)){
   for (r in c(1:nruns)){
-    file.remove(paste(filelocIN,prefix,"_",jobID,"-",a,"-run",r,".Rdata",sep=""))
-    #file.remove(paste(filelocIN,prefix,"_Bout_",jobID,"-",a,r,".Rdata",sep=""))  #old synatx
-    file.remove(paste(filelocIN,prefix,"_Bout_",jobID,"-",a,"-run",r,".Rdata",sep=""))  #new syntax
+    filename1=paste(filelocIN,prefix,"_Bout_",jobID,"-",a,"-run",r,".Rdata",sep="")
+    filename2=paste(filelocIN,prefix,"_",jobID,"-",a,"-run",r,".Rdata",sep="")
+    if (file.exists(filename1)) { file.remove(filename1) }
+    if (file.exists(filename2)) { file.remove(filename2) }  #new syntax
   }
 }
 }
