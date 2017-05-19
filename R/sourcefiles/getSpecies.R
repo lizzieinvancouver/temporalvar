@@ -52,7 +52,7 @@ if (length(varRstar)>1) {     #if varRstar is vector then it gives c for each sp
   c <- rep(runif(1, 2, 20),nsp) 
 } else if (varRstar == -1){     #if varRstar is -1, then go with old default value for all species
     c <-  rep(12,nsp)
-} else                        #otherwise, randomly select c for each species
+} else {                       #otherwise, randomly select c for each species
     c <- runif(nsp,2,20)
 }
 
