@@ -1,11 +1,23 @@
-Date,runname (file prefix),JobID for runs,JobID for concatenation,narrays,nsp,varRstar,nonsta,tracking,vartauI,Bout,Purpose
-5/15/2017,Track_varR_2spp,87783087,87815600,10,2,1,"200,0,0",1,,1,
-5/15/2017,Track0_varR_2spp,87839120,88000370,10,2,1,"200,0,0",0,,1,
-5/15/2017,TrackNS_varR_2spp,87783509,87817014,10,2,1,"100,200,100",1,,0,
-5/17/2017,Track0_varR_2spp,88003925,88075506,100,2,1,"1000,0,0",0,,20,"Stationary, simple temporal niche: coexistence when R* tradesoff with tauI vary R*, vary tauI, no track)"
-5/18/2017,Track0_eqR_2spp,88076055,**concat file needs updating,100,2,0,"1000,0,0",0,1,20,"Stationary, simple temporal niche exclusion: if R* equal, tauI close to tauP always wins, ""tauI* rule"""
-,Track_varR_vartauI0_2spp,,,100,2,1,"1000,500,0",1,0,1,"Stationary, dynamic temporal niche: for tauI equal bt spp, coexistence tradeoff between R* and tracking;  include ST and NS, so address the tracking can trump R* under varying envt."
-5/18/2017,Track_varR_2spp,88094334,,100,2,1,"1000,0,0",1,1,1,"Stationary, dynamic temporal niche: coexistence tradeoff between R* and tracking with tauI varying; tauIhat-tauP is the important parm"
-,Track0_fixRdiff_2spp,,,100,2,"c(10,12)","1000,0,0",0,1,1,"(ST part) Nonstationary, simple temporal niche: species with lower R* and tauI further from tauP coexists with a species with higher R* and tauI closer to tauP_initial; under NS, coexsitence switches to a species with tauI close to tauP_final.  To do this comparison, for a particular set of (R1*, R2*) show proportion of runs with a given tauI that persiss through a ST period, and then those that persist through a NS period.  Include a 5-10 yr ST at beginning of NS."
-,Track0NS_fixRdiff_2spp,,,100,2,"c(10,12)","10,1000,0",0,1,1,"(NS part) Nonstationary, simple temporal niche: species with lower R* and tauI further from tauP coexists with a species with higher R* and tauI closer to tauP_initial; under NS, coexsitence switches to a species with tauI close to tauP_final.  To do this comparison, for a particular set of (R1*, R2*) show proportion of runs with a given tauI that persiss through a ST period, and then those that persist through a NS period.  Include a 5-10 yr ST at beginning of NS."
-,,,,,,,,,,,"Nonstationary, dynamic temporal niche: show that tracking can trump R*?  Take runs from stationary envt with varyR*, vary alpha, tauI equal; add NS and show that tracker can beat out R* [don't need new runs; will get these by adding NS part to ST runs above]"
+Date,runname (file prefix),"Moved ModelRuns off regal(xx, incl Bout)",Moved Output off regal,JobID for runs,JobID for concatenation,narrays,nsp,varRstar,nonsta,tracking,vartauI,Bout for runs,Notes,Purpose
+,Track_varR_2spp,x,X,60120935,,,,,,,,,,
+,Track_varR_20spp,x,,78502876,,,,,,,,,,
+,Track_varR_2spp,xx,,78345799,,,,,,,,,,
+,Track_varR_2spp,x,,78476247,,,,,,,,,,
+,Track_varR_2spp,,,88085409,,,,,,,,,,
+5/15/2017,Track_varR_2spp,x,,87783087,87815600,10,2,1,"200,0,0",1,,1,,
+5/15/2017,Track0_varR_2spp,x,,87839120,88000370,10,2,1,"200,0,0",0,,1,,
+5/15/2017,TrackNS_varR_2spp,x,,87783509,87817014,10,2,1,"100,200,100",1,,0,no Bout,
+5/17/2017,Track0_varR_2spp,x,,88003925,88075506,100,2,1,"1000,0,0",0,,20,,"Stationary, simple temporal niche: coexistence when R* tradesoff with tauI vary R*, vary tauI, no track)"
+5/18/2017,Track0_eqR_2spp,xx,x,88076055,88137652,100,2,0,"1000,0,0",0,1,20,,"Stationary, simple temporal niche exclusion: if R* equal, tauI close to tauP always wins, ""tauI* rule"""
+5/19/2017,Track_varR_vartauI0_2spp,,,88137455,,100,2,1,"1000,500,0",1,0,1,concat every 50 Bout,"Stationary, dynamic temporal niche: for tauI equal bt spp, coexistence tradeoff between R* and tracking;  include ST and NS, so address the tracking can trump R* under varying envt."
+5/18/2017,Track_varR_2spp,,,88094334,,100,2,1,"1000,0,0",1,1,1,concat every 50 Bout,"Stationary, dynamic temporal niche: coexistence tradeoff between R* and tracking with tauI varying; tauIhat-tauP is the important parm"
+,Track0_fixRdiff_2spp,xx,,89028210,89660100,100,2,"c(10,12)","1000,0,0",0,1,1,concat every 50 Bout,"(ST part) Nonstationary, simple temporal niche: species with lower R* and tauI further from tauP coexists with a species with higher R* and tauI closer to tauP_initial; under NS, coexsitence switches to a species with tauI close to tauP_final.  To do this comparison, for a particular set of (R1*, R2*) show proportion of runs with a given tauI that persiss through a ST period, and then those that persist through a NS period.  Include a 5-10 yr ST at beginning of NS."
+,Track0NS_fixRdiff_2spp,,,,,100,2,"c(10,12)","10,1000,0",0,1,1,,"(NS part) Nonstationary, simple temporal niche: species with lower R* and tauI further from tauP coexists with a species with higher R* and tauI closer to tauP_initial; under NS, coexsitence switches to a species with tauI close to tauP_final.  To do this comparison, for a particular set of (R1*, R2*) show proportion of runs with a given tauI that persiss through a ST period, and then those that persist through a NS period.  Include a 5-10 yr ST at beginning of NS."
+,,,,,,,,,,,,,,"Nonstationary, dynamic temporal niche: show that tracking can trump R*?  Take runs from stationary envt with varyR*, vary alpha, tauI equal; add NS and show that tracker can beat out R* [don't need new runs; will get these by adding NS part to ST runs above]"
+,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,
+,R/output/Track0_eqR_2spp_88076055-1-run86.Rdat,,,,,,,,,,,,,
