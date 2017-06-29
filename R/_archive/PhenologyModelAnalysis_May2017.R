@@ -1,8 +1,14 @@
-### Started 29 June 2017 ###
+### Started 22 August 2016 ###
 ### By Lizzie ###
 
 ## Analyzing the runs data for the storage effect model! ##
-## Last updated late June 2017 ##
+## Last updated 9 January 2017 (flight from Oahu) ##
+
+## Notes ##
+## This is the initial file for analyzing the model output ##
+## It analyzes runs from January-May 2017 ##
+## After that we changed the length of runs and some other factors ##
+## Keeping this in case ever needed ##
 
 ## housekeeping
 rm(list=ls()) 
@@ -18,17 +24,8 @@ setwd("~/Documents/git/projects/temporalvar/R")
 # source some stuff
 source("sourcefiles/multiplot.R")
 
-# cheap loop over the file for now
-jobID <- c("87783087", "88076055", "89028210")
-filenamestart <- c("Track_varR_2spp_", "Track0_eqR_2spp_", "Track0_fixRdiff_2spp_")
-jobIDname <- c("stat.varyRstar", "stat.varyRstarTauI", "nonst.varyRstarTauI")
-runs.toplot <- data.frame(jobID=jobID, filenamestart=filenamestart, jobIDname=jobIDname)
-
-for (rowhere in c(1:nrow(runs.toplot))){
-jobID <- runs.toplot$jobID[rowhere]
-jobIDname <- runs.toplot$jobIDname[rowhere]
-filenamestart <- runs.toplot$filenamestart[rowhere]
-load(paste("..//ModelRuns/", filenamestart, jobID, ".Rdata", sep=""))
+jobID <- "87783087" # "78476247"
+load(paste("..//ModelRuns/Track_varR_2spp_", jobID, ".Rdata", sep=""))
 
 # Checking the 0 track runs.... 
 # load('..//ModelRuns/Track0_varR_2spp_87839120.Rdata')
@@ -58,25 +55,24 @@ hist(rstarz, breaks=100)
 ### Setting up some basic stuff we may want ###
 ###############################################
 
-finaltimestep <- nrow(modelruns[[1]]$Bfin)
-
 # Checking out which runs coexisted
+# note: last timestep of Bfin is 199
 whocoexisted <- c()
 for (j in c(1:length(modelruns))){
-    if ((modelruns[[j]]$Bfin[finaltimestep,1]>0)==TRUE &
-        (modelruns[[j]]$Bfin[finaltimestep,2]>0)==TRUE)
+    if ((modelruns[[j]]$Bfin[199,1]>0)==TRUE &
+        (modelruns[[j]]$Bfin[199,2]>0)==TRUE)
         whocoexisted[j] <- 2
     if(
-        (modelruns[[j]]$Bfin[finaltimestep,1]>0)==FALSE &
-        (modelruns[[j]]$Bfin[finaltimestep,2]>0)==TRUE)
+        (modelruns[[j]]$Bfin[199,1]>0)==FALSE &
+        (modelruns[[j]]$Bfin[199,2]>0)==TRUE)
         whocoexisted[j] <- 1
     if(
-        (modelruns[[j]]$Bfin[finaltimestep,1]>0)==TRUE &
-        (modelruns[[j]]$Bfin[finaltimestep,2]>0)==FALSE)
+        (modelruns[[j]]$Bfin[199,1]>0)==TRUE &
+        (modelruns[[j]]$Bfin[199,2]>0)==FALSE)
         whocoexisted[j] <- 1
     if(
-        (modelruns[[j]]$Bfin[finaltimestep,1]>0)==FALSE &
-        (modelruns[[j]]$Bfin[finaltimestep,2]>0)==FALSE)
+        (modelruns[[j]]$Bfin[199,1]>0)==FALSE &
+        (modelruns[[j]]$Bfin[199,2]>0)==FALSE)
         whocoexisted[j] <- 0
     }
         
@@ -139,9 +135,9 @@ df$diff.c <- df$c.sp1-df$c.sp2
 ###############################################
 
 ## Step 1: check out a couple runs
-runstouse <- c(11, 26, 298, 847, 866)
+runstouse <- c(1, 8, 110)
 
-pdf(paste("graphs/modelruns/Track_varR_2spp_", jobIDname, "_3sampleruns.pdf", sep=""), width=5, height=7)
+pdf(paste("graphs/modelruns/Track_varR_2spp_", jobID, "_3sampleruns.pdf", sep=""), width=5, height=7)
 par(mfrow=c(3,2))
 
 for (whichrun in seq_along(runstouse)){
@@ -185,7 +181,7 @@ dev.off()
 df.coexist <- subset(df, coexist==2)
 
 plot.params <- function(df, df.coexist, colname, colname.sp1, colname.sp2){
-    pdf(paste("graphs/modelruns/params/Track_varR_2spp_", jobIDname, colname, "_compare.pdf", sep=""),
+    pdf(paste("graphs/modelruns/params/Track_varR_2spp_", jobID, colname, "_compare.pdf", sep=""),
         width=9, height=4)
     plot.allruns <- ggplot(data=df, aes(x=df[colname.sp1], y=df[colname.sp2],
         colour=coexist)) +
@@ -216,7 +212,7 @@ gi.runstouse.nocoexist <- as.numeric(row.names(subset(as.data.frame(whocoexisted
 
 xlim <- c(0,1)
 
-pdf(paste("graphs/modelruns/gi_dynamics/Track_varR_2spp_", jobIDname, "_gi_3coexistruns.pdf", sep=""), width=5, height=7)
+pdf(paste("graphs/modelruns/gi_dynamics/Track_varR_2spp_", jobID, "_gi_3coexistruns.pdf", sep=""), width=5, height=7)
 par(mfrow=c(3,2))
 for (whichrun in seq_along(gi.runstouse)){
     runhere <- gi.runstouse[whichrun]
@@ -231,7 +227,7 @@ for (whichrun in seq_along(gi.runstouse)){
 }
 dev.off()
 
-pdf(paste("graphs/modelruns/gi_dynamics/Track_varR_2spp_", jobIDname, "_gi_3nocoexistruns.pdf", sep=""), width=5, height=7)
+pdf(paste("graphs/modelruns/gi_dynamics/Track_varR_2spp_", jobID, "_gi_3nocoexistruns.pdf", sep=""), width=5, height=7)
 par(mfrow=c(3,2))
 for (whichrun in seq_along(gi.runstouse.nocoexist)){
     runhere <- gi.runstouse.nocoexist[whichrun]
@@ -249,7 +245,7 @@ dev.off()
 ## Step 4: Look at parameter differences between species
 
 plot.paramdiffs <- function(df, df.coexist, figname, colname.x, colname.y){
-    pdf(paste("graphs/modelruns/paramdiffs/Track_varR_2spp_", jobIDname, figname, ".pdf", sep=""),
+    pdf(paste("graphs/modelruns/paramdiffs/Track_varR_2spp_", jobID, figname, ".pdf", sep=""),
         width=9, height=4)
     plot.allruns <- ggplot(data=df, aes(x=df[colname.x], y=df[colname.y],
         colour=coexist)) +
@@ -276,7 +272,7 @@ plot.paramdiffs(df, df.coexist, "rstar_vs_tauI_ratios", "tauI.ratio", "rstar.rat
 plot.paramdiffs(df, df.coexist, "rstar_vs_alpha_ratios", "alpha.ratio", "rstar.ratio")
 plot.paramdiffs(df, df.coexist, "rstar_vs_tauIhat_ratios", "tauIhat.ratio", "rstar.ratio")
 plot.paramdiffs(df, df.coexist, "rstar_vs_tauIPini_ratios", "tauIPini.ratio", "rstar.ratio")
-}
+
 
 ####
 ####
