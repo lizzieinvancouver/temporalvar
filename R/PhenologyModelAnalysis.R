@@ -4,6 +4,12 @@
 ## Analyzing the runs data for the storage effect model! ##
 ## Last updated late June 2017 ##
 
+## Big IMPORTANT To Do! ##
+## I found some errors in Step 1: Check out coexisting run ##
+## Seq_along was not doing what I thought so I need to check ALL MY LOOPS ##
+## esp. those that use seq_along ... ##
+## Also, random To do: Be sure to add all new figures I want to add to git ##
+
 ## housekeeping
 rm(list=ls()) 
 options(stringsAsFactors = FALSE)
@@ -24,7 +30,7 @@ filenamestart <- c("Track_varR_2spp_", "Track0_eqR_2spp_", "Track0_fixRdiff_2spp
 jobIDname <- c("stat.varyRstar", "stat.varyRstarTauI", "nonst.varyRstarTauI")
 runs.toplot <- data.frame(jobID=jobID, filenamestart=filenamestart, jobIDname=jobIDname)
 
-for (rowhere in c(1:nrow(runs.toplot))){
+for (rowhere in c(1:nrow(runs.toplot))){ # rowhere <- 1
 jobID <- runs.toplot$jobID[rowhere]
 jobIDname <- runs.toplot$jobIDname[rowhere]
 filenamestart <- runs.toplot$filenamestart[rowhere]
@@ -138,14 +144,15 @@ df$diff.c <- df$c.sp1-df$c.sp2
 ## (working off 20160420_2sppCoexistFigs.pdf)
 ###############################################
 
-## Step 1: check out a couple runs
-runstouse <- c(11, 26, 298, 847, 866)
+## Step 1: check out coexisting runs
+runstouse <- which(whocoexisted>1)
 
-pdf(paste("graphs/modelruns/Track_varR_2spp_", jobIDname, "_3sampleruns.pdf", sep=""), width=5, height=7)
+pdf(paste("graphs/modelruns/Track_varR_2spp_", jobIDname, "_sampleruns.pdf", sep=""), width=5, height=7)
 par(mfrow=c(3,2))
 
-for (whichrun in seq_along(runstouse)){
-yhere <- c(0, 65)
+for (whichrunnum in c(1:length(runstouse))){
+whichrun <- runstouse[whichrunnum]
+yhere <- c(-6, 3)
 colorz <- c("black", "red", "blue")
 
 xhere <- c(1:length(modelruns[[1]]$envtvars[["tauP"]]))
@@ -156,10 +163,10 @@ leg.txt <- c("tauP", "Bfin sp1", "Bfin sp2")
 lty.here <- c(rep(1, 3))
 
 plot(modelruns[[whichrun]]$envtvars[["tauP"]]~xhere, type="l", ylim=yhere, col=colorz[1], lty=lty.here[1],
-    xlab=xname, ylab=yname, main=paste("run ", runstouse[whichrun]))
-lines(modelruns[[whichrun]]$Bfin[,1]~xheretauI, ylim=yhere, col=colorz[2], lty=lty.here[2],
+    xlab=xname, ylab=yname, main=paste("run ", whichrun))
+lines(log10(modelruns[[whichrun]]$Bfin[,1])~xheretauI, ylim=yhere, col=colorz[2], lty=lty.here[2],
     xlab=xname, ylab=yname)
-lines(modelruns[[whichrun]]$Bfin[,2]~xheretauI, ylim=yhere, col=colorz[3], lty=lty.here[3],
+lines(log10(modelruns[[whichrun]]$Bfin[,2])~xheretauI, ylim=yhere, col=colorz[3], lty=lty.here[3],
     xlab=xname, ylab=yname)
 legend("topright", leg.txt, lwd=2, col=colorz)
 
