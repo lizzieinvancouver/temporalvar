@@ -291,6 +291,7 @@ plot.paramdiffs(df, df.coexist, "rstar_vs_tauIPini_ratios", "tauIPini.ratio", "r
 
 stop(print("stop here! Below is just list help notes ..."))
 
+if(FALSE){
 ## Wait, first a plot of the alpha-rstar result ...
 plot(diff.rstar~diff.alpha, data=df.coexist, pch=16, col="deeppink4",
      ylab="R* difference between 2 species",
@@ -329,3 +330,4 @@ xx
 ##
 # me working
 goo <- unlist(lapply(modelruns, function(x) x[["sppvars"]]$tauIPini))
+}
