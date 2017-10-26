@@ -23,7 +23,7 @@
 
 \usepackage{fancyhdr}
 \pagestyle{fancy}
-\fancyhead[LO]{May 2017}
+\fancyhead[LO]{October 2017}
 \fancyhead[RO]{Variable environments \& climate change}
 
 \begin{document}
@@ -31,8 +31,8 @@
 \title{Coexistence and climate change: \\The role of
     temporal-variability in structuring future communities}
     \author{Wolkovich \& Donahue}
-\date{Last updated: 16 May 2017 \\ North Shore of Oahu/Cambridge}
-\maketitle
+\date{Last updated: 26 October 2017 \\ Boulder in the snow} % North Shore of Oahu/Cambridge
+\maketitle 
 
 \begin{center}
 \emph{Question:} Which species are doomed?
@@ -64,6 +64,15 @@ ability of species to phenologically track the timing of major climate events. \
 \tableofcontents
 
 \newpage
+
+\section{Notes from 26 October 2017}
+Okay, this was a short not super-productive meeting, but it was very short. We basically discussed:
+\begin{enumerate} 
+\item Needing to do the runs in ModelsRuns/RunHistory.csv
+\item Applying for some funding to get next project done on invasions: Maybe an NSF in January with Janneke Hille RisLambers and Eric Seabloom?
+\end{enumerate} 
+
+
 
 \section{Notes from 16 May 2017}
 
@@ -97,38 +106,38 @@ Plot for `this part of parameter space that was coexisting goes away first' coul
 
 
 \newpage
-\section{Next steps, goals in January 2016}
-\subsection{Get the model to run on the server}
-Megan is working on this.
+\section{Next steps, goals as of October 2017}
+\subsection{To do!}
+{\bf Finish the model to runs (on the server) in \verb|RunHistory.R| and review} ...Megan is working on this.
 
-\subsection{Check $R^{*}$ component of model is working}
-Megan needs to check on two things:
+\subsection{Old things from our January 2016 meeting that we have totally done}
+\begin{itemize}
+\item Make model take biomass for each species at its peak value (not at its end of season biomass).
+\item Decide on very specific model runs.
+\item git on Odyssey
+\end{itemize}
+
+\subsection{Things we may or may not have done yet...}
+
+\begin{itemize}
+\item {\bf Check $R^{*}$ component of model is working:} We suggested doing this in January 2016, but leaving it here to make sure we're okay:
 \begin{itemize}
 \item Behavior of each species once $R^{*}$ is reached
 \item Why do all species have a positive change at the last timestep?
 \end{itemize}
-
-\subsection{Make model take biomass for each species at its peak value}
-Not at its end of season biomass.
-
-\subsection{Decide on very specific model runs}
-Yes, we should totally do this.
-
-\subsection{Git on Odyssey}
-Lizzie will work on this.
-
-\subsection{Model parameters}
-Work on file with possible parameter values (Lizzie). 
-
-\subsection{Decide on $q$ parameter values}
+\item {\bf Finish up model parameters:} Work on file with possible parameter values (Lizzie). 
+\item {\bf Decide on $q$ parameter values:}
 Lizzie needs to do this by getting some estimates of how much SOS will shift and then make it work that way in the mode. Some info on the model bit: $q$ is part of the $\beta$ distribution that define $\tau_{p}$ so we need to define an appropriate $q$ to start with and what $q$ to end with that will yeild a realstic amount of environmental change for our simulations. Right now we starts with $p$ and $q$ each being 2, yielding a normal distribution centered on 0.5 and pretty wide (remember $\beta$ is bounded at $0,1$ and 1, 1 would yield a uniform---as the numbers get bigger the distribution gets narrower), but then we just vary $q$ so we end up with a skewed distribution.. something like $5,15$ may be better.
+\end{itemize}
+
 
 \subsection{Schedule when to next meet}
-Maybe March 2016---Megan comes to Boston?
+Maybe ... when?!
 
 % \subsection{Figure out rankings of species?} % from Dec 2013
 % This should come be R* (fluctuation independent) plus the equalizing bits (fluctuation dependent). Once we have this, it will be good to look at: (1) if the cut-off in coexistence shifts with nonstationarity and (2) how the spread between species shifts with nonstationarity.
 
+\newpage
 \section{Introduction}
 \noindent Understanding how plant communities will respond to climate change
 requires synthesizing information on both direct effects of climate on species
@@ -253,9 +262,9 @@ See also \ref{trackingthoughs} and \ref{genoutline}, both below.\\
 \item Climate change...
 \begin{enumerate}
 \item $\tau_{P}$ gets earlier (i.e., start of season gets earlier)
-\item $\R_{0} \downarrow$ (e.g., in systems started by a pulse of water from snowpack)
-\item $var(\R_{0}) \uparrow$ 
-\item $\epsilon} \uparrow$ (i.e., it gets hotter and resources like water evaporate quicker)
+\item $R_{0} \downarrow$ (e.g., in systems started by a pulse of water from snowpack)
+\item $var(R_{0}) \uparrow$ 
+\item $\epsilon \uparrow$ (i.e., it gets hotter and resources like water evaporate quicker)
 \end{enumerate}
 \item Of these, changes in $\tau_{P}$ are aguably the most observed and should be most important to impacts on coexistence via phenology thus we focus on how shifts in $\tau_{P}$ impact coexistence.
 \item We first examine the role of phenology in a stationary environment ... then to X, Y, Z.
@@ -288,7 +297,7 @@ See also \ref{trackingthoughs} and \ref{genoutline}, both below.\\
 \item extract when each species is lost in a community and order the species loss of PhenTrackFig. 2.
 \end{enumerate}
 \end{enumerate}
-\item Are there environmental conditions under which tracking won't work as a strategy? (This is the section where we return to $\R_{0}$ and $\epsilon$, which we just mentioned earlier.
+\item Are there environmental conditions under which tracking won't work as a strategy? (This is the section where we return to $R_{0}$ and $\epsilon$, which we just mentioned earlier.
 \begin{enumerate}
 \item Thinking about environmental correlations (e.g., spring gets earlier and drier or such), are there some where tracking will not be favored?
 \item Answer: Yes, probably whenever you shift the environment in another way (in addition to earlier $\tau_P$) that does not impact the competitive dominant but does negatively impact the competitve inferior/tracker (See also Figure 1 below). 
@@ -472,7 +481,6 @@ g_{j} & =
 \alpha_{ij} & = \text{ per capita effect of species } j \text{ on species } i
 \\
 a_{l} & = \text{ competitive effect of a $sp_{l}$ individual (related to eqn 6 of \cite{chesson2003})
-\\ 
 \end{align*}
 
 \newpage
