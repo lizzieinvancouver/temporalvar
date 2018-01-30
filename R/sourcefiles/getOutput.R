@@ -69,7 +69,7 @@ write.table(matrix(data=c(as.numeric(jobID[1]),as.numeric(jobID[2]),j,yout,sum(c
 
 #new Bout file gets written for each run
 col.names.Bout <- FALSE
-
+if(!dir.exists(file.path(paste0(outloc,"Bout/")))) dir.create(file.path(paste0(outloc,"Bout/")))
 for (m in c(1:yout)) {
   L[m] <- dim(Bout[[m]])[1]
   ##only write headers in first year
@@ -77,7 +77,7 @@ for (m in c(1:yout)) {
   write.table(matrix(data=c(rep(as.numeric(jobID[1]),L[m]),rep(as.numeric(jobID[2]),L[m]),
                             rep(j,L[m]),rep(m,L[m]),as.matrix(Bout[[m]])),
                      nrow=L[m],ncol=4+2+nsp),
-              file = paste0(outloc,"Bout","_",jobID[1],"-",jobID[2],"-",j,".txt"),
+              file = paste0(outloc,"Bout/","Bout","_",jobID[1],"-",jobID[2],"-",j,".txt"),
               col.names = col.names.Bout,row.names = FALSE,
               append = TRUE, sep = "\t", quote=FALSE)
 }
