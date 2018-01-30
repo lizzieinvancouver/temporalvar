@@ -76,3 +76,4 @@ for (j in c(1:nruns)){
   #  save(Bout,file=paste(outloc,runname,"_Bout_",jobID[1],"-",jobID[2],"-run",j,".Rdata",sep="")) #("out_",i,".Rdata"))
   #}
 }
+sink()

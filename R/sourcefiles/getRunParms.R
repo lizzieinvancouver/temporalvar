@@ -22,6 +22,13 @@ if(Sys.getenv("SLURM_ARRAY_JOB_ID")=="") {
 } else {
   jobID <- Sys.getenv(c("SLURM_ARRAY_JOB_ID","SLURM_ARRAY_TASK_ID")) 
 }
+#output parms
+writeBout <- 1  #default=1; flag indicating how often Bout should be written (0=never, n = every n runs)
+outloc <- paste0(loc,"output/",jobID[1],"/")
+if(!dir.exists(file.path(paste0(loc,"output/"),jobID[1]))) dir.create(file.path(outloc))
+suffix <- paste0("_",jobID[1],"-",jobID[2],".txt") #unique for each array in batchfile
+
+sink(paste0(outloc,"sink_",jobID[1],"-",jobID[2],".Rout"))
 
 if (batch==0){  #default run, not a batch process
   nruns <- 2
@@ -45,12 +52,6 @@ if (batch==0){  #default run, not a batch process
   vartauI <-inputs$vartauI[runflag]
   nsp <- inputs$nsp[runflag]
 }
-
-#output parms
-writeBout <- 1  #default=1; flag indicating how often Bout should be written (0=never, n = every n runs)
-outloc <- paste0(loc,"output/",jobID[1],"/")
-if(!dir.exists(file.path(paste0(loc,"output/"),jobID[1]))) dir.create(file.path(outloc))
-suffix <- paste0("_",jobID[1],"-",jobID[2],".txt") #unique for each array in batchfile
 
 #between year
 nyrs <- sum(nonsta)  # number of yrs to run if nonsta=0 or for initial period if nonsta>0
