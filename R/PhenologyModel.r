@@ -47,9 +47,8 @@ for (j in c(1:nruns)){
       if (!(sum(N[y,]>0))) {
         yout <- y  #if break the loop, then y-1 is last year before extinction
         #give Bout a value for the last iteration
-        Bout[[y]] <- Bout[[y-1]][1,]*0  #get list formatting from prior year
-        Bout[[y]][1:4] <- c(0,R0[y],b*g[y,]*N[y,])
-        Bfin[y,] <- Bout[[y]][3:(2+nsp)]
+        Bout[[y]] <- Bout[[y-1]][1,]*0 + c(0,R0[y],b*g[y,]*N[y,]) #get list formatting from prior year
+        Bfin[y,] <- b*g[y,]*N[y,]
         #print("All species have gone extinct, go to next run")
         break    #if all species have gone extinct, go to next run
       }
