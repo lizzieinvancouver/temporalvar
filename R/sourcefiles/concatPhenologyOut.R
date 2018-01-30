@@ -2,17 +2,31 @@
 #run in regal/temporalvar
 #should save to n/wolkovich_lab/temporalvar/R, but currently saves to regal/temporalvar/R/output
 
+#create FIVE output files for each set of runs:
+#  RunChars_jobID.txt:  includes runparms
+#  Bfin_jobID.txt:  arrayID,runID,yr,Bfin_1,Bfin_2...]
+#  StaticParms_jobID.txt:  arrayID,runID,sppvars
+#  VaryParms_jobID.txt:  arrayID,runID,yr,R0,tauP,eps,tauI_1,tauI_2,...,g_1,g_2...,
+#  Bout_jobID.txt:  arrayID,runID,yr,t,B_1,B_2,...
 
 print(getwd())
-filelocIN <- "R/output/"
-filelocOUT <-"ModelRuns/" #R/output/" #"/n/wolkovich_lab/temporalvar/R/modelruns"
 
 nruns <- 100
 narrays <- 100
 jobID <- 78345799
 prefix <- "Track_varR_2spp"
+
+filelocIN <- "R/output/"
+filelocOUT <-paste("ModelRuns/",jobID,"/",sep="") #R/output/" #"/n/wolkovich_lab/temporalvar/R/modelruns"
+outfile=paste(filelocOUT,prefix,"_",jobID,".csv",sep="")
+RunChars_outfile = paste(filelocOUT,"RunChars_",prefix,"_",jobID,".csv",sep=",")
+Bfin_outfile = paste(filelocOUT,"RunChars_",prefix,"_",jobID,".csv",sep=",")
+StaticParms_outfile = paste(filelocOUT,"StaticParms_",prefix,"_",jobID,".csv",sep=",")
+VaryParms_outfile = paste(filelocOUT,"VaryParms_",prefix,"_",jobID,".csv",sep=",")
+Bout_outfile = paste(filelocOUT,"Bout_",prefix,"_",jobID,".csv",sep=",")
+
 rem <- 0  #flag to indicate that small files should be deleted after concatenating
-Boutflag <- 25  #flag indicating which Bout files to concatenate (0=never, n = every n runs)  
+Boutflag <-1  #flag indicating which Bout files to concatenate (0=never, n = every n runs)  
 
 modelruns <- list()
 for (a in c(1:narrays)){
@@ -20,8 +34,10 @@ for (a in c(1:narrays)){
     filename = paste(filelocIN,prefix,"_",jobID,"-",a,"-run",r,".Rdata",sep="")
     if (file.exists(filename)) {
       load(filename)
-      modelruns[[(a-1)*nruns + r]] <- list(jobID=jobID, arrayNum=a, runNum=r,sppvars=sppvars,
-                                         envtvars=envtvars, tauIhat=tauIhat, Bfin=Bfin,g=g)
+      #modelruns[[(a-1)*nruns + r]] <- list(jobID=jobID, arrayNum=a, runNum=r,sppvars=sppvars,
+      #                                   envtvars=envtvars, tauIhat=tauIhat, Bfin=Bfin,g=g)
+      modelruns <- list(jobID=jobID, arrayNum=a, runNum=r,sppvars=sppvars,
+                        envtvars=envtvars, tauIhat=tauIhat, Bfin=Bfin,g=g)
     }
   }
 }
