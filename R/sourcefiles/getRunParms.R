@@ -20,7 +20,7 @@ batch <- (runflag>0)*1  #flag if running as batch array w SLURM
 if(Sys.getenv("SLURM_ARRAY_JOB_ID")=="") {
   jobID <- c(paste0("999",trunc(runif(1,1000,9999))),"1")
 } else {
-  Sys.getenv(c("SLURM_ARRAY_JOB_ID","SLURM_ARRAY_TASK_ID")) 
+  jobID <- Sys.getenv(c("SLURM_ARRAY_JOB_ID","SLURM_ARRAY_TASK_ID")) 
 }
 
 if (batch==0){  #default run, not a batch process
