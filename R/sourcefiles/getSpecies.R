@@ -46,11 +46,11 @@ g <- gmax*exp(-h*(matrix(rep(tauP,nsp),nrow=length(tauP),ncol=nsp)-tauIhat)^2)  
 #competition
 # c is conversion of resource to biomass; we vary this to vary R*
 
-if (length(varRstar)>1) {     #if varRstar is vector then it gives c for each species
+if (!is.na(varRstar[2])) {     #if varRstar is vector then it gives c for each species
   c <- varRstar
-} else if (varRstar==0) {      #if varRstar==0 then is gives the same (randomly generated) R* for all species in the run
+} else if (varRstar[1]==0) {      #if varRstar==0 then is gives the same (randomly generated) R* for all species in the run
   c <- rep(runif(1, 2, 20),nsp) 
-} else if (varRstar == -1){     #if varRstar is -1, then go with old default value for all species
+} else if (varRstar[1] == -1){     #if varRstar is -1, then go with old default value for all species
     c <-  rep(12,nsp)
 } else {                       #otherwise, randomly select c for each species
     c <- runif(nsp,2,20)
@@ -64,3 +64,29 @@ Rstar <- (m/(a*(c-m*u)))^(1/theta)
 
 #concatenate all the parms to save
 sppvars <- as.data.frame(cbind(b, s, phi, a, u, c, m, theta, Rstar, gmax, h, alpha, tauI,tauIPini,tauIPns,tauIPfin))
+
+#write out species parameters at the beginning of each run;
+#  include headers if this is the first run
+if (j==1) {
+  col.names.SpeciesParms <- c("jobID","arrayID","runID",
+                            paste0(rep(names(sppvars),each=nsp),
+                                   rep(c(1:nsp),times=length(sppvars))))
+  col.names.EnvtParms <- c("jobID","arrayID","runID","yr",names(envtvars),
+                           paste0(rep("tauIhat",nsp),c(1:nsp)),
+                           paste0(rep("g",nsp),c(1:nsp)))
+} else {
+  col.names.SpeciesParms <- FALSE  
+  col.names.EnvtParms <- FALSE
+}
+
+write.table(matrix(data=c(as.numeric(jobID[1]),as.numeric(jobID[2]),j,as.matrix(sppvars)),nrow=1),
+            file = paste0(outloc,"SpeciesParms",suffix),
+            col.names = col.names.SpeciesParms,row.names = FALSE, 
+            append=TRUE,sep="\t", quote=FALSE)
+write.table(matrix(data=c(rep(as.numeric(jobID[1]),nyrs),rep(as.numeric(jobID[2]),nyrs),rep(j,nyrs),yrs,
+                          envtvars$R0,envtvars$tauP,envtvars$eps,tauIhat,g),
+                   nrow=nyrs,ncol=(nsp*2+7)),
+            file = paste0(outloc,"EnvtParms",suffix),
+            col.names =col.names.EnvtParms,row.names = FALSE,
+            append=TRUE,sep="\t", quote=FALSE) 
+
