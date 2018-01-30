@@ -17,12 +17,14 @@ library(deSolve)
 runflag <- ifelse(Sys.getenv("PHEN_RUNNUM")=="",0,as.numeric(Sys.getenv("PHEN_RUNNUM")))
 batch <- (runflag>0)*1  #flag if running as batch array w SLURM
 #jobID: jobID & taskID if slurm; randomly gen 7digit nubmer starting with 999 if local
-jobID <- ifelse(Sys.getenv(c("SLURM_ARRAY_JOB_ID")==""),
-                c(paste0("999",trunc(runif(1,1000,9999))),"1"),
-                Sys.getenv(c("SLURM_ARRAY_JOB_ID","SLURM_ARRAY_TASK_ID")))
+if(Sys.getenv("SLURM_ARRAY_JOB_ID")=="") {
+  jobID <- c(paste0("999",trunc(runif(1,1000,9999))),"1")
+} else {
+  Sys.getenv(c("SLURM_ARRAY_JOB_ID","SLURM_ARRAY_TASK_ID")) 
+}
 
 if (batch==0){  #default run, not a batch process
-  nruns <- 100
+  nruns <- 2
   nonsta <- c(200,0,0)  #number of [1] initial stationary,[2]nonstationary,[3]final nonstationary years
   tracking <- 1         #tracking in these runs?
   varRstar <- c(1,NA)   #flag for variation in Rstar; 
