@@ -5,6 +5,7 @@ temporalvar/ModelRuns/
 
 ###R files to ignore
 *.RData
+*.Rdata
 *.Rhistory
 
 ### tex files to ignore
