@@ -6,7 +6,8 @@ rm(list=ls())
 options(stringsAsFactors=FALSE)
 
 #define run conditions
-loc = "C:/Users/Megan/Documents/GitHub/temporalvar/R/"  #"/n/wolkovich_lab/temporalvar/R/"
+#loc = "C:/Users/Megan/Documents/GitHub/temporalvar/R/"  
+loc = "/n/wolkovich_lab/temporalvar/R/"
 source(paste0(loc, "/sourcefiles/getRunParms.R")) #define runtime parameters
 
 for (j in c(1:nruns)){

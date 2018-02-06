@@ -30,6 +30,8 @@ suffix <- paste0("_",jobID[1],"-",jobID[2],".txt") #unique for each array in bat
 
 sink(paste0(outloc,"sink_",jobID[1],"-",jobID[2],".Rout"))
 
+print(paste0("PHEN_RUNNUM is ",Sys.getenv("PHEN_RUNNUM")))
+
 if (batch==0){  #default run, not a batch process
   nruns <- 2
   nonsta <- c(200,0,0)  #number of [1] initial stationary,[2]nonstationary,[3]final nonstationary years
