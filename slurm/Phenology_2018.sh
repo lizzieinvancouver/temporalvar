@@ -1,16 +1,15 @@
 #!/bin/bash                                                                                               
 
-#SBATCH --job-name=Test  #
+#SBATCH --job-name=PhenologyModel-%A-%a  #
 
-#SBATCH --output=Test-%A-%a.out  # Standard out goes to this file
+#SBATCH --output=RunTimeOut/%A-%a.out  # Standard out goes to this file
 
-#SBATCH --error=Test-%A-%a.err		  # Standard err goes to this file                                          
-
+#SBATCH --error=RunTimeOut/%A-%a.err		  # Standard err goes to this file                                          
 #SBATCH -n 1 # Number of cores requested                                                                 
 
 #SBATCH -N 1 # Ensure that all cores are on one machine                                                  
 
-#SBATCH -t 200 # Runtime in minutes                                                                       
+#SBATCH -t 600 # Runtime in minutes                                                                       
 
 #SBATCH -p wolkovich # Partition to submit to (mine!)                                                    
 
@@ -23,7 +22,7 @@
 source new-modules.sh
 module load R_packages
 
-R CMD BATCH --quiet --no-restore --no-save R/PhenologyModel.r
+R CMD BATCH --quiet --no-restore --no-save /n/wolkovich_lab/temporalvar/R/PhenologyModel.r
 
 ###run this with the following command from the temporalvar folder
 
