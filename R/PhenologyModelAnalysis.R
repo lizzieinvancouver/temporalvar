@@ -30,11 +30,11 @@ runbfin <- FALSE
 runbout <- FALSE
 
 # cheap loop over the files for now
+currentruns <- c("36426477", "36511349", "36511352", "36511384", "36691943",
+    "36691954", "36691955", "36691956")
 folderID <- "36511349"
 samplerun <-  read.table(paste("output/", folderID, "/SummaryOut_", folderID,
     "-1.txt", sep=""), header=TRUE)
-# Guesses by Lizzie based on data (9 total expected):
-# (1) 36426477 only rstar varies
 filenamestart <- c(paste("SummaryOut_", folderID, "-", sep=""))
 colnameshere <- colnames(samplerun)
 numhere <- c(1:20)
@@ -75,7 +75,10 @@ makediffs <- function(df){
     dathere$diff.gmean <- dathere$g1mean_pre-dathere$g2mean_pre
     dathere$diff.tauIPini_pre <- dathere$tauIPini1_pre-dathere$tauIPini2_pre
     dathere$diff.tauIPns_pre <- dathere$tauIPns1_pre-dathere$tauIPns2_pre
-    dathere$diff.tauIPns_pre <- dathere$tauIPns1_pre-dathere$tauIPns2_pre
+    dathere$ratio.rstar <-  dathere$Rstar1/dathere$Rstar2
+    dathere$ratio.tauIini_pre <- dathere$tauIPini1_pre/dathere$tauIPini2_pre
+    dathere$ratio.tauIPns_pre <-dathere$tauIPns1_pre/dathere$tauIPns2_pre
+    dathere$ratio.alpha <- dathere$alpha1/dathere$alpha2
     return(dathere)
     }
 
@@ -165,8 +168,8 @@ plot.paramdiffs(df, df.coexist, "g_vs_tauIPini", "diff.tauIPini_pre", "diff.gmea
 # plot.paramdiffs(df, df.coexist, "gi_vs_alpha", "diff.alpha", "diff.gi")
 plot.paramdiffs(df, df.coexist, "g_vs_c", "diff.c", "diff.gmean")
 
-# Have not tweaked yet...
-plot.paramdiffs(df, df.coexist, "rstar_vs_tauI_ratios", "tauI.ratio", "rstar.ratio")
-plot.paramdiffs(df, df.coexist, "rstar_vs_alpha_ratios", "alpha.ratio", "rstar.ratio")
-plot.paramdiffs(df, df.coexist, "rstar_vs_tauIhat_ratios", "tauIhat.ratio", "rstar.ratio")
-plot.paramdiffs(df, df.coexist, "rstar_vs_tauIPini_ratios", "tauIPini.ratio", "rstar.ratio")
+plot.paramdiffs(df, df.coexist, "rstar_vs_tauI_ratios", "ratio.tauIini_pre", "ratio.rstar")
+plot.paramdiffs(df, df.coexist, "rstar_vs_alpha_ratios", "ratio.alpha", "ratio.rstar")
+# plot.paramdiffs(df, df.coexist, "rstar_vs_tauIhat_ratios", "tauIhat.ratio", "ratio.rstar")
+
+
