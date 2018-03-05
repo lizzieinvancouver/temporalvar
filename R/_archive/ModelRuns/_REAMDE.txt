@@ -1,0 +1,20 @@
+README ARCHIVED ModelRuns in temporalvar/R/archive
+README started on 4 March 2018 (by Lizzie)
+
+As of late 2017 Megan re-worked all our SLURM files to run the model longer and better. 
+
+In this folder, I organized some of what remains from those older runs, including:
+
+- phenmodel - really old slurm code (from early 2016)
+- PhenologyModel_RC.R - old RC code from early 2016
+- PhenologyModelAnalysisOLD.R — the analysis code from the old runs
+
+output
+- I saved only some of the RData output, you can see rollback to the older ones via commit ee1af5e265820c1953a8a4d3e9596c3ec3659e91 on 4 March 2018
+
+graphs
+- I saved all the figures I had on hand. 
+
+ModelRuns
+- This folder used to exist in the main temporalvar folder, but then we started putting model runs here, so I am putting it altogether. 
+- RunHistory.csv - old file that goes through all the model runs we planned. 

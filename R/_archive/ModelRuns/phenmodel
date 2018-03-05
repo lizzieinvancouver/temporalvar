@@ -1,0 +1,20 @@
+#!/bin/bash                                                                                               
+
+#SBATCH -n 4 # Number of cores requested                                                                 
+
+#SBATCH -N 1 # Ensure that all cores are on one machine                                                  
+
+#SBATCH -t 1000 # Runtime in minutes                                                                       
+
+#SBATCH -p wolkovich # Partition to submit to (mine!)                                                    
+
+##SBATCH --mem=50000 # Memory per cpu in MB (see also --mem-per-cpu)                                       
+
+#SBATCH -o hostname.out # Standard out goes to this file                                                 
+
+#SBATCH -e hostname.err # Standard err goes to this filehostname                                          
+
+source new-modules.sh
+module load R_packages
+
+R CMD BATCH --quiet --no-restore --no-save PhenologyModel.R modelruns.txt
