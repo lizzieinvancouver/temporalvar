@@ -28,7 +28,6 @@ source("sourcefiles/multiplot.R") # used in plot.params
 source("sourcefiles/runanalysisfxs.R")
 
 ## flags for what to do
-runbfin <- FALSE
 runbout <- FALSE
 
 # cheap loop over the files for now
@@ -50,15 +49,6 @@ numhere <- c(1:20)
 runs1 <- getfiles(folderID, filenamestart, numhere, colnameshere)
 runs1$taskrunID <- paste(runs1$taskID, runs1$runID, sep="-")
 
-if(runbfin){
-samplerunbfin <-  read.table(paste("output/", folderID, "/BfinN_", folderID,
-    "-1.txt", sep=""), header=TRUE)
-filenamestartBfin <- c(paste("BfinN_", folderID, "-", sep=""))
-colnamesherebfin <- colnames(samplerunbfin)
-
-runs1bfin <- getfiles(folderID, filenamestartBfin, numhere, colnamesherebfin)
-runs1bfin$taskrunID <- paste(runs1bfin$taskID, runs1bfin$runID, sep="-")
-}
     
 ##
 ## Data formatting 
@@ -114,16 +104,6 @@ numhere <- c(1:20)
 
 runs1 <- getfiles(folderID, filenamestart, numhere, colnameshere)
 runs1$taskrunID <- paste(runs1$taskID, runs1$runID, sep="-")
-
-if(runbfin){
-samplerunbfin <-  read.table(paste("output/", folderID, "/BfinN_", folderID,
-    "-1.txt", sep=""), header=TRUE)
-filenamestartBfin <- c(paste("BfinN_", folderID, "-", sep=""))
-colnamesherebfin <- colnames(samplerunbfin)
-
-runs1bfin <- getfiles(folderID, filenamestartBfin, numhere, colnamesherebfin)
-runs1bfin$taskrunID <- paste(runs1bfin$taskID, runs1bfin$runID, sep="-")
-}
     
 ##
 ## Data formatting 
@@ -170,20 +150,3 @@ plot.paramdiffs(df, df.coexist, "rstar_vs_alpha_ratios", "ratio.alpha", "ratio.r
 
 
 stop(print("stopping here..."))
-
-## Things I have not yet done yet for plotting ...
-# Plots for Bfin, see PhenologyModelAnalysisADD.R 
-# Plots for Bout (but see code to read it in below) #
-
-## Code to read in Bout files (no figures for this yet) ##
-if(runbfin){
-getBoutfiles <- function(folderID, boutfilenamestart){
-    boutfilenamestart <- 
-    filename <- paste("output/", folderID, "/", "Bout/", "Bout*", ".txt", sep="")
-    dat <- lapply(Sys.glob(filename), function(i) read.table(i, header=TRUE))
-    # datahere <- do.call("rbind", dat)
-    return(dat)
-}
-
-goober <- getBoutfiles(folderID, "Bout_36511349")
-}

@@ -4,6 +4,7 @@
 ## Plots of interannual dynamics ##
 
 ## Code taken from PhenologyModelAnalysisOLD.R ##
+## See START HERE below for what to do next ##
 
 ## housekeeping
 rm(list=ls()) 
@@ -20,7 +21,7 @@ source("sourcefiles/multiplot.R")
 source("sourcefiles/runanalysisfxs.R")
 
 ## flags for what to do
-runbfin <- TRUE # Note that reading in these files is SLOW!
+# runbfin <- TRUE 
 
 # cheap loop over the files for now
 sruns <- c("36426477", "36511349","36691943", "36691954", "36691955")
@@ -36,18 +37,7 @@ numhere <- c(1:20)
 runs <- getfiles(folderID, filenamestart, numhere, colnameshere)
 runs$taskrunID <- paste(runs$taskID, runs$runID, sep="-")
 
-# Get bfin (slow!) 
-if(runbfin){
-samplerunbfin <-  read.table(paste("output/", folderID, "/BfinN_", folderID,
-    "-1.txt", sep=""), header=TRUE)
-filenamestartBfin <- c(paste("BfinN_", folderID, "-", sep=""))
-colnamesherebfin <- colnames(samplerunbfin)
-
-runsbfin <- getfiles(folderID, filenamestartBfin, numhere, colnamesherebfin)
-runsbfin$taskrunID <- paste(runsbfin$taskID, runsbfin$runID, sep="-")
-}
-
-# Get envt params (also slow)
+# Get envt params (slow)
 samplerunep<-  read.table(paste("output/", folderID, "/EnvtParms_", folderID,
     "-1.txt", sep=""), header=TRUE)
 filenamestartep <- c(paste("EnvtParms_", folderID, "-", sep=""))
@@ -57,29 +47,32 @@ runsep <- getfiles(folderID, filenamestartep, numhere, colnameshereep)
 runsep$taskrunID <- paste(runsep$arrayID, runsep$runID, sep="-")
 
 
+# Get Bout (slower) ## START HERE! Can I make into DF??
+getBoutfiles <- function(folderID, boutfilenamestart){
+    boutfilenamestart <- 
+    filename <- paste("output/", folderID, "/", "Bout/", "Bout*", ".txt", sep="")
+    dat <- lapply(Sys.glob(filename), function(i) read.table(i, header=TRUE))
+    datahere <- do.call("rbind", dat)
+    return(dat)
+}
+
+runsbout <- getBoutfiles(folderID, "Bout_36511349")
+
+
 ##
 ## Get list of coexisting
 ##
+
 df <- makediffs(runs)
 df$taskrunID <- paste(df$taskID, df$runID, sep="-")
 df.coexist <- subset(df, ncoexist==2)
-df.nocoexist <- subset(df, ncoexist<2)
 
 ##
-## Checking R0 and run lengths
+## Formatting task-run-yr
 ##
 runsbfin$taskrunIDyr <- paste(runsbfin$taskrunID, runsbfin$yr, sep="-")
 runsep$taskrunIDyr <- paste(runsep$taskrunID, runsep$yr, sep="-")
 
-hiLtstp <- subset(runsbfin, Ltstp==1001)
-lowLtstp <- subset(runsbfin, Ltstp<900)
-
-envt.hiLtstp <- runsep[which(runsep$taskrunIDyr %in% hiLtstp$taskrunIDyr),]
-envt.lowLtstp <- runsep[which(runsep$taskrunIDyr %in% lowLtstp$taskrunIDyr),]
-
-par(mfrow=c(1,2))
-hist(envt.hiLtstp$R0, main="Ltstp is max")
-hist(envt.lowLtstp$R0, main="Ltstp < 900")
 
 ##############################
 # Plot a few coexisting runs #
@@ -134,42 +127,42 @@ legend("topright", leg.txt, lwd=2, lty=lty.here, col=colorz)
 
 dev.off()
 
-## Step 2: g_i ~ eff|tauI-tauP|
+## START HERE ##
+## Step X: g_i ~ eff|tauI-tauP|
 # for a couple coexisting runs and a couple not coexisting
-gi.runstouse <- runsep[which(runsep$taskrunID %in% df.coexist$taskrunID[1:3]),]
-gi.runstouse.nocoexist <- runsep[which(runsep$taskrunID %in% df.nocoexist$taskrunID[1:3]),]
 
+gi.runstouse <- as.numeric(row.names(subset(as.data.frame(whocoexisted), whocoexisted>1))[1:3])
+gi.runstouse.nocoexist <- as.numeric(row.names(subset(as.data.frame(whocoexisted),
+    whocoexisted==1))[1:3])
 
 xlim <- c(0,1)
 
-pdf(paste("graphs/modelruns/gi_dynamics/runs_", folderID, "_gi_3coexistruns.pdf", sep=""), width=5, height=7)
+pdf(paste("graphs/modelruns/gi_dynamics/Track_varR_2spp_", jobIDname, "_gi_3coexistruns.pdf", sep=""), width=5, height=7)
 par(mfrow=c(3,2))
-for (whichrun in seq_along(unique(gi.runstouse$taskrunID))){
-    runhere <- unique(gi.runstouse$taskrunID)[whichrun]
-    dathere <- subset(gi.runstouse, taskrunID==runhere)
+for (whichrun in seq_along(gi.runstouse)){
+    runhere <- gi.runstouse[whichrun]
     colorz <- c("black", "blue")
     ylab <- "gi"
     xlab <- "tauIhat"
-    plot(dathere$g1~dathere$tauIhat1, ylab=ylab,
+    plot(modelruns[[runhere]]$g[,1]~modelruns[[runhere]]$tauIhat[,1], ylab=ylab,
         xlab=xlab, xlim=xlim)
-    points(dathere$g2~dathere$tauIhat2, col=colorz[2],
+    points(modelruns[[runhere]]$g[,2]~modelruns[[runhere]]$tauIhat[,2], col=colorz[2],
         xlim=xlim)
-    hist(dathere$tauP, main=paste("run", runhere), xlim=xlim)
+    hist(modelruns[[runhere]]$envtvars[["tauP"]], main=paste("run", runhere), xlim=xlim)
 }
 dev.off()
 
-pdf(paste("graphs/modelruns/gi_dynamics/runs_", folderID, "_gi_3nocoexistruns.pdf", sep=""), width=5, height=7)
+pdf(paste("graphs/modelruns/gi_dynamics/Track_varR_2spp_", jobIDname, "_gi_3nocoexistruns.pdf", sep=""), width=5, height=7)
 par(mfrow=c(3,2))
-for (whichrun in seq_along((unique(gi.runstouse.nocoexist$taskrunID)))){
-    runhere <- unique(gi.runstouse.nocoexist$taskrunID)[whichrun]
-    dathere <- subset(gi.runstouse.nocoexist, taskrunID==runhere)
+for (whichrun in seq_along(gi.runstouse.nocoexist)){
+    runhere <- gi.runstouse.nocoexist[whichrun]
     colorz <- c("black", "blue")
     ylab <- "gi"
     xlab <- "tauIhat"
-    plot(dathere$g1~dathere$tauIhat1, ylab=ylab,
+    plot(modelruns[[runhere]]$g[,1]~modelruns[[runhere]]$tauIhat[,1], ylab=ylab,
         xlab=xlab, xlim=xlim)
-    points(dathere$g2~dathere$tauIhat2, col=colorz[2],
+    points(modelruns[[runhere]]$g[,2]~modelruns[[runhere]]$tauIhat[,2], col=colorz[2],
         xlim=xlim)
-    hist(dathere$tauP, main=paste("run", runhere), xlim=xlim)
+    hist(modelruns[[runhere]]$envtvars[["tauP"]], main=paste("run", runhere), xlim=xlim)
 }
 dev.off()

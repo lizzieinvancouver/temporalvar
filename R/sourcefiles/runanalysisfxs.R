@@ -11,6 +11,16 @@ getfiles <- function(folderID, filenamestart, numhere, colnameshere){
     datahere <- do.call("rbind", filepack)
 }
 
+getBoutfiles <- function(folderID, filenamestart, numhere, colnameshere){
+    filepack <- lapply(numhere, function(numhere) {
+    filename <- paste("output/", folderID, "/", filenamestart, numhere, ".txt", sep="")
+    dat <- read.table(filename, skip=1)
+    names(dat) <- colnameshere
+    return(data.frame(dat))
+    })
+    datahere <- do.call("rbind", filepack)
+}
+
 makediffs <- function(df){
     dathere <- df
     dathere$diff.alpha <- dathere$alpha1-dathere$alpha2
