@@ -1,0 +1,42 @@
+Started in 2018
+Notes on megadrought paper
+
+<><><><><><><><><><><><><>
+Ben Cook
+21 March 2018
+<><><><><><><><><><><><><>
+
+- TemporalVar project
+- Cat’s regional risk stuff
+
+- Step 1: Rescale the drought index to our mu, sigma for R
+- Step 2: 
+	option a) use the time series to drive the model (a megadrought one and an old one)
+	option b) use additional realizations that sample the same statistical space (pull out the last 200 yrs and a 200 yrs megadrought period)
+
+Phase randomization: convert ts into phase space, randomizes it, and puts it back together into ts space, you’re limited by the ts length you put in so he would do it twice and stitch them together. 
+
+How many do we want? 10K?
+
+Next steps:
+- send him a mu and sigma (and distribution that we want) and any practical upper and lower bounds (based on our model)
+- he’ll send this to us end of next week and we’ll do the runs!
+- he can also send a future climate angle!  (Since we expect the return of the megadroughts!) 
+
+Other thoughts:
+- Any paleo ecological data on what happened to the native species in the last megadrought? 
+
+<><><><><><><><><><><><><>
+21 March 2018
+Chatting with Megan
+<><><><><><><><><><><><><>
+- Run the same set of species parameters on megadrought and not-megadrought (paired runs)
+- Bound below by 0, above by 4.5 (we’ve been using lognormal(log2, 0.2) but we’re not wedded to this shape, we just need a shape with 0 as the lower bound. 
+- We don’t want really long run-times … so check a Bout where R0 is really, really big (see bfin output file, see ltstp) 
+
+<><><><><><><><><><><><><>
+Feb 2018
+Chatting with Doug Bolger
+<><><><><><><><><><><><><>
+
+- drought atlas in Europe — are megadroughts less common?
