@@ -16,8 +16,8 @@ require(plyr); require(dplyr); require(tidyr) # data formatting
 ## set working directory
 setwd("~/Documents/git/projects/temporalvar/R")
 
-source("sourcefiles/multiplot.R")
-source("sourcefiles/runanalysisfxs.R")
+source("sourcefiles/analyses/multiplot.R")
+source("sourcefiles/analyses/runanalysisfxs.R")
 
 ## flags for what to do
 runbfin <- TRUE # Note that reading in these files is SLOW!

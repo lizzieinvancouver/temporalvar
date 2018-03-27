@@ -24,8 +24,8 @@ require(plyr); require(dplyr); require(tidyr) # data formatting
 ## set working directory
 setwd("~/Documents/git/projects/temporalvar/R")
 
-source("sourcefiles/multiplot.R") # used in plot.params
-source("sourcefiles/runanalysisfxs.R")
+source("sourcefiles/analyses/multiplot.R") # used in plot.params
+source("sourcefiles/analyses/runanalysisfxs.R")
 
 ## flags for what to do
 runbout <- FALSE
