@@ -27,8 +27,12 @@ getenvrt <- FALSE
 # cheap loop over the files for now
 sruns <- c("36426477", "36511349","36691943", "36691954", "36691955")
 nsruns <- c("36511352", "36511384", "36691956")
+runsfornow <- c("36426477") #, "36511349", "36511352", "36691943", "36691954")
+# "36691954" c("1-4", "1-46", "1-54", "1-107", "1-154"))
 
-folderID <- 36511349
+for(folderIDhere in c(1:length(runsfornow))){
+    
+folderID <- runsfornow[folderIDhere]
 samplerun <-  read.table(paste("output/", folderID, "/SummaryOut_", folderID,
     "-1.txt", sep=""), header=TRUE)
 filenamestart <- c(paste("SummaryOut_", folderID, "-", sep=""))
@@ -55,12 +59,12 @@ runsep <- getfiles(folderID, filenamestartep, numhere, colnameshereep)
 runsep$taskrunID <- paste(runsep$arrayID, runsep$runID, sep="-")
 }
 
-# Get Bout (slower) 
-samplerunbout <-  read.table(paste("output/", folderID, "/Bout_", folderID,
-    "-1-1.txt", sep=""), header=TRUE)
+# Get Bout (slower)
+numherebout <- subsample$taskrunID[1:5]
+samplerunbout <-  read.table(paste("output/", folderID, "/Bout_", folderID, "-",
+    subsample$taskrunID[1], ".txt", sep=""), header=TRUE)
 filenamestartbout <- c(paste("Bout_", folderID, "-", sep=""))
 colnamesherebout <- colnames(samplerunbout)
-numherebout <- subsample$taskrunID
 
 runsbout <- getBoutfiles(folderID, filenamestartbout, numherebout, colnamesherebout)
 runsbout$taskrunID <- paste(runsbout$taskID, runsbout$runID, sep="-")
@@ -126,6 +130,7 @@ lines(log10(as.numeric(bouthere$B2[1:howshort]))~xhereshort, ylim=yhere, col=col
 
 dev.off()
 
+}
 
 ##
 ## And now check out a couple coexisting runs

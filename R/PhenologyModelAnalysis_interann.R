@@ -24,9 +24,12 @@ runbfin <- TRUE # Note that reading in these files is SLOW!
 
 # cheap loop over the files for now
 sruns <- c("36426477", "36511349","36691943", "36691954", "36691955")
-nsruns <- c("36511352", "36511384", "36691956")
+nsruns <- c("36511352", "36511384", "36691956") # have not pulled 36691956
 
-folderID <- 36511349
+
+for (folderIDhere in c(1:length(sruns))){
+    
+folderID <- sruns[folderIDhere] # 36511349
 samplerun <-  read.table(paste("output/", folderID, "/SummaryOut_", folderID,
     "-1.txt", sep=""), header=TRUE)
 filenamestart <- c(paste("SummaryOut_", folderID, "-", sep=""))
@@ -173,3 +176,5 @@ for (whichrun in seq_along((unique(gi.runstouse.nocoexist$taskrunID)))){
     hist(dathere$tauP, main=paste("run", runhere), xlim=xlim)
 }
 dev.off()
+
+}
