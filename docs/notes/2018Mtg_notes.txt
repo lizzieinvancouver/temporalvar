@@ -1,8 +1,11 @@
 29 March 2018
 Chat with Megan
 
-- More runs:
-	- Megadroughts
-	- For our main project
-- Diffs between runs (see modelrun_notes.csv) and why coexistence is low
-- Some runs are drifting to extinctions. See interannual folder, what to do?
+- Megadroughts (see megadroughts.txt for notes)
+
+- For our main project
+		- Diffs between runs (see modelrun_notes.csv) and why coexistence is low
+		- Some runs are drifting to extinctions. See interannual folder, what to do?
+
+- Things to think about:
+	- Do we want to further define our definition of coexistence to things that look more stable? 

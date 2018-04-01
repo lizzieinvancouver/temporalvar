@@ -1,6 +1,30 @@
 Started in 2018
 Notes on megadrought paper
 
+
+<><><><><><><><><><><><><>
+29 March 2018
+Chatting with Megan
+<><><><><><><><><><><><><>
+- Ben sent the megadrought runs, yay! Now what? 
+
+- What are axes of coexistence trade-off (coexistence, aka persistence)?
+- Axes of coexistence in wet year runs: seed bank survivorship, conversion of biomass to seeds (we also discussed differences in Rstar: natives have slower resource uptake but draw down resources lower, while exotics have quicker uptake but cannot draw down resources lower). This is the lottery model (which is death rate and larvae produced), which only works with overlapping generations. So we should vary something else … we discussed also vary tauI (but same for both species: this will be harsher on the short-lived species), but should we make the distance between tauI and tauP constant across runs (leading to overall fitness that is constant across the environment)?
+
+- Interesting point by Megan: if the natives are better at tracking the TRUE pulse, are they they better trackers then? 
+
+- To start: find species pairs with trade-off between seed survivorship and biomass-to-seed conversion efficiency (don’t vary Rstar … yet)
+
+- Think of Grime triangle: ruderal, stress tolerant, competitive … we’re working to start on two corners.
+
+- We have established variation in the environment (Ben sent us that), we have to look just at the variation in our model parameters. 
+
+So, here are our questions!
+- Question 1: How big a survivorship difference is needed to lead to exotic extinction in exotic species?
+
+- Question 2: How robust is this difference (e.g., if you add in competition differences or you vary tracking)?
+
+
 <><><><><><><><><><><><><>
 Ben Cook
 21 March 2018
