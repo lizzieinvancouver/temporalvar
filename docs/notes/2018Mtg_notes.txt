@@ -1,5 +1,10 @@
-29 March 2018
-Chat with Megan
+Started 29 March 2018
+Chats with Megan
+
+
+<><><><><><><><><><>
+<> 29 March 2018 <> 
+<><><><><><><><><><>
 
 - Megadroughts (see megadroughts.txt for notes)
 
@@ -7,5 +12,30 @@ Chat with Megan
 		- Diffs between runs (see modelrun_notes.csv) and why coexistence is low
 		- Some runs are drifting to extinctions. See interannual folder, what to do?
 
-- Things to think about:
+
+<><><><><><><><><>
+<> 5 April 2018 <> 
+<><><><><><><><><>
+(1) Surfing lessons
+(2) Megadroughts
+(3) the model runs ... more on this below. 
+
+The nonstationary runs are so COOL!
+
+3651135236511384 are very similar, and have abysmally low coexistence (15/5000), should we do more runs? My notes (from chatting with Megan say that only diff is 500/500 stat/ns and then 1000/500).
+
+366919543669195536691956 are all very similar runs, but I think we picked dynamics where there is no chance of coexistence even over the first several hundred years (see interannual plots) so we need to rethink these runs.
+
+Check out modelruns_notes.csv, for:
+	36511349 -- Tables of RunParms says TauI does not vary (but I think it does)
+	36691943 -- My results disagree with Table of RunParms!
+	I have a different guess on model dynamics than TableRunParms suggests.
+
+
+Things to think about:
 	- Do we want to further define our definition of coexistence to things that look more stable? 
+
+Next steps, what to prioritize?
+	- Getting all the Bout runs going.
+	- Making the code nicer.
+	- Other plots that we want?

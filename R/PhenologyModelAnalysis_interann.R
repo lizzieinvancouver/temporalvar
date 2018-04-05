@@ -2,8 +2,13 @@
 ## By Lizzie ##
 
 ## Plots of interannual dynamics ##
-
 ## Code taken from PhenologyModelAnalysisOLD.R ##
+
+## This code makes Bfin by tauP plots and g_i dynamics plots ##
+
+## Right now running models with no coexisting runs (otheruns) is a bit cheap ...#
+# You have to change sruns -> otheruns in two places and ...
+# change runningotheruns to TRUE ## 
 
 ## housekeeping
 rm(list=ls()) 
@@ -23,9 +28,12 @@ source("sourcefiles/analyses/runanalysisfxs.R")
 runbfin <- TRUE # Note that reading in these files is SLOW!
 
 # cheap loop over the files for now
-sruns <- c("36426477", "36511349","36691943", "36691954", "36691955")
-nsruns <- c("36511352", "36511384", "36691956") # have not pulled 36691956
+sruns <- c("36426477", "36511349","36691943","36511352", "36511384")
+otheruns <- c("36691954") # have not pulled 36691955 or 36691956
 
+# since there are no coexisting runs to ref...
+# this just pulls the Bout files I have (see below)
+runningotheruns <- FALSE
 
 for (folderIDhere in c(1:length(sruns))){
     
@@ -89,12 +97,19 @@ hist(envt.lowLtstp$R0, main="Ltstp < 900")
 ##############################
 
 ## Step 1: check out a couple coexisting runs
-runbfinhere <- runsbfin
-bfincoexist <- runsbfin[which(runbfinhere$taskrunID %in% df.coexist$taskrunID),]
-epcoexist <- runsep[which(runsep$taskrunID %in% df.coexist$taskrunID),]
+if(runningotheruns){
+runstouse <- c("1-4", "1-46", "1-54", "1-107", "1-154") # for 36691954 only
+}
 
+if(!runningotheruns){
 runstouse <- df.coexist$taskrunID[1:6]
+}
 
+runbfinhere <- runsbfin
+bfincoexist <- runsbfin[which(runbfinhere$taskrunID %in% runstouse),]
+epcoexist <- runsep[which(runsep$taskrunID %in% runstouse),]
+
+    
 pdf(paste("graphs/modelruns/interannual/runs_", folderID, "_coexist_sampleruns.pdf", sep=""), width=5, height=7)
 par(mfrow=c(3,2))
 
