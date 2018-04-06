@@ -16,26 +16,37 @@ Chats with Megan
 <><><><><><><><><>
 <> 5 April 2018 <> 
 <><><><><><><><><>
-(1) Surfing lessons
-(2) Megadroughts
-(3) the model runs ... more on this below. 
+(1) Note: Coexistence is positive growth from low-density. We should (probably) focus on persistence. 
+(2) the model runs ... more on this below. 
 
 The nonstationary runs are so COOL!
 
 3651135236511384 are very similar, and have abysmally low coexistence (15/5000), should we do more runs? My notes (from chatting with Megan say that only diff is 500/500 stat/ns and then 1000/500).
 
 366919543669195536691956 are all very similar runs, but I think we picked dynamics where there is no chance of coexistence even over the first several hundred years (see interannual plots) so we need to rethink these runs.
+-> We will switch to diffs in c of 1 or less.
 
-Check out modelruns_notes.csv, for:
-	36511349 -- Tables of RunParms says TauI does not vary (but I think it does)
-	36691943 -- My results disagree with Table of RunParms!
-	I have a different guess on model dynamics than TableRunParms suggests.
+
+Understanding Tables of RunParms:
+VarRStar1
+- If VarRStar1 and VarRStar2 are the numbers then those are the values
+- If VarRStar1=0, then Star same for both app but varies between runs
+- If VarStar=1 and VarStar=NA then each is drawn is varies
 
 
 Things to think about:
 	- Do we want to further define our definition of coexistence to things that look more stable? 
 
 Next steps, what to prioritize?
+	- get coexistence for the nonstationary runs at the end of the stationary period (how many make it?)
 	- Getting all the Bout runs going.
 	- Making the code nicer.
 	- Other plots that we want?
+
+How to pull out whether the better tracker wins in the nonstationary runs? 
+
+
+<><><><><><><><><><><><>
+<> Next meeting 2018 <> 
+<><><><><><><><><><><><>
+- Set goals for Hawaii

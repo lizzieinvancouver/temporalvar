@@ -28,6 +28,7 @@ source("sourcefiles/analyses/runanalysisfxs.R")
 runbfin <- TRUE # Note that reading in these files is SLOW!
 
 # cheap loop over the files for now
+# sruns <- c("36691943")
 sruns <- c("36426477", "36511349","36691943","36511352", "36511384")
 otheruns <- c("36691954") # have not pulled 36691955 or 36691956
 
