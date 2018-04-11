@@ -27,7 +27,7 @@ getenvrt <- FALSE
 # cheap loop over the files for now
 sruns <- c("36426477", "36511349", "36691943", "36691954", "36691955")
 nsruns <- c("36511352", "36511384", "36691956")
-runsfornow <- c("36426477") #, "36511349", "36511352", "36691943", "36691954")
+runsfornow <- c("36426477", "36511349", "36511352", "36691943")
 # "36691954" c("1-4", "1-46", "1-54", "1-107", "1-154"))
 
 for(folderIDhere in c(1:length(runsfornow))){
@@ -133,7 +133,7 @@ dev.off()
 }
 
 ##
-## And now check out a couple coexisting runs
+## And now check out a couple not coexisting runs
 ## 
 runstouse.nocoexist <- subsample$taskrunID[11:14]
 

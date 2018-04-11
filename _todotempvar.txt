@@ -4,7 +4,12 @@ on a ferry to Saturna!
 <><><><><><><><><><><>
 <> What to do next <> 
 <><><><><><><><><><><>
-- Get coexistence for the nonstationary runs at the end of the stationary period (how many make it?)
+- Get coexistence for the nonstationary runs at the end of the stationary period (done)
 - Getting all the Bout runs going
-- What plots do we need?
 - Work on talk?
+
+<><><><><><><><><><><>
+<> Questions <> 
+<><><><><><><><><><><>
+- What plots do we need?
+- Should we consider runs with decreasing R0 also? 
