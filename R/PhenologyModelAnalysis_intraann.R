@@ -4,8 +4,8 @@
 ## Plots of interannual dynamics ##
 
 ## Code taken from PhenologyModelAnalysisOLD.R ##
-## NEXT UP! Pull the Bout runs from the subsamples ... #
-# ... and adjust code so that it runs over the folders ##
+## NEXT UP! Runs until folderID 36691943 ...
+# then fails on bouthere, so check that ##
 
 ## housekeeping
 rm(list=ls()) 
