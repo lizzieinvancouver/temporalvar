@@ -26,7 +26,9 @@ source("sourcefiles/analyses/runanalysisfxs.R")
 
 ## flags for what to do
 runbfin <- TRUE # Note that reading in these files is SLOW!
-runnonstat <- TRUE # if you are using the nsruns list, this will check for coexistence at end of stationary
+runnonstat <- FALSE # if you are using the nsruns list, this will check for coexistence at end of stationary
+runningotheruns <- FALSE # since there are no coexisting runs to ref...
+# this just pulls the Bout files I have (see below)
 
 # cheap loop over the files for now
 # sruns <- c("36691943")
@@ -38,11 +40,8 @@ nsruns <- c("36511352", "36511384", "36691954")
 nsruns.yrs <- c(500, 1000, 1000) # for nsruns, how many initial stationary years 
 }
 
-# since there are no coexisting runs to ref...
-# this just pulls the Bout files I have (see below)
-runningotheruns <- FALSE
 
-runlist <- sruns # sruns <- c("36511352")
+runlist <- sruns # sruns <- c("36691954") 
 
 for (folderIDhere in c(1:length(runlist))){
     
@@ -79,16 +78,18 @@ runsep$taskrunID <- paste(runsep$arrayID, runsep$runID, sep="-")
 # Finish making taskrun and taskrunyr
 runsbfin$taskrunIDyr <- paste(runsbfin$taskrunID, runsbfin$yr, sep="-")
 runsep$taskrunIDyr <- paste(runsep$taskrunID, runsep$yr, sep="-")
-df$taskrunID <- paste(df$taskID, df$runID, sep="-")
+runs$taskrunID <- paste(runs$taskID, runs$runID, sep="-")
 
 ##
 ## Get list of coexisting
 ##
+
+if(runnonstat){
+runs$stat.ncoexist <- NA
 runs$stat.coexist1 <- NA
 runs$stat.coexist2 <- NA
-    
-if(runnonstat){
 idshere <- unique(runsbfin$taskrunID)
+
 for (onerun in c(1:length(idshere))){
     subby <- subset(runsbfin, taskrunID==idshere[onerun])
     ifelse(nrow(subby)<nsruns.yrs[folderIDhere],
@@ -102,13 +103,14 @@ for (onerun in c(1:length(idshere))){
            runs$stat.coexist2[runs$taskrunID==idshere[onerun]] <- 1,
            runs$stat.coexist2[runs$taskrunID==idshere[onerun]] <- 0))
      }                         
+runs$stat.ncoexist <- runs$stat.coexist1+runs$stat.coexist2
+table(runs$stat.ncoexist)
 }
 
-if(!runnonstat){
 df <- makediffs(runs)
 df.coexist <- subset(df, ncoexist==2)
 df.nocoexist <- subset(df, ncoexist<2)
-}
+
 ##
 ## Checking R0 and run lengths
 ##
