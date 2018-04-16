@@ -1,0 +1,302 @@
+\documentclass[11pt,letterpaper]{article}
+
+\usepackage{fixltx2e}
+\usepackage{textcomp}
+\usepackage{fullpage}
+\usepackage{amsfonts}
+\usepackage{verbatim}
+\usepackage[english]{babel}
+\usepackage{pifont}
+\usepackage{color}
+\usepackage{setspace}
+\usepackage{lscape}
+\usepackage{indentfirst}
+\usepackage[normalem]{ulem}
+\usepackage{booktabs}
+%\usepackage{nag}
+\usepackage{natbib}
+%\usepackage{bibtex}
+\usepackage{float}
+\usepackage{latexsym}
+%\usepackage{hyperref} 
+\usepackage{url}
+%\usepackage{html}
+\usepackage{hyperref}
+\usepackage{epsfig}
+\usepackage{graphicx}
+\usepackage{amssymb}
+\usepackage{amsmath}
+\usepackage{bm}
+\usepackage{array}
+\usepackage{mhchem}
+\usepackage{ifthen}
+\usepackage{caption}
+\usepackage{hyperref}
+%\usepackage{xcolor}
+\usepackage{amsthm}
+\usepackage{amstext}
+\usepackage{lineno}
+
+\usepackage{sectsty,setspace,natbib}
+\usepackage[top=1.00in, bottom=1.0in, left=1in, right=1.25in]{geometry}
+\usepackage{graphicx}
+\usepackage{latexsym,amssymb,epsf,rotating}
+\usepackage{epstopdf}
+\usepackage{amsmath}
+\usepackage{natbib}
+\usepackage{todonotes}
+\usepackage{framed}
+
+\linespread{1.2} % was 1.66 for double-spaced 
+% \raggedright
+\setlength{\parindent}{0.5in}
+
+\setcounter{secnumdepth}{0}
+% Our sections are not numbered and our papers do not have
+% Tables of Contents. We don't 
+% present a list of figures or list of tables, either.
+
+% Any common font is fine.
+% (A common sans-serif font should be used on figures, but figures should be
+% separate from the LaTeX document.)
+
+\pagestyle{empty}
+
+\renewcommand{\section}[1]{%
+\bigskip
+\begin{center}
+\begin{Large}
+\normalfont\scshape #1
+\medskip
+\end{Large}
+\end{center}}
+
+\renewcommand{\subsection}[1]{%
+\bigskip
+\begin{center}
+\begin{large}
+\normalfont\itshape #1
+\end{large}
+\end{center}}
+
+\renewcommand{\subsubsection}[1]{%
+\vspace{2ex}
+\noindent
+\textit{#1.}---}
+
+\renewcommand{\tableofcontents}{}
+
+\bibpunct{(}{)}{;}{a}{}{,}  % this is a citation format command for natbib
+
+\parskip=5pt
+\pagenumbering{arabic}
+\pagestyle{plain}
+
+\begin{document}
+\begin{flushright}
+Version dated: \today
+\end{flushright}
+\bigskip
+\noindent RH: Phenological tracking
+% put in your own RH (running head)
+
+\bigskip
+\medskip
+\begin{center}
+% Insert your title:
+\noindent{\Large {\bf Phenological tracking in communities in stationary \& non-stationary environments}}\\
+\bigskip
+\noindent {\normalsize
+Lizzie$^{1,2,3}$ \& Megan$^{4}$ }\\
+\noindent {\small \it
+$^1$ Arnold Arboretum of Harvard University, 1300 Centre Street, Boston, Massachusetts, 02131, USA\\
+$^2$ Organismic \& Evolutionary Biology, Harvard University, 26 Oxford Street, Cambridge, Massachusetts, 02138, USA\\
+$^3$ Forest \& Conservation Sciences, Faculty of Forestry, University of British Columbia, 2424 Main Mall, Vancouver, BC V6T 1Z4\\
+$^4$ Hawaii Institute of Marine Biology}\\
+\medskip
+\end{center}
+\noindent{\bf Corresponding author:} XX, see $^{1,2}$ above ; E-mail:.\\
+
+\newpage
+%\linenumbers
+
+\begin{abstract}
+
+\end{abstract}
+
+\noindent \emph{Keywords:} phenology, climate change....\\
+
+
+
+\section{Outline}
+So, there's a pretty basic structure to what we want to walk through:
+\begin{enumerate}
+\item In \emph{stationary environments} ...
+\begin{enumerate}
+\item Describe R* and how species with lower R* always wins (intra-annual dynamics generally) ... need other axis of competition for coexistence
+\item Moving onto interannual variation: in temporally variable environments species with $\tau_i$ closer to averae $\tau_{P}$ should always win
+\item For variation in $\tau_i$ to exist, need other axis of coexistence (such as R*)
+\item But what if $\tau_i$ is not a fixed species attribute? Introduce tracking...
+\item Then speices with higher $\alpha$ should win
+\item Unless you have another axis of coexistence (such as R* or $\tau_i$)
+\end{enumerate}
+\item In \emph{nonstationary environments} ... (need some help with phrasing)
+\begin{enumerate}
+\item Earlier $\tau_i$ is favored more (R* versus $\tau_i$ runs: previously these coexisted via a higher R* and less ideal $\tau_i$)
+\item Tracking is favored more ... or effective $\tau_i$ is really favored more ($\tau_i$ vs. $\alpha$ runs)
+\item Tracking is favored more ($\alpha$ versus R*)
+\end{enumerate}
+\item But this all assumes that nonstationarity happens on only one dimension of the environment; just like species niches, the environment is multidimensional and nonstationarity in it may be multidimensional also. 
+\begin{enumerate}
+\item Show what happens when R0 get smallers as $\tau_{P}$ gets earlier
+\end{enumerate}
+\item And, we conclude.
+\end{enumerate}
+
+
+\section{Phenology \& climate change paper} ...  below is from \verb|VarEnv_notes|\\
+\noindent Possible titles: `Phenological tracking: It's more complicated than you think' (we hope) or `Phenological tracking: Is it naive?'
+\begin{enumerate}
+\item Opening
+\begin{enumerate}
+\item Communities shifting due to climate change (species increasing and decreasing)
+\item Phenology has been implicated in driving this 
+\item The theory goes that as seasons get earlier, earlier species win out over later species (don't get into tracking yet)
+\item Yet no one to date has ever examined whether this hypothesis is supported through community coexistence theory and models
+\item So here we provide the first test using a model that explicitly considers how within and between year dynamics can drive coexistence
+\end{enumerate}
+\item Under this model climate change critically alters the environment in a couple ways
+\begin{enumerate}
+\item Climate change...
+\begin{enumerate}
+\item $\tau_{P}$ gets earlier (i.e., start of season gets earlier)
+\item $R_{0} \downarrow$ (e.g., in systems started by a pulse of water from snowpack)
+\item $var(R_{0}) \uparrow$ 
+\item $\epsilon \uparrow$ (i.e., it gets hotter and resources like water evaporate quicker)
+\end{enumerate}
+\item Of these, changes in $\tau_{P}$ are aguably the most observed and should be most important to impacts on coexistence via phenology thus we focus on how shifts in $\tau_{P}$ impact coexistence.
+\item We first examine the role of phenology in a stationary environment ... then to X, Y, Z.
+\end{enumerate}
+\item Under a stationary environment what trade-off is required with tracking to allow coexistence?
+\begin{enumerate}
+\item Two species ($i, j$) case
+\begin{enumerate}
+\item Vary $\tau_P$ by drawing from a stationary distribution and let $R^*$ and $\alpha$ also vary by being drawn from each of their own (non-joint) distributions, run a bunch of models of 2 species communities and extract co-existing ones. 
+\item Plot $\frac{\alpha_i}{\alpha_j}$ (or, perhaps better: realized proximity to $\tau_P$) by  $\frac{R^{*}_{i}}{R^{*}_{j}}$ for coexisting pairs of species (PhenTrackFig. 1, not currently shown here, see paper notes) -- we expect a cloud of space where coexistence is possible.
+\end{enumerate}
+\item Multi-species case
+\begin{enumerate}
+\item (Similar to above) Vary $\tau_P$ by drawing from a stationary distribution and let $R^*$ and $\alpha$ also vary by being drawn from each of their own (non-joint) distributions for a $n>2$ set of species, and pull out coexisting species from each run. 
+\item Plot $\alpha$ (or realized proximity to $\tau_P$) against $R^*$ for each community of coexisting species (PhenTrackFig. 2, not currently shown here, see paper notes), measure the correlation and the noise around it.
+\item Examine the distribution of correlations (and maybe noise) for all communities (PhenTrackFig. 3, not currently shown here, see paper notes).
+\end{enumerate}
+\end{enumerate}
+\item Under a non-stationary environment of earlier $\tau_P$ how: (1) does this trade-off change and (2) do communities change?\footnote{Megan may have better notes on this section}
+\begin{enumerate}
+\item Two species case: take the coexisting 2-species communities from part I and add nonstationarity in $\tau_P$ and ...
+\begin{enumerate}
+\item see how long it takes to lose one species. 
+\item see which ones persist longest and mark on PhenTrackFig. 1 (e.g., re-do PhenTrackFig. 1 with bubble plots or such for how long the two species persist together).
+\end{enumerate}
+\item Multi-species case: take the coexisting multi-species communities from part I and add nonstationarity in $\tau_P$ and ...
+\begin{enumerate}
+\item stop at $X$ timepoint and re-do PhenTrackFig. 2 and 3 to see how they have shiften (e.g., you may lose the middle species --- those that are not the best competitors nor the best trackers ...).
+\item extract timepoints when 10\% and/or 50\% of species are lost. 
+\item extract when each species is lost in a community and order the species loss of PhenTrackFig. 2.
+\end{enumerate}
+\end{enumerate}
+\item Are there environmental conditions under which tracking won't work as a strategy? (This is the section where we return to $R_{0}$ and $\epsilon$, which we just mentioned earlier.
+\begin{enumerate}
+\item Thinking about environmental correlations (e.g., spring gets earlier and drier or such), are there some where tracking will not be favored?
+\item Answer: Yes, probably whenever you shift the environment in another way (in addition to earlier $\tau_P$) that does not impact the competitive dominant but does negatively impact the competitve inferior/tracker (See also Figure 1 below). 
+\item So, for example if $\tau_P$ gets earlier \emph{and} $R_0$ gets smaller then the trackers may decline.  
+\end{enumerate}
+\end{enumerate}
+
+
+
+\newpage
+\section{Figures}
+\begin{enumerate}
+\item Real-world data showing stat/non-stationarity in environment (ideally $\tau_{P}$) 
+\item Real-world data showing tracking (and less tracking)
+\item $\tau_{P}$ vs. R* trade-off and histogram of persisting $\tau_i$ under stat/nonstat $\tau_{P}$ environment
+\item alpha vs.$\tau_i$ trade-off and histogram of persisting alpha under stat/nonstat $\tau_{P}$ environment
+\item alpha vs. R* trade-off and histogram of persisting alpha under stat/nonstat $\tau_{P}$ environment
+\item time-series of one run showing years where $\tau_i$ of one species is close to $\tau_{P}$ and other years where $\tau_i$ of other species is close to $\tau_{P}$ (and show this shift under nonstat)
+\item non-stationarity in $R0$ and $\tau_{P}$
+\end{enumerate}
+
+
+
+
+%=======================================================================
+% \section{}
+%=======================================================================
+
+%=======================================================================
+%\section{Acknowledgements}
+%=======================================================================
+
+
+
+%=======================================================================
+% References
+%=======================================================================
+%\newpage
+% \bibliography{..//..//refs/ospreebibplus.bib}
+% \bibliographystyle{apa}
+
+
+%=======================================================================
+% Tables
+%=======================================================================
+
+%\begin{center}  
+%\begin{table}
+%\caption{Key differences between PWR and traditional PCMs such as PGLS.}
+%\begin{tabular}{ | p{4cm} | p{5.5 cm} | p{5.5 cm} |}   \hline 
+%& PWR & PCMs (e.g., PGLS) \\ \hline \hline
+%Major goal & Study of evolution of correlation between variables across species & Study of evolution of correlation between variables across species\\ \hline
+%\emph{Assumption 1:} Nature of correlation between two or more variables & Non-stationary (changes through phylogeny in a phylogenetically conserved fashion) & Stationary (constant) throughout phylogeny (all variation is noise) \\ \hline
+%\emph{Assumption 2:} Completeness of variables & Substitutes phylogeny for variables (simple or complex) not in the model that interact with variables in the model & Assumes variables in model are primary drivers of correlational relationship \\ \hline
+%Inferential mode & Usually exploratory & Hypothesis testing (statistical significance)\\ \hline
+%Outputs & Coefficients of regression changing through the phylogeny & p-value and single set of coefficients presumed to apply to entire phylogeny with their confidence intervals\\ \hline
+
+%Method to avoid overfitting & Cross-validation (boot-strapped determination of optimal band-width for accurate prediciton of hold-outs) & Exact analytical model of errors and degrees of freedom\\ \hline \hline
+%\end{tabular}
+%\end{table}
+%\end{center}
+
+\newpage
+
+%=======================================================================
+% Figures
+%=======================================================================
+
+
+
+
+\end{document}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% Example figure
+
+\begin{figure}[t!]
+\centering
+\includegraphics[width=1\textwidth]{arnell-pwr-m.pdf}
+\caption{PWR estimates (red dots) and 95\% confidence intervals (red lines) across the Arnell phylogeny using O-U-based distance  weighting, for a simple regression of first flowering date on seed size. Solid and dashed vertical gray lines show the estimate and 95\% CI from an analogous global model estimated using PGLS.}
+  \label{fig:arnell-pwr}
+\end{figure}
+\clearpage
+
+
+%=======================================================================
+% to-do listing
+%=======================================================================
+
+\listoftodos
+
+%=======================================================================
+\section*{Other loose ends}
+%=======================================================================
