@@ -14,8 +14,8 @@ library(deSolve)
 #set.seed(2)
 
 #Runtime Parameters
-runflag <- ifelse(Sys.getenv("PHEN_RUNNUM")=="",0,as.numeric(Sys.getenv("PHEN_RUNNUM")))
-batch <- (runflag>0)*1  #flag if running as batch array w SLURM
+runflag <- ifelse(Sys.getenv("PHEN_RUNNUM")=="",1,as.numeric(Sys.getenv("PHEN_RUNNUM")))
+batch <- 1 #(runflag>0)*1  #flag if reading inputs from getInputParms.txt
 #jobID: jobID & taskID if slurm; randomly gen 7digit nubmer starting with 999 if local
 if(Sys.getenv("SLURM_ARRAY_JOB_ID")=="") {
   jobID <- c(paste0("999",trunc(runif(1,1000,9999))),"1")
@@ -81,10 +81,10 @@ col.names.runparms <- c("arrayID","taskID","nruns","nsp","nyrs",
                         "tracking",
                         paste0(rep("varRstar",2),c(1:2)),
                         "vartauI","writeBout","ext","ndays","dt","tsteps")
-write.table(runparms,
-            file=paste0(OtherOut_loc,"RunParms",suffix),
-            col.names = col.names.runparms, row.names = FALSE,
-            append = FALSE, sep= "\t",quote=FALSE)
+# write.table(runparms,
+#             file=paste0(OtherOut_loc,"/RunParms",jobID[1],"/",suffix),
+#             col.names = col.names.runparms, row.names = FALSE,
+#             append = FALSE, sep= "\t",quote=FALSE)
 
 #write run conditions to Table of RunParms
 if(!file.exists(file.path(paste0(loc,"output/Table_of_RunParms.txt")))) {
