@@ -21,45 +21,53 @@ if (j == 1) {
                     paste0(rep("N",nsp),c(1:nsp)),
                     paste0(rep("rcrt",nsp),c(1:nsp)),
                     paste0(rep("coexist",nsp),c(1:nsp)))
-  col.names.SummaryOut <- c("jobID","taskID","runID","yout","ncoexist",
+  col.names.SummaryOut <- c("jobID","taskID","runID","period","nperiods","yout","ncoexist",
                             paste0(rep("coexist",nsp),c(1:nsp)),
                             paste0(rep("alpha",nsp),c(1:nsp)),
                             paste0(rep("c",nsp),c(1:nsp)),
                             paste0(rep("Rstar",nsp),c(1:nsp)),
-                            paste0(rep("g",nsp),c(1:nsp),rep("mean_pre",nsp)),
-                            paste0(rep("tauIPini",nsp),c(1:nsp),rep("_pre",nsp)),
-                            paste0(rep("tauIPns",nsp),c(1:nsp),rep("_pre",nsp)),
-                            paste0(rep("tauIPfin",nsp),c(1:nsp),rep("_pre",nsp)))
+                            paste0(rep("g",nsp),c(1:nsp),rep("mean",nsp)),
+                            paste0(rep("tauIP",nsp),c(1:nsp),rep("_mean",nsp)))
 } else {
   col.names.BfinN <- FALSE
   col.names.SummaryOut <- FALSE
 }
 
-#Calculate summary stats for output
-L <- rep(0,yout)  #number of timesteps in Bout in year y
-gmean_pre <- colMeans(gmax*exp(-h*(matrix(rep(tauP[1:yout],nsp),nrow=yout,ncol=nsp)-tauIhat[1:yout,])^2))  #germination fraction in year y
-
-if (yout<=nonsta[1]) {
-  tauIPini_pre <- colMeans(abs(tauP[1:yout] - tauIhat[1:yout,]))
-  tauIPns_pre <- c(NA,NA)
-  tauIPfin_pre <- c(NA,NA)
+#Calculate summary stats for output at nyrs or yout, if species went extinct
+#For runs with stationary and nonstationary periods, summary stats are written at the end of each period
+nperiods <- sum(nonsta>0)
+if (yout <= nonsta[1]) {  
+  nst <- yout
+  period <- 1
 } else {
-  if (yout <= nonsta[2]){
-    tauIPini_pre <- tauIPini
-    tauIPns_pre <- colMeans(abs(tauP[(nonsta[1]+1):yout] - tauIhat[(nonsta[1]+1):yout,]))
-    tauIPfin_pre <- c(NA,NA)
+  if (yout <= (nonsta[1]+nonsta[2])) {
+    nst <- c(nonsta[1], yout) 
+    period <- 2
   } else {
-    tauIPini_pre <- tauIPini
-    tauIPns_pre <- tauIPns
-    tauIPfin_pre <- colMeans(abs(tauP[(nonsta[2]+1):yout] - tauIhat[(nonsta[2]+1):yout,]))
+    if (yout <= sum(nonsta)) {
+      if (nonsta[2]== 0) nst <- c(nonsta[1],yout)
+      if (nonsta[2] > 0) nst <- c(nonsta[1],nonsta[1] + nonsta[2],yout)
+      period <- 3
+    } else {
+      nst <- c(nonsta[1],nonsta[1] + nonsta[2],sum(nonsta))
+      period <- 3
+    }
+  }
 }
-}
-write.table(matrix(data=c(as.numeric(jobID[1]),as.numeric(jobID[2]),j,yout,sum(coexist[yout,]),coexist[yout,],
-                          alpha,c,Rstar,
-                          gmean_pre,tauIPini_pre,tauIPns_pre,tauIPfin_pre),nrow=1),
-            file=paste0(outloc,"SummaryOut",suffix),
+
+for (q in c(1:length(nst))) {
+  if (q==1) ini <- 1 else ini <- nst[q-1] + 1  # starting year for this period
+  fin <- nst[q]                                # ending year for this period (or yout, if extinct before end of period)
+  gmean <- colMeans(gmax*exp(-h*(matrix(rep(tauP[ini:fin],nsp),nrow=(fin-ini+1),ncol=nsp)
+                                     -tauIhat[ini:fin,])^2))  #germination fraction in year y
+  tauIP <- colMeans(abs(tauP[ini:fin] - tauIhat[ini:fin,]))
+  write.table(matrix(data=c(as.numeric(jobID[1]),as.numeric(jobID[2]),j,period,nperiods,fin,
+                            sum(coexist[fin,]),coexist[fin,],alpha,c,Rstar,
+                            gmean,tauIP),nrow=1),
+            file=paste0(SummOut_loc,"SummaryOut",suffix),
             col.names = col.names.SummaryOut, row.names = FALSE,
             append=TRUE,sep="\t", quote=FALSE)
+}
 
 #write Bout (by year) and Bfin
 # note that y is the counter for years in PhenologyModel.r loop
@@ -67,9 +75,9 @@ write.table(matrix(data=c(as.numeric(jobID[1]),as.numeric(jobID[2]),j,yout,sum(c
 # m is the counter for year in this loop
 # in Bfin, include number of timesteps in the ode run for each year (L[m])
 
+L <- rep(0,yout)  #number of timesteps in Bout in year y
 #new Bout file gets written for each run
 col.names.Bout <- FALSE
-if(!dir.exists(file.path(paste0(outloc,"Bout/")))) dir.create(file.path(paste0(outloc,"Bout/")))
 for (m in c(1:yout)) {
   L[m] <- dim(Bout[[m]])[1]
   ##only write headers in first year
@@ -77,7 +85,7 @@ for (m in c(1:yout)) {
   write.table(matrix(data=c(rep(as.numeric(jobID[1]),L[m]),rep(as.numeric(jobID[2]),L[m]),
                             rep(j,L[m]),rep(m,L[m]),as.matrix(Bout[[m]])),
                      nrow=L[m],ncol=4+2+nsp),
-              file = paste0(outloc,"Bout/","Bout","_",jobID[1],"-",jobID[2],"-",j,".txt"),
+              file = paste0(Bout_loc,"Bout","_",jobID[1],"-",jobID[2],"-",j,".txt"),
               col.names = col.names.Bout,row.names = FALSE,
               append = TRUE, sep = "\t", quote=FALSE)
 }
@@ -85,6 +93,6 @@ write.table(matrix(data=c(rep(as.numeric(jobID[1]),yout),rep(as.numeric(jobID[2]
                           rep(j,yout),c(1:yout),L,
                           Bfin[1:yout,],N[1:yout,],rcrt[1:yout,],coexist[1:yout,]),
                    nrow=yout,ncol=(nsp*4+5)),
-            file=paste0(outloc,"BfinN",suffix),
+            file=paste0(OtherOut_loc,"BfinN",suffix),
             col.names = col.names.BfinN, row.names = FALSE,
             append=TRUE,sep="\t", quote=FALSE)
