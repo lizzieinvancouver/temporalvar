@@ -30,7 +30,6 @@ for (j in c(1:nruns)){
   Bout <- list() #each year has a dataframe with time,R(t),Bi(t) of dims(2+nsp,tsteps)
   yout <- nyrs  #last year of output; default is nyrs, unless loop breaks early
   
-  ## And away we go!
   for (y in yrs){
     #include a flag for runs with initial and final stationary periods, but no nonstationary period
     if (y==(nonsta[1]+1) && nonsta[2]==0) N[y,] <- N0 #if no ns period, reset for final stationary period
@@ -66,15 +65,11 @@ for (j in c(1:nruns)){
 
     Bout[[y]] <- as.data.frame(ode(func = ResCompN, y = State, parms = Pars, times = Time,
                                    rootfun=rootfun))
-    #Bout[[y]] <- as.data.frame(lsodar(func = ResCompN, y = State, parms = Pars, times = Time,rootfun=rootfun))
     Bfin[y,] <-  apply(Bout[[y]][3:(2+nsp)],2,FUN=max)  #final biomass
   }
   ## modelruns includes the variables that are constant across years in one dataframe...
   # then tauI, tauP and Bfin for each year
   source(paste0(loc,"/sourcefiles/getOutput.R"))
-  #save(sppvars, envtvars,tauIhat,Bfin,g,runparms, file=paste(outloc,runname,"_", jobID[1],"-",jobID[2],"-run",j,".Rdata",sep="")) 
-  #if (writeBout>0 && j%%writeBout==0) {
-  #  save(Bout,file=paste(outloc,runname,"_Bout_",jobID[1],"-",jobID[2],"-run",j,".Rdata",sep="")) #("out_",i,".Rdata"))
-  #}
+
 }
 sink()
