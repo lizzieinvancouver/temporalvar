@@ -80,13 +80,13 @@ if (j==1) {
 }
 
 write.table(matrix(data=c(as.numeric(jobID[1]),as.numeric(jobID[2]),j,as.matrix(sppvars)),nrow=1),
-            file = paste0(outloc,"SpeciesParms",suffix),
+            file = paste0(OtherOut_loc,"SpeciesParms",suffix),
             col.names = col.names.SpeciesParms,row.names = FALSE, 
             append=TRUE,sep="\t", quote=FALSE)
 write.table(matrix(data=c(rep(as.numeric(jobID[1]),nyrs),rep(as.numeric(jobID[2]),nyrs),rep(j,nyrs),yrs,
                           envtvars$R0,envtvars$tauP,envtvars$eps,tauIhat,g),
                    nrow=nyrs,ncol=(nsp*2+7)),
-            file = paste0(outloc,"EnvtParms",suffix),
+            file = paste0(OtherOut_loc,"EnvtParms",suffix),
             col.names =col.names.EnvtParms,row.names = FALSE,
             append=TRUE,sep="\t", quote=FALSE) 
 
