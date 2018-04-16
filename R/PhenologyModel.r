@@ -8,14 +8,14 @@ options(stringsAsFactors=FALSE)
 #define run conditions
 #loc = "C:/Users/Megan/Documents/GitHub/temporalvar/R/"  
 loc = "/n/wolkovich_lab/temporalvar/R/"
-source(paste0(loc, "/sourcefiles/getRunParms.R")) #define runtime parameters
+source(paste0(loc, "sourcefiles/getRunParms.R")) #define runtime parameters
 
 for (j in c(1:nruns)){
   
   #define parameters and functions for this run
-  source(paste0(loc,"/sourcefiles/getEnvt.R"))  #get constant and time-varying envt parms
-  source(paste0(loc,"/sourcefiles/getSpecies.R"))  #get species characteristics and Rstar
-  source(paste0(loc,"/sourcefiles/ResCompN.R")) # define within-season ode solver
+  source(paste0(loc,"sourcefiles/getEnvt.R"))  #get constant and time-varying envt parms
+  source(paste0(loc,"sourcefiles/getSpecies.R"))  #get species characteristics and Rstar
+  source(paste0(loc,"sourcefiles/ResCompN.R")) # define within-season ode solver
   
   #Define arrays
   #interannual dynamics set-up (R0 is in getEnvt.R)
@@ -69,7 +69,7 @@ for (j in c(1:nruns)){
   }
   ## modelruns includes the variables that are constant across years in one dataframe...
   # then tauI, tauP and Bfin for each year
-  source(paste0(loc,"/sourcefiles/getOutput.R"))
+  source(paste0(loc,"sourcefiles/getOutput.R"))
 
 }
 sink()
