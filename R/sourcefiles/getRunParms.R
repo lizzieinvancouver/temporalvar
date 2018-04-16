@@ -14,6 +14,7 @@ library(deSolve)
 #set.seed(2)
 
 #Runtime Parameters
+print(paste0, "Sys.getenv(PHEN_RUNNUM) = ",Sys.getenv("PHEN_RUNNUM"))
 runflag <- ifelse(Sys.getenv("PHEN_RUNNUM")=="",1,as.numeric(Sys.getenv("PHEN_RUNNUM")))
 batch <- 1 #(runflag>0)*1  #flag if reading inputs from getInputParms.txt
 #jobID: jobID & taskID if slurm; randomly gen 7digit nubmer starting with 999 if local
