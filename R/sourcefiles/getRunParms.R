@@ -24,11 +24,19 @@ if(Sys.getenv("SLURM_ARRAY_JOB_ID")=="") {
 }
 #output parms
 writeBout <- 1  #default=1; flag indicating how often Bout should be written (0=never, n = every n runs)
-outloc <- paste0(loc,"output/",jobID[1],"/")
-if(!dir.exists(file.path(paste0(loc,"output/"),jobID[1]))) dir.create(file.path(outloc))
+#define/create output folder locations
+Bout_loc <- paste0(loc,"output/Bout/",jobID[1],"/")
+if(!dir.exists(file.path(Bout_loc))) dir.create(file.path(Bout_loc))
+
+SummOut_loc <- paste0(loc,"output/SummaryFiles/",jobID[1],"/")
+if(!dir.exists(file.path(SummOut_loc))) dir.create(file.path(SummOut_loc))
+
+OtherOut_loc <- paste0(loc,"output/OtherOut/",jobID[1],"/")
+if(!dir.exists(file.path(OtherOut_loc))) dir.create(file.path(OtherOut_loc))
+
 suffix <- paste0("_",jobID[1],"-",jobID[2],".txt") #unique for each array in batchfile
 
-sink(paste0(outloc,"sink_",jobID[1],"-",jobID[2],".Rout"))
+sink(paste0(OtherOut_loc,"sink_",jobID[1],"-",jobID[2],".Rout"))
 
 print(paste0("PHEN_RUNNUM is ",Sys.getenv("PHEN_RUNNUM")))
 
@@ -74,7 +82,7 @@ col.names.runparms <- c("arrayID","taskID","nruns","nsp","nyrs",
                         paste0(rep("varRstar",2),c(1:2)),
                         "vartauI","writeBout","ext","ndays","dt","tsteps")
 write.table(runparms,
-            file=paste0(outloc,"RunParms",suffix),
+            file=paste0(OtherOut_loc,"RunParms",suffix),
             col.names = col.names.runparms, row.names = FALSE,
             append = FALSE, sep= "\t",quote=FALSE)
 
