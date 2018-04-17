@@ -49,9 +49,6 @@ if (yout <= nonsta[1]) {
       if (nonsta[2]== 0) nst <- c(nonsta[1],yout)
       if (nonsta[2] > 0) nst <- c(nonsta[1],nonsta[1] + nonsta[2],yout)
       period <- 3
-    } else {
-      nst <- c(nonsta[1],nonsta[1] + nonsta[2],sum(nonsta))
-      period <- 3
     }
   }
 }
