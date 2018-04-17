@@ -14,9 +14,10 @@ library(deSolve)
 #set.seed(2)
 
 #Runtime Parameters
-print(paste0, "Sys.getenv(PHEN_RUNNUM) = ",Sys.getenv("PHEN_RUNNUM"))
-runflag <- ifelse(Sys.getenv("PHEN_RUNNUM")=="",1,as.numeric(Sys.getenv("PHEN_RUNNUM")))
-batch <- 1 #(runflag>0)*1  #flag if reading inputs from getInputParms.txt
+paste0("Sys.getenv(PHEN_RUNNUM) = ",Sys.getenv("PHEN_RUNNUM"))
+runflag <- ifelse(Sys.getenv("PHEN_RUNNUM")=="",0,as.numeric(Sys.getenv("PHEN_RUNNUM")))
+#batch <- 1 #(runflag>0)*1  #flag if reading inputs from getInputParms.txt
+
 #jobID: jobID & taskID if slurm; randomly gen 7digit nubmer starting with 999 if local
 if(Sys.getenv("SLURM_ARRAY_JOB_ID")=="") {
   jobID <- c(paste0("999",trunc(runif(1,1000,9999))),"1")
@@ -39,30 +40,31 @@ suffix <- paste0("_",jobID[1],"-",jobID[2],".txt") #unique for each array in bat
 
 sink(paste0(OtherOut_loc,"sink_",jobID[1],"-",jobID[2],".Rout"))
 
-print(paste0("PHEN_RUNNUM is ",Sys.getenv("PHEN_RUNNUM")))
-
-if (batch==0){  #default run, not a batch process
-  nruns <- 2
-  nonsta <- c(200,0,0)  #number of [1] initial stationary,[2]nonstationary,[3]final nonstationary years
-  tracking <- 1         #tracking in these runs?
-  varRstar <- c(1,NA)   #flag for variation in Rstar; 
-                        #c(1,NA) draw c randomly for each spp so R* varies by species; 
-                        #c(0,NA) draw c randomly then assign to all species, so R* varies by run but equal bt spp; 
-                        #c(-1,NA) make c constant and equal to default (c=12 for all spp)
-                        #c(x,x) if varRstar is vector then it gives the specific values of c for each spp (only available for 2 spp)
-  vartauI <-1           #flag that indicates that tauI should vary (1) or be the same (0) between species; if vartauI is vector, then it is giving the tauI values for each species.
-  nsp <- 2
-
-} else {
-  inputs <- as.data.frame(read.table(file=paste0(loc,"getInputParms.txt"),header=TRUE,sep="\t"))
+# if (batch==0){  #default run, not a batch process
+#   nruns <- 2
+#   nonsta <- c(200,0,0)  #number of [1] initial stationary,[2]nonstationary,[3]final nonstationary years
+#   tracking <- 1         #tracking in these runs?
+#   varRstar <- c(1,NA)   #flag for variation in Rstar; 
+#                         #c(1,NA) draw c randomly for each spp so R* varies by species; 
+#                         #c(0,NA) draw c randomly then assign to all species, so R* varies by run but equal bt spp; 
+#                         #c(-1,NA) make c constant and equal to default (c=12 for all spp)
+#                         #c(x,x) if varRstar is vector then it gives the specific values of c for each spp (only available for 2 spp)
+#   vartauI <-1           #flag that indicates that tauI should vary (1) or be the same (0) between species; if vartauI is vector, then it is giving the tauI values for each species.
+#   nsp <- 2
+# 
+# } else {
+  inputs <- as.data.frame(read.table(file=paste0(loc,"getInputParms.txt"),
+                                     header=TRUE,stringsAsFactors=FALSE,sep="\t"))
   nruns <- inputs$nruns[runflag]
   nonsta <- as.numeric(unlist(strsplit(inputs$nonsta[runflag],",")))
   tracking <- inputs$tracking[runflag]
-  varRstar <- as.numeric(unlist(strsplit(inputs$varRstar[runflag],",")))
+  varRstar <- ifelse(is.character(inputs$varRstar),
+                     as.numeric(unlist(strsplit(inputs$varRstar[runflag],","))),
+                     as.numeric(inputs$varRstar))
   if(length(varRstar)==1) varRstar <- c(varRstar,NA)
   vartauI <-inputs$vartauI[runflag]
   nsp <- inputs$nsp[runflag]
-}
+# }
 
 #between year
 nyrs <- sum(nonsta)  # number of yrs to run if nonsta=0 or for initial period if nonsta>0
