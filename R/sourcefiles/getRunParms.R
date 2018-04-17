@@ -1,18 +1,3 @@
-# safety feature(s)
-#rm(list=ls()) 
-#options(stringsAsFactors=FALSE)
-
-# packages
-library(deSolve)
-
-# set the working directory
-#setwd(getwd()) # Lizzie: setwd("~/Documents/git/projects/temporalvar")
-#setwd(getwd()) # Megan: setwd("~/Documents/GitHub/temporalvar")
-#setwd("~/n/regal/wolkovich_lab/temporalvar")
-
-#random seed
-#set.seed(2)
-
 #Runtime Parameters
 paste0("Sys.getenv(PHEN_RUNNUM) = ",Sys.getenv("PHEN_RUNNUM"))
 runflag <- ifelse(Sys.getenv("PHEN_RUNNUM")=="",0,as.numeric(Sys.getenv("PHEN_RUNNUM")))
