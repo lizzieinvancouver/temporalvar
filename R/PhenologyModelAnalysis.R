@@ -7,10 +7,7 @@
 ######################
 ### To do items!!! ###
 ######################
-# Add to plots (see plotting section and notes at top of it)
-# Make gi plots (need EnvtParms) and some Bfin plots
-# tauIP (realized distance from tauI versus tauP) is more than tauIhat (so delete all the code for tauIhat)
-# Make bout plots
+# Remember to remove as.numeric() from the runanalysis.R file ... just in there for now as Megan fixes things
 ######################
 
 ## housekeeping
@@ -31,20 +28,25 @@ source("sourcefiles/analyses/runanalysisfxs.R")
 runbout <- FALSE
 
 # cheap loop over the files for now
-sruns <- c("36426477", "36511349","36691943", "36691954", "36691955")
-nsruns <- c("36511352", "36511384", "36691956")
+runs1 <- c("36426477", "36511349", "36511352", "36691943","36511384", "36691954", "36691955", "36691956") # this is the set from Feb 2018
+runs2 <- c(paste("417251", 25:32, sep="")) # new set as of 16 Apr 2018
 
-#####################################################
-## Loop over all folders with stationary-only runs ##
-#####################################################
-for(folderIDhere in c(1:length(sruns))){
+##############################
+## Set tauP for the graphs! ##
+##############################
+source("sourcefiles/analyses/tauP.R")
+
+#########################################
+## Do some data reading and formatting ##
+#########################################
+for(folderIDhere in c(1:length(runs2))){
     
-folderID <- sruns[folderIDhere]
-samplerun <-  read.table(paste("output/", folderID, "/SummaryOut_", folderID,
+folderID <- runs2[folderIDhere] # folderID <- 41725129
+samplerun <-  read.table(paste("output/SummaryFiles/", folderID, "/SummaryOut_", folderID,
     "-1.txt", sep=""), header=TRUE)
 filenamestart <- c(paste("SummaryOut_", folderID, "-", sep=""))
 colnameshere <- colnames(samplerun)
-numhere <- c(1:20)
+numhere <- c(1:40)
 
 runs1 <- getfiles(folderID, filenamestart, numhere, colnameshere)
 runs1$taskrunID <- paste(runs1$taskID, runs1$runID, sep="-")
@@ -57,14 +59,20 @@ df <- makediffs(runs1)
 df.coexist <- subset(df, ncoexist==2)
 print(paste("the current folder ID is", folderID, "the total rows are:", nrow(df), 
     "and the total coexisting rows are:", nrow(df.coexist), sep=" "))
- 
-##
-## Get a list of X coexisting and not coexisting runs 
-##
-howmanytoget <- 10
-df.nocoexist <- subset(df, ncoexist==0)
-subsample <- rbind(df.coexist[1:howmanytoget,], df.nocoexist[1:howmanytoget,])
-write.csv(subsample, file=paste("output/", folderID, "/", "subsample", ".csv", sep=""))
+}
+
+## START HERE!! ## 
+# add on who coexisted by end
+df.coexist1 <- subset(df, ncoexist==2 & period==1)
+print(paste("the current folder ID is", folderID, "the total rows are:", nrow(df), 
+    "and the total coexisting rows are:", nrow(df.coexist), sep=" "))
+df.t2 <- subset(df, period==2)
+df.t2 <- subset(df.t2, select=c("jobID", "taskID", "runID", "ncoexist", "taskrunID"))
+df.plot <- merge(df.coexist1, df.t2, by=c("jobID", "taskID", "runID", "taskrunID"), all.x=TRUE, all.y=FALSE)
+
+
+ggplot(tauP.plot, aes(x=tauP, fill=when)) + geom_density(alpha=0.25)
+
 
 ##
 ## Plotting 
@@ -78,13 +86,7 @@ plot.params(df, df.coexist, "c", "c1", "c2")
 plot.params(df, df.coexist, "rstar", "Rstar1", "Rstar2")
     
 ## Look at parameter differences between species
-plot.paramdiffs(df, df.coexist, "rstar_vs_tauI", "diff.tauIPini", "diff.rstar")
-plot.paramdiffs(df, df.coexist, "rstar_vs_alpha", "diff.alpha", "diff.rstar")
-plot.paramdiffs(df, df.coexist, "rstar_vs_tauIPini", "diff.tauIPini", "diff.rstar")
-plot.paramdiffs(df, df.coexist, "g_vs_tauIPini", "diff.tauIPini", "diff.gmean")
-plot.paramdiffs(df, df.coexist, "g_vs_alpha", "diff.alpha", "diff.gmean")
-plot.paramdiffs(df, df.coexist, "g_vs_c", "diff.c", "diff.gmean")
-plot.paramdiffs(df, df.coexist, "rstar_vs_tauI_ratios", "ratio.tauIini", "ratio.rstar")
+plot.paramdiffs(df, df.coexist, "rstar_vs_tauI_ratios", "ratio.tauIP", "ratio.rstar")
 plot.paramdiffs(df, df.coexist, "rstar_vs_alpha_ratios", "ratio.alpha", "ratio.rstar")
 }
 
