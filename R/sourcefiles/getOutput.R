@@ -36,6 +36,7 @@ if (j == 1) {
 
 #Calculate summary stats for output at nyrs or yout, if species went extinct
 #For runs with stationary and nonstationary periods, summary stats are written at the end of each period
+period <- NA
 nperiods <- sum(nonsta>0)
 if (yout <= nonsta[1]) {  
   nst <- yout
