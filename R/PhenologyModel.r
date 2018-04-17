@@ -28,7 +28,7 @@ for (j in c(1:nruns)){
   Bfin <- matrix(rep(0),nyrs,nsp) # biomass at end of year y
   B0  <- matrix(rep(0),nyrs,nsp) # biomass at beginning of year y
   Bout <- list() #each year has a dataframe with time,R(t),Bi(t) of dims(2+nsp,tsteps)
-  yout <- nyrs  #last year of output; default is nyrs, unless loop breaks early
+  yout <- NA #nyrs  #last year of output; default is nyrs, unless loop breaks early
   
   for (y in yrs){
     #include a flag for runs with initial and final stationary periods, but no nonstationary period
@@ -45,7 +45,7 @@ for (j in c(1:nruns)){
       N[y,] <- N[y,]*(N[y,]>ext)  #if density does not exceed ext, set to zero
       coexist[y,] <- (N[y,]>0)*1
       if (!(sum(N[y,]>0))) {
-        yout <- y  #if break the loop, then y-1 is last year before extinction
+        #yout <- y  #if break the loop, then y-1 is last year before extinction
         #give Bout a value for the last iteration
         Bout[[y]] <- Bout[[y-1]][1,]*0 + c(0,R0[y],b*g[y,]*N[y,]) #get list formatting from prior year
         Bfin[y,] <- b*g[y,]*N[y,]
@@ -69,6 +69,7 @@ for (j in c(1:nruns)){
   }
   ## modelruns includes the variables that are constant across years in one dataframe...
   # then tauI, tauP and Bfin for each year
+  yout <- y
   source(paste0(loc,"sourcefiles/getOutput.R"))
 
 }
