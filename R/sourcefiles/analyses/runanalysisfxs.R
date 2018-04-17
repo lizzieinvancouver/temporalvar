@@ -3,7 +3,7 @@
 
 getfiles <- function(folderID, filenamestart, numhere, colnameshere){
     filepack <- lapply(numhere, function(numhere) {
-    filename <- paste("output/", folderID, "/", filenamestart, numhere, ".txt", sep="")
+    filename <- paste("output/SummaryFiles/", folderID, "/", filenamestart, numhere, ".txt", sep="")
     dat <- read.table(filename, skip=1)
     names(dat) <- colnameshere
     return(data.frame(dat))
@@ -32,28 +32,18 @@ getBoutfiles.list <- function(folderID, boutfilenamestart){
     return(dat)
 }
 
+# add tauI! 
 makediffs <- function(df){
     dathere <- df
-    dathere$diff.alpha <- dathere$alpha1-dathere$alpha2
-    dathere$diff.c <- dathere$c1-dathere$c2
-    dathere$diff.rstar <- dathere$Rstar1-dathere$Rstar2
-    dathere$diff.gmean <- dathere$g1mean_pre-dathere$g2mean_pre
-    dathere$diff.tauIPini <- dathere$tauIPini1_pre-dathere$tauIPini2_pre
-    dathere$ratio.rstar <-  dathere$Rstar1/dathere$Rstar2
-    dathere$ratio.tauIini <- dathere$tauIPini1_pre/dathere$tauIPini2_pre
-    dathere$ratio.alpha <- dathere$alpha1/dathere$alpha2
+    dathere$c.rstar <-  as.numeric(dathere$c1)/as.numeric(dathere$c2)
+    dathere$ratio.rstar <-  as.numeric(dathere$Rstar1)/as.numeric(dathere$Rstar2)
+    dathere$ratio.tauIP <- as.numeric(dathere$tauIP1_mean)/as.numeric(dathere$tauIP2_mean)
+    dathere$ratio.alpha <- as.numeric(dathere$alpha1)/as.numeric(dathere$alpha2)
     return(dathere)
     }
 
 makediffs.ns <- function(df){
     dathere <- df
-    dathere$diff.alpha <- dathere$alpha1-dathere$alpha2
-    dathere$diff.c <- dathere$c1-dathere$c2
-    dathere$diff.rstar <- dathere$Rstar1-dathere$Rstar2
-    dathere$diff.gmean <- dathere$g1mean_pre-dathere$g2mean_pre
-    dathere$diff.tauIPini_pre <- dathere$tauIPini1_pre-dathere$tauIPini2_pre
-    dathere$diff.tauIPns_pre <- dathere$tauIPns1_pre-dathere$tauIPns2_pre
-    dathere$diff.tauIPfin_pre <- dathere$tauIPfin1_pre-dathere$tauIPfin2_pre
     dathere$ratio.rstar <-  dathere$Rstar1/dathere$Rstar2
     dathere$ratio.tauIini_pre <- dathere$tauIPini1_pre/dathere$tauIPini2_pre
     dathere$ratio.tauIPns_pre <-dathere$tauIPns1_pre/dathere$tauIPns2_pre
