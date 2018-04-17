@@ -36,22 +36,14 @@ if (j == 1) {
 
 #Calculate summary stats for output at nyrs or yout, if species went extinct
 #For runs with stationary and nonstationary periods, summary stats are written at the end of each period
-period <- NA
 nperiods <- sum(nonsta>0)
 if (yout <= nonsta[1]) {  
   nst <- yout
-  period <- 1
-} else {
-  if (yout <= (nonsta[1]+nonsta[2])) {
+} else if ((yout > nonsta[1]) && (yout <= (nonsta[1]+nonsta[2]))) {
     nst <- c(nonsta[1], yout) 
-    period <- 2
-  } else {
-    if (yout <= sum(nonsta)) {
+} else if ((yout > (nonsta[1] + nonsta[2])) && (yout <= sum(nonsta))) {
       if (nonsta[2]== 0) nst <- c(nonsta[1],yout)
       if (nonsta[2] > 0) nst <- c(nonsta[1],nonsta[1] + nonsta[2],yout)
-      period <- 3
-    }
-  }
 }
 
 for (q in c(1:length(nst))) {
@@ -61,14 +53,14 @@ for (q in c(1:length(nst))) {
                                      -tauIhat[ini:fin,])^2))  #germination fraction in year y
   tauIP <- colMeans(abs(tauP[ini:fin] - tauIhat[ini:fin,]))
   if (q==1) {  #include header columns if first period
-    write.table(matrix(data=c(as.numeric(jobID[1]),as.numeric(jobID[2]),j,period,nperiods,fin,
+    write.table(matrix(data=c(as.numeric(jobID[1]),as.numeric(jobID[2]),j,q,nperiods,fin,
                             sum(coexist[fin,]),coexist[fin,],alpha,c,Rstar,tauI,
                             gmean,tauIP),nrow=1),
             file=paste0(SummOut_loc,"SummaryOut",suffix),
             col.names = col.names.SummaryOut, row.names = FALSE,
             append=TRUE,sep="\t", quote=FALSE)
   } else { #exclude header columns if second or third period
-    write.table(matrix(data=c(as.numeric(jobID[1]),as.numeric(jobID[2]),j,period,nperiods,fin,
+    write.table(matrix(data=c(as.numeric(jobID[1]),as.numeric(jobID[2]),j,q,nperiods,fin,
                               sum(coexist[fin,]),coexist[fin,],alpha,c,Rstar,tauI,
                               gmean,tauIP),nrow=1),
                 file=paste0(SummOut_loc,"SummaryOut",suffix),
