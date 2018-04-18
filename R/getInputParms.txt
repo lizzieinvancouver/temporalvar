@@ -1,14 +1,5 @@
 nruns	nsp	varRstar	nonsta	tracking	vartauI	notes
-500	2	0	"1000,500,0"	1	1	"equal R*, overcome by tracking or tauI"
-500	2	0	"1000,500,0"	1	0	"equal R*, overcome by tracking"
-500	2	0	"1000,500,0"	0	1	"equal R*, overcome by tauI"
-500	2	"10,10.5"	"1000,500,0"	1	1	"fixed R* diff, overcome by tracking or tauI"
-500	2	"10,10.5"	"1000,500,0"	1	0	"fixed R* diff, overcome by tracking"
-500	2	"10,10.5"	"1000,500,0"	0	1	"fixed R* diff, overcome by tauI"
 500	2	1	"1000,500,0"	1	1	"tradeoff R*, tracking, tauI"
 500	2	1	"1000,500,0"	1	0	tradeoff R* and tracking
 500	2	1	"1000,500,0"	0	1	tradeoff R* and tauI
 500	2	1	"1000,0,0"	0	0	best R* wins
-500	2	0	"1000,0,0"	1	0	best tracker wins
-500	2	0	"1000,0,0"	0	1	best tauI wins
-500	2	0	"1000,0,0"	0	0	all equal species
