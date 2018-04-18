@@ -31,7 +31,7 @@
 \title{Coexistence and climate change: \\The role of
     temporal-variability in structuring future communities}
     \author{Wolkovich \& Donahue}
-\date{Last updated: 26 October 2017 \\ Boulder in the snow} % North Shore of Oahu/Cambridge
+\date{Last updated: 18 April 2018 (Oahu) \\ } % North Shore of Oahu/Cambridge/Boulder in the snow
 \maketitle 
 
 \begin{center}
@@ -65,115 +65,27 @@ ability of species to phenologically track the timing of major climate events. \
 
 \newpage
 
-\section{Notes from 26 October 2017}
+\section{Notes from meetings}
+\subsection{Notes from 18 April 2018}
+
+This was an exciting meeting as we had some big progress in deciding to work up a concept paper for the tracking project and coming up with an outline that seemed good with easily (err, we think) executable model runs. As such we've been working on the outline for the new paper, the model runs and culling/organzing these notes.
+
+\subsection{Notes from 26 October 2017}
 Okay, this was a short not super-productive meeting, but it was very short. We basically discussed:
 \begin{enumerate} 
 \item Needing to do the runs in ModelsRuns/RunHistory.csv
 \item Applying for some funding to get next project done on invasions: Maybe an NSF in January with Janneke Hille RisLambers and Eric Seabloom?
 \end{enumerate} 
 
+\subsection{Notes from 16 May 2017}
 
+We worked on an outline for the paper (in April 2018, Lizzie moved these notes to phencc.tex).
 
-\section{Notes from 16 May 2017}
-
-\subsection{Semi-outline} Naive assumption: Trackers will always win; but not always the case in a stationary or non-stationary world. 
-
-\begin{enumerate} 
-\item In a stationary world (SW):
-\begin{enumerate} 
-\item In a stationary world (SW) with no multispecies temporal niche: species with $min(\tau_i - \tau_{P.one.wold})$ wins. 
-\item  Simple temporal niche: $R^*$ trades off with $\tau_i$ (species with $\tau_i$ further from $\tau_P$ must have lower $R^*$.
-\item Dynamic temporal niche scenario 1: with no difference in $R^*$ among species, then the best tracker ($\alpha$) often wins, with some nuance about $\tau_i$ ... i.e., $\tau_i - \tau_p$ versus $\hat{\tau_i} - \tau_p$ ... something that is weakly tracking may be out-competed by a species with a better mean $\tau_i$. So we need to find cases where tracking does not beat out non-tracker. 
-\item  Dynamic temporal niche scenario 2:  $R^*$ trades off with $\alpha$ ... and the more complex version where $R^*$ trades off with $\alpha$ and $\tau_i$ combo: main point here is that what matter is $\hat{\tau_i}-\tau_P$
-\end{enumerate} 
-\item  In a non-stationary world (NSW):
-\begin{enumerate} 
-\item No multispecies temporal niche (just vary $\tau_i$ across species): with you shift from species $min(\tau_i - \tau_{p.old.world})$ to species with $min(\tau_i - \tau_{p.new.world})$ wins. 
-\item With dynamic temporal niche: consider just varying $\alpha$, then species with $max(\alpha)$ wins. 
-\item What happens to communities that were coexisting via $R*-\alpha$ trade-off? 
-\begin{enumerate}
-\item Perhaps tracking can trump $R^*$ ... Look at: cases where tracker outcompetes species with lower $R^*$ in nonstationary simulations.
-\item Maybe do runs with stationarity, then non-stationarity: this could tell you things like `these species will stop coexisting or X\% of runs now go extinct or this part of parameter space that was coexisting goes away first' ... we could also do runs with same params started non-stationary period and see if combinations become possible. \\ 
-\end{enumerate}
-\end{enumerate} 
-\end{enumerate} 
-
-\subsection{Misc:} 
+\emph{Misc:} 
 Look at 1 species coexistence where the better tracker went extinct. This is sort of just another version of take two coexisting species and show that the tracker can drive the lower $R^*$ extinct.\\
 
 Plot for `this part of parameter space that was coexisting goes away first' could be the old coexisting parameter space with color coding for how quickly during the non-stationary period they go away. 
 
-
-
-\newpage
-\section{Next steps, goals as of October 2017}
-\subsection{To do!}
-{\bf Finish the model to runs (on the server) in \verb|RunHistory.R| and review} ...Megan is working on this.
-
-\subsection{Old things from our January 2016 meeting that we have totally done}
-\begin{itemize}
-\item Make model take biomass for each species at its peak value (not at its end of season biomass).
-\item Decide on very specific model runs.
-\item git on Odyssey
-\end{itemize}
-
-\subsection{Things we may or may not have done yet...}
-
-\begin{itemize}
-\item {\bf Check $R^{*}$ component of model is working:} We suggested doing this in January 2016, but leaving it here to make sure we're okay:
-\begin{itemize}
-\item Behavior of each species once $R^{*}$ is reached
-\item Why do all species have a positive change at the last timestep?
-\end{itemize}
-\item {\bf Finish up model parameters:} Work on file with possible parameter values (Lizzie). 
-\item {\bf Decide on $q$ parameter values:}
-Lizzie needs to do this by getting some estimates of how much SOS will shift and then make it work that way in the mode. Some info on the model bit: $q$ is part of the $\beta$ distribution that define $\tau_{p}$ so we need to define an appropriate $q$ to start with and what $q$ to end with that will yeild a realstic amount of environmental change for our simulations. Right now we starts with $p$ and $q$ each being 2, yielding a normal distribution centered on 0.5 and pretty wide (remember $\beta$ is bounded at $0,1$ and 1, 1 would yield a uniform---as the numbers get bigger the distribution gets narrower), but then we just vary $q$ so we end up with a skewed distribution.. something like $5,15$ may be better.
-\end{itemize}
-
-
-\subsection{Schedule when to next meet}
-Maybe ... when?!
-
-% \subsection{Figure out rankings of species?} % from Dec 2013
-% This should come be R* (fluctuation independent) plus the equalizing bits (fluctuation dependent). Once we have this, it will be good to look at: (1) if the cut-off in coexistence shifts with nonstationarity and (2) how the spread between species shifts with nonstationarity.
-
-\newpage
-\section{Introduction}
-\noindent Understanding how plant communities will respond to climate change
-requires synthesizing information on both direct effects of climate on species
-and indirect effects driven by responses to other species'
-shifts. (Coexistence models based on variable environments allow us to
-do this, as species respond to shifting resources, which are
-influenced both by abiotic stressors and the use of the resource by
-other species.)
-
-\section{Overview of project and directions}
-\noindent 
-\begin{enumerate}
-\item We consider the effects of climate variation at both the
-intra-annual and inter-annual scale and scale up responses to
-short-term (1-10 yr?) and long-term (\(>\)100 yr) dynamics. 
-\item We also look at how species traits related to their responses to
-  climate variability effect coexistence and long-term diversity
-  maintenance. (This is the tracking part of the project.) 
-\end{enumerate}
-
-\noindent We also aim to make  this project more
-interesting, useful and forward-thinking than others by making
-scenarios most realistic---link to real climate scenarios or use
-existing data to rule out and in shifts in abiotic variables (and
-possibly species traits---we should have the data to estimate the
-percentage of species that track, trade-offs between competition and early flowering, maximum tracking and if only
-early-season species track, we could add that in, and of course we
-have a lot of climate data on hand). The new \emph{Physical Sciences Basis} of the IPCC came out in September 2013 so we have good recent estimates of how climate has and will shift.\\
-
-\noindent {\bf Products:} We currently envision two papers: 
-\begin{enumerate}
-\item \emph{How phenology and climate change structures future communities}
-\item \emph{Mayan megadroughts and climate change} 
-\end{enumerate}
-See below for outlines and info on each.
-\newpage
 
 \section{Notes from 7-13 January 2016}
 We started up in the library on Coconut Island and reviewed ...
@@ -241,6 +153,53 @@ on... {\bf the $R^*$ model of 2014 and before and phenological
 \item It still lets us get to the Mayan megadrought question (which
   requires a pulse size to have droughts occur). Yay!
 \end{smitemize}
+
+\newpage
+\section{Next steps, goals as of October 2017}
+
+\subsection{Things we may or may not have done yet...}
+
+\begin{itemize}
+\item Make model take biomass for each species at its peak value (not at its end of season biomass).... pretty sure we do this.
+\item {\bf Check $R^{*}$ component of model is working:} We suggested doing this in January 2016, but leaving it here to make sure we're okay:
+\begin{itemize}
+\item Behavior of each species once $R^{*}$ is reached
+\item Why do all species have a positive change at the last timestep?
+\end{itemize}
+\item {\bf Finish up model parameters:} Work on file with possible parameter values (Lizzie). 
+\item {\bf Decide on $q$ parameter values:}
+Lizzie needs to do this by getting some estimates of how much SOS will shift and then make it work that way in the mode. Some info on the model bit: $q$ is part of the $\beta$ distribution that define $\tau_{p}$ so we need to define an appropriate $q$ to start with and what $q$ to end with that will yeild a realstic amount of environmental change for our simulations. Right now we starts with $p$ and $q$ each being 2, yielding a normal distribution centered on 0.5 and pretty wide (remember $\beta$ is bounded at $0,1$ and 1, 1 would yield a uniform---as the numbers get bigger the distribution gets narrower), but then we just vary $q$ so we end up with a skewed distribution.. something like $5,15$ may be better.
+\end{itemize}
+
+\newpage
+\section{Overview of project and directions}
+\noindent 
+\begin{enumerate}
+\item We consider the effects of climate variation at both the
+intra-annual and inter-annual scale and scale up responses to
+short-term (1-10 yr?) and long-term (\(>\)100 yr) dynamics. 
+\item We also look at how species traits related to their responses to
+  climate variability effect coexistence and long-term diversity
+  maintenance. (This is the tracking part of the project.) 
+\end{enumerate}
+
+\noindent We also aim to make  this project more
+interesting, useful and forward-thinking than others by making
+scenarios most realistic---link to real climate scenarios or use
+existing data to rule out and in shifts in abiotic variables (and
+possibly species traits---we should have the data to estimate the
+percentage of species that track, trade-offs between competition and early flowering, maximum tracking and if only
+early-season species track, we could add that in, and of course we
+have a lot of climate data on hand). The new \emph{Physical Sciences Basis} of the IPCC came out in September 2013 so we have good recent estimates of how climate has and will shift.\\
+
+\noindent {\bf Products:} We currently envision two papers: 
+\begin{enumerate}
+\item \emph{How phenology and climate change structures future communities}
+\item \emph{Mayan megadroughts and climate change} 
+\end{enumerate}
+See below for outlines and info on each.
+\newpage
+
 
 \section{Current plans for products}
 \subsection{Phenology \& climate change paper}\label{phenCCpaper}

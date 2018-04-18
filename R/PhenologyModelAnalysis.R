@@ -7,7 +7,7 @@
 ######################
 ### To do items!!! ###
 ######################
-# (*) deal with UNLIST issue in source code
+# #
 ######################
 
 ## housekeeping
@@ -31,6 +31,23 @@ runbout <- FALSE
 runs3 <- c("41801534", "41801535", "41801556", "41801557", "41801558", "41801559",
     "41801560", "41801561", "41801567", "41801578", "41801579") # new set as of 17 Apr 2018
 
+# runinfo <- read.table("Table_of_RunParms.txt", skip=1, header=TRUE)
+
+# varying:
+# tauI, Rstar <- 41801567 <- 0 coexist
+# alpha, Rstar <- 41801561 <- 1 coexist
+# tauI, alpha <- 41801534 <- 179/4000 rows
+
+# tauI, alpha with 10 rstar <- 41801557 <- 27/3205
+# alpha with 10 rstar <- 41801558 <- 31/3436
+# tauI with 10 rstar <- 41801559 <- 25/6189
+
+# alpha, tauI, Rstar <- 41801560 <- 25/1885
+
+# Rstar <-  41801578 <- 1/346
+# alpha <- 41801579 <- 7/178
+# alpha  <- 41801535 <- 219/4221
+# tauI  <- 41801556 <- 83/6239
 
 ##############################
 ## Notes on other runs .... ##
@@ -45,7 +62,7 @@ runs2 <- c(paste("417251", 25:32, sep="")) # new set as of 16 Apr 2018
 #########################################
 ## Do some data reading and formatting ##
 #########################################
-runnow <- runs3 # c("41801534") 
+runnow <- c("41801534")  #runs3 
 
 for(folderIDhere in c(1:length(runnow))){
     
@@ -99,7 +116,7 @@ df.t2.wp <- subset(df, period==2)
 df.long <- df.t2.wp[which(df.t2.wp$taskrunID %in% unique(df.coexist1$taskrunID)),]
 df.long.exist <- subset(df.long, coexist1==1 | coexist2==1)
 df.long.noexist <- subset(df.long, coexist1==0 | coexist2==0)
-
+}
 
 ###############
 ## Plotting! ##
@@ -107,7 +124,13 @@ df.long.noexist <- subset(df.long, coexist1==0 | coexist2==0)
 coexist3col <- add.alpha(c("firebrick", "dodgerblue", "seagreen"), alpha=0.4)
 # col2rgb helps here ...
 leg.txt <- c("2 survive", "1 left", "poof")
+
 plot.paramdiffs(df.plot, "tauIP.alpha", "ratio.tauIP", "ratio.alpha")
+plot.paramdiffs(df.plot, "tauI.alpha", "ratio.tauI", "ratio.alpha")
+
+plot.paramdiffs(df.plot, "tauI.alpha.diff", "diff.tauIP", "diff.alpha")
+plot.paramdiffs(df.plot, "tauI.alpha.diff", "diff.tauI", "diff.alpha")
+
 
 ## histograms
 breaknum <- 20
@@ -117,10 +140,9 @@ par(new=TRUE)
 hist(c(df.long.noexist$tauI1, df.long.noexist$tau2), xlim=c(0,1), ylim=c(0,30),
      breaks=breaknum, col=coexist3col[1], main="", xlab="", ylab="") 
 
-
 plot.histograms(df.long.exist, df.long.noexist, "tauI", "tauI1", "tauI2",
-    coexist3col, 20, c(0,1), c(0,40))
-}
+    coexist3col, seq(from=0, to=1, by=0.05), c(0,1), c(0,40))
+
 ###
 
 
