@@ -2,6 +2,8 @@
 paste0("Sys.getenv(PHEN_RUNNUM) = ",Sys.getenv("PHEN_RUNNUM"))
 runflag <- ifelse(Sys.getenv("PHEN_RUNNUM")=="",1,as.numeric(Sys.getenv("PHEN_RUNNUM")))
 
+datesuffix <- (paste0(loc,"output/Table_of_RunParms",format(Sys.time(),"%Y-%m-%d"),".txt"))
+
 #jobID: jobID & taskID if slurm; randomly gen 7digit nubmer starting with 999 if local
 if(Sys.getenv("SLURM_ARRAY_JOB_ID")=="") {
   jobID <- c(paste0("999",trunc(runif(1,1000,9999))),"1")
@@ -23,7 +25,7 @@ if(!dir.exists(file.path(OtherOut_loc))) dir.create(file.path(OtherOut_loc))
 
 suffix <- paste0("_",jobID[1],"-",jobID[2],".txt") #unique for each array in batchfile
 
-sink(paste0(OtherOut_loc,"sink_",jobID[1],"-",jobID[2],".Rout"))
+#sink(paste0(OtherOut_loc,"sink_",jobID[1],"-",jobID[2],".Rout"))
 
   inputs <- as.data.frame(read.table(file=paste0(loc,"getInputParms.txt"),
                                      header=TRUE,stringsAsFactors=FALSE,sep="\t"))
