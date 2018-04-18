@@ -9,11 +9,11 @@ library(deSolve)
 #define run conditions
 #loc <- "C:/Users/Megan/Documents/GitHub/temporalvar/R/"  
 loc <- "/n/wolkovich_lab/temporalvar/R/"
-datesuffix <- (paste0(loc,"output/Table_of_RunParms",format(Sys.time(),"%Y-%m-%d"),".txt"))
 source(paste0(loc, "sourcefiles/getRunParms.R")) #define runtime parameters
 
 for (j in c(1:nruns)){
   
+  paste("run ",j,"of ",nruns)
   #define parameters and functions for this run
   source(paste0(loc,"sourcefiles/getEnvt.R"))  #get constant and time-varying envt parms
   source(paste0(loc,"sourcefiles/getSpecies.R"))  #get species characteristics and Rstar
@@ -51,7 +51,7 @@ for (j in c(1:nruns)){
         #give Bout a value for the last iteration
         Bout[[y]] <- Bout[[y-1]][1,]*0 + c(0,R0[y],b*g[y,]*N[y,]) #get list formatting from prior year
         Bfin[y,] <- b*g[y,]*N[y,]
-        #print("All species have gone extinct, go to next run")
+        print("All species have gone extinct in year",y )
         break    #if all species have gone extinct, go to next run
       }
     }
@@ -71,8 +71,9 @@ for (j in c(1:nruns)){
   }
   ## modelruns includes the variables that are constant across years in one dataframe...
   # then tauI, tauP and Bfin for each year
+  paste("print output at yout =", yout)
   yout <- y
   source(paste0(loc,"sourcefiles/getOutput.R"))
 
 }
-sink()
+
