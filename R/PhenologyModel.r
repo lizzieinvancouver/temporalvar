@@ -9,6 +9,7 @@ library(deSolve)
 #define run conditions
 #loc <- "C:/Users/Megan/Documents/GitHub/temporalvar/R/"  
 loc <- "/n/wolkovich_lab/temporalvar/R/"
+datesuffix <- (paste0(loc,"output/Table_of_RunParms",format(Sys.time(),"%Y-%m-%d"),".txt"))
 source(paste0(loc, "sourcefiles/getRunParms.R")) #define runtime parameters
 
 for (j in c(1:nruns)){

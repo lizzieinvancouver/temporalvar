@@ -1,4 +1,5 @@
 #getSpecies characteristics
+#write out Species Parms and Envt Parms
 
 #survivorship
 s <-  rep(0.8,nsp)      # seedbank survival overwinter
