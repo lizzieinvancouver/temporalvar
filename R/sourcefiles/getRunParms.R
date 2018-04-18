@@ -61,13 +61,13 @@ col.names.runparms <- c("arrayID","taskID","nruns","nsp","nyrs",
 #             append = FALSE, sep= "\t",quote=FALSE)
 
 #write run conditions to Table of RunParms
-if(!file.exists(file.path(paste0(loc,"output/Table_of_RunParms.txt")))) {
-  file.create(file.path(paste0(loc,"output/Table_of_RunParms.txt")))
+if(!file.exists(file.path(paste0(loc,"output/Table_of_RunParms",datesuffix,".txt")))) {
+  file.create(file.path(paste0(loc,"output/Table_of_RunParms",datesuffix,".txt")))
   col.names.Table_of_RunParms = col.names.runparms
 } else {
   col.names.Table_of_RunParms = FALSE
 }
-write.table(runparms,file=paste0(loc,"output/Table_of_RunParms.txt"),
+write.table(runparms,file=paste0(loc,"output/Table_of_RunParms",datesuffix,".txt"),
             col.names = col.names.Table_of_RunParms,row.names = FALSE,
             append = TRUE, sep = "\t", quote=FALSE)
   
