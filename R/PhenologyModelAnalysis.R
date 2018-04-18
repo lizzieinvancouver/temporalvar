@@ -28,20 +28,28 @@ source("sourcefiles/analyses/runanalysisfxs.R")
 runbout <- FALSE
 
 # cheap loop over the files for now
-runs1 <- c("36426477", "36511349", "36511352", "36691943","36511384", "36691954", "36691955", "36691956") # this is the set from Feb 2018
-runs2 <- c(paste("417251", 25:32, sep="")) # new set as of 16 Apr 2018
+runs3 <- c("41801534", "41801535", "41801556", "41801557", "41801558", "41801559",
+    "41801560", "41801561", "41801567", "41801578", "41801579") # new set as of 17 Apr 2018
+
 
 ##############################
-## Set tauP for the graphs! ##
+## Notes on other runs .... ##
 ##############################
-source("sourcefiles/analyses/tauP.R")
+runs1 <- c("36426477", "36511349", "36511352", "36691943","36511384", "36691954",
+    "36691955", "36691956") # this is the set from Feb 2018
+runs2 <- c(paste("417251", 25:32, sep="")) # new set as of 16 Apr 2018
+# EMPTY: "41725133", "41774659", "41775246", "41776446", "41779263","41779441"
+# Note that , "41801581" ends at 33 (not 40)
+# not coexisting after p2: "41801580"
 
 #########################################
 ## Do some data reading and formatting ##
 #########################################
-for(folderIDhere in c(1:length(runs2))){
+runnow <- c("41801534") # runs3
+
+for(folderIDhere in c(1:length(runnow))){
     
-folderID <- runs2[folderIDhere] # folderID <- 41725129
+folderID <- runnow[folderIDhere] # folderID <- 41801534
 samplerun <-  read.table(paste("output/SummaryFiles/", folderID, "/SummaryOut_", folderID,
     "-1.txt", sep=""), header=TRUE)
 filenamestart <- c(paste("SummaryOut_", folderID, "-", sep=""))
@@ -50,10 +58,9 @@ numhere <- c(1:40)
 
 runs1 <- getfiles(folderID, filenamestart, numhere, colnameshere)
 runs1$taskrunID <- paste(runs1$taskID, runs1$runID, sep="-")
-
-    
+ 
 ##
-## Data formatting 
+## Data formatting to compare species pairs
 ##
 df <- makediffs(runs1)
 df.coexist <- subset(df, ncoexist==2)
@@ -61,94 +68,69 @@ print(paste("the current folder ID is", folderID, "the total rows are:", nrow(df
     "and the total coexisting rows are:", nrow(df.coexist), sep=" "))
 }
 
-## START HERE!! ## 
-# add on who coexisted by end
+
+##############################
+## Set tauP for the graphs! ##
+##############################
+if(FALSE){
+source("sourcefiles/analyses/tauP.R")
+ggplot(tauP.plot, aes(x=tauP, fill=when)) + geom_density(alpha=0.25)
+}
+
+#################################
+## Plotting-related formatting ##
+#################################
+
+##
+## Data formatting to compare species pairs in plots ...
+## Build df of just coexisting in period 1 (stat) and keep in wide format 
+##
 df.coexist1 <- subset(df, ncoexist==2 & period==1)
-print(paste("the current folder ID is", folderID, "the total rows are:", nrow(df), 
-    "and the total coexisting rows are:", nrow(df.coexist), sep=" "))
 df.t2 <- subset(df, period==2)
 df.t2 <- subset(df.t2, select=c("jobID", "taskID", "runID", "ncoexist", "taskrunID"))
-df.plot <- merge(df.coexist1, df.t2, by=c("jobID", "taskID", "runID", "taskrunID"), all.x=TRUE, all.y=FALSE)
-
-
-ggplot(tauP.plot, aes(x=tauP, fill=when)) + geom_density(alpha=0.25)
-
+df.plot <- merge(df.coexist1, df.t2, by=c("jobID", "taskID", "runID", "taskrunID"),
+    all.x=TRUE, all.y=FALSE, suffixes=c(".t1", ".t2"))
 
 ##
-## Plotting 
+## Data formatting to compare species in histograms
+## Get runs with coexist=2 in period 1 (stat), keep data only in period 2 (ns)
 ##
-## Look at the differences in parameters between the two species
-# and color dots by coexisting yay or nay
-plot.params(df, df.coexist, "alpha", "alpha1", "alpha2")
-plot.params(df, df.coexist, "tauI", "tauIPini1_pre", "tauIPini2_pre")
-plot.params(df, df.coexist, "germ", "g1mean_pre", "g2mean_pre")
-plot.params(df, df.coexist, "c", "c1", "c2")
-plot.params(df, df.coexist, "rstar", "Rstar1", "Rstar2")
-    
-## Look at parameter differences between species
-plot.paramdiffs(df, df.coexist, "rstar_vs_tauI_ratios", "ratio.tauIP", "ratio.rstar")
-plot.paramdiffs(df, df.coexist, "rstar_vs_alpha_ratios", "ratio.alpha", "ratio.rstar")
-}
+df.t2.wp <- subset(df, period==2)
+# get just the period 2 runs that had coexistence in period 1
+df.long <- df.t2.wp[which(df.t2.wp$taskrunID %in% unique(df.coexist1$taskrunID)),]
+df.long.exist <- subset(df.long, coexist1==1 | coexist2==1)
+df.long.noexist <- subset(df.long, coexist1==0 | coexist2==0)
 
 
+###############
+## Plotting! ##
+###############
+coexist3col <- add.alpha(c("firebrick", "dodgerblue", "seagreen"), alpha=0.4)
+# col2rgb helps here ...
+leg.txt <- c("2 survive", "1 left", "poof")
+plot.paramdiffs(df.plot, "tauIP.alpha", "ratio.tauIP", "ratio.alpha")
 
-####################################################
-## Loop over all folders with non-stationary runs ##
-####################################################
-for(folderIDhere in c(1:length(nsruns))){
-    
-folderID <- nsruns[folderIDhere]
-samplerun <-  read.table(paste("output/", folderID, "/SummaryOut_", folderID,
-    "-1.txt", sep=""), header=TRUE)
-filenamestart <- c(paste("SummaryOut_", folderID, "-", sep=""))
-colnameshere <- colnames(samplerun)
-numhere <- c(1:20)
-
-runs1 <- getfiles(folderID, filenamestart, numhere, colnameshere)
-runs1$taskrunID <- paste(runs1$taskID, runs1$runID, sep="-")
-    
-##
-## Data formatting 
-##
-df <- makediffs.ns(runs1)
-df.coexist <- subset(df, ncoexist==2)
-print(paste("the current folder ID is", folderID, "the total rows are:", nrow(df), 
-    "and the total coexisting rows are:", nrow(df.coexist), sep=" "))
- 
-##
-## Get a list of X coexisting and not coexisting runs 
-##
-howmanytoget <- 10
-df.nocoexist <- subset(df, ncoexist==0)
-subsample <- rbind(df.coexist[1:howmanytoget,], df.nocoexist[1:howmanytoget,])
-write.csv(subsample, file=paste("output/", folderID, "/", "subsample", ".csv", sep=""))
-
-##
-## Plotting 
-##
-## Look at the differences in parameters between the two species
-# and color dots by coexisting yay or nay
-plot.params(df, df.coexist, "alpha", "alpha1", "alpha2")
-plot.params(df, df.coexist, "tauI", "tauIPini1_pre", "tauIPini2_pre")
-plot.params(df, df.coexist, "tauI", "tauIPns1_pre", "tauIPns2_pre")
-plot.params(df, df.coexist, "tauI", "tauIPfin1_pre", "tauIPfin2_pre")
-plot.params(df, df.coexist, "germ", "g1mean_pre", "g2mean_pre")
-plot.params(df, df.coexist, "c", "c1", "c2")
-plot.params(df, df.coexist, "rstar", "Rstar1", "Rstar2")
-    
-## Look at parameter differences between species
-    ## Need to add in tauI ns and tauI fin!! ##
-plot.paramdiffs(df, df.coexist, "rstar_vs_alpha", "diff.alpha", "diff.rstar")
-plot.paramdiffs(df, df.coexist, "rstar_vs_tauIPini", "diff.tauIPini_pre", "diff.rstar")
-plot.paramdiffs(df, df.coexist, "g_vs_tauIPini", "diff.tauIPini_pre", "diff.gmean")
-plot.paramdiffs(df, df.coexist, "g_vs_alpha", "diff.alpha", "diff.gmean")
-plot.paramdiffs(df, df.coexist, "g_vs_c", "diff.c", "diff.gmean")
-plot.paramdiffs(df, df.coexist, "rstar_vs_tauI_ratios", "ratio.tauIini_pre", "ratio.rstar")
-plot.paramdiffs(df, df.coexist, "rstar_vs_alpha_ratios", "ratio.alpha", "ratio.rstar")
-}
+## histograms
+breaknum <- 20
+hist(c(df.long.exist$tauI1, df.long.exist$tau2), xlim=c(0,1), ylim=c(0,30),
+     breaks=breaknum, col=coexist3col[3], main="", xlab="number")
+par(new=TRUE)
+hist(c(df.long.noexist$tauI1, df.long.noexist$tau2), xlim=c(0,1), ylim=c(0,30),
+     breaks=breaknum, col=coexist3col[1], main="", xlab="", ylab="") 
 
 
+plot.histograms(df.long.exist, df.long.noexist, "tauI", "tauI1", "tauI2",
+    coexist3col, 20, c(0,1), c(0,40))
 
+###
+
+
+# ggplot(df.plot, aes(x=ratio.tauIP, color=as.factor(ncoexist.t2), fill=as.factor(ncoexist.t2))) +
+#    geom_histogram(alpha=0.5, position="identity")
+
+# ggplot() + geom_density(data=tauP.plot, aes(x=tauP), alpha=0.25) +
+#    geom_histogram(data=df.plot, aes(x=tauI1, color=as.factor(ncoexist.t2), fill=as.factor(ncoexist.t2)))
+###
 
 
 stop(print("stopping here..."))
