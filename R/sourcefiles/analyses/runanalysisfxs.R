@@ -35,10 +35,10 @@ getBoutfiles.list <- function(folderID, boutfilenamestart){
 # add tauI! 
 makediffs <- function(df){
     dathere <- df
-    dathere$c.rstar <-  as.numeric(dathere$c1)/as.numeric(dathere$c2)
-    dathere$ratio.rstar <-  as.numeric(dathere$Rstar1)/as.numeric(dathere$Rstar2)
-    dathere$ratio.tauIP <- as.numeric(dathere$tauIP1_mean)/as.numeric(dathere$tauIP2_mean)
-    dathere$ratio.alpha <- as.numeric(dathere$alpha1)/as.numeric(dathere$alpha2)
+    dathere$c.rstar <-  dathere$c1/dathere$c2
+    dathere$ratio.rstar <-  dathere$Rstar1/dathere$Rstar2
+    dathere$ratio.tauIP <- dathere$tauIP1_mean/dathere$tauIP2_mean
+    dathere$ratio.alpha <-dathere$alpha1/dathere$alpha2
     return(dathere)
     }
 
@@ -87,7 +87,7 @@ plot.histograms <- function(df1, df2, figname, colname.x1, colname.x2,
     pdf(paste("graphs/modelruns/histograms/run_", folderID, figname, ".pdf", sep=""),
         width=5, height=4)
         hist(c(unlist(df1[colname.x1]), unlist(df1[colname.x2])), xlim=xlim, ylim=ylim,
-            breaks=breaknum, col=collist[3], main="", xlab=colname.x)
+            breaks=breaknum, col=collist[3], main="", xlab=colname.x1)
         par(new=TRUE)
         hist(c(unlist(df2[colname.x1]), unlist(df2[colname.x2])), xlim=xlim, ylim=ylim,
             breaks=breaknum, col=collist[1], main="", xlab="", ylab="") 

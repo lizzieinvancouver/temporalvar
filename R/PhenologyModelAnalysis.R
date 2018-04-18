@@ -7,7 +7,7 @@
 ######################
 ### To do items!!! ###
 ######################
-# Remember to remove as.numeric() from the runanalysis.R file ... just in there for now as Megan fixes things
+# (*) deal with UNLIST issue in source code
 ######################
 
 ## housekeeping
@@ -45,7 +45,7 @@ runs2 <- c(paste("417251", 25:32, sep="")) # new set as of 16 Apr 2018
 #########################################
 ## Do some data reading and formatting ##
 #########################################
-runnow <- c("41801534") # runs3
+runnow <- runs3 # c("41801534") 
 
 for(folderIDhere in c(1:length(runnow))){
     
@@ -66,7 +66,6 @@ df <- makediffs(runs1)
 df.coexist <- subset(df, ncoexist==2)
 print(paste("the current folder ID is", folderID, "the total rows are:", nrow(df), 
     "and the total coexisting rows are:", nrow(df.coexist), sep=" "))
-}
 
 
 ##############################
@@ -121,7 +120,7 @@ hist(c(df.long.noexist$tauI1, df.long.noexist$tau2), xlim=c(0,1), ylim=c(0,30),
 
 plot.histograms(df.long.exist, df.long.noexist, "tauI", "tauI1", "tauI2",
     coexist3col, 20, c(0,1), c(0,40))
-
+}
 ###
 
 
