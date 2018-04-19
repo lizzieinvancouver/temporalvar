@@ -1,8 +1,8 @@
 #Runtime Parameters (if running locally, then only use first line of getInputParms)
-paste0("Sys.getenv(PHEN_RUNNUM) = ",Sys.getenv("PHEN_RUNNUM"))
+print(paste("Sys.getenv(PHEN_RUNNUM) = ",Sys.getenv("PHEN_RUNNUM")))
 runflag <- ifelse(Sys.getenv("PHEN_RUNNUM")=="",1,as.numeric(Sys.getenv("PHEN_RUNNUM")))
 
-datesuffix <- (paste0(loc,"output/Table_of_RunParms",format(Sys.time(),"%Y-%m-%d"),".txt"))
+datesuffix <- (paste0(format(Sys.time(),"%Y-%m-%d")))
 
 #jobID: jobID & taskID if slurm; randomly gen 7digit nubmer starting with 999 if local
 if(Sys.getenv("SLURM_ARRAY_JOB_ID")=="") {
@@ -10,6 +10,7 @@ if(Sys.getenv("SLURM_ARRAY_JOB_ID")=="") {
 } else {
   jobID <- Sys.getenv(c("SLURM_ARRAY_JOB_ID","SLURM_ARRAY_TASK_ID")) 
 }
+print(paste("jobID is ",jobID))
 
 #output parms & folder locations
 writeBout <- 1  #default=1; flag indicating how often Bout should be written (0=never, n = every n runs)
@@ -63,13 +64,14 @@ col.names.runparms <- c("arrayID","taskID","nruns","nsp","nyrs",
 #             append = FALSE, sep= "\t",quote=FALSE)
 
 #write run conditions to Table of RunParms
-if(!file.exists(file.path(paste0(loc,"output/Table_of_RunParms",datesuffix,".txt")))) {
-  file.create(file.path(paste0(loc,"output/Table_of_RunParms",datesuffix,".txt")))
+fileparms <- paste0(loc,"output/Table_of_RunParms_",datesuffix,".txt")
+if(!file.exists(file.path(fileparms))) {
+  file.create(file.path(fileparms))
   col.names.Table_of_RunParms = col.names.runparms
 } else {
   col.names.Table_of_RunParms = FALSE
 }
-write.table(runparms,file=paste0(loc,"output/Table_of_RunParms",datesuffix,".txt"),
+write.table(runparms,file=fileparms,
             col.names = col.names.Table_of_RunParms,row.names = FALSE,
             append = TRUE, sep = "\t", quote=FALSE)
   
