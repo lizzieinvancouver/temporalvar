@@ -1,5 +1,6 @@
 #Runtime Parameters (if running locally, then only use first line of getInputParms)
 print(paste("Sys.getenv(PHEN_RUNNUM) = ",Sys.getenv("PHEN_RUNNUM")))
+print(paste("JOB_ID = ", Sys.getenv("SLURM_ARRAY_JOB_ID")))
 runflag <- ifelse(Sys.getenv("PHEN_RUNNUM")=="",1,as.numeric(Sys.getenv("PHEN_RUNNUM")))
 
 datesuffix <- (paste0(format(Sys.time(),"%Y-%m-%d")))
