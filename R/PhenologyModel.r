@@ -9,6 +9,7 @@ library(deSolve)
 #define run conditions
 #loc <- "C:/Users/Megan/Documents/GitHub/temporalvar/R/"  
 loc <- "/n/wolkovich_lab/temporalvar/R/"
+
 source(paste0(loc, "sourcefiles/getRunParms.R")) #define runtime parameters
 
 for (j in c(1:nruns)){
@@ -78,4 +79,7 @@ for (j in c(1:nruns)){
   source(paste0(loc,"sourcefiles/getOutput.R"))
 
 }
+#stop redirecting Rout that was initiated in getRunParms
+sink(type="message")
+sink(type="output")
 
