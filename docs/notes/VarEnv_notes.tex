@@ -23,7 +23,7 @@
 
 \usepackage{fancyhdr}
 \pagestyle{fancy}
-\fancyhead[LO]{October 2017}
+\fancyhead[LO]{April 2018}
 \fancyhead[RO]{Variable environments \& climate change}
 
 \begin{document}
@@ -31,7 +31,7 @@
 \title{Coexistence and climate change: \\The role of
     temporal-variability in structuring future communities}
     \author{Wolkovich \& Donahue}
-\date{Last updated: 18 April 2018 (Oahu) \\ } % North Shore of Oahu/Cambridge/Boulder in the snow
+\date{Last updated: 19 April 2018 (Oahu) \\ } % North Shore of Oahu/Cambridge/Boulder in the snow
 \maketitle 
 
 \begin{center}
@@ -64,8 +64,47 @@ ability of species to phenologically track the timing of major climate events. \
 \tableofcontents
 
 \newpage
+\section{Things we may or may not have done yet... to review}
+
+\begin{itemize}
+\item Make model take biomass for each species at its peak value (not at its end of season biomass).... pretty sure we do this.
+\item {\bf Check $R^{*}$ component of model is working:} We suggested doing this in January 2016, but leaving it here to make sure we're okay:
+\begin{itemize}
+\item Behavior of each species once $R^{*}$ is reached
+\item Why do all species have a positive change at the last timestep?
+\end{itemize}
+\item {\bf Finish up model parameters:} Work on file with possible parameter values (Lizzie). 
+\item {\bf Decide on $q$ parameter values:}
+Lizzie needs to do this by getting some estimates of how much SOS will shift and then make it work that way in the mode. Some info on the model bit: $q$ is part of the $\beta$ distribution that define $\tau_{p}$ so we need to define an appropriate $q$ to start with and what $q$ to end with that will yeild a realstic amount of environmental change for our simulations. Right now we starts with $p$ and $q$ each being 2, yielding a normal distribution centered on 0.5 and pretty wide (remember $\beta$ is bounded at $0,1$ and 1, 1 would yield a uniform---as the numbers get bigger the distribution gets narrower), but then we just vary $q$ so we end up with a skewed distribution.. something like $5,15$ may be better.
+\end{itemize}
+
+\newpage
+\section{Overview of project and directions}
+\noindent 
+\begin{enumerate}
+\item We consider the effects of climate variation with a model that considers dynamics at both the
+intra-annual and inter-annual scale. % and scale up responses to short-term (1-10 yr?) and long-term (\(>\)100 yr) dynamics. 
+\item We look at how species traits related to their responses to
+  climate variability effect coexistence and long-term persistence in the community
+  maintenance. (This is the tracking part of the project.) 
+\end{enumerate}
+
+\noindent We also aim to make  this project more
+interesting, useful and forward-thinking than others by making
+scenarios somewhat most realistic---we'll try to mention/use
+existing data to rule out and in shifts in abiotic variables (and
+possibly species traits). The \emph{Physical Sciences Basis} of the IPCC came out in September 2013 so we have good recent estimates of how climate has and will shift.\\
+% if only early-season species track, we used to day that we could add that in.
+
+\noindent {\bf Products:} We currently envision two papers: 
+\begin{enumerate}
+\item \emph{How phenology and climate change structures future communities}
+\item \emph{Mayan megadroughts and climate change} 
+\end{enumerate}
+See below (or see other files) for outlines and info on each.
 
 \section{Notes from meetings}
+\emph{These are notes from our meetings that basically outline what we did. I have tried to remove an critical information. Meaning: you don't really need to read this if you don't want to, unless you're looking for notes on why we didn't do things or when we did certain things.}
 \subsection{Notes from 18 April 2018}
 
 This was an exciting meeting as we had some big progress in deciding to work up a concept paper for the tracking project and coming up with an outline that seemed good with easily (err, we think) executable model runs. As such we've been working on the outline for the new paper, the model runs and culling/organzing these notes.
@@ -78,14 +117,12 @@ Okay, this was a short not super-productive meeting, but it was very short. We b
 \end{enumerate} 
 
 \subsection{Notes from 16 May 2017}
-
 We worked on an outline for the paper (in April 2018, Lizzie moved these notes to phencc.tex).
 
 \emph{Misc:} 
 Look at 1 species coexistence where the better tracker went extinct. This is sort of just another version of take two coexisting species and show that the tracker can drive the lower $R^*$ extinct.\\
 
 Plot for `this part of parameter space that was coexisting goes away first' could be the old coexisting parameter space with color coding for how quickly during the non-stationary period they go away. 
-
 
 \section{Notes from 7-13 January 2016}
 We started up in the library on Coconut Island and reviewed ...
@@ -155,56 +192,11 @@ on... {\bf the $R^*$ model of 2014 and before and phenological
 \end{smitemize}
 
 \newpage
-\section{Next steps, goals as of October 2017}
-
-\subsection{Things we may or may not have done yet...}
-
-\begin{itemize}
-\item Make model take biomass for each species at its peak value (not at its end of season biomass).... pretty sure we do this.
-\item {\bf Check $R^{*}$ component of model is working:} We suggested doing this in January 2016, but leaving it here to make sure we're okay:
-\begin{itemize}
-\item Behavior of each species once $R^{*}$ is reached
-\item Why do all species have a positive change at the last timestep?
-\end{itemize}
-\item {\bf Finish up model parameters:} Work on file with possible parameter values (Lizzie). 
-\item {\bf Decide on $q$ parameter values:}
-Lizzie needs to do this by getting some estimates of how much SOS will shift and then make it work that way in the mode. Some info on the model bit: $q$ is part of the $\beta$ distribution that define $\tau_{p}$ so we need to define an appropriate $q$ to start with and what $q$ to end with that will yeild a realstic amount of environmental change for our simulations. Right now we starts with $p$ and $q$ each being 2, yielding a normal distribution centered on 0.5 and pretty wide (remember $\beta$ is bounded at $0,1$ and 1, 1 would yield a uniform---as the numbers get bigger the distribution gets narrower), but then we just vary $q$ so we end up with a skewed distribution.. something like $5,15$ may be better.
-\end{itemize}
-
-\newpage
-\section{Overview of project and directions}
-\noindent 
-\begin{enumerate}
-\item We consider the effects of climate variation at both the
-intra-annual and inter-annual scale and scale up responses to
-short-term (1-10 yr?) and long-term (\(>\)100 yr) dynamics. 
-\item We also look at how species traits related to their responses to
-  climate variability effect coexistence and long-term diversity
-  maintenance. (This is the tracking part of the project.) 
-\end{enumerate}
-
-\noindent We also aim to make  this project more
-interesting, useful and forward-thinking than others by making
-scenarios most realistic---link to real climate scenarios or use
-existing data to rule out and in shifts in abiotic variables (and
-possibly species traits---we should have the data to estimate the
-percentage of species that track, trade-offs between competition and early flowering, maximum tracking and if only
-early-season species track, we could add that in, and of course we
-have a lot of climate data on hand). The new \emph{Physical Sciences Basis} of the IPCC came out in September 2013 so we have good recent estimates of how climate has and will shift.\\
-
-\noindent {\bf Products:} We currently envision two papers: 
-\begin{enumerate}
-\item \emph{How phenology and climate change structures future communities}
-\item \emph{Mayan megadroughts and climate change} 
-\end{enumerate}
-See below for outlines and info on each.
-\newpage
-
-
 \section{Current plans for products}
 \subsection{Phenology \& climate change paper}\label{phenCCpaper}
+See also \ref{trackingthoughts} and \ref{genoutline}, both below.\\
 
-See also \ref{trackingthoughs} and \ref{genoutline}, both below.\\
+{\bf *The below notes are also in phencc.tex!}
 
 \noindent Possible titles: `Phenological tracking: It's more complicated than you think' (we hope) or `Phenological tracking: Is it naive?'
 \begin{enumerate}
@@ -631,7 +623,6 @@ growing season. Thus I changed this `season-length' \(h\) to
 
 \subsection{How biomass is converted to seed and growing seasons end}
 
-
 \noindent \emph{The way the growing season ends in the equations is
 interesting.} First, as brilliantly stated: the growing seasons ends
 [in these equations] when plants stop growing. And, related, the
@@ -682,6 +673,7 @@ These are a little sloppy in that the pulse is supposed to be separate from the 
 Can we simplify within-year dynamics to focus on a better model for timing (see photo of October 2013 whiteboard that Megan has)? To rephrase this: Our internal equation is basically R* rankings, so could we create a `deterministic look up table' for the within-year dynamics so we can think more carefully about the timing part of this.  (Related note from 2012 meeting: Decide if we need to ODE solve the intra-annual
   dynamics, then use the discretized version only inter-annually. Note from Lizzie: best ODE solver is now in package `desolve.')
 
+% START HERE!!!
 \section{Coexistence with climate change: Notes related to implementing and writing}\label{genoutline}
 
 \subsection{Current outline for paper}
@@ -864,7 +856,7 @@ In nature early species have quicker-return investments on growth and early is o
 Without tracking we may predict benefits to early-colonizers decline with earlier seasons. As start-date moves earlier, early folks lose benefit (assuming they tend to often go at optimum time) and you get more late folks. Late species may be less different than one another---and less responsive to environment. Early folks, effectively, become more similar to environment. 
 
 \newpage
-\section{Tracking thoughts \& fun}\label{trackingthoughs}
+\section{Tracking thoughts \& fun}\label{trackingthoughts}
 In August 2012 Megan came up with a new way to model phenological tracking, it's linear and better than the one presented here. We also discussed three key ways to think of tracking:
 \begin{enumerate}
 \item Species can have fixed flowering/leafing (not track).
