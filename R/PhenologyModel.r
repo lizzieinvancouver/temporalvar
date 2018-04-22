@@ -8,7 +8,8 @@ library(deSolve)
 
 #define run conditions
 #loc <- "C:/Users/Megan/Documents/GitHub/temporalvar/R/"  
-loc <- "/n/wolkovich_lab/temporalvar/R/"
+#loc <- "/n/wolkovich_lab/temporalvar/R/"
+loc <- "/n/regal/wolkovich_lab/temporalvar/R/"
 
 source(paste0(loc, "sourcefiles/getRunParms.R")) #define runtime parameters
 
