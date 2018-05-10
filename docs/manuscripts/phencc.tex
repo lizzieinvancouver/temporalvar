@@ -52,13 +52,6 @@
 \setlength{\parindent}{0.5in}
 
 \setcounter{secnumdepth}{0}
-% Our sections are not numbered and our papers do not have
-% Tables of Contents. We don't 
-% present a list of figures or list of tables, either.
-
-% Any common font is fine.
-% (A common sans-serif font should be used on figures, but figures should be
-% separate from the LaTeX document.)
 
 \pagestyle{empty}
 
@@ -140,27 +133,107 @@ $^4$ Hawaii Institute of Marine Biology}\\
 \item Framing: people think of tracking as a trump card but really it’s part of coexistence theory already, and can be outmatched by other species attributes, but with climate change, will it become more important?
 \end{itemize}
 
+\begin{itemize}
+\item Has climate change made tracking more advantageous? Or, how prevalent is tracking in a stationary versus nonstationary system? Basically, one hoped-for outcome (by Lizzie) is to show that with stationary climate tracking strategies and non-tracking strategies may coexist happily, but when you add nonstationarity the world shifts that tracking is so strongly favoured as to make non-tracking rare or to require a very huge trade-off etc.. So we have a bunch of related questions to this:
+\begin{itemize}
+\item How big do trade-offs have to be for tracking to be non-advantageous (to allow coexistence with other species)?
+\item Another angle, is tracking the dominant strategy with a shifting environment (distribution) vs. stationary environment distribution?
+\end{itemize}
+\end{itemize}
+
 \section{Outline}
+
+Possible titles: `Phenological tracking: It's more complicated than you think' (we hope) or `Phenological tracking: Is it naive?'
+
 So, there's a pretty basic structure to what we want to walk through:
+
+% START HERE! ... I am working on organizing the outline (cut, move etc.). 
+
+% Stuff that belongs elsewhere in the outline.
+% \item Abiotic shifts expected with climate change: single versus synergistic climate shifts
+% \item Effects of climate change extend well beyond shifts in the mean
+
 \begin{enumerate}
-\item Intro: Understanding how plant communities will respond to climate change
+\item Direct and indirect effects of climate change are shifting species (and communities)
+\item Understanding these variable responses of communities and species
+  due to climate shifts is a major aim of current
+ecology.
+\item Phenology has been implicated in driving this 
+\item The theory goes that as seasons get earlier, earlier species win out over later species (don't get into tracking yet)
+\item Yet no one to date has ever examined whether this hypothesis is supported through community coexistence theory and models
+\item Understanding how plant communities will respond to climate change
 requires synthesizing information on both direct effects of climate on species
 and indirect effects driven by responses to other species'
-shifts. (Coexistence models based on variable environments allow us to
-do this, as species respond to shifting resources, which are
+shifts. 
+\item Coexistence models based on variable environments allow us to
+do this
+\item Models of community assembly in ecology build upon coexistence
+  via environmental variability. 
+\item As species respond to shifting resources, which are
 influenced both by abiotic stressors and the use of the resource by
-other species.)
+other species.
+
+\item More intro
+\begin{enumerate}
+\item Things that will shift with climate change, related to
+  coexistence models
+\begin{enumerate}
+\item Magnitude of and interannual variance in resource pulse ($R_{\theta} \downarrow$, e.g., in systems started by a pulse of water from snowpack)
+\item Timing of resource pulse... $\tau_{P}$ gets earlier (i.e., start of season gets earlier)
+\item Abiotic loss rate of resource ($\epsilon \uparrow$, i.e., it gets hotter and resources like water evaporate quicker)
+\item Of these, changes in $\tau_{P}$ are aguably the most observed and should be most important to impacts on coexistence via phenology thus we focus on how shifts in $\tau_{P}$ impact coexistence.
+\end{enumerate}
+\item Species traits and climate change: phenological tracking
+\item {\bf It would be great to add real data here!} Some options: First, Lizzie may be able to track down information about negative correlations between tracking and competitive abilities (for nutrient resources). This would put some of the trade-off questions in perspective. Next, we could also see  \emph{what we know about climate projections} and from there see how big do the trade-offs have to be with climate change to make non-tracking a feasible strategy strategy (this `feasible' and `dominant' terminology is a little wobbly; I admit that)?
+\item Goals of paper
+\end{enumerate}
+\item Model description: note that our model explicitly considers how within and between year dynamics can drive coexistence
+\begin{enumerate}
+\item Basic storage effect model
+\item Our version of the storage effect model
+\item Systems for which model is applicable: This is effectively a system with a single large pulse of
+resource, that, in a plant-free scenario, is lost exponentially each
+year:  alpine where snowpack meltout is start of season (SOS), nutrient turnover SOS and some precip controlled systems with just one pulse. 
+\end{enumerate}
+\begin{enumerate}
+\item Alpine systems (resource is water): initial large pulse of precipitation from
+  snowpack that gradually is used up  throughout season
+\item Arid systems? (resource is water): Major pulse of rains (okay, spread out some,
+  but really they often concentrate for a couple months and then
+  season continues for 3-4 more months)
+\item Temperate systems (resource is nutrients): Work with me here, I
+  think this is cool. Early in the season turnover of microbes leads
+  to a huge flush of nutrients \citep{Zak:1990ar} that microbes (and plants) draw down
+  all season. There's no other pulse really---am I crazy here or
+  doesn't this work well? (And so microbes draw it down in the
+  plant-free case which could easily be affected by climate change,
+  e.g., increased temperatures lead to increased microbial activity
+  and more rapid draw-down.)
+\end{enumerate}
+\item Systems it probably doesn't work for: Light-limited systems
+  (there is not a single, plant-free decreasing pulse of resource),
+  Great Plains or others with multiple pulses.
+\item Phenological tracking and the storage effect
+\item Our implementation of tracking
+
 \item In \emph{stationary environments} ...
+% Under a stationary environment what trade-off is required with tracking to allow coexistence?
 \begin{enumerate}
 \item Describe R* and how species with lower R* always wins (intra-annual dynamics generally) ... need other axis of competition for coexistence
 \item Moving onto interannual variation: in temporally variable environments species with $\tau_i$ closer to averae $\tau_{P}$ should always win
-\item 
 \item For variation in $\tau_i$ to exist, need other axis of coexistence (such as R*)
 \item But what if $\tau_i$ is not a fixed species attribute? Introduce tracking...
 \item Then speices with higher $\alpha$ should win
 \item Unless you have another axis of coexistence (such as R* or $\tau_i$)
+\item Note that this possible trade-off is earlier \(\tau_{i}\) could correlate with lower competitive ability, which is mentioned in \citet{Chesson:2004eo} on page 245: Coexistence would be promoted
+only when this temporal pattern entails tradeoffs, e.g.,
+when later pulse users are able to draw down soil moisture
+to lower levels than are early users.
+\item \emph{Comparisons with competition/colonization trade-offs:} Can think of trade-off as competition-colonization one: rapid response to resource availability (colonization) versus special case of competition.\\
 \end{enumerate}
 \item In \emph{nonstationary environments} ... (need some help with phrasing)
+% 
+Under a non-stationary environment of earlier $\tau_P$ how: (1) does this trade-off change and (2) do communities change?
 \begin{enumerate}
 \item Earlier $\tau_i$ is favored more (R* versus $\tau_i$ runs: previously these coexisted via a higher R* and less ideal $\tau_i$)
 \item Tracking is favored more ... or effective $\tau_i$ is really favored more ($\tau_i$ vs. $\alpha$ runs)
@@ -213,66 +286,10 @@ percentage of species that track, and the min and max tracking.
 \end{enumerate} 
 \end{enumerate} 
 
-
-\section{Phenology \& climate change paper} ...  below is from (and still in) \verb|VarEnv_notes|\\
-\noindent Possible titles: `Phenological tracking: It's more complicated than you think' (we hope) or `Phenological tracking: Is it naive?'
-\begin{enumerate}
-\item Opening
-\begin{enumerate}
-\item Communities shifting due to climate change (species increasing and decreasing)
-\item Phenology has been implicated in driving this 
-\item The theory goes that as seasons get earlier, earlier species win out over later species (don't get into tracking yet)
-\item Yet no one to date has ever examined whether this hypothesis is supported through community coexistence theory and models
-\item So here we provide the first test using a model that explicitly considers how within and between year dynamics can drive coexistence
-\end{enumerate}
-\item Under this model climate change critically alters the environment in a couple ways
-\begin{enumerate}
-\item Climate change...
-\begin{enumerate}
-\item $\tau_{P}$ gets earlier (i.e., start of season gets earlier)
-\item $R_{0} \downarrow$ (e.g., in systems started by a pulse of water from snowpack)
-\item $var(R_{0}) \uparrow$ 
-\item $\epsilon \uparrow$ (i.e., it gets hotter and resources like water evaporate quicker)
-\end{enumerate}
-\item Of these, changes in $\tau_{P}$ are aguably the most observed and should be most important to impacts on coexistence via phenology thus we focus on how shifts in $\tau_{P}$ impact coexistence.
-\item We first examine the role of phenology in a stationary environment ... then to X, Y, Z.
-\end{enumerate}
-\item Under a stationary environment what trade-off is required with tracking to allow coexistence?
-\begin{enumerate}
-\item Two species ($i, j$) case
-\begin{enumerate}
-\item Vary $\tau_P$ by drawing from a stationary distribution and let $R^*$ and $\alpha$ also vary by being drawn from each of their own (non-joint) distributions, run a bunch of models of 2 species communities and extract co-existing ones. 
-\item Plot $\frac{\alpha_i}{\alpha_j}$ (or, perhaps better: realized proximity to $\tau_P$) by  $\frac{R^{*}_{i}}{R^{*}_{j}}$ for coexisting pairs of species (PhenTrackFig. 1, not currently shown here, see paper notes) -- we expect a cloud of space where coexistence is possible.
-\end{enumerate}
-\item Multi-species case
-\begin{enumerate}
-\item (Similar to above) Vary $\tau_P$ by drawing from a stationary distribution and let $R^*$ and $\alpha$ also vary by being drawn from each of their own (non-joint) distributions for a $n>2$ set of species, and pull out coexisting species from each run. 
-\item Plot $\alpha$ (or realized proximity to $\tau_P$) against $R^*$ for each community of coexisting species (PhenTrackFig. 2, not currently shown here, see paper notes), measure the correlation and the noise around it.
-\item Examine the distribution of correlations (and maybe noise) for all communities (PhenTrackFig. 3, not currently shown here, see paper notes).
-\end{enumerate}
-\end{enumerate}
-\item Under a non-stationary environment of earlier $\tau_P$ how: (1) does this trade-off change and (2) do communities change?\footnote{Megan may have better notes on this section}
-\begin{enumerate}
-\item Two species case: take the coexisting 2-species communities from part I and add nonstationarity in $\tau_P$ and ...
-\begin{enumerate}
-\item see how long it takes to lose one species. 
-\item see which ones persist longest and mark on PhenTrackFig. 1 (e.g., re-do PhenTrackFig. 1 with bubble plots or such for how long the two species persist together).
-\end{enumerate}
-\item Multi-species case: take the coexisting multi-species communities from part I and add nonstationarity in $\tau_P$ and ...
-\begin{enumerate}
-\item stop at $X$ timepoint and re-do PhenTrackFig. 2 and 3 to see how they have shiften (e.g., you may lose the middle species --- those that are not the best competitors nor the best trackers ...).
-\item extract timepoints when 10\% and/or 50\% of species are lost. 
-\item extract when each species is lost in a community and order the species loss of PhenTrackFig. 2.
-\end{enumerate}
-\end{enumerate}
-\item Are there environmental conditions under which tracking won't work as a strategy? (This is the section where we return to $R_{0}$ and $\epsilon$, which we just mentioned earlier.
-\begin{enumerate}
-\item Thinking about environmental correlations (e.g., spring gets earlier and drier or such), are there some where tracking will not be favored?
-\item Answer: Yes, probably whenever you shift the environment in another way (in addition to earlier $\tau_P$) that does not impact the competitive dominant but does negatively impact the competitve inferior/tracker (See also Figure 1 below). 
-\item So, for example if $\tau_P$ gets earlier \emph{and} $R_0$ gets smaller then the trackers may decline.  
-\end{enumerate}
-\end{enumerate}
-
+\noindent Some key refs we worked with:
+\citep{Chesson:1993gi,Chesson:2000ak,Chesson:2000vd,Chesson:2004eo}. Some
+papers using storage effect model or Armstong and McGhee with field
+data: \citep{Angert:2009,Kuang:2008ri,Kuang:2009rj,Levine:2009ym}.
 
 
 \newpage

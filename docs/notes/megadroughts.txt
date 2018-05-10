@@ -1,6 +1,26 @@
 Started in 2018
 Notes on megadrought paper
 
+<><><><><><><><><><><><><>
+20 April 2018
+Chatting with Megan at NOAA
+<><><><><><><><><><><><><>
+- Things to look:
+	- persistence of each species type under current vs. mega drought conditions
+	- what climate drives extinctions in megadroughts
+	- how realistic is the trade-off needed for extinction?
+
+- vary: phi and s under three scenarios (which we expect will help us find the sweet spot where things go extinct quickly):
+(1) tauI-taup
+(2) tauI is 1sd from tauI
+(3) tauI is 2sd from tauI
+
+
+- Are phi and s what we really want to vary or are they effectively one variable and thus cannot trade-off?
+-> What we really think happens is that exotics cannot survive years with extremely low seedset (because of low survival) but native species can, thus should we be adding a failure threshold (where below some biomass a plant produces 0 seeds).
+
+- We probably cannot get true coexistence in this model without identical species (we think this is a lottery model which leads to one species) but that's okay! Because we think this is all transient dynamics: in the previous state (megadroughts) the natives should win, in the current state the exotics should win (and the natives are going slowly extinct) ... or you could say the long-term winner is the natives and the exotics are effectively occupying a transient niche.
+
 
 <><><><><><><><><><><><><>
 29 March 2018

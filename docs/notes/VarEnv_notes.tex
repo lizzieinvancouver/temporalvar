@@ -73,7 +73,6 @@ ability of species to phenologically track the timing of major climate events. \
 \item Behavior of each species once $R^{*}$ is reached
 \item Why do all species have a positive change at the last timestep?
 \end{itemize}
-\item {\bf Finish up model parameters:} Work on file with possible parameter values (Lizzie). 
 \item {\bf Decide on $q$ parameter values:}
 Lizzie needs to do this by getting some estimates of how much SOS will shift and then make it work that way in the mode. Some info on the model bit: $q$ is part of the $\beta$ distribution that define $\tau_{p}$ so we need to define an appropriate $q$ to start with and what $q$ to end with that will yeild a realstic amount of environmental change for our simulations. Right now we starts with $p$ and $q$ each being 2, yielding a normal distribution centered on 0.5 and pretty wide (remember $\beta$ is bounded at $0,1$ and 1, 1 would yield a uniform---as the numbers get bigger the distribution gets narrower), but then we just vary $q$ so we end up with a skewed distribution.. something like $5,15$ may be better.
 \end{itemize}
@@ -105,8 +104,8 @@ See below (or see other files) for outlines and info on each.
 
 \section{Notes from meetings}
 \emph{These are notes from our meetings that basically outline what we did. I have tried to remove an critical information. Meaning: you don't really need to read this if you don't want to, unless you're looking for notes on why we didn't do things or when we did certain things.}
-\subsection{Notes from 18 April 2018}
 
+\subsection{Notes from 18 April 2018}
 This was an exciting meeting as we had some big progress in deciding to work up a concept paper for the tracking project and coming up with an outline that seemed good with easily (err, we think) executable model runs. As such we've been working on the outline for the new paper, the model runs and culling/organzing these notes.
 
 \subsection{Notes from 26 October 2017}
@@ -124,7 +123,7 @@ Look at 1 species coexistence where the better tracker went extinct. This is sor
 
 Plot for `this part of parameter space that was coexisting goes away first' could be the old coexisting parameter space with color coding for how quickly during the non-stationary period they go away. 
 
-\section{Notes from 7-13 January 2016}
+\subsection{Notes from 7-13 January 2016}
 We started up in the library on Coconut Island and reviewed ...
 \begin{enumerate}
 \item Project that modeled how nonstationary environments shift coexistence via storage effect and other coexistence mechanisms. 
@@ -191,79 +190,33 @@ on... {\bf the $R^*$ model of 2014 and before and phenological
   requires a pulse size to have droughts occur). Yay!
 \end{smitemize}
 
+\subsection{January-February 2015}
+Megan's notes from 27 January 2015, are now below the end of document. Following \citet{chesson2003} and \citet{godoy2014}, she tried to calculate out coexistence via mean fitness differences vs. the storage effect vs. relative non-linearity vs. 
+
 \newpage
 \section{Current plans for products}
 \subsection{Phenology \& climate change paper}\label{phenCCpaper}
 See also \ref{trackingthoughts} and \ref{genoutline}, both below.\\
+*Many notes are now in phencc.tex. I just left notes (below) that are not part of our current approach.
 
-{\bf *The below notes are also in phencc.tex!}
-
-\noindent Possible titles: `Phenological tracking: It's more complicated than you think' (we hope) or `Phenological tracking: Is it naive?'
 \begin{enumerate}
-\item Opening
-\begin{enumerate}
-\item Communities shifting due to climate change (species increasing and decreasing)
-\item Phenology has been implicated in driving this 
-\item The theory goes that as seasons get earlier, earlier species win out over later species (don't get into tracking yet)
-\item Yet no one to date has ever examined whether this hypothesis is supported through community coexistence theory and models
-\item So here we provide the first test using a model that explicitly considers how within and between year dynamics can drive coexistence
-\end{enumerate}
-\item Under this model climate change critically alters the environment in a couple ways
-\begin{enumerate}
-\item Climate change...
-\begin{enumerate}
-\item $\tau_{P}$ gets earlier (i.e., start of season gets earlier)
-\item $R_{0} \downarrow$ (e.g., in systems started by a pulse of water from snowpack)
-\item $var(R_{0}) \uparrow$ 
-\item $\epsilon \uparrow$ (i.e., it gets hotter and resources like water evaporate quicker)
-\end{enumerate}
-\item Of these, changes in $\tau_{P}$ are aguably the most observed and should be most important to impacts on coexistence via phenology thus we focus on how shifts in $\tau_{P}$ impact coexistence.
-\item We first examine the role of phenology in a stationary environment ... then to X, Y, Z.
-\end{enumerate}
-\item Under a stationary environment what trade-off is required with tracking to allow coexistence?
-\begin{enumerate}
-\item Two species ($i, j$) case
-\begin{enumerate}
-\item Vary $\tau_P$ by drawing from a stationary distribution and let $R^*$ and $\alpha$ also vary by being drawn from each of their own (non-joint) distributions, run a bunch of models of 2 species communities and extract co-existing ones. 
-\item Plot $\frac{\alpha_i}{\alpha_j}$ (or, perhaps better: realized proximity to $\tau_P$) by  $\frac{R^{*}_{i}}{R^{*}_{j}}$ for coexisting pairs of species (PhenTrackFig. 1, not currently shown here, see paper notes) -- we expect a cloud of space where coexistence is possible.
-\end{enumerate}
-\item Multi-species case
-\begin{enumerate}
-\item (Similar to above) Vary $\tau_P$ by drawing from a stationary distribution and let $R^*$ and $\alpha$ also vary by being drawn from each of their own (non-joint) distributions for a $n>2$ set of species, and pull out coexisting species from each run. 
-\item Plot $\alpha$ (or realized proximity to $\tau_P$) against $R^*$ for each community of coexisting species (PhenTrackFig. 2, not currently shown here, see paper notes), measure the correlation and the noise around it.
-\item Examine the distribution of correlations (and maybe noise) for all communities (PhenTrackFig. 3, not currently shown here, see paper notes).
-\end{enumerate}
-\end{enumerate}
-\item Under a non-stationary environment of earlier $\tau_P$ how: (1) does this trade-off change and (2) do communities change?\footnote{Megan may have better notes on this section}
-\begin{enumerate}
-\item Two species case: take the coexisting 2-species communities from part I and add nonstationarity in $\tau_P$ and ...
+\item Two species case: take the coexisting 2-species communities from stationary systems and add nonstationarity in $\tau_P$ and ...
 \begin{enumerate}
 \item see how long it takes to lose one species. 
 \item see which ones persist longest and mark on PhenTrackFig. 1 (e.g., re-do PhenTrackFig. 1 with bubble plots or such for how long the two species persist together).
 \end{enumerate}
-\item Multi-species case: take the coexisting multi-species communities from part I and add nonstationarity in $\tau_P$ and ...
+\item Multi-species ($n>2$) case: take the coexisting multi-species communities from stationary environments and add nonstationarity in $\tau_P$ and ...
 \begin{enumerate}
 \item stop at $X$ timepoint and re-do PhenTrackFig. 2 and 3 to see how they have shiften (e.g., you may lose the middle species --- those that are not the best competitors nor the best trackers ...).
 \item extract timepoints when 10\% and/or 50\% of species are lost. 
 \item extract when each species is lost in a community and order the species loss of PhenTrackFig. 2.
 \end{enumerate}
 \end{enumerate}
-\item Are there environmental conditions under which tracking won't work as a strategy? (This is the section where we return to $R_{0}$ and $\epsilon$, which we just mentioned earlier.
-\begin{enumerate}
-\item Thinking about environmental correlations (e.g., spring gets earlier and drier or such), are there some where tracking will not be favored?
-\item Answer: Yes, probably whenever you shift the environment in another way (in addition to earlier $\tau_P$) that does not impact the competitive dominant but does negatively impact the competitve inferior/tracker (See also Figure 1 below). 
-\item So, for example if $\tau_P$ gets earlier \emph{and} $R_0$ gets smaller then the trackers may decline.  
-\end{enumerate}
-\end{enumerate}
 
-A few things:
-\begin{smitemize}
-\item We may also need to think about how $\tau_i$ works in these simulations to better understand how $\alpha_i$ works.
-\item Measuring coexistence, a couple options
+Measuring coexistence, a couple options
 \begin{smitemize}
 \item Long-term persistence
 \item Run the model to persistent-looking conditions and show each species can increase from low-density using long-term mean densities of other species.
-\end{smitemize}
 \end{smitemize}
 
 \subsection{Connections to Mayan Megadroughts project}
@@ -288,151 +241,6 @@ We talked some more about this in March 2016. A few major points from this:
 \item I thought we might need to correlate $R_0$ with $\tau_{P}$ such that native species' $\tau_{i}$ are aligned with higher $R_0$. Megan pointed out if you go all the time and droughts become more frequent you still might go extinct---meaning we may not need this correlation. Especially, methinks now, if the natives have seedbanks lasting well longer than the megadrought intervals.
 \item Megan had this brilliant idea to flip things around. We have some parameters for this work from the Levine lab, but instead of using those we could see what parameters we get out of the species under different environments. Basically do a ton of runs with varying some species' parameters and then see what species remain. Do you see longer seedbanks and narrower germination curves in periods of megadroughts (for example)?
 \end{smitemize}
-
-\newpage
-\section{Equations and related notes: January-February 2015}
-
-\noindent Megan's notes from 27 January 2015, following \citet{chesson2003} and \citet{godoy2014}. Note that $j$ is the species index (focal species), $i$ is the invader and $l$ is the supplementary index (that is, all the other species):
-
-\begin{align}
-\label{fulleqn} 
-N_{j}(t+1) = & (1-d_{j})N_{j}(t) + R_{j}(t)N_{j}(t)  
-\\
-\label{eqngF} 
-g_{j}F_{j} & = \frac{\lambda_{j}}{1+\sum\limits_{l}\alpha_{jl}g_{l,t}N_{l,t}} 
-\end{align}
-
-\noindent Breaking down equation \ref{fulleqn} and following how \cite{godoy2014} treats $d$ we can separate $E$ and $C$ in the following way:
-\begin{align}
-(1-d_{j}) & = \text{ survival in seedbank } = s_{j}(1-g_{j})
-\\
-R_{j}(t) & = \text{ germination \& death in seedbank } = 0(1-g_{j})(1-s_{j})+g_{j}F_{j} = g_{j}F_{j}
-\\
-g_{j}F_{j} & = \frac{g_{j}\lambda_{j}}{1+\sum\limits_{l}\alpha_{jl}g_{l,t}N_{l,t}}
-\\
-& = \underbrace{\ln(g_{j}\lambda_{j})}_\text{$E_{j}(t)$} -\underbrace{\ln(1+\sum\limits_{l}\alpha_{jl}g_{l,t}N_{l,t})}_\text{$-C_{j}(t)$}
-\end{align}
-
-\noindent However, this definition of $E$ and $C$ results in $d$ that varies with time because $d$ includes $g{j}(t)$.  How do we avoid this?
-
-\noindent  Currently:
-
-\begin{align}
-N_{j}(t+1) = & (1-d_{j})N_{j}(t) + R_{j}(t)N_{j}(t) \\
-= & \underbrace{s_{j}}_\text{surv.}\underbrace{(1-g_{j}(t))}_\text{did not germ.}N_{j}(t)+g_{j}(t)F_{j}(t)N_{j}(t)\\
-= & s_{j}N_{j}(t) +g_{j}(t)F_{j}(t)N_{j}(t)
-\end{align} 
-
-\noindent Alternatively, we can rearrange the equation so that $sN$ is a distinct term (i.e., $d$ does not vary with time).  If we continue to assume a pre-season count, then rearrange:
-
-\begin{align*}
-NgF + N(1-g)s*1 + N(1-g)(1-s)*0
-\\
-gFN + s(1-g)N
-\\
-sN - sgN + gFN
-\\
-sN+g(F-s)H
-\\
-\end{align*}
-
-\noindent Reorganizing the survival and germination terms in this way gives equation:
-\begin{align}
-N_{j}(t+1) = & (1-d_{j})N_{j}(t) + R_{j}(t)N_{j}(t) \\
-= & s_{j}N_{j,t} +g_{j,t}(F_{j,t}-s_{j})N_{j,t}\\
-\ln R_{j,t}= & \ln(g_{j,t}(\frac{\lambda_{j}}{1+\sum\limits_{l}\alpha_{jl}g_{l,t}N_{l,t}} -s_{j}))\\
-= & \underbrace{\ln g_{j,t}}_\text{$E_{j,t}$} + \underbrace{ \ln(\frac{\lambda_{j}}{1+\sum\limits_{l}\alpha_{jl}g_{l,t}N_{l,t}}-s_{j})}_\text{$-C_{j,t}$}
-\end{align}
-
-\noindent  Now that we have defined the general form of the equation, we can calculate the long-term low density growth rate for each species as invader (i.e., invasibility criterion for coexistence).  The long-term low-density growth rate (including temporal but not spatial variability) has three components (Table 1 in \citet{chesson2003}: \textbf{mean fitness}, \textbf{storage effect}, and \textbf{relative nonlinearity}.  
-
-%\noindent  Long-term low-density growth rate: \\
-%\begin{align}
-%\bar{r_{i}} \approx \underbrace{\bar{r_{i}\prime}}_\text{eq. measures of coexist.} \\
-% +& \overbrace{\Delta N_{i}}^\text{rel. nonlin.}\\
-% +& \overbrace{\Delta I_{i}}^\text{storage effect})\\
-%\end{align}
-
-\noindent  Evaluate the growth rate of each species as invader.  Note that $i$ is for invader, $j$ is any species, and $l$ is a counter to go through all species, with or without invader.
-
-\noindent \textbf{Mean Fitness}
-\begin{align*}
-\frac{\bar{r_{i}\prime}}{d_{i}} = & \delta \mu_{i} + \delta V_{i}\\
-\delta \mu_{i} = & \mu_{i}-\bar{\mu_{l}}^{({l}\neq {i})} \\
-= & \mu_{i}-\frac{1}{n-1}\sum\limits_{{l}\neq{i}}^{n}\mu_{l}\\
-\mu _{j} = & \langle E_{j} \rangle -\ln d_{j}\\
-= &\langle {E_{j}} \rangle -\ln (1-{s_j})\\
-\sigma_{j}^{2} = & var(E_{j})\\
-\delta V_{i} = & \frac{1}{2}(1-d_{i})\sigma_{i}^{2}-\bar{\frac{1}{2}(1-d_{j}) \sigma_{j}^{2}}^{(j \neq i)}\\
-= & \frac{1}{2}(s_{i}\sigma_{i}^{2} - \frac{1}{2}\sum\limits_{l \neq i}^{n}s_{l}var(E_{l})
-\end{align*}
-
-\begin{align}
- \langle E_{j} \rangle = & \langle \ln g_{j,t} \rangle \\
-\mu_{j} = & \langle \ln g_{j,t} \rangle - \ln(1-s_{j}) \\
-\end{align}
-\begin{align}
-var(E_{j}) = & var(\ln(g_{j,t}))\\
-\delta V_{i} = & \frac{1}{2} s_{i} var(\ln(g_{i,t}))-\bar{\frac{1}{2} s_{j} var(\ln(g_{j,t}))}^{(j \neq i)} \\
-var(\ln g_{j,t}) = h^2 var(\tau_{p,t}^{2} - 2 \tau_{p,t}\tau_{i})\\
-\end{align}
-\begin{align}
-g_{j,t} = & G_{max} e^{-h(\tau_{p,t}-\tau_{i})^2}\\
-\ln g_{j,t} = & \ln G_{max}-h(\tau_{p,t}-\tau_{i})^2\\
-\langle \ln g_{j,t} \rangle = & \ln G_{max} - h \langle (\tau_{p,t}-\tau_{i})^2 \rangle\\
-& \text{...skipping some intervening equation work...}\\
-= & \ln G_{max} - h (\sigma^{2}_{\tau_{p,t}}+(\mu_{\tau_{p,t}}-\tau_{i})^{2})
-\end{align}
-
-\begin{align*}
-\text{For the case where } \tau_{p} \sim & \beta(p,q)\\
-\text{we can calculate the expected value and variance of }&\tau_{p,t} \text{ explicitly}: \\
-var (\tau_{p}) = & E \langle \tau_{p}^{2}\rangle - \langle E \langle \tau_{p} \rangle\rangle ^{2}\\
- & var(\tau_{p})+ E \langle \tau_{p}\rangle ^{2} \text{ Megan, is this extra from above or ...?}\\
-E \langle \tau_{p} \rangle = & \frac{p}{p+q}\\
-var(\tau_{p}) = & \frac{pq}{(p+q)^{2}(p+q+1)}
-\end{align*}
-
-
-\noindent \textbf{Storage Effect}
-\begin{align*}
-\frac{\Delta I_{i}}{d_{i}} = & \overline{(1-d_{j})\chi_{j}^{(-i)}}^{(j\neq i)} - (1-d_{i})\chi_{i}^{(-i)}\\
-= & \sum\limits{j \neq i}^{n} s_j \chi_{j}^{(-i)} - s_{i} \chi_{i}^{-i}\\
-\chi_{j}^{(-i)} = & cov(E_{j},C^{(-i)}) \text{ where $C_{(-i)}$ is competition when sp $i$ is invader}\\
-\chi_{j}^{(-i)}  = & cov(\ln g_{j,t}, \ln(\frac{\lambda_{j}}{1+\sum \limits_{l \neq i} \alpha_{jl}g_{l,t}N_{l,t}}-s_{j}))\\
-\chi_{i}^{(-i)}  = & cov(\ln g_{i,t}, \ln(\frac{\lambda_{i}}{1+\sum \limits_{l \neq i} \alpha_{il}g_{l,t}N_{l,t}}-s_{i}))\\
-\end{align*}
-
-\noindent \textbf{Relative Nonlinearity}
-\begin{align*}
-\frac{\Delta N_{i}}{d_{i}} = & \frac{1}{2}var(C^{(-i)})(d_{i}-\bar{d_{j}}^{(j \neq i)})\\
-var(C^{(-i)}) = & var(\ln \frac{\lambda_{j}}{1+\sum \limits_{l} \alpha_{il}g_{l,t}N_{l,t}}-s_{j})\\
-\bar{d_{s}}^{(s \neq i)} = & \frac{1}{n-1}\sum \limits_{l=i}(1-s_{l})
-\end{align*}
-
-\noindent \textbf{Calculation of ${C_{t}}$}
-In Chesson 2003, the calculations in Table 1 are for $C_{t}^{(-i)}$, i.e., the community competition with the invader absent.  In principle this makes sense: if we consider competition experienced by the invader to reflect the level of resource remaining after consumption by all resident species, then  $C_{t}^{(-i)}$ depends only on the identity of the invader.  
-For calculate the storage effect, we must calculate the covariance between environment and competion:  $Cov(C_{j,t},E_{j,t}$.  In this case, we can calculate species-specific $C_{j,t}$ and $E_{j,t}$, with $C_{j,t}$ as the annual competition experienced by species $j$, i.e.,
-$C_{j,t} = \ln (\frac{\lambda_{j}}{1+\sum\limits{l \neq i}^{n} \alpha_{jl}g_{l,t}N_{l,t}}-s_{j})$
-However, when we calculate relative nonlinearity using the equation in Chesson (2003) Table 1, we need to calculate $var(C_{t}^{(-i)})$, which should be the same for all species.  It is not clear how the annual community competitive effect should be calculated.  The denominator in the equation for $C$ is easy to calculate for all but the invader.  But this is multiplied by a species-specific term ($\lambda_{j}$) and a species-specific term is subtracted $s_{j}$.  Therefore, I wonder if the simple equations in Table 1 are not appropriate for this case.  Even if the competitive effects were proportional by species (not the case because of the subtraction of $s_{j}$) then the terms in Table 1 would need to be scaled by $\lambda_{j}$.  \\
-
-
-
-\begin{align*}
-N_{j} &  \text{ density of adults of species } j \text{ at time } t 
-\\
-d_{j} & \text{ fraction of adults dying during one unit of time}
-\\
-R_{j} & \text{ per capita number of new recruits to species} j \text{in the time interval } t \text{ to} + 1
-\\
-\lambda_{i} & \text{ per-germinant fecundity in the absence of competition}
-\\
-g_{j} & = 
-\\
-\alpha_{ij} & = \text{ per capita effect of species } j \text{ on species } i
-\\
-a_{l} & = \text{ competitive effect of a $sp_{l}$ individual (related to eqn 6 of \cite{chesson2003})
-\end{align*}
 
 \newpage
 \section{Equations and related notes: $R^*$ model}
@@ -670,70 +478,11 @@ These are a little sloppy in that the pulse is supposed to be separate from the 
 \end{enumerate}
 
 \subsection{Simplifying within-year dynamics thoughts}
-Can we simplify within-year dynamics to focus on a better model for timing (see photo of October 2013 whiteboard that Megan has)? To rephrase this: Our internal equation is basically R* rankings, so could we create a `deterministic look up table' for the within-year dynamics so we can think more carefully about the timing part of this.  (Related note from 2012 meeting: Decide if we need to ODE solve the intra-annual
-  dynamics, then use the discretized version only inter-annually. Note from Lizzie: best ODE solver is now in package `desolve.')
+Can we simplify within-year dynamics to focus on a better model for timing (see photo of October 2013 whiteboard that Megan has)? To rephrase this: Our internal equation is basically R* rankings, so could we create a `deterministic look up table' for the within-year dynamics so we can think more carefully about the timing part of this.  (Related note from 2012 meeting: Decide if we need to ODE solve the intra-annual dynamics, then use the discretized version only inter-annually. Note from Lizzie: best ODE solver is now in package `desolve.')
 
-% START HERE!!!
 \section{Coexistence with climate change: Notes related to implementing and writing}\label{genoutline}
 
-\subsection{Current outline for paper}
-\begin{enumerate}
-\item Introduction
-\begin{enumerate}
-\item Direct and indirect effects of climate change
-\item Links to ecological coexistence theory
-\item Abiotic shifts expected with climate change: single versus
-  synergistic climate shifts
-\item Things that will shift with climate change, related to
-  coexistence models
-\begin{enumerate}
-\item Magnitude of and interannual variance in resource pulse (\(R_{\theta}\))
-\item Timing of resource pulse (\(\tau_{p}\))
-\item Abiotic loss rate of resource (\(\epsilon\))
-\end{enumerate}
-\item Species traits and climate change: phenological tracking
-\item Goals of paper
-\end{enumerate}
-\item Model description 
-\begin{enumerate}
-\item Basic storage effect model
-\item Our version of the storage effect model
-\item Systems for which model is applicable: This is effectively a system with a single large pulse of
-resource, that, in a plant-free scenario, is lost exponentially each
-year. 
-\begin{enumerate}
-\item Alpine systems (resource is water): initial large pulse of precipitation from
-  snowpack that gradually is used up  throughout season
-\item Arid systems? (resource is water): Major pulse of rains (okay, spread out some,
-  but really they often concentrate for a couple months and then
-  season continues for 3-4 more months)
-\item Temperate systems (resource is nutrients): Work with me here, I
-  think this is cool. Early in the season turnover of microbes leads
-  to a huge flush of nutrients \citep{Zak:1990ar} that microbes (and plants) draw down
-  all season. There's no other pulse really---am I crazy here or
-  doesn't this work well? (And so microbes draw it down in the
-  plant-free case which could easily be affected by climate change,
-  e.g., increased temperatures lead to increased microbial activity
-  and more rapid draw-down.)
-\end{enumerate}
-\item Systems it probably doesn't work for: Light-limited systems
-  (there is not a single, plant-free decreasing pulse of resource),
-  Great Plains or others with multiple pulses.
-\item Phenological tracking and the storage effect
-\item Our implementation of tracking
-\item Derivation of aspects of the storage effect and relative
-  non-linearity in our model (this is a big \emph{to do}).
-\end{enumerate}
-\item Results: Response variables are (1) number of species coexisting, (2) relative shifts in coexistence via storage effect, relative nonlinearity and other factors and (3) the traits of species that persist? Additionally, response variables (probably \(\alpha, \tau_{i}, c_{i}\)) related to how much of a trade-off is needed to offset shifts in coexistence favouring early or tracking species with non-stationary climate change?
-\begin{enumerate}
-\item Section 1: Shifting abiotic variables
-\item Section 2: Species traits: Phenological tracking and shifting
-  abiotic variables
-\end{enumerate}
-\item Discussion
-\end{enumerate}
-
-\subsection{Variables of interest}
+\subsection{Environmental variables of interest}
 We consider 3 primary traits of the environment (\(\epsilon, R, \tau_{p}\), which
 code to evaporative stress, inter-annual variability, and start of season pulse for our approach basically) and 1
 species response trait (phenology, specifically flexibility in
@@ -742,8 +491,7 @@ the dominant expectations of current and future climate change:
 \begin{enumerate}
 \item \emph{Changes to R:} Shifts in climate means and variability (greater var \(\approx\)
   extreme events) as modeled by changes to \(\mu\) and \(var\) of
-    R,
-  which can lead to:
+    R,which can lead to:
 \begin{enumerate}
 \item Changes in inter-annual covar(E, C)
 \item For variability: changes related to buffered population growth:
@@ -804,11 +552,13 @@ depletion ....
 \end{enumerate}
 
 
-\subsection{How the world changes with climate change}
+\subsection{How the world changes with climate change: Thoughts on correlated environmental variables}
 
 \noindent In July 2011, I looked at whether the start of spring
 has gotten more variable (using some key datasets from NECTAR) and it
 hasn't, at all. No change.\\
+
+{\bf Take-home for below:} So, where did we arrive at after all this? Even though we used to be interested in correlated shifts in these we're not so much anymore. Instead the \emph{best place to start} seems to be: earlier \(\tau_{p}\) and increases in \(\epsilon\) and \(\epsilon\) extreme events. Then maybe move on to \(R_{0}\) (mean and extreme events). And again, just skip correlations.\\
 
 \noindent \emph{Environmental shifts with climate change, from October 2013 meeting:}\\
 Systems we're thinking about (see above) but, effectively, alpine where snowpack meltout is start of season (SOS), nutrient turnover SOS and some precip controlled systems with just one pulse. 
@@ -825,37 +575,10 @@ Otherwise, not sure anyone has looked at this at all in precip systems and for s
 \item Correlations in \(R_{0}\) and \(\tau\) nothing to date or in future? Maybe in alpine systems?
 \end{enumerate}
 
-So, where did we arrive at after all this? Even though we used to be interested in correlated shifts in these we're not so much anymore. Instead the \emph{best place to start} seems to be: earlier \(\tau_{p}\) and increases in \(\epsilon\) and \(\epsilon\) extreme events. Then maybe move on to \(R_{0}\) (mean and extreme events). And again, just skip correlations.\\
-
 Note that increased extreme events for \(\epsilon\)  will effectively reduce biomass (you could also consider modeling this so it ties to \(m_{i}\) or modify \(g_{i}\) to lead to total loss, perhaps).\\
 
-While here, though, I will mention that we discussed \emph{which} correlations will shift with climate change and the big one seems to be the North American alpine story: where the relationship between how \(\tau_{p}\) affects mortality has shifted with species' \(\tau_{i}\) such that there is now higher mortality imposed on species with earlier \(\tau_{i}\). We did briefly discuss how to model this and think maybe the best way is to add in, external to the within-year integral, a fraction that germinated and died as a f(x) of \(\tau_{i}\)  and frost event time.\\
+{\bf Frost note here!} While here, though, I will mention that we discussed \emph{which} correlations will shift with climate change and the big one seems to be the North American alpine story: where the relationship between how \(\tau_{p}\) affects mortality has shifted with species' \(\tau_{i}\) such that there is now higher mortality imposed on species with earlier \(\tau_{i}\). We did briefly discuss how to model this and think maybe the best way is to add in, external to the within-year integral, a fraction that germinated and died as a f(x) of \(\tau_{i}\)  and frost event time.\\
 
-\subsection{Species differences: How to thoughts}
-\noindent New notes as of October-December 2013: \emph{Models without tracking:}\\
-How will we adjust the equations for simulations about shifts in the environment? For now we plan to let parameters vary some and see if we can pick out patterns. If this gets tricky we can switch to trade-offs between \(\tau_{i}\) and \(c_{i}\). \\
-
-Note that one possible trade-off is earlier \(\tau_{i}\) could correlate with lower competitive ability, which is mentioned in \citet{Chesson:2004eo} on page 245: Coexistence would be promoted
-only when this temporal pattern entails tradeoffs, e.g.,
-when later pulse users are able to draw down soil moisture
-to lower levels than are early users.\\
-
-(Old question from October 2013, maybe should cut): Do we need to make sure that for all \(i\), \(\int g_{i}\) are equal, or is it that \(\int g_{i}(t)\tau_{p}(t)\mathrm{d}t\) should be constant (the latter being the average of \(g_{i}\) weighted by the distribution of \(\tau_{p}\) through time).\\
-
-\noindent \emph{Models with tracking:}\\
-In nature early species have quicker-return investments on growth and early is often high tracking, so it's hard to tell whether early \emph{or} high-tracking trades off with this quicker-return angle. So what we plan on doing:\\
-\noindent For now, for coexistence: we'll trade off \(c_{i}\) and \(\tau_{i}\), when we add in alpha we'll leave this above trade-off and maybe:
-\begin{itemize}
-\item get some coexisting species and add high tracking randomly to all and see what happens
-\item get some coexisting species and add high tracking to the early ones and see what happens
-\item add weak versus strong tracking
-\end{itemize}
-
-\noindent \emph{Comparisons with competition/colonization trade-offs:} Can think of trade-off as competition-colonization one: rapid response to resource availability (colonization) versus special case of competition.\\
-
-Without tracking we may predict benefits to early-colonizers decline with earlier seasons. As start-date moves earlier, early folks lose benefit (assuming they tend to often go at optimum time) and you get more late folks. Late species may be less different than one another---and less responsive to environment. Early folks, effectively, become more similar to environment. 
-
-\newpage
 \section{Tracking thoughts \& fun}\label{trackingthoughts}
 In August 2012 Megan came up with a new way to model phenological tracking, it's linear and better than the one presented here. We also discussed three key ways to think of tracking:
 \begin{enumerate}
@@ -866,17 +589,6 @@ In August 2012 Megan came up with a new way to model phenological tracking, it's
 We agreed that while (3) is interesting---would allow you to look at mismatch ideas etc.---(1) and (2) have more biological support for plants and are interesting enough in and of themselves, so we will focus on and model (1) and (2) and not (3).\\
 
 \noindent In August 2013 an issue we worried about: Will tracker always win? Answers: No, not if it's a poor competitor, that is, if it responds quickly to resource pulse but then does poorly at low resource levels. I also think it's important to remember that not all tracking species will track perfectly so some species should grow before trackers some years, when their fixed \(\tau_{i}\) corresponds well to \(\tau_{p}\). Also, we have a note that high intraspecific competition could dampen trackers, especially when greater than interspecific competition.\\
-
-\noindent New things we came up with that we want to look at in regards to {\bf phenological tracking}. First off, we have a lot of versions of similar questions. 
-\begin{itemize}
-\item Has climate change made tracking more advantageous? Or, how prevalent is tracking in a stationary versus nonstationary system? Basically, one hoped-for outcome (by Lizzie) is to show that with stationary climate tracking strategies and non-tracking strategies may coexist happily, but when you add nonstationarity the world shifts that tracking is so strongly favoured as to make non-tracking rare or to require a very huge trade-off etc.. So we have a bunch of related questions to this:
-\begin{itemize}
-\item How big do trade-offs have to be for tracking to be non-advantageous (to allow coexistence with other species)?
-\item Another angle, is tracking the dominant strategy with a shifting environment (distribution) vs. stationary environment distribution?
-\end{itemize}
-\item Follow up from October 2013: How much does climate have to shift (non-stationarity in system) given some level of fitness differences trading off with tracking for tracking to become the dominant strategy?
-\end{itemize}
-{\bf It would be great to add real data here!} Some options: First, Lizzie may be able to track down information about negative correlations between tracking and competitive abilities (for nutrient resources). This would put some of the trade-off questions in perspective. Next, we could also see  \emph{what we know about climate projections} and from there see how big do the trade-offs have to be with climate change to make non-tracking a feasible strategy strategy (this `feasible' and `dominant' terminology is a little wobbly; I admit that)?\\
 
 \noindent This tracking angle matches to the `Generalists, specialists and plasticity' section of \citet{Chesson:2004eo}. You could imagine by removing the benefit of trade-offs associated with not being plastic, then nonstationarity could favour generalists (plastic species, that is). Here's the most relevant bit (according to Lizzie):
 \begin{quote}
@@ -896,6 +608,8 @@ Next up, I need to work on how to make joint distributions in R (all different t
 \url{http://www.r-bloggers.com/copulas-made-easy/}\\
 \url{https://sites.google.com/a/wisc.edu/jed-frees/multivariate-regression-using-copulas}
 \end{quote}
+
+Without tracking we may predict benefits to early-colonizers decline with earlier seasons. As start-date moves earlier, early folks lose benefit (assuming they tend to often go at optimum time) and you get more late folks. Late species may be less different than one another---and less responsive to environment. Early folks, effectively, become more similar to environment. 
 
 
 \newpage
@@ -961,28 +675,6 @@ his seed predation work.\\
 \noindent More random notes: \citet{Chesson:2000vd} (pg. 354) \(r\) holds temporal variation in \(\delta I\) and \(\delta N\) so effectively:\\
 - species can coexist via intra-annual temporal mechanisms (for example, maybe this is what most mid-season species in the mesic temperate zone do), and/or\\
 - species can coexist via inter-annual temporal mechanisms (maybe early-season species in most mesic temperate environments)\\
-
-\subsection{Some notes for writing}
-\begin{enumerate}
-\item Understanding the variable responses of communities and species
-  due to climate shifts is a major aim of current
-ecology.
-\begin{enumerate}
-\item Varied responses
-\begin{enumerate}
-\item reversed phenology \citep{yu2010} 
-\item downhill shifts \citep{Crimmins:2011dq}
-\end{enumerate}
-\item Effects of climate change extend well beyond shifts in the mean
-\end{enumerate}
-\item Models of community assembly in ecology build upon coexistence
-  via environmental variability.
-\item Launch into set-up.
-\end{enumerate}
-\noindent Some key refs we worked with:
-\citep{Chesson:1993gi,Chesson:2000ak,Chesson:2000vd,Chesson:2004eo}. Some
-papers using storage effect model or Armstong and McGhee with field
-data: \citep{Angert:2009,Kuang:2008ri,Kuang:2009rj,Levine:2009ym}.\\
 
 \subsection{Some random notes from the whiteboard}
 \noindent Relative nonlinearity is:
@@ -1055,4 +747,171 @@ covar(E,C) \approx covar\left(R_{i}, \sum_{i=1}^{n}B_{i}\right)
 
 
 \end{document}
+
+
+
+
+%%%%%%%%%%%%
+%% Old notes %%
+%%%%%%%%%%%%
+
+\section{Equations and related notes: January-February 2015}
+
+\noindent Megan's notes from 27 January 2015, following \citet{chesson2003} and \citet{godoy2014}. Note that $j$ is the species index (focal species), $i$ is the invader and $l$ is the supplementary index (that is, all the other species):
+
+\begin{align}
+\label{fulleqn} 
+N_{j}(t+1) = & (1-d_{j})N_{j}(t) + R_{j}(t)N_{j}(t)  
+\\
+\label{eqngF} 
+g_{j}F_{j} & = \frac{\lambda_{j}}{1+\sum\limits_{l}\alpha_{jl}g_{l,t}N_{l,t}} 
+\end{align}
+
+\noindent Breaking down equation \ref{fulleqn} and following how \cite{godoy2014} treats $d$ we can separate $E$ and $C$ in the following way:
+\begin{align}
+(1-d_{j}) & = \text{ survival in seedbank } = s_{j}(1-g_{j})
+\\
+R_{j}(t) & = \text{ germination \& death in seedbank } = 0(1-g_{j})(1-s_{j})+g_{j}F_{j} = g_{j}F_{j}
+\\
+g_{j}F_{j} & = \frac{g_{j}\lambda_{j}}{1+\sum\limits_{l}\alpha_{jl}g_{l,t}N_{l,t}}
+\\
+& = \underbrace{\ln(g_{j}\lambda_{j})}_\text{$E_{j}(t)$} -\underbrace{\ln(1+\sum\limits_{l}\alpha_{jl}g_{l,t}N_{l,t})}_\text{$-C_{j}(t)$}
+\end{align}
+
+\noindent However, this definition of $E$ and $C$ results in $d$ that varies with time because $d$ includes $g{j}(t)$.  How do we avoid this?
+
+\noindent  Currently:
+
+\begin{align}
+N_{j}(t+1) = & (1-d_{j})N_{j}(t) + R_{j}(t)N_{j}(t) \\
+= & \underbrace{s_{j}}_\text{surv.}\underbrace{(1-g_{j}(t))}_\text{did not germ.}N_{j}(t)+g_{j}(t)F_{j}(t)N_{j}(t)\\
+= & s_{j}N_{j}(t) +g_{j}(t)F_{j}(t)N_{j}(t)
+\end{align} 
+
+\noindent Alternatively, we can rearrange the equation so that $sN$ is a distinct term (i.e., $d$ does not vary with time).  If we continue to assume a pre-season count, then rearrange:
+
+\begin{align*}
+NgF + N(1-g)s*1 + N(1-g)(1-s)*0
+\\
+gFN + s(1-g)N
+\\
+sN - sgN + gFN
+\\
+sN+g(F-s)H
+\\
+\end{align*}
+
+\noindent Reorganizing the survival and germination terms in this way gives equation:
+\begin{align}
+N_{j}(t+1) = & (1-d_{j})N_{j}(t) + R_{j}(t)N_{j}(t) \\
+= & s_{j}N_{j,t} +g_{j,t}(F_{j,t}-s_{j})N_{j,t}\\
+\ln R_{j,t}= & \ln(g_{j,t}(\frac{\lambda_{j}}{1+\sum\limits_{l}\alpha_{jl}g_{l,t}N_{l,t}} -s_{j}))\\
+= & \underbrace{\ln g_{j,t}}_\text{$E_{j,t}$} + \underbrace{ \ln(\frac{\lambda_{j}}{1+\sum\limits_{l}\alpha_{jl}g_{l,t}N_{l,t}}-s_{j})}_\text{$-C_{j,t}$}
+\end{align}
+
+\noindent  Now that we have defined the general form of the equation, we can calculate the long-term low density growth rate for each species as invader (i.e., invasibility criterion for coexistence).  The long-term low-density growth rate (including temporal but not spatial variability) has three components (Table 1 in \citet{chesson2003}: \textbf{mean fitness}, \textbf{storage effect}, and \textbf{relative nonlinearity}.  
+
+%\noindent  Long-term low-density growth rate: \\
+%\begin{align}
+%\bar{r_{i}} \approx \underbrace{\bar{r_{i}\prime}}_\text{eq. measures of coexist.} \\
+% +& \overbrace{\Delta N_{i}}^\text{rel. nonlin.}\\
+% +& \overbrace{\Delta I_{i}}^\text{storage effect})\\
+%\end{align}
+
+\noindent  Evaluate the growth rate of each species as invader.  Note that $i$ is for invader, $j$ is any species, and $l$ is a counter to go through all species, with or without invader.
+
+\noindent \textbf{Mean Fitness}
+\begin{align*}
+\frac{\bar{r_{i}\prime}}{d_{i}} = & \delta \mu_{i} + \delta V_{i}\\
+\delta \mu_{i} = & \mu_{i}-\bar{\mu_{l}}^{({l}\neq {i})} \\
+= & \mu_{i}-\frac{1}{n-1}\sum\limits_{{l}\neq{i}}^{n}\mu_{l}\\
+\mu _{j} = & \langle E_{j} \rangle -\ln d_{j}\\
+= &\langle {E_{j}} \rangle -\ln (1-{s_j})\\
+\sigma_{j}^{2} = & var(E_{j})\\
+\delta V_{i} = & \frac{1}{2}(1-d_{i})\sigma_{i}^{2}-\bar{\frac{1}{2}(1-d_{j}) \sigma_{j}^{2}}^{(j \neq i)}\\
+= & \frac{1}{2}(s_{i}\sigma_{i}^{2} - \frac{1}{2}\sum\limits_{l \neq i}^{n}s_{l}var(E_{l})
+\end{align*}
+
+\begin{align}
+ \langle E_{j} \rangle = & \langle \ln g_{j,t} \rangle \\
+\mu_{j} = & \langle \ln g_{j,t} \rangle - \ln(1-s_{j}) \\
+\end{align}
+\begin{align}
+var(E_{j}) = & var(\ln(g_{j,t}))\\
+\delta V_{i} = & \frac{1}{2} s_{i} var(\ln(g_{i,t}))-\bar{\frac{1}{2} s_{j} var(\ln(g_{j,t}))}^{(j \neq i)} \\
+var(\ln g_{j,t}) = h^2 var(\tau_{p,t}^{2} - 2 \tau_{p,t}\tau_{i})\\
+\end{align}
+\begin{align}
+g_{j,t} = & G_{max} e^{-h(\tau_{p,t}-\tau_{i})^2}\\
+\ln g_{j,t} = & \ln G_{max}-h(\tau_{p,t}-\tau_{i})^2\\
+\langle \ln g_{j,t} \rangle = & \ln G_{max} - h \langle (\tau_{p,t}-\tau_{i})^2 \rangle\\
+& \text{...skipping some intervening equation work...}\\
+= & \ln G_{max} - h (\sigma^{2}_{\tau_{p,t}}+(\mu_{\tau_{p,t}}-\tau_{i})^{2})
+\end{align}
+
+\begin{align*}
+\text{For the case where } \tau_{p} \sim & \beta(p,q)\\
+\text{we can calculate the expected value and variance of }&\tau_{p,t} \text{ explicitly}: \\
+var (\tau_{p}) = & E \langle \tau_{p}^{2}\rangle - \langle E \langle \tau_{p} \rangle\rangle ^{2}\\
+ & var(\tau_{p})+ E \langle \tau_{p}\rangle ^{2} \text{ Megan, is this extra from above or ...?}\\
+E \langle \tau_{p} \rangle = & \frac{p}{p+q}\\
+var(\tau_{p}) = & \frac{pq}{(p+q)^{2}(p+q+1)}
+\end{align*}
+
+
+\noindent \textbf{Storage Effect}
+\begin{align*}
+\frac{\Delta I_{i}}{d_{i}} = & \overline{(1-d_{j})\chi_{j}^{(-i)}}^{(j\neq i)} - (1-d_{i})\chi_{i}^{(-i)}\\
+= & \sum\limits{j \neq i}^{n} s_j \chi_{j}^{(-i)} - s_{i} \chi_{i}^{-i}\\
+\chi_{j}^{(-i)} = & cov(E_{j},C^{(-i)}) \text{ where $C_{(-i)}$ is competition when sp $i$ is invader}\\
+\chi_{j}^{(-i)}  = & cov(\ln g_{j,t}, \ln(\frac{\lambda_{j}}{1+\sum \limits_{l \neq i} \alpha_{jl}g_{l,t}N_{l,t}}-s_{j}))\\
+\chi_{i}^{(-i)}  = & cov(\ln g_{i,t}, \ln(\frac{\lambda_{i}}{1+\sum \limits_{l \neq i} \alpha_{il}g_{l,t}N_{l,t}}-s_{i}))\\
+\end{align*}
+
+\noindent \textbf{Relative Nonlinearity}
+\begin{align*}
+\frac{\Delta N_{i}}{d_{i}} = & \frac{1}{2}var(C^{(-i)})(d_{i}-\bar{d_{j}}^{(j \neq i)})\\
+var(C^{(-i)}) = & var(\ln \frac{\lambda_{j}}{1+\sum \limits_{l} \alpha_{il}g_{l,t}N_{l,t}}-s_{j})\\
+\bar{d_{s}}^{(s \neq i)} = & \frac{1}{n-1}\sum \limits_{l=i}(1-s_{l})
+\end{align*}
+
+\noindent \textbf{Calculation of ${C_{t}}$}
+In Chesson 2003, the calculations in Table 1 are for $C_{t}^{(-i)}$, i.e., the community competition with the invader absent.  In principle this makes sense: if we consider competition experienced by the invader to reflect the level of resource remaining after consumption by all resident species, then  $C_{t}^{(-i)}$ depends only on the identity of the invader.  
+For calculate the storage effect, we must calculate the covariance between environment and competion:  $Cov(C_{j,t},E_{j,t}$.  In this case, we can calculate species-specific $C_{j,t}$ and $E_{j,t}$, with $C_{j,t}$ as the annual competition experienced by species $j$, i.e.,
+$C_{j,t} = \ln (\frac{\lambda_{j}}{1+\sum\limits{l \neq i}^{n} \alpha_{jl}g_{l,t}N_{l,t}}-s_{j})$
+However, when we calculate relative nonlinearity using the equation in Chesson (2003) Table 1, we need to calculate $var(C_{t}^{(-i)})$, which should be the same for all species.  It is not clear how the annual community competitive effect should be calculated.  The denominator in the equation for $C$ is easy to calculate for all but the invader.  But this is multiplied by a species-specific term ($\lambda_{j}$) and a species-specific term is subtracted $s_{j}$.  Therefore, I wonder if the simple equations in Table 1 are not appropriate for this case.  Even if the competitive effects were proportional by species (not the case because of the subtraction of $s_{j}$) then the terms in Table 1 would need to be scaled by $\lambda_{j}$.  \\
+
+
+
+\begin{align*}
+N_{j} &  \text{ density of adults of species } j \text{ at time } t 
+\\
+d_{j} & \text{ fraction of adults dying during one unit of time}
+\\
+R_{j} & \text{ per capita number of new recruits to species} j \text{in the time interval } t \text{ to} + 1
+\\
+\lambda_{i} & \text{ per-germinant fecundity in the absence of competition}
+\\
+g_{j} & = 
+\\
+\alpha_{ij} & = \text{ per capita effect of species } j \text{ on species } i
+\\
+a_{l} & = \text{ competitive effect of a $sp_{l}$ individual (related to eqn 6 of \cite{chesson2003})
+\end{align*}
+
+\subsection{Species differences: Old thoughts on how to implement}
+\noindent New notes as of October-December 2013: \emph{Models without tracking:}\\
+How will we adjust the equations for simulations about shifts in the environment? For now we plan to let parameters vary some and see if we can pick out patterns. If this gets tricky we can switch to trade-offs between \(\tau_{i}\) and \(c_{i}\).\\
+
+(Old question from October 2013, maybe should cut): Do we need to make sure that for all \(i\), \(\int g_{i}\) are equal, or is it that \(\int g_{i}(t)\tau_{p}(t)\mathrm{d}t\) should be constant (the latter being the average of \(g_{i}\) weighted by the distribution of \(\tau_{p}\) through time).\\
+
+\noindent \emph{Models with tracking:}\\
+In nature early species have quicker-return investments on growth and early is often high tracking, so it's hard to tell whether early \emph{or} high-tracking trades off with this quicker-return angle. So what we plan on doing:\\
+\noindent For now, for coexistence: we'll trade off \(c_{i}\) and \(\tau_{i}\), when we add in alpha we'll leave this above trade-off and maybe:
+\begin{itemize}
+\item get some coexisting species and add high tracking randomly to all and see what happens
+\item get some coexisting species and add high tracking to the early ones and see what happens
+\item add weak versus strong tracking
+\end{itemize}
+
 
