@@ -6,7 +6,7 @@
 #  Note that this overwrites any changes in the NODE versions
 
 STORAGE="/n/wolkovich_lab/temporalvar"
-NODE ="/n/regal/wolkovich_lab/temporalvar"
+NODE="/n/regal/wolkovich_lab/temporalvar"
 
 cp ${STORAGE}/R/sourcefiles/*.R ${NODE}/R/sourcefiles
 cp ${STORAGE}/R/getInputParms.txt ${NODE}/R
