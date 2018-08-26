@@ -14,11 +14,11 @@ if(Sys.getenv("SLURM_ARRAY_JOB_ID")=="") {
 print(paste("jobID is ",jobID))
 
 #redirect .Rout using sink
-if (!dir.exists(file.path(paste0(loc,"sink/")))) dir.create(file.path(paste0(loc,"sink/")))
-outout <- file(paste0(loc,"sink/sinkout_",jobID[1],"-",jobID[2],".Rout"), open="wt")
-errout <- file(paste0(loc,"sink/sinkerr_",jobID[1],"-",jobID[2],".Rout"), open="wt")
-sink(outout,type="output")
-sink(errout,type="message")
+#if (!dir.exists(file.path(paste0(loc,"sink/")))) dir.create(file.path(paste0(loc,"sink/")))
+#outout <- file(paste0(loc,"sink/sinkout_",jobID[1],"-",jobID[2],".Rout"), open="wt")
+#errout <- file(paste0(loc,"sink/sinkerr_",jobID[1],"-",jobID[2],".Rout"), open="wt")
+#sink(outout,type="output")
+#sink(errout,type="message")
 
 #output parms & folder locations
 writeBout <- 1  #default=1; flag indicating how often Bout should be written (0=never, n = every n runs)
