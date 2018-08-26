@@ -80,7 +80,7 @@ for (j in c(1:nruns)){
   source(paste0(loc,"sourcefiles/getOutput.R"))
 
 }
-#stop redirecting Rout that was initiated in getRunParms
-sink(type="message")
-sink(type="output")
+##stop redirecting Rout that was initiated in getRunParms
+#sink(type="message")
+#sink(type="output")
 
