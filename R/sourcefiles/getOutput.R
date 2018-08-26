@@ -77,10 +77,10 @@ for (q in c(1:length(nst))) {
 
 L <- rep(0,yout)  #number of timesteps in Bout in year y
 #new Bout file gets written for each run
-col.names.Bout <- FALSE
 for (m in c(1:yout)) {
   L[m] <- dim(Bout[[m]])[1]
   ##only write headers in first year
+  col.names.Bout <- FALSE
   if (m==1) col.names.Bout <- c("jobID","taskID","runID","yr","time","R",paste0(rep("B",nsp),c(1:nsp)))
   write.table(matrix(data=c(rep(as.numeric(jobID[1]),L[m]),rep(as.numeric(jobID[2]),L[m]),
                             rep(j,L[m]),rep(m,L[m]),as.matrix(Bout[[m]])),
