@@ -21,7 +21,7 @@ if (j == 1) {
                     paste0(rep("N",nsp),c(1:nsp)),
                     paste0(rep("rcrt",nsp),c(1:nsp)),
                     paste0(rep("coexist",nsp),c(1:nsp)))
-  col.names.SummaryOut <- c("jobID","taskID","runID","period","nperiods","yout","ncoexist",
+  col.names.SummaryOut <- c("jobID","taskID","runID","period","nperiods","yout","itertime","ncoexist",
                             paste0(rep("coexist",nsp),c(1:nsp)),
                             paste0(rep("alpha",nsp),c(1:nsp)),
                             paste0(rep("c",nsp),c(1:nsp)),
@@ -53,14 +53,14 @@ for (q in c(1:length(nst))) {
                                      -tauIhat[ini:fin,])^2))  #germination fraction in year y
   tauIP <- colMeans(abs(tauP[ini:fin] - tauIhat[ini:fin,]))
   if (q==1) {  #include header columns if first period
-    write.table(matrix(data=c(as.numeric(jobID[1]),as.numeric(jobID[2]),j,q,nperiods,fin,
+    write.table(matrix(data=c(as.numeric(jobID[1]),as.numeric(jobID[2]),j,q,nperiods,fin,itertime,
                             sum(coexist[fin,]),coexist[fin,],alpha,c,Rstar,tauI,
                             gmean,tauIP),nrow=1),
             file=paste0(SummOut_loc,"SummaryOut",suffix),
             col.names = col.names.SummaryOut, row.names = FALSE,
             append=TRUE,sep="\t", quote=FALSE)
   } else { #exclude header columns if second or third period
-    write.table(matrix(data=c(as.numeric(jobID[1]),as.numeric(jobID[2]),j,q,nperiods,fin,
+    write.table(matrix(data=c(as.numeric(jobID[1]),as.numeric(jobID[2]),j,q,nperiods,fin,itertime,
                               sum(coexist[fin,]),coexist[fin,],alpha,c,Rstar,tauI,
                               gmean,tauIP),nrow=1),
                 file=paste0(SummOut_loc,"SummaryOut",suffix),
