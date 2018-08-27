@@ -22,7 +22,7 @@
 source new-modules.sh
 module load R_packages
 
-R CMD BATCH --quiet --no-restore --no-save /n/wolkovich_lab/temporalvar/R/PhenologyModel.r
+Rscript /n/regal/wolkovich_lab/temporalvar/R/PhenologyModel.R --quiet --no-restore --no-save 
 
 ###run this with the following command from the temporalvar folder
 
