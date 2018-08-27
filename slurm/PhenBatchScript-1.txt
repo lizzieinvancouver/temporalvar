@@ -1,0 +1,3 @@
+
+export PHEN_RUNNUM=1; sbatch --array=1-2 /n/wolkovich_lab/temporalvar/slurm/Phenology_2018.sh
+export PHEN_RUNNUM=2; sbatch --array=1-2 /n/wolkovich_lab/temporalvar/slurm/Phenology_2018.sh
