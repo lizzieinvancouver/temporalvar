@@ -76,7 +76,7 @@ for (j in c(1:nruns)){
   yout <- y
   itertime2 <- Sys.time()
   itertime <- difftime(itertime2, itertime1)
-  print(paste("run ended at step =", yout," this run took ", itertime," sec"))
+  #print(paste("run ended at step =", yout," this run took ", itertime," sec"))
   source(paste0(loc,"sourcefiles/getOutput.R"))
   itertime3 <- Sys.time()
   print(paste("run ended at step =", yout," the calcs took ", format(itertime,digits=4)," sec",", writing took ", format(difftime(itertime3,itertime2),digits=4)))
