@@ -70,7 +70,7 @@ col.names.runparms <- c("arrayID","taskID","nruns","nsp","nyrs",
 #             append = FALSE, sep= "\t",quote=FALSE)
 
 #write run conditions to Table of RunParms
-fileparms <- paste0(loc,"output/Table_of_RunParms_",datesuffix,".txt")
+fileparms <- paste0(loc,"output/OtherOut/RunParms_",suffix)
 if(!file.exists(file.path(fileparms))) {
   file.create(file.path(fileparms))
   col.names.Table_of_RunParms = col.names.runparms
