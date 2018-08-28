@@ -28,8 +28,7 @@ source("sourcefiles/analyses/runanalysisfxs.R")
 runbout <- FALSE
 
 # cheap loop over the files for now
-runs3 <- c("41801534", "41801535", "41801556", "41801557", "41801558", "41801559",
-    "41801560", "41801561", "41801567", "41801578", "41801579") # new set as of 17 Apr 2018
+runs3 <- c("51745826", "51745827", "51745828", "51745829") # new set as of 27 Aug 2018, including "51744988", "51744989"
 
 # runinfo <- read.table("Table_of_RunParms.txt", skip=1, header=TRUE)
 
@@ -52,9 +51,8 @@ runs3 <- c("41801534", "41801535", "41801556", "41801557", "41801558", "41801559
 ##############################
 ## Notes on other runs .... ##
 ##############################
-runs1 <- c("36426477", "36511349", "36511352", "36691943","36511384", "36691954",
-    "36691955", "36691956") # this is the set from Feb 2018
-runs2 <- c(paste("417251", 25:32, sep="")) # new set as of 16 Apr 2018
+# runs1 <- c("36426477", "36511349", "36511352", "36691943","36511384","36691954", "36691955", "36691956") # this is the set from Feb 2018
+# runs2 <- c(paste("417251", 25:32, sep="")) # new set as of 16 Apr 2018
 # EMPTY: "41725133", "41774659", "41775246", "41776446", "41779263","41779441"
 # Note that , "41801581" ends at 33 (not 40)
 # not coexisting after p2: "41801580"
@@ -62,18 +60,17 @@ runs2 <- c(paste("417251", 25:32, sep="")) # new set as of 16 Apr 2018
 #########################################
 ## Do some data reading and formatting ##
 #########################################
-runnow <- c("41801534")  #runs3 
+runnow <- runs3 
 
 for(folderIDhere in c(1:length(runnow))){
     
 folderID <- runnow[folderIDhere] # folderID <- 41801534
 samplerun <-  read.table(paste("output/SummaryFiles/", folderID, "/SummaryOut_", folderID,
     "-1.txt", sep=""), header=TRUE)
-filenamestart <- c(paste("SummaryOut_", folderID, "-", sep=""))
+# filenamestart <- c(paste("SummaryOut_", folderID, "-", sep=""))
+file.names <- dir(paste("output/SummaryFiles/", folderID, sep=""), pattern =".txt")
 colnameshere <- colnames(samplerun)
-numhere <- c(1:40)
-
-runs1 <- getfiles(folderID, filenamestart, numhere, colnameshere)
+runs1 <- getfiles(folderID, file.names, colnameshere)
 runs1$taskrunID <- paste(runs1$taskID, runs1$runID, sep="-")
  
 ##
