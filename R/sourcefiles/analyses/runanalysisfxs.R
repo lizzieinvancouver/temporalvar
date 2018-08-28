@@ -1,9 +1,10 @@
 ## Started 19 March 2018 ##
 ## f(x)s to read in and plot the temporalvar runs ##
 
-getfiles <- function(folderID, filenamestart, numhere, colnameshere){
-    filepack <- lapply(numhere, function(numhere) {
-    filename <- paste("output/SummaryFiles/", folderID, "/", filenamestart, numhere, ".txt", sep="")
+getfiles <- function(folderID, file.names, colnameshere){
+    # numhere <- as.numeric(gsub("^[^-]*-([^.]+).*", "\\1", file.names))
+    filepack <- lapply(file.names, function(file.names) {
+    filename <- paste("output/SummaryFiles/", folderID, "/", file.names, sep="")
     dat <- read.table(filename, skip=1)
     names(dat) <- colnameshere
     return(data.frame(dat))
