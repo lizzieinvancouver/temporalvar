@@ -46,13 +46,14 @@ if (yout <= nonsta[1]) {
       if (nonsta[2] > 0) nst <- c(nonsta[1],nonsta[1] + nonsta[2],yout)
 }
 
+#writing SummaryOut files at the end of each run
 for (q in c(1:length(nst))) {
   if (q==1) ini <- 1 else ini <- nst[q-1] + 1  # starting year for this period
   fin <- nst[q]                                # ending year for this period (or yout, if extinct before end of period)
   gmean <- colMeans(gmax*exp(-h*(matrix(rep(tauP[ini:fin],nsp),nrow=(fin-ini+1),ncol=nsp)
                                      -tauIhat[ini:fin,])^2))  #germination fraction in year y
   tauIP <- colMeans(abs(tauP[ini:fin] - tauIhat[ini:fin,]))
-  if (q==1) {  #include header columns if first period
+  if (q==1 && j==1) {  #include header columns if first period
     write.table(matrix(data=c(as.numeric(jobID[1]),as.numeric(jobID[2]),j,q,nperiods,fin,itertime,
                             sum(coexist[fin,]),coexist[fin,],alpha,c,Rstar,tauI,
                             gmean,tauIP),nrow=1),
