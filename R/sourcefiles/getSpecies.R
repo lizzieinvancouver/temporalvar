@@ -54,7 +54,7 @@ if (!is.na(varRstar[2])) {     #if varRstar is vector then it gives c for each s
 } else if (varRstar[1] == -1){     #if varRstar is -1, then go with old default value for all species
     c <-  rep(12,nsp)
 } else {                       #otherwise, randomly select c for each species
-    c <- runif(nsp,2,20)
+    c <- runif(nsp,8,20)
 }
 
 a <-  rep(20,nsp)        # slope of species uptake rate with increasing R
