@@ -1,6 +1,17 @@
 Started in 2018
 Notes on megadrought paper
 
+
+<><><><><><><><><><><><><>
+29 August 2018
+Chatting with Megan in Vancouver
+
+- I was trying to remember why we switched to messing with phi instead of something related to the shape of the germination curves ... after some discussion I believe the answer is:
+	- Just having differently shaped germination curves will never lead to exotic extinction, because our current model always produces some biomass and thus some seeds if *any* seed germinates. We could change the model to where being super mismatched in someway does lead to failure (or a super low biomass lead to complete failure) but that would be a new model formulation and thus perhaps a bit of a pain.
+	- Changing phi changes a more well-known, well understood parameter and works perhaps better with the literature. 
+
+<><><><><><><><><><><><><>
+
 <><><><><><><><><><><><><>
 20 April 2018
 Chatting with Megan at NOAA
@@ -11,7 +22,7 @@ Chatting with Megan at NOAA
 	- how realistic is the trade-off needed for extinction?
 
 - vary: phi and s under three scenarios (which we expect will help us find the sweet spot where things go extinct quickly):
-(1) tauI-taup
+(1) tauI=taup
 (2) tauI is 1sd from tauI
 (3) tauI is 2sd from tauI
 
