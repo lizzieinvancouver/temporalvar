@@ -24,9 +24,6 @@ setwd("~/Documents/git/projects/temporalvar/R")
 source("sourcefiles/analyses/multiplot.R") # used in plot.params
 source("sourcefiles/analyses/runanalysisfxs.R")
 
-## flags for what to do
-runbout <- FALSE
-
 # cheap loop over the files for now
 runs3 <- c("51803375", "51803287", "51803320", "51803342") 
 
