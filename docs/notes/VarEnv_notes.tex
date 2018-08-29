@@ -105,6 +105,9 @@ See below (or see other files) for outlines and info on each.
 \section{Notes from meetings}
 \emph{These are notes from our meetings that basically outline what we did. I have tried to remove any critical information. Meaning: you don't really need to read this if you don't want to, unless you're looking for notes on why we didn't do things or when we did certain things.}
 
+\subsection{Notes from 29 August 2018}
+Four days on runs, coding etc.!
+
 \subsection{Notes from 18 April 2018}
 This was an exciting meeting as we had some big progress in deciding to work up a concept paper for the tracking project and coming up with an outline that seemed good with easily (err, we think) executable model runs. As such we've been working on the outline for the new paper, the model runs and culling/organzing these notes.
 
@@ -198,7 +201,7 @@ Megan's notes from 27 January 2015, are now below the end of document. Following
 \subsection{Phenology \& climate change paper}\label{phenCCpaper}
 See also \ref{trackingthoughts} and \ref{genoutline}, both below.\\
 
-*Many notes are now in phencc.tex. {\bf I just left notes (below) that are not part of our current approach.}
+*Many notes are now in phencc.tex. {\bf I just left notes (below) that are NOT part of our current approach.}
 
 \begin{enumerate}
 \item Two species case: take the coexisting 2-species communities from stationary systems and add nonstationarity in $\tau_P$ and ...
@@ -220,8 +223,9 @@ Measuring coexistence, a couple options
 \item Run the model to persistent-looking conditions and show each species can increase from low-density using long-term mean densities of other species.
 \end{smitemize}
 
-\subsection{Connections to Mayan Megadroughts project}
-See also \ref{mayannotes} below.\\
+\subsection{Mayan Megadroughts project}
+
+*Many notes are now in megadroughts.tex. {\bf I just left notes (below) that are NOT part of our current approach.}
 
 \noindent We broke down this trade-off to: Wider (probably shorter) germination curves trade off with shorter seedbank life such that ...
 \begin{smitemize}
@@ -230,6 +234,9 @@ See also \ref{mayannotes} below.\\
 \item Exotics have short-life seedbanks, natives have longer-life seedbanks. 
 \item Thus, if you add in mega-droughts (repetitive low-pulse size years) the exotic species will continue to germinate a high fraction of seeds each year, but get little biomass and new seeds out of the germinating seeds, leading to a negative growth rate that does not rebound before the whole seedbank is wiped out. Natives don't do this. (See also Figure 1 below). 
 \end{smitemize}
+\emph{Some major issues with this conceptualization:} Based on our current model, we're not entirely convinced that drought could drive the invaders extinct via a wider (potentially shorter) germination curve. This is because the exotics would still go in many years (and potentially more years than the natives given that they have narrower curves, depending on the parameterization) and even a small amount of biomass could be converted to seed, thus the exotics would not go extinct. We could re-do the model to force failure to produce seeds in some situations (some notes on this in \verb|megadroughts.txt|) but that is not ideal. \\
+
+So, in 2018 we switched to consider $\phi$, which is the biomass to seed conversion at the end of each season. This allows us to work with the same model {\bf and} it makes sense for our exotics and natives, since all the data we have show how much higher $\phi$ is for exotics. 
 
 \begin{figure}[h!]
 \centering
@@ -611,25 +618,6 @@ Next up, I need to work on how to make joint distributions in R (all different t
 \end{quote}
 
 Without tracking we may predict benefits to early-colonizers decline with earlier seasons. As start-date moves earlier, early folks lose benefit (assuming they tend to often go at optimum time) and you get more late folks. Late species may be less different than one another---and less responsive to environment. Early folks, effectively, become more similar to environment. 
-
-
-\newpage
-\section{Notes on megadroughts paper}\label{mayannotes}
-\begin{center}
-{\Large Temporal redness, Mayan megadroughts and Californian invaders\\ or\\ Red noise and the sunset of Mayans and European invaders}
-\end{center}
-
-\noindent Can we use this model to test if certain strategies (say, high tracking) can increase over shorter timescales but be completely excluded from this system given rarer, long-term (red) periods of environmental `harshness'?\\
-
-To expand: My theory works as such: If a closed population of a species has a relatively short length for its buffered population growth---for example, imagine an annual grass with a 3 year seedbank---and enters a new system where the climate has long term fluctuations, could that population possibly do well during certain environmental phases, but be completely excluded (local extinction) during others. For example, the scenario of California annual invasive grasses: they do great now, but less well in drought years and large very long droughts (Mayan megadroughts are part of the ENSO cycle, possibly, and are decade or multi-decadal) could possibly throw them entirely out of the system. Thus the answer to the question I always get: If European annual grasses do so well in coastal sage scrub why weren't there any native annual grasses? would be---wait a while and  then you'll see. \\
-
-There is also an evolutionary angle to this: short lifespans and short seedbanks with these sorts of long-term cycles could lead to evolving quickly, during one climate phase, towards a damn stupid strategy when the next climate phase kicks in. But I don't want to go there, just to point it out.\\
-
-\noindent Opportunity to coin new term (from one term I hate and one that I like): {\bf invasion extinction debt}, the number of invaders that would go extinct if you wait a very long time. \\
-
-\noindent We could bring Ben Cook on this project to give us some info on how frequencies of droughts have shifted over the past 2K years or so in North America. Or, maybe we could look at some shifts in drought periodicities globally just to press home the message that these can vary a lot across time. \\
-
-\noindent \emph{Refs from Doug:} \citep{Davison2010,morris2008,Tuljapurkar2009}
 
 \section{Storage effect notes}
 
