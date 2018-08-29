@@ -1,6 +1,6 @@
 #Runtime Parameters (if running locally, then only use first line of getInputParms)
 print(paste("Sys.getenv(PHEN_RUNNUM) = ",Sys.getenv("PHEN_RUNNUM")))
-print(paste("JOB_ID = ", Sys.getenv("SLURM_ARRAY_JOB_ID")))
+#print(paste("JOB_ID = ", Sys.getenv("SLURM_ARRAY_JOB_ID")))
 runflag <- ifelse(Sys.getenv("PHEN_RUNNUM")=="",1,as.numeric(Sys.getenv("PHEN_RUNNUM")))
 
 datesuffix <- (paste0(format(Sys.time(),"%Y-%m-%d")))
@@ -13,28 +13,21 @@ if(Sys.getenv("SLURM_ARRAY_JOB_ID")=="") {
 }
 print(paste("jobID is ",jobID))
 
-#redirect .Rout using sink
-#if (!dir.exists(file.path(paste0(loc,"sink/")))) dir.create(file.path(paste0(loc,"sink/")))
-#outout <- file(paste0(loc,"sink/sinkout_",jobID[1],"-",jobID[2],".Rout"), open="wt")
-#errout <- file(paste0(loc,"sink/sinkerr_",jobID[1],"-",jobID[2],".Rout"), open="wt")
-#sink(outout,type="output")
-#sink(errout,type="message")
-
 #output parms & folder locations
 writeBout <- 1  #default=1; flag indicating how often Bout should be written (0=never, n = every n runs)
 
-Bout_loc <- paste0(loc,"output/Bout/",jobID[1],"/")
-if(!dir.exists(file.path(Bout_loc))) dir.create(file.path(Bout_loc))
+Bout_loc <- paste0(locOUT,"output/Bout/",jobID[1],"/")
+if(!dir.exists(file.path(Bout_loc))) dir.create(file.path(Bout_loc),recursive=TRUE)
 
-SummOut_loc <- paste0(loc,"output/SummaryFiles/",jobID[1],"/")
-if(!dir.exists(file.path(SummOut_loc))) dir.create(file.path(SummOut_loc))
+SummOut_loc <- paste0(locOUT,"output/SummaryFiles/",jobID[1],"/")
+if(!dir.exists(file.path(SummOut_loc))) dir.create(file.path(SummOut_loc),recursive=TRUE)
 
-OtherOut_loc <- paste0(loc,"output/OtherOut/",jobID[1],"/")
-if(!dir.exists(file.path(OtherOut_loc))) dir.create(file.path(OtherOut_loc))
+OtherOut_loc <- paste0(locOUT,"output/OtherOut/",jobID[1],"/")
+if(!dir.exists(file.path(OtherOut_loc))) dir.create(file.path(OtherOut_loc),recursive=TRUE)
 
 suffix <- paste0("_",jobID[1],"-",jobID[2],".txt") #unique for each array in batchfile
 
-  inputs <- as.data.frame(read.table(file=paste0(loc,"getInputParms.txt"),
+  inputs <- as.data.frame(read.table(file=paste0(locIN,"getInputParms.txt"),
                                      header=TRUE,stringsAsFactors=FALSE,sep="\t"))
   nruns <- inputs$nruns[runflag]
   nonsta <- as.numeric(unlist(strsplit(inputs$nonsta[runflag],",")))
@@ -59,25 +52,25 @@ tsteps <- ndays/dt
 
 runparms <- matrix(data= c(jobID[1],jobID[2],nruns,nsp,nyrs,nonsta,tracking,varRstar,vartauI,
                            writeBout,ext,ndays,dt,tsteps),nrow=1)
-col.names.runparms <- c("arrayID","taskID","nruns","nsp","nyrs",
-                        paste0(rep("nonsta",3),c(1:3)),
-                        "tracking",
-                        paste0(rep("varRstar",2),c(1:2)),
-                        "vartauI","writeBout","ext","ndays","dt","tsteps")
-# write.table(runparms,
-#             file=paste0(OtherOut_loc,"/RunParms",jobID[1],"/",suffix),
-#             col.names = col.names.runparms, row.names = FALSE,
-#             append = FALSE, sep= "\t",quote=FALSE)
 
-#write run conditions to Table of RunParms
-fileparms <- paste0(loc,"output/OtherOut/RunParms_",suffix)
-if(!file.exists(file.path(fileparms))) {
-  file.create(file.path(fileparms))
-  col.names.Table_of_RunParms = col.names.runparms
-} else {
-  col.names.Table_of_RunParms = FALSE
-}
-write.table(runparms,file=fileparms,
-            col.names = col.names.Table_of_RunParms,row.names = FALSE,
-            append = TRUE, sep = "\t", quote=FALSE)
-  
+#write run conditions to RunParms
+if (jobID[2]==1) {
+  col.names.runparms <- c("arrayID","taskID","nruns","nsp","nyrs",
+                          paste0(rep("nonsta",3),c(1:3)),
+                          "tracking",
+                          paste0(rep("varRstar",2),c(1:2)),
+                          "vartauI","writeBout","ext","ndays","dt","tsteps")
+  fileparms <- paste0(OtherOut_loc,"RunParms_",jobID[1],".txt")
+  write.table(runparms,file=fileparms,
+              col.names = col.names.runparms, row.names = FALSE,
+              sep= "\t",quote=FALSE)
+  # if(!file.exists(file.path(fileparms))) {
+  #   file.create(file.path(fileparms))
+  #   col.names.Table_of_RunParms = col.names.runparms
+  # } else {
+  #   col.names.Table_of_RunParms = FALSE
+  # }
+  # write.table(runparms,file=fileparms,
+  #             col.names = col.names.Table_of_RunParms,row.names = FALSE,
+  #             append = TRUE, sep = "\t", quote=FALSE)
+}  

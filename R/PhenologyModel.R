@@ -7,19 +7,25 @@ options(stringsAsFactors=FALSE)
 library(deSolve)
 
 #define run conditions
-#loc <- "C:/Users/Megan/Documents/GitHub/temporalvar/R/"  
-#loc <- "/n/wolkovich_lab/temporalvar/R/"
-loc <- "/n/regal/wolkovich_lab/temporalvar/R/"
+#locIN <- "C:/Users/Megan/Documents/GitHub/temporalvar/R/"
+#locOUT <- "C:/Users/Megan/Documents/scratch/"
+#locSAVE <- "C:/Users/Megan/Documents/GitHub/temporalvar/R/output/"
+locIN <- "/n/regal/wolkovich_lab/temporalvar/R/"
+locOUT <- "/scratch/wolkovich_lab/temporalvar/"
+locSAVE <- "/n/wolkovich_lab/temporalvar/R/output/"
 
-source(paste0(loc, "sourcefiles/getRunParms.R")) #define runtime parameters
+if(!dir.exists(file.path(locOUT))) dir.create(file.path(locOUT),recursive=TRUE)
+if(!dir.exists(file.path(locSAVE))) dir.create(file.path(locSAVE),recursive=TRUE)
+
+source(paste0(locIN, "sourcefiles/getRunParms.R")) #define runtime parameters
 
 for (j in c(1:nruns)){
   itertime1 <- Sys.time()
   print(paste("run ",j,"of ",nruns))
   #define parameters and functions for this run
-  source(paste0(loc,"sourcefiles/getEnvt.R"))  #get constant and time-varying envt parms
-  source(paste0(loc,"sourcefiles/getSpecies.R"))  #get species characteristics and Rstar
-  source(paste0(loc,"sourcefiles/ResCompN.R")) # define within-season ode solver
+  source(paste0(locIN,"sourcefiles/getEnvt.R"))  #get constant and time-varying envt parms
+  source(paste0(locIN,"sourcefiles/getSpecies.R"))  #get species characteristics and Rstar
+  source(paste0(locIN,"sourcefiles/ResCompN.R")) # define within-season ode solver
   
   #Define arrays
   #interannual dynamics set-up (R0 is in getEnvt.R)
@@ -77,10 +83,11 @@ for (j in c(1:nruns)){
   itertime2 <- Sys.time()
   itertime <- difftime(itertime2, itertime1)
   #print(paste("run ended at step =", yout," this run took ", itertime," sec"))
-  source(paste0(loc,"sourcefiles/getOutput.R"))
+  source(paste0(locIN,"sourcefiles/getOutput.R"))
   itertime3 <- Sys.time()
   print(paste("run ended at step =", yout," the calcs took ", format(itertime,digits=4)," sec",", writing took ", format(difftime(itertime3,itertime2),digits=4)))
 }
+source(paste0(locIN,"sourcefiles/moveOutput.R"))
 ##stop redirecting Rout that was initiated in getRunParms
 #sink(type="message")
 #sink(type="output")
