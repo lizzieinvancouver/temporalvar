@@ -2,7 +2,7 @@
 ### By Lizzie ###
 
 ## Analyzing the runs data for the storage effect model! ##
-## Last updated mid March 2018 ##
+## Last updated August 2018 ##
 
 ######################
 ### To do items!!! ###
@@ -28,7 +28,7 @@ source("sourcefiles/analyses/runanalysisfxs.R")
 runbout <- FALSE
 
 # cheap loop over the files for now
-runs3 <- c("51745826", "51745827", "51745828", "51745829") # new set as of 27 Aug 2018, including "51744988", "51744989"
+runs3 <- c("51792862","51792863", "51803375", "51803287", "51803320", "51803342") # new set as of 27 Aug 2018:"51745826", "51745827", "51745828", "51745829", "51744988", "51744989"
 
 # runinfo <- read.table("Table_of_RunParms.txt", skip=1, header=TRUE)
 
@@ -60,7 +60,15 @@ runs3 <- c("51745826", "51745827", "51745828", "51745829") # new set as of 27 Au
 #########################################
 ## Do some data reading and formatting ##
 #########################################
-runnow <- runs3 
+runnow <- runs3
+
+## Cheap addition to paste together runs in one DF for now (part 1/2) 
+folderID <- runnow[1] 
+samplerun <-  read.table(paste("output/SummaryFiles/", folderID, "/SummaryOut_", folderID,
+    "-1.txt", sep=""), header=TRUE)
+df.all <- data.frame(matrix(ncol=length(colnames(samplerun)), nrow=0))
+colnames(df.all) <- colnames(samplerun)
+## END cheap p 1/2
 
 for(folderIDhere in c(1:length(runnow))){
     
@@ -80,6 +88,83 @@ df <- makediffs(runs1)
 df.coexist <- subset(df, ncoexist==2)
 print(paste("the current folder ID is", folderID, "the total rows are:", nrow(df), 
     "and the total coexisting rows are:", nrow(df.coexist), sep=" "))
+
+## Cheap addition to paste together runs in one DF for now  (part 2/2)
+## Delete these two lines below and lines above to go back to the old loop 
+df.all <- rbind(df.all, df)
+    } # this prematurely closes the loop, you could delete it
+## END cheap p 2/2
+
+## Queries in August 2018
+plot(itertime~diff.rstar, data=df.all) # there is no relationship
+summary(lm(itertime~diff.rstar, data=df.all))
+ggplot(df.all, aes(y=itertime, x=diff.rstar)) + geom_point(aes(color=as.factor(ncoexist)))
+ggplot(subset(df.all, ncoexist==2), aes(y=itertime, x=diff.rstar)) + geom_point() # there is no relationship
+ggplot(df.all, aes(y=itertime, x=diff.rstar)) + geom_point(aes(color=as.factor(period))) # relationship!
+
+df.p1 <- subset(df.all, period==1) # assumes all runs start with stationary,
+# may miss some stationary periods but a good start
+## runs with just rstar varying ...
+# 51803342 has no tracking varying but does vary tauI so basically all the runs have something other than Rstar varying ...
+# But all have Rstar varying! So we'll just use all?
+# can code someday, get runparms and look for: varRstar2==NA and varRstar1==1 
+plot(diff.rstar~ncoexist, df.p1)
+rstar.summ.all <-
+      ddply(df.all, c("ncoexist"), summarise,
+      mean.diff.rstar = mean(diff.rstar),
+      min.diff.rstar = min(diff.rstar),
+      max.diff.rstar = max(diff.rstar),
+      mean.diff.c = mean(diff.c),
+      min.diff.c = min(diff.c),
+      max.diff.c = max(diff.c),
+      mean.Rstar1 = mean(Rstar1),
+      mean.Rstar2 = mean(Rstar2),
+      min.Rstar1 = min(Rstar1),
+      min.Rstar2 = min(Rstar2), 
+      max.Rstar1 = max(Rstar1),
+      max.Rstar2 = max(Rstar2),
+      mean.c1 = mean(c1),
+      mean.c2 = mean(c2),
+      min.c1 = min(c1),
+      min.c2 = min(c2), 
+      max.c1 = max(c1),
+      max.c2 = max(c2))
+
+rstar.summ.p1 <-
+      ddply(df.p1, c("ncoexist"), summarise,
+      mean.diff.rstar = mean(diff.rstar),
+      min.diff.rstar = min(diff.rstar),
+      max.diff.rstar = max(diff.rstar),
+      mean.diff.c = mean(diff.c),
+      min.diff.c = min(diff.c),
+      max.diff.c = max(diff.c),
+      mean.Rstar1 = mean(Rstar1),
+      mean.Rstar2 = mean(Rstar2),
+      min.Rstar1 = min(Rstar1),
+      min.Rstar2 = min(Rstar2), 
+      max.Rstar1 = max(Rstar1),
+      max.Rstar2 = max(Rstar2),
+      mean.c1 = mean(c1),
+      mean.c2 = mean(c2),
+      min.c1 = min(c1),
+      min.c2 = min(c2), 
+      max.c1 = max(c1),
+      max.c2 = max(c2))
+
+
+require(gridExtra)
+
+cplot1 <- ggplot(df.all, aes(x=as.factor(ncoexist), y=diff.c)) + geom_boxplot(aes(fill=as.factor(period)))
+cplot2 <- ggplot(df.all, aes(x=as.factor(ncoexist), y=c1)) + geom_boxplot(aes(fill=as.factor(period)))
+cplot3 <- ggplot(df.all, aes(x=as.factor(ncoexist), y=c2)) + geom_boxplot(aes(fill=as.factor(period)))
+rsplot1 <- ggplot(df.all, aes(x=as.factor(ncoexist), y=diff.rstar)) + geom_boxplot(aes(fill=as.factor(period)))
+rsplot2 <- ggplot(df.all, aes(x=as.factor(ncoexist), y=Rstar1)) + geom_boxplot(aes(fill=as.factor(period)))
+rsplot3 <- ggplot(df.all, aes(x=as.factor(ncoexist), y=Rstar2)) + geom_boxplot(aes(fill=as.factor(period)))
+
+grid.arrange(cplot1, cplot2, cplot3, rsplot1, rsplot2, rsplot3, ncol=3)
+
+
+## END ueries in August 2018
 
 
 ##############################
