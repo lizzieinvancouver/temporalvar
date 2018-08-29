@@ -28,34 +28,20 @@ source("sourcefiles/analyses/runanalysisfxs.R")
 runbout <- FALSE
 
 # cheap loop over the files for now
-runs3 <- c("51792862","51792863", "51803375", "51803287", "51803320", "51803342") # new set as of 27 Aug 2018:"51745826", "51745827", "51745828", "51745829", "51744988", "51744989"
+runs3 <- c("51803375", "51803287", "51803320", "51803342") 
 
 # runinfo <- read.table("Table_of_RunParms.txt", skip=1, header=TRUE)
 
 # varying:
-# tauI, Rstar <- 41801567 <- 0 coexist
-# alpha, Rstar <- 41801561 <- 1 coexist
-# tauI, alpha <- 41801534 <- 179/4000 rows
+# tauI, Rstar <- RUNID <- 0 coexist
+# alpha, Rstar <- RUNID <- 1 coexist
+# tauI, alpha <- RUNID <- 179/4000 rows
 
-# tauI, alpha with 10 rstar <- 41801557 <- 27/3205
-# alpha with 10 rstar <- 41801558 <- 31/3436
-# tauI with 10 rstar <- 41801559 <- 25/6189
-
-# alpha, tauI, Rstar <- 41801560 <- 25/1885
-
-# Rstar <-  41801578 <- 1/346
-# alpha <- 41801579 <- 7/178
-# alpha  <- 41801535 <- 219/4221
-# tauI  <- 41801556 <- 83/6239
 
 ##############################
 ## Notes on other runs .... ##
 ##############################
-# runs1 <- c("36426477", "36511349", "36511352", "36691943","36511384","36691954", "36691955", "36691956") # this is the set from Feb 2018
-# runs2 <- c(paste("417251", 25:32, sep="")) # new set as of 16 Apr 2018
-# EMPTY: "41725133", "41774659", "41775246", "41776446", "41779263","41779441"
-# Note that , "41801581" ends at 33 (not 40)
-# not coexisting after p2: "41801580"
+
 
 #########################################
 ## Do some data reading and formatting ##
