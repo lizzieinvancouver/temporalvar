@@ -41,7 +41,115 @@ add.alpha <- function(col, alpha=1){ # Stolen from Mage's blog
                        rgb(x[1], x[2], x[3], alpha=alpha))  
 }
 
-plot.paramdiffs <- function(df, figname, colname.x, colname.y){
+plot.paramdiffs.onepanel <- function(df, figname, runname, colname.x, colname.y){
+    pdf(paste("graphs/modelruns/paramdiffs/", runname, figname, "1p.pdf", sep=""),
+        width=5, height=4)
+        par(mfrow=c(1,1))
+        df0 <- subset(df, ncoexist.t2==0)
+        df1 <- subset(df, ncoexist.t2==1)
+        df2 <- subset(df, ncoexist.t2==2)
+        plot(unlist(df[colname.x]), unlist(df[colname.y]), type="n", xlab=colname.x,
+           ylab=colname.y, main="")
+        points(df0[[colname.x]], unlist(df0[colname.y]),
+           col=coexist3col[1], pch=16)
+        points(df1[[colname.x]], unlist(df1[colname.y]),
+           col=coexist3col[2], pch=16)
+        points(df2[[colname.x]], unlist(df2[colname.y]),
+           col=coexist3col[3], pch=16)
+        legend("topright", leg.txt, pch=16, col=coexist3col, bty="n")
+    dev.off()
+}
+
+
+plot.paramdiffs.twopanel <- function(df, figname, runname, colname.x, colname.y){
+    pdf(paste("graphs/modelruns/paramdiffs/", figname, runname, "2p.pdf", sep=""),
+        width=5, height=8)
+        par(mfrow=c(2,1))
+        df0 <- subset(df, ncoexist.t2==0)
+        df1 <- subset(df, ncoexist.t2==1)
+        df2 <- subset(df, ncoexist.t2==2)
+        plot(unlist(df[colname.x]), unlist(df[colname.y]), type="n", xlab=colname.x,
+           ylab=colname.y, main="survived after stat")
+        points(df0[[colname.x]], unlist(df0[colname.y]),
+           col=coexist3col[1], pch=16)
+        points(df1[[colname.x]], unlist(df1[colname.y]),
+           col=coexist3col[2], pch=16)
+        points(df2[[colname.x]], unlist(df2[colname.y]),
+           col=coexist3col[3], pch=16)
+        plot(unlist(df[colname.x]), unlist(df[colname.y]), type="n", xlab=colname.x,
+           ylab=colname.y, main="survived after nonstat")
+        points(df2[[colname.x]], unlist(df2[colname.y]),
+           col=coexist3col[3], pch=16)
+        legend("topright", leg.txt, pch=16, col=coexist3col, bty="n")
+    dev.off()
+}
+
+plot.paramdiffs.manual.xy <- function(dfmultivar, figname, runname, colname.x, colname.y,
+    dfother){
+    pdf(paste("graphs/modelruns/paramdiffs/", figname, runname, "4pXY.pdf", sep=""),
+        width=10, height=8)
+        par(mfrow=c(2,2))
+        df0 <- subset(dfmultivar, ncoexist.t2==0)
+        df1 <- subset(dfmultivar, ncoexist.t2==1)
+        df2 <- subset(dfmultivar, ncoexist.t2==2)
+    xlimhere <- c(min(dfmultivar[[colname.x]]), max(dfmultivar[[colname.x]]))
+    ylimhere <- c(min(dfmultivar[[colname.y]]), max(dfmultivar[[colname.y]]))
+    # first type of run
+        plot(unlist(df1[colname.x]), unlist(df1[colname.y]), type="n", xlab=colname.x,
+           ylab=colname.y, main="3 traits vary: survived after stat", xlim=xlimhere, ylim=ylimhere)
+        points(df0[[colname.x]], unlist(df0[colname.y]),
+           col=coexist3col[1], pch=16, xlim=xlimhere, ylim=ylimhere)
+        points(df1[[colname.x]], unlist(df1[colname.y]),
+           col=coexist3col[2], pch=16, xlim=xlimhere, ylim=ylimhere)
+        points(df2[[colname.x]], unlist(df2[colname.y]),
+           col=coexist3col[3], pch=16, xlim=xlimhere, ylim=ylimhere)
+        legend("topright", leg.txt, pch=16, col=coexist3col, bty="n")
+        plot(unlist(dfmultivar[colname.x]), unlist(dfmultivar[colname.y]), type="n", xlab=colname.x,
+           ylab=colname.y, main="3 traits vary: survived after nonstat", xlim=xlimhere, ylim=ylimhere)
+        points(df2[[colname.x]], unlist(df2[colname.y]),
+           col=coexist3col[3], pch=16, xlim=xlimhere, ylim=ylimhere)
+    # second type of run
+        df20 <- subset(dfother, ncoexist.t2==0)
+        df21 <- subset(dfother, ncoexist.t2==1)
+        df22 <- subset(dfother, ncoexist.t2==2)
+        plot(unlist(dfother[colname.x]), unlist(dfother[colname.y]), type="n", xlab=colname.x,
+           ylab=colname.y, main="2 traits vary: survived after stat", xlim=xlimhere, ylim=ylimhere)
+        points(df20[[colname.x]], unlist(df20[colname.y]),
+           col=coexist3col[2], pch=16, xlim=xlimhere, ylim=ylimhere)
+        points(df21[[colname.x]], unlist(df21[colname.y]),
+           col=coexist3col[2], pch=16, xlim=xlimhere, ylim=ylimhere)
+        points(df22[[colname.x]], unlist(df22[colname.y]),
+           col=coexist3col[3], pch=16, xlim=xlimhere, ylim=ylimhere)
+        legend("topright", leg.txt, pch=16, col=coexist3col, bty="n")
+        plot(unlist(dfother[colname.x]), unlist(dfother[colname.y]), type="n", xlab=colname.x,
+           ylab=colname.y, main="2 traits vary: survived after nonstat", xlim=xlimhere, ylim=ylimhere)
+        points(df22[[colname.x]], unlist(df22[colname.y]),
+           col=coexist3col[3], pch=16, xlim=xlimhere, ylim=ylimhere)
+    dev.off()
+}
+
+
+plot.histograms <- function(df1, df2, figname, colname.x1, colname.x2,
+    collist, breaknum, xlim, ylim){
+    pdf(paste("graphs/modelruns/histograms/run_", folderID, figname, ".pdf", sep=""),
+        width=5, height=4)
+        hist(c(unlist(df1[colname.x1]), unlist(df1[colname.x2])), xlim=xlim, ylim=ylim,
+            breaks=breaknum, col=collist[3], main="", xlab=colname.x1)
+        par(new=TRUE)
+        hist(c(unlist(df2[colname.x1]), unlist(df2[colname.x2])), xlim=xlim, ylim=ylim,
+            breaks=breaknum, col=collist[1], main="", xlab="", ylab="") 
+    dev.off()
+}
+
+
+########################################
+## old code (pre August 2018 meeting) ##
+########################################
+
+if(FALSE){
+# This is similar to other plotting code (above)
+    # but was designed to run on each run, now we're generally merging runs more 
+plot.paramdiffs.perrun <- function(df, figname, colname.x, colname.y){
     pdf(paste("graphs/modelruns/paramdiffs/run_", folderID, figname, ".pdf", sep=""),
         width=5, height=4)
         df0 <- subset(df, ncoexist.t2==0)
@@ -59,40 +167,11 @@ plot.paramdiffs <- function(df, figname, colname.x, colname.y){
     dev.off()
 }
 
-plot.paramdiffs.yourownrunanme <- function(df, figname, runname, colname.x, colname.y){
-    pdf(paste("graphs/modelruns/paramdiffs/", runname, folderID, figname, ".pdf", sep=""),
-        width=5, height=4)
-        df0 <- subset(df, ncoexist.t2==0)
-        df1 <- subset(df, ncoexist.t2==1)
-        df2 <- subset(df, ncoexist.t2==2)
-        plot(unlist(df[colname.x]), unlist(df[colname.y]), type="n", xlab=colname.x,
-           ylab=colname.y, main="")
-        points(df0[[colname.x]], unlist(df0[colname.y]),
-           col=coexist3col[1], pch=16)
-        points(df1[[colname.x]], unlist(df1[colname.y]),
-           col=coexist3col[2], pch=16)
-        points(df2[[colname.x]], unlist(df2[colname.y]),
-           col=coexist3col[3], pch=16)
-        legend("topright", leg.txt, pch=16, col=coexist3col, bty="n")
-    dev.off()
 }
 
-
-plot.histograms <- function(df1, df2, figname, colname.x1, colname.x2,
-    collist, breaknum, xlim, ylim){
-    pdf(paste("graphs/modelruns/histograms/run_", folderID, figname, ".pdf", sep=""),
-        width=5, height=4)
-        hist(c(unlist(df1[colname.x1]), unlist(df1[colname.x2])), xlim=xlim, ylim=ylim,
-            breaks=breaknum, col=collist[3], main="", xlab=colname.x1)
-        par(new=TRUE)
-        hist(c(unlist(df2[colname.x1]), unlist(df2[colname.x2])), xlim=xlim, ylim=ylim,
-            breaks=breaknum, col=collist[1], main="", xlab="", ylab="") 
-    dev.off()
-}
-
-#######################################
-## old code (pre April trip to Oahu) ##
-#######################################
+############################################
+## old code (pre April 2018 trip to Oahu) ##
+############################################
 
 if(FALSE){
     

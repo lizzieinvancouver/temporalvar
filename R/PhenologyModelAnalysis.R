@@ -25,7 +25,7 @@ source("sourcefiles/analyses/multiplot.R") # used in plot.params
 source("sourcefiles/analyses/runanalysisfxs.R")
 
 # cheap loop over the files for now
-runs3 <- c("51803287", "51803320", "51803342",  "51803375", "51893537", "51893598", "51893656")
+runz <- c("51803287", "51803320", "51803342",  "51803375", "51893537", "51893598", "51893656")
 
 # Of current runs3 (29 Aug 2018) ... c("51803375", "51803287", "51803320", "51803342", "51893537", "51893598", "51983556")
 # 1 and 5 are varying everything
@@ -49,7 +49,7 @@ runs3 <- c("51803287", "51803320", "51803342",  "51803375", "51893537", "5189359
 #########################################
 ## Do some data reading and formatting ##
 #########################################
-runnow <- runs3
+runnow <- runz
 
 ## Setup for pasting runs together into one df (not sure we permanently want this but I want it now)
 folderID <- runnow[1] 
@@ -135,14 +135,7 @@ coexist3col <- add.alpha(c("firebrick", "dodgerblue", "seagreen"), alpha=0.4)
 # col2rgb helps here ...
 leg.txt <- c("poof", "1 left", "2 survive")
 
-plot.paramdiffs(df.plot, "tauIP.alpha", "ratio.tauIP", "ratio.alpha")
-plot.paramdiffs(df.plot, "tauI.alpha", "ratio.tauI", "ratio.alpha")
-
-plot.paramdiffs(df.plot, "tauI.alpha.diff", "diff.tauIP", "diff.alpha")
-plot.paramdiffs(df.plot, "tauI.alpha.diff", "diff.tauI", "diff.alpha")
-
-
-## histograms
+## histograms DEAL WITH!!! 
 breaknum <- 20
 hist(c(df.long.exist$tauI1, df.long.exist$tau2), xlim=c(0,1), ylim=c(0,30),
      breaks=breaknum, col=coexist3col[3], main="", xlab="number")
@@ -161,14 +154,62 @@ plot.histograms(df.long.exist, df.long.noexist, "tauI", "tauI1", "tauI2",
 #    geom_histogram(data=df.plot, aes(x=tauI1, color=as.factor(ncoexist.t2), fill=as.factor(ncoexist.t2)))
 ###
 
-tauRstarruns <- runs3[c(3,7)] # tauI and Rstar tradeoff
-tauRstarruns.df <- df.all.plot[which(df.all.plot$jobID %in% tauRstarruns),]
+# 3 and 7 are NOT varying tracking
+tauRstar.runs <- runz[c(3,7)] # tauI and Rstar tradeoff
+tauRstar.runs.df <- df.all.plot[which(df.all.plot$jobID %in% tauRstar.runs),]
 
-plot.paramdiffs.yourownrunanme(tauRstarruns.df, "tauRstarruns", "tauIP.rstar", "ratio.tauIP", "ratio.rstar")
+plot.paramdiffs.onepanel(tauRstar.runs.df, "tauRstar.runs", "tauIP.rstar", "ratio.tauIP",
+    "ratio.rstar")
+plot.paramdiffs.twopanel(tauRstar.runs.df, "tauRstar.runs", "tauIP.rstar", "ratio.tauIP",
+    "ratio.rstar")
 
-alphaRstarruns <- runs3[c(2,6)] # tracking and Rstar tradeoff
-alphaRstarruns.df <- df.all.plot[which(df.all.plot$jobID %in% alphaRstarruns),]
+# 2 and 6 are NOT varying tauI
+alphaRstar.runs <- runz[c(2,6)] # tracking and Rstar tradeoff
+alphaRstar.runs.df <- df.all.plot[which(df.all.plot$jobID %in% alphaRstar.runs),]
 
-plot.paramdiffs.yourownrunanme(alphaRstarruns.df, "tauRstarruns", "alpha.rstar", "ratio.alpha", "ratio.rstar")
+# alphaRstar.run.dfs$newratio.alpha <- 1/alphaRstar.runs.df$ratio.alpha
+
+plot.paramdiffs.onepanel(alphaRstar.runs.df, "alphaRstar.runs", "alpha.rstar", "ratio.alpha",
+    "ratio.rstar")
+plot.paramdiffs.twopanel(alphaRstar.runs.df, "alphaRstar.runs", "alpha.rstar", "ratio.alpha",
+    "ratio.rstar")
+
+
+# 4 keeps R* the same across species pairs
+taualpha.runs <- runz[c(4)] 
+taualpha.runs.df <- df.all.plot[which(df.all.plot$jobID %in% taualpha.runs),]
+
+plot.paramdiffs.onepanel(taualpha.runs.df, "taualpha.runs", "alpha.tauIP",
+    "ratio.alpha", "ratio.tauIP")
+plot.paramdiffs.twopanel(taualpha.runs.df, "taualpha.runs", "alpha.tauIP",
+    "ratio.alpha", "ratio.tauIP")
+
+
+# 1 and 5 are varying everything
+taualphaRstar.runs <- runz[c(1,5)] 
+taualphaRstar.runs.df <- df.all.plot[which(df.all.plot$jobID %in% taualphaRstar.runs),]
+
+plot.paramdiffs.onepanel(taualphaRstar.runs.df, "taualphaRstar.runs", "tauIP.rstar",
+    "ratio.tauIP", "ratio.rstar")
+plot.paramdiffs.onepanel(taualphaRstar.runs.df, "taualphaRstar.runs", "alpha.rstar",
+    "ratio.alpha", "ratio.rstar")
+plot.paramdiffs.onepanel(taualphaRstar.runs.df, "taualphaRstar.runs", "alpha.tauIP",
+    "ratio.alpha", "ratio.tauIP")
+plot.paramdiffs.twopanel(taualphaRstar.runs.df, "taualphaRstar.runs", "tauIP.rstar",
+    "ratio.tauIP", "ratio.rstar")
+plot.paramdiffs.twopanel(taualphaRstar.runs.df, "taualphaRstar.runs", "alpha.rstar",
+    "ratio.alpha", "ratio.rstar")
+plot.paramdiffs.twopanel(taualphaRstar.runs.df, "taualphaRstar.runs", "alpha.tauIP",
+    "ratio.alpha", "ratio.tauIP")
+
+# compare these to their equivalents 
+plot.paramdiffs.manual.xy(taualphaRstar.runs.df, "taualphaRstar.runs", "tauIP.rstar",
+    "ratio.tauIP", "ratio.rstar", tauRstar.runs.df)
+plot.paramdiffs.manual.xy(taualphaRstar.runs.df, "taualphaRstar.runs", "alpha.rstar",
+    "ratio.alpha", "ratio.rstar", alphaRstar.runs.df)
+plot.paramdiffs.manual.xy(taualphaRstar.runs.df, "taualphaRstar.runs", "alpha.tauIP",
+    "ratio.tauIP", "ratio.rstar", taualpha.runs.df)
+
+
 
 stop(print("stopping here..."))
