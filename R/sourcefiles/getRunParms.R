@@ -16,13 +16,13 @@ print(paste("jobID is ",jobID))
 #output parms & folder locations
 writeBout <- 1  #default=1; flag indicating how often Bout should be written (0=never, n = every n runs)
 
-Bout_loc <- paste0(locOUT,"output/Bout/",jobID[1],"/")
+Bout_loc <- paste0(locOUT,"/Bout/",jobID[1],"/")
 if(!dir.exists(file.path(Bout_loc))) dir.create(file.path(Bout_loc),recursive=TRUE)
 
-SummOut_loc <- paste0(locOUT,"output/SummaryFiles/",jobID[1],"/")
+SummOut_loc <- paste0(locOUT,"/SummaryFiles/",jobID[1],"/")
 if(!dir.exists(file.path(SummOut_loc))) dir.create(file.path(SummOut_loc),recursive=TRUE)
 
-OtherOut_loc <- paste0(locOUT,"output/OtherOut/",jobID[1],"/")
+OtherOut_loc <- paste0(locOUT,"/OtherOut/",jobID[1],"/")
 if(!dir.exists(file.path(OtherOut_loc))) dir.create(file.path(OtherOut_loc),recursive=TRUE)
 
 suffix <- paste0("_",jobID[1],"-",jobID[2],".txt") #unique for each array in batchfile
@@ -54,7 +54,6 @@ runparms <- matrix(data= c(jobID[1],jobID[2],nruns,nsp,nyrs,nonsta,tracking,varR
                            writeBout,ext,ndays,dt,tsteps),nrow=1)
 
 #write run conditions to RunParms
-if (jobID[2]==1) {
   col.names.runparms <- c("arrayID","taskID","nruns","nsp","nyrs",
                           paste0(rep("nonsta",3),c(1:3)),
                           "tracking",
@@ -73,4 +72,3 @@ if (jobID[2]==1) {
   # write.table(runparms,file=fileparms,
   #             col.names = col.names.Table_of_RunParms,row.names = FALSE,
   #             append = TRUE, sep = "\t", quote=FALSE)
-}  

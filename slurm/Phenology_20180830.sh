@@ -22,7 +22,11 @@
 source new-modules.sh
 module load R_packages
 
+mkdir scratch/wolkovich_lab/temporalvar/$SLURM_JOB_ID
+
 Rscript /n/regal/wolkovich_lab/temporalvar/R/PhenologyModel.R --quiet --no-restore --no-save 
+
+rm -rf /scratch/wolkovich_lab/temporalvar/$SLURM_JOB_ID
 
 ###run this with the following command from the temporalvar folder
 

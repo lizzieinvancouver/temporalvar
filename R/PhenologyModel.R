@@ -11,7 +11,7 @@ library(deSolve)
 #locOUT <- "C:/Users/Megan/Documents/scratch/"
 #locSAVE <- "C:/Users/Megan/Documents/GitHub/temporalvar/R/output/"
 locIN <- "/n/regal/wolkovich_lab/temporalvar/R/"
-locOUT <- "/scratch/wolkovich_lab/temporalvar/"
+locOUT <- paste0("/scratch/wolkovich_lab/temporalvar/",Sys.getenv("SLURM_JOB_ID"))
 locSAVE <- "/n/wolkovich_lab/temporalvar/R/output/"
 
 if(!dir.exists(file.path(locOUT))) dir.create(file.path(locOUT),recursive=TRUE)
