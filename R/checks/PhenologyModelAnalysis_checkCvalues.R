@@ -53,7 +53,7 @@ runs3 <- c("51803375", "51803287", "51803320", "51803342")
 
 runnow <- runs3
 
-## Set up to late paste together runs in one DF for now 
+## Set up to paste together runs in one DF for now 
 folderID <- runnow[1] 
 samplerun <-  read.table(paste("output/SummaryFiles/", folderID, "/SummaryOut_", folderID,
     "-1.txt", sep=""), header=TRUE)
