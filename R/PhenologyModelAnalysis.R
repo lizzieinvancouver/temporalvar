@@ -38,10 +38,10 @@ runz <- c("51803287", "51803320", "51803342",  "51803375",
 # runinfo <- read.table("Table_of_RunParms.txt", skip=1, header=TRUE)
 
 # varying:
-# tauI, Rstar <- RUNID <- 0 coexist
-# alpha, Rstar <- RUNID <- 1 coexist
-# tauI, alpha <- RUNID <- 179/4000 rows
-
+# tauI, Rstar <- 440/33148 (1%)
+# alpha, Rstar <- 1237/41345 (3%)
+# tauI, alpha <- 1166/38808 (3%)
+# all varies <-   1214/39014 coexist (3%)
 
 ##############################
 ## Notes on other runs .... ##
@@ -226,3 +226,4 @@ stop(print("stopping here..."))
 
 
 
+tauP <- rbeta(nyrs, p, q) # 10, 10 going to 2, 2 when nonstationary
