@@ -7,6 +7,13 @@ p <- 10  #first parameter for beta distribution of tau
 q <- 10  #second parameter for beta distribution of tau
 tauP <- rbeta(nonsta[1], p, q) # change once not doing stationary+nonstationary run
 
+if (megaD==1) {
+  tauP <- rbeta(nyrs, p, q) # change once not doing stationary+nonstationary run
+  wetID <- sample(c(1,10000),1)
+  dryID <- sample(c(1,10000),1)
+  ##add reading in the megaD data
+}
+
 #constant (for now)
 eps <- 1              # evaporative stress 
 
