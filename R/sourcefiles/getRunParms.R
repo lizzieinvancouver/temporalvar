@@ -38,6 +38,7 @@ suffix <- paste0("_",jobID[1],"-",jobID[2],".txt") #unique for each array in bat
   if(length(varRstar)==1) varRstar <- c(varRstar,NA)
   vartauI <-inputs$vartauI[runflag]
   nsp <- inputs$nsp[runflag]
+  megaD <- inputs$megaD[runflag]
 
 #between year
 nyrs <- sum(nonsta)  # number of yrs to run if nonsta=0 or for initial period if nonsta>0
@@ -51,14 +52,14 @@ dt <- 0.005 # within yr timestep
 tsteps <- ndays/dt
 
 runparms <- matrix(data= c(jobID[1],jobID[2],nruns,nsp,nyrs,nonsta,tracking,varRstar,vartauI,
-                           writeBout,ext,ndays,dt,tsteps),nrow=1)
+                           megaD,writeBout,ext,ndays,dt,tsteps),nrow=1)
 
 #write run conditions to RunParms
   col.names.runparms <- c("arrayID","taskID","nruns","nsp","nyrs",
                           paste0(rep("nonsta",3),c(1:3)),
                           "tracking",
                           paste0(rep("varRstar",2),c(1:2)),
-                          "vartauI","writeBout","ext","ndays","dt","tsteps")
+                          "vartauI","megaD","writeBout","ext","ndays","dt","tsteps")
   fileparms <- paste0(OtherOut_loc,"RunParms_",jobID[1],".txt")
   write.table(runparms,file=fileparms,
               col.names = col.names.runparms, row.names = FALSE,
