@@ -16,13 +16,13 @@ print(paste("jobID is ",jobID))
 #output parms & folder locations
 writeBout <- 1  #default=1; flag indicating how often Bout should be written (0=never, n = every n runs)
 
-Bout_loc <- paste0(locOUT,"output/Bout/",jobID[1],"/")
+Bout_loc <- paste0(locOUT,"/Bout/",jobID[1],"/")
 if(!dir.exists(file.path(Bout_loc))) dir.create(file.path(Bout_loc),recursive=TRUE)
 
-SummOut_loc <- paste0(locOUT,"output/SummaryFiles/",jobID[1],"/")
+SummOut_loc <- paste0(locOUT,"/SummaryFiles/",jobID[1],"/")
 if(!dir.exists(file.path(SummOut_loc))) dir.create(file.path(SummOut_loc),recursive=TRUE)
 
-OtherOut_loc <- paste0(locOUT,"output/OtherOut/",jobID[1],"/")
+OtherOut_loc <- paste0(locOUT,"/OtherOut/",jobID[1],"/")
 if(!dir.exists(file.path(OtherOut_loc))) dir.create(file.path(OtherOut_loc),recursive=TRUE)
 
 suffix <- paste0("_",jobID[1],"-",jobID[2],".txt") #unique for each array in batchfile
