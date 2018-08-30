@@ -64,18 +64,22 @@ ability of species to phenologically track the timing of major climate events. \
 \tableofcontents
 
 \newpage
-\section{Things we may or may not have done yet... to review}
+\subsection{Things we've done, and things may or may not have done yet}
+
+\subsection{Things we may or may not have done yet... to review}
 
 \begin{itemize}
-\item Make model take biomass for each species at its peak value (not at its end of season biomass).... pretty sure we do this.
-\item {\bf Check $R^{*}$ component of model is working:} We suggested doing this in January 2016, but leaving it here to make sure we're okay:
-\begin{itemize}
-\item Behavior of each species once $R^{*}$ is reached
-\item Why do all species have a positive change at the last timestep?
-\end{itemize}
 \item {\bf Decide on $q$ parameter values:}
 Lizzie needs to do this by getting some estimates of how much SOS will shift and then make it work that way in the mode. Some info on the model bit: $q$ is part of the $\beta$ distribution that define $\tau_{p}$ so we need to define an appropriate $q$ to start with and what $q$ to end with that will yeild a realstic amount of environmental change for our simulations. Right now we starts with $p$ and $q$ each being 2, yielding a normal distribution centered on 0.5 and pretty wide (remember $\beta$ is bounded at $0,1$ and 1, 1 would yield a uniform---as the numbers get bigger the distribution gets narrower), but then we just vary $q$ so we end up with a skewed distribution.. something like $5,15$ may be better.
 \end{itemize}
+
+\subsection{Things that we have done}
+
+\begin{itemize}
+\item Make model take biomass for each species at its peak value (not at its end of season biomass).... DONE.
+\item {\bf Check $R^{*}$ component of model is working:} We suggested doing this in January 2016, but leaving it here to make sure we're okay: Behavior of each species once $R^{*}$ is reached ... DONE, see \verb|checks/PhenologyModelAnalysis_checkRStarBehav.R|. It's looks good! Basically in years where there are fewer than the max timesteps (1001 in the models that I was looking at) you see that the final R value is the lower R* value! Whoop! In years where the the max timesteps are hit it looks like both species have plateued in biomass (from my spot checks, but they R has not dipped just quite low enough to reach the lower R*). 
+\end{itemize}
+
 
 \newpage
 \section{Overview of project and directions}
