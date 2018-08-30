@@ -38,7 +38,7 @@ suffix <- paste0("_",jobID[1],"-",jobID[2],".txt") #unique for each array in bat
   if(length(varRstar)==1) varRstar <- c(varRstar,NA)
   vartauI <-inputs$vartauI[runflag]
   nsp <- inputs$nsp[runflag]
-  megaD <- inputs$megaD[runflag]
+  megaD <- max(0,inputs$megaD[runflag])
 
 #between year
 nyrs <- sum(nonsta)  # number of yrs to run if nonsta=0 or for initial period if nonsta>0
