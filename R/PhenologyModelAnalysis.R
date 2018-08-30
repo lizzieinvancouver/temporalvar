@@ -25,13 +25,15 @@ source("sourcefiles/analyses/multiplot.R") # used in plot.params
 source("sourcefiles/analyses/runanalysisfxs.R")
 
 # cheap loop over the files for now
-runz <- c("51803287", "51803320", "51803342",  "51803375", "51893537", "51893598", "51893656")
+runz <- c("51803287", "51803320", "51803342",  "51803375",
+    "51893537", "51893598", "51893656", "51893711", 
+    "51995069", "51995121", "51995125", "51995137")
 
 # Of current runs3 (29 Aug 2018) ... c("51803375", "51803287", "51803320", "51803342", "51893537", "51893598", "51983556")
-# 1 and 5 are varying everything
-# 2 and 6 are NOT varying tauI
-# 3 and 7 are NOT varying tracking
-# 4 keeps R* the same across species pairs
+# 1, 5, 9 are varying everything
+# 2, 6, 10 are NOT varying tauI
+# 3, 7, 11 are NOT varying tracking
+# 4, 8, 12 keeps R* the same across species pairs
 
 # runinfo <- read.table("Table_of_RunParms.txt", skip=1, header=TRUE)
 
@@ -155,7 +157,7 @@ plot.histograms(df.long.exist, df.long.noexist, "tauI", "tauI1", "tauI2",
 ###
 
 # 3 and 7 are NOT varying tracking
-tauRstar.runs <- runz[c(3,7)] # tauI and Rstar tradeoff
+tauRstar.runs <- runz[c(3,7, 11)] # tauI and Rstar tradeoff
 tauRstar.runs.df <- df.all.plot[which(df.all.plot$jobID %in% tauRstar.runs),]
 
 plot.paramdiffs.onepanel(tauRstar.runs.df, "tauRstar.runs", "tauIP.rstar", "ratio.tauIP",
@@ -164,7 +166,7 @@ plot.paramdiffs.twopanel(tauRstar.runs.df, "tauRstar.runs", "tauIP.rstar", "rati
     "ratio.rstar")
 
 # 2 and 6 are NOT varying tauI
-alphaRstar.runs <- runz[c(2,6)] # tracking and Rstar tradeoff
+alphaRstar.runs <- runz[c(2,6,10)] # tracking and Rstar tradeoff
 alphaRstar.runs.df <- df.all.plot[which(df.all.plot$jobID %in% alphaRstar.runs),]
 
 # alphaRstar.run.dfs$newratio.alpha <- 1/alphaRstar.runs.df$ratio.alpha
@@ -175,8 +177,8 @@ plot.paramdiffs.twopanel(alphaRstar.runs.df, "alphaRstar.runs", "alpha.rstar", "
     "ratio.rstar")
 
 
-# 4 keeps R* the same across species pairs
-taualpha.runs <- runz[c(4)] 
+# 4 and 8 keeps R* the same across species pairs
+taualpha.runs <- runz[c(4, 8)] 
 taualpha.runs.df <- df.all.plot[which(df.all.plot$jobID %in% taualpha.runs),]
 
 plot.paramdiffs.onepanel(taualpha.runs.df, "taualpha.runs", "alpha.tauIP",
@@ -186,7 +188,7 @@ plot.paramdiffs.twopanel(taualpha.runs.df, "taualpha.runs", "alpha.tauIP",
 
 
 # 1 and 5 are varying everything
-taualphaRstar.runs <- runz[c(1,5)] 
+taualphaRstar.runs <- runz[c(1,5, 9)] 
 taualphaRstar.runs.df <- df.all.plot[which(df.all.plot$jobID %in% taualphaRstar.runs),]
 
 plot.paramdiffs.onepanel(taualphaRstar.runs.df, "taualphaRstar.runs", "tauIP.rstar",
@@ -203,13 +205,24 @@ plot.paramdiffs.twopanel(taualphaRstar.runs.df, "taualphaRstar.runs", "alpha.tau
     "ratio.alpha", "ratio.tauIP")
 
 # compare these to their equivalents 
-plot.paramdiffs.manual.xy(taualphaRstar.runs.df, "taualphaRstar.runs", "tauIP.rstar",
+plot.paramdiffs.fixedxy(taualphaRstar.runs.df, "taualphaRstar.runs", "tauIP.rstar",
     "ratio.tauIP", "ratio.rstar", tauRstar.runs.df)
-plot.paramdiffs.manual.xy(taualphaRstar.runs.df, "taualphaRstar.runs", "alpha.rstar",
+plot.paramdiffs.fixedxy(taualphaRstar.runs.df, "taualphaRstar.runs", "alpha.rstar",
     "ratio.alpha", "ratio.rstar", alphaRstar.runs.df)
-plot.paramdiffs.manual.xy(taualphaRstar.runs.df, "taualphaRstar.runs", "alpha.tauIP",
+plot.paramdiffs.fixedxy(taualphaRstar.runs.df, "taualphaRstar.runs", "alpha.tauIP",
     "ratio.tauIP", "ratio.rstar", taualpha.runs.df)
 
 
+# and color code by third variable
+plot.paramdiffs.colorbyzvar(taualphaRstar.runs.df, "taualphaRstar.runs", "tauIP.rstar",
+    "ratio.tauIP", "ratio.rstar", "ratio.alpha", "3 traits vary: survived after stat", 1)
+plot.paramdiffs.colorbyzvar(taualphaRstar.runs.df, "taualphaRstar.runs", "alpha.rstar",
+    "ratio.alpha", "ratio.rstar", "ratio.tauIP", "3 traits vary: survived after stat", 1)
+plot.paramdiffs.colorbyzvar(taualphaRstar.runs.df, "taualphaRstar.runs", "alpha.tauIP",
+     "ratio.alpha", "ratio.tauIP", "ratio.rstar", "3 traits vary: survived after stat", 1)
+
 
 stop(print("stopping here..."))
+
+
+

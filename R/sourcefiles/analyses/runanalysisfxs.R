@@ -84,7 +84,7 @@ plot.paramdiffs.twopanel <- function(df, figname, runname, colname.x, colname.y)
     dev.off()
 }
 
-plot.paramdiffs.manual.xy <- function(dfmultivar, figname, runname, colname.x, colname.y,
+plot.paramdiffs.fixedxy <- function(dfmultivar, figname, runname, colname.x, colname.y,
     dfother){
     pdf(paste("graphs/modelruns/paramdiffs/", figname, runname, "4pXY.pdf", sep=""),
         width=10, height=8)
@@ -126,6 +126,19 @@ plot.paramdiffs.manual.xy <- function(dfmultivar, figname, runname, colname.x, c
         points(df22[[colname.x]], unlist(df22[colname.y]),
            col=coexist3col[3], pch=16, xlim=xlimhere, ylim=ylimhere)
     dev.off()
+}
+
+
+plot.paramdiffs.colorbyzvar <- function(df, figname, runname, colname.x, colname.y,
+    colname.z, figtitle, midpt){
+    plothere <- ggplot(df, aes(df[[colname.x]], df[[colname.y]])) +
+        geom_point(aes(color=df[[colname.z]])) +
+        scale_colour_gradient2(midpoint = midpt) +
+        labs(colour = colname.z, x = colname.x, y=colname.y,
+             title=figtitle)
+    # scale_colour_gradient2(low = "white", mid ="white", high = "darkred")
+    ggsave(paste("graphs/modelruns/paramdiffs/", figname, runname, ".zvar.pdf", sep=""),
+        width=10, height=8)
 }
 
 
