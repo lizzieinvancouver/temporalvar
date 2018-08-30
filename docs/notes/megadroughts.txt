@@ -9,6 +9,9 @@ Chatting with Megan in Vancouver
 - I was trying to remember why we switched to messing with phi instead of something related to the shape of the germination curves ... after some discussion I believe the answer is:
 	- Just having differently shaped germination curves will never lead to exotic extinction, because our current model always produces some biomass and thus some seeds if *any* seed germinates. We could change the model to where being super mismatched in someway does lead to failure (or a super low biomass lead to complete failure) but that would be a new model formulation and thus perhaps a bit of a pain.
 	- Changing phi changes a more well-known, well understood parameter and works perhaps better with the literature. 
+	- All the data we have (on California exotics) show how much higher phi is for exotics compared to natives.
+
+
 
 <><><><><><><><><><><><><>
 
