@@ -9,9 +9,11 @@ tauP <- rbeta(nonsta[1], p, q) # change once not doing stationary+nonstationary 
 
 if (megaD==1) {
   tauP <- rbeta(nyrs, p, q) # change once not doing stationary+nonstationary run
-  wetID <- sample(c(1,10000),1)
-  dryID <- sample(c(1,10000),1)
-  ##add reading in the megaD data
+  wetID <- sample(c(0,9999),1)
+  dryID <- sample(c(0,9999),1)
+  R0dry <- scan(file=paste0(locMegaD,"data_dryresamp.csv"),skip=(1+dryID),nlines=1,sep=",")
+  R0wet <- scan(file=paste0(locMegaD,"data_wetresamp.csv"),skip=(1+wetID),nlines=1,sep=",")
+  R0 <- c(R0wet[2:length(R0wet)],R0dry[2:length(R0dry)])
 }
 
 #constant (for now)

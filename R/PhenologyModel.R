@@ -7,14 +7,15 @@ options(stringsAsFactors=FALSE)
 library(deSolve)
 
 #define run conditions
-#locIN <- "C:/Users/Megan/Documents/GitHub/temporalvar/R/"
-#locOUT <- "C:/Users/Megan/Documents/scratch/"
-#locSAVE <- "C:/Users/Megan/Documents/GitHub/temporalvar/R/output/"
-locIN <- "/n/regal/wolkovich_lab/temporalvar/R/"
-locOUT <- paste0("/scratch/wolkovich_lab/temporalvar/",Sys.getenv("SLURM_JOB_ID"))
-locSAVE <- "/n/wolkovich_lab/temporalvar/R/output/"
-locMegaD <- "/n/regal/wolkovich_lab/temporalvar/megadrought/data/"
-locSAVEmd <- "/n/wolkovich_lab/temporalvar/megadrought/output/"
+# locIN <- "C:/Users/Megan/Documents/GitHub/temporalvar/R/"
+# locMegaD <- "C:/Users/Megan/Documents/GitHub/temporalvar/megadrought/data/"
+# locOUT <- "C:/Users/Megan/Documents/scratch/"
+# locSAVE <- "C:/Users/Megan/Documents/GitHub/temporalvar/R/output/"
+ locIN <- "/n/regal/wolkovich_lab/temporalvar/R/"
+ locOUT <- paste0("/scratch/wolkovich_lab/temporalvar/",Sys.getenv("SLURM_JOB_ID"))
+ locSAVE <- "/n/wolkovich_lab/temporalvar/R/output/"
+ locMegaD <- "/n/regal/wolkovich_lab/temporalvar/megadrought/data/"
+ locSAVEmd <- "/n/wolkovich_lab/temporalvar/megadrought/output/"
 
 if(!dir.exists(file.path(locOUT))) dir.create(file.path(locOUT),recursive=TRUE)
 if(!dir.exists(file.path(locSAVE))) dir.create(file.path(locSAVE),recursive=TRUE)
