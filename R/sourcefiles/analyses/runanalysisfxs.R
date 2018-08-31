@@ -141,16 +141,56 @@ plot.paramdiffs.colorbyzvar <- function(df, figname, runname, colname.x, colname
         width=10, height=8)
 }
 
+plot.histograms.bothspp <- function(df, figname, colname.x1, colname.x2,
+    collist, varcollist){
+    df2here <- subset(df, ncoexist.t2==2)
+    pdf(paste("graphs/modelruns/histograms/", figname, "bothspp.pdf", sep=""),
+        width=4.5, height=4)
+    plot(nhere, tauPfin, type="l", xlab="tauP and trait", ylab="density", main="trait for both spp")
+    polygon(nhere, tauPfin, col=collist[2])
+    polygon(nhere, tauP, col=collist[1])
+    lines(density(c(df[[colname.x1]], df[[colname.x2]])), col=varcollist[1], lwd=2)
+    lines(density(c(df2here[[colname.x1]], df2here[[colname.x2]])), col=varcollist[2], lwd=2)
+    dev.off()
+}
 
-plot.histograms <- function(df1, df2, figname, colname.x1, colname.x2,
-    collist, breaknum, xlim, ylim){
-    pdf(paste("graphs/modelruns/histograms/run_", folderID, figname, ".pdf", sep=""),
-        width=5, height=4)
-        hist(c(unlist(df1[colname.x1]), unlist(df1[colname.x2])), xlim=xlim, ylim=ylim,
-            breaks=breaknum, col=collist[3], main="", xlab=colname.x1)
-        par(new=TRUE)
-        hist(c(unlist(df2[colname.x1]), unlist(df2[colname.x2])), xlim=xlim, ylim=ylim,
-            breaks=breaknum, col=collist[1], main="", xlab="", ylab="") 
+plot.histograms.max <- function(df, figname, colname.x1, colname.x2,
+    collist, varcollist){
+    df2here <- subset(df, ncoexist.t2==2)
+    pdf(paste("graphs/modelruns/histograms/", figname, "max.pdf", sep=""),
+        width=4.5, height=4)
+    plot(nhere, tauPfin, type="l", xlab="tauP and trait", ylab="density",  main="max trait")
+    polygon(nhere, tauPfin, col=collist[2])
+    polygon(nhere, tauP, col=collist[1])
+    lines(density(pmax(df[[colname.x1]], df[[colname.x2]])), col=varcollist[1], lwd=2)
+    lines(density(pmax(df2here[[colname.x1]], df2here[[colname.x2]])), col=varcollist[2], lwd=2)
+    dev.off()
+}
+
+# Do we need this?
+plot.histograms.min <- function(df, figname, colname.x1, colname.x2,
+    collist, varcollist){
+    df2here <- subset(df, ncoexist.t2==2)
+    pdf(paste("graphs/modelruns/histograms/", figname, "min.pdf", sep=""),
+        width=4.5, height=4)
+    plot(nhere, tauPfin, type="l", xlab="tauP and trait", ylab="density",  main="min trait")
+    polygon(nhere, tauPfin, col=collist[2])
+    polygon(nhere, tauP, col=collist[1])
+    lines(density(pmin(df[[colname.x1]], df[[colname.x2]])), col=varcollist[1], lwd=2)
+    lines(density(pmin(df2here[[colname.x1]], df2here[[colname.x2]])), col=varcollist[2], lwd=2)
+    dev.off()
+}
+
+plot.histograms.onespp <- function(df, figname, colname.x,
+    collist, varcollist){
+    df2here <- subset(df, ncoexist.t2==2)
+    pdf(paste("graphs/modelruns/histograms/", figname, "best.pdf", sep=""),
+        width=4.5, height=4)
+    plot(nhere, tauPfin, type="l", xlab="tauP and trait", ylab="density",  main="best tauI")
+    polygon(nhere, tauPfin, col=collist[2])
+    polygon(nhere, tauP, col=collist[1])
+    lines(density(df[[colname.x]]), col=varcollist[1], lwd=2)
+    # lines(density(df2here[[colname.x]]), col=varcollist[2], lwd=2)
     dev.off()
 }
 
@@ -161,7 +201,19 @@ plot.histograms <- function(df1, df2, figname, colname.x1, colname.x2,
 
 if(FALSE){
 # This is similar to other plotting code (above)
-    # but was designed to run on each run, now we're generally merging runs more 
+    # but was designed to run on each run, now we're generally merging runs more
+plot.histograms.perrun <- function(df1, df2, figname, colname.x1, colname.x2,
+    collist, breaknum, xlim, ylim){
+    pdf(paste("graphs/modelruns/histograms/run_", folderID, figname, ".pdf", sep=""),
+        width=5, height=4)
+        hist(c(unlist(df1[colname.x1]), unlist(df1[colname.x2])), xlim=xlim, ylim=ylim,
+            breaks=breaknum, col=collist[3], main="", xlab=colname.x1)
+        par(new=TRUE)
+        hist(c(unlist(df2[colname.x1]), unlist(df2[colname.x2])), xlim=xlim, ylim=ylim,
+            breaks=breaknum, col=collist[1], main="", xlab="", ylab="") 
+    dev.off()
+}
+    
 plot.paramdiffs.perrun <- function(df, figname, colname.x, colname.y){
     pdf(paste("graphs/modelruns/paramdiffs/run_", folderID, figname, ".pdf", sep=""),
         width=5, height=4)

@@ -30,6 +30,7 @@ runz <- c("51803287", "51803320", "51803342",  "51803375",
     "51995069", "51995121", "51995125", "51995137",
     "52031904", "52031950", "52031996") # missing 52031833 which should vary everything
 
+# Remember to update below under plotting-related formatting ... 
 # 1, 5, 9 are varying everything
 # 2, 6, 10, 13 are NOT varying tauI
 # 3, 7, 11, 14 are NOT varying tracking
@@ -85,30 +86,8 @@ df.all <- rbind(df.all, df)
 ##############################
 ## Set tauP for the graphs! ##
 ##############################
-if(FALSE){
 source("sourcefiles/analyses/tauP.R")
-dfhere <- taualphaRstar.runs.df # tauRstar.runs.df
 
-df2 <- subset(dfhere, ncoexist.t2==2) #
-plot(nhere, tauPfin, type="l")
-lines(nhere, tauP, type="l")
-lines(density(c(dfhere$tauI1, dfhere$tauI2)), col="lightblue")
-lines(density(c(df2$tauI1, df2$tauI2)), col="red")
-
-quartz()
-plot(nhere, tauPfin, type="l")
-lines(nhere, tauP, type="l")
-lines(density(pmax(dfhere$tauI1, dfhere$tauI2)), col="lightblue")
-lines(density(pmax(df2$tauI1, df2$tauI2)), col="red")
-
-quartz()
-plot(nhere, tauPfin, type="l")
-lines(nhere, tauP, type="l")
-lines(density(pmin(dfhere$tauI1, dfhere$tauI2)), col="lightblue")
-lines(density(pmin(df2$tauI1, df2$tauI2)), col="red")
-
-# ggplot(tauP.plot, aes(x=tauP, fill=when)) + geom_density(alpha=0.25)
-}
 
 #################################
 ## Plotting-related formatting ##
@@ -150,10 +129,34 @@ df.all.long.exist <- subset(df.all.long, coexist1==1 | coexist2==1)
 df.all.long.noexist <- subset(df.all.long, coexist1==0 | coexist2==0)
 }
 
+##
+## Group the runs by what type they are so I can plot
+##
+
+# See above when I set up runz for where I outline what numbers to pull for each!
+
+# NOT varying tracking
+tauRstar.runs <- runz[c(3,7,11,14)] # tauI and Rstar tradeoff
+tauRstar.runs.df <- df.all.plot[which(df.all.plot$jobID %in% tauRstar.runs),]
+sum(tauRstar.runs.df$diff.alpha) # must equal zero!
+# NOT varying tauI
+alphaRstar.runs <- runz[c(2,6,10,13)] # tracking and Rstar tradeoff
+alphaRstar.runs.df <- df.all.plot[which(df.all.plot$jobID %in% alphaRstar.runs),]
+sum(alphaRstar.runs.df$diff.tauI) # must equal zero!
+# keeps R* the same across species pairs
+taualpha.runs <- runz[c(4,8,12,15)] 
+taualpha.runs.df <- df.all.plot[which(df.all.plot$jobID %in% taualpha.runs),]
+sum(taualpha.runs.df$diff.Rstar) # must equal zero!
+# varying everything (tauI, alpha, Rstar)
+taualphaRstar.runs <- runz[c(1,5,9)] 
+taualphaRstar.runs.df <- df.all.plot[which(df.all.plot$jobID %in% taualphaRstar.runs),]
+
 ###############
 ## Plotting! ##
 ###############
 coexist3col <- add.alpha(c("firebrick", "dodgerblue", "seagreen"), alpha=0.4)
+tauPcol <- add.alpha(c("yellow", "firebrick"), alpha=0.2)
+varhistcol <- add.alpha(c("yellow", "firebrick"), alpha=0.8)
 # col2rgb helps here ...
 leg.txt <- c("poof", "1 left", "2 survive")
 
@@ -174,49 +177,60 @@ ggplot(df.plot, aes(x=ratio.tauIP, color=as.factor(ncoexist.t2), fill=as.factor(
 ggplot() + geom_density(data=tauP.plot, aes(x=tauP), alpha=0.25) +
     geom_histogram(data=df.plot, aes(x=tauI1, color=as.factor(ncoexist.t2), fill=as.factor(ncoexist.t2)))
 }
-###
+
 
 
 ##
-# See above for where I outline what numbers to pull for each!
-# NOT varying tracking
-tauRstar.runs <- runz[c(3,7,11,14)] # tauI and Rstar tradeoff
-tauRstar.runs.df <- df.all.plot[which(df.all.plot$jobID %in% tauRstar.runs),]
-sum(tauRstar.runs.df$diff.alpha) # must equal zero!
+## IN PROGRESS! Need to work on histograms and tauI
+##
 
+### histograms ... still need to think on how to plot this...
+
+## dealing with tauI !!
+DF.touse <- tauRstar.runs.df
+DF <- DF.touse[c("tauIP1_mean", "tauIP2_mean")]
+bettertauI <- colnames(DF)[max.col(DF, ties.method="first")]
+DF.tauI <- DF.touse[c("tauI1", "tauI2")]
+DF.tauI$besttauI <- NA
+DF.tauI$besttauI[which(bettertauI=="tauIP1_mean")] <- DF.tauI$tauI1[which(bettertauI=="tauIP1_mean")]
+DF.tauI$besttauI[which(bettertauI=="tauIP2_mean")] <- DF.tauI$tauI2[which(bettertauI=="tauIP2_mean")]
+tauRstar.runs.df$besttauI <- DF.tauI$besttauI
+##
+##
+
+plot.histograms.bothspp(taualphaRstar.runs.df, "taualphaRstar", "alpha1", "alpha2",
+    tauPcol, varhistcol)
+plot.histograms.max(taualphaRstar.runs.df, "taualphaRstar", "alpha1", "alpha2",
+    tauPcol, varhistcol)
+plot.histograms.min(taualphaRstar.runs.df, "taualphaRstar", "alpha1", "alpha2",
+    tauPcol, varhistcol)
+
+plot.histograms.onespp(tauRstar.runs.df, "tauRstar", "besttauI",
+    tauPcol, varhistcol) # doesn't run for nonstat period because there is too little data!
+# ggplot(tauP.plot, aes(x=tauP, fill=when)) + geom_density(alpha=0.25)
+
+
+##
+## Paramdiff plots
+##
+
+# Two things vary ...
 plot.paramdiffs.onepanel(tauRstar.runs.df, "tauRstar.runs", "tauIP.rstar", "ratio.tauIP",
     "ratio.rstar")
 plot.paramdiffs.twopanel(tauRstar.runs.df, "tauRstar.runs", "tauIP.rstar", "ratio.tauIP",
     "ratio.rstar")
-
-# NOT varying tauI
-alphaRstar.runs <- runz[c(2,6,10,13)] # tracking and Rstar tradeoff
-alphaRstar.runs.df <- df.all.plot[which(df.all.plot$jobID %in% alphaRstar.runs),]
-sum(alphaRstar.runs.df$diff.tauI) # must equal zero!
-
-# alphaRstar.run.dfs$newratio.alpha <- 1/alphaRstar.runs.df$ratio.alpha
 
 plot.paramdiffs.onepanel(alphaRstar.runs.df, "alphaRstar.runs", "alpha.rstar", "ratio.alpha",
     "ratio.rstar")
 plot.paramdiffs.twopanel(alphaRstar.runs.df, "alphaRstar.runs", "alpha.rstar", "ratio.alpha",
     "ratio.rstar")
 
-
-# keeps R* the same across species pairs
-taualpha.runs <- runz[c(4,8,12,15)] 
-taualpha.runs.df <- df.all.plot[which(df.all.plot$jobID %in% taualpha.runs),]
-sum(alphaRstar.runs.df$diff.tauI) # must equal zero!
-
 plot.paramdiffs.onepanel(taualpha.runs.df, "taualpha.runs", "alpha.tauIP",
     "ratio.alpha", "ratio.tauIP")
 plot.paramdiffs.twopanel(taualpha.runs.df, "taualpha.runs", "alpha.tauIP",
     "ratio.alpha", "ratio.tauIP")
 
-
-# varying everything (tauI, alpha, Rstar)
-taualphaRstar.runs <- runz[c(1,5,9)] 
-taualphaRstar.runs.df <- df.all.plot[which(df.all.plot$jobID %in% taualphaRstar.runs),]
-
+# Three things vary
 plot.paramdiffs.onepanel(taualphaRstar.runs.df, "taualphaRstar.runs", "tauIP.rstar",
     "ratio.tauIP", "ratio.rstar")
 plot.paramdiffs.onepanel(taualphaRstar.runs.df, "taualphaRstar.runs", "alpha.rstar",
