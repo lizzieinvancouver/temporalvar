@@ -27,17 +27,17 @@ source("sourcefiles/analyses/runanalysisfxs.R")
 # cheap loop over the files for now
 runz <- c("51803287", "51803320", "51803342",  "51803375",
     "51893537", "51893598", "51893656", "51893711", 
-    "51995069", "51995121", "51995125", "51995137")
+    "51995069", "51995121", "51995125", "51995137",
+    "52031904", "52031950", "52031996") # missing 52031833 which should vary everything
 
-# Of current runs3 (29 Aug 2018) ... c("51803375", "51803287", "51803320", "51803342", "51893537", "51893598", "51983556")
 # 1, 5, 9 are varying everything
-# 2, 6, 10 are NOT varying tauI
-# 3, 7, 11 are NOT varying tracking
-# 4, 8, 12 keeps R* the same across species pairs
+# 2, 6, 10, 13 are NOT varying tauI
+# 3, 7, 11, 14 are NOT varying tracking
+# 4, 8, 12, 15 keeps R* the same across species pairs
 
 # runinfo <- read.table("Table_of_RunParms.txt", skip=1, header=TRUE)
 
-# varying:
+# varying (as of 30 August 2018)
 # tauI, Rstar <- 440/33148 (1%)
 # alpha, Rstar <- 1237/41345 (3%)
 # tauI, alpha <- 1166/38808 (3%)
@@ -87,7 +87,27 @@ df.all <- rbind(df.all, df)
 ##############################
 if(FALSE){
 source("sourcefiles/analyses/tauP.R")
-ggplot(tauP.plot, aes(x=tauP, fill=when)) + geom_density(alpha=0.25)
+dfhere <- taualphaRstar.runs.df # tauRstar.runs.df
+
+df2 <- subset(dfhere, ncoexist.t2==2) #
+plot(nhere, tauPfin, type="l")
+lines(nhere, tauP, type="l")
+lines(density(c(dfhere$tauI1, dfhere$tauI2)), col="lightblue")
+lines(density(c(df2$tauI1, df2$tauI2)), col="red")
+
+quartz()
+plot(nhere, tauPfin, type="l")
+lines(nhere, tauP, type="l")
+lines(density(pmax(dfhere$tauI1, dfhere$tauI2)), col="lightblue")
+lines(density(pmax(df2$tauI1, df2$tauI2)), col="red")
+
+quartz()
+plot(nhere, tauPfin, type="l")
+lines(nhere, tauP, type="l")
+lines(density(pmin(dfhere$tauI1, dfhere$tauI2)), col="lightblue")
+lines(density(pmin(df2$tauI1, df2$tauI2)), col="red")
+
+# ggplot(tauP.plot, aes(x=tauP, fill=when)) + geom_density(alpha=0.25)
 }
 
 #################################
@@ -223,7 +243,3 @@ plot.paramdiffs.colorbyzvar(taualphaRstar.runs.df, "taualphaRstar.runs", "alpha.
 
 
 stop(print("stopping here..."))
-
-
-
-tauP <- rbeta(nyrs, p, q) # 10, 10 going to 2, 2 when nonstationary
