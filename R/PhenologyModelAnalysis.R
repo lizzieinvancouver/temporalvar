@@ -133,7 +133,7 @@ df.all.plot <- merge(df.all.coexist1, df.all.t2, by=c("jobID", "taskID", "runID"
 
 
 ##
-## Data formatting to compare species in histograms
+## Data formatting to compare species 
 ## Get runs with coexist=2 in period 1 (stat), keep data only in period 2 (ns)
 ##
 df.t2.wp <- subset(df, period==2)
@@ -157,7 +157,8 @@ coexist3col <- add.alpha(c("firebrick", "dodgerblue", "seagreen"), alpha=0.4)
 # col2rgb helps here ...
 leg.txt <- c("poof", "1 left", "2 survive")
 
-## histograms DEAL WITH!!! 
+### histograms old code, remove?
+if(FALSE){
 breaknum <- 20
 hist(c(df.long.exist$tauI1, df.long.exist$tau2), xlim=c(0,1), ylim=c(0,30),
      breaks=breaknum, col=coexist3col[3], main="", xlab="number")
@@ -167,27 +168,31 @@ hist(c(df.long.noexist$tauI1, df.long.noexist$tau2), xlim=c(0,1), ylim=c(0,30),
 
 plot.histograms(df.long.exist, df.long.noexist, "tauI", "tauI1", "tauI2",
     coexist3col, seq(from=0, to=1, by=0.05), c(0,1), c(0,40))
+ggplot(df.plot, aes(x=ratio.tauIP, color=as.factor(ncoexist.t2), fill=as.factor(ncoexist.t2))) +
+   geom_histogram(alpha=0.5, position="identity")
 
+ggplot() + geom_density(data=tauP.plot, aes(x=tauP), alpha=0.25) +
+    geom_histogram(data=df.plot, aes(x=tauI1, color=as.factor(ncoexist.t2), fill=as.factor(ncoexist.t2)))
+}
 ###
-# ggplot(df.plot, aes(x=ratio.tauIP, color=as.factor(ncoexist.t2), fill=as.factor(ncoexist.t2))) +
-#    geom_histogram(alpha=0.5, position="identity")
 
-# ggplot() + geom_density(data=tauP.plot, aes(x=tauP), alpha=0.25) +
-#    geom_histogram(data=df.plot, aes(x=tauI1, color=as.factor(ncoexist.t2), fill=as.factor(ncoexist.t2)))
-###
 
-# 3 and 7 are NOT varying tracking
-tauRstar.runs <- runz[c(3,7, 11)] # tauI and Rstar tradeoff
+##
+# See above for where I outline what numbers to pull for each!
+# NOT varying tracking
+tauRstar.runs <- runz[c(3,7,11,14)] # tauI and Rstar tradeoff
 tauRstar.runs.df <- df.all.plot[which(df.all.plot$jobID %in% tauRstar.runs),]
+sum(tauRstar.runs.df$diff.alpha) # must equal zero!
 
 plot.paramdiffs.onepanel(tauRstar.runs.df, "tauRstar.runs", "tauIP.rstar", "ratio.tauIP",
     "ratio.rstar")
 plot.paramdiffs.twopanel(tauRstar.runs.df, "tauRstar.runs", "tauIP.rstar", "ratio.tauIP",
     "ratio.rstar")
 
-# 2 and 6 are NOT varying tauI
-alphaRstar.runs <- runz[c(2,6,10)] # tracking and Rstar tradeoff
+# NOT varying tauI
+alphaRstar.runs <- runz[c(2,6,10,13)] # tracking and Rstar tradeoff
 alphaRstar.runs.df <- df.all.plot[which(df.all.plot$jobID %in% alphaRstar.runs),]
+sum(alphaRstar.runs.df$diff.tauI) # must equal zero!
 
 # alphaRstar.run.dfs$newratio.alpha <- 1/alphaRstar.runs.df$ratio.alpha
 
@@ -197,9 +202,10 @@ plot.paramdiffs.twopanel(alphaRstar.runs.df, "alphaRstar.runs", "alpha.rstar", "
     "ratio.rstar")
 
 
-# 4 and 8 keeps R* the same across species pairs
-taualpha.runs <- runz[c(4, 8)] 
+# keeps R* the same across species pairs
+taualpha.runs <- runz[c(4,8,12,15)] 
 taualpha.runs.df <- df.all.plot[which(df.all.plot$jobID %in% taualpha.runs),]
+sum(alphaRstar.runs.df$diff.tauI) # must equal zero!
 
 plot.paramdiffs.onepanel(taualpha.runs.df, "taualpha.runs", "alpha.tauIP",
     "ratio.alpha", "ratio.tauIP")
@@ -207,8 +213,8 @@ plot.paramdiffs.twopanel(taualpha.runs.df, "taualpha.runs", "alpha.tauIP",
     "ratio.alpha", "ratio.tauIP")
 
 
-# 1 and 5 are varying everything
-taualphaRstar.runs <- runz[c(1,5, 9)] 
+# varying everything (tauI, alpha, Rstar)
+taualphaRstar.runs <- runz[c(1,5,9)] 
 taualphaRstar.runs.df <- df.all.plot[which(df.all.plot$jobID %in% taualphaRstar.runs),]
 
 plot.paramdiffs.onepanel(taualphaRstar.runs.df, "taualphaRstar.runs", "tauIP.rstar",
