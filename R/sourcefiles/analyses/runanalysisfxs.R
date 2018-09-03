@@ -133,7 +133,7 @@ plot.paramdiffs.colorbyzvar <- function(df, figname, runname, colname.x, colname
     colname.z, figtitle, midpt){
     plothere <- ggplot(df, aes(df[[colname.x]], df[[colname.y]])) +
         geom_point(aes(color=df[[colname.z]])) +
-        scale_colour_gradient2(midpoint = midpt) +
+        scale_colour_viridis(midpoint = midpt) + 
         labs(colour = colname.z, x = colname.x, y=colname.y,
              title=figtitle)
     # scale_colour_gradient2(low = "white", mid ="white", high = "darkred")
