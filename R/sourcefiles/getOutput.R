@@ -79,7 +79,7 @@ col.names.BfinN <- c("jobID","taskID","runID","yr","Ltstp",
                      paste0(rep("Bfin",nsp),c(1:nsp)),
                      paste0(rep("N",nsp),c(1:nsp)),
                      paste0(rep("rcrt",nsp),c(1:nsp)),
-                     paste0(rep("coexist",nsp),c(1:nsp))))
+                     paste0(rep("coexist",nsp),c(1:nsp)))
 write.table(matrix(data=c(rep(as.numeric(jobID[1]),yout),rep(as.numeric(jobID[2]),yout),
                           rep(j,yout),c(1:yout),L,
                           Bfin[1:yout,],N[1:yout,],rcrt[1:yout,],coexist[1:yout,]),
