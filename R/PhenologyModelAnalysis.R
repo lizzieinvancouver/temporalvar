@@ -76,6 +76,7 @@ runs1$taskrunID <- paste(runs1$taskID, runs1$runID, sep="-")
 ## Data formatting to compare species pairs
 ##
 df <- makediffs(runs1)
+df <- calcbesttauI(df)
 df.coexist <- subset(df, ncoexist==2)
 print(paste("the current folder ID is", folderID, "the total rows are:", nrow(df), 
     "and the total coexisting rows are:", nrow(df.coexist), sep=" "))
@@ -183,30 +184,33 @@ ggplot() + geom_density(data=tauP.plot, aes(x=tauP), alpha=0.25) +
 ##
 ## IN PROGRESS! Need to work on histograms and tauI
 ##
-
-### histograms ... still need to think on how to plot this...
-
-## dealing with tauI !!
-DF.touse <- tauRstar.runs.df
-DF <- DF.touse[c("tauIP1_mean", "tauIP2_mean")]
-bettertauI <- colnames(DF)[max.col(DF, ties.method="first")]
-DF.tauI <- DF.touse[c("tauI1", "tauI2")]
-DF.tauI$besttauI <- NA
-DF.tauI$besttauI[which(bettertauI=="tauIP1_mean")] <- DF.tauI$tauI1[which(bettertauI=="tauIP1_mean")]
-DF.tauI$besttauI[which(bettertauI=="tauIP2_mean")] <- DF.tauI$tauI2[which(bettertauI=="tauIP2_mean")]
-tauRstar.runs.df$besttauI <- DF.tauI$besttauI
-##
-##
-
+# not varying alpha
+plot.histograms.bothspp(tauRstar.runs.df, "tauRstar", "tauI1", "tauI2",
+    tauPcol, varhistcol, ylim=c(0,18))
+plot.histograms.onespp.skipnonstat(tauRstar.runs.df, "tauRstar", "besttauI",
+    tauPcol, varhistcol, ylim=c(0,18)) # doesn't run for nonstat period because there is too little data!
+plot.histograms.bars.onespp.skipnonstat(tauRstar.runs.df, "tauRstar", "besttauI",
+    tauPcol, varhistcol, 10)
+# NOT varying tauI
+plot.histograms.bothspp(alphaRstar.runs.df, "alphaRstar", "alpha1", "alpha2",
+    tauPcol, varhistcol, ylim=c(0,5))
+plot.histograms.onespp(alphaRstar.runs.df, "alphaRstar", "besttauI",
+    tauPcol, varhistcol, ylim=c(0,5))
+# keeps R* the same across species pairs
+plot.histograms.bothspp(taualpha.runs.df, "taualpha", "alpha1", "alpha2",
+    tauPcol, varhistcol, ylim=c(0,5))
+plot.histograms.onespp(taualpha.runs.df, "taualpha", "besttauI",
+    tauPcol, varhistcol, ylim=c(0,5))
+# varying everything (tauI, alpha, Rstar)
 plot.histograms.bothspp(taualphaRstar.runs.df, "taualphaRstar", "alpha1", "alpha2",
-    tauPcol, varhistcol)
+    tauPcol, varhistcol, ylim=c(0,5))
 plot.histograms.max(taualphaRstar.runs.df, "taualphaRstar", "alpha1", "alpha2",
-    tauPcol, varhistcol)
+    tauPcol, varhistcol, ylim=c(0,5))
 plot.histograms.min(taualphaRstar.runs.df, "taualphaRstar", "alpha1", "alpha2",
-    tauPcol, varhistcol)
+    tauPcol, varhistcol, ylim=c(0,5))
+plot.histograms.onespp(taualphaRstar.runs.df, "taualphaRstar", "besttauI",
+    tauPcol, varhistcol, ylim=c(0,5))
 
-plot.histograms.onespp(tauRstar.runs.df, "tauRstar", "besttauI",
-    tauPcol, varhistcol) # doesn't run for nonstat period because there is too little data!
 # ggplot(tauP.plot, aes(x=tauP, fill=when)) + geom_density(alpha=0.25)
 
 
