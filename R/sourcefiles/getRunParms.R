@@ -6,6 +6,7 @@ jobID <- ifelse(localflag==1,
                 c(paste0("999",trunc(runif(1,1000,9999))),"1"),
                 Sys.getenv(c("SLURM_ARRAY_JOB_ID","SLURM_ARRAY_TASK_ID")))
 print(paste("jobID is ",jobID))
+writeBout <- 1  #default=1; flag indicating how often Bout should be written (0=never, n = every n runs)
 
 #GET INPUT PARMS FOR THIS RUN
 inputs <- as.data.frame(read.table(file=paste0(locIN,"getInputParms.txt"),
@@ -33,7 +34,6 @@ runparms <- matrix(data= c(jobID[1],jobID[2],nruns,nsp,nyrs,nonsta,tracking,varR
                            megaD,writeBout,ext,ndays,dt,tsteps),nrow=1)
 
 #OUTPUT PARMS & FOLDER LOCATIONS
-writeBout <- 1  #default=1; flag indicating how often Bout should be written (0=never, n = every n runs)
 suffix <- paste0("_",jobID[1],"-",jobID[2],".txt") #unique for each array in batchfile
 datesuffix <- (paste0(format(Sys.time(),"%Y-%m-%d")))
 
