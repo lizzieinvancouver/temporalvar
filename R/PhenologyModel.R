@@ -84,7 +84,3 @@ for (j in c(1:nruns)){
   print(paste("run ended at step =", yout," the calcs took ", format(itertime,digits=4),", writing took ", format(difftime(itertime3,itertime2),digits=4)))
 }
 source(paste0(locIN,"sourcefiles/moveOutput.R"))
-##stop redirecting Rout that was initiated in getRunParms
-#sink(type="message")
-#sink(type="output")
-
