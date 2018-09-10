@@ -31,7 +31,7 @@ dt <- 0.005 # within yr timestep
 tsteps <- ndays/dt
 
 runparms <- matrix(data= c(jobID[1],jobID[2],nruns,nsp,nyrs,nonsta,tracking,varRstar,vartauI,
-                           megaD,writeBout,ext,ndays,dt,tsteps),nrow=1)
+                           megaD,rho,writeBout,ext,ndays,dt,tsteps),nrow=1)
 
 #OUTPUT PARMS & FOLDER LOCATIONS
 suffix <- paste0("_",jobID[1],"-",jobID[2],".txt") #unique for each array in batchfile
@@ -72,7 +72,7 @@ if(!dir.exists(file.path(OtherOut_loc))) dir.create(file.path(OtherOut_loc),recu
                           paste0(rep("nonsta",3),c(1:3)),
                           "tracking",
                           paste0(rep("varRstar",2),c(1:2)),
-                          "vartauI","megaD","writeBout","ext","ndays","dt","tsteps")
+                          "vartauI","megaDflag","rho","writeBout","ext","ndays","dt","tsteps")
   fileparms <- paste0(OtherOut_loc,"RunParms_",jobID[1],".txt")
   write.table(runparms,file=fileparms,
               col.names = col.names.runparms, row.names = FALSE,
