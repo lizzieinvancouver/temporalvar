@@ -19,7 +19,8 @@ varRstar <- ifelse(is.character(inputs$varRstar),
 if(length(varRstar)==1) varRstar <- c(varRstar,NA)
 vartauI <-inputs$vartauI[runflag]
 nsp <- inputs$nsp[runflag]
-megaD <- max(0,inputs$megaD[runflag])
+megaD <- ifelse(inputs$megaD[runflag]==0,0,1) #megaD is flag for megadrought run
+rho <- inputs$megaD[runflag]  #rho is the value of the megaD in getInputParms and is corr(s,phi)
 
 nyrs <- sum(nonsta)  # number of yrs to run if nonsta=0 or for initial period if nonsta>0
 yrs <- c(1:nyrs)
