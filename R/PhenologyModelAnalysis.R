@@ -27,17 +27,18 @@ source("sourcefiles/analyses/runanalysisfxs.R")
 # cheap loop over the files for now
 runz <- c("51803287", "51803320", "51803342",  "51803375",
     "51893537", "51893598", "51893656", "51893711", 
-    "51995069", "51995121", "51995125", "51995137")
+    "51995069", "51995121", "51995125", "51995137",
+    "52031904", "52031950", "52031996") # missing 52031833 which should vary everything
 
-# Of current runs3 (29 Aug 2018) ... c("51803375", "51803287", "51803320", "51803342", "51893537", "51893598", "51983556")
+# Remember to update below under plotting-related formatting ... 
 # 1, 5, 9 are varying everything
-# 2, 6, 10 are NOT varying tauI
-# 3, 7, 11 are NOT varying tracking
-# 4, 8, 12 keeps R* the same across species pairs
+# 2, 6, 10, 13 are NOT varying tauI
+# 3, 7, 11, 14 are NOT varying tracking
+# 4, 8, 12, 15 keeps R* the same across species pairs
 
 # runinfo <- read.table("Table_of_RunParms.txt", skip=1, header=TRUE)
 
-# varying:
+# varying (as of 30 August 2018)
 # tauI, Rstar <- 440/33148 (1%)
 # alpha, Rstar <- 1237/41345 (3%)
 # tauI, alpha <- 1166/38808 (3%)
@@ -75,6 +76,7 @@ runs1$taskrunID <- paste(runs1$taskID, runs1$runID, sep="-")
 ## Data formatting to compare species pairs
 ##
 df <- makediffs(runs1)
+df <- calcbesttauI(df)
 df.coexist <- subset(df, ncoexist==2)
 print(paste("the current folder ID is", folderID, "the total rows are:", nrow(df), 
     "and the total coexisting rows are:", nrow(df.coexist), sep=" "))
@@ -85,10 +87,8 @@ df.all <- rbind(df.all, df)
 ##############################
 ## Set tauP for the graphs! ##
 ##############################
-if(FALSE){
 source("sourcefiles/analyses/tauP.R")
-ggplot(tauP.plot, aes(x=tauP, fill=when)) + geom_density(alpha=0.25)
-}
+
 
 #################################
 ## Plotting-related formatting ##
@@ -113,7 +113,7 @@ df.all.plot <- merge(df.all.coexist1, df.all.t2, by=c("jobID", "taskID", "runID"
 
 
 ##
-## Data formatting to compare species in histograms
+## Data formatting to compare species 
 ## Get runs with coexist=2 in period 1 (stat), keep data only in period 2 (ns)
 ##
 df.t2.wp <- subset(df, period==2)
@@ -130,14 +130,39 @@ df.all.long.exist <- subset(df.all.long, coexist1==1 | coexist2==1)
 df.all.long.noexist <- subset(df.all.long, coexist1==0 | coexist2==0)
 }
 
+##
+## Group the runs by what type they are so I can plot
+##
+
+# See above when I set up runz for where I outline what numbers to pull for each!
+
+# NOT varying tracking
+tauRstar.runs <- runz[c(3,7,11,14)] # tauI and Rstar tradeoff
+tauRstar.runs.df <- df.all.plot[which(df.all.plot$jobID %in% tauRstar.runs),]
+sum(tauRstar.runs.df$diff.alpha) # must equal zero!
+# NOT varying tauI
+alphaRstar.runs <- runz[c(2,6,10,13)] # tracking and Rstar tradeoff
+alphaRstar.runs.df <- df.all.plot[which(df.all.plot$jobID %in% alphaRstar.runs),]
+sum(alphaRstar.runs.df$diff.tauI) # must equal zero!
+# keeps R* the same across species pairs
+taualpha.runs <- runz[c(4,8,12,15)] 
+taualpha.runs.df <- df.all.plot[which(df.all.plot$jobID %in% taualpha.runs),]
+sum(taualpha.runs.df$diff.Rstar) # must equal zero!
+# varying everything (tauI, alpha, Rstar)
+taualphaRstar.runs <- runz[c(1,5,9)] 
+taualphaRstar.runs.df <- df.all.plot[which(df.all.plot$jobID %in% taualphaRstar.runs),]
+
 ###############
 ## Plotting! ##
 ###############
 coexist3col <- add.alpha(c("firebrick", "dodgerblue", "seagreen"), alpha=0.4)
+tauPcol <- add.alpha(c("yellow", "firebrick"), alpha=0.2)
+varhistcol <- add.alpha(c("yellow", "firebrick"), alpha=0.8)
 # col2rgb helps here ...
 leg.txt <- c("poof", "1 left", "2 survive")
 
-## histograms DEAL WITH!!! 
+### histograms old code, remove?
+if(FALSE){
 breaknum <- 20
 hist(c(df.long.exist$tauI1, df.long.exist$tau2), xlim=c(0,1), ylim=c(0,30),
      breaks=breaknum, col=coexist3col[3], main="", xlab="number")
@@ -147,50 +172,69 @@ hist(c(df.long.noexist$tauI1, df.long.noexist$tau2), xlim=c(0,1), ylim=c(0,30),
 
 plot.histograms(df.long.exist, df.long.noexist, "tauI", "tauI1", "tauI2",
     coexist3col, seq(from=0, to=1, by=0.05), c(0,1), c(0,40))
+ggplot(df.plot, aes(x=ratio.tauIP, color=as.factor(ncoexist.t2), fill=as.factor(ncoexist.t2))) +
+   geom_histogram(alpha=0.5, position="identity")
 
-###
-# ggplot(df.plot, aes(x=ratio.tauIP, color=as.factor(ncoexist.t2), fill=as.factor(ncoexist.t2))) +
-#    geom_histogram(alpha=0.5, position="identity")
+ggplot() + geom_density(data=tauP.plot, aes(x=tauP), alpha=0.25) +
+    geom_histogram(data=df.plot, aes(x=tauI1, color=as.factor(ncoexist.t2), fill=as.factor(ncoexist.t2)))
+}
 
-# ggplot() + geom_density(data=tauP.plot, aes(x=tauP), alpha=0.25) +
-#    geom_histogram(data=df.plot, aes(x=tauI1, color=as.factor(ncoexist.t2), fill=as.factor(ncoexist.t2)))
-###
 
-# 3 and 7 are NOT varying tracking
-tauRstar.runs <- runz[c(3,7, 11)] # tauI and Rstar tradeoff
-tauRstar.runs.df <- df.all.plot[which(df.all.plot$jobID %in% tauRstar.runs),]
 
+##
+## IN PROGRESS! Need to work on histograms and tauI
+##
+# not varying alpha
+plot.histograms.bothspp(tauRstar.runs.df, "tauRstar", "tauI1", "tauI2",
+    tauPcol, varhistcol, ylim=c(0,18))
+plot.histograms.onespp.skipnonstat(tauRstar.runs.df, "tauRstar", "besttauI",
+    tauPcol, varhistcol, ylim=c(0,18)) # doesn't run for nonstat period because there is too little data!
+plot.histograms.bars.onespp.skipnonstat(tauRstar.runs.df, "tauRstar", "besttauI",
+    tauPcol, varhistcol, 10)
+# NOT varying tauI
+plot.histograms.bothspp(alphaRstar.runs.df, "alphaRstar", "alpha1", "alpha2",
+    tauPcol, varhistcol, ylim=c(0,5))
+plot.histograms.onespp(alphaRstar.runs.df, "alphaRstar", "besttauI",
+    tauPcol, varhistcol, ylim=c(0,5))
+# keeps R* the same across species pairs
+plot.histograms.bothspp(taualpha.runs.df, "taualpha", "alpha1", "alpha2",
+    tauPcol, varhistcol, ylim=c(0,5))
+plot.histograms.onespp(taualpha.runs.df, "taualpha", "besttauI",
+    tauPcol, varhistcol, ylim=c(0,5))
+# varying everything (tauI, alpha, Rstar)
+plot.histograms.bothspp(taualphaRstar.runs.df, "taualphaRstar", "alpha1", "alpha2",
+    tauPcol, varhistcol, ylim=c(0,5))
+plot.histograms.max(taualphaRstar.runs.df, "taualphaRstar", "alpha1", "alpha2",
+    tauPcol, varhistcol, ylim=c(0,5))
+plot.histograms.min(taualphaRstar.runs.df, "taualphaRstar", "alpha1", "alpha2",
+    tauPcol, varhistcol, ylim=c(0,5))
+plot.histograms.onespp(taualphaRstar.runs.df, "taualphaRstar", "besttauI",
+    tauPcol, varhistcol, ylim=c(0,5))
+
+# ggplot(tauP.plot, aes(x=tauP, fill=when)) + geom_density(alpha=0.25)
+
+
+##
+## Paramdiff plots
+##
+
+# Two things vary ...
 plot.paramdiffs.onepanel(tauRstar.runs.df, "tauRstar.runs", "tauIP.rstar", "ratio.tauIP",
     "ratio.rstar")
 plot.paramdiffs.twopanel(tauRstar.runs.df, "tauRstar.runs", "tauIP.rstar", "ratio.tauIP",
     "ratio.rstar")
-
-# 2 and 6 are NOT varying tauI
-alphaRstar.runs <- runz[c(2,6,10)] # tracking and Rstar tradeoff
-alphaRstar.runs.df <- df.all.plot[which(df.all.plot$jobID %in% alphaRstar.runs),]
-
-# alphaRstar.run.dfs$newratio.alpha <- 1/alphaRstar.runs.df$ratio.alpha
 
 plot.paramdiffs.onepanel(alphaRstar.runs.df, "alphaRstar.runs", "alpha.rstar", "ratio.alpha",
     "ratio.rstar")
 plot.paramdiffs.twopanel(alphaRstar.runs.df, "alphaRstar.runs", "alpha.rstar", "ratio.alpha",
     "ratio.rstar")
 
-
-# 4 and 8 keeps R* the same across species pairs
-taualpha.runs <- runz[c(4, 8)] 
-taualpha.runs.df <- df.all.plot[which(df.all.plot$jobID %in% taualpha.runs),]
-
 plot.paramdiffs.onepanel(taualpha.runs.df, "taualpha.runs", "alpha.tauIP",
     "ratio.alpha", "ratio.tauIP")
 plot.paramdiffs.twopanel(taualpha.runs.df, "taualpha.runs", "alpha.tauIP",
     "ratio.alpha", "ratio.tauIP")
 
-
-# 1 and 5 are varying everything
-taualphaRstar.runs <- runz[c(1,5, 9)] 
-taualphaRstar.runs.df <- df.all.plot[which(df.all.plot$jobID %in% taualphaRstar.runs),]
-
+# Three things vary
 plot.paramdiffs.onepanel(taualphaRstar.runs.df, "taualphaRstar.runs", "tauIP.rstar",
     "ratio.tauIP", "ratio.rstar")
 plot.paramdiffs.onepanel(taualphaRstar.runs.df, "taualphaRstar.runs", "alpha.rstar",
@@ -223,7 +267,3 @@ plot.paramdiffs.colorbyzvar(taualphaRstar.runs.df, "taualphaRstar.runs", "alpha.
 
 
 stop(print("stopping here..."))
-
-
-
-tauP <- rbeta(nyrs, p, q) # 10, 10 going to 2, 2 when nonstationary
