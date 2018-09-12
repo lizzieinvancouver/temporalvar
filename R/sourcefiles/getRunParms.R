@@ -1,5 +1,7 @@
 #Get run parameters; 
 runflag <- ifelse(localflag==1,1,as.numeric(Sys.getenv("PHEN_RUNNUM")))
+megaD <- ifelse(runflag>100,TRUE,FALSE)  #use PHEN_RUNNUM as a flag for megaD runs
+inputline <- ifelse(megaD==1,runflag - 100, runflag)
 
 #jobID: if batch, then jobID & taskID from slurm; if local, randomly gen 999XXXX
 jobID <- ifelse(localflag==1,
@@ -9,20 +11,21 @@ print(paste("jobID is ",jobID))
 writeBout <- 1  #default=1; flag indicating how often Bout should be written (0=never, n = every n runs)
 
 #GET INPUT PARMS FOR THIS RUN
-inputs <- as.data.frame(read.table(file=paste0(locIN,"/getInputParms.txt"),
+inputfile <- ifelse(megaD==1,paste0(locIN,"/getInputParms_megaD.txt"),paste0(locIN,"/getInputParms.txt"))
+inputs <- as.data.frame(read.table(file=inputfile),
                                    header=TRUE,stringsAsFactors=FALSE,sep="\t"))
-nruns <- inputs$nruns[runflag]
-nonsta <- as.numeric(unlist(strsplit(inputs$nonsta[runflag],",")))
-tracking <- inputs$tracking[runflag]
+nruns <- inputs$nruns[inputline]
+nonsta <- as.numeric(unlist(strsplit(inputs$nonsta[inputline],",")))
+tracking <- inputs$tracking[inputline]
 varRstar <- ifelse(is.character(inputs$varRstar),
-                   as.numeric(unlist(strsplit(inputs$varRstar[runflag],","))),
+                   as.numeric(unlist(strsplit(inputs$varRstar[inputline],","))),
                    as.numeric(inputs$varRstar))
 if(length(varRstar)==1) varRstar <- c(varRstar,NA)
-vartauI <-inputs$vartauI[runflag]
-nsp <- inputs$nsp[runflag]
-megaD <- ifelse(inputs$megaD[runflag]==0,0,1) #megaD is flag for megadrought run
-rho <- inputs$megaD[runflag]  #rho is the value of the megaD in getInputParms and is corr(s,phi)
-if (rho==1) rho <- -0.5 #if megaD is treated as a flag in the input file, then give rho standard value of -0.5
+vartauI <-inputs$vartauI[inputline]
+nsp <- inputs$nsp[inputline]
+rho <- inputs$megaD[inputline]  #rho is the value of the megaD in getInputParms and is corr(s,phi)
+if (rho==1) rho <- -0.5 #if megaD is treated as a flag (0/1) in the input file, then give rho standard value of -0.5
+if (localflag==1 && rho>0) megaD <-1   #local is special case: megaD is indicated only by getInputParms.
 
 nyrs <- sum(nonsta)  # number of yrs to run if nonsta=0 or for initial period if nonsta>0
 yrs <- c(1:nyrs)
