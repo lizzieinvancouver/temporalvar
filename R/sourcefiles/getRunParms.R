@@ -22,6 +22,7 @@ vartauI <-inputs$vartauI[runflag]
 nsp <- inputs$nsp[runflag]
 megaD <- ifelse(inputs$megaD[runflag]==0,0,1) #megaD is flag for megadrought run
 rho <- inputs$megaD[runflag]  #rho is the value of the megaD in getInputParms and is corr(s,phi)
+if (rho==1) rho <- -0.5 #if megaD is treated as a flag in the input file, then give rho standard value of -0.5
 
 nyrs <- sum(nonsta)  # number of yrs to run if nonsta=0 or for initial period if nonsta>0
 yrs <- c(1:nyrs)
