@@ -10,8 +10,8 @@ tauP <- rbeta(nonsta[1], p, q) # change once not doing stationary+nonstationary 
 if (megaD==1) {
   tauP <- rbeta(nyrs, p, q) # change once not doing stationary+nonstationary run
   R0id <- c(trunc(runif(1,0,1)*10000),trunc(runif(1,0,1)*10000))
-  R0wet <- scan(file=paste0(locMegaD,"data_wetresamp.csv"),skip=(1+R0id[1]),nlines=1,sep=",",quiet=TRUE)
-  R0dry <- scan(file=paste0(locMegaD,"data_dryresamp.csv"),skip=(1+R0id[2]),nlines=1,sep=",",quiet=TRUE)
+  R0wet <- scan(file=paste0(locMegaD,"/data_wetresamp.csv"),skip=(1+R0id[1]),nlines=1,sep=",",quiet=TRUE)
+  R0dry <- scan(file=paste0(locMegaD,"/data_dryresamp.csv"),skip=(1+R0id[2]),nlines=1,sep=",",quiet=TRUE)
   R0 <- c(R0wet[2:length(R0wet)],R0dry[2:length(R0dry)])
 }
 

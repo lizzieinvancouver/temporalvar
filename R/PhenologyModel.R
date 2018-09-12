@@ -4,24 +4,26 @@
 
 rm(list=ls()) 
 options(stringsAsFactors=FALSE)
-library(deSolve)
-library(MultiRNG)
 
 #define run location (PHEN_RUNNUM is only defined for slurm batch jobs)
 localflag <- ifelse(Sys.getenv("PHEN_RUNNUM")=="",1,0)
 locIN <- ifelse(localflag==1,
-                "C:/Users/Megan/Documents/GitHub/temporalvar/R/",
-                "/n/regal/wolkovich_lab/temporalvar/R/")
+                "C:/Users/Megan/Documents/GitHub/temporalvar/R",
+                "/n/wolkovich_lab/temporalvar/R")
 
-source(paste0(locIN, "sourcefiles/getRunParms.R")) #define runtime parameters
+.libPaths(new=paste0(locIN,"/libs"))
+library(deSolve)
+require(MultiRNG)
+
+source(paste0(locIN, "/sourcefiles/getRunParms.R")) #define runtime parameters
 
 for (j in c(1:nruns)){
   itertime1 <- Sys.time()
   print(paste("run ",j,"of ",nruns))
   #define parameters and functions for this run
-  source(paste0(locIN,"sourcefiles/getEnvt.R"))  #get constant and time-varying envt parms
-  source(paste0(locIN,"sourcefiles/getSpecies.R"))  #get species characteristics and Rstar
-  source(paste0(locIN,"sourcefiles/ResCompN.R")) # define within-season ode solver
+  source(paste0(locIN,"/sourcefiles/getEnvt.R"))  #get constant and time-varying envt parms
+  source(paste0(locIN,"/sourcefiles/getSpecies.R"))  #get species characteristics and Rstar
+  source(paste0(locIN,"/sourcefiles/ResCompN.R")) # define within-season ode solver
   
   #Define arrays
   #interannual dynamics set-up (R0 is in getEnvt.R)
@@ -79,8 +81,8 @@ for (j in c(1:nruns)){
   itertime2 <- Sys.time()
   itertime <- difftime(itertime2, itertime1)
   #print(paste("run ended at step =", yout," this run took ", itertime," sec"))
-  source(paste0(locIN,"sourcefiles/getOutput.R"))
+  source(paste0(locIN,"/sourcefiles/getOutput.R"))
   itertime3 <- Sys.time()
   print(paste("run ended at step =", yout," the calcs took ", format(itertime,digits=4),", writing took ", format(difftime(itertime3,itertime2),digits=4)))
 }
-source(paste0(locIN,"sourcefiles/moveOutput.R"))
+source(paste0(locIN,"/sourcefiles/moveOutput.R"))

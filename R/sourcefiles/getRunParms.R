@@ -9,7 +9,7 @@ print(paste("jobID is ",jobID))
 writeBout <- 1  #default=1; flag indicating how often Bout should be written (0=never, n = every n runs)
 
 #GET INPUT PARMS FOR THIS RUN
-inputs <- as.data.frame(read.table(file=paste0(locIN,"getInputParms.txt"),
+inputs <- as.data.frame(read.table(file=paste0(locIN,"/getInputParms.txt"),
                                    header=TRUE,stringsAsFactors=FALSE,sep="\t"))
 nruns <- inputs$nruns[runflag]
 nonsta <- as.numeric(unlist(strsplit(inputs$nonsta[runflag],",")))
@@ -40,29 +40,29 @@ datesuffix <- (paste0(format(Sys.time(),"%Y-%m-%d")))
 if (localflag==0){
   #locOUT is the fast-writing scratch space on the run node (mem limited)
   ##***I think jobID[1] = Sys.getenv("SLURM_ARRAY_JOB_ID) = Sys.getenv("SLURM_JOB_ID")
-  locOUT <- paste0("/scratch/wolkovich_lab/temporalvar/",jobID[1],"/")
+  locOUT <- paste0("/scratch/wolkovich_lab/temporalvar/",jobID[1])
   #locSAVE is the permanent location to where runs are saved on the storage node
   locSAVE <- ifelse(megaD==1, 
-                    "/n/wolkovich_lab/temporalvar/megadrought/output/",
-                    "/n/wolkovich_lab/temporalvar/R/output/")
+                    "/n/wolkovich_lab/temporalvar/megadrought/output",
+                    "/n/wolkovich_lab/temporalvar/R/output")
   #locMegaD in is the location of megadrought envt files from Ben  
-  locMegaD <- "/n/wolkovich_lab/temporalvar/megadrought/fromBen/"
+  locMegaD <- "/n/wolkovich_lab/temporalvar/megadrought/fromBen"
 } else {
-  locOUT <- paste0("C:/Users/Megan/Documents/scratch/",jobID[1],"/")
+  locOUT <- paste0("C:/Users/Megan/Documents/scratch/",jobID[1])
   locSAVE <- ifelse(megaD==1, 
-                    "C:/Users/Megan/Documents/GitHub/temporalvar/megadrought/output/",
-                    "C:/Users/Megan/Documents/GitHub/temporalvar/R/output/")
-  locMegaD <- "C:/Users/Megan/Documents/GitHub/temporalvar/megadrought/fromBen/"
+                    "C:/Users/Megan/Documents/GitHub/temporalvar/megadrought/output",
+                    "C:/Users/Megan/Documents/GitHub/temporalvar/R/output")
+  locMegaD <- "C:/Users/Megan/Documents/GitHub/temporalvar/megadrought/fromBen"
 }
 if(!dir.exists(file.path(locOUT))) dir.create(file.path(locOUT),recursive=TRUE)
 
-Bout_loc <- paste0(locOUT,"/Bout/",jobID[1],"/")
+Bout_loc <- paste0(locOUT,"/Bout/",jobID[1])
 if(!dir.exists(file.path(Bout_loc))) dir.create(file.path(Bout_loc),recursive=TRUE)
 
-SummOut_loc <- paste0(locOUT,"/SummaryFiles/",jobID[1],"/")
+SummOut_loc <- paste0(locOUT,"/SummaryFiles/",jobID[1])
 if(!dir.exists(file.path(SummOut_loc))) dir.create(file.path(SummOut_loc),recursive=TRUE)
 
-OtherOut_loc <- paste0(locOUT,"/OtherOut/",jobID[1],"/")
+OtherOut_loc <- paste0(locOUT,"/OtherOut/",jobID[1])
 if(!dir.exists(file.path(OtherOut_loc))) dir.create(file.path(OtherOut_loc),recursive=TRUE)
 
 #WRITE RUN CONDITIONS TO RUNPARMS
@@ -73,7 +73,7 @@ if(!dir.exists(file.path(OtherOut_loc))) dir.create(file.path(OtherOut_loc),recu
                           "tracking",
                           paste0(rep("varRstar",2),c(1:2)),
                           "vartauI","megaDflag","rho","writeBout","ext","ndays","dt","tsteps")
-  fileparms <- paste0(OtherOut_loc,"RunParms_",jobID[1],".txt")
+  fileparms <- paste0(OtherOut_loc,"/RunParms_",jobID[1],".txt")
   write.table(runparms,file=fileparms,
               col.names = col.names.runparms, row.names = FALSE,
               sep= "\t",quote=FALSE)
