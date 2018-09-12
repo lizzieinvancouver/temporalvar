@@ -46,7 +46,7 @@ if (localflag==0){
                     "/n/wolkovich_lab/temporalvar/megadrought/output/",
                     "/n/wolkovich_lab/temporalvar/R/output/")
   #locMegaD in is the location of megadrought envt files from Ben  
-  locMegaD <- "/n/wolkovich_lab/temporalvar/megadrought/data/"
+  locMegaD <- "/n/wolkovich_lab/temporalvar/megadrought/fromBen/"
 } else {
   locOUT <- paste0("C:/Users/Megan/Documents/scratch/",jobID[1],"/")
   locSAVE <- ifelse(megaD==1, 
