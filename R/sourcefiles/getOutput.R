@@ -10,29 +10,17 @@
 #BOUT file is written out every year, but there is a new file for each run
 #  Bout_jobID.txt:  arrayID,runID,yr,t,B_1,B_2,...
 
-#NOTE: outloc and suffix are defined in getRunParms.R
-
-#write out headers only on first iteration
-
-
-if (j == 1) {
-  col.names.BfinN <- c("jobID","taskID","runID","yr","Ltstp",
-                    paste0(rep("Bfin",nsp),c(1:nsp)),
-                    paste0(rep("N",nsp),c(1:nsp)),
-                    paste0(rep("rcrt",nsp),c(1:nsp)),
-                    paste0(rep("coexist",nsp),c(1:nsp)))
-  col.names.SummaryOut <- c("jobID","taskID","runID","period","nperiods","yout","itertime","ncoexist",
-                            paste0(rep("coexist",nsp),c(1:nsp)),
-                            paste0(rep("alpha",nsp),c(1:nsp)),
-                            paste0(rep("c",nsp),c(1:nsp)),
-                            paste0(rep("Rstar",nsp),c(1:nsp)),
-                            paste0(rep("tauI",nsp),c(1:nsp)),
-                            paste0(rep("g",nsp),c(1:nsp),rep("mean",nsp)),
-                            paste0(rep("tauIP",nsp),c(1:nsp),rep("_mean",nsp)))
-} else {
-  col.names.BfinN <- FALSE
-  col.names.SummaryOut <- FALSE
-}
+#WRITE SummaryOut files at the end of each run; one line per period
+col.names.SummaryOut<-c("jobID","taskID","runID","period","nperiods","yout","itertime","ncoexist",
+                        paste0(rep("coexist",nsp),c(1:nsp)),
+                        paste0(rep("alpha",nsp),c(1:nsp)),
+                        paste0(rep("c",nsp),c(1:nsp)),
+                        paste0(rep("Rstar",nsp),c(1:nsp)),
+                        paste0(rep("tauI",nsp),c(1:nsp)),
+                        paste0(rep("g",nsp),c(1:nsp),rep("mean",nsp)),
+                        paste0(rep("tauIP",nsp),c(1:nsp),rep("_mean",nsp)),
+                        paste0(c("wet","dry"),rep("ID",2)),"rho",
+                        "R0_mean","R0_median","R0_autocor")
 
 #Calculate summary stats for output at nyrs or yout, if species went extinct
 #For runs with stationary and nonstationary periods, summary stats are written at the end of each period
@@ -46,43 +34,37 @@ if (yout <= nonsta[1]) {
       if (nonsta[2] > 0) nst <- c(nonsta[1],nonsta[1] + nonsta[2],yout)
 }
 
-#writing SummaryOut files at the end of each run
+#calculate gmean, tauIP, and R0 calcs for each time period
 for (q in c(1:length(nst))) {
-  if (q==1) ini <- 1 else ini <- nst[q-1] + 1  # starting year for this period
-  fin <- nst[q]                                # ending year for this period (or yout, if extinct before end of period)
+  ini <- ifelse(q==1, 1, nst[q-1] + 1)  # starting year for this period
+  fin <- nst[q]                         # ending year for this period (or yout, if extinct before end of period)
   gmean <- colMeans(gmax*exp(-h*(matrix(rep(tauP[ini:fin],nsp),nrow=(fin-ini+1),ncol=nsp)
                                      -tauIhat[ini:fin,])^2))  #germination fraction in year y
   tauIP <- colMeans(abs(tauP[ini:fin] - tauIhat[ini:fin,]))
-  if (q==1 && j==1) {  #include header columns if first period
-    write.table(matrix(data=c(as.numeric(jobID[1]),as.numeric(jobID[2]),j,q,nperiods,fin,itertime,
-                            sum(coexist[fin,]),coexist[fin,],alpha,c,Rstar,tauI,
-                            gmean,tauIP),nrow=1),
+  R0mean <- mean(R0[ini:fin])
+  R0median <- median(R0[ini:fin])
+  R0autocor <- cor(R0[ini:(fin-1)],R0[(ini+1):fin])
+  if (j>1 || q>1) col.names.SummaryOut <- FALSE  #if run>1 or second period, col.names is FALSE
+}
+write.table(matrix(data=c(as.numeric(jobID[1]),as.numeric(jobID[2]),j,q,nperiods,fin,itertime,
+                          sum(coexist[fin,]),coexist[fin,],alpha,c,Rstar,tauI,
+                          gmean,tauIP,R0id,rho,R0mean,R0median,R0autocor),nrow=1),
             file=paste0(SummOut_loc,"SummaryOut",suffix),
             col.names = col.names.SummaryOut, row.names = FALSE,
             append=TRUE,sep="\t", quote=FALSE)
-  } else { #exclude header columns if second or third period
-    write.table(matrix(data=c(as.numeric(jobID[1]),as.numeric(jobID[2]),j,q,nperiods,fin,itertime,
-                              sum(coexist[fin,]),coexist[fin,],alpha,c,Rstar,tauI,
-                              gmean,tauIP),nrow=1),
-                file=paste0(SummOut_loc,"SummaryOut",suffix),
-                col.names = FALSE, row.names = FALSE,
-                append=TRUE,sep="\t", quote=FALSE)
-  }
-}
 
-#write Bout (by year) and Bfin
+#WRITE BOUT: this gives the within-year dynamics for every year; every run gets separate file
 # note that y is the counter for years in PhenologyModel.r loop
 # therefore, y is the number of years before loop breaks bc extinction
 # m is the counter for year in this loop
-# in Bfin, include number of timesteps in the ode run for each year (L[m])
 
 L <- rep(0,yout)  #number of timesteps in Bout in year y
-#new Bout file gets written for each run
+col.names.Bout <- c("jobID","taskID","runID","yr","time","R",paste0(rep("B",nsp),c(1:nsp)))
+
 for (m in c(1:yout)) {
   L[m] <- dim(Bout[[m]])[1]
   ##only write headers in first year
-  col.names.Bout <- FALSE
-  if (m==1) col.names.Bout <- c("jobID","taskID","runID","yr","time","R",paste0(rep("B",nsp),c(1:nsp)))
+  if (m>1) col.names.Bout <- FALSE
   write.table(matrix(data=c(rep(as.numeric(jobID[1]),L[m]),rep(as.numeric(jobID[2]),L[m]),
                             rep(j,L[m]),rep(m,L[m]),as.matrix(Bout[[m]])),
                      nrow=L[m],ncol=4+2+nsp),
@@ -90,6 +72,14 @@ for (m in c(1:yout)) {
               col.names = col.names.Bout,row.names = FALSE,
               append = TRUE, sep = "\t", quote=FALSE)
 }
+
+#WRITE BFIN at the end of each run
+# in Bfin, include number of timesteps in the ode run for each year (L[m])
+col.names.BfinN <- c("jobID","taskID","runID","yr","Ltstp",
+                     paste0(rep("Bfin",nsp),c(1:nsp)),
+                     paste0(rep("N",nsp),c(1:nsp)),
+                     paste0(rep("rcrt",nsp),c(1:nsp)),
+                     paste0(rep("coexist",nsp),c(1:nsp)))
 write.table(matrix(data=c(rep(as.numeric(jobID[1]),yout),rep(as.numeric(jobID[2]),yout),
                           rep(j,yout),c(1:yout),L,
                           Bfin[1:yout,],N[1:yout,],rcrt[1:yout,],coexist[1:yout,]),

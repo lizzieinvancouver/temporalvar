@@ -9,16 +9,17 @@ tauP <- rbeta(nonsta[1], p, q) # change once not doing stationary+nonstationary 
 
 if (megaD==1) {
   tauP <- rbeta(nyrs, p, q) # change once not doing stationary+nonstationary run
-  wetID <- sample(c(1,10000),1)
-  dryID <- sample(c(1,10000),1)
-  ##add reading in the megaD data
+  R0id <- c(trunc(runif(1,0,1)*10000),trunc(runif(1,0,1)*10000))
+  R0wet <- scan(file=paste0(locMegaD,"data_wetresamp.csv"),skip=(1+R0id[1]),nlines=1,sep=",",quiet=TRUE)
+  R0dry <- scan(file=paste0(locMegaD,"data_dryresamp.csv"),skip=(1+R0id[2]),nlines=1,sep=",",quiet=TRUE)
+  R0 <- c(R0wet[2:length(R0wet)],R0dry[2:length(R0dry)])
 }
 
 #constant (for now)
 eps <- 1              # evaporative stress 
 
 #nonstationary tauP includes nonstationary period of length nonsta[1] and stationary "final" period of length nonsta[2]
-if (sum(nonsta[2:3]) > 0) {
+if (sum(nonsta[2:3] && megaD == 0) > 0) {
   pfin <- 5
   qfin <- 15   #we should think about what is the appropriate value for qfin??
   pns <- seq(p, pfin, length.out=nonsta[2])

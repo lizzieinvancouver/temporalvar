@@ -1,4 +1,3 @@
-nruns	nsp	varRstar	nonsta	tracking	vartauI	notes
 100	2	1	"500,500,0"	1	1	"tradeoff R*, tracking, tauI"
 100	2	1	"500,500,0"	1	0	tradeoff R* and tracking
 100	2	1	"500,500,0"	0	1	tradeoff R* and tauI

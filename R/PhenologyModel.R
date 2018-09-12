@@ -5,19 +5,13 @@
 rm(list=ls()) 
 options(stringsAsFactors=FALSE)
 library(deSolve)
+library(MultiRNG)
 
-#define run conditions
-#locIN <- "C:/Users/Megan/Documents/GitHub/temporalvar/R/"
-#locOUT <- "C:/Users/Megan/Documents/scratch/"
-#locSAVE <- "C:/Users/Megan/Documents/GitHub/temporalvar/R/output/"
-locIN <- "/n/regal/wolkovich_lab/temporalvar/R/"
-locOUT <- paste0("/scratch/wolkovich_lab/temporalvar/",Sys.getenv("SLURM_JOB_ID"))
-locSAVE <- "/n/wolkovich_lab/temporalvar/R/output/"
-locMegaD <- "/n/regal/wolkovich_lab/temporalvar/megadrought/data/"
-locSAVEmd <- "/n/wolkovich_lab/temporalvar/megadrought/output/"
-
-if(!dir.exists(file.path(locOUT))) dir.create(file.path(locOUT),recursive=TRUE)
-if(!dir.exists(file.path(locSAVE))) dir.create(file.path(locSAVE),recursive=TRUE)
+#define run location (PHEN_RUNNUM is only defined for slurm batch jobs)
+localflag <- ifelse(Sys.getenv("PHEN_RUNNUM")=="",1,0)
+locIN <- ifelse(localflag==1,
+                "C:/Users/Megan/Documents/GitHub/temporalvar/R/",
+                "/n/regal/wolkovich_lab/temporalvar/R/")
 
 source(paste0(locIN, "sourcefiles/getRunParms.R")) #define runtime parameters
 
@@ -90,7 +84,3 @@ for (j in c(1:nruns)){
   print(paste("run ended at step =", yout," the calcs took ", format(itertime,digits=4),", writing took ", format(difftime(itertime3,itertime2),digits=4)))
 }
 source(paste0(locIN,"sourcefiles/moveOutput.R"))
-##stop redirecting Rout that was initiated in getRunParms
-#sink(type="message")
-#sink(type="output")
-
