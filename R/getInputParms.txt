@@ -1,4 +1,4 @@
-nruns	nsp	varRstar	nonsta	tracking	vartauI	megaD	notes
-10	2	-1	"400,400,0"	0	"0.2,0.2"	-0.5	"megadrought runs with low tauI; corr(s,phi)"
-10	2	-1	"400,400,0"	0	"0.5,0.5"	-0.5	"megadrought runs with mod tauI; corr(s,phi)"
-10	2	-1	"400,400,0"	0	"0.8,0.8"	-0.5	"megadrought runs with large tauI; corr(s,phi)"
+100	2	1	"500,500,0"	1	1	"tradeoff R*, tracking, tauI"
+100	2	1	"500,500,0"	1	0	tradeoff R* and tracking
+100	2	1	"500,500,0"	0	1	tradeoff R* and tauI
+100	2	0	"500,500,0"	1	1	R* equal, tradeoff tracking and tauI
