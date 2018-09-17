@@ -13,6 +13,8 @@ if (megaD==1) {
   R0wet <- scan(file=paste0(locMegaD,"/data_wetresamp.csv"),skip=(1+R0id[1]),nlines=1,sep=",",quiet=TRUE)
   R0dry <- scan(file=paste0(locMegaD,"/data_dryresamp.csv"),skip=(1+R0id[2]),nlines=1,sep=",",quiet=TRUE)
   R0 <- c(R0wet[2:length(R0wet)],R0dry[2:length(R0dry)])
+} else {
+  R0id <- c(0,0)
 }
 
 #constant (for now)
