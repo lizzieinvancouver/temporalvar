@@ -12,7 +12,7 @@ writeBout <- 1  #default=1; flag indicating how often Bout should be written (0=
 
 #GET INPUT PARMS FOR THIS RUN
 inputfile <- ifelse(megaD==1,paste0(locIN,"/getInputParms_megaD.txt"),paste0(locIN,"/getInputParms.txt"))
-inputs <- as.data.frame(read.table(file=inputfile),
+inputs <- as.data.frame(read.table(file=inputfile,
                                    header=TRUE,stringsAsFactors=FALSE,sep="\t"))
 nruns <- inputs$nruns[inputline]
 nonsta <- as.numeric(unlist(strsplit(inputs$nonsta[inputline],",")))
