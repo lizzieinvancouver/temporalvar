@@ -24,6 +24,7 @@ if(length(varRstar)==1) varRstar <- c(varRstar,NA)
 vartauI <-inputs$vartauI[inputline]
 nsp <- inputs$nsp[inputline]
 rho <- inputs$megaD[inputline]  #rho is the value of the megaD in getInputParms and is corr(s,phi)
+if (is.null(rho)) rho <- 0
 if (rho==1) rho <- -0.5 #if megaD is treated as a flag (0/1) in the input file, then give rho standard value of -0.5
 if (localflag==1 && rho>0) megaD <-1   #local is special case: megaD is indicated only by getInputParms.
 
