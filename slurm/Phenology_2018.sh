@@ -22,9 +22,9 @@
 source new-modules.sh
 module load R_packages
 
-mkdir scratch/wolkovich_lab/temporalvar/$SLURM_JOB_ID
+mkdir -p /scratch/wolkovich_lab/temporalvar/$SLURM_JOB_ID
 
-Rscript /n/regal/wolkovich_lab/temporalvar/R/PhenologyModel.R --quiet --no-restore --no-save 
+Rscript /n/wolkovich_lab/temporalvar/R/PhenologyModel.R --quiet --no-restore --no-save 
 
 rm -rf /scratch/wolkovich_lab/temporalvar/$SLURM_JOB_ID
 
