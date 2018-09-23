@@ -49,7 +49,7 @@ for (q in c(1:length(nst))) {
 write.table(matrix(data=c(as.numeric(jobID[1]),as.numeric(jobID[2]),j,q,nperiods,fin,itertime,
                           sum(coexist[fin,]),coexist[fin,],alpha,c,Rstar,tauI,
                           gmean,tauIP,R0id,rho,R0mean,R0median,R0autocor),nrow=1),
-            file=paste0(SummOut_loc,"SummaryOut",suffix),
+            file=paste0(SummOut_loc,"/SummaryOut",suffix),
             col.names = col.names.SummaryOut, row.names = FALSE,
             append=TRUE,sep="\t", quote=FALSE)
 
@@ -68,7 +68,7 @@ for (m in c(1:yout)) {
   write.table(matrix(data=c(rep(as.numeric(jobID[1]),L[m]),rep(as.numeric(jobID[2]),L[m]),
                             rep(j,L[m]),rep(m,L[m]),as.matrix(Bout[[m]])),
                      nrow=L[m],ncol=4+2+nsp),
-              file = paste0(Bout_loc,"Bout","_",jobID[1],"-",jobID[2],"-",j,".txt"),
+              file = paste0(Bout_loc,"/Bout","_",jobID[1],"-",jobID[2],"-",j,".txt"),
               col.names = col.names.Bout,row.names = FALSE,
               append = TRUE, sep = "\t", quote=FALSE)
 }
@@ -84,6 +84,6 @@ write.table(matrix(data=c(rep(as.numeric(jobID[1]),yout),rep(as.numeric(jobID[2]
                           rep(j,yout),c(1:yout),L,
                           Bfin[1:yout,],N[1:yout,],rcrt[1:yout,],coexist[1:yout,]),
                    nrow=yout,ncol=(nsp*4+5)),
-            file=paste0(OtherOut_loc,"BfinN",suffix),
+            file=paste0(OtherOut_loc,"/BfinN",suffix),
             col.names = col.names.BfinN, row.names = FALSE,
             append=TRUE,sep="\t", quote=FALSE)
