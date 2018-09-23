@@ -254,7 +254,7 @@ plot.paramdiffs.fixedxy(taualphaRstar.runs.df, "taualphaRstar.runs", "tauIP.rsta
 plot.paramdiffs.fixedxy(taualphaRstar.runs.df, "taualphaRstar.runs", "alpha.rstar",
     "ratio.alpha", "ratio.rstar", alphaRstar.runs.df)
 plot.paramdiffs.fixedxy(taualphaRstar.runs.df, "taualphaRstar.runs", "alpha.tauIP",
-    "ratio.tauIP", "ratio.rstar", taualpha.runs.df)
+    "ratio.alpha", "ratio.tauIP", taualpha.runs.df)
 
 
 # and color code by third variable
