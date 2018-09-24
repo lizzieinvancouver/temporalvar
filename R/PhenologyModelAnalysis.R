@@ -131,6 +131,22 @@ df.all.long.noexist <- subset(df.all.long, coexist1==0 | coexist2==0)
 }
 
 ##
+## Check that when tauI=tauP that species wins ... 
+##
+tauRstar.check <-  df.all[which(df.all$jobID %in% runz[c(3,7,11,14)]),] # tauI and Rstar tradeoff runs
+check.sp1 <- subset(tauRstar.check, tauIP1_mean<0.1)
+sum(check.sp1$coexist1) # 2776
+sum(check.sp1$coexist2) # 657
+check.sp2 <- subset(tauRstar.check, tauIP2_mean<0.1)
+sum(check.sp2$coexist1) # 632
+sum(check.sp2$coexist2) # 2770
+
+try <- subset(check.sp1, coexist2==1)
+sum(try$coexist1) # 185, so most of these sp2 wins ... it should have a very low Rstar then compared to sp1.... but I am not sure
+hist(try$ratio.rstar)
+hist(check.sp1$ratio.rstar)
+
+##
 ## Group the runs by what type they are so I can plot
 ##
 
@@ -182,7 +198,7 @@ ggplot() + geom_density(data=tauP.plot, aes(x=tauP), alpha=0.25) +
 
 
 ##
-## IN PROGRESS! Need to work on histograms and tauI
+## Histograms and tauI
 ##
 # not varying alpha
 plot.histograms.bothspp(tauRstar.runs.df, "tauRstar", "tauI1", "tauI2",
@@ -223,6 +239,8 @@ plot.paramdiffs.onepanel(tauRstar.runs.df, "tauRstar.runs", "tauIP.rstar", "rati
     "ratio.rstar")
 plot.paramdiffs.twopanel(tauRstar.runs.df, "tauRstar.runs", "tauIP.rstar", "ratio.tauIP",
     "ratio.rstar")
+plot.paramdiffs.twopanel(tauRstar.runs.df, "tauRstar.runs", "tauI.rstar", "ratio.tauI",
+    "ratio.rstar")
 
 plot.paramdiffs.onepanel(alphaRstar.runs.df, "alphaRstar.runs", "alpha.rstar", "ratio.alpha",
     "ratio.rstar")
@@ -233,10 +251,14 @@ plot.paramdiffs.onepanel(taualpha.runs.df, "taualpha.runs", "alpha.tauIP",
     "ratio.alpha", "ratio.tauIP")
 plot.paramdiffs.twopanel(taualpha.runs.df, "taualpha.runs", "alpha.tauIP",
     "ratio.alpha", "ratio.tauIP")
+plot.paramdiffs.twopanel(taualpha.runs.df, "taualpha.runs", "alpha.tauI",
+    "ratio.alpha", "ratio.tauI")
 
 # Three things vary
 plot.paramdiffs.onepanel(taualphaRstar.runs.df, "taualphaRstar.runs", "tauIP.rstar",
     "ratio.tauIP", "ratio.rstar")
+plot.paramdiffs.onepanel(taualphaRstar.runs.df, "taualphaRstar.runs", "tauI.rstar",
+    "ratio.tauI", "ratio.rstar")
 plot.paramdiffs.onepanel(taualphaRstar.runs.df, "taualphaRstar.runs", "alpha.rstar",
     "ratio.alpha", "ratio.rstar")
 plot.paramdiffs.onepanel(taualphaRstar.runs.df, "taualphaRstar.runs", "alpha.tauIP",
@@ -251,6 +273,8 @@ plot.paramdiffs.twopanel(taualphaRstar.runs.df, "taualphaRstar.runs", "alpha.tau
 # compare these to their equivalents 
 plot.paramdiffs.fixedxy(taualphaRstar.runs.df, "taualphaRstar.runs", "tauIP.rstar",
     "ratio.tauIP", "ratio.rstar", tauRstar.runs.df)
+plot.paramdiffs.fixedxy(taualphaRstar.runs.df, "taualphaRstar.runs", "tauI.rstar",
+    "ratio.tauI", "ratio.rstar", tauRstar.runs.df)
 plot.paramdiffs.fixedxy(taualphaRstar.runs.df, "taualphaRstar.runs", "alpha.rstar",
     "ratio.alpha", "ratio.rstar", alphaRstar.runs.df)
 plot.paramdiffs.fixedxy(taualphaRstar.runs.df, "taualphaRstar.runs", "alpha.tauIP",

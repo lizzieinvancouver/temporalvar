@@ -129,7 +129,7 @@ plot.paramdiffs.fixedxy <- function(dfmultivar, figname, runname, colname.x, col
         plot(unlist(dfother[colname.x]), unlist(dfother[colname.y]), type="n", xlab=colname.x,
            ylab=colname.y, main="2 traits vary: survived after stat", xlim=xlimhere, ylim=ylimhere)
         points(df20[[colname.x]], unlist(df20[colname.y]),
-           col=coexist3col[2], pch=16, xlim=xlimhere, ylim=ylimhere)
+           col=coexist3col[1], pch=16, xlim=xlimhere, ylim=ylimhere)
         points(df21[[colname.x]], unlist(df21[colname.y]),
            col=coexist3col[2], pch=16, xlim=xlimhere, ylim=ylimhere)
         points(df22[[colname.x]], unlist(df22[colname.y]),
