@@ -11,7 +11,7 @@ locIN <- ifelse(localflag==1,
                 "C:/Users/Megan/Documents/GitHub/temporalvar/R",
                 "/n/wolkovich_lab/temporalvar/R")
 
-.libPaths(new=paste0(locIN,"/libs"))
+#.libPaths(new=paste0(locIN,"/libs"))
 library(deSolve)
 require(MultiRNG)
 
