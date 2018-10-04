@@ -13,7 +13,7 @@ locIN <- ifelse(localflag==1,
 
 #.libPaths(new=paste0(locIN,"/libs"))
 library(deSolve)
-library(MultiRNG)
+require(MultiRNG)
 
 source(paste0(locIN, "/sourcefiles/getRunParms.R")) #define runtime parameters
 
