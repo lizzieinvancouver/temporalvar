@@ -77,6 +77,8 @@ runs1$taskrunID <- paste(runs1$taskID, runs1$runID, sep="-")
 ##
 df <- makediffs(runs1)
 df <- calcbesttauI(df)
+df <- calcsp.besttauI(df)
+df <- calcsp.bestrstar(df)
 df.coexist <- subset(df, ncoexist==2)
 print(paste("the current folder ID is", folderID, "the total rows are:", nrow(df), 
     "and the total coexisting rows are:", nrow(df.coexist), sep=" "))
@@ -142,7 +144,7 @@ sum(check.sp2$coexist1) # 632
 sum(check.sp2$coexist2) # 2770
 
 try <- subset(check.sp1, coexist2==1)
-sum(try$coexist1) # 185, so most of these sp2 wins ... it should have a very low Rstar then compared to sp1.... but I am not sure
+sum(try$coexist1) # 185, so most of these sp2 wins ... it should have a very low Rstar then compared to sp1.... START HERE and check more thoroughly! Also, check the other species' tauI (i.e., could also be that BOTH species have tauI close to tauP)
 hist(try$ratio.rstar)
 hist(check.sp1$ratio.rstar)
 
@@ -151,21 +153,37 @@ hist(check.sp1$ratio.rstar)
 ##
 
 # See above when I set up runz for where I outline what numbers to pull for each!
+tauRstar.runs <- runz[c(3,7,11,14)] # NOT varying tracking: tauI and Rstar tradeoff
+alphaRstar.runs <- runz[c(2,6,10,13)] # NOT varying tauI: tracking and Rstar tradeoff
+taualpha.runs <- runz[c(4,8,12,15)] # keeps R* the same across species pairs
+taualphaRstar.runs <- runz[c(1,5,9)] # varying everything (tauI, alpha, Rstar)
 
+
+## Grab just the stationary period
+df.all.stat <- subset(df.all, period==1)
 # NOT varying tracking
-tauRstar.runs <- runz[c(3,7,11,14)] # tauI and Rstar tradeoff
+tauRstar.stat.runs.df <- df.all.stat[which(df.all.stat$jobID %in% tauRstar.runs),]
+sum(tauRstar.stat.runs.df$diff.alpha) # must equal zero!
+# NOT varying tauI
+alphaRstar.stat.runs.df <- df.all.stat[which(df.all.stat$jobID %in% alphaRstar.runs),]
+sum(alphaRstar.stat.runs.df$diff.tauI) # must equal zero!
+# keeps R* the same across species pairs
+taualpha.stat.runs.df <- df.all.stat[which(df.all.stat$jobID %in% taualpha.runs),]
+sum(taualpha.stat.runs.df$diff.Rstar) # must equal zero!
+# varying everything (tauI, alpha, Rstar)
+taualphaRstar.stat.runs.df <- df.all.stat[which(df.all.stat$jobID %in% taualphaRstar.runs),]
+
+## Grab the stationary coexisting runs and the non-stationary period
+# NOT varying tracking
 tauRstar.runs.df <- df.all.plot[which(df.all.plot$jobID %in% tauRstar.runs),]
 sum(tauRstar.runs.df$diff.alpha) # must equal zero!
 # NOT varying tauI
-alphaRstar.runs <- runz[c(2,6,10,13)] # tracking and Rstar tradeoff
 alphaRstar.runs.df <- df.all.plot[which(df.all.plot$jobID %in% alphaRstar.runs),]
 sum(alphaRstar.runs.df$diff.tauI) # must equal zero!
 # keeps R* the same across species pairs
-taualpha.runs <- runz[c(4,8,12,15)] 
 taualpha.runs.df <- df.all.plot[which(df.all.plot$jobID %in% taualpha.runs),]
 sum(taualpha.runs.df$diff.Rstar) # must equal zero!
 # varying everything (tauI, alpha, Rstar)
-taualphaRstar.runs <- runz[c(1,5,9)] 
 taualphaRstar.runs.df <- df.all.plot[which(df.all.plot$jobID %in% taualphaRstar.runs),]
 
 ###############
@@ -233,6 +251,21 @@ plot.histograms.onespp(taualphaRstar.runs.df, "taualphaRstar", "besttauI",
 ##
 ## Paramdiff plots
 ##
+
+### First, some stationary period plots
+plot.paramdiffs.stat.onepanel(tauRstar.stat.runs.df, "tauRstar.runs", "tauIP.rstar", "ratio.tauIP",
+    "ratio.rstar")
+plot.paramdiffs.stat.onepanel(alphaRstar.stat.runs.df, "alphaRstar.runs", "alpha.rstar", "ratio.alpha",
+    "ratio.rstar")
+plot.paramdiffs.stat.onepanel(taualpha.stat.runs.df, "taualpha.runs", "alpha.tauIP",
+    "ratio.alpha", "ratio.tauIP")
+
+plot.rstar.winnersp.stat(tauRstar.stat.runs.df, "tauRstar.runs", "tauIP.rstar", "ratio.tauIP",
+    "ratio.rstar")
+plot.rstar.winnersp.stat(alphaRstar.stat.runs.df, "alphaRstar.runs", "alpha.rstar", "ratio.alpha",
+    "ratio.rstar")
+
+### Now, including the non-stationary period (no longer showing ncoexist=0 or 1 from stat period)
 
 # Two things vary ...
 plot.paramdiffs.onepanel(tauRstar.runs.df, "tauRstar.runs", "tauIP.rstar", "ratio.tauIP",

@@ -43,6 +43,31 @@ calcbesttauI <- function(df){
     }
 
 
+calcsp.besttauI <- function(df){
+    dathere <- df
+    dathere.sm <- dathere[c("tauIP1_mean", "tauIP2_mean")]
+    bettertauI <- colnames(dathere.sm)[max.col(dathere.sm, ties.method="first")]
+    dathere.tauI <- dathere[c("tauI1", "tauI2")]
+    dathere.tauI$sp.besttauI <- NA
+    dathere.tauI$sp.besttauI[which(bettertauI=="tauIP1_mean")] <-1
+    dathere.tauI$sp.besttauI[which(bettertauI=="tauIP2_mean")] <-2
+    dathere$sp.besttauI <- dathere.tauI$sp.besttauI 
+    return(dathere)
+    }
+
+calcsp.bestrstar <- function(df){
+    dathere <- df
+    dathere.sm <- dathere[c("Rstar1", "Rstar2")]
+    worserstar <- colnames(dathere.sm)[max.col(dathere.sm, ties.method="first")]
+    dathere.tauI <- dathere[c("Rstar1", "Rstar2")]
+    dathere.tauI$sp.bestrstar <- NA
+    dathere.tauI$sp.bestrstar[which(worserstar=="Rstar1")] <-2
+    dathere.tauI$sp.bestrstar[which(worserstar=="Rstar2")] <-1
+    dathere$sp.bestrstar <- dathere.tauI$sp.bestrstar 
+    return(dathere)
+    }
+
+
 ####################
 ## plotting f(x)s ##
 ####################
@@ -83,7 +108,7 @@ plot.paramdiffs.twopanel <- function(df, figname, runname, colname.x, colname.y)
         df1 <- subset(df, ncoexist.t2==1)
         df2 <- subset(df, ncoexist.t2==2)
         plot(unlist(df[colname.x]), unlist(df[colname.y]), type="n", xlab=colname.x,
-           ylab=colname.y, main="survived after stat")
+           ylab=colname.y, main="survived after stat: colored by non-stat")
         points(df0[[colname.x]], unlist(df0[colname.y]),
            col=coexist3col[1], pch=16)
         points(df1[[colname.x]], unlist(df1[colname.y]),
@@ -110,7 +135,7 @@ plot.paramdiffs.fixedxy <- function(dfmultivar, figname, runname, colname.x, col
     ylimhere <- c(min(dfmultivar[[colname.y]]), max(dfmultivar[[colname.y]]))
     # first type of run
         plot(unlist(df1[colname.x]), unlist(df1[colname.y]), type="n", xlab=colname.x,
-           ylab=colname.y, main="3 traits vary: survived after stat", xlim=xlimhere, ylim=ylimhere)
+           ylab=colname.y, main="3 traits vary: survived after stat - color by ns", xlim=xlimhere, ylim=ylimhere)
         points(df0[[colname.x]], unlist(df0[colname.y]),
            col=coexist3col[1], pch=16, xlim=xlimhere, ylim=ylimhere)
         points(df1[[colname.x]], unlist(df1[colname.y]),
@@ -127,7 +152,7 @@ plot.paramdiffs.fixedxy <- function(dfmultivar, figname, runname, colname.x, col
         df21 <- subset(dfother, ncoexist.t2==1)
         df22 <- subset(dfother, ncoexist.t2==2)
         plot(unlist(dfother[colname.x]), unlist(dfother[colname.y]), type="n", xlab=colname.x,
-           ylab=colname.y, main="2 traits vary: survived after stat", xlim=xlimhere, ylim=ylimhere)
+           ylab=colname.y, main="2 traits vary: survived after stat - color by ns", xlim=xlimhere, ylim=ylimhere)
         points(df20[[colname.x]], unlist(df20[colname.y]),
            col=coexist3col[1], pch=16, xlim=xlimhere, ylim=ylimhere)
         points(df21[[colname.x]], unlist(df21[colname.y]),
@@ -181,7 +206,7 @@ plot.histograms.max <- function(df, figname, colname.x1, colname.x2,
     dev.off()
 }
 
-# Do we need this?
+# Do we need this one?
 plot.histograms.min <- function(df, figname, colname.x1, colname.x2,
     collist, varcollist, ylim){
     df2here <- subset(df, ncoexist.t2==2)
@@ -232,6 +257,51 @@ plot.histograms.bars.onespp.skipnonstat <- function(df, figname, colname.x,
     polygon(nhere, tauPfin, col=collist[2])
     polygon(nhere, tauP, col=collist[1])
     hist((df[[colname.x]]), col=varcollist[1], breaks=breaks)
+    dev.off()
+}
+
+
+## Plots for just the stationary period ###
+
+plot.paramdiffs.stat.onepanel <- function(df, figname, runname, colname.x, colname.y){
+    pdf(paste("graphs/modelruns/paramdiffs/", runname, figname, ".stat.1p.pdf", sep=""),
+        width=5, height=4)
+        par(mfrow=c(1,1))
+        df0 <- subset(df, ncoexist==0)
+        df1 <- subset(df, ncoexist==1)
+        df2 <- subset(df, ncoexist==2)
+        plot(unlist(df[colname.x]), unlist(df[colname.y]), type="n", xlab=colname.x,
+           ylab=colname.y, main="Stationary period only")
+        points(df0[[colname.x]], unlist(df0[colname.y]),
+           col=coexist3col[1], pch=16)
+        points(df1[[colname.x]], unlist(df1[colname.y]),
+           col=coexist3col[2], pch=16)
+        points(df2[[colname.x]], unlist(df2[colname.y]),
+           col=coexist3col[3], pch=16)
+        legend("topright", leg.txt, pch=16, col=coexist3col, bty="n")
+    dev.off()
+}
+
+plot.rstar.winnersp.stat <- function(df, figname, runname, colname.x, colname.y){
+    pdf(paste("graphs/modelruns/paramdiffs/", runname, figname, ".Rstar.winnerofstat.1p.pdf", sep=""),
+        width=5, height=4)
+        par(mfrow=c(1,1))
+        df1 <- subset(df, ncoexist==1)
+        df1.sp1wins <- subset(df1, coexist1==1 & sp.bestrstar==1)
+        df1.sp2wins <- subset(df1, coexist2==1 & sp.bestrstar==2)
+        other1 <- subset(df1, coexist1==1 & sp.bestrstar==2)
+        other2 <- subset(df1, coexist2==1 & sp.bestrstar==1)
+        otherdf <- rbind(other1, other2)
+        plot(unlist(df[colname.x]), unlist(df[colname.y]), type="n", xlab=colname.x,
+           ylab=colname.y, main="Stationary period only")
+        points(df1.sp1wins[[colname.x]], unlist(df1.sp1wins[colname.y]),
+           col=coexist3col[1], pch=16)
+        points(df1.sp2wins[[colname.x]], unlist(df1.sp2wins[colname.y]),
+           col=coexist3col[2], pch=16)
+         points(otherdf[[colname.x]], unlist(otherdf[colname.y]),
+           col=coexist3col[3], pch=16)
+        legend("topright", c("sp1 wins and has better Rstar", "sp2 wins and has better Rstar",
+            "other"), pch=16, col=coexist3col, bty="n")
     dev.off()
 }
 
