@@ -340,8 +340,54 @@ plot.tauI.winnersp.stat <- function(df, figname, runname, colname.x, colname.y){
     dev.off()
 }
 
+plot.tauI.winnersp.stat.alt <- function(df, figname, runname, colname.x, colname.y){
+    pdf(paste("graphs/modelruns/paramdiffs/", runname, figname, ".tauI.winnerofstat.1p.alt.pdf", sep=""),
+        width=5, height=4)
+        par(mfrow=c(1,1))
+        df1 <- subset(df, ncoexist==1)
+        df1.sp1wins <- subset(df1, coexist1==1 & sp.besttauI==1)
+        df1.sp2wins <- subset(df1, coexist2==1 & sp.besttauI==2)
+        other1 <- subset(df1, coexist1==1 & sp.besttauI==2)
+        other2 <- subset(df1, coexist2==1 & sp.besttauI==1)
+        otherdf <- rbind(other1, other2)
+        plot(unlist(df[colname.x]), unlist(df[colname.y]), type="n", xlab=colname.x,
+           ylab=colname.y, main="Stationary period only")
+        points(df1.sp1wins[[colname.x]], unlist(df1.sp1wins[colname.y]),
+           col=coexist3col[1], pch=16)
+        points(df1.sp2wins[[colname.x]], unlist(df1.sp2wins[colname.y]),
+           col=coexist3col[2], pch=16)
+        points(otherdf[[colname.x]], unlist(otherdf[colname.y]),
+           col=coexist3col[3], pch=16)
+        legend("topright", c("sp1 wins and has better tauI", "sp2 wins and has better tauI",
+            "other sp wins"), pch=16, col=coexist3col, bty="n")
+    dev.off()
+}
+
 plot.alpha.winnersp.stat <- function(df, figname, runname, colname.x, colname.y){
     pdf(paste("graphs/modelruns/paramdiffs/", runname, figname, ".alpha.winnerofstat.1p.pdf", sep=""),
+        width=5, height=4)
+        par(mfrow=c(1,1))
+        df1 <- subset(df, ncoexist==1)
+        df1.sp1wins <- subset(df1, coexist1==1 & sp.bestalpha==1)
+        df1.sp2wins <- subset(df1, coexist2==1 & sp.bestalpha==2)
+        other1 <- subset(df1, coexist1==1 & sp.bestalpha==2)
+        other2 <- subset(df1, coexist2==1 & sp.bestalpha==1)
+        otherdf <- rbind(other1, other2)
+        plot(unlist(df[colname.x]), unlist(df[colname.y]), type="n", xlab=colname.x,
+           ylab=colname.y, main="Stationary period only")
+        points(df1.sp1wins[[colname.x]], unlist(df1.sp1wins[colname.y]),
+           col=coexist3col[1], pch=16)
+        points(df1.sp2wins[[colname.x]], unlist(df1.sp2wins[colname.y]),
+           col=coexist3col[2], pch=16)
+        points(otherdf[[colname.x]], unlist(otherdf[colname.y]),
+           col=coexist3col[3], pch=16)
+        legend("topright", c("sp1 wins and has better alpha", "sp2 wins and has better alpha",
+            "other sp wins"), pch=16, col=coexist3col, bty="n")
+    dev.off()
+}
+
+plot.alpha.winnersp.stat.alt <- function(df, figname, runname, colname.x, colname.y){
+    pdf(paste("graphs/modelruns/paramdiffs/", runname, figname, ".alpha.winnerofstat.1p.alt.pdf", sep=""),
         width=5, height=4)
         par(mfrow=c(1,1))
         df1 <- subset(df, ncoexist==1)

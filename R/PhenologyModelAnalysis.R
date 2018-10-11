@@ -269,9 +269,17 @@ plot.tauI.winnersp.stat(tauRstar.stat.runs.df, "tauRstar.runs", "tauIP.rstar", "
     "ratio.rstar")
 plot.tauI.winnersp.stat(taualpha.stat.runs.df, "taualpha.runs", "alpha.tauIP",
     "ratio.alpha", "ratio.tauIP")
+plot.tauI.winnersp.stat.alt(tauRstar.stat.runs.df, "tauRstar.runs", "tauIP.rstar", "ratio.tauIP",
+    "ratio.rstar")
+plot.tauI.winnersp.stat.alt(taualpha.stat.runs.df, "taualpha.runs", "alpha.tauIP",
+    "ratio.alpha", "ratio.tauIP")
 plot.alpha.winnersp.stat(alphaRstar.stat.runs.df, "alphaRstar.runs", "alpha.rstar", "ratio.alpha",
     "ratio.rstar")
 plot.alpha.winnersp.stat(taualpha.stat.runs.df, "taualpha.runs", "alpha.tauIP",
+    "ratio.alpha", "ratio.tauIP")
+plot.alpha.winnersp.stat.alt(alphaRstar.stat.runs.df, "alphaRstar.runs", "alpha.rstar", "ratio.alpha",
+    "ratio.rstar")
+plot.alpha.winnersp.stat.alt(taualpha.stat.runs.df, "taualpha.runs", "alpha.tauIP",
     "ratio.alpha", "ratio.tauIP")
 
 ### Now, including the non-stationary period (no longer showing ncoexist=0 or 1 from stat period)
