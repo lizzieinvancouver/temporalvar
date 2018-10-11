@@ -79,6 +79,7 @@ df <- makediffs(runs1)
 df <- calcbesttauI(df)
 df <- calcsp.besttauI(df)
 df <- calcsp.bestrstar(df)
+df <- calcsp.bestalpha(df)
 df.coexist <- subset(df, ncoexist==2)
 print(paste("the current folder ID is", folderID, "the total rows are:", nrow(df), 
     "and the total coexisting rows are:", nrow(df.coexist), sep=" "))
@@ -264,6 +265,14 @@ plot.rstar.winnersp.stat(tauRstar.stat.runs.df, "tauRstar.runs", "tauIP.rstar", 
     "ratio.rstar")
 plot.rstar.winnersp.stat(alphaRstar.stat.runs.df, "alphaRstar.runs", "alpha.rstar", "ratio.alpha",
     "ratio.rstar")
+plot.tauI.winnersp.stat(tauRstar.stat.runs.df, "tauRstar.runs", "tauIP.rstar", "ratio.tauIP",
+    "ratio.rstar")
+plot.tauI.winnersp.stat(taualpha.stat.runs.df, "taualpha.runs", "alpha.tauIP",
+    "ratio.alpha", "ratio.tauIP")
+plot.alpha.winnersp.stat(alphaRstar.stat.runs.df, "alphaRstar.runs", "alpha.rstar", "ratio.alpha",
+    "ratio.rstar")
+plot.alpha.winnersp.stat(taualpha.stat.runs.df, "taualpha.runs", "alpha.tauIP",
+    "ratio.alpha", "ratio.tauIP")
 
 ### Now, including the non-stationary period (no longer showing ncoexist=0 or 1 from stat period)
 
