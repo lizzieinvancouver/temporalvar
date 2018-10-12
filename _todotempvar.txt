@@ -1,12 +1,14 @@
 Started 6 April 2018
+Updated 12 October 2018
 on a ferry to Saturna!
 
 <><><><><><><><><><><>
 <> What to do next <> 
 <><><><><><><><><><><>
-- Get coexistence for the nonstationary runs at the end of the stationary period (done)
-- Getting all the Bout runs going
-- Work on talk?
+(1) Get some data on the SOS changing: SOS paper from Ault group?... Here's that paper: https://link.springer.com/article/10.1007/s00382-016-3313-2 Which suggests 2.6 days/decade average in future, see also Fig 16. And from Conclusions "While natural climate variability has been the dominant control on spring onset in the past, our results argue that this could change considerably by mid-century if greenhouse gas emissions continue to go unchecked." 
+(2) Get some pheno-tracking data ... PEP725?
+(3) Get some snowpack data? Not easy to find recent projections; maybe ask Ben? Perhaps only critical if we really want it. Probably can scour for recent stuff in Apr 2018 report: https://www.ioes.ucla.edu/wp-content/uploads/UCLA-CCS-Climate-Change-Sierra-Nevada.pdf
+(4) Understanding figures ... I think the tauI trade-off with R* come in early, before we introduce tracking ... can we help them make sense there?
 
 <><><><><><><><>
 <> Questions <> 
