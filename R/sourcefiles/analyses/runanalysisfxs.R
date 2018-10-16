@@ -1,6 +1,10 @@
 ## Started 19 March 2018 ##
 ## f(x)s to read in and plot the temporalvar runs ##
 
+########################################
+## f(x)s for reading and manipulating ##
+########################################
+
 getfiles <- function(folderID, file.names, colnameshere){
     # numhere <- as.numeric(gsub("^[^-]*-([^.]+).*", "\\1", file.names))
     filepack <- lapply(file.names, function(file.names) {
@@ -92,7 +96,7 @@ add.alpha <- function(col, alpha=1){ # Stolen from Mage's blog
                        rgb(x[1], x[2], x[3], alpha=alpha))  
 }
 
-plot.paramdiffs.onepanel <- function(df, figname, runname, colname.x, colname.y){
+plot.paramdiffs.onepanel <- function(df, runname, figname, colname.x, colname.y){
     pdf(paste("graphs/modelruns/paramdiffs/", runname, figname, "1p.pdf", sep=""),
         width=5, height=4)
         par(mfrow=c(1,1))
@@ -112,8 +116,8 @@ plot.paramdiffs.onepanel <- function(df, figname, runname, colname.x, colname.y)
 }
 
 
-plot.paramdiffs.twopanel <- function(df, figname, runname, colname.x, colname.y){
-    pdf(paste("graphs/modelruns/paramdiffs/", figname, runname, "2p.pdf", sep=""),
+plot.paramdiffs.twopanel <- function(df, runname, figname, colname.x, colname.y){
+    pdf(paste("graphs/modelruns/paramdiffs/", runname, figname, "2p.pdf", sep=""),
         width=5, height=8)
         par(mfrow=c(2,1))
         df0 <- subset(df, ncoexist.t2==0)
@@ -135,9 +139,9 @@ plot.paramdiffs.twopanel <- function(df, figname, runname, colname.x, colname.y)
     dev.off()
 }
 
-plot.paramdiffs.fixedxy <- function(dfmultivar, figname, runname, colname.x, colname.y,
+plot.paramdiffs.fixedxy <- function(dfmultivar, runname, figname, colname.x, colname.y,
     dfother){
-    pdf(paste("graphs/modelruns/paramdiffs/", figname, runname, "4pXY.pdf", sep=""),
+    pdf(paste("graphs/modelruns/paramdiffs/", runname, figname, "4pXY.pdf", sep=""),
         width=10, height=8)
         par(mfrow=c(2,2))
         df0 <- subset(dfmultivar, ncoexist.t2==0)
@@ -180,7 +184,7 @@ plot.paramdiffs.fixedxy <- function(dfmultivar, figname, runname, colname.x, col
 }
 
 
-plot.paramdiffs.colorbyzvar <- function(df, figname, runname, colname.x, colname.y,
+plot.paramdiffs.colorbyzvar <- function(df, runname, figname, colname.x, colname.y,
     colname.z, figtitle, midpt){
     plothere <- ggplot(df, aes(df[[colname.x]], df[[colname.y]])) +
         geom_point(aes(color=df[[colname.z]])) +
@@ -188,7 +192,7 @@ plot.paramdiffs.colorbyzvar <- function(df, figname, runname, colname.x, colname
         labs(colour = colname.z, x = colname.x, y=colname.y,
              title=figtitle)
     # scale_colour_gradient2(low = "white", mid ="white", high = "darkred")
-    ggsave(paste("graphs/modelruns/paramdiffs/", figname, runname, ".zvar.pdf", sep=""),
+    ggsave(paste("graphs/modelruns/paramdiffs/", runname, figname, ".zvar.pdf", sep=""),
         width=10, height=8)
 }
 
@@ -218,7 +222,7 @@ plot.histograms.max <- function(df, figname, colname.x1, colname.x2,
     dev.off()
 }
 
-# Do we need this one?
+# Not currently using
 plot.histograms.min <- function(df, figname, colname.x1, colname.x2,
     collist, varcollist, ylim){
     df2here <- subset(df, ncoexist.t2==2)
@@ -275,7 +279,7 @@ plot.histograms.bars.onespp.skipnonstat <- function(df, figname, colname.x,
 
 ## Plots for just the stationary period ###
 
-plot.paramdiffs.stat.onepanel <- function(df, figname, runname, colname.x, colname.y){
+plot.paramdiffs.stat.onepanel <- function(df, runname, figname, colname.x, colname.y){
     pdf(paste("graphs/modelruns/paramdiffs/", runname, figname, ".stat.1p.pdf", sep=""),
         width=5, height=4)
         par(mfrow=c(1,1))
@@ -294,7 +298,7 @@ plot.paramdiffs.stat.onepanel <- function(df, figname, runname, colname.x, colna
     dev.off()
 }
 
-plot.rstar.winnersp.stat <- function(df, figname, runname, colname.x, colname.y){
+plot.rstar.winnersp.stat <- function(df, runname, figname, colname.x, colname.y){
     pdf(paste("graphs/modelruns/paramdiffs/", runname, figname, ".Rstar.winnerofstat.1p.pdf", sep=""),
         width=5, height=4)
         par(mfrow=c(1,1))
@@ -317,7 +321,7 @@ plot.rstar.winnersp.stat <- function(df, figname, runname, colname.x, colname.y)
     dev.off()
 }
 
-plot.tauI.winnersp.stat <- function(df, figname, runname, colname.x, colname.y){
+plot.tauI.winnersp.stat <- function(df, runname, figname, colname.x, colname.y){
     pdf(paste("graphs/modelruns/paramdiffs/", runname, figname, ".tauI.winnerofstat.1p.pdf", sep=""),
         width=5, height=4)
         par(mfrow=c(1,1))
@@ -340,7 +344,7 @@ plot.tauI.winnersp.stat <- function(df, figname, runname, colname.x, colname.y){
     dev.off()
 }
 
-plot.tauI.winnersp.stat.alt <- function(df, figname, runname, colname.x, colname.y){
+plot.tauI.winnersp.stat.alt <- function(df, runname,  figname, colname.x, colname.y){
     pdf(paste("graphs/modelruns/paramdiffs/", runname, figname, ".tauI.winnerofstat.1p.alt.pdf", sep=""),
         width=5, height=4)
         par(mfrow=c(1,1))
@@ -363,7 +367,7 @@ plot.tauI.winnersp.stat.alt <- function(df, figname, runname, colname.x, colname
     dev.off()
 }
 
-plot.alpha.winnersp.stat <- function(df, figname, runname, colname.x, colname.y){
+plot.alpha.winnersp.stat <- function(df, runname, figname, colname.x, colname.y){
     pdf(paste("graphs/modelruns/paramdiffs/", runname, figname, ".alpha.winnerofstat.1p.pdf", sep=""),
         width=5, height=4)
         par(mfrow=c(1,1))
@@ -386,7 +390,7 @@ plot.alpha.winnersp.stat <- function(df, figname, runname, colname.x, colname.y)
     dev.off()
 }
 
-plot.alpha.winnersp.stat.alt <- function(df, figname, runname, colname.x, colname.y){
+plot.alpha.winnersp.stat.alt <- function(df, runname, figname, colname.x, colname.y){
     pdf(paste("graphs/modelruns/paramdiffs/", runname, figname, ".alpha.winnerofstat.1p.alt.pdf", sep=""),
         width=5, height=4)
         par(mfrow=c(1,1))
@@ -409,7 +413,7 @@ plot.alpha.winnersp.stat.alt <- function(df, figname, runname, colname.x, colnam
     dev.off()
 }
 
-plot.paramdiffs.stat.onepanel <- function(df, figname, runname, colname.x, colname.y){
+plot.paramdiffs.stat.onepanel <- function(df, runname, figname, colname.x, colname.y){
     pdf(paste("graphs/modelruns/paramdiffs/", runname, figname, ".stat.1p.pdf", sep=""),
         width=5, height=4)
         par(mfrow=c(1,1))
