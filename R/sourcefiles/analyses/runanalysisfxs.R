@@ -96,7 +96,7 @@ add.alpha <- function(col, alpha=1){ # Stolen from Mage's blog
                        rgb(x[1], x[2], x[3], alpha=alpha))  
 }
 
-plot.paramdiffs.onepanel <- function(df, runname, figname, colname.x, colname.y){
+plot.paramdiffs.onepanel <- function(df, runname, figname, colname.x, colname.y, cex, pch){
     pdf(paste("graphs/modelruns/paramdiffs/", runname, figname, "1p.pdf", sep=""),
         width=5, height=4)
         par(mfrow=c(1,1))
@@ -106,41 +106,78 @@ plot.paramdiffs.onepanel <- function(df, runname, figname, colname.x, colname.y)
         plot(unlist(df[colname.x]), unlist(df[colname.y]), type="n", xlab=colname.x,
            ylab=colname.y, main="")
         points(df0[[colname.x]], unlist(df0[colname.y]),
-           col=coexist3col[1], pch=16)
+           col=coexist3col[1],pch=pch, cex=cex)
         points(df1[[colname.x]], unlist(df1[colname.y]),
-           col=coexist3col[2], pch=16)
+           col=coexist3col[2],pch=pch, cex=cex)
         points(df2[[colname.x]], unlist(df2[colname.y]),
-           col=coexist3col[3], pch=16)
-        legend("topright", leg.txt, pch=16, col=coexist3col, bty="n")
+           col=coexist3col[3],pch=pch, cex=cex)
+        legend("topright", leg.txt, pch=pch, col=coexist3col, bty="n")
     dev.off()
 }
 
 
-plot.paramdiffs.twopanel <- function(df, runname, figname, colname.x, colname.y){
+plot.paramdiffs.twopanel <- function(df, runname, figname, colname.x, colname.y, cex, pch){
     pdf(paste("graphs/modelruns/paramdiffs/", runname, figname, "2p.pdf", sep=""),
         width=5, height=8)
         par(mfrow=c(2,1))
         df0 <- subset(df, ncoexist.t2==0)
         df1 <- subset(df, ncoexist.t2==1)
         df2 <- subset(df, ncoexist.t2==2)
+        df1.sp1 <- subset(df1, coexist1.t2==1)
+        df1.sp2 <- subset(df1, coexist2.t2==1)
         plot(unlist(df[colname.x]), unlist(df[colname.y]), type="n", xlab=colname.x,
            ylab=colname.y, main="survived after stat: colored by non-stat")
         points(df0[[colname.x]], unlist(df0[colname.y]),
-           col=coexist3col[1], pch=16)
+           col=coexist3col[1],pch=pch, cex=cex)
         points(df1[[colname.x]], unlist(df1[colname.y]),
-           col=coexist3col[2], pch=16)
+           col=coexist3col[2],pch=pch, cex=cex)
         points(df2[[colname.x]], unlist(df2[colname.y]),
-           col=coexist3col[3], pch=16)
+           col=coexist3col[3],pch=pch, cex=cex)
+        legend("topright", leg.txt, pch=pch, col=coexist3col, bty="n")
         plot(unlist(df[colname.x]), unlist(df[colname.y]), type="n", xlab=colname.x,
            ylab=colname.y, main="survived after nonstat")
         points(df2[[colname.x]], unlist(df2[colname.y]),
-           col=coexist3col[3], pch=16)
-        legend("topright", leg.txt, pch=16, col=coexist3col, bty="n")
+           col=coexistmocol[3], pch=pch, cex=cex)
+        points(df1.sp1[[colname.x]], unlist(df1.sp1[colname.y]),
+           col=coexistmocol[4], pch=pch, cex=cex)
+        points(df1.sp2[[colname.x]], unlist(df1.sp2[colname.y]),
+           col=coexistmocol[5], pch=pch, cex=cex)
+        legend("topright", c("both survived", "sp1 left", "sp2 left"), pch=pch, col=coexistmocol[3:5], bty="n")
+    dev.off()
+}
+
+plot.paramdiffs.twopanel.fixedxy <- function(df, runname, figname, colname.x, colname.y, cex, pch, xlim, ylim){
+    pdf(paste("graphs/modelruns/paramdiffs/", runname, figname, "2pXY.pdf", sep=""),
+        width=5, height=8)
+        par(mfrow=c(2,1))
+        df0 <- subset(df, ncoexist.t2==0)
+        df1 <- subset(df, ncoexist.t2==1)
+        df2 <- subset(df, ncoexist.t2==2)
+        df1.sp1 <- subset(df1, coexist1.t2==1)
+        df1.sp2 <- subset(df1, coexist2.t2==1)
+        plot(unlist(df[colname.x]), unlist(df[colname.y]), type="n", xlab=colname.x,
+           ylab=colname.y, main="survived after stat: colored by non-stat", xlim=xlim, ylim=ylim)
+        points(df0[[colname.x]], unlist(df0[colname.y]),
+           col=coexist3col[1],pch=pch, cex=cex, xlim=xlim, ylim=ylim)
+        points(df1[[colname.x]], unlist(df1[colname.y]),
+           col=coexist3col[2],pch=pch, cex=cex, xlim=xlim, ylim=ylim)
+        points(df2[[colname.x]], unlist(df2[colname.y]),
+           col=coexist3col[3],pch=pch, cex=cex, xlim=xlim, ylim=ylim)
+        legend("topright", leg.txt, pch=pch, col=coexist3col, bty="n")
+        plot(unlist(df[colname.x]), unlist(df[colname.y]), type="n", xlab=colname.x,
+           ylab=colname.y, main="survived after nonstat", xlim=xlim, ylim=ylim)
+        points(df2[[colname.x]], unlist(df2[colname.y]),
+           col=coexistmocol[3], pch=pch, cex=cex, xlim=xlim, ylim=ylim)
+        points(df1.sp1[[colname.x]], unlist(df1.sp1[colname.y]),
+           col=coexistmocol[4], pch=pch, cex=cex, xlim=xlim, ylim=ylim)
+        points(df1.sp2[[colname.x]], unlist(df1.sp2[colname.y]),
+           col=coexistmocol[5], pch=pch, cex=cex, xlim=xlim, ylim=ylim)
+        legend("topright", c("both survived", "sp1 left", "sp2 left"), pch=pch, col=coexistmocol[3:5], bty="n")
     dev.off()
 }
 
 plot.paramdiffs.fixedxy <- function(dfmultivar, runname, figname, colname.x, colname.y,
-    dfother){
+    dfother, cex, pch){
     pdf(paste("graphs/modelruns/paramdiffs/", runname, figname, "4pXY.pdf", sep=""),
         width=10, height=8)
         par(mfrow=c(2,2))
@@ -153,16 +190,16 @@ plot.paramdiffs.fixedxy <- function(dfmultivar, runname, figname, colname.x, col
         plot(unlist(df1[colname.x]), unlist(df1[colname.y]), type="n", xlab=colname.x,
            ylab=colname.y, main="3 traits vary: survived after stat - color by ns", xlim=xlimhere, ylim=ylimhere)
         points(df0[[colname.x]], unlist(df0[colname.y]),
-           col=coexist3col[1], pch=16, xlim=xlimhere, ylim=ylimhere)
+           col=coexist3col[1], pch=pch, cex=cex, xlim=xlimhere, ylim=ylimhere)
         points(df1[[colname.x]], unlist(df1[colname.y]),
-           col=coexist3col[2], pch=16, xlim=xlimhere, ylim=ylimhere)
+           col=coexist3col[2], pch=pch, cex=cex, xlim=xlimhere, ylim=ylimhere)
         points(df2[[colname.x]], unlist(df2[colname.y]),
-           col=coexist3col[3], pch=16, xlim=xlimhere, ylim=ylimhere)
-        legend("topright", leg.txt, pch=16, col=coexist3col, bty="n")
+           col=coexist3col[3], pch=pch, cex=cex, xlim=xlimhere, ylim=ylimhere)
+        legend("topright", leg.txt, pch=pch, cex=cex, col=coexist3col, bty="n")
         plot(unlist(dfmultivar[colname.x]), unlist(dfmultivar[colname.y]), type="n", xlab=colname.x,
            ylab=colname.y, main="3 traits vary: survived after nonstat", xlim=xlimhere, ylim=ylimhere)
         points(df2[[colname.x]], unlist(df2[colname.y]),
-           col=coexist3col[3], pch=16, xlim=xlimhere, ylim=ylimhere)
+           col=coexist3col[3], pch=pch, xlim=xlimhere, ylim=ylimhere)
     # second type of run
         df20 <- subset(dfother, ncoexist.t2==0)
         df21 <- subset(dfother, ncoexist.t2==1)
@@ -170,22 +207,22 @@ plot.paramdiffs.fixedxy <- function(dfmultivar, runname, figname, colname.x, col
         plot(unlist(dfother[colname.x]), unlist(dfother[colname.y]), type="n", xlab=colname.x,
            ylab=colname.y, main="2 traits vary: survived after stat - color by ns", xlim=xlimhere, ylim=ylimhere)
         points(df20[[colname.x]], unlist(df20[colname.y]),
-           col=coexist3col[1], pch=16, xlim=xlimhere, ylim=ylimhere)
+           col=coexist3col[1], pch=pch, cex=cex, xlim=xlimhere, ylim=ylimhere)
         points(df21[[colname.x]], unlist(df21[colname.y]),
-           col=coexist3col[2], pch=16, xlim=xlimhere, ylim=ylimhere)
+           col=coexist3col[2], pch=pch, cex=cex,  xlim=xlimhere, ylim=ylimhere)
         points(df22[[colname.x]], unlist(df22[colname.y]),
-           col=coexist3col[3], pch=16, xlim=xlimhere, ylim=ylimhere)
-        legend("topright", leg.txt, pch=16, col=coexist3col, bty="n")
+           col=coexist3col[3], pch=pch, cex=cex, xlim=xlimhere, ylim=ylimhere)
+        legend("topright", leg.txt, pch=pch, col=coexist3col, bty="n")
         plot(unlist(dfother[colname.x]), unlist(dfother[colname.y]), type="n", xlab=colname.x,
            ylab=colname.y, main="2 traits vary: survived after nonstat", xlim=xlimhere, ylim=ylimhere)
         points(df22[[colname.x]], unlist(df22[colname.y]),
-           col=coexist3col[3], pch=16, xlim=xlimhere, ylim=ylimhere)
+           col=coexist3col[3], pch=pch, xlim=xlimhere, ylim=ylimhere)
     dev.off()
 }
 
 
 plot.paramdiffs.colorbyzvar <- function(df, runname, figname, colname.x, colname.y,
-    colname.z, figtitle, midpt){
+    colname.z, figtitle, midpt, cex, pch){
     plothere <- ggplot(df, aes(df[[colname.x]], df[[colname.y]])) +
         geom_point(aes(color=df[[colname.z]])) +
         scale_colour_gradient2(midpoint = midpt) + 
@@ -279,7 +316,7 @@ plot.histograms.bars.onespp.skipnonstat <- function(df, figname, colname.x,
 
 ## Plots for just the stationary period ###
 
-plot.paramdiffs.stat.onepanel <- function(df, runname, figname, colname.x, colname.y){
+plot.paramdiffs.stat.onepanel <- function(df, runname, figname, colname.x, colname.y, cex, pch){
     pdf(paste("graphs/modelruns/paramdiffs/", runname, figname, ".stat.1p.pdf", sep=""),
         width=5, height=4)
         par(mfrow=c(1,1))
@@ -289,16 +326,16 @@ plot.paramdiffs.stat.onepanel <- function(df, runname, figname, colname.x, colna
         plot(unlist(df[colname.x]), unlist(df[colname.y]), type="n", xlab=colname.x,
            ylab=colname.y, main="Stationary period only")
         points(df0[[colname.x]], unlist(df0[colname.y]),
-           col=coexist3col[1], pch=16)
+           col=coexist3col[1],pch=pch, cex=cex)
         points(df1[[colname.x]], unlist(df1[colname.y]),
-           col=coexist3col[2], pch=16)
+           col=coexist3col[2],pch=pch, cex=cex)
         points(df2[[colname.x]], unlist(df2[colname.y]),
-           col=coexist3col[3], pch=16)
-        legend("topright", leg.txt, pch=16, col=coexist3col, bty="n")
+           col=coexist3col[3],pch=pch, cex=cex)
+        legend("topright", leg.txt, pch=pch, col=coexist3col, bty="n")
     dev.off()
 }
 
-plot.rstar.winnersp.stat <- function(df, runname, figname, colname.x, colname.y){
+plot.rstar.winnersp.stat <- function(df, runname, figname, colname.x, colname.y, cex, pch){
     pdf(paste("graphs/modelruns/paramdiffs/", runname, figname, ".Rstar.winnerofstat.1p.pdf", sep=""),
         width=5, height=4)
         par(mfrow=c(1,1))
@@ -311,17 +348,17 @@ plot.rstar.winnersp.stat <- function(df, runname, figname, colname.x, colname.y)
         plot(unlist(df[colname.x]), unlist(df[colname.y]), type="n", xlab=colname.x,
            ylab=colname.y, main="Stationary period only")
         points(df1.sp1wins[[colname.x]], unlist(df1.sp1wins[colname.y]),
-           col=coexist3col[1], pch=16)
+           col=coexist3col[1],pch=pch, cex=cex)
         points(df1.sp2wins[[colname.x]], unlist(df1.sp2wins[colname.y]),
-           col=coexist3col[2], pch=16)
+           col=coexist3col[2],pch=pch, cex=cex)
          points(otherdf[[colname.x]], unlist(otherdf[colname.y]),
-           col=coexist3col[3], pch=16)
+           col=coexist3col[3],pch=pch, cex=cex)
         legend("topright", c("sp1 wins and has better Rstar", "sp2 wins and has better Rstar",
-            "other sp wins"), pch=16, col=coexist3col, bty="n")
+            "other sp wins"), pch=pch, col=coexist3col, bty="n")
     dev.off()
 }
 
-plot.tauI.winnersp.stat <- function(df, runname, figname, colname.x, colname.y){
+plot.tauI.winnersp.stat <- function(df, runname, figname, colname.x, colname.y, cex, pch){
     pdf(paste("graphs/modelruns/paramdiffs/", runname, figname, ".tauI.winnerofstat.1p.pdf", sep=""),
         width=5, height=4)
         par(mfrow=c(1,1))
@@ -334,17 +371,17 @@ plot.tauI.winnersp.stat <- function(df, runname, figname, colname.x, colname.y){
         plot(unlist(df[colname.x]), unlist(df[colname.y]), type="n", xlab=colname.x,
            ylab=colname.y, main="Stationary period only")
         points(otherdf[[colname.x]], unlist(otherdf[colname.y]),
-           col=coexist3col[3], pch=16)
+           col=coexist3col[3],pch=pch, cex=cex)
         points(df1.sp1wins[[colname.x]], unlist(df1.sp1wins[colname.y]),
-           col=coexist3col[1], pch=16)
+           col=coexist3col[1],pch=pch, cex=cex)
         points(df1.sp2wins[[colname.x]], unlist(df1.sp2wins[colname.y]),
-           col=coexist3col[2], pch=16)
+           col=coexist3col[2],pch=pch, cex=cex)
         legend("topright", c("sp1 wins and has better tauI", "sp2 wins and has better tauI",
-            "other sp wins"), pch=16, col=coexist3col, bty="n")
+            "other sp wins"), pch=pch, col=coexist3col, bty="n")
     dev.off()
 }
 
-plot.tauI.winnersp.stat.alt <- function(df, runname,  figname, colname.x, colname.y){
+plot.tauI.winnersp.stat.alt <- function(df, runname,  figname, colname.x, colname.y, cex, pch){
     pdf(paste("graphs/modelruns/paramdiffs/", runname, figname, ".tauI.winnerofstat.1p.alt.pdf", sep=""),
         width=5, height=4)
         par(mfrow=c(1,1))
@@ -357,17 +394,17 @@ plot.tauI.winnersp.stat.alt <- function(df, runname,  figname, colname.x, colnam
         plot(unlist(df[colname.x]), unlist(df[colname.y]), type="n", xlab=colname.x,
            ylab=colname.y, main="Stationary period only")
         points(df1.sp1wins[[colname.x]], unlist(df1.sp1wins[colname.y]),
-           col=coexist3col[1], pch=16)
+           col=coexist3col[1],pch=pch, cex=cex)
         points(df1.sp2wins[[colname.x]], unlist(df1.sp2wins[colname.y]),
-           col=coexist3col[2], pch=16)
+           col=coexist3col[2],pch=pch, cex=cex)
         points(otherdf[[colname.x]], unlist(otherdf[colname.y]),
-           col=coexist3col[3], pch=16)
+           col=coexist3col[3],pch=pch, cex=cex)
         legend("topright", c("sp1 wins and has better tauI", "sp2 wins and has better tauI",
-            "other sp wins"), pch=16, col=coexist3col, bty="n")
+            "other sp wins"), pch=pch, col=coexist3col, bty="n")
     dev.off()
 }
 
-plot.alpha.winnersp.stat <- function(df, runname, figname, colname.x, colname.y){
+plot.alpha.winnersp.stat <- function(df, runname, figname, colname.x, colname.y, cex, pch){
     pdf(paste("graphs/modelruns/paramdiffs/", runname, figname, ".alpha.winnerofstat.1p.pdf", sep=""),
         width=5, height=4)
         par(mfrow=c(1,1))
@@ -380,17 +417,17 @@ plot.alpha.winnersp.stat <- function(df, runname, figname, colname.x, colname.y)
         plot(unlist(df[colname.x]), unlist(df[colname.y]), type="n", xlab=colname.x,
            ylab=colname.y, main="Stationary period only")
         points(df1.sp1wins[[colname.x]], unlist(df1.sp1wins[colname.y]),
-           col=coexist3col[1], pch=16)
+           col=coexist3col[1],pch=pch, cex=cex)
         points(df1.sp2wins[[colname.x]], unlist(df1.sp2wins[colname.y]),
-           col=coexist3col[2], pch=16)
+           col=coexist3col[2],pch=pch, cex=cex)
         points(otherdf[[colname.x]], unlist(otherdf[colname.y]),
-           col=coexist3col[3], pch=16)
+           col=coexist3col[3],pch=pch, cex=cex)
         legend("topright", c("sp1 wins and has better alpha", "sp2 wins and has better alpha",
-            "other sp wins"), pch=16, col=coexist3col, bty="n")
+            "other sp wins"), pch=pch, col=coexist3col, bty="n")
     dev.off()
 }
 
-plot.alpha.winnersp.stat.alt <- function(df, runname, figname, colname.x, colname.y){
+plot.alpha.winnersp.stat.alt <- function(df, runname, figname, colname.x, colname.y, cex, pch){
     pdf(paste("graphs/modelruns/paramdiffs/", runname, figname, ".alpha.winnerofstat.1p.alt.pdf", sep=""),
         width=5, height=4)
         par(mfrow=c(1,1))
@@ -403,17 +440,17 @@ plot.alpha.winnersp.stat.alt <- function(df, runname, figname, colname.x, colnam
         plot(unlist(df[colname.x]), unlist(df[colname.y]), type="n", xlab=colname.x,
            ylab=colname.y, main="Stationary period only")
         points(otherdf[[colname.x]], unlist(otherdf[colname.y]),
-           col=coexist3col[3], pch=16)
+           col=coexist3col[3],pch=pch, cex=cex)
         points(df1.sp1wins[[colname.x]], unlist(df1.sp1wins[colname.y]),
-           col=coexist3col[1], pch=16)
+           col=coexist3col[1],pch=pch, cex=cex)
         points(df1.sp2wins[[colname.x]], unlist(df1.sp2wins[colname.y]),
-           col=coexist3col[2], pch=16)
+           col=coexist3col[2],pch=pch, cex=cex)
         legend("topright", c("sp1 wins and has better alpha", "sp2 wins and has better alpha",
-            "other sp wins"), pch=16, col=coexist3col, bty="n")
+            "other sp wins"), pch=pch, col=coexist3col, bty="n")
     dev.off()
 }
 
-plot.paramdiffs.stat.onepanel <- function(df, runname, figname, colname.x, colname.y){
+plot.paramdiffs.stat.onepanel <- function(df, runname, figname, colname.x, colname.y, cex, pch){
     pdf(paste("graphs/modelruns/paramdiffs/", runname, figname, ".stat.1p.pdf", sep=""),
         width=5, height=4)
         par(mfrow=c(1,1))
@@ -423,12 +460,12 @@ plot.paramdiffs.stat.onepanel <- function(df, runname, figname, colname.x, colna
         plot(unlist(df[colname.x]), unlist(df[colname.y]), type="n", xlab=colname.x,
            ylab=colname.y, main="Stationary period only")
         points(df0[[colname.x]], unlist(df0[colname.y]),
-           col=coexist3col[1], pch=16)
+           col=coexist3col[1],pch=pch, cex=cex)
         points(df1[[colname.x]], unlist(df1[colname.y]),
-           col=coexist3col[2], pch=16)
+           col=coexist3col[2],pch=pch, cex=cex)
         points(df2[[colname.x]], unlist(df2[colname.y]),
-           col=coexist3col[3], pch=16)
-        legend("topright", leg.txt, pch=16, col=coexist3col, bty="n")
+           col=coexist3col[3],pch=pch, cex=cex)
+        legend("topright", leg.txt, pch=pch, col=coexist3col, bty="n")
     dev.off()
 }
 
@@ -462,12 +499,12 @@ plot.paramdiffs.perrun <- function(df, figname, colname.x, colname.y){
         plot(unlist(df[colname.x]), unlist(df[colname.y]), type="n", xlab=colname.x,
            ylab=colname.y, main="")
         points(df0[[colname.x]], unlist(df0[colname.y]),
-           col=coexist3col[1], pch=16)
+           col=coexist3col[1],pch=pch, cex=cex)
         points(df1[[colname.x]], unlist(df1[colname.y]),
-           col=coexist3col[2], pch=16)
+           col=coexist3col[2],pch=pch, cex=cex)
         points(df2[[colname.x]], unlist(df2[colname.y]),
-           col=coexist3col[3], pch=16)
-        legend("topright", leg.txt, pch=16, col=coexist3col, bty="n")
+           col=coexist3col[3],pch=pch, cex=cex)
+        legend("topright", leg.txt, pch=pch, col=coexist3col, bty="n")
     dev.off()
 }
 
