@@ -96,6 +96,8 @@ add.alpha <- function(col, alpha=1){ # Stolen from Mage's blog
                        rgb(x[1], x[2], x[3], alpha=alpha))  
 }
 
+# below take from:
+# https://logfc.wordpress.com/2017/03/15/adding-figure-labels-a-b-c-in-the-top-left-corner-of-the-plotting-region/
 fig_label <- function(text, region="figure", pos="topleft", cex=NULL, ...) {
  
   region <- match.arg(region, c("figure", "plot", "device"))
