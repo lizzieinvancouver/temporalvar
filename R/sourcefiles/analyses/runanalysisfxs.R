@@ -96,7 +96,73 @@ add.alpha <- function(col, alpha=1){ # Stolen from Mage's blog
                        rgb(x[1], x[2], x[3], alpha=alpha))  
 }
 
-plot.paramdiffs.onepanel <- function(df, runname, figname, colname.x, colname.y, cex, pch){
+fig_label <- function(text, region="figure", pos="topleft", cex=NULL, ...) {
+ 
+  region <- match.arg(region, c("figure", "plot", "device"))
+  pos <- match.arg(pos, c("topleft", "top", "topright", 
+                          "left", "center", "right", 
+                          "bottomleft", "bottom", "bottomright"))
+ 
+  if(region %in% c("figure", "device")) {
+    ds <- dev.size("in")
+    # xy coordinates of device corners in user coordinates
+    x <- grconvertX(c(0, ds[1]), from="in", to="user")
+    y <- grconvertY(c(0, ds[2]), from="in", to="user")
+ 
+    # fragment of the device we use to plot
+    if(region == "figure") {
+      # account for the fragment of the device that 
+      # the figure is using
+      fig <- par("fig")
+      dx <- (x[2] - x[1])
+      dy <- (y[2] - y[1])
+      x <- x[1] + dx * fig[1:2]
+      y <- y[1] + dy * fig[3:4]
+    } 
+  }
+ # much simpler if in plotting region
+  if(region == "plot") {
+    u <- par("usr")
+    x <- u[1:2]
+    y <- u[3:4]
+  }
+ 
+  sw <- strwidth(text, cex=cex) * 60/100
+  sh <- strheight(text, cex=cex) * 60/100
+ 
+  x1 <- switch(pos,
+    topleft     =x[1] + sw, 
+    left        =x[1] + sw,
+    bottomleft  =x[1] + sw,
+    top         =(x[1] + x[2])/2,
+    center      =(x[1] + x[2])/2,
+    bottom      =(x[1] + x[2])/2,
+    topright    =x[2] - sw,
+    right       =x[2] - sw,
+    bottomright =x[2] - sw)
+ 
+  y1 <- switch(pos,
+    topleft     =y[2] - sh,
+    top         =y[2] - sh,
+    topright    =y[2] - sh,
+    left        =(y[1] + y[2])/2,
+    center      =(y[1] + y[2])/2,
+    right       =(y[1] + y[2])/2,
+    bottomleft  =y[1] + sh,
+    bottom      =y[1] + sh,
+    bottomright =y[1] + sh)
+    
+  old.par <- par(xpd=NA)
+  on.exit(par(old.par))
+ 
+  text(x1, y1, text, cex=cex, ...)
+  return(invisible(c(x,y)))
+}
+
+
+
+plot.paramdiffs.onepanel <- function(df, runname, figname, colname.x, colname.y, cex, pch,
+    corner1.text, corner1.pos, corner2.text, corner2.pos){
     pdf(paste("graphs/modelruns/paramdiffs/", runname, figname, "1p.pdf", sep=""),
         width=5, height=4)
         par(mfrow=c(1,1))
@@ -105,6 +171,10 @@ plot.paramdiffs.onepanel <- function(df, runname, figname, colname.x, colname.y,
         df2 <- subset(df, ncoexist.t2==2)
         plot(unlist(df[colname.x]), unlist(df[colname.y]), type="n", xlab=colname.x,
            ylab=colname.y, main="")
+        abline(v=1)
+        abline(h=1)
+        fig_label(text=corner1.text, region="plot", pos=corner1.pos)
+        fig_label(text=corner2.text, region="plot", pos=corner2.pos)
         points(df0[[colname.x]], unlist(df0[colname.y]),
            col=coexist3col[1],pch=pch, cex=cex)
         points(df1[[colname.x]], unlist(df1[colname.y]),
