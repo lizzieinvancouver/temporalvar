@@ -5,12 +5,16 @@ megaD <- ifelse(runflag>100,TRUE,FALSE)  #use PHEN_RUNNUM as a flag for megaD ru
 inputline <- ifelse(megaD==1,runflag - 100, runflag)
 
 #jobID: if batch, then jobID & taskID from slurm; if local, randomly gen 999XXXX
-jobID <- ifelse(localflag==1,
-                c(paste0("999",trunc(runif(1,1000,9999))),"1"),
-                Sys.getenv(c("SLURM_ARRAY_JOB_ID","SLURM_ARRAY_TASK_ID")))
+if(localflag==1) {
+   jobID <- c(paste0("999",trunc(runif(1,1000,9999))),"1")
+} else {
+   jobID <- c(Sys.getenv("SLURM_ARRAY_JOB_ID"),Sys.getenv("SLURM_ARRAY_TASK_ID"))
+}
+
 writeBout <- 1  #default=1; flag indicating how often Bout should be written (0=never, n = every n runs)
 
-print(paste0("array job id, array task id = ",Sys.getenv(c("SLURM_ARRAY_JOB_ID","SLURM_ARRAY_TASK_ID"))))
+print(paste0(c(Sys.getenv("SLURM_ARRAY_JOB_ID"),Sys.getenv("SLURM_ARRAY_TASK_ID"))))
+print(paste0("jobID = ", jobID))
 
 #GET INPUT PARMS FOR THIS RUN
 inputfile <- ifelse(megaD==1,paste0(locIN,"/getInputParms_megaD.txt"),paste0(locIN,"/getInputParms.txt"))
