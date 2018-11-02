@@ -20,7 +20,8 @@ col.names.SummaryOut<-c("jobID","taskID","runID","period","nperiods","yout","ite
                         paste0(rep("g",nsp),c(1:nsp),rep("mean",nsp)),
                         paste0(rep("tauIP",nsp),c(1:nsp),rep("_mean",nsp)),
                         paste0(c("wet","dry"),rep("ID",2)),"rho",
-                        "R0_mean","R0_median","R0_autocor")
+                        "R0_mean","R0_median","R0_autocor",
+                        paste0(rep("Bfin",nsp),c(1:nsp)))
 
 #Calculate summary stats for output at nyrs or yout, if species went extinct
 #For runs with stationary and nonstationary periods, summary stats are written at the end of each period
@@ -48,7 +49,7 @@ for (q in c(1:length(nst))) {
 }
 write.table(matrix(data=c(as.numeric(jobID[1]),as.numeric(jobID[2]),j,q,nperiods,fin,itertime,
                           sum(coexist[fin,]),coexist[fin,],alpha,c,Rstar,tauI,
-                          gmean,tauIP,R0id,rho,R0mean,R0median,R0autocor),nrow=1),
+                          gmean,tauIP,R0id,rho,R0mean,R0median,R0autocor, Bfin[fin,]),nrow=1),
             file=paste0(SummOut_loc,"/SummaryOut",suffix),
             col.names = col.names.SummaryOut, row.names = FALSE,
             append=TRUE,sep="\t", quote=FALSE)
