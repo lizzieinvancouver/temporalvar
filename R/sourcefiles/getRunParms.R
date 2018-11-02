@@ -5,7 +5,7 @@ print(paste0("runflag is ", runflag))
 megaD <- ifelse(runflag>100,TRUE,FALSE)  #use PHEN_RUNNUM as a flag for megaD runs
 print (paste0("megaD is ",megaD))
 inputline <- ifelse(megaD==1,runflag - 100, runflag)
-printe(paste0("inputline is ",inputline))
+print(paste0("inputline is ",inputline))
 
 #jobID: if batch, then jobID & taskID from slurm; if local, randomly gen 999XXXX
 jobID <- ifelse(localflag==1,
