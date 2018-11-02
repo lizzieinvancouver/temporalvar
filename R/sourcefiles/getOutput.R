@@ -45,7 +45,7 @@ for (q in c(1:length(nst))) {
   R0mean <- mean(R0[ini:fin])
   R0median <- median(R0[ini:fin])
   R0autocor <- cor(R0[ini:(fin-1)],R0[(ini+1):fin])
-  if (j>1 || q>1) col.names.SummaryOut <- FALSE  #if run>1 or second period, col.names is FALSE
+  if (!((j==1)&&(q==1))) col.names.SummaryOut <- FALSE  #if run>1 or second period, col.names is FALSE
 }
 write.table(matrix(data=c(as.numeric(jobID[1]),as.numeric(jobID[2]),j,q,nperiods,fin,itertime,
                           sum(coexist[fin,]),coexist[fin,],alpha,c,Rstar,tauI,
