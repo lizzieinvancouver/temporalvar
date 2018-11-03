@@ -58,20 +58,27 @@ write.table(matrix(data=c(as.numeric(jobID[1]),as.numeric(jobID[2]),j,q,nperiods
 # note that y is the counter for years in PhenologyModel.r loop
 # therefore, y is the number of years before loop breaks bc extinction
 # m is the counter for year in this loop
+# j is the run number;
+# writeBout is the flag saying how frequently to write this file (0=never, n= every nth time)
 
-L <- rep(0,yout)  #number of timesteps in Bout in year y
+L <- rep(0,yout)  #number of timesteps in Bout in year y; this goes in BfinN
 col.names.Bout <- c("jobID","taskID","runID","yr","time","R",paste0(rep("B",nsp),c(1:nsp)))
+
 
 for (m in c(1:yout)) {
   L[m] <- dim(Bout[[m]])[1]
   ##only write headers in first year
-  if (m>1) col.names.Bout <- FALSE
-  write.table(matrix(data=c(rep(as.numeric(jobID[1]),L[m]),rep(as.numeric(jobID[2]),L[m]),
+  if (writeBout > 0){
+    if (j%%writeBout==0) {
+      if (m>1) col.names.Bout <- FALSE
+      write.table(matrix(data=c(rep(as.numeric(jobID[1]),L[m]),rep(as.numeric(jobID[2]),L[m]),
                             rep(j,L[m]),rep(m,L[m]),as.matrix(Bout[[m]])),
                      nrow=L[m],ncol=4+2+nsp),
               file = paste0(Bout_loc,"/Bout","_",jobID[1],"-",jobID[2],"-",j,".txt"),
               col.names = col.names.Bout,row.names = FALSE,
               append = TRUE, sep = "\t", quote=FALSE)
+    }
+  }
 }
 
 #WRITE BFIN at the end of each run

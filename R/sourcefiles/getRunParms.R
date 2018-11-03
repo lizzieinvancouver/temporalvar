@@ -11,7 +11,7 @@ if(localflag==1) {
    jobID <- c(Sys.getenv("SLURM_ARRAY_JOB_ID"),Sys.getenv("SLURM_ARRAY_TASK_ID"))
 }
 
-writeBout <- 1  #default=1; flag indicating how often Bout should be written (0=never, n = every n runs)
+writeBout <- 0  #default=1; flag indicating how often Bout should be written (0=never, n = every n runs)
 
 print(paste0(c(Sys.getenv("SLURM_ARRAY_JOB_ID"),Sys.getenv("SLURM_ARRAY_TASK_ID"))))
 print(paste0("jobID = ", jobID))
