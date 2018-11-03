@@ -3,7 +3,7 @@
 ### This executes a single run of the model and writes out
 
 rm(list=ls()) 
-options(stringsAsFactors=FALSE)
+options(stringsAsFactors=FALSE, warn=1)
 
 #define run location (PHEN_RUNNUM is only defined for slurm batch jobs)
 localflag <- ifelse(Sys.getenv("PHEN_RUNNUM")=="",1,0)
