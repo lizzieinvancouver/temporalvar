@@ -67,8 +67,10 @@ if (localflag==0){
 }
 if(!dir.exists(file.path(locOUT))) dir.create(file.path(locOUT),recursive=TRUE)
 
-Bout_loc <- paste0(locOUT,"/Bout/",jobID[1])
-if(!dir.exists(file.path(Bout_loc))) dir.create(file.path(Bout_loc),recursive=TRUE)
+if (writeBout>0) {
+  Bout_loc <- paste0(locOUT,"/Bout/",jobID[1])
+  if(!dir.exists(file.path(Bout_loc))) dir.create(file.path(Bout_loc),recursive=TRUE)
+}
 
 SummOut_loc <- paste0(locOUT,"/SummaryFiles/",jobID[1])
 if(!dir.exists(file.path(SummOut_loc))) dir.create(file.path(SummOut_loc),recursive=TRUE)
