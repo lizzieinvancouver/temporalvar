@@ -51,7 +51,7 @@ datesuffix <- (paste0(format(Sys.time(),"%Y-%m-%d")))
 if (localflag==0){
   #locOUT is the fast-writing scratch space on the run node (mem limited)
   ##***I think jobID[1] = Sys.getenv("SLURM_ARRAY_JOB_ID) = Sys.getenv("SLURM_JOB_ID")
-  locOUT <- paste0("/scratch/wolkovich_lab/temporalvar/",jobID[1])
+  locOUT <- paste0("/scratch/wolkovich_lab/temporalvar/",jobID[1],"-",jobID[2])
   #locSAVE is the permanent location to where runs are saved on the storage node
   locSAVE <- ifelse(megaD==1, 
                     "/n/wolkovich_lab/temporalvar/megadrought/output",
