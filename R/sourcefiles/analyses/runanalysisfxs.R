@@ -96,7 +96,7 @@ add.alpha <- function(col, alpha=1){ # Stolen from Mage's blog
                        rgb(x[1], x[2], x[3], alpha=alpha))  
 }
 
-# below take from:
+# below taken from:
 # https://logfc.wordpress.com/2017/03/15/adding-figure-labels-a-b-c-in-the-top-left-corner-of-the-plotting-region/
 fig_label <- function(text, region="figure", pos="topleft", cex=NULL, ...) {
  
@@ -188,7 +188,8 @@ plot.paramdiffs.onepanel <- function(df, runname, figname, colname.x, colname.y,
 }
 
 
-plot.paramdiffs.twopanel <- function(df, runname, figname, colname.x, colname.y, cex, pch){
+plot.paramdiffs.twopanel <- function(df, runname, figname, colname.x, colname.y, cex, pch,
+    corner1.text, corner1.pos, corner2.text, corner2.pos){
     pdf(paste("graphs/modelruns/paramdiffs/", runname, figname, "2p.pdf", sep=""),
         width=5, height=8)
         par(mfrow=c(2,1))
@@ -199,6 +200,10 @@ plot.paramdiffs.twopanel <- function(df, runname, figname, colname.x, colname.y,
         df1.sp2 <- subset(df1, coexist2.t2==1)
         plot(unlist(df[colname.x]), unlist(df[colname.y]), type="n", xlab=colname.x,
            ylab=colname.y, main="survived after stat: colored by non-stat")
+        abline(v=1)
+        abline(h=1)
+        fig_label(text=corner1.text, region="plot", pos=corner1.pos)
+        fig_label(text=corner2.text, region="plot", pos=corner2.pos)
         points(df0[[colname.x]], unlist(df0[colname.y]),
            col=coexist3col[1],pch=pch, cex=cex)
         points(df1[[colname.x]], unlist(df1[colname.y]),
@@ -208,6 +213,10 @@ plot.paramdiffs.twopanel <- function(df, runname, figname, colname.x, colname.y,
         legend("topright", leg.txt, pch=pch, col=coexist3col, bty="n")
         plot(unlist(df[colname.x]), unlist(df[colname.y]), type="n", xlab=colname.x,
            ylab=colname.y, main="survived after nonstat")
+        abline(v=1)
+        abline(h=1)
+        fig_label(text=corner1.text, region="plot", pos=corner1.pos)
+        fig_label(text=corner2.text, region="plot", pos=corner2.pos)
         points(df2[[colname.x]], unlist(df2[colname.y]),
            col=coexistmocol[3], pch=pch, cex=cex)
         points(df1.sp1[[colname.x]], unlist(df1.sp1[colname.y]),
@@ -218,7 +227,8 @@ plot.paramdiffs.twopanel <- function(df, runname, figname, colname.x, colname.y,
     dev.off()
 }
 
-plot.paramdiffs.twopanel.fixedxy <- function(df, runname, figname, colname.x, colname.y, cex, pch, xlim, ylim){
+plot.paramdiffs.twopanel.fixedxy <- function(df, runname, figname, colname.x, colname.y, cex, pch, xlim, ylim,
+    corner1.text, corner1.pos, corner2.text, corner2.pos){
     pdf(paste("graphs/modelruns/paramdiffs/", runname, figname, "2pXY.pdf", sep=""),
         width=5, height=8)
         par(mfrow=c(2,1))
@@ -229,6 +239,10 @@ plot.paramdiffs.twopanel.fixedxy <- function(df, runname, figname, colname.x, co
         df1.sp2 <- subset(df1, coexist2.t2==1)
         plot(unlist(df[colname.x]), unlist(df[colname.y]), type="n", xlab=colname.x,
            ylab=colname.y, main="survived after stat: colored by non-stat", xlim=xlim, ylim=ylim)
+        abline(v=1)
+        abline(h=1)
+        fig_label(text=corner1.text, region="plot", pos=corner1.pos)
+        fig_label(text=corner2.text, region="plot", pos=corner2.pos)
         points(df0[[colname.x]], unlist(df0[colname.y]),
            col=coexist3col[1],pch=pch, cex=cex, xlim=xlim, ylim=ylim)
         points(df1[[colname.x]], unlist(df1[colname.y]),
@@ -238,6 +252,10 @@ plot.paramdiffs.twopanel.fixedxy <- function(df, runname, figname, colname.x, co
         legend("topright", leg.txt, pch=pch, col=coexist3col, bty="n")
         plot(unlist(df[colname.x]), unlist(df[colname.y]), type="n", xlab=colname.x,
            ylab=colname.y, main="survived after nonstat", xlim=xlim, ylim=ylim)
+        abline(v=1)
+        abline(h=1)
+        fig_label(text=corner1.text, region="plot", pos=corner1.pos)
+        fig_label(text=corner2.text, region="plot", pos=corner2.pos)
         points(df2[[colname.x]], unlist(df2[colname.y]),
            col=coexistmocol[3], pch=pch, cex=cex, xlim=xlim, ylim=ylim)
         points(df1.sp1[[colname.x]], unlist(df1.sp1[colname.y]),
@@ -249,7 +267,7 @@ plot.paramdiffs.twopanel.fixedxy <- function(df, runname, figname, colname.x, co
 }
 
 plot.paramdiffs.fixedxy <- function(dfmultivar, runname, figname, colname.x, colname.y,
-    dfother, cex, pch){
+    dfother, cex, pch, corner1.text, corner1.pos, corner2.text, corner2.pos){
     pdf(paste("graphs/modelruns/paramdiffs/", runname, figname, "4pXY.pdf", sep=""),
         width=10, height=8)
         par(mfrow=c(2,2))
@@ -261,6 +279,10 @@ plot.paramdiffs.fixedxy <- function(dfmultivar, runname, figname, colname.x, col
     # first type of run
         plot(unlist(df1[colname.x]), unlist(df1[colname.y]), type="n", xlab=colname.x,
            ylab=colname.y, main="3 traits vary: survived after stat - color by ns", xlim=xlimhere, ylim=ylimhere)
+        abline(v=1)
+        abline(h=1)
+        fig_label(text=corner1.text, region="plot", pos=corner1.pos)
+        fig_label(text=corner2.text, region="plot", pos=corner2.pos)
         points(df0[[colname.x]], unlist(df0[colname.y]),
            col=coexist3col[1], pch=pch, cex=cex, xlim=xlimhere, ylim=ylimhere)
         points(df1[[colname.x]], unlist(df1[colname.y]),
@@ -270,6 +292,10 @@ plot.paramdiffs.fixedxy <- function(dfmultivar, runname, figname, colname.x, col
         legend("topright", leg.txt, pch=pch, cex=cex, col=coexist3col, bty="n")
         plot(unlist(dfmultivar[colname.x]), unlist(dfmultivar[colname.y]), type="n", xlab=colname.x,
            ylab=colname.y, main="3 traits vary: survived after nonstat", xlim=xlimhere, ylim=ylimhere)
+        abline(v=1)
+        abline(h=1)
+        fig_label(text=corner1.text, region="plot", pos=corner1.pos)
+        fig_label(text=corner2.text, region="plot", pos=corner2.pos)
         points(df2[[colname.x]], unlist(df2[colname.y]),
            col=coexist3col[3], pch=pch, xlim=xlimhere, ylim=ylimhere)
     # second type of run
@@ -278,6 +304,10 @@ plot.paramdiffs.fixedxy <- function(dfmultivar, runname, figname, colname.x, col
         df22 <- subset(dfother, ncoexist.t2==2)
         plot(unlist(dfother[colname.x]), unlist(dfother[colname.y]), type="n", xlab=colname.x,
            ylab=colname.y, main="2 traits vary: survived after stat - color by ns", xlim=xlimhere, ylim=ylimhere)
+        abline(v=1)
+        abline(h=1)
+        fig_label(text=corner1.text, region="plot", pos=corner1.pos)
+        fig_label(text=corner2.text, region="plot", pos=corner2.pos)
         points(df20[[colname.x]], unlist(df20[colname.y]),
            col=coexist3col[1], pch=pch, cex=cex, xlim=xlimhere, ylim=ylimhere)
         points(df21[[colname.x]], unlist(df21[colname.y]),
@@ -287,6 +317,10 @@ plot.paramdiffs.fixedxy <- function(dfmultivar, runname, figname, colname.x, col
         legend("topright", leg.txt, pch=pch, col=coexist3col, bty="n")
         plot(unlist(dfother[colname.x]), unlist(dfother[colname.y]), type="n", xlab=colname.x,
            ylab=colname.y, main="2 traits vary: survived after nonstat", xlim=xlimhere, ylim=ylimhere)
+        abline(v=1)
+        abline(h=1)
+        fig_label(text=corner1.text, region="plot", pos=corner1.pos)
+        fig_label(text=corner2.text, region="plot", pos=corner2.pos)
         points(df22[[colname.x]], unlist(df22[colname.y]),
            col=coexist3col[3], pch=pch, xlim=xlimhere, ylim=ylimhere)
     dev.off()

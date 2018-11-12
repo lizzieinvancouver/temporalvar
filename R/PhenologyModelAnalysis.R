@@ -298,31 +298,33 @@ plot.paramdiffs.onepanel(tauRstar.runs.df, "tauRstar.runs", "_tauIP.t1.rstar", "
 plot.paramdiffs.onepanel(tauRstar.runs.df, "tauRstar.runs", "_tauIP.rstar", "ratio.tauIP.t2",
     "ratio.rstar", cexhere, pchhere, "sp1 wins", "bottomleft", "sp2 wins", "topright")
 plot.paramdiffs.twopanel(tauRstar.runs.df, "tauRstar.runs", "_tauIP.rstar", "ratio.tauIP.t2",
-    "ratio.rstar", cexhere, pchhere)
+    "ratio.rstar", cexhere, pchhere, "sp1 wins", "bottomleft", "sp2 wins", "topright")
 plot.paramdiffs.twopanel(tauRstar.runs.df, "tauRstar.runs", "_tauIP.t1.rstar", "ratio.tauIP.t1",
-    "ratio.rstar", cexhere, pchhere)
+    "ratio.rstar", cexhere, pchhere,  "sp1 wins", "bottomleft", "sp2 wins", "topright")
 plot.paramdiffs.twopanel(tauRstar.runs.df, "tauRstar.runs", "_tauI.rstar", "ratio.tauI",
-    "ratio.rstar", cexhere, pchhere)
+    "ratio.rstar", cexhere, pchhere,  "sp1 wins", "bottomleft", "sp2 wins", "topright")
 
 plot.paramdiffs.onepanel(alphaRstar.runs.df, "alphaRstar.runs", "_alpha.rstar", "ratio.alpha",
     "ratio.rstar", cexhere, pchhere, "sp1 wins", "bottomright", "sp2 wins", "topleft")
 plot.paramdiffs.twopanel(alphaRstar.runs.df, "alphaRstar.runs", "_alpha.rstar", "ratio.alpha",
-    "ratio.rstar", cexhere, pchhere)
+    "ratio.rstar", cexhere, pchhere, "sp1 wins", "bottomright", "sp2 wins", "topleft")
 
 plot.paramdiffs.onepanel(taualpha.runs.df, "taualpha.runs", "_alpha.tauIP.t1.",
     "ratio.alpha", "ratio.tauIP.t1", cexhere, pchhere, "sp1 wins", "bottomright", "sp2 wins", "topleft")
 plot.paramdiffs.onepanel(taualpha.runs.df, "taualpha.runs", "_alpha.tauIP",
     "ratio.alpha", "ratio.tauIP.t2", cexhere, pchhere, "sp1 wins", "bottomright", "sp2 wins", "topleft")
 plot.paramdiffs.twopanel(taualpha.runs.df, "taualpha.runs", "_alpha.tauIP",
-    "ratio.alpha", "ratio.tauIP.t2", cexhere, pchhere)
+    "ratio.alpha", "ratio.tauIP.t2", cexhere, pchhere, "sp1 wins", "bottomright", "sp2 wins", "topleft")
 plot.paramdiffs.twopanel(taualpha.runs.df, "taualpha.runs", "_alpha.tauIP.t1.",
-    "ratio.alpha", "ratio.tauIP.t1", cexhere, pchhere)
+    "ratio.alpha", "ratio.tauIP.t1", cexhere, pchhere, "sp1 wins", "bottomright", "sp2 wins", "topleft")
 plot.paramdiffs.twopanel(taualpha.runs.df, "taualpha.runs", "_alpha.tauI",
-    "ratio.alpha", "ratio.tauI", cexhere, pchhere)
+    "ratio.alpha", "ratio.tauI", cexhere, pchhere, "sp1 wins", "bottomright", "sp2 wins", "topleft")
 plot.paramdiffs.twopanel.fixedxy(taualpha.runs.df, "taualpha.runs", "_alpha.tauI",
-    "ratio.alpha", "ratio.tauI", cexhere, pchhere, c(0,3), c(0,5))
+    "ratio.alpha", "ratio.tauI", cexhere, pchhere, c(0,3), c(0,5),
+    "sp1 wins", "bottomright", "sp2 wins", "topleft")
 plot.paramdiffs.twopanel.fixedxy(taualpha.runs.df, "taualpha.runs", "_alpha.tauIP",
-    "ratio.alpha", "ratio.tauIP.t2", cexhere, pchhere, c(0,3), c(0,5))
+    "ratio.alpha", "ratio.tauIP.t2", cexhere, pchhere, c(0,3), c(0,5),
+    "sp1 wins", "bottomright", "sp2 wins", "topleft")
 
 # Three things vary
 plot.paramdiffs.onepanel(taualphaRstar.runs.df, "taualphaRstar.runs", "_tauIP.rstar",
@@ -334,21 +336,21 @@ plot.paramdiffs.onepanel(taualphaRstar.runs.df, "taualphaRstar.runs", "_alpha.rs
 plot.paramdiffs.onepanel(taualphaRstar.runs.df, "taualphaRstar.runs", "_alpha.tauIP",
     "ratio.alpha", "ratio.tauIP.t2", cexhere, pchhere, "sp1 wins", "bottomright", "sp2 wins", "topleft")
 plot.paramdiffs.twopanel(taualphaRstar.runs.df, "taualphaRstar.runs", "_tauIP.rstar",
-    "ratio.tauIP.t2", "ratio.rstar", cexhere, pchhere)
+    "ratio.tauIP.t2", "ratio.rstar", cexhere, pchhere, "sp1 wins", "bottomleft", "sp2 wins", "topright")
 plot.paramdiffs.twopanel(taualphaRstar.runs.df, "taualphaRstar.runs", "_alpha.rstar",
-    "ratio.alpha", "ratio.rstar", cexhere, pchhere)
+    "ratio.alpha", "ratio.rstar", cexhere, pchhere, "sp1 wins", "bottomright", "sp2 wins", "topleft")
 plot.paramdiffs.twopanel(taualphaRstar.runs.df, "taualphaRstar.runs", "_alpha.tauIP",
-    "ratio.alpha", "ratio.tauIP.t2", cexhere, pchhere)
+    "ratio.alpha", "ratio.tauIP.t2", cexhere, pchhere, "sp1 wins", "bottomright", "sp2 wins", "topleft")
 
 # compare these to their equivalents 
 plot.paramdiffs.fixedxy(taualphaRstar.runs.df, "taualphaRstar.runs", "_tauIP.rstar",
-    "ratio.tauIP.t2", "ratio.rstar", tauRstar.runs.df, 1, 16)
+    "ratio.tauIP.t2", "ratio.rstar", tauRstar.runs.df, 1, 16, "sp1 wins", "bottomright", "sp2 wins", "topleft")
 plot.paramdiffs.fixedxy(taualphaRstar.runs.df, "taualphaRstar.runs", "_tauI.rstar",
-    "ratio.tauI", "ratio.rstar", tauRstar.runs.df, 1, 16)
+    "ratio.tauI", "ratio.rstar", tauRstar.runs.df, 1, 16, "??", "bottomleft", "??", "topright")
 plot.paramdiffs.fixedxy(taualphaRstar.runs.df, "taualphaRstar.runs", "_alpha.rstar",
-    "ratio.alpha", "ratio.rstar", alphaRstar.runs.df, 1, 16)
+    "ratio.alpha", "ratio.rstar", alphaRstar.runs.df, 1, 16, "sp1 wins", "bottomright", "sp2 wins", "topleft")
 plot.paramdiffs.fixedxy(taualphaRstar.runs.df, "taualphaRstar.runs", "_alpha.tauIP",
-    "ratio.alpha", "ratio.tauIP.t2", taualpha.runs.df, 1, 16)
+    "ratio.alpha", "ratio.tauIP.t2", taualpha.runs.df, 1, 16, "sp1 wins", "bottomright", "sp2 wins", "topleft")
 
 
 # and color code by third variable
