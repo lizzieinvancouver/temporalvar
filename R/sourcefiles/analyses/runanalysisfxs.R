@@ -84,6 +84,24 @@ calcsp.bestalpha <- function(df){
     }
 
 
+get.mean.alphavalues <- function(df){
+    dfs <- subset(df, period==1)
+    df1 <- subset(dfs, coexist1==1)
+    df2 <- subset(dfs, coexist2==1)
+    # dfwinners <- rbind(df1, df2)
+    return(mean(c(df1$alpha1, df2$alpha2)))
+    }
+
+
+get.mean.alphavalues.ns <- function(df){
+    dfns <- subset(df, period==2)
+    df1 <- subset(dfns, coexist1==1)
+    df2 <- subset(dfns, coexist2==1)
+    # dfwinners <- rbind(df1, df2)
+    return(mean(c(df1$alpha1, df2$alpha2)))
+    }
+    
+
 ####################
 ## plotting f(x)s ##
 ####################

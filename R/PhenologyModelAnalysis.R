@@ -10,10 +10,6 @@
 # https://www.theanalysisfactor.com/r-tutorial-part-12/
 ######################
 
-## NEXT UP: Square out the plots and add text on who wins where ...
-# http://www.sthda.com/english/wiki/abline-r-function-an-easy-way-to-add-straight-lines-to-a-plot-using-r-software
-# https://stat.ethz.ch/R-manual/R-devel/library/graphics/html/mtext.html
-
 ## housekeeping
 rm(list=ls()) 
 options(stringsAsFactors = FALSE)
@@ -191,6 +187,32 @@ taualpha.runs.df <- df.all.plot[which(df.all.plot$jobID %in% taualpha.runs),]
 sum(taualpha.runs.df$diff.Rstar) # must equal zero!
 # varying everything (tauI, alpha, Rstar)
 taualphaRstar.runs.df <- df.all.plot[which(df.all.plot$jobID %in% taualphaRstar.runs),]
+
+tauRstar.runs <- runz[c(3,7,11,14)] # NOT varying tracking: tauI and Rstar tradeoff
+alphaRstar.runs <- runz[c(2,6,10,13)] # NOT varying tauI: tracking and Rstar tradeoff
+taualpha.runs <- runz[c(4,8,12,15)] # keeps R* the same across species pairs
+taualphaRstar.runs <- runz[c(1,5,9)] # varying everything (tauI, alpha, Rstar)
+
+
+## Do some counts
+# How many species left after non-stat? First: (# spp left at end of non-stat)/(# of spp left at end of stat)
+sum(tauRstar.runs.df$ncoexist.t2)/sum(tauRstar.stat.runs.df$ncoexist) 
+sum(alphaRstar.runs.df$ncoexist.t2)/sum(alphaRstar.stat.runs.df$ncoexist)
+sum(taualpha.runs.df$ncoexist.t2)/sum(taualpha.stat.runs.df$ncoexist)
+sum(taualphaRstar.runs.df$ncoexist.t2)/sum(taualphaRstar.stat.runs.df$ncoexist)
+# Second: (# spp left at end of non-stat)/(# of co-existing spp left at end of stat)
+sum(tauRstar.runs.df$ncoexist.t2)/sum(tauRstar.runs.df$ncoexist.t1) 
+sum(alphaRstar.runs.df$ncoexist.t2)/sum(alphaRstar.runs.df$ncoexist.t1)
+sum(taualpha.runs.df$ncoexist.t2)/sum(taualpha.runs.df$ncoexist.t1)
+sum(taualphaRstar.runs.df$ncoexist.t2)/sum(taualphaRstar.runs.df$ncoexist.t1)
+# What is average alpha before and after stat?
+get.mean.alphavalues(df.all[which(df.all$jobID %in% alphaRstar.runs),])
+get.mean.alphavalues.ns(df.all[which(df.all$jobID %in% alphaRstar.runs),])
+get.mean.alphavalues(df.all[which(df.all$jobID %in% taualpha.runs),])
+get.mean.alphavalues.ns(df.all[which(df.all$jobID %in% taualpha.runs),])
+get.mean.alphavalues(df.all[which(df.all$jobID %in% taualphaRstar.runs),])
+get.mean.alphavalues.ns(df.all[which(df.all$jobID %in% taualphaRstar.runs),])
+
 
 ###############
 ## Plotting! ##
