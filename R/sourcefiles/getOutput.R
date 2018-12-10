@@ -19,9 +19,11 @@ col.names.SummaryOut<-c("jobID","taskID","runID","period","nperiods","yout","ite
                         paste0(rep("tauI",nsp),c(1:nsp)),
                         paste0(rep("g",nsp),c(1:nsp),rep("mean",nsp)),
                         paste0(rep("tauIP",nsp),c(1:nsp),rep("_mean",nsp)),
-                        paste0(c("wet","dry"),rep("ID",2)),"rho",
-                        "R0_mean","R0_median","R0_autocor",
-                        paste0(rep("Bfin",nsp),c(1:nsp)))
+                        paste0(c("wet","dry"),rep("ID",2)),
+                        "rho","R0_mean","R0_median","R0_autocor",
+                        paste0(rep("Bfin",nsp),c(1:nsp)),
+                        paste0(rep("slopeBfin_100",nsp),c(1:nsp)),
+                        paste0(rep("avgPCgrowth",nsp),c(1:nsp)))
 
 #Calculate summary stats for output at nyrs or yout, if species went extinct
 #For runs with stationary and nonstationary periods, summary stats are written at the end of each period
@@ -36,6 +38,8 @@ if (yout <= nonsta[1]) {
 }
 
 #calculate gmean, tauIP, and R0 calcs for each time period
+#add calc for slope over last 100 yrs and per capita growth for segment (exclude first 10y)
+slopes <- rep(NA,nsp)
 for (q in c(1:length(nst))) {
   ini <- ifelse(q==1, 1, nst[q-1] + 1)  # starting year for this period
   fin <- nst[q]                         # ending year for this period (or yout, if extinct before end of period)
@@ -45,11 +49,16 @@ for (q in c(1:length(nst))) {
   R0mean <- mean(R0[ini:fin])
   R0median <- median(R0[ini:fin])
   R0autocor <- cor(R0[ini:(fin-1)],R0[(ini+1):fin])
-  if (!((j==1)&&(q==1))) col.names.SummaryOut <- FALSE  #if run>1 or second period, col.names is FALSE
+  for (s in c(1:nsp)) {
+    lms <- lm(Bfin[(fin-100):fin,s]~c((fin-100):fin))
+    slopes[s] <- lms$coefficients[2]
+  }
+  pcGrowth <- colMeans(log(Bfin[(ini+10):fin,]/Bfin[(ini+9):(fin-1),]), na.rm=TRUE)
+if (!((j==1)&&(q==1))) col.names.SummaryOut <- FALSE  #if run>1 or second period, col.names is FALSE
 }
 write.table(matrix(data=c(as.numeric(jobID[1]),as.numeric(jobID[2]),j,q,nperiods,fin,itertime,
                           sum(coexist[fin,]),coexist[fin,],alpha,c,Rstar,tauI,
-                          gmean,tauIP,R0id,rho,R0mean,R0median,R0autocor, Bfin[fin,]),nrow=1),
+                          gmean,tauIP,R0id,rho,R0mean,R0median,R0autocor, Bfin[fin,],slopes,pcGrowth),nrow=1),
             file=paste0(SummOut_loc,"/SummaryOut",suffix),
             col.names = col.names.SummaryOut, row.names = FALSE,
             append=TRUE,sep="\t", quote=FALSE)
