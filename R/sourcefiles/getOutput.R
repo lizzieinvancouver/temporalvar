@@ -40,6 +40,7 @@ if (yout <= nonsta[1]) {
 #calculate gmean, tauIP, and R0 calcs for each time period
 #add calc for slope over last 100 yrs and per capita growth for segment (exclude first 10y)
 slopes <- rep(NA,nsp)
+pcGrowth <- rep(NA,nsp)
 for (q in c(1:length(nst))) {
   ini <- ifelse(q==1, 1, nst[q-1] + 1)  # starting year for this period
   fin <- nst[q]                         # ending year for this period (or yout, if extinct before end of period)
@@ -50,10 +51,14 @@ for (q in c(1:length(nst))) {
   R0median <- median(R0[ini:fin])
   R0autocor <- cor(R0[ini:(fin-1)],R0[(ini+1):fin])
   for (s in c(1:nsp)) {
-    lms <- lm(Bfin[(fin-100):fin,s]~c((fin-100):fin))
+    if ((ini+10) < fin) {
+      lms <- lm(Bfin[(ini+10):fin,s]~c((ini+10):fin))
+    } else { 
+      lms <- lm(Bfin[ini:fin,s]~c(ini:fin))
+    }
     slopes[s] <- lms$coefficients[2]
   }
-  pcGrowth <- colMeans(log(Bfin[(ini+10):fin,]/Bfin[(ini+9):(fin-1),]), na.rm=TRUE)
+  if ((ini+10) < fin) pcGrowth <- colMeans(log(Bfin[(ini+10):fin,]/Bfin[(ini+9):(fin-1),]), na.rm=TRUE)
 if (!((j==1)&&(q==1))) col.names.SummaryOut <- FALSE  #if run>1 or second period, col.names is FALSE
 }
 write.table(matrix(data=c(as.numeric(jobID[1]),as.numeric(jobID[2]),j,q,nperiods,fin,itertime,
