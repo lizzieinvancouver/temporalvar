@@ -25,6 +25,8 @@ source("sourcefiles/analyses/multiplot.R") # used in plot.params
 source("sourcefiles/analyses/runanalysisfxs.R")
 
 # cheap loop over the files for now
+runz2 <- c("62025212", "62025233", "62025263", "62025274")
+
 runz <- c("51803287", "51803320", "51803342",  "51803375",
     "51893537", "51893598", "51893656", "51893711", 
     "51995069", "51995121", "51995125", "51995137",
@@ -52,20 +54,22 @@ runz <- c("51803287", "51803320", "51803342",  "51803375",
 #########################################
 ## Do some data reading and formatting ##
 #########################################
-runnow <- runz
+runnow <- runz2
 
 ## Setup for pasting runs together into one df (not sure we permanently want this but I want it now)
-folderID <- runnow[1] 
-samplerun <-  read.table(paste("output/SummaryFiles/", folderID, "/SummaryOut_", folderID,
-    "-1.txt", sep=""), header=TRUE)
+folderID <- runnow[1]
+# ALERT, changing comment char here!
+samplerun <-  read.table(paste("output/SummaryFiles/",folderID,"/SummaryOut_", folderID,
+    "-1.txt", sep=""), comment.char = "", header=TRUE)
 df.all <- data.frame(matrix(ncol=length(colnames(samplerun)), nrow=0))
 colnames(df.all) <- colnames(samplerun)
 
 for(folderIDhere in c(1:length(runnow))){
     
 folderID <- runnow[folderIDhere] # folderID <- 41801534
+# ALERT, changing comment char here! AND IT IS CHANGED IN getfiles f(x)
 samplerun <-  read.table(paste("output/SummaryFiles/", folderID, "/SummaryOut_", folderID,
-    "-1.txt", sep=""), header=TRUE)
+    "-1.txt", sep=""),  comment.char = "", header=TRUE)
 # filenamestart <- c(paste("SummaryOut_", folderID, "-", sep=""))
 file.names <- dir(paste("output/SummaryFiles/", folderID, sep=""), pattern =".txt")
 colnameshere <- colnames(samplerun)

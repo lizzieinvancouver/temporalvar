@@ -9,7 +9,7 @@ getfiles <- function(folderID, file.names, colnameshere){
     # numhere <- as.numeric(gsub("^[^-]*-([^.]+).*", "\\1", file.names))
     filepack <- lapply(file.names, function(file.names) {
     filename <- paste("output/SummaryFiles/", folderID, "/", file.names, sep="")
-    dat <- read.table(filename, skip=1)
+    dat <- read.table(filename, skip=1, comment.char = "")
     names(dat) <- colnameshere
     return(data.frame(dat))
     })
