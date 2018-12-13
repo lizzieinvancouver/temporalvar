@@ -22,7 +22,7 @@ col.names.SummaryOut<-c("jobID","taskID","runID","period","nperiods","yout","ite
                         paste0(c("wet","dry"),rep("ID",2)),
                         "rho","R0_mean","R0_median","R0_autocor",
                         paste0(rep("Bfin",nsp),c(1:nsp)),
-                        paste0(rep("slopeBfin_100",nsp),c(1:nsp)),
+                        paste0(rep("slopeBfin",nsp),c(1:nsp)),
                         paste0(rep("avgPCgrowth",nsp),c(1:nsp)))
 
 #Calculate summary stats for output at nyrs or yout, if species went extinct
