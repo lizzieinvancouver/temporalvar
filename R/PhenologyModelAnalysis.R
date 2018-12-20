@@ -24,8 +24,10 @@ setwd("~/Documents/git/projects/temporalvar/R")
 source("sourcefiles/analyses/multiplot.R") # used in plot.params
 source("sourcefiles/analyses/runanalysisfxs.R")
 
+runshaveheader <- TRUE
+
 # cheap loop over the files for now
-runz2 <- c("62025212", "62025233", "62025263", "62025274")
+runz2 <- c("62025212", "62025233", "62025263", "62025274") # no header row
 
 runz <- c("51803287", "51803320", "51803342",  "51803375",
     "51893537", "51893598", "51893656", "51893711", 
@@ -54,27 +56,35 @@ runz <- c("51803287", "51803320", "51803342",  "51803375",
 #########################################
 ## Do some data reading and formatting ##
 #########################################
-runnow <- runz2
+runnow <- runz
 
 ## Setup for pasting runs together into one df (not sure we permanently want this but I want it now)
 folderID <- runnow[1]
-# ALERT, changing comment char here!
 samplerun <-  read.table(paste("output/SummaryFiles/",folderID,"/SummaryOut_", folderID,
-    "-1.txt", sep=""), comment.char = "", header=TRUE)
+    "-1.txt", sep=""), header=TRUE) # comment.char = "", 
 df.all <- data.frame(matrix(ncol=length(colnames(samplerun)), nrow=0))
 colnames(df.all) <- colnames(samplerun)
 
 for(folderIDhere in c(1:length(runnow))){
     
 folderID <- runnow[folderIDhere] # folderID <- 41801534
-# ALERT, changing comment char here! AND IT IS CHANGED IN getfiles f(x)
-samplerun <-  read.table(paste("output/SummaryFiles/", folderID, "/SummaryOut_", folderID,
-    "-1.txt", sep=""),  comment.char = "", header=TRUE)
-# filenamestart <- c(paste("SummaryOut_", folderID, "-", sep=""))
-file.names <- dir(paste("output/SummaryFiles/", folderID, sep=""), pattern =".txt")
-colnameshere <- colnames(samplerun)
-runs1 <- getfiles(folderID, file.names, colnameshere)
-runs1$taskrunID <- paste(runs1$taskID, runs1$runID, sep="-")
+if(runshaveheader){
+    # Do we need the first line here?
+    samplerun <-  read.table(paste("output/SummaryFiles/", folderID, "/SummaryOut_", folderID,
+        "-1.txt", sep=""),  header=TRUE)
+    file.names <- dir(paste("output/SummaryFiles/", folderID, sep=""), pattern =".txt")
+    colnameshere <- colnames(samplerun)
+    runs1 <- getfiles(folderID, file.names, colnameshere)
+    runs1$taskrunID <- paste(runs1$taskID, runs1$runID, sep="-")
+}
+
+if(!runshaveheader){
+    file.names <- dir(paste("output/SummaryFiles/", folderID, sep=""), pattern =".txt")
+    colnameshere <- colnames(samplerun)
+    runs1 <- getfiles(folderID, file.names, colnameshere)
+    runs1$taskrunID <- paste(runs1$taskID, runs1$runID, sep="-")
+}
+ 
  
 ##
 ## Data formatting to compare species pairs
@@ -137,6 +147,10 @@ df.all.long <- df.all.t2.wp[which(df.all.t2.wp$taskrunID %in% unique(df.all.coex
 df.all.long.exist <- subset(df.all.long, coexist1==1 | coexist2==1)
 df.all.long.noexist <- subset(df.all.long, coexist1==0 | coexist2==0)
 }
+
+stop()
+
+
 
 ##
 ## Check that when tauI=tauP that species wins ... 
