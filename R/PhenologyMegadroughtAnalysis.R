@@ -24,7 +24,10 @@ source("sourcefiles/analyses/runanalysisfxsmega.R")
 runshaveheader <- TRUE
 
 # cheap loop over the files for now
-runz <- c("58137170", "58137225", "58137269", "58378327") # not the complete list
+runz <- c("58137170", "58137225", "58137269", "58378327", "58378360", "58378361",
+    "58551618", "58551687") # not the complete list
+# "58551741", "58582169", "58582192" "58582223", has issues with some files having header rows and others NOT having header rows
+# not sure why 54203568 - 58132039 have only 1-2 runs each ... 
 
 
 #########################################
