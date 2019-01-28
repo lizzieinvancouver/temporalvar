@@ -203,7 +203,7 @@ Megan's notes from 27 January 2015, are now below the end of document. Following
 \newpage
 \section{Current plans for products}
 \subsection{Phenology \& climate change paper}\label{phenCCpaper}
-See also \ref{trackingthoughts} and \ref{genoutline}, both below.\\
+See also \ref{genoutline}.\\
 
 *Many notes are now in phencc.tex. {\bf I just left notes (below) that are NOT part of our current approach.}
 
@@ -489,8 +489,6 @@ These are a little sloppy in that the pulse is supposed to be separate from the 
   season.
 \end{enumerate}
 
-\subsection{Simplifying within-year dynamics thoughts}
-Can we simplify within-year dynamics to focus on a better model for timing (see photo of October 2013 whiteboard that Megan has)? To rephrase this: Our internal equation is basically R* rankings, so could we create a `deterministic look up table' for the within-year dynamics so we can think more carefully about the timing part of this.  (Related note from 2012 meeting: Decide if we need to ODE solve the intra-annual dynamics, then use the discretized version only inter-annually. Note from Lizzie: best ODE solver is now in package `desolve.')
 
 \section{Coexistence with climate change: Notes related to implementing and writing}\label{genoutline}
 
@@ -591,37 +589,6 @@ Note that increased extreme events for \(\epsilon\)  will effectively reduce bio
 
 {\bf Frost note here!} While here, though, I will mention that we discussed \emph{which} correlations will shift with climate change and the big one seems to be the North American alpine story: where the relationship between how \(\tau_{p}\) affects mortality has shifted with species' \(\tau_{i}\) such that there is now higher mortality imposed on species with earlier \(\tau_{i}\). We did briefly discuss how to model this and think maybe the best way is to add in, external to the within-year integral, a fraction that germinated and died as a f(x) of \(\tau_{i}\)  and frost event time.\\
 
-\section{Tracking thoughts \& fun}\label{trackingthoughts}
-In August 2012 Megan came up with a new way to model phenological tracking, it's linear and better than the one presented here. We also discussed three key ways to think of tracking:
-\begin{enumerate}
-\item Species can have fixed flowering/leafing (not track).
-\item Species can phenologically track pulse.
-\item Species can phenologically track something at least at one time in history correlated with the pulse.
-\end{enumerate}
-We agreed that while (3) is interesting---would allow you to look at mismatch ideas etc.---(1) and (2) have more biological support for plants and are interesting enough in and of themselves, so we will focus on and model (1) and (2) and not (3).\\
-
-\noindent In August 2013 an issue we worried about: Will tracker always win? Answers: No, not if it's a poor competitor, that is, if it responds quickly to resource pulse but then does poorly at low resource levels. I also think it's important to remember that not all tracking species will track perfectly so some species should grow before trackers some years, when their fixed \(\tau_{i}\) corresponds well to \(\tau_{p}\). Also, we have a note that high intraspecific competition could dampen trackers, especially when greater than interspecific competition.\\
-
-\noindent This tracking angle matches to the `Generalists, specialists and plasticity' section of \citet{Chesson:2004eo}. You could imagine by removing the benefit of trade-offs associated with not being plastic, then nonstationarity could favour generalists (plastic species, that is). Here's the most relevant bit (according to Lizzie):
-\begin{quote}
-However, plasticity, or any generalist resource consumption
-behaviors, including those involving drought resistance,
-may come at a cost .... In such circumstances, there is no
-contradiction that a generalist can coexist with specialists
-so long as the specialists are in fact superior performers
-during the times or conditions that favor them, and there 
-are some times when no specialists are favored so that the
-generalist is then superior.
-\end{quote}
-
-As of August 2015 we decided {\bf against doing tracking with joint distributions} (see notes above\ref{phenCCpaper}), but here are the old notes on it:
-\begin{quote}
-Next up, I need to work on how to make joint distributions in R (all different types, not just multivariate normal ones) so we can link \(\alpha_{i}\) with \(c_{i}\). For this I need to look into copulas and the R package \verb@copula@. See also these pages:\\
-\url{http://www.r-bloggers.com/copulas-made-easy/}\\
-\url{https://sites.google.com/a/wisc.edu/jed-frees/multivariate-regression-using-copulas}
-\end{quote}
-
-Without tracking we may predict benefits to early-colonizers decline with earlier seasons. As start-date moves earlier, early folks lose benefit (assuming they tend to often go at optimum time) and you get more late folks. Late species may be less different than one another---and less responsive to environment. Early folks, effectively, become more similar to environment. 
 
 \section{Storage effect notes}
 
@@ -741,11 +708,37 @@ covar(E,C) \approx covar\left(R_{i}, \sum_{i=1}^{n}B_{i}\right)
 
 \end{document}
 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Notes that don't seem relevant as of Jan 2019 progress %%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 
+\subsection{Simplifying within-year dynamics thoughts}
+Can we simplify within-year dynamics to focus on a better model for timing (see photo of October 2013 whiteboard that Megan has)? To rephrase this: Our internal equation is basically R* rankings, so could we create a `deterministic look up table' for the within-year dynamics so we can think more carefully about the timing part of this.  (Related note from 2012 meeting: Decide if we need to ODE solve the intra-annual dynamics, then use the discretized version only inter-annually. Note from Lizzie: best ODE solver is now in package `desolve.')
+
+\section{Tracking thoughts \& fun}\label{trackingthoughts}
+In August 2012 Megan came up with a new way to model phenological tracking, it's linear and better than the one presented here. We also discussed three key ways to think of tracking:
+\begin{enumerate}
+\item Species can have fixed flowering/leafing (not track).
+\item Species can phenologically track pulse.
+\item Species can phenologically track something at least at one time in history correlated with the pulse.
+\end{enumerate}
+We agreed that while (3) is interesting---would allow you to look at mismatch ideas etc.---(1) and (2) have more biological support for plants and are interesting enough in and of themselves, so we will focus on and model (1) and (2) and not (3).\\
+
+\noindent In August 2013 an issue we worried about: Will tracker always win? Answers: No, not if it's a poor competitor, that is, if it responds quickly to resource pulse but then does poorly at low resource levels. I also think it's important to remember that not all tracking species will track perfectly so some species should grow before trackers some years, when their fixed \(\tau_{i}\) corresponds well to \(\tau_{p}\). Also, we have a note that high intraspecific competition could dampen trackers, especially when greater than interspecific competition.\\
+
+
+As of August 2015 we decided {\bf against doing tracking with joint distributions} (see notes above\ref{phenCCpaper}), but here are the old notes on it:
+\begin{quote}
+Next up, I need to work on how to make joint distributions in R (all different types, not just multivariate normal ones) so we can link \(\alpha_{i}\) with \(c_{i}\). For this I need to look into copulas and the R package \verb@copula@. See also these pages:\\
+\url{http://www.r-bloggers.com/copulas-made-easy/}\\
+\url{https://sites.google.com/a/wisc.edu/jed-frees/multivariate-regression-using-copulas}
+\end{quote}
+
+% End Tracking thoughts \& fun
 
 %%%%%%%%%%%%
-%% Old notes %%
+%% Even older notes %%
 %%%%%%%%%%%%
 
 \section{Equations and related notes: January-February 2015}

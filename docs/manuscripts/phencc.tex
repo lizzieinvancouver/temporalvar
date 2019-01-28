@@ -84,20 +84,20 @@
 \parskip=5pt
 \pagenumbering{arabic}
 \pagestyle{plain}
+\setlength\parindent{0pt}
 
 \begin{document}
 \begin{flushright}
 Version dated: \today
 \end{flushright}
 \bigskip
-\noindent RH: Phenological tracking
+\noindent RH: Environmental tracking 
 % put in your own RH (running head)
-
 \bigskip
 \medskip
 \begin{center}
 % Insert your title:
-\noindent{\Large {\bf Phenological tracking in communities in stationary \& non-stationary environments}}\\
+\noindent{\Large {\bf How environmental tracking shapes communities in stationary \& non-stationary systems}}\\
 \bigskip
 \noindent {\normalsize
 Lizzie$^{1,2,3}$ \& Megan$^{4}$ }\\
@@ -113,14 +113,14 @@ $^4$ Hawaii Institute of Marine Biology}\\
 \newpage
 %\linenumbers
 
-\begin{abstract}
+% SEE ALSO: genoutline label in VarEnv_notes ... this reviews the three environmental variables. Decide how much of that we want to cover here... Maybe much of this could go in a box in the paper?
 
+\begin{abstract} \emph{Super dry, but better to have something ... I think.} Predicting community shifts with climate change requires fundamental appreciation of the mechanisms that govern how communities assemble. Much work to date has focused on how warmer mean temperatures may affect individual species via physiology, generally producing shifts in the species' ranges and phenology and documenting high variation in the magnitude of shifts across different species, which fails to predict the wide diversity of observed shifts. This has led to a growing appreciation that improved understanding will require understanding the direct and indirect consequences of these shifts for species and their communities. Here we review how temporal variability in the environment affects species persistence in stationary environments, extending theory to understand how a species' ability to track the environment may affect their long-term persistence in communities. We then discuss how non-stationary environments may fundamentally alter these conclusions with a focus on how climate change has altered the start of the growing season. Finally we review how the reality that change has and is expected to affect far more than mean temperatures, including widespread affects on growing season length, variability and shifts in extreme events may complicate simple predictions of winners and losers with climate change. 
 \end{abstract}
-
 \noindent \emph{Keywords:} phenology, climate change....\\
 
-\begin{abstract} \emph{Super dry, but better to have something ... I think.} Predicting community shifts with climate change requires fundamental appreciation of the mechanisms that govern how communities assemble. Much work to date has focused on how warmer mean temperatures may affect individual species via physiology, generally producing shifts in the species' ranges and phenology and documenting high variation in the magnitude of shifts across different species, which fails to predict the wide diversity of observed shifts. This has led to a growing appreciation that improved understanding will require understanding the direct and indirect consequences of these shifts for species and their communities. Here we review how temporal variability in the environment affects species persistence in stationary environments, extending theory to understand how a species ability to track the environment may affect their long-term persistence in communities. We then discuss how non-stationary environments may fundamentally alter these conclusions with a focus on how climate change has altered the start of the growing season. Finally we review how the reality that change has and is expected to affect far more than mean temperatures, including widespread affects on growing season length, variability and shifts in extreme events may complicate simple predictions of winners and losers with climate change. 
-\end{abstract}
+% Framing: 
+
 % Work examining how this variation may link to fitness consequences has found a positive relationship between how much a species shifts its phenology with warming with how much its fitness also changes alongside warming---such that species that shift more generally perform better with warming. 
 
 %% TO DO (in addition to notes from lab meeting)
@@ -129,10 +129,11 @@ $^4$ Hawaii Institute of Marine Biology}\\
 % (3) Get some snowpack data? 
 % (4) Understanding figures ... I think the tauI trade-off with R* come in early, before we introduce tracking ... can we help them make sense there?
 
-\section{Note from November 2018 meeting}
+\section{Notes from November 2018 meeting}
 \begin{itemize}
 \item Take home messages of paper:
 \begin{itemize}
+\item People think of tracking as a trump card but really it’s part of coexistence theory already, and can be outmatched by other species attributes, but with climate change, will it become more important?
 \item For coexistence of species tracking must trade off with something else, in a stationary environment 
 \item $\tau_i$ and $\alpha$ are both useful ways to deal with stochasticity in a stationary envrionment ... show via stationary co-existing runs of $\tau_i$  x R* and $\alpha$ x R*
 \item Stabilizing mechanisms, like a trade-off with tracking, do not survive (univariate) non-stationarity ... just equalizing mechanisms (and thus slow drift), instead trackers generally win  {\bf Latter point: How to show?}. 
@@ -148,35 +149,17 @@ $^4$ Hawaii Institute of Marine Biology}\\
 \item Where to submit? Maybe plan on ELE and do postulates etc..
 \end{itemize}
 
-\section{Note from meeting, lab meeting etc.}
+\section{Smaller to do items (less critical)} % Note from meeting, lab meeting etc
 \begin{itemize}
 \item Check out trade-off figures are intuitive (for example: the trade-off of tracking and R* is intuitively negative but it's positive because a lower R* is better and a higher $\alpha$ is better).
-\item what would happen if we increase variance (leave mean unchanged): trackers would win
 \item My current plot of three different season resource pulse is too correlated  (change if we decide to use it)
-\item Question: how important is tracking the environment vs pure resource competitive ability in determining coexistence? 
-\item What is the trade-off of tracking is that you’re too sensitive … tracking covaries with mortality. Is this where variability would be bad? 
-\item Framing: people think of tracking as a trump card but really it’s part of coexistence theory already, and can be outmatched by other species attributes, but with climate change, will it become more important?
-\end{itemize}
-
-\begin{itemize}
-\item Has climate change made tracking more advantageous? Or, how prevalent is tracking in a stationary versus nonstationary system? Basically, one hoped-for outcome (by Lizzie) is to show that with stationary climate tracking strategies and non-tracking strategies may coexist happily, but when you add nonstationarity the world shifts that tracking is so strongly favoured as to make non-tracking rare or to require a very huge trade-off etc.. So we have a bunch of related questions to this:
-\begin{itemize}
-\item How big do trade-offs have to be for tracking to be non-advantageous (to allow coexistence with other species)?
-\item Another angle, is tracking the dominant strategy with a shifting environment (distribution) vs. stationary environment distribution?
-\end{itemize}
 \end{itemize}
 
 \section{Outline}
 
-\noindent Possible titles: `Phenological tracking: It's more complicated than you think' (we hope) or `Phenological tracking: Is it naive?'
+\noindent Possible titles: `Environmental tracking: It's more complicated than you think' (we hope) or `Environmental tracking: Is it naive? Or, are we just naive?'
 
 So, there's a pretty basic structure to what we want to walk through:
-
-% START HERE! ... I am working on organizing the outline (cut, move etc.). Start on PAGE 16 of the notes PDF 
-
-% Stuff that belongs elsewhere in the outline.
-% \item Abiotic shifts expected with climate change: single versus synergistic climate shifts
-% \item Effects of climate change extend well beyond shifts in the mean
 
 \noindent Citation for earlier springs \href{https://link.springer.com/article/10.1007/s00382-016-3313-2}{`Identifying anomalously early spring onsets in the CESM large ensemble project'.}
 
@@ -188,10 +171,11 @@ So, there's a pretty basic structure to what we want to walk through:
 \item Direct effects of climate change are shifting species: especially in space and time
 \item But also many other effects of climate change, including possibly indirect effects -- e.g., shifts in performance, changes in community structure
 \end{enumerate}
-\item Phenology and species interactions
+\item Environmental tracking and species interactions
 \begin{enumerate}
-\item Phenology has been implicated in underlying many indirect effects
-\item The theory goes that as seasons get earlier, earlier species win out over later species (don't get into tracking yet)
+\item Environmental tracking has been implicated in underlying many indirect effects
+\item The theory goes that as seasons get earlier, earlier species win out over later species
+\item With climate change, species that can track environmental change best appear to perform well with change also ... 
 \item Lots of work on this....
 \item Yet no one to date has ever examined whether this hypothesis is supported through community coexistence theory and models
 \end{enumerate}
@@ -205,13 +189,13 @@ other species.
 \item Here we ....
 \begin{enumerate}
 \item Review how current coexistence theory handles variable environments and... 
-\item what predictions it makes for tracking in stationary environments
+\item What predictions it makes for tracking in stationary environments
 \item Extend current theory to non-stationary environments (similar to those due to climate change) to examine how changing environments alter predictons.
 \end{enumerate}
 \end{enumerate}
 \item The role of the environment in coexistence:
 \begin{enumerate}
-\item Models of community assembly in ecology build upon coexistence  via environmental variability. 
+\item Models of community assembly in ecology build upon coexistence  via environmental variability. % See genoutline label in other file
 \item Things that will shift with climate change, related to
   coexistence models
 \begin{enumerate}
@@ -316,6 +300,18 @@ percentage of species that track, and the min and max tracking.
 \end{enumerate}
 \end{enumerate}
 
+% START HERE:
+% 1) Blend in the below to the outline! 
+% 2) Clean up outline one more time.
+% 3) Then work on real data plots
+% 4) Then work on WRITING! Seriously.
+
+
+% Stuff that belongs elsewhere in the outline.
+% \item Abiotic shifts expected with climate change: single versus synergistic climate shifts
+% \item Effects of climate change extend well beyond shifts in the mean
+
+
 {\bf Outstanding questions}
 \begin{enumerate}
 \item What major traits does tracking trade-off with? Traits related to competition.... predator avoidence or tolerance ...
@@ -323,7 +319,30 @@ percentage of species that track, and the min and max tracking.
 \end{enumerate}
 
 
-\subsection{Semi-outline from May 2017} Naive assumption: Trackers will always win; but not always the case in a stationary or non-stationary world. 
+\begin{itemize}
+\item Has climate change made tracking more advantageous? Or, how prevalent is tracking in a stationary versus nonstationary system? Basically, one hoped-for outcome (by Lizzie) is to show that with stationary climate tracking strategies and non-tracking strategies may coexist happily, but when you add nonstationarity the world shifts that tracking is so strongly favoured as to make non-tracking rare or to require a very huge trade-off etc.. So we have a bunch of related questions to this:
+\begin{itemize}
+\item How big do trade-offs have to be for tracking to be non-advantageous (to allow coexistence with other species)?
+\item Another angle, is tracking the dominant strategy with a shifting environment (distribution) vs. stationary environment distribution?
+\end{itemize}
+
+\noindent This tracking angle matches to the `Generalists, specialists and plasticity' section of \citet{Chesson:2004eo}. You could imagine by removing the benefit of trade-offs associated with not being plastic, then nonstationarity could favour generalists (plastic species, that is). Here's the most relevant bit (according to Lizzie):
+\begin{quote}
+However, plasticity, or any generalist resource consumption
+behaviors, including those involving drought resistance,
+may come at a cost .... In such circumstances, there is no
+contradiction that a generalist can coexist with specialists
+so long as the specialists are in fact superior performers
+during the times or conditions that favor them, and there 
+are some times when no specialists are favored so that the
+generalist is then superior.
+\end{quote}
+
+
+Without tracking we may predict benefits to early-colonizers decline with earlier seasons. As start-date moves earlier, early folks lose benefit (assuming they tend to often go at optimum time) and you get more late folks. Late species may be less different than one another---and less responsive to environment. Early folks, effectively, become more similar to environment. 
+
+
+\subsection{Semi-outline to guide runs/plots from May 2017} Naive assumption: Trackers will always win; but not always the case in a stationary or non-stationary world. 
 
 \begin{enumerate} 
 \item In a stationary world (SW):
