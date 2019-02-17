@@ -1,5 +1,6 @@
 #Get run parameters; 
 runflag <- ifelse(localflag==1,1,as.numeric(Sys.getenv("PHEN_RUNNUM")))
+#runflag <- ifelse(localflag==1,101,as.numeric(Sys.getenv("PHEN_RUNNUM"))) use this for running megaD locally
 print(paste0("runflag is ", runflag))
 megaD <- ifelse(runflag>100,TRUE,FALSE)  #use PHEN_RUNNUM as a flag for megaD runs
 inputline <- ifelse(megaD==1,runflag - 100, runflag)
