@@ -4,7 +4,7 @@
 #  SpeciesParms_jobID.txt:  arrayID,runID,sppvars  is written in getSpecies.R
 #  EnvtParms_jobID.txt:  arrayID,runID,yr,R0,tauP,eps,tauI_1,tauI_2,...,g_1,g_2...,
 #                             is written in getSpecies.R
-#TWO files are written at the end of each run year:
+#TWO files are written to at the end of each run year:
 #  BfinN_jobID.txt:  arrayID,runID,yr,Bfin_1,Bfin_2...]
 #  SummaryOut_jobID.txt:  
 #BOUT file is written out every year, but there is a new file for each run
@@ -17,6 +17,8 @@ col.names.SummaryOut<-c("jobID","taskID","runID","period","nperiods","yout","ite
                         paste0(rep("c",nsp),c(1:nsp)),
                         paste0(rep("Rstar",nsp),c(1:nsp)),
                         paste0(rep("tauI",nsp),c(1:nsp)),
+                        paste0(rep("s",nsp),c(1:nsp)),
+                        paste0(rep("phi",nsp),c(1:nsp)),
                         paste0(rep("g",nsp),c(1:nsp),rep("mean",nsp)),
                         paste0(rep("tauIP",nsp),c(1:nsp),rep("_mean",nsp)),
                         paste0(c("wet","dry"),rep("ID",2)),
@@ -44,29 +46,30 @@ pcGrowth <- rep(NA,nsp)
 for (q in c(1:length(nst))) {
   ini <- ifelse(q==1, 1, nst[q-1] + 1)  # starting year for this period
   fin <- nst[q]                         # ending year for this period (or yout, if extinct before end of period)
+#  print(paste0("q = ",q,", ini = ", ini, ", fin = ", fin))
   gmean <- colMeans(gmax*exp(-h*(matrix(rep(tauP[ini:fin],nsp),nrow=(fin-ini+1),ncol=nsp)
                                      -tauIhat[ini:fin,])^2))  #germination fraction in year y
   tauIP <- colMeans(abs(tauP[ini:fin] - tauIhat[ini:fin,]))
   R0mean <- mean(R0[ini:fin])
   R0median <- median(R0[ini:fin])
   R0autocor <- cor(R0[ini:(fin-1)],R0[(ini+1):fin])
-  for (s in c(1:nsp)) {
+  for (sl in c(1:nsp)) {
     if ((ini+10) < fin) {
-      lms <- lm(Bfin[(ini+10):fin,s]~c((ini+10):fin))
+      lms <- lm(Bfin[(ini+10):fin,sl]~c((ini+10):fin))
     } else { 
-      lms <- lm(Bfin[ini:fin,s]~c(ini:fin))
+      lms <- lm(Bfin[ini:fin,sl]~c(ini:fin))
     }
-    slopes[s] <- lms$coefficients[2]
+    slopes[sl] <- lms$coefficients[2]
   }
   if ((ini+10) < fin) pcGrowth <- colMeans(log(Bfin[(ini+10):fin,]/Bfin[(ini+9):(fin-1),]), na.rm=TRUE)
-if (!((j==1)&&(q==1))) col.names.SummaryOut <- FALSE  #if run>1 or second period, col.names is FALSE
-}
-write.table(matrix(data=c(as.numeric(jobID[1]),as.numeric(jobID[2]),j,q,nperiods,fin,itertime,
-                          sum(coexist[fin,]),coexist[fin,],alpha,c,Rstar,tauI,
+  if (!((j==1)&&(q==1))) col.names.SummaryOut <- FALSE  #if run>1 or second period, col.names is FALSE
+  write.table(matrix(data=c(as.numeric(jobID[1]),as.numeric(jobID[2]),j,q,nperiods,fin,itertime,
+                          sum(coexist[fin,]),coexist[fin,],alpha,c,Rstar,tauI,s,phi,
                           gmean,tauIP,R0id,rho,R0mean,R0median,R0autocor, Bfin[fin,],slopes,pcGrowth),nrow=1),
             file=paste0(SummOut_loc,"/SummaryOut",suffix),
             col.names = col.names.SummaryOut, row.names = FALSE,
             append=TRUE,sep="\t", quote=FALSE)
+}
 
 #WRITE BOUT: this gives the within-year dynamics for every year; every run gets separate file
 # note that y is the counter for years in PhenologyModel.r loop
