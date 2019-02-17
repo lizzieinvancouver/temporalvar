@@ -21,7 +21,7 @@ if (megaD==1) {
 eps <- 1              # evaporative stress 
 
 #nonstationary tauP includes nonstationary period of length nonsta[1] and stationary "final" period of length nonsta[2]
-if (sum(nonsta[2:3] && megaD == 0) > 0) {
+if ((sum(nonsta[2:3])>0) && (megaD == 0)) {
   pfin <- 5
   qfin <- 15   #we should think about what is the appropriate value for qfin??
   pns <- seq(p, pfin, length.out=nonsta[2])
@@ -30,6 +30,12 @@ if (sum(nonsta[2:3] && megaD == 0) > 0) {
   tauPfin <- rbeta(nonsta[3],pfin, qfin) #get tau during period after nonstationarity when q = qfin
   tauP <- c(tauP, tauPns,tauPfin)
   #plot(tauP~c(1:nyrs))
+  if (R0ns_flag>0){
+    mu_R0ns <- seq(mu, R0ns_flag*mu,length.out=nonsta[2]) #linear decline in mean from mu to mu*R0ns_flag
+    R0ns <- rlnorm(nonsta[2],mu_R0ns,sigma)
+    R0fin <- rlnorm(nonsta[3],R0ns_flag*mu,sigma)
+    R0 <- c(R0[1:nonsta[1]], R0ns,R0fin)
+  }
 }
 
 envtvars <- as.data.frame(cbind(R0,tauP, eps))
