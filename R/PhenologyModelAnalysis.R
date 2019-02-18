@@ -413,12 +413,24 @@ plot.paramdiffs.twopanel(taualpha.runs.df, "taualpha.runs", "_alpha.tauIP.t1t2",
 plot.paramdiffs.twopanel.fixedxy(taualpha.runs.df, "taualpha.runs", "_alpha.tauIP.t1t2",
     "ratio.alpha", "ratio.tauIP.t1t2", cexhere, pchhere, c(0,3), c(-20,20),
     "sp1 wins", "bottomright", "sp2 wins", "topleft")
+plot.paramdiffs.twopanel(taualpha.runs.df, "taualpha.runs", "_tauIP.t1.g.t1.",
+    "ratio.tauIP.t1t2", "ratio.g.t1", cexhere, pchhere, "sp1 wins", "bottomright",
+    "sp2 wins", "topleft")
+plot.paramdiffs.twopanel(taualpha.runs.df, "taualpha.runs", "_tauIP.t1.g.t2.",
+    "ratio.tauIP.t1t2", "ratio.g.t2", cexhere, pchhere, "sp1 wins", "bottomright",
+    "sp2 wins", "topleft")
+plot.paramdiffs.twopanel.fixedxy(taualpha.runs.df, "taualpha.runs", "_tauIP.t1.g.t1.",
+    "ratio.tauIP.t1t2", "ratio.g.t1", cexhere, pchhere, c(-20,20), c(0,5),
+    "sp1 wins", "bottomright", "sp2 wins", "topleft")
+plot.paramdiffs.twopanel.fixedxy(taualpha.runs.df, "taualpha.runs", "_tauIP.t1.g.t2.",
+    "ratio.tauIP.t1t2", "ratio.g.t2", cexhere, pchhere, c(-20,20), c(0,5),
+    "sp1 wins", "bottomright", "sp2 wins", "topleft")
 plot.paramdiffs.twopanel(taualpha.runs.df, "taualpha.runs", "_alpha.g.t1.",
     "ratio.alpha", "ratio.g.t1", cexhere, pchhere, "sp1 wins", "bottomright",
     "sp2 wins", "topleft")
-plot.paramdiffs.twopanel.fixedxy(taualpha.runs.df, "taualpha.runs", "_alpha.g.t2.",
-    "ratio.alpha", "ratio.g.t2", cexhere, pchhere, c(0,3), c(-2,4),
-    "sp1 wins", "bottomright", "sp2 wins", "topleft")
+plot.paramdiffs.twopanel(taualpha.runs.df, "taualpha.runs", "_alpha.g.t2.",
+    "ratio.alpha", "ratio.g.t2", cexhere, pchhere, "sp1 wins", "bottomright",
+    "sp2 wins", "topleft")
 
 
 

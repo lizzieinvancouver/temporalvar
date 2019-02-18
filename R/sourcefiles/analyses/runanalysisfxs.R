@@ -26,6 +26,7 @@ makediffs <- function(df){
     dathere$diff.tauIP <- dathere$tauIP1_mean-dathere$tauIP2_mean
     dathere$diff.alpha <-dathere$alpha1-dathere$alpha2
     dathere$diff.bfinslopes <- dathere$slopeBfin1-dathere$slopeBfin2
+    dathere$diff.g <- dathere$g1mean-dathere$g2mean
     dathere$ratio.c <-  dathere$c1/dathere$c2
     dathere$ratio.rstar <-  dathere$Rstar1/dathere$Rstar2
     dathere$ratio.tauI <-  dathere$tauI1/dathere$tauI2
