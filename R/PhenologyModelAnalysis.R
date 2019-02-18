@@ -27,7 +27,9 @@ source("sourcefiles/analyses/runanalysisfxs.R")
 runshaveheader <- TRUE
 
 # cheap loop over the files for now
-runz2 <- c("62025212", "62025233", "62025263", "62025274") # no header row
+runz2 <- c("858179", "858221", "858241", "858262") # "858282" R0 varies
+
+# c("62025212", "62025233", "62025263", "62025274") # no header row
 
 runz <- c("51803287", "51803320", "51803342",  "51803375",
     "51893537", "51893598", "51893656", "51893711", 
@@ -56,7 +58,7 @@ runz <- c("51803287", "51803320", "51803342",  "51803375",
 #########################################
 ## Do some data reading and formatting ##
 #########################################
-runnow <- runz
+runnow <- runz2
 
 ## Setup for pasting runs together into one df (not sure we permanently want this but I want it now)
 folderID <- runnow[1]
@@ -94,6 +96,7 @@ df <- calcbesttauI(df)
 df <- calcsp.besttauI(df)
 df <- calcsp.bestrstar(df)
 df <- calcsp.bestalpha(df)
+df <- calcsp.biggerslopeBfin(df)
 df.coexist <- subset(df, ncoexist==2)
 print(paste("the current folder ID is", folderID, "the total rows are:", nrow(df), 
     "and the total coexisting rows are:", nrow(df.coexist), sep=" "))
@@ -155,7 +158,8 @@ stop()
 ##
 ## Check that when tauI=tauP that species wins ... 
 ##
-tauRstar.check <-  df.all[which(df.all$jobID %in% runz[c(3,7,11,14)]),] # tauI and Rstar tradeoff runs
+# tauRstar.check <-  df.all[which(df.all$jobID %in% runz[c(3,7,11,14)]),]
+tauRstar.check <-  df.all[which(df.all$jobID %in% runz2[c(3)]),] # tauI and Rstar tradeoff runs
 check.sp1 <- subset(tauRstar.check, tauIP1_mean<0.1)
 sum(check.sp1$coexist1) # 2776
 sum(check.sp1$coexist2) # 657
@@ -173,11 +177,17 @@ hist(check.sp1$ratio.rstar)
 ##
 
 # See above when I set up runz for where I outline what numbers to pull for each!
+if(FALSE){
 tauRstar.runs <- runz[c(3,7,11,14)] # NOT varying tracking: tauI and Rstar tradeoff
 alphaRstar.runs <- runz[c(2,6,10,13)] # NOT varying tauI: tracking and Rstar tradeoff
 taualpha.runs <- runz[c(4,8,12,15)] # keeps R* the same across species pairs
 taualphaRstar.runs <- runz[c(1,5,9)] # varying everything (tauI, alpha, Rstar)
+}
 
+tauRstar.runs <- runz2[c(3)] # NOT varying tracking: tauI and Rstar tradeoff
+alphaRstar.runs <- runz2[c(2)] # NOT varying tauI: tracking and Rstar tradeoff
+taualpha.runs <- runz2[c(4)] # keeps R* the same across species pairs
+taualphaRstar.runs <- runz2[c(1)] # varying everything (tauI, alpha, Rstar)
 
 ## Grab just the stationary period
 df.all.stat <- subset(df.all, period==1)
@@ -206,11 +216,12 @@ sum(taualpha.runs.df$diff.Rstar) # must equal zero!
 # varying everything (tauI, alpha, Rstar)
 taualphaRstar.runs.df <- df.all.plot[which(df.all.plot$jobID %in% taualphaRstar.runs),]
 
+if(FALSE){ # why do I have this here again? 
 tauRstar.runs <- runz[c(3,7,11,14)] # NOT varying tracking: tauI and Rstar tradeoff
 alphaRstar.runs <- runz[c(2,6,10,13)] # NOT varying tauI: tracking and Rstar tradeoff
 taualpha.runs <- runz[c(4,8,12,15)] # keeps R* the same across species pairs
 taualphaRstar.runs <- runz[c(1,5,9)] # varying everything (tauI, alpha, Rstar)
-
+}
 
 ## Do some counts
 # How many species left after non-stat? First: (# spp left at end of non-stat)/(# of spp left at end of stat)
@@ -243,6 +254,14 @@ varhistcol <- add.alpha(c("yellow", "firebrick"), alpha=0.8)
 leg.txt <- c("poof", "1 left", "2 survive")
 cexhere=0.6
 pchhere=16
+
+# For the bfinslope plots
+library(RColorBrewer)
+cols = brewer.pal(4, "RdBu")
+# Define colour pallete
+pal = colorRampPalette(c("blue", "red"))
+# Use the following line with RColorBrewer
+colpalettehere = colorRampPalette(cols)
 
 ### histograms old code, remove?
 if(FALSE){
@@ -343,11 +362,15 @@ plot.paramdiffs.twopanel(tauRstar.runs.df, "tauRstar.runs", "_tauIP.t1.rstar", "
     "ratio.rstar", cexhere, pchhere,  "sp1 wins", "bottomleft", "sp2 wins", "topright")
 plot.paramdiffs.twopanel(tauRstar.runs.df, "tauRstar.runs", "_tauI.rstar", "ratio.tauI",
     "ratio.rstar", cexhere, pchhere,  "sp1 wins", "bottomleft", "sp2 wins", "topright")
+plot.paramdiffs.manypanel.bfin(tauRstar.runs.df, "tauRstar.runs", "_tauI.rstar", "ratio.tauI",
+    "ratio.rstar", cexhere, pchhere,  "sp1 wins", "bottomleft", "sp2 wins", "topright", colpalettehere)
 
 plot.paramdiffs.onepanel(alphaRstar.runs.df, "alphaRstar.runs", "_alpha.rstar", "ratio.alpha",
     "ratio.rstar", cexhere, pchhere, "sp1 wins", "bottomright", "sp2 wins", "topleft")
 plot.paramdiffs.twopanel(alphaRstar.runs.df, "alphaRstar.runs", "_alpha.rstar", "ratio.alpha",
     "ratio.rstar", cexhere, pchhere, "sp1 wins", "bottomright", "sp2 wins", "topleft")
+plot.paramdiffs.manypanel.bfin(alphaRstar.runs.df, "alphaRstar.runs", "_alpha.rstar", "ratio.alpha",
+    "ratio.rstar", cexhere, pchhere, "sp1 wins", "bottomright", "sp2 wins", "topleft", colpalettehere)
 
 plot.paramdiffs.onepanel(taualpha.runs.df, "taualpha.runs", "_alpha.tauIP.t1.",
     "ratio.alpha", "ratio.tauIP.t1", cexhere, pchhere, "sp1 wins", "bottomright", "sp2 wins", "topleft")
@@ -365,6 +388,9 @@ plot.paramdiffs.twopanel.fixedxy(taualpha.runs.df, "taualpha.runs", "_alpha.tauI
 plot.paramdiffs.twopanel.fixedxy(taualpha.runs.df, "taualpha.runs", "_alpha.tauIP",
     "ratio.alpha", "ratio.tauIP.t2", cexhere, pchhere, c(0,3), c(0,5),
     "sp1 wins", "bottomright", "sp2 wins", "topleft")
+plot.paramdiffs.manypanel.bfin(taualpha.runs.df, "taualpha.runs", "_alpha.tauI",
+    "ratio.alpha", "ratio.tauI", cexhere, pchhere, "sp1 wins", "bottomright", "sp2 wins", "topleft",
+    colpalettehere)
 
 # Three things vary
 plot.paramdiffs.onepanel(taualphaRstar.runs.df, "taualphaRstar.runs", "_tauIP.rstar",
@@ -381,6 +407,7 @@ plot.paramdiffs.twopanel(taualphaRstar.runs.df, "taualphaRstar.runs", "_alpha.rs
     "ratio.alpha", "ratio.rstar", cexhere, pchhere, "sp1 wins", "bottomright", "sp2 wins", "topleft")
 plot.paramdiffs.twopanel(taualphaRstar.runs.df, "taualphaRstar.runs", "_alpha.tauIP",
     "ratio.alpha", "ratio.tauIP.t2", cexhere, pchhere, "sp1 wins", "bottomright", "sp2 wins", "topleft")
+
 
 # compare these to their equivalents 
 plot.paramdiffs.fixedxy(taualphaRstar.runs.df, "taualphaRstar.runs", "_tauIP.rstar",
