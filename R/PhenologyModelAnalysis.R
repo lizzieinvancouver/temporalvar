@@ -124,11 +124,13 @@ df.t2 <- subset(df.t2, select=c("jobID", "taskID", "runID", "ncoexist", "taskrun
 df.plot <- merge(df.coexist1, df.t2, by=c("jobID", "taskID", "runID", "taskrunID"),
     all.x=TRUE, all.y=FALSE, suffixes=c(".t1", ".t2"))
 
-# do again for df.all  
+# do again for df.all
+# The things that vary by stat/non-stat: R0 (R0_mean, R0_median, R0_autocor), R, tauP, tauIP, Bfin (and related), the gmeans
 df.all.coexist1 <- subset(df.all, ncoexist==2 & period==1)
 df.all.t2 <- subset(df.all, period==2)
 df.all.t2 <- subset(df.all.t2, select=c("jobID", "taskID", "runID", "ncoexist",
-    "coexist1", "coexist2", "taskrunID", "ratio.tauIP"))
+    "coexist1", "coexist2", "taskrunID", "ratio.tauIP", "diff.bfinslopes", "slopeBfin1",
+    "slopeBfin2", "minslopeBfin"))
 df.all.plot <- merge(df.all.coexist1, df.all.t2, by=c("jobID", "taskID", "runID", "taskrunID"),
     all.x=TRUE, all.y=FALSE, suffixes=c(".t1", ".t2"))
 
@@ -151,7 +153,6 @@ df.all.long.exist <- subset(df.all.long, coexist1==1 | coexist2==1)
 df.all.long.noexist <- subset(df.all.long, coexist1==0 | coexist2==0)
 }
 
-stop()
 
 
 
