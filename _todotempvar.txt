@@ -34,6 +34,19 @@ More!
 888607
 888608
 
+Next batch of runs (5 types)
+933059
+933107
+933156
+933215
+933272
+
+933566
+933600
+933630
+933682
+933723
+
 Downloaded another set of megaD runs:
 858363 - low tauI
 858372 - mod tauI
