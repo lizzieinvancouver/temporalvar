@@ -21,6 +21,19 @@ Downloaded: New set of runs! 5 cases:
 858262 - tradeoff tracking and tauI with R* equal
 858282 - tradeoff R* and tracking with declining R0
 
+More!
+888288
+888338
+888369
+888380
+888430
+
+888600
+888602
+888605
+888607
+888608
+
 Downloaded another set of megaD runs:
 858363 - low tauI
 858372 - mod tauI
@@ -29,6 +42,10 @@ other set ...
 855723
 855748
 855753
+Next batch of megaD runs
+888547
+888549
+888556
 Note: for simulations where R0 declines during the ns period.  It will decline from mu to mu*R0ns where nsR0 is the value of the nsR0 flag in getInputParms.txt.  The third (stationary) period, if it exists, takes the final value of R0
 
 

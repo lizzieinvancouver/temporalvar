@@ -27,14 +27,17 @@ source("sourcefiles/analyses/runanalysisfxs.R")
 runshaveheader <- TRUE
 
 # cheap loop over the files for now
-runz2 <- c("858179", "858221", "858241", "858262") # "858282" R0 varies
+runz <- c("858179", "858221", "858241", "858262", "858282",
+          "888288", "888338", "888369", "888380", "888430",
+          "888600", "888602", "888605", "888607", "888608")
 
+if(FALSE){
 # c("62025212", "62025233", "62025263", "62025274") # no header row
-
 runz <- c("51803287", "51803320", "51803342",  "51803375",
     "51893537", "51893598", "51893656", "51893711", 
     "51995069", "51995121", "51995125", "51995137",
     "52031904", "52031950", "52031996") # missing 52031833 which should vary everything
+    }
 
 # Remember to update below under plotting-related formatting ... 
 # 1, 5, 9 are varying everything
@@ -58,7 +61,7 @@ runz <- c("51803287", "51803320", "51803342",  "51803375",
 #########################################
 ## Do some data reading and formatting ##
 #########################################
-runnow <- runz2
+runnow <- runz
 
 ## Setup for pasting runs together into one df (not sure we permanently want this but I want it now)
 folderID <- runnow[1]
@@ -161,7 +164,7 @@ df.all.long.noexist <- subset(df.all.long, coexist1==0 | coexist2==0)
 ## Check that when tauI=tauP that species wins ... 
 ##
 # tauRstar.check <-  df.all[which(df.all$jobID %in% runz[c(3,7,11,14)]),]
-tauRstar.check <-  df.all[which(df.all$jobID %in% runz2[c(3)]),] # tauI and Rstar tradeoff runs
+tauRstar.check <-  df.all[which(df.all$jobID %in% runz[c(3)]),] # tauI and Rstar tradeoff runs
 check.sp1 <- subset(tauRstar.check, tauIP1_mean<0.1)
 sum(check.sp1$coexist1) # 2776
 sum(check.sp1$coexist2) # 657
@@ -186,10 +189,11 @@ taualpha.runs <- runz[c(4,8,12,15)] # keeps R* the same across species pairs
 taualphaRstar.runs <- runz[c(1,5,9)] # varying everything (tauI, alpha, Rstar)
 }
 
-tauRstar.runs <- runz2[c(3)] # NOT varying tracking: tauI and Rstar tradeoff
-alphaRstar.runs <- runz2[c(2)] # NOT varying tauI: tracking and Rstar tradeoff
-taualpha.runs <- runz2[c(4)] # keeps R* the same across species pairs
-taualphaRstar.runs <- runz2[c(1)] # varying everything (tauI, alpha, Rstar)
+tauRstar.runs <- runz[c(3, 8, 13)] # NOT varying tracking: tauI and Rstar tradeoff
+alphaRstar.runs <- runz[c(2, 7, 12)] # NOT varying tauI: tracking and Rstar tradeoff
+taualpha.runs <- runz[c(4, 9, 14)] # keeps R* the same across species pairs
+taualphaRstar.runs <- runz[c(1, 6, 11)] # varying everything (tauI, alpha, Rstar)
+alphaRstarR0.runs<- runz[c(5, 10, 15)] # NOT varying tauI: tracking and Rstar tradeoff, declining R0
 
 ## Grab just the stationary period
 df.all.stat <- subset(df.all, period==1)
