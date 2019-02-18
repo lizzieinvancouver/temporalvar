@@ -33,19 +33,14 @@ runz <- c("858179", "858221", "858241", "858262", "858282",
           "933059", "933107", "933156", "933215", "933272",
           "933566", "933600", "933630", "933682", "933723")
 
-if(FALSE){
-# c("62025212", "62025233", "62025263", "62025274") # no header row
-runz <- c("51803287", "51803320", "51803342",  "51803375",
-    "51893537", "51893598", "51893656", "51893711", 
-    "51995069", "51995121", "51995125", "51995137",
-    "52031904", "52031950", "52031996") # missing 52031833 which should vary everything
-    }
-
-# Remember to update below under plotting-related formatting ... 
-# 1, 5, 9 are varying everything
-# 2, 6, 10, 13 are NOT varying tauI
-# 3, 7, 11, 14 are NOT varying tracking
-# 4, 8, 12, 15 keeps R* the same across species pairs
+# Remember to update below under plotting-related formatting ...
+runznum <- c(1:length(runz))
+runznum[seq(1, length(runz), 5)] # 1,  are varying everything
+runznum[seq(2, length(runz), 5)] # 2, are NOT varying tauI
+runznum[seq(3, length(runz), 5)] # 3,  are NOT varying tracking
+runznum[seq(4, length(runz), 5)] # 4, keeps R* the same across species pairs
+runznum[seq(5, length(runz), 5)] # 5,  vary alpha, Rstar, and add in a R0 declines
+# (with tauP still getting earlier, as in all other runs)
 
 # runinfo <- read.table("Table_of_RunParms.txt", skip=1, header=TRUE)
 
@@ -184,13 +179,6 @@ hist(check.sp1$ratio.rstar)
 ##
 
 # See above when I set up runz for where I outline what numbers to pull for each!
-if(FALSE){
-tauRstar.runs <- runz[c(3,7,11,14)] # NOT varying tracking: tauI and Rstar tradeoff
-alphaRstar.runs <- runz[c(2,6,10,13)] # NOT varying tauI: tracking and Rstar tradeoff
-taualpha.runs <- runz[c(4,8,12,15)] # keeps R* the same across species pairs
-taualphaRstar.runs <- runz[c(1,5,9)] # varying everything (tauI, alpha, Rstar)
-}
-
 tauRstar.runs <- runz[c(3, 8, 13)] # NOT varying tracking: tauI and Rstar tradeoff
 alphaRstar.runs <- runz[c(2, 7, 12)] # NOT varying tauI: tracking and Rstar tradeoff
 taualpha.runs <- runz[c(4, 9, 14)] # keeps R* the same across species pairs
