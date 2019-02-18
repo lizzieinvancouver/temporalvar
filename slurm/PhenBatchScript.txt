@@ -5,3 +5,5 @@ sleep 20s
 export PHEN_RUNNUM=3; sbatch --array=1-50 /n/wolkovich_lab/temporalvar/slurm/Phenology_2018.sh
 sleep 20s
 export PHEN_RUNNUM=4; sbatch --array=1-50 /n/wolkovich_lab/temporalvar/slurm/Phenology_2018.sh
+sleep 20s
+export PHEN_RUNNUM=5; sbatch --array=1-50 /n/wolkovich_lab/temporalvar/slurm/Phenology_2018.sh
