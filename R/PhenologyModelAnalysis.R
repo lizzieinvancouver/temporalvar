@@ -129,8 +129,9 @@ df.plot <- merge(df.coexist1, df.t2, by=c("jobID", "taskID", "runID", "taskrunID
 df.all.coexist1 <- subset(df.all, ncoexist==2 & period==1)
 df.all.t2 <- subset(df.all, period==2)
 df.all.t2 <- subset(df.all.t2, select=c("jobID", "taskID", "runID", "ncoexist",
-    "coexist1", "coexist2", "taskrunID", "ratio.tauIP", "diff.bfinslopes", "slopeBfin1",
-    "slopeBfin2", "minslopeBfin"))
+    "coexist1", "coexist2", "taskrunID", "ratio.tauIP", "tauIP1_mean",
+    "tauIP2_mean", "diff.bfinslopes", "slopeBfin1", "slopeBfin2", 
+    "minslopeBfin"))
 df.all.plot <- merge(df.all.coexist1, df.all.t2, by=c("jobID", "taskID", "runID", "taskrunID"),
     all.x=TRUE, all.y=FALSE, suffixes=c(".t1", ".t2"))
 
@@ -386,12 +387,25 @@ plot.paramdiffs.twopanel(taualpha.runs.df, "taualpha.runs", "_alpha.tauI",
 plot.paramdiffs.twopanel.fixedxy(taualpha.runs.df, "taualpha.runs", "_alpha.tauI",
     "ratio.alpha", "ratio.tauI", cexhere, pchhere, c(0,3), c(0,5),
     "sp1 wins", "bottomright", "sp2 wins", "topleft")
-plot.paramdiffs.twopanel.fixedxy(taualpha.runs.df, "taualpha.runs", "_alpha.tauIP",
+plot.paramdiffs.twopanel.fixedxy(taualpha.runs.df, "taualpha.runs", "_alpha.tauIP.t2.",
     "ratio.alpha", "ratio.tauIP.t2", cexhere, pchhere, c(0,3), c(0,5),
+    "sp1 wins", "bottomright", "sp2 wins", "topleft")
+plot.paramdiffs.twopanel.fixedxy(taualpha.runs.df, "taualpha.runs", "_alpha.tauIP",
+    "ratio.alpha", "ratio.tauIP.t1", cexhere, pchhere, c(0,3), c(0,5),
     "sp1 wins", "bottomright", "sp2 wins", "topleft")
 plot.paramdiffs.manypanel.bfin(taualpha.runs.df, "taualpha.runs", "_alpha.tauI",
     "ratio.alpha", "ratio.tauI", cexhere, pchhere, "sp1 wins", "bottomright", "sp2 wins", "topleft",
     colpalettehere)
+# some extras for this tricky run ....
+taualpha.runs.df$ratio.tauIP.t1t2 <- (taualpha.runs.df$tauIP1_mean.t1-taualpha.runs.df$tauIP1_mean.t2)/
+    (taualpha.runs.df$tauIP2_mean.t1-taualpha.runs.df$tauIP2_mean.t2)
+plot.paramdiffs.twopanel(taualpha.runs.df, "taualpha.runs", "_alpha.tauIP.t1t2",
+    "ratio.alpha", "ratio.tauIP.t1t2", cexhere, pchhere, "sp1 wins", "bottomright",
+    "sp2 wins", "topleft")
+plot.paramdiffs.twopanel.fixedxy(taualpha.runs.df, "taualpha.runs", "_alpha.tauIP.t1t2",
+    "ratio.alpha", "ratio.tauIP.t1t2", cexhere, pchhere, c(0,3), c(-20,20),
+    "sp1 wins", "bottomright", "sp2 wins", "topleft")
+
 
 # Three things vary
 plot.paramdiffs.onepanel(taualphaRstar.runs.df, "taualphaRstar.runs", "_tauIP.rstar",
