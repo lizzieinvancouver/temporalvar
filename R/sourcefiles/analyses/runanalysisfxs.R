@@ -439,6 +439,67 @@ plot.paramdiffs.manypanel.bfin <- function(df, runname, figname, colname.x, coln
 }
 
 
+plot.paramdiffs.onesp.bfin <- function(df, runname, figname, colname.x, colname.y, cex, pch,
+    corner1.text, corner1.pos, corner2.text, corner2.pos, colpalettehere){
+    pdf(paste("graphs/modelruns/paramdiffs/", runname, figname, "onesp.wbfin.pdf", sep=""),
+        width=9, height=8)
+        par(mfrow=c(2,2))
+        df0 <- subset(df, ncoexist.t2==0)
+        df1 <- subset(df, ncoexist.t2==1)
+        df2 <- subset(df, ncoexist.t2==2)
+        df1.sp1 <- subset(df1, coexist1.t2==1)
+        df1.sp2 <- subset(df1, coexist2.t2==1)
+        # First plot
+        plot(unlist(df[colname.x]), unlist(df[colname.y]), type="n", xlab=colname.x,
+           ylab=colname.y, main="sp 1 survived after nonstat: Slope of sp1 at t1")
+        abline(v=1)
+        abline(h=1)
+        fig_label(text=corner1.text, region="plot", pos=corner1.pos)
+        fig_label(text=corner2.text, region="plot", pos=corner2.pos)
+        df1.sp1$order = findInterval(df1.sp1$slopeBfin1.t1, sort(df1.sp1$slopeBfin1.t1))
+        points(df1.sp1[[colname.x]], unlist(df1.sp1[colname.y]),
+          col=colpalettehere(nrow(df1.sp1))[df1.sp1$order], pch=pch, cex=cex)
+        legend("topright", col=colpalettehere(2), pch=19,
+            legend=round(range(df1.sp1$slopeBfin1.t1), 4), bty="n")
+        # Second plot
+            plot(unlist(df[colname.x]), unlist(df[colname.y]), type="n", xlab=colname.x,
+           ylab=colname.y, main="sp 2 survived after nonstat: Slope of sp2 at t1")
+        abline(v=1)
+        abline(h=1)
+        fig_label(text=corner1.text, region="plot", pos=corner1.pos)
+        fig_label(text=corner2.text, region="plot", pos=corner2.pos)
+        df1.sp2$order = findInterval(df1.sp2$slopeBfin2.t1, sort(df1.sp2$slopeBfin2.t1))
+        points(df1.sp2[[colname.x]], unlist(df1.sp2[colname.y]),
+          col=colpalettehere(nrow(df1.sp2))[df1.sp2$order], pch=pch, cex=cex)
+        legend("topright", col=colpalettehere(2), pch=19,
+            legend=round(range(df1.sp2$slopeBfin2.t1), 4), bty="n")
+        # Third plot
+        plot(unlist(df[colname.x]), unlist(df[colname.y]), type="n", xlab=colname.x,
+           ylab=colname.y, main="sp 1 survived after nonstat: Slope of sp1 at t2")
+        abline(v=1)
+        abline(h=1)
+        fig_label(text=corner1.text, region="plot", pos=corner1.pos)
+        fig_label(text=corner2.text, region="plot", pos=corner2.pos)
+        df1.sp1$order = findInterval(df1.sp1$slopeBfin1.t2, sort(df1.sp1$slopeBfin1.t2))
+        points(df1.sp1[[colname.x]], unlist(df1.sp1[colname.y]),
+          col=colpalettehere(nrow(df1.sp1))[df1.sp1$order], pch=pch, cex=cex)
+        legend("topright", col=colpalettehere(2), pch=19,
+            legend=round(range(df1.sp1$slopeBfin1.t2), 4), bty="n")
+        # Fourth plot
+            plot(unlist(df[colname.x]), unlist(df[colname.y]), type="n", xlab=colname.x,
+           ylab=colname.y, main="sp 2 survived after nonstat: Slope of sp2 at t2")
+        abline(v=1)
+        abline(h=1)
+        fig_label(text=corner1.text, region="plot", pos=corner1.pos)
+        fig_label(text=corner2.text, region="plot", pos=corner2.pos)
+        df1.sp2$order = findInterval(df1.sp2$slopeBfin2.t2, sort(df1.sp2$slopeBfin2.t2))
+        points(df1.sp2[[colname.x]], unlist(df1.sp2[colname.y]),
+          col=colpalettehere(nrow(df1.sp2))[df1.sp2$order], pch=pch, cex=cex)
+        legend("topright", col=colpalettehere(2), pch=19,
+            legend=round(range(df1.sp2$slopeBfin2.t2), 4), bty="n")
+    dev.off()
+}
+
 
 plot.paramdiffs.colorbyzvar <- function(df, runname, figname, colname.x, colname.y,
     colname.z, figtitle, midpt, cex, pch){
