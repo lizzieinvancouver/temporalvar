@@ -34,12 +34,11 @@ runz <- c("858179", "858221", "858241", "858262", "858282",
           "933566", "933600", "933630", "933682", "933723")
 
 # Remember to update below under plotting-related formatting ...
-runznum <- c(1:length(runz))
-runznum[seq(1, length(runz), 5)] # 1,  are varying everything
-runznum[seq(2, length(runz), 5)] # 2, are NOT varying tauI
-runznum[seq(3, length(runz), 5)] # 3,  are NOT varying tracking
-runznum[seq(4, length(runz), 5)] # 4, keeps R* the same across species pairs
-runznum[seq(5, length(runz), 5)] # 5,  vary alpha, Rstar, and add in a R0 declines
+seq(1, length(runz), 5) # 1, are varying everything
+seq(2, length(runz), 5) # 2, are NOT varying tauI
+seq(3, length(runz), 5) # 3, are NOT varying tracking
+seq(4, length(runz), 5) # 4, keeps R* the same across species pairs
+seq(5, length(runz), 5) # 5, vary alpha, Rstar, and add in a R0 declines
 # (with tauP still getting earlier, as in all other runs)
 
 # runinfo <- read.table("Table_of_RunParms.txt", skip=1, header=TRUE)
@@ -129,8 +128,8 @@ df.plot <- merge(df.coexist1, df.t2, by=c("jobID", "taskID", "runID", "taskrunID
 df.all.coexist1 <- subset(df.all, ncoexist==2 & period==1)
 df.all.t2 <- subset(df.all, period==2)
 df.all.t2 <- subset(df.all.t2, select=c("jobID", "taskID", "runID", "ncoexist",
-    "coexist1", "coexist2", "taskrunID", "ratio.g", "ratio.tauIP", "tauIP1_mean",
-    "tauIP2_mean", "diff.bfinslopes", "slopeBfin1", "slopeBfin2", 
+    "coexist1", "coexist2", "taskrunID", "R0_mean", "R0_median", "ratio.g", "ratio.tauIP",
+    "ratio.tauIPnoalpha", "tauIP1_mean", "tauIP2_mean", "diff.bfinslopes", "slopeBfin1", "slopeBfin2", 
     "minslopeBfin"))
 df.all.plot <- merge(df.all.coexist1, df.all.t2, by=c("jobID", "taskID", "runID", "taskrunID"),
     all.x=TRUE, all.y=FALSE, suffixes=c(".t1", ".t2"))
@@ -177,13 +176,13 @@ hist(check.sp1$ratio.rstar)
 ##
 ## Group the runs by what type they are so I can plot
 ##
-
 # See above when I set up runz for where I outline what numbers to pull for each!
-tauRstar.runs <- runz[c(3, 8, 13)] # NOT varying tracking: tauI and Rstar tradeoff
-alphaRstar.runs <- runz[c(2, 7, 12)] # NOT varying tauI: tracking and Rstar tradeoff
-taualpha.runs <- runz[c(4, 9, 14)] # keeps R* the same across species pairs
-taualphaRstar.runs <- runz[c(1, 6, 11)] # varying everything (tauI, alpha, Rstar)
-alphaRstarR0.runs<- runz[c(5, 10, 15)] # NOT varying tauI: tracking and Rstar tradeoff, declining R0
+tauRstar.runs <- runz[seq(3, length(runz), 5)] # NOT varying tracking: tauI and Rstar tradeoff
+alphaRstar.runs <- runz[seq(2, length(runz), 5)] # NOT varying tauI: tracking and Rstar tradeoff
+taualpha.runs <- runz[seq(4, length(runz), 5)] # keeps R* the same across species pairs
+taualphaRstar.runs <- runz[seq(1, length(runz), 5)] # varying everything (tauI, alpha, Rstar)
+alphaRstarR0.runs <- runz[seq(5, length(runz), 5)] # NOT varying tauI: tracking and Rstar tradeoff,
+# add in declining R0
 
 ## Grab just the stationary period
 df.all.stat <- subset(df.all, period==1)
@@ -198,6 +197,9 @@ taualpha.stat.runs.df <- df.all.stat[which(df.all.stat$jobID %in% taualpha.runs)
 sum(taualpha.stat.runs.df$diff.Rstar) # must equal zero!
 # varying everything (tauI, alpha, Rstar)
 taualphaRstar.stat.runs.df <- df.all.stat[which(df.all.stat$jobID %in% taualphaRstar.runs),]
+# add in declining R0
+alphaRstarR0.stat.runs.df <- df.all.stat[which(df.all.stat$jobID %in% alphaRstarR0.runs),]
+sum(alphaRstarR0.stat.runs.df$diff.tauI) # must equal zero!
 
 ## Grab the stationary coexisting runs and the non-stationary period
 # NOT varying tracking
@@ -211,13 +213,8 @@ taualpha.runs.df <- df.all.plot[which(df.all.plot$jobID %in% taualpha.runs),]
 sum(taualpha.runs.df$diff.Rstar) # must equal zero!
 # varying everything (tauI, alpha, Rstar)
 taualphaRstar.runs.df <- df.all.plot[which(df.all.plot$jobID %in% taualphaRstar.runs),]
-
-if(FALSE){ # why do I have this here again? 
-tauRstar.runs <- runz[c(3,7,11,14)] # NOT varying tracking: tauI and Rstar tradeoff
-alphaRstar.runs <- runz[c(2,6,10,13)] # NOT varying tauI: tracking and Rstar tradeoff
-taualpha.runs <- runz[c(4,8,12,15)] # keeps R* the same across species pairs
-taualphaRstar.runs <- runz[c(1,5,9)] # varying everything (tauI, alpha, Rstar)
-}
+# add in declining R0
+alphaRstarR0.runs.df <- df.all.plot[which(df.all.plot$jobID %in% alphaRstarR0.runs),]
 
 ## Do some counts
 # How many species left after non-stat? First: (# spp left at end of non-stat)/(# of spp left at end of stat)
@@ -225,11 +222,13 @@ sum(tauRstar.runs.df$ncoexist.t2)/sum(tauRstar.stat.runs.df$ncoexist)
 sum(alphaRstar.runs.df$ncoexist.t2)/sum(alphaRstar.stat.runs.df$ncoexist)
 sum(taualpha.runs.df$ncoexist.t2)/sum(taualpha.stat.runs.df$ncoexist)
 sum(taualphaRstar.runs.df$ncoexist.t2)/sum(taualphaRstar.stat.runs.df$ncoexist)
+sum(alphaRstarR0.runs.df$ncoexist.t2)/sum(alphaRstarR0.stat.runs.df$ncoexist)
 # Second: (# spp left at end of non-stat)/(# of co-existing spp left at end of stat)
 sum(tauRstar.runs.df$ncoexist.t2)/sum(tauRstar.runs.df$ncoexist.t1) 
 sum(alphaRstar.runs.df$ncoexist.t2)/sum(alphaRstar.runs.df$ncoexist.t1)
 sum(taualpha.runs.df$ncoexist.t2)/sum(taualpha.runs.df$ncoexist.t1)
 sum(taualphaRstar.runs.df$ncoexist.t2)/sum(taualphaRstar.runs.df$ncoexist.t1)
+sum(alphaRstarR0.runs.df$ncoexist.t2)/sum(alphaRstarR0.runs.df$ncoexist.t1)
 # What is average alpha before and after stat?
 get.mean.alphavalues(df.all[which(df.all$jobID %in% alphaRstar.runs),])
 get.mean.alphavalues.ns(df.all[which(df.all$jobID %in% alphaRstar.runs),])
@@ -237,6 +236,8 @@ get.mean.alphavalues(df.all[which(df.all$jobID %in% taualpha.runs),])
 get.mean.alphavalues.ns(df.all[which(df.all$jobID %in% taualpha.runs),])
 get.mean.alphavalues(df.all[which(df.all$jobID %in% taualphaRstar.runs),])
 get.mean.alphavalues.ns(df.all[which(df.all$jobID %in% taualphaRstar.runs),])
+get.mean.alphavalues(df.all[which(df.all$jobID %in% alphaRstarR0.runs),])
+get.mean.alphavalues.ns(df.all[which(df.all$jobID %in% alphaRstarR0.runs),])
 
 
 ###############
@@ -403,6 +404,21 @@ plot.paramdiffs.twopanel(taualpha.runs.df, "taualpha.runs", "_alpha.tauIP.t1t2",
 plot.paramdiffs.twopanel.fixedxy(taualpha.runs.df, "taualpha.runs", "_alpha.tauIP.t1t2",
     "ratio.alpha", "ratio.tauIP.t1t2", cexhere, pchhere, c(0,3), c(-20,20),
     "sp1 wins", "bottomright", "sp2 wins", "topleft")
+plot.paramdiffs.twopanel(taualpha.runs.df, "taualpha.runs", "_alpha.tauIPnoalpha.t1.",
+    "ratio.alpha", "ratio.tauIPnoalpha.t1", cexhere, pchhere, "sp1 wins", "bottomright",
+    "sp2 wins", "topleft")
+plot.paramdiffs.twopanel(taualpha.runs.df, "taualpha.runs", "_alpha.tauIPnoalpha.t2.",
+    "ratio.alpha", "ratio.tauIPnoalpha.t2", cexhere, pchhere, "sp1 wins", "bottomright",
+    "sp2 wins", "topleft")
+plot.paramdiffs.twopanel.fixedxy(taualpha.runs.df, "taualpha.runs", "_alpha.tauIPnoalpha.t1.",
+    "ratio.alpha", "ratio.tauIPnoalpha.t1", cexhere, pchhere, c(-0.5, 4), c(-1, 10),
+    "sp1 wins", "bottomright", "sp2 wins", "topleft")
+plot.paramdiffs.twopanel.fixedxy(taualpha.runs.df, "taualpha.runs", "_alpha.tauIPnoalpha.t2.",
+    "ratio.alpha", "ratio.tauIPnoalpha.t2", cexhere, pchhere, c(-0.75, 4), c(-1, 10),
+    "sp1 wins", "bottomright", "sp2 wins", "topleft")
+plot.paramdiffs.manypanel.bfin(taualpha.runs.df, "taualpha.runs", "_alpha.tauIPnoalpha.t2.",
+    "ratio.alpha", "ratio.tauIPnoalpha.t2", cexhere, pchhere, "sp1 wins", "bottomright", "sp2 wins", "topleft",
+    colpalettehere)
 plot.paramdiffs.twopanel(taualpha.runs.df, "taualpha.runs", "_tauIP.t1.g.t1.",
     "ratio.tauIP.t1t2", "ratio.g.t1", cexhere, pchhere, "sp1 wins", "bottomright",
     "sp2 wins", "topleft")
@@ -421,7 +437,6 @@ plot.paramdiffs.twopanel(taualpha.runs.df, "taualpha.runs", "_alpha.g.t1.",
 plot.paramdiffs.twopanel(taualpha.runs.df, "taualpha.runs", "_alpha.g.t2.",
     "ratio.alpha", "ratio.g.t2", cexhere, pchhere, "sp1 wins", "bottomright",
     "sp2 wins", "topleft")
-
 
 
 # Three things vary
@@ -460,5 +475,32 @@ plot.paramdiffs.colorbyzvar(taualphaRstar.runs.df, "taualphaRstar.runs", "_alpha
 plot.paramdiffs.colorbyzvar(taualphaRstar.runs.df, "taualphaRstar.runs", "_alpha.tauIP",
      "ratio.alpha", "ratio.tauIP.t2", "ratio.rstar", "3 traits vary: survived after stat", 1)
 
+# Look at the R0 runs: alphaRstarR0.runs.df
+# First we check if R0 is lower than R* much.
+# Set up so negative numbers mean resource is lower than species R*
+alphaRstarR0.runs.df$RstarR0sp1.t1 <- alphaRstarR0.runs.df$R0_median.t1 - alphaRstarR0.runs.df$Rstar1
+alphaRstarR0.runs.df$RstarR0sp2.t1 <- alphaRstarR0.runs.df$R0_median.t1 - alphaRstarR0.runs.df$Rstar2
+alphaRstarR0.runs.df$RstarR0sp1.t2 <- alphaRstarR0.runs.df$R0_median.t2 - alphaRstarR0.runs.df$Rstar1 
+alphaRstarR0.runs.df$RstarR0sp2.t2 <- alphaRstarR0.runs.df$R0_median.t2 - alphaRstarR0.runs.df$Rstar2
+par(mfrow=c(2,2))
+hist(alphaRstarR0.runs.df$RstarR0sp1.t1)
+hist(alphaRstarR0.runs.df$RstarR0sp2.t1)
+hist(alphaRstarR0.runs.df$RstarR0sp1.t2)
+hist(alphaRstarR0.runs.df$RstarR0sp2.t2)
+# Okay, so it seems like all the species R* values are still okay!
+
+# We think tracking will be favored less as it makes the tracker use seedbank each year and thus
+# it will 'blow through its seedbank' (Megan's words) in all those low R0 years
+plot.paramdiffs.onepanel(alphaRstarR0.runs.df, "alphaRstarR0.runs", "_alpha.rstar", "ratio.alpha",
+    "ratio.rstar", cexhere, pchhere, "sp1 wins", "bottomright", "sp2 wins", "topleft")
+plot.paramdiffs.twopanel(alphaRstarR0.runs.df, "alphaRstarR0.runs", "_alpha.rstar", "ratio.alpha",
+    "ratio.rstar", cexhere, pchhere, "sp1 wins", "bottomright", "sp2 wins", "topleft")
+plot.paramdiffs.manypanel.bfin(alphaRstarR0.runs.df, "alphaRstarR0.runs", "_alpha.rstar", "ratio.alpha",
+    "ratio.rstar", cexhere, pchhere, "sp1 wins", "bottomright", "sp2 wins", "topleft", colpalettehere)
+plot.paramdiffs.onesp.bfin(alphaRstarR0.runs.df, "alphaRstarR0.runs", "_alpha.rstar", "ratio.alpha",
+    "ratio.rstar", cexhere, pchhere, "sp1 wins", "bottomright", "sp2 wins", "topleft", colpalettehere)
+
+goo <- subset(alphaRstarR0.runs.df)
+mean(goo$Rstar1)
 
 stop(print("stopping here..."))

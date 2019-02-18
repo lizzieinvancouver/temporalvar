@@ -20,6 +20,8 @@ getfiles <- function(folderID, file.names, colnameshere){
 
 makediffs <- function(df){
     dathere <- df
+    dathere$tauIPnoalpha.sp1 <- dathere$tauIP1_mean/(1-dathere$alpha1) 
+    dathere$tauIPnoalpha.sp2 <- dathere$tauIP2_mean/(1-dathere$alpha2)
     dathere$diff.c <-  dathere$c1-dathere$c2
     dathere$diff.rstar <-  dathere$Rstar1-dathere$Rstar2
     dathere$diff.tauI <-  dathere$tauI1-dathere$tauI2
@@ -31,6 +33,7 @@ makediffs <- function(df){
     dathere$ratio.rstar <-  dathere$Rstar1/dathere$Rstar2
     dathere$ratio.tauI <-  dathere$tauI1/dathere$tauI2
     dathere$ratio.tauIP <- dathere$tauIP1_mean/dathere$tauIP2_mean
+    dathere$ratio.tauIPnoalpha <- dathere$tauIPnoalpha.sp1/dathere$tauIPnoalpha.sp2
     dathere$ratio.g <- dathere$g1mean/dathere$g2mean
     dathere$ratio.alpha <-dathere$alpha1/dathere$alpha2
     return(dathere)
