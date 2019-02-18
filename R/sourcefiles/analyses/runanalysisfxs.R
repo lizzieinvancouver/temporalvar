@@ -30,6 +30,7 @@ makediffs <- function(df){
     dathere$ratio.rstar <-  dathere$Rstar1/dathere$Rstar2
     dathere$ratio.tauI <-  dathere$tauI1/dathere$tauI2
     dathere$ratio.tauIP <- dathere$tauIP1_mean/dathere$tauIP2_mean
+    dathere$ratio.g <- dathere$g1mean/dathere$g2mean
     dathere$ratio.alpha <-dathere$alpha1/dathere$alpha2
     return(dathere)
     }

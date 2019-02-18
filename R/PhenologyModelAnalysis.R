@@ -132,7 +132,7 @@ df.plot <- merge(df.coexist1, df.t2, by=c("jobID", "taskID", "runID", "taskrunID
 df.all.coexist1 <- subset(df.all, ncoexist==2 & period==1)
 df.all.t2 <- subset(df.all, period==2)
 df.all.t2 <- subset(df.all.t2, select=c("jobID", "taskID", "runID", "ncoexist",
-    "coexist1", "coexist2", "taskrunID", "ratio.tauIP", "tauIP1_mean",
+    "coexist1", "coexist2", "taskrunID", "ratio.g", "ratio.tauIP", "tauIP1_mean",
     "tauIP2_mean", "diff.bfinslopes", "slopeBfin1", "slopeBfin2", 
     "minslopeBfin"))
 df.all.plot <- merge(df.all.coexist1, df.all.t2, by=c("jobID", "taskID", "runID", "taskrunID"),
@@ -413,6 +413,13 @@ plot.paramdiffs.twopanel(taualpha.runs.df, "taualpha.runs", "_alpha.tauIP.t1t2",
 plot.paramdiffs.twopanel.fixedxy(taualpha.runs.df, "taualpha.runs", "_alpha.tauIP.t1t2",
     "ratio.alpha", "ratio.tauIP.t1t2", cexhere, pchhere, c(0,3), c(-20,20),
     "sp1 wins", "bottomright", "sp2 wins", "topleft")
+plot.paramdiffs.twopanel(taualpha.runs.df, "taualpha.runs", "_alpha.g.t1.",
+    "ratio.alpha", "ratio.g.t1", cexhere, pchhere, "sp1 wins", "bottomright",
+    "sp2 wins", "topleft")
+plot.paramdiffs.twopanel.fixedxy(taualpha.runs.df, "taualpha.runs", "_alpha.g.t2.",
+    "ratio.alpha", "ratio.g.t2", cexhere, pchhere, c(0,3), c(-2,4),
+    "sp1 wins", "bottomright", "sp2 wins", "topleft")
+
 
 
 # Three things vary
