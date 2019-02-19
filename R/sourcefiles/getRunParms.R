@@ -1,6 +1,6 @@
 #Get run parameters; 
 #runflag <- ifelse(localflag==1,1,as.numeric(Sys.getenv("PHEN_RUNNUM")))
-runflag <- ifelse(localflag==1,5,as.numeric(Sys.getenv("PHEN_RUNNUM"))) #use this for running megaD locally
+runflag <- ifelse(localflag==1,101,as.numeric(Sys.getenv("PHEN_RUNNUM"))) #use this for running megaD locally
 print(paste0("runflag is ", runflag))
 megaD <- ifelse(runflag>100,TRUE,FALSE)  #use PHEN_RUNNUM as a flag for megaD runs
 inputline <- ifelse(megaD==1,runflag - 100, runflag)
@@ -29,7 +29,12 @@ varRstar <- ifelse(is.character(inputs$varRstar),
                    as.numeric(unlist(strsplit(inputs$varRstar[inputline],","))),
                    as.numeric(inputs$varRstar))
 if(length(varRstar)==1) varRstar <- c(varRstar,NA)
-vartauI <-inputs$vartauI[inputline]
+if (is.character(inputs$vartauI[inputline])) {
+  vartauI <- as.numeric(unlist(strsplit(inputs$vartauI[inputline],",")))
+} else{
+  vartauI <- as.numeric(inputs$vartauI[inputline])
+}
+
 nsp <- inputs$nsp[inputline]
 rho <- inputs$megaD[inputline]  #rho is the value of the megaD in getInputParms and is corr(s,phi)
 if (is.null(rho)) rho <- 0
@@ -43,7 +48,7 @@ ndays <- 5  # number of days in a growing season
 dt <- 0.005 # within yr timestep
 tsteps <- ndays/dt
 
-runparms <- matrix(data= c(jobID[1],jobID[2],nruns,nsp,nyrs,nonsta,tracking,varRstar,vartauI,
+runparms <- matrix(data= c(jobID[1],jobID[2],nruns,nsp,nyrs,nonsta,tracking,varRstar,inputs$vartauI[inputline],
                            megaD,rho,writeBout,ext,ndays,dt,tsteps),nrow=1)
 
 #OUTPUT PARMS & FOLDER LOCATIONS
