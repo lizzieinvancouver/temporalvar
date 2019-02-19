@@ -153,6 +153,11 @@ hist(df.all.coexist1$s2)
 hist(df.all$phi1)
 hist(df.all.coexist1$phi2)
 
+# Check out tauI
+mean(lowtauI.stat.runs.df$tauI1)
+
+# Check other stuff
+
 per1 <- subset(df.all, period==1)
 per2 <- subset(df.all, period==2)
 
