@@ -48,6 +48,7 @@ Next batch of runs (5 types)
 933723
 
 Downloaded another set of megaD runs:
+
 858363 - low tauI
 858372 - mod tauI
 858373 - hi tauI
@@ -59,6 +60,12 @@ Next batch of megaD runs
 888547
 888549
 888556
+
+Given low persistence (even through wet period), new set of megaD runs with restricted range for s = 0.65-0.95
+1008362
+1008404
+1008425
+
 Note: for simulations where R0 declines during the ns period.  It will decline from mu to mu*R0ns where nsR0 is the value of the nsR0 flag in getInputParms.txt.  The third (stationary) period, if it exists, takes the final value of R0
 
 

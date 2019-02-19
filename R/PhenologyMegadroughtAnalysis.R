@@ -24,10 +24,15 @@ source("sourcefiles/analyses/runanalysisfxsmega.R")
 runshaveheader <- TRUE
 
 # cheap loop over the files for now
-runz <- c("58137170", "58137225", "58137269", "58378327", "58378360", "58378361",
-    "58551618", "58551687") # not the complete list
-# "58551741", "58582169", "58582192" "58582223", has issues with some files having header rows and others NOT having header rows
-# not sure why 54203568 - 58132039 have only 1-2 runs each ... 
+runz <- c("858363", "858372", "858373", "855723", "855748", "855753",
+    "888547", "888549", "888556")
+
+# c("1008362", "1008404", "1008425") # Zero coexistence!
+
+# Runs come in sets of 3, first is low tauI, second is mod tauI, and third is hi tauI
+seq(1, length(runz), 3) # 1, low tauI
+seq(2, length(runz), 3) # 2, mod tauI
+seq(3, length(runz), 3) # 3, hi tauI
 
 
 #########################################
@@ -92,7 +97,7 @@ df.plot <- merge(df.coexist1, df.t2, by=c("jobID", "taskID", "runID", "taskrunID
 df.all.coexist1 <- subset(df.all, ncoexist==2 & period==1)
 df.all.t2 <- subset(df.all, period==2)
 df.all.t2 <- subset(df.all.t2, select=c("jobID", "taskID", "runID", "ncoexist",
-    "coexist1", "coexist2", "taskrunID", "ratio.tauIP"))
+    "coexist1", "coexist2",  "R0_mean", "R0_median", "R0_autocor", "taskrunID", "ratio.s", "ratio.phi"))
 df.all.plot <- merge(df.all.coexist1, df.all.t2, by=c("jobID", "taskID", "runID", "taskrunID"),
     all.x=TRUE, all.y=FALSE, suffixes=c(".t1", ".t2"))
 
@@ -114,3 +119,85 @@ df.all.long <- df.all.t2.wp[which(df.all.t2.wp$taskrunID %in% unique(df.all.coex
 df.all.long.exist <- subset(df.all.long, coexist1==1 | coexist2==1)
 df.all.long.noexist <- subset(df.all.long, coexist1==0 | coexist2==0)
 }
+
+
+
+##
+## Group the runs by what type they are 
+##
+lowtauI.runs <- runz[seq(1, length(runz), 3)]
+modtauI.runs <- runz[seq(2, length(runz), 3)]
+hitauI.runs <- runz[seq(3, length(runz), 3)]
+
+## Grab just the wet period
+df.all.stat <- subset(df.all, period==1)
+lowtauI.stat.runs.df <- df.all.stat[which(df.all.stat$jobID %in% lowtauI.runs),]
+modtauI.stat.runs.df <- df.all.stat[which(df.all.stat$jobID %in% modtauI.runs),]
+hitauI.stat.runs.df <- df.all.stat[which(df.all.stat$jobID %in% hitauI.runs),]
+
+## Grab the wet coexisting runs and all from the dry period
+lowtauI.runs.df <- df.all.plot[which(df.all.plot$jobID %in% lowtauI.runs),]
+modtauI.runs.df <- df.all.plot[which(df.all.plot$jobID %in% modtauI.runs),]
+hitauI.runs.df <- df.all.plot[which(df.all.plot$jobID %in% hitauI.runs),]
+
+# Check out s and phi range
+par(mfrow=c(2,2))
+hist(df.all$s1)
+hist(df.all$s2)
+hist(df.all$phi1)
+hist(df.all$phi2)
+
+par(mfrow=c(2,2))
+hist(df.all$s1)
+hist(df.all.coexist1$s2)
+hist(df.all$phi1)
+hist(df.all.coexist1$phi2)
+
+per1 <- subset(df.all, period==1)
+per2 <- subset(df.all, period==2)
+
+par(mfrow=c(2,2))
+hist(per1$R0_median)
+hist(per2$R0_median)
+hist(per1$R0_autocor)
+hist(per2$R0_autocor)
+
+mean(per1$R0_median)
+mean(per2$R0_median)
+mean(per1$R0_autocor)
+mean(per2$R0_autocor)
+
+median(per1$R0_median)
+median(per2$R0_median)
+median(per1$R0_autocor)
+median(per2$R0_autocor) # seems odd that megadrought period is negatively autocorrelated.
+
+
+
+# Some plotting needs ... (probably more than we need)
+coexist3col <- add.alpha(c("firebrick", "dodgerblue", "seagreen"), alpha=0.4)
+coexistmocol<- add.alpha(c("firebrick", "dodgerblue", "seagreen", "yellow", "purple"), alpha=0.4)
+tauPcol <- add.alpha(c("yellow", "firebrick"), alpha=0.2)
+varhistcol <- add.alpha(c("yellow", "firebrick"), alpha=0.8)
+# col2rgb helps here ...
+leg.txt <- c("poof", "1 left", "2 survive")
+cexhere=0.6
+pchhere=16
+
+# For the bfinslope plots
+library(RColorBrewer)
+cols = brewer.pal(4, "RdBu")
+# Define colour pallete
+pal = colorRampPalette(c("blue", "red"))
+# Use the following line with RColorBrewer
+colpalettehere = colorRampPalette(cols)
+
+
+plot.paramdiffs.twopanel(lowtauI.runs.df, "lowtauI.runs", "_sphi", "ratio.s.t1",
+    "ratio.phi.t1", cexhere, pchhere, "? wins", "bottomleft", "? wins", "topright")
+
+plot.paramdiffs.twopanel(modtauI.runs.df, "modtauI.runs", "_sphi", "ratio.s.t1",
+    "ratio.phi.t1", cexhere, pchhere, "? wins", "bottomleft", "? wins", "topright")
+
+plot.paramdiffs.twopanel(hitauI.runs.df, "hitauI.runs", "_sphi", "ratio.s.t1",
+    "ratio.phi.t1", cexhere, pchhere, "? wins", "bottomleft", "? wins", "topright")
