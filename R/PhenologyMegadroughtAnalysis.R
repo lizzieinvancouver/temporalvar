@@ -24,8 +24,7 @@ source("sourcefiles/analyses/runanalysisfxsmega.R")
 runshaveheader <- TRUE
 
 # cheap loop over the files for now
-runz <- c("858363", "858372", "858373", "855723", "855748", "855753",
-    "888547", "888549", "888556")
+runz <- c("1009960", "1009991", "1010022")
 
 # c("1008362", "1008404", "1008425") # Zero coexistence!
 
@@ -155,6 +154,8 @@ hist(df.all.coexist1$phi2)
 
 # Check out tauI
 mean(lowtauI.stat.runs.df$tauI1)
+mean(modtauI.stat.runs.df$tauI1)
+mean(hitauI.stat.runs.df$tauI1)
 
 # Check other stuff
 

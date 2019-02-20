@@ -66,6 +66,11 @@ Given low persistence (even through wet period), new set of megaD runs with rest
 1008404
 1008425
 
+New batch with correct s values and 3 levels of tauI
+1009960
+1009991
+1000022
+
 Note: for simulations where R0 declines during the ns period.  It will decline from mu to mu*R0ns where nsR0 is the value of the nsR0 flag in getInputParms.txt.  The third (stationary) period, if it exists, takes the final value of R0
 
 
