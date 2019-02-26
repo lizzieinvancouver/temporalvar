@@ -253,12 +253,19 @@ cexhere=0.6
 pchhere=16
 
 # For the bfinslope plots
+if(FALSE){
 library(RColorBrewer)
 cols = brewer.pal(4, "RdBu")
 # Define colour pallete
 pal = colorRampPalette(c("blue", "red"))
 # Use the following line with RColorBrewer
 colpalettehere = colorRampPalette(cols)
+}
+
+library(viridis)
+# https://cran.r-project.org/web/packages/viridis/vignettes/intro-to-viridis.html
+colpalettehere=viridis
+
 
 ### histograms old code, remove?
 if(FALSE){

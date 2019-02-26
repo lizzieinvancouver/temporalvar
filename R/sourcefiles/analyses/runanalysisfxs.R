@@ -401,8 +401,8 @@ plot.paramdiffs.manypanel.bfin <- function(df, runname, figname, colname.x, coln
         df2$order = findInterval(df2$diff.bfinslopes.t2, sort(df2$diff.bfinslopes.t2))
         points(df2[[colname.x]], unlist(df2[colname.y]),
            col=colpalettehere(nrow(df2))[df2$order], pch=pch, cex=cex)
-        legend("topright", col=colpalettehere(2), pch=19,
-            legend=round(range(df2$diff.bfinslopes.t2), 4), bty="n")
+        legend("topright", col=colpalettehere(5), pch=19,
+            legend=round(quantile(df2$diff.bfinslopes.t2), 4), bty="n")
         # Third plot
         plot(unlist(df[colname.x]), unlist(df[colname.y]), type="n", xlab=colname.x,
            ylab=colname.y, main="both survived after nonstat: min Bfin slope")
@@ -414,8 +414,8 @@ plot.paramdiffs.manypanel.bfin <- function(df, runname, figname, colname.x, coln
         df2$order = findInterval(df2$minslopeBfin.t2, sort(df2$minslopeBfin.t2))
         points(df2[[colname.x]], unlist(df2[colname.y]),
            col=colpalettehere(nrow(df2))[df2$order], pch=pch, cex=cex)
-        legend("topright", col=colpalettehere(2), pch=19,
-            legend=round(range(df2$minslopeBfin.t2), 4), bty="n")
+        legend("topright", col=colpalettehere(5), pch=19,
+            legend=round(quantile(df2$minslopeBfin.t2), 4), bty="n")
         # Fourth plot
         plot(unlist(df[colname.x]), unlist(df[colname.y]), type="n", xlab=colname.x,
            ylab=colname.y, main="sp 1 survived after nonstat: Slope of sp1")
@@ -426,8 +426,8 @@ plot.paramdiffs.manypanel.bfin <- function(df, runname, figname, colname.x, coln
         df1.sp1$order = findInterval(df1.sp1$slopeBfin1.t2, sort(df1.sp1$slopeBfin1.t2))
         points(df1.sp1[[colname.x]], unlist(df1.sp1[colname.y]),
           col=colpalettehere(nrow(df1.sp1))[df1.sp1$order], pch=pch, cex=cex)
-        legend("topright", col=colpalettehere(2), pch=19,
-            legend=round(range(df1.sp1$slopeBfin1.t2), 4), bty="n")
+        legend("topright", col=colpalettehere(5), pch=19,
+            legend=round(quantile(df1.sp1$slopeBfin1.t2), 4), bty="n")
         # Fifth plot
             plot(unlist(df[colname.x]), unlist(df[colname.y]), type="n", xlab=colname.x,
            ylab=colname.y, main="sp 2 survived after nonstat: Slope of sp2")
@@ -438,8 +438,8 @@ plot.paramdiffs.manypanel.bfin <- function(df, runname, figname, colname.x, coln
         df1.sp2$order = findInterval(df1.sp2$slopeBfin2.t2, sort(df1.sp2$slopeBfin2.t2))
         points(df1.sp2[[colname.x]], unlist(df1.sp2[colname.y]),
           col=colpalettehere(nrow(df1.sp2))[df1.sp2$order], pch=pch, cex=cex)
-        legend("topright", col=colpalettehere(2), pch=19,
-            legend=round(range(df1.sp2$slopeBfin2.t2), 4), bty="n")
+        legend("topright", col=colpalettehere(5), pch=19,
+            legend=round(quantile(df1.sp2$slopeBfin2.t2), 4), bty="n")
     dev.off()
 }
 
@@ -464,8 +464,8 @@ plot.paramdiffs.onesp.bfin <- function(df, runname, figname, colname.x, colname.
         df1.sp1$order = findInterval(df1.sp1$slopeBfin1.t1, sort(df1.sp1$slopeBfin1.t1))
         points(df1.sp1[[colname.x]], unlist(df1.sp1[colname.y]),
           col=colpalettehere(nrow(df1.sp1))[df1.sp1$order], pch=pch, cex=cex)
-        legend("topright", col=colpalettehere(2), pch=19,
-            legend=round(range(df1.sp1$slopeBfin1.t1), 4), bty="n")
+        legend("topright", col=colpalettehere(5), pch=19,
+            legend=round(quantile(df1.sp1$slopeBfin1.t1), 4), bty="n")
         # Second plot
             plot(unlist(df[colname.x]), unlist(df[colname.y]), type="n", xlab=colname.x,
            ylab=colname.y, main="sp 2 survived after nonstat: Slope of sp2 at t1")
@@ -476,8 +476,8 @@ plot.paramdiffs.onesp.bfin <- function(df, runname, figname, colname.x, colname.
         df1.sp2$order = findInterval(df1.sp2$slopeBfin2.t1, sort(df1.sp2$slopeBfin2.t1))
         points(df1.sp2[[colname.x]], unlist(df1.sp2[colname.y]),
           col=colpalettehere(nrow(df1.sp2))[df1.sp2$order], pch=pch, cex=cex)
-        legend("topright", col=colpalettehere(2), pch=19,
-            legend=round(range(df1.sp2$slopeBfin2.t1), 4), bty="n")
+        legend("topright", col=colpalettehere(5), pch=19,
+            legend=round(quantile(df1.sp2$slopeBfin2.t1), 4), bty="n")
         # Third plot
         plot(unlist(df[colname.x]), unlist(df[colname.y]), type="n", xlab=colname.x,
            ylab=colname.y, main="sp 1 survived after nonstat: Slope of sp1 at t2")
@@ -488,8 +488,8 @@ plot.paramdiffs.onesp.bfin <- function(df, runname, figname, colname.x, colname.
         df1.sp1$order = findInterval(df1.sp1$slopeBfin1.t2, sort(df1.sp1$slopeBfin1.t2))
         points(df1.sp1[[colname.x]], unlist(df1.sp1[colname.y]),
           col=colpalettehere(nrow(df1.sp1))[df1.sp1$order], pch=pch, cex=cex)
-        legend("topright", col=colpalettehere(2), pch=19,
-            legend=round(range(df1.sp1$slopeBfin1.t2), 4), bty="n")
+        legend("topright", col=colpalettehere(5), pch=19,
+            legend=round(quantile(df1.sp1$slopeBfin1.t2), 4), bty="n")
         # Fourth plot
             plot(unlist(df[colname.x]), unlist(df[colname.y]), type="n", xlab=colname.x,
            ylab=colname.y, main="sp 2 survived after nonstat: Slope of sp2 at t2")
@@ -500,8 +500,8 @@ plot.paramdiffs.onesp.bfin <- function(df, runname, figname, colname.x, colname.
         df1.sp2$order = findInterval(df1.sp2$slopeBfin2.t2, sort(df1.sp2$slopeBfin2.t2))
         points(df1.sp2[[colname.x]], unlist(df1.sp2[colname.y]),
           col=colpalettehere(nrow(df1.sp2))[df1.sp2$order], pch=pch, cex=cex)
-        legend("topright", col=colpalettehere(2), pch=19,
-            legend=round(range(df1.sp2$slopeBfin2.t2), 4), bty="n")
+        legend("topright", col=colpalettehere(5), pch=19,
+            legend=round(quantile(df1.sp2$slopeBfin2.t2), 4), bty="n")
     dev.off()
 }
 
