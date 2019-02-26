@@ -23,7 +23,7 @@
 
 \usepackage{fancyhdr}
 \pagestyle{fancy}
-\fancyhead[LO]{August 2018}
+\fancyhead[LO]{Feb 2019}
 \fancyhead[RO]{Variable environments \& climate change}
 
 \begin{document}
@@ -31,7 +31,7 @@
 \title{Coexistence and climate change: \\The role of
     temporal-variability in structuring future communities}
     \author{Wolkovich \& Donahue}
-\date{Last updated: 27 August 2018 (Vancouver) \\ } % North Shore of Oahu/Cambridge/Boulder in the snow/Oahu
+\date{Last updated: Mid-February 2019 (Honolulu) \\ } % Vancouver x 2/North Shore of Oahu/Cambridge/Boulder in the snow/Oahu
 \maketitle 
 
 \begin{center}
@@ -108,6 +108,20 @@ See below (or see other files) for outlines and info on each.
 
 \section{Notes from meetings}
 \emph{These are notes from our meetings that basically outline what we did. I have tried to remove any critical information. Meaning: you don't really need to read this if you don't want to, unless you're looking for notes on why we didn't do things or when we did certain things.}
+
+\subsection{Notes from 16-18 February 2019}
+Whoosh! And away we went. \\
+
+It felt like more progress was made on this visit, but perhaps we were just due for a breakthrough after much hard coding work. In short we:
+\begin{smitemize}
+\item Megan got the SLURM runs going and sent a bunch, including the decreaisng $R_0$ ones. 
+\item And it turns out those $R_0$ runs didn't make a big difference, need to look into a little more, but our big prediction that it would down-value the value of trackng didn't happen.
+\item We worked a little through the megadrought runs. We realized we probably should not vary $s$ and $\phi$ as those may be on the same niche axis (one is seed survival and one is conversion from biomass to seeds) and thus we haven't really given the species a chance to coexist. We thought better and will now vary $s$ and $\tau_i$ (I think).
+\item We looked at the Bfin results and spent a long time interpreting our figures. (Lizzie needs to scan and upload these things!)
+\item On a similar note to the $s$-$\phi$ issues, we realized that runs where we just vary $\tau_i$ and tracking are also varying the same niche axis, so no true coexistence is possible. That's why there is so much coexistence. You can see after non-stationarity you keep things on the 1:1 and otherwise the things matched to the new environment (via either $\tau_i$ or tracking).
+\item I think we agreed that we can skip trying to present the runs where R*, $\tau_i$ and tracking vary ... because it's not a three-way trade-off. It's just a weird repeat of the runs where R* and $\tau_i$  vary or R* and tracking vary. 
+\end{smitemize}
+
 
 \subsection{Notes from 29 August 2018}
 Four days on runs, coding etc.!
