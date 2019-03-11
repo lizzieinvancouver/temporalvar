@@ -134,6 +134,8 @@ $^4$ Hawaii Institute of Marine Biology}\\
 
 % START HERE:
 % *) Then work on real data plots
+% *) Do my to do issues on github, before I forget the plotting code!
+% *) Get this code running without errors, so the math notation is clean (and doesn't become a nightmare later)
 % *) Look for START HERE below and keep up the writing!
 
 
@@ -200,16 +202,16 @@ other species.
 \item The role of the environment in coexistence:
 \begin{enumerate}
 \item Models of community assembly in ecology build upon coexistence via environmental variability. % See genoutline label in other file
-\item Simple models require a resource pulse. \todo[inline]{Could use some help on transition here.}
+\item Simple models require a resource pulse. 
 \item To describe that pulse requires a timing and magnitude for it.  % Yes, ignore evapotranspiration here. 
 \item Climate change has caused major shifts in the timing of pulses: changes in $\tau_{P}$ are often observed 
 \item Such changes should be most important to impacts on coexistence, thus we focus on how shifts in $\tau_{P}$ impact coexistence.
 \end{enumerate}
 \item The role of species traits in coexistence:
 \begin{enumerate}
-\item Traits relate to optimum of timing of pulse $\tau_{i}$  and to resource use \todo[inline]{Help from Megan on how to overview traits quickly and in a good way for our paper setup}
+\item Traits relate to optimum of timing of pulse $\tau_{i}$  and to resource use 
 \item Species traits and climate change: environmental tracking
-\item {\bf It would be great to add real data here!} Some options: First, Lizzie may be able to track down information about negative correlations between tracking and competitive abilities (for nutrient resources). This would put some of the trade-off questions in perspective. Next, we could also see  \emph{what we know about climate projections} and from there see how big do the trade-offs have to be with climate change to make non-tracking a feasible strategy strategy (this `feasible' and `dominant' terminology is a little wobbly; I admit that)?
+\item {\bf It would be great to add real data here!} Some options: First, Lizzie may be able to track down information about negative correlations between tracking and competitive abilities (for nutrient resources). This would put some of the trade-off questions in perspective. Next, we could also see  \emph{what we know about climate projections} and from there see how big do the trade-offs have to be with climate change to make non-tracking a feasible strategy strategy (this `feasible' and `dominant' terminology is a little wobbly; I admit that)? \todo[inline]{Missing from main text currently.}
 \end{enumerate}
 \item Model description: We consider the effects of climate variation with a model that considers dynamics at both the
 intra-annual and inter-annual scale. So, our model explicitly considers how within and between year dynamics can drive coexistence
@@ -356,6 +358,8 @@ generalist is then superior.
 \end{enumerate}
 \end{enumerate} 
 \end{enumerate} 
+\end{enumerate} 
+
 
 
 \section{Main text}
@@ -363,28 +367,66 @@ Athropogenic climate change is causing widespread changes in species, with many 
 
 How well a species tracks the environment has been repeatedly implicated in underlying indirect effects of climate change (CITES). Species that phenologically track warming also appear to perform better in field warming experiments (CITES), while exotic plant species appear to also gain a foothold in warming environments by phenologically tracking climate change (CITES). Simple community ecology theory supports these findings, suggesting that a warming climate should open up new temporal niche space and favor species that can exploit that space (CITES). Thus, earlier springs should favor earlier species, especially those that can environmentally track the ever-earlier seasons. While this hypothesis has gained significant traction in the ecological literature (CITES), there is little work examining whether this hypothesis is supported through coexistence theory and models. \\
 
-Current or `modern' coexistence theory is based strongly on understanding how variable environments may promote coexistence, providing a possible way to study how communities may be shaped by a changing environment. Importantly, models based on the theory can help highlight which species `traits,' including those related to how species are matched to and respond to the environment, are favored under different environmental regimes. Most theory, however, is based on the assumption of stationarity: though the environment is variable, its underlying distribution is unchanged across time \citep{barabas2018}. This assumption is common not just to coexistence theory, but to much of the theory that underlies ecology, evolution and myriad other research fields (CITES). Climate change upends the assumption of stationarity. By causing increasing in temperature, larger pulses of precipitation, increased drought, and more (CITES), climate change has fundamentally shifted major attributes of the environment from stationary to non-stationary regimes. This transition---from stationary to non-stationary environments---is rehaping ecological systems, and while new work has aimed to adapt coexistence to non-stationary environments \citep{chessonnonstat}, little work has fundamentally examined what such a transition may mean for communities. \\
+Current or `modern' coexistence theory is based strongly on understanding how variable environments may promote coexistence---providing one way to study how communities may be shaped by a changing environment. Importantly, models based on the theory can help highlight which species `traits,' including those related to how species are matched to and respond to the environment, are favored under different environmental regimes.\\
 
-Here we review current coexistence theory for variable environments, and provide an initial test of how well basic theory supports the curent paradigm that climate change should favor species with environmental tracking. We begin with an overview of coexistence theory for variable environments and what predictions models from this theory make for stationary environments. In particular, we look at how species traits related to their responses to climate variability effect coexistence and long-term persistence in the community maintenance. Using a simple example, we show how current models can be extended to non- stationary environments (similar to those due to climate change) to examine how changing environments alter predictons.
+ Most theory, however, is based on the assumption of stationarity: though the environment is variable, its underlying distribution is unchanged across time \citep{barabas2018}. This assumption is common not just to coexistence theory, but to much of the theory that underlies ecology, evolution and myriad other research fields (CITES). Climate change upends the assumption of stationarity. By causing increasing in temperature, larger pulses of precipitation, increased drought, and more (CITES), climate change has fundamentally shifted major attributes of the environment from stationary to non-stationary regimes. This transition---from stationary to non-stationary environments---is rehaping ecological systems, and while new work has aimed to adapt coexistence to non-stationary environments \citep{chessonnonstat}, little work has fundamentally examined what such a transition may mean for communities. \\
+
+Here we review current coexistence theory for variable environments, and provide an initial test of how well basic theory supports the curent paradigm that climate change should favor species with environmental tracking. We begin with an overview of coexistence theory for variable environments and what predictions models from this theory make for stationary environments. In particular, we look at how species traits related to their responses to environmental variability effect coexistence and long-term persistence in community maintenance. Using a simple example, we show how current models can be extended to non-stationary environments (similar to those due to climate change) to examine how changing environments alter predictons.
 
 
 \subsection{The role of the environment in coexistence}
 
-Recent advances in coexistence theory, often heralded under the title `modern coexistence theory' recognize that mechanisms independent of fluctuations in the environment (e.g., R* and other classical niche differences) and those dependent upon fluctuations (relative non-linearity and storage effect) can drive coexistence (CITES).
+Recent advances in coexistence theory, often heralded under the title `modern coexistence theory,' recognize that both mechanisms independent of fluctuations in the environment (e.g., R* and other classical niche differences) and dependent on fluctuations in the environment (relative non-linearity and storage effect) can drive coexistence (CITES). Models under this paradigm are thus often composed of parameters the describe the environment and the species within it (CITES). In some cases the environment is expressed as variation in parameters related to species (e.g., in some lottery models the environment appears, effectively, as variation in birth and death rates). In other models, the environment is more specifically defined. For example, many seed germination models define an environment that begins with a resource pulse each year. Building a changing environment into models thus may require knowing how environmental shifts filter through to species-level parameters (CITES) or, perhaps more simply, the environment is changing. In the aforementioned seed germination models, many systems may be experiencing shifts in the size or variability of the resource pulse. Parameters related to species must always include mechanisms for growth, death, interactions with other species, and generally a bet-heding strategy for survival across years (e.g., a seedbank or other long-lived lifestage)---though exactly how these are defined varies across models (e.g., R* and related models focus on resource competition).\\ % \citep{Davison2010,morris2008,Tuljapurkar2009}
+% Lottery model: Birth and death rates vary ... collapses to single ratio (that's the environment) ... many general models are like this, they just vary a parameter and assume it is varying in response to the environment. Whatever parameter you allow to vary is how you allow the environment to filter through. (Side note: Tulja Purqur may have worked on how environment filters through to many species parameters in the model.)
+
+\subsubsection{Model description}
+
+To understand the role of environmental tracking by species in variable environments we use a simple model akin to many commonly used seed germination models (CITES).  Our model includes dynamics at both the intra-annual and inter-annual scales, thus allowing within and between year dynamics to contribute to coexistence. The environment is included in the model between years via variable germination, and within years via a resource pulse defines the start of the season. The model includes a suite of species traits, including some relating to how the species responds to the environment via germination year and bethedges across years via a seedbank, as well as traits relating to resource competition each year. \\
 
 % START HERE!
-% Need to rethink how much text we need here before we launch into model (maybe less than is currently outline).
+% See genoutline label in other file
 
+Across years, for a community of \(n\) species:
+\begin{align*}
+N_{i}(t+1) & = N_{i}(t+\delta)s_{i}
+\end{align*}
 
-% Just say: There's a lot of ways the environment can be included in these models. .... Here's a model we'll use (environment-dependent germination ... where germination varies year to year and there are fluctuations in the resource available to those that germinate. 
+\begin{align*}
+N_{i}(t+1) & =
+s_{i}(N_{i}(t)(1-g_{i}(t))+\phi_{i}B(t+\delta)
+\end{align*}
 
-% Some examples
-% Lottery model: Birth and death rates vary ... collapses to single ratio (that's the environment) ... many general models are like this, they just vary a parameter and assume it is varying in response to the environment. Whatever parameter you allow to vary is how you allow the environment to filter through. (Side note: Tulja Purqur may have worked on how environment filters through to many species parameters in the model.)
-% Fisheries: Recuitment as a varying factor dependent on El Nino.
-% Check out: \noindent \emph{Refs from Doug:} \citep{Davison2010,morris2008,Tuljapurkar2009}\\
+\text{where:}\\
+\\
+\frac{\mathrm{d}R}{\mathrm{d}t} & = - \sum_{i=1}^{n}f_{i}(R)B_{i} -\epsilon R\\
+\\
+\\
+\frac{\mathrm{d}B_{i}}{\mathrm{d}t} &  = [c_{i}f_{i}(R) - m_{i}]B_{i}
+\\
+\\
 
+\text{where:} 
+\\
+\\
+g_{i} & = g_{max,i}e^{-h(\tau_{p}-\tau_{i})^2}
+\\
+\\
+f_{i}(R) & = \frac{a_{i}R^{\theta_{i}}}{1+a_{i}u_{i}R^{\theta_{i}}}
+\\
+\end{align*}
 
-% Overview of species traits: some are about how species respond (match) to the environment, some are about resource competition, some are about bet hedging (seedbank) ... we overview the major traits we're examining in this models 
+\noindent Adding phenological tracking to model (October 2013 version): \\
+\begin{align*}
+& \alpha \in 0 \rightarrow 1
+\\
+&\hat{\tau_{i}} = \alpha \tau_{p} + (1-\alpha)\tau_{i}\\
+\end{align*}
+\noindent thus:
+\begin{align*}
+\text{when } \alpha = 0: & \hat{\tau_{i}}=\tau_{i}
+\\
+\text{when }  \alpha = 1: & \hat{\tau_{i}}=\tau_{p}
+\end{align*}
 
 \newpage
 \section{Figures}
