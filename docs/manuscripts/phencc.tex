@@ -1,85 +1,27 @@
 \documentclass[11pt,letterpaper]{article}
+\usepackage[top=1.00in, bottom=1.0in, left=1in, right=1.25in]{geometry}
+\usepackage{graphicx}
+\usepackage{latexsym,amssymb,epsf}
+\usepackage{epstopdf}
 
-\usepackage{fixltx2e}
-\usepackage{textcomp}
-\usepackage{fullpage}
-\usepackage{amsfonts}
-\usepackage{verbatim}
-\usepackage[english]{babel}
-\usepackage{pifont}
-\usepackage{color}
-\usepackage{setspace}
-\usepackage{lscape}
-\usepackage{indentfirst}
-\usepackage[normalem]{ulem}
-\usepackage{booktabs}
-%\usepackage{nag}
-\usepackage{natbib}
-%\usepackage{bibtex}
+\usepackage{sectsty,setspace,natbib}
 \usepackage{float}
 \usepackage{latexsym}
-%\usepackage{hyperref} 
-\usepackage{url}
-%\usepackage{html}
+\usepackage{hyperref} 
 \usepackage{hyperref}
 \usepackage{epsfig}
 \usepackage{graphicx}
-\usepackage{amssymb}
 \usepackage{amsmath}
-\usepackage{bm}
 \usepackage{array}
-\usepackage{mhchem}
-\usepackage{ifthen}
-\usepackage{caption}
-\usepackage{hyperref}
-%\usepackage{xcolor}
-\usepackage{amsthm}
-\usepackage{amstext}
 \usepackage{lineno}
 
-\usepackage{sectsty,setspace,natbib}
-\usepackage[top=1.00in, bottom=1.0in, left=1in, right=1.25in]{geometry}
-\usepackage{graphicx}
-\usepackage{latexsym,amssymb,epsf,rotating}
-\usepackage{epstopdf}
-\usepackage{amsmath}
-\usepackage{natbib}
 \usepackage{todonotes}
 \usepackage{framed}
 
 \linespread{1.1} % was 1.66 for double-spaced 
 % \raggedright
 \setlength{\parindent}{0.5in}
-
-\setcounter{secnumdepth}{0}
-
 \pagestyle{empty}
-
-\renewcommand{\section}[1]{%
-\bigskip
-\begin{center}
-\begin{Large}
-\normalfont\scshape #1
-\medskip
-\end{Large}
-\end{center}}
-
-\renewcommand{\subsection}[1]{%
-\bigskip
-\begin{center}
-\begin{large}
-\normalfont\itshape #1
-\end{large}
-\end{center}}
-
-\renewcommand{\subsubsection}[1]{%
-\vspace{2ex}
-\noindent
-\textit{#1.}---}
-
-\renewcommand{\tableofcontents}{}
-
-\bibpunct{(}{)}{;}{a}{}{,}  % this is a citation format command for natbib
 
 \parskip=5pt
 \pagenumbering{arabic}
@@ -197,7 +139,7 @@ other species.
 \item What predictions it makes for tracking in stationary environments
 \item In particular, we look at how species traits related to their responses to climate variability effect coexistence and long-term persistence in the community maintenance. (This is the tracking part of the project.) 
 \item Using a simple example, show how current models can be extended to non-stationary environments (similar to those due to climate change) to examine how changing environments alter predictons.
-\end{enumerate}
+\end{enumerate} 
 \end{enumerate}
 \item The role of the environment in coexistence:
 \begin{enumerate}
@@ -211,7 +153,7 @@ other species.
 \begin{enumerate}
 \item Traits relate to optimum of timing of pulse $\tau_{i}$  and to resource use 
 \item Species traits and climate change: environmental tracking
-\item {\bf It would be great to add real data here!} Some options: First, Lizzie may be able to track down information about negative correlations between tracking and competitive abilities (for nutrient resources). This would put some of the trade-off questions in perspective. Next, we could also see  \emph{what we know about climate projections} and from there see how big do the trade-offs have to be with climate change to make non-tracking a feasible strategy strategy (this `feasible' and `dominant' terminology is a little wobbly; I admit that)? \todo[inline]{Missing from main text currently.}
+\item {\bf It would be great to add real data here!} Some options: First, Lizzie may be able to track down information about negative correlations between tracking and competitive abilities (for nutrient resources). This would put some of the trade-off questions in perspective. Next, we could also see  \emph{what we know about climate projections} and from there see how big do the trade-offs have to be with climate change to make non-tracking a feasible strategy strategy (this `feasible' and `dominant' terminology is a little wobbly; I admit that)? % \todo[inline]{Missing from main text currently.}
 \end{enumerate}
 \item Model description: We consider the effects of climate variation with a model that considers dynamics at both the
 intra-annual and inter-annual scale. So, our model explicitly considers how within and between year dynamics can drive coexistence
@@ -304,7 +246,7 @@ percentage of species that track, and the min and max tracking.
 \end{enumerate}
 
 \subsection{References to cite}
-\noindent Citation for earlier springs \href{https://link.springer.com/article/10.1007/s00382-016-3313-2}{`Identifying anomalously early spring onsets in the CESM large ensemble project'.}
+\noindent Citation for earlier springs % \href{https://link.springer.com/article/10.1007/s00382-016-3313-2}{`Identifying anomalously early spring onsets in the CESM large ensemble project'.}
 
 \noindent Some key refs we worked with:
 \citep{Chesson:1993gi,Chesson:2000ak,Chesson:2000vd,Chesson:2004eo}. Some
@@ -320,6 +262,8 @@ data: \citep{Angert:2009,Kuang:2008ri,Kuang:2009rj,Levine:2009ym}.
 \item How big do trade-offs have to be for tracking to be non-advantageous (to allow coexistence with other species)?
 \item Another angle, is tracking the dominant strategy with a shifting environment (distribution) vs. stationary environment distribution?
 \end{itemize}
+\end{itemize}
+
 
 \noindent This tracking angle matches to the `Generalists, specialists and plasticity' section of \citet{Chesson:2004eo}. You could imagine by removing the benefit of trade-offs associated with not being plastic, then nonstationarity could favour generalists (plastic species, that is). Here's the most relevant bit (according to Lizzie):
 \begin{quote}
@@ -354,13 +298,10 @@ generalist is then superior.
 \item What happens to communities that were coexisting via $R*-\alpha$ trade-off? 
 \begin{enumerate}
 \item Perhaps tracking can trump $R^*$ ... Look at: cases where tracker outcompetes species with lower $R^*$ in nonstationary simulations.
-\item Maybe do runs with stationarity, then non-stationarity: this could tell you things like `these species will stop coexisting or X\% of runs now go extinct or this part of parameter space that was coexisting goes away first' ... we could also do runs with same params started non-stationary period and see if combinations become possible. \\ 
-\end{enumerate}
+\item Maybe do runs with stationarity, then non-stationarity: this could tell you things like `these species will stop coexisting or X\% of runs now go extinct or this part of parameter space that was coexisting goes away first' ... we could also do runs with same params started non-stationary period and see if combinations become possible. 
 \end{enumerate} 
 \end{enumerate} 
 \end{enumerate} 
-
-
 
 \section{Main text}
 Athropogenic climate change is causing widespread changes in species, with many species shifting in both time and space (CITES). Species are shifting up in elevation and poleward as climate warms (CITES), and many species are shifting their recurring life history events (phenology) earlier (CITES). Yet, not all species are shifting in a way predicted by a simple direct physiological response; species in the same community can include some that do not shift or even shift in an apparently opposing direction (e.g., delayed spring phenology with warming). Understanding these variable responses of communities and species due to climate shifts is a major aim of current ecology and may be explained by indirect effects. For example, research has already documented changes in a species performance (CITES) and community composition that appear to be---at least in part---indirect effects (CITES).  Understanding ecological responses to climate change will thus require synthesizing information on both direct effects of climate on species and indirect effects driven by responses to other species' shifts. \\ % Alongside these more direct physiological effects of climate change, however, are indirect effects.
@@ -381,10 +322,11 @@ Recent advances in coexistence theory, often heralded under the title `modern co
 
 \subsubsection{Model description}
 
-To understand the role of environmental tracking by species in variable environments we use a simple model akin to many commonly used seed germination models (CITES).  Our model includes dynamics at both the intra-annual and inter-annual scales, thus allowing within and between year dynamics to contribute to coexistence. The environment is included in the model between years via variable germination, and within years via a resource pulse defines the start of the season. The model includes a suite of species traits, including some relating to how the species responds to the environment via germination year and bethedges across years via a seedbank, as well as traits relating to resource competition each year. \\
+To understand the role of environmental tracking by species in variable environments we use a simple model that includes dynamics at both the intra-annual and inter-annual scales. This model thus allows within- and between-year dynamics to contribute to coexistence. Between-years the environment is included via variable germination, and within-years via a resource pulse defines the start of the season. The model includes a suite of species traits, including some relating to how the species responds to the environment via germination year and bethedges across years via a seedbank, as well as traits relating to resource competition each year. As the model is akin to many commonly used seed germination models (CITES), we follow a similar terminology for ease, however the basic structure of our model could apply to others systems with %\todo[inline]{Ask Megan/check notes.}. % Conceptualization of our germination equations in other file
 
 % START HERE!
 % See genoutline label in other file
+
 
 Across years, for a community of \(n\) species:
 \begin{align*}
@@ -396,6 +338,7 @@ N_{i}(t+1) & =
 s_{i}(N_{i}(t)(1-g_{i}(t))+\phi_{i}B(t+\delta)
 \end{align*}
 
+\begin{align*}
 \text{where:}\\
 \\
 \frac{\mathrm{d}R}{\mathrm{d}t} & = - \sum_{i=1}^{n}f_{i}(R)B_{i} -\epsilon R\\
