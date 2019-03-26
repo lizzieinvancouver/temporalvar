@@ -388,20 +388,13 @@ plot.paramdiffs.twopanel(taualpha.runs.df, "taualpha.runs", "_alpha.tauIP",
     "ratio.alpha", "ratio.tauIP.t2", cexhere, pchhere, "sp1 wins", "bottomright", "sp2 wins", "topleft")
 plot.paramdiffs.twopanel(taualpha.runs.df, "taualpha.runs", "_alpha.tauIP.t1.",
     "ratio.alpha", "ratio.tauIP.t1", cexhere, pchhere, "sp1 wins", "bottomright", "sp2 wins", "topleft")
-plot.paramdiffs.twopanel(taualpha.runs.df, "taualpha.runs", "_alpha.tauI",
-    "ratio.alpha", "ratio.tauI", cexhere, pchhere, "sp1 wins", "bottomright", "sp2 wins", "topleft")
-plot.paramdiffs.twopanel.fixedxy(taualpha.runs.df, "taualpha.runs", "_alpha.tauI",
-    "ratio.alpha", "ratio.tauI", cexhere, pchhere, c(0,3), c(0,5),
-    "sp1 wins", "bottomright", "sp2 wins", "topleft")
 plot.paramdiffs.twopanel.fixedxy(taualpha.runs.df, "taualpha.runs", "_alpha.tauIP.t2.",
     "ratio.alpha", "ratio.tauIP.t2", cexhere, pchhere, c(0,3), c(0,5),
     "sp1 wins", "bottomright", "sp2 wins", "topleft")
 plot.paramdiffs.twopanel.fixedxy(taualpha.runs.df, "taualpha.runs", "_alpha.tauIP",
     "ratio.alpha", "ratio.tauIP.t1", cexhere, pchhere, c(0,3), c(0,5),
     "sp1 wins", "bottomright", "sp2 wins", "topleft")
-plot.paramdiffs.manypanel.bfin(taualpha.runs.df, "taualpha.runs", "_alpha.tauI",
-    "ratio.alpha", "ratio.tauI", cexhere, pchhere, "sp1 wins", "bottomright", "sp2 wins", "topleft",
-    colpalettehere)
+
 # some extras for this tricky run ....
 taualpha.runs.df$ratio.tauIP.t1t2 <- (taualpha.runs.df$tauIP1_mean.t1-taualpha.runs.df$tauIP1_mean.t2)/
     (taualpha.runs.df$tauIP2_mean.t1-taualpha.runs.df$tauIP2_mean.t2)
@@ -447,39 +440,39 @@ plot.paramdiffs.twopanel(taualpha.runs.df, "taualpha.runs", "_alpha.g.t2.",
 
 
 # Three things vary
-plot.paramdiffs.onepanel(taualphaRstar.runs.df, "taualphaRstar.runs", "_tauIP.rstar",
+plot.paramdiffs.onepanel(taualphaRstar.runs.df, "threethingsvary/taualphaRstar.runs", "_tauIP.rstar",
     "ratio.tauIP.t2", "ratio.rstar", cexhere, pchhere, "sp1 wins", "bottomleft", "sp2 wins", "topright")
-plot.paramdiffs.onepanel(taualphaRstar.runs.df, "taualphaRstar.runs", "_tauI.rstar",
+plot.paramdiffs.onepanel(taualphaRstar.runs.df, "threethingsvary/taualphaRstar.runs", "_tauI.rstar",
     "ratio.tauI", "ratio.rstar", cexhere, pchhere, "??", "bottomleft", "??", "topright")
-plot.paramdiffs.onepanel(taualphaRstar.runs.df, "taualphaRstar.runs", "_alpha.rstar",
+plot.paramdiffs.onepanel(taualphaRstar.runs.df, "threethingsvary/taualphaRstar.runs", "_alpha.rstar",
     "ratio.alpha", "ratio.rstar", cexhere, pchhere, "sp1 wins", "bottomright", "sp2 wins", "topleft")
-plot.paramdiffs.onepanel(taualphaRstar.runs.df, "taualphaRstar.runs", "_alpha.tauIP",
+plot.paramdiffs.onepanel(taualphaRstar.runs.df, "threethingsvary/taualphaRstar.runs", "_alpha.tauIP",
     "ratio.alpha", "ratio.tauIP.t2", cexhere, pchhere, "sp1 wins", "bottomright", "sp2 wins", "topleft")
-plot.paramdiffs.twopanel(taualphaRstar.runs.df, "taualphaRstar.runs", "_tauIP.rstar",
+plot.paramdiffs.twopanel(taualphaRstar.runs.df, "threethingsvary/taualphaRstar.runs", "_tauIP.rstar",
     "ratio.tauIP.t2", "ratio.rstar", cexhere, pchhere, "sp1 wins", "bottomleft", "sp2 wins", "topright")
-plot.paramdiffs.twopanel(taualphaRstar.runs.df, "taualphaRstar.runs", "_alpha.rstar",
+plot.paramdiffs.twopanel(taualphaRstar.runs.df, "threethingsvary/taualphaRstar.runs", "_alpha.rstar",
     "ratio.alpha", "ratio.rstar", cexhere, pchhere, "sp1 wins", "bottomright", "sp2 wins", "topleft")
-plot.paramdiffs.twopanel(taualphaRstar.runs.df, "taualphaRstar.runs", "_alpha.tauIP",
+plot.paramdiffs.twopanel(taualphaRstar.runs.df, "threethingsvary/taualphaRstar.runs", "_alpha.tauIP",
     "ratio.alpha", "ratio.tauIP.t2", cexhere, pchhere, "sp1 wins", "bottomright", "sp2 wins", "topleft")
 
 
 # compare these to their equivalents 
-plot.paramdiffs.fixedxy(taualphaRstar.runs.df, "taualphaRstar.runs", "_tauIP.rstar",
+plot.paramdiffs.fixedxy(taualphaRstar.runs.df, "threethingsvary/taualphaRstar.runs", "_tauIP.rstar",
     "ratio.tauIP.t2", "ratio.rstar", tauRstar.runs.df, 1, 16, "sp1 wins", "bottomright", "sp2 wins", "topleft")
-plot.paramdiffs.fixedxy(taualphaRstar.runs.df, "taualphaRstar.runs", "_tauI.rstar",
+plot.paramdiffs.fixedxy(taualphaRstar.runs.df, "threethingsvary/taualphaRstar.runs", "_tauI.rstar",
     "ratio.tauI", "ratio.rstar", tauRstar.runs.df, 1, 16, "??", "bottomleft", "??", "topright")
-plot.paramdiffs.fixedxy(taualphaRstar.runs.df, "taualphaRstar.runs", "_alpha.rstar",
+plot.paramdiffs.fixedxy(taualphaRstar.runs.df, "threethingsvary/taualphaRstar.runs", "_alpha.rstar",
     "ratio.alpha", "ratio.rstar", alphaRstar.runs.df, 1, 16, "sp1 wins", "bottomright", "sp2 wins", "topleft")
-plot.paramdiffs.fixedxy(taualphaRstar.runs.df, "taualphaRstar.runs", "_alpha.tauIP",
+plot.paramdiffs.fixedxy(taualphaRstar.runs.df, "threethingsvary/taualphaRstar.runs", "_alpha.tauIP",
     "ratio.alpha", "ratio.tauIP.t2", taualpha.runs.df, 1, 16, "sp1 wins", "bottomright", "sp2 wins", "topleft")
 
 
 # and color code by third variable
-plot.paramdiffs.colorbyzvar(taualphaRstar.runs.df, "taualphaRstar.runs", "_tauIP.rstar",
+plot.paramdiffs.colorbyzvar(taualphaRstar.runs.df, "threethingsvary/taualphaRstar.runs", "_tauIP.rstar",
     "ratio.tauIP.t2", "ratio.rstar", "ratio.alpha", "3 traits vary: survived after stat", 1)
-plot.paramdiffs.colorbyzvar(taualphaRstar.runs.df, "taualphaRstar.runs", "_alpha.rstar",
+plot.paramdiffs.colorbyzvar(taualphaRstar.runs.df, "threethingsvary/taualphaRstar.runs", "_alpha.rstar",
     "ratio.alpha", "ratio.rstar", "ratio.tauIP.t2", "3 traits vary: survived after stat", 1)
-plot.paramdiffs.colorbyzvar(taualphaRstar.runs.df, "taualphaRstar.runs", "_alpha.tauIP",
+plot.paramdiffs.colorbyzvar(taualphaRstar.runs.df, "threethingsvary/taualphaRstar.runs", "_alpha.tauIP",
      "ratio.alpha", "ratio.tauIP.t2", "ratio.rstar", "3 traits vary: survived after stat", 1)
 
 # Look at the R0 runs: alphaRstarR0.runs.df
