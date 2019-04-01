@@ -370,6 +370,8 @@ plot.paramdiffs.manypanel.bfin(tauRstar.runs.df, "tauRstar.runs", "_tauI.rstar",
     "ratio.rstar", cexhere, pchhere,  "sp1 wins", "bottomleft", "sp2 wins", "topright", colpalettehere)
 plot.paramdiffs.manypanel.bfin(tauRstar.runs.df, "tauRstar.runs", "_tauIP.t2.rstar", "ratio.tauIP.t2",
     "ratio.rstar", cexhere, pchhere,  "sp1 wins", "bottomleft", "sp2 wins", "topright", colpalettehere)
+plot.paramdiffs.manypanel.bfin(tauRstar.runs.df, "tauRstar.runs", "_tauIP.t1.rstar", "ratio.tauIP.t1",
+    "ratio.rstar", cexhere, pchhere,  "sp1 wins", "bottomleft", "sp2 wins", "topright", colpalettehere)
 plot.paramdiffs.onesp.bfin(tauRstar.runs.df, "tauRstar.runs", "_tauI.rstar", "ratio.tauI",
     "ratio.rstar", cexhere, pchhere,  "sp1 wins", "bottomleft", "sp2 wins", "topright", colpalettehere)
 
