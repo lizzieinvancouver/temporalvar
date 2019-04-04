@@ -198,8 +198,9 @@ Competition/colonization trade-off.
 \item How $\tau_i$ and $\alpha$ matter to coexistence
 \item Somewhere say (perhaps): in temporally variable environments species with $\tau_i$ closer to averae $\tau_{P}$ should always win ... and same for tracking....
 \begin{enumerate}
-\item {\bf Are these effectively the same trait (so no trade-off possible)?}
-\item {\bf In a stationary environment both are equally useful ways to match to the environment}
+\item {\bf Are these effectively the same trait (so no trade-off possible)?} Right, NO trade-off possible, but it's not so much that they are the same trait, but they are trading off on the same species-response to the environment. ... things that we conceptualize as two different traits in a biological sense are the same mathematically (biologically you can imagine a trade-off between tracking and fixed tauI (and in a broader fitness model, you could put energy in either place), but in this environmental space they both get you to the same space). It's the same niche axis!
+\item  In a stationary environment both are equally useful ways to match to the environment (what matters in the end is the total tauIP). In a stationary environment you can get the same outcome with either. 
+% One rejoinder might be that, it feels like a tracking strategy should be better in a stationary environment ... so we may need a conceptual FIGURE: stationary environment and you can get a certain distance from that mean tauP via two ways: tracking or tauI. 
 \item Having a $\tau_i = \tau_P$ is the same as having tracking=1
 \item So, both can equally trade-off with other niche axes .... 
 \end{enumerate}
@@ -377,7 +378,13 @@ We refer to $\hat{\tau_{i}}$ as `effective $\tau_i$.' As our interest is primari
 \subsubsection{Tracking in stationary environments}
 Species occurring for long periods of time in any habitat must be sufficiently matched to their environment across years. In our model this means species must have germination curves [define above?] such that their $\hat{\tau_{i}}$ is sufficiently close to $\tau_{p}$ to allow germination of new seeds before the seedbank is exhausted. In our model this can happen in two ways: species' with fixed $\tau_i$ values close enough to  $\tau_{p}$ or species with combination of $\tau_i$ and tracking ($\alpha$) that brings the $\hat{\tau_{i}}$ close enough to  $\tau_P$.
 % Add histogram here? 
-% Should we come up with better names for tauI tauIP and tauP (esp. since we have 'tracking' for alpha)?
+% Should we come up with better names for tauI tauIP and tauI (esp. since we have 'tracking' for alpha)?
+% tauI in non-tracking is fixed characteristic of when I germinate ... and my success each year is about how far off I was. 
+% maybe use SOS to abstract more ... the model is about timing, and is about the beginning of something asynchronous to something else ... should we use synchrony? 
+% tauI - intrinsic (biological) start time (bioSOS)
+% tauP - environmental start time (envSOS) 
+% tauIP - distance (synchrony) from environmental start time or SOS (versus biological start time)
+
 % Need to (again) better understand tauI and alpha ... which plots to show? The tauIPnoalpha ones?
 
 % SEE OUTLINE above for questions ... and questions above ... 
@@ -469,3 +476,24 @@ Species occurring for long periods of time in any habitat must be sufficiently m
 %=======================================================================
 
 % Old hypothesis: Without tracking we may predict benefits to early-colonizers decline with earlier seasons. As start-date moves earlier, early folks lose benefit (assuming they tend to often go at optimum time) and you get more late folks. Late species may be less different than one another---and less responsive to environment. Early folks, effectively, become more similar to environment. 
+
+Questions from 2019 April
+
+For tauI trading off with R* runs ...
+
+(a) Did we decide we should plot tauIP minus alpha effect (tauIPnoalpha plots, attached)? They seem to make more sense that tauIP (also attached), but I need a reminder of how we calculated them and a second opinion.
+
+tauIP has alpha in it, so plotting tauIP versus alpha is a bit weird ....
+tauIP_noalpha is the tracking-free version of tauIP 
+See runanalysisfxs.R: tauIP_mean/(1-alpha)
+
+Use the tauIP_noalpha plots!
+
+(b) Why the bottleneck at 1 x 1 intersection for alpha x R* models (also attached) and no bottleneck for tauI x R*?
+
+Look at both R* versus tauIP (we don't have for alpha).
+Lizzie says: plot ratio.rstar versus ratio.tauI with bFin colored.
+
+tauIP should look better than tauI
+
+% Should we come up with better names for tauI tauIP and tauP (esp. since we have 'tracking' for alpha)?
