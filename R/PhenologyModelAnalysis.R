@@ -379,6 +379,12 @@ plot.paramdiffs.onepanel(alphaRstar.runs.df, "alphaRstar.runs", "_alpha.rstar", 
     "ratio.rstar", cexhere, pchhere, "sp1 wins", "bottomright", "sp2 wins", "topleft")
 plot.paramdiffs.twopanel(alphaRstar.runs.df, "alphaRstar.runs", "_alpha.rstar", "ratio.alpha",
     "ratio.rstar", cexhere, pchhere, "sp1 wins", "bottomright", "sp2 wins", "topleft")
+plot.paramdiffs.twopanel(alphaRstar.runs.df, "alphaRstar.runs", "_tauIP.t1.rstar", "ratio.tauIP.t1",
+    "ratio.rstar", cexhere, pchhere, "sp1 wins", "bottomleft", "sp2 wins", "topright")
+plot.paramdiffs.twopanel(alphaRstar.runs.df, "alphaRstar.runs", "_tauIP.t2.rstar", "ratio.tauIP.t2",
+    "ratio.rstar", cexhere, pchhere,"sp1 wins", "bottomleft", "sp2 wins", "topright")
+plot.paramdiffs.twopanel(alphaRstar.runs.df, "alphaRstar.runs", "_tauIPnoalpha.t1.rstar", "ratio.tauIPnoalpha.t1",
+    "ratio.rstar", cexhere, pchhere, "sp1 wins", "bottomleft", "sp2 wins", "topright")
 plot.paramdiffs.manypanel.bfin(alphaRstar.runs.df, "alphaRstar.runs", "_alpha.rstar", "ratio.alpha",
     "ratio.rstar", cexhere, pchhere, "sp1 wins", "bottomright", "sp2 wins", "topleft", colpalettehere)
 plot.paramdiffs.onesp.bfin(alphaRstar.runs.df, "alphaRstar.runs", "_alpha.rstar", "ratio.alpha",
