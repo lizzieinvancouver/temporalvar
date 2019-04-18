@@ -134,6 +134,12 @@ df.all.t2 <- subset(df.all.t2, select=c("jobID", "taskID", "runID", "ncoexist",
 df.all.plot <- merge(df.all.coexist1, df.all.t2, by=c("jobID", "taskID", "runID", "taskrunID"),
     all.x=TRUE, all.y=FALSE, suffixes=c(".t1", ".t2"))
 
+# alternative of above, for when you want the df structure of above but with the ncoexist=(1 or 2) the runs from the stationary (df.all.plot is just ncoexist=2 from the stat period)
+df.all.coexist1.justonesp <- subset(df.all, ncoexist==1 & period==1)
+df.all.coexist.alt <- rbind(df.all.coexist1, df.all.coexist1.justonesp)
+df.all.plot.alt <- merge(df.all.coexist.alt, df.all.t2, by=c("jobID", "taskID", "runID", "taskrunID"),
+    all.x=TRUE, all.y=FALSE, suffixes=c(".t1", ".t2"))
+
 
 ##
 ## Data formatting to compare species 
@@ -352,6 +358,11 @@ plot.alpha.winnersp.stat.alt(alphaRstar.stat.runs.df, "alphaRstar.runs", "_alpha
     "ratio.rstar", cexhere, pchhere)
 plot.alpha.winnersp.stat.alt(taualpha.stat.runs.df, "taualpha.runs", "_alpha.tauIP",
     "ratio.alpha", "ratio.tauIP", cexhere, pchhere)
+
+# Look at bfin at end of stationary for tauRstar runs, little extra work
+tauRstar.runs.df.alt <- df.all.plot.alt[which(df.all.plot.alt$jobID %in% tauRstar.runs),]
+plot.paramdiffs.stat.bfin(tauRstar.runs.df.alt, "tauRstar.runs", "_tauIP.t1.rstar", "ratio.tauIP.t1",
+    "ratio.rstar", cexhere, pchhere,  "sp1 wins", "bottomleft", "sp2 wins", "topright", colpalettehere)
 
 ### Now, including the non-stationary period (no longer showing ncoexist=0 or 1 from stat period)
 
