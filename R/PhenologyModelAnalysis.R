@@ -359,10 +359,15 @@ plot.alpha.winnersp.stat.alt(alphaRstar.stat.runs.df, "alphaRstar.runs", "_alpha
 plot.alpha.winnersp.stat.alt(taualpha.stat.runs.df, "taualpha.runs", "_alpha.tauIP",
     "ratio.alpha", "ratio.tauIP", cexhere, pchhere)
 
-# Look at bfin at end of stationary for tauRstar runs, little extra work
+# Look at bfin at end of stationary for tauRstar and alphaRstar runs, little extra work
 tauRstar.runs.df.alt <- df.all.plot.alt[which(df.all.plot.alt$jobID %in% tauRstar.runs),]
 plot.paramdiffs.stat.bfin(tauRstar.runs.df.alt, "tauRstar.runs", "_tauIP.t1.rstar", "ratio.tauIP.t1",
     "ratio.rstar", cexhere, pchhere,  "sp1 wins", "bottomleft", "sp2 wins", "topright", colpalettehere)
+alphaRstar.runs.df.alt <- df.all.plot.alt[which(df.all.plot.alt$jobID %in% alphaRstar.runs),]
+plot.paramdiffs.stat.bfin(alphaRstar.runs.df.alt, "alphaRstar.runs", "_tauIP.t1.rstar", "ratio.tauIP.t1",
+    "ratio.rstar", cexhere, pchhere,  "sp1 wins", "bottomleft", "sp2 wins", "topright", colpalettehere)
+plot.paramdiffs.stat.bfin(alphaRstar.runs.df.alt, "alphaRstar.runs", "alpha.rstar", "ratio.alpha",
+    "ratio.rstar", cexhere, pchhere,  "sp1 wins", "bottomright", "sp2 wins", "topleft", colpalettehere)
 
 ### Now, including the non-stationary period (no longer showing ncoexist=0 or 1 from stat period)
 

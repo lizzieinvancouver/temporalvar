@@ -454,6 +454,8 @@ plot.paramdiffs.stat.bfin <- function(df, runname, figname, colname.x, colname.y
         df2 <- subset(df, ncoexist.t1==2)
         df1.sp1 <- subset(df1, coexist1.t1==1)
         df1.sp2 <- subset(df1, coexist2.t1==1)
+        df2.sp1 <- subset(df2, coexist1.t1==1)
+        df2.sp2 <- subset(df2, coexist2.t1==1)
         # First plot
         plot(unlist(df[colname.x]), unlist(df[colname.y]), type="n", xlab=colname.x,
            ylab=colname.y, main="outcomes at end of stat")
@@ -521,28 +523,28 @@ plot.paramdiffs.stat.bfin <- function(df, runname, figname, colname.x, colname.y
             legend=round(quantile(df1.sp2$slopeBfin2.t1), 4), bty="n")
         # Fifth plot
         plot(unlist(df[colname.x]), unlist(df[colname.y]), type="n", xlab=colname.x,
-           ylab=colname.y, main="sp 1 survived after stat: Slope of sp2")
+           ylab=colname.y, main="Both survived after stat: Slope of sp1")
         abline(v=1)
         abline(h=1)
         fig_label(text=corner1.text, region="plot", pos=corner1.pos)
         fig_label(text=corner2.text, region="plot", pos=corner2.pos)
-        df1.sp2$order = findInterval(df1.sp2$slopeBfin1.t1, sort(df1.sp2$slopeBfin1.t1))
-        points(df1.sp2[[colname.x]], unlist(df1.sp2[colname.y]),
-          col=colpalettehere(nrow(df1.sp2))[df1.sp2$order], pch=pch, cex=cex)
+        df2.sp2$order = findInterval(df2.sp2$slopeBfin1.t1, sort(df2.sp2$slopeBfin1.t1))
+        points(df2.sp2[[colname.x]], unlist(df2.sp2[colname.y]),
+          col=colpalettehere(nrow(df2.sp2))[df2.sp2$order], pch=pch, cex=cex)
         legend("topright", col=colpalettehere(5), pch=19,
-            legend=round(quantile(df1.sp2$slopeBfin1.t1), 4), bty="n")
+            legend=round(quantile(df2.sp2$slopeBfin1.t1), 4), bty="n")
         # Sixth plot
         plot(unlist(df[colname.x]), unlist(df[colname.y]), type="n", xlab=colname.x,
-           ylab=colname.y, main="sp 2 survived after stat: Slope of sp1")
+           ylab=colname.y, main="Both survived after stat: Slope of sp2")
         abline(v=1)
         abline(h=1)
         fig_label(text=corner1.text, region="plot", pos=corner1.pos)
         fig_label(text=corner2.text, region="plot", pos=corner2.pos)
-        df1.sp1$order = findInterval(df1.sp1$slopeBfin2.t1, sort(df1.sp1$slopeBfin2.t1))
-        points(df1.sp1[[colname.x]], unlist(df1.sp1[colname.y]),
-          col=colpalettehere(nrow(df1.sp1))[df1.sp1$order], pch=pch, cex=cex)
+        df2.sp1$order = findInterval(df2.sp1$slopeBfin2.t1, sort(df2.sp1$slopeBfin2.t1))
+        points(df2.sp1[[colname.x]], unlist(df2.sp1[colname.y]),
+          col=colpalettehere(nrow(df2.sp1))[df2.sp1$order], pch=pch, cex=cex)
         legend("topright", col=colpalettehere(5), pch=19,
-            legend=round(quantile(df1.sp1$slopeBfin2.t1), 4), bty="n")
+            legend=round(quantile(df2.sp1$slopeBfin2.t1), 4), bty="n")
     dev.off()
 }
 
