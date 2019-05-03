@@ -223,6 +223,10 @@ taualphaRstar.runs.df <- df.all.plot[which(df.all.plot$jobID %in% taualphaRstar.
 alphaRstarR0.runs.df <- df.all.plot[which(df.all.plot$jobID %in% alphaRstarR0.runs),]
 
 ## Do some counts
+# How many coexist of stat period 
+sum(tauRstar.stat.runs.df$ncoexist)/(nrow(tauRstar.stat.runs.df)*2)
+sum(alphaRstar.stat.runs.df$ncoexist)/(nrow(alphaRstar.stat.runs.df)*2)
+sum(alphaRstarR0.stat.runs.df$ncoexist)/(nrow(alphaRstarR0.stat.runs.df)*2)
 # How many species left after non-stat? First: (# spp left at end of non-stat)/(# of spp left at end of stat)
 sum(tauRstar.runs.df$ncoexist.t2)/sum(tauRstar.stat.runs.df$ncoexist) 
 sum(alphaRstar.runs.df$ncoexist.t2)/sum(alphaRstar.stat.runs.df$ncoexist)
@@ -521,7 +525,31 @@ hist(alphaRstarR0.runs.df$RstarR0sp1.t1)
 hist(alphaRstarR0.runs.df$RstarR0sp2.t1)
 hist(alphaRstarR0.runs.df$RstarR0sp1.t2)
 hist(alphaRstarR0.runs.df$RstarR0sp2.t2)
-# Okay, so it seems like all the species R* values are still okay!
+# Okay, so it seems like all the species R* values are still okay
+
+###
+# Next let's look at who is left after non-stationary period....
+# And compare with the other runs
+###
+alphaRstarR0.calc.df.start <- df.all.long[which(df.all.long$jobID %in% alphaRstarR0.runs),]
+alphaRstarR0.calc.df <- subset(alphaRstarR0.calc.df.start, period==2 & ncoexist>0)
+# replace non-coexisting species' alpha and rstar values with NA
+alphaRstarR0.calc.df$alpha1[which(alphaRstarR0.calc.df$coexist1==0)] <- NA
+alphaRstarR0.calc.df$alpha2[which(alphaRstarR0.calc.df$coexist2==0)] <- NA
+alphaRstarR0.calc.df$Rstar1[which(alphaRstarR0.calc.df$coexist1==0)] <- NA
+alphaRstarR0.calc.df$Rstar2[which(alphaRstarR0.calc.df$coexist2==0)] <- NA
+# repeat above for other comparable runs (without declining R0)
+alphaRstar.calc.df.start <- df.all.long[which(df.all.long$jobID %in% alphaRstar.runs),]
+alphaRstar.calc.df <- subset(alphaRstar.calc.df.start, period==2 & ncoexist>0)
+alphaRstar.calc.df$alpha1[which(alphaRstar.calc.df$coexist1==0)] <- NA
+alphaRstar.calc.df$alpha2[which(alphaRstar.calc.df$coexist2==0)] <- NA
+alphaRstar.calc.df$Rstar1[which(alphaRstar.calc.df$coexist1==0)] <- NA
+alphaRstar.calc.df$Rstar2[which(alphaRstar.calc.df$coexist2==0)] <- NA
+
+mean(c(alphaRstar.calc.df$Rstar1, alphaRstar.calc.df$Rstar2), na.rm=TRUE)
+mean(c(alphaRstarR0.calc.df$Rstar1, alphaRstarR0.calc.df$Rstar2), na.rm=TRUE)
+mean(c(alphaRstar.calc.df$alpha1, alphaRstar.calc.df$alpha2), na.rm=TRUE)
+mean(c(alphaRstarR0.calc.df$alpha1, alphaRstarR0.calc.df$alpha2), na.rm=TRUE)
 
 # We think tracking will be favored less as it makes the tracker use seedbank each year and thus
 # it will 'blow through its seedbank' (Megan's words) in all those low R0 years
@@ -534,7 +562,37 @@ plot.paramdiffs.manypanel.bfin(alphaRstarR0.runs.df, "alphaRstarR0.runs", "_alph
 plot.paramdiffs.onesp.bfin(alphaRstarR0.runs.df, "alphaRstarR0.runs", "_alpha.rstar", "ratio.alpha",
     "ratio.rstar", cexhere, pchhere, "sp1 wins", "bottomright", "sp2 wins", "topleft", colpalettehere)
 
-goo <- subset(alphaRstarR0.runs.df)
-mean(goo$Rstar1)
+
 
 stop(print("stopping here..."))
+
+#################################
+## Pull some of the R0 runs #####
+## and check that they decline ##
+#################################
+
+folderID <- "933723"
+samplerun <-  read.table(paste("output/OtherOut/envt/", folderID, "/EnvtParms_", folderID,
+    "-1.txt", sep=""), header=TRUE) # comment.char = "", 
+df.all <- data.frame(matrix(ncol=length(colnames(samplerun)), nrow=0))
+file.names <- dir(paste("output/OtherOut/envt/", folderID, sep=""), pattern =".txt")
+runse1 <- getfiles.envt(folderID, file.names, colnameshere) # this is SLOW
+colnames(runse1) <- colnames(samplerun)
+runse1$taskrunID <- paste(runse1$arrayID, runse1$runID, sep="-")
+
+runshere <- unique(runse1$taskrunID)
+
+# Yes, they decline!
+par(mfrow=c(3,3))
+for (i in 1:9){
+    subby <- subset(runse1, taskrunID==unique(runse1$taskrunID)[i])
+    plot(subby$R0~c(1:nrow(subby)))
+}
+
+# But tauP declines a little more 
+quartz()
+par(mfrow=c(3,3))
+for (i in 1:9){
+    subby <- subset(runse1, taskrunID==unique(runse1$taskrunID)[i])
+    plot(subby$tauP~c(1:nrow(subby)))
+}
