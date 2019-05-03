@@ -115,3 +115,7 @@ write.table(matrix(data=c(rep(as.numeric(jobID[1]),yout),rep(as.numeric(jobID[2]
             file=paste0(OtherOut_loc,"/BfinN",suffix),
             col.names = col.names.BfinN, row.names = FALSE,
             append=TRUE,sep="\t", quote=FALSE)
+
+if (localflag>0) {
+  source(paste0(locIN, "/sourcefiles/getPlots.R")) #make some plots when running a small batch locally
+}
