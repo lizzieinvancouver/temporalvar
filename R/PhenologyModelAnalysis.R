@@ -521,7 +521,31 @@ hist(alphaRstarR0.runs.df$RstarR0sp1.t1)
 hist(alphaRstarR0.runs.df$RstarR0sp2.t1)
 hist(alphaRstarR0.runs.df$RstarR0sp1.t2)
 hist(alphaRstarR0.runs.df$RstarR0sp2.t2)
-# Okay, so it seems like all the species R* values are still okay!
+# Okay, so it seems like all the species R* values are still okay
+
+###
+# Next let's look at who is left after non-stationary period....
+# And compare with the other runs
+###
+alphaRstarR0.calc.df.start <- df.all.long[which(df.all.long$jobID %in% alphaRstarR0.runs),]
+alphaRstarR0.calc.df <- subset(alphaRstarR0.calc.df.start, period==2 & ncoexist>0)
+# replace non-coexisting species' alpha and rstar values with NA
+alphaRstarR0.calc.df$alpha1[which(alphaRstarR0.calc.df$coexist1==0)] <- NA
+alphaRstarR0.calc.df$alpha2[which(alphaRstarR0.calc.df$coexist2==0)] <- NA
+alphaRstarR0.calc.df$Rstar1[which(alphaRstarR0.calc.df$coexist1==0)] <- NA
+alphaRstarR0.calc.df$Rstar2[which(alphaRstarR0.calc.df$coexist2==0)] <- NA
+# repeat above for other comparable runs (without declining R0)
+alphaRstar.calc.df.start <- df.all.long[which(df.all.long$jobID %in% alphaRstar.runs),]
+alphaRstar.calc.df <- subset(alphaRstar.calc.df.start, period==2 & ncoexist>0)
+alphaRstar.calc.df$alpha1[which(alphaRstar.calc.df$coexist1==0)] <- NA
+alphaRstar.calc.df$alpha2[which(alphaRstar.calc.df$coexist2==0)] <- NA
+alphaRstar.calc.df$Rstar1[which(alphaRstar.calc.df$coexist1==0)] <- NA
+alphaRstar.calc.df$Rstar2[which(alphaRstar.calc.df$coexist2==0)] <- NA
+
+mean(c(alphaRstar.calc.df$Rstar1, alphaRstar.calc.df$Rstar2), na.rm=TRUE)
+mean(c(alphaRstarR0.calc.df$Rstar1, alphaRstarR0.calc.df$Rstar2), na.rm=TRUE)
+mean(c(alphaRstar.calc.df$alpha1, alphaRstar.calc.df$alpha2), na.rm=TRUE)
+mean(c(alphaRstarR0.calc.df$alpha1, alphaRstarR0.calc.df$alpha2), na.rm=TRUE)
 
 # We think tracking will be favored less as it makes the tracker use seedbank each year and thus
 # it will 'blow through its seedbank' (Megan's words) in all those low R0 years
@@ -534,7 +558,6 @@ plot.paramdiffs.manypanel.bfin(alphaRstarR0.runs.df, "alphaRstarR0.runs", "_alph
 plot.paramdiffs.onesp.bfin(alphaRstarR0.runs.df, "alphaRstarR0.runs", "_alpha.rstar", "ratio.alpha",
     "ratio.rstar", cexhere, pchhere, "sp1 wins", "bottomright", "sp2 wins", "topleft", colpalettehere)
 
-goo <- subset(alphaRstarR0.runs.df)
-mean(goo$Rstar1)
+
 
 stop(print("stopping here..."))
