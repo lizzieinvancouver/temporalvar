@@ -223,6 +223,10 @@ taualphaRstar.runs.df <- df.all.plot[which(df.all.plot$jobID %in% taualphaRstar.
 alphaRstarR0.runs.df <- df.all.plot[which(df.all.plot$jobID %in% alphaRstarR0.runs),]
 
 ## Do some counts
+# How many coexist of stat period 
+sum(tauRstar.stat.runs.df$ncoexist)/(nrow(tauRstar.stat.runs.df)*2)
+sum(alphaRstar.stat.runs.df$ncoexist)/(nrow(alphaRstar.stat.runs.df)*2)
+sum(alphaRstarR0.stat.runs.df$ncoexist)/(nrow(alphaRstarR0.stat.runs.df)*2)
 # How many species left after non-stat? First: (# spp left at end of non-stat)/(# of spp left at end of stat)
 sum(tauRstar.runs.df$ncoexist.t2)/sum(tauRstar.stat.runs.df$ncoexist) 
 sum(alphaRstar.runs.df$ncoexist.t2)/sum(alphaRstar.stat.runs.df$ncoexist)
@@ -561,3 +565,34 @@ plot.paramdiffs.onesp.bfin(alphaRstarR0.runs.df, "alphaRstarR0.runs", "_alpha.rs
 
 
 stop(print("stopping here..."))
+
+#################################
+## Pull some of the R0 runs #####
+## and check that they decline ##
+#################################
+
+folderID <- "933723"
+samplerun <-  read.table(paste("output/OtherOut/envt/", folderID, "/EnvtParms_", folderID,
+    "-1.txt", sep=""), header=TRUE) # comment.char = "", 
+df.all <- data.frame(matrix(ncol=length(colnames(samplerun)), nrow=0))
+file.names <- dir(paste("output/OtherOut/envt/", folderID, sep=""), pattern =".txt")
+runse1 <- getfiles.envt(folderID, file.names, colnameshere) # this is SLOW
+colnames(runse1) <- colnames(samplerun)
+runse1$taskrunID <- paste(runse1$arrayID, runse1$runID, sep="-")
+
+runshere <- unique(runse1$taskrunID)
+
+# Yes, they decline!
+par(mfrow=c(3,3))
+for (i in 1:9){
+    subby <- subset(runse1, taskrunID==unique(runse1$taskrunID)[i])
+    plot(subby$R0~c(1:nrow(subby)))
+}
+
+# But tauP declines a little more 
+quartz()
+par(mfrow=c(3,3))
+for (i in 1:9){
+    subby <- subset(runse1, taskrunID==unique(runse1$taskrunID)[i])
+    plot(subby$tauP~c(1:nrow(subby)))
+}

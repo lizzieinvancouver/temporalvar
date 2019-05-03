@@ -18,6 +18,19 @@ getfiles <- function(folderID, file.names, colnameshere){
 }
 
 
+getfiles.envt <- function(folderID, file.names, colnameshere){
+    # numhere <- as.numeric(gsub("^[^-]*-([^.]+).*", "\\1", file.names))
+    filepack <- lapply(file.names, function(file.names) {
+    filename <- paste("output/OtherOut/envt/", folderID, "/", file.names, sep="")
+    dat <- read.table(filename, skip=1)
+    # names(dat) <- colnameshere
+    return(data.frame(dat))
+    })
+    datahere <- do.call("rbind", filepack)
+}
+
+
+
 makediffs <- function(df){
     dathere <- df
     dathere$tauIPnoalpha.sp1 <- dathere$tauIP1_mean/(1-dathere$alpha1) 
