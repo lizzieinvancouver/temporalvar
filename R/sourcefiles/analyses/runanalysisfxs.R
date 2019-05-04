@@ -280,6 +280,51 @@ plot.paramdiffs.twopanel <- function(df, runname, figname, colname.x, colname.y,
     dev.off()
 }
 
+
+
+###
+if(FALSE){ # START HERE NEXT!!!!
+plot.paramdiffs.tworuntypes.twopanel <- function(df1, df2, runname, figname, colname.x, colname.y, cex, pch,
+    corner1.text, corner1.pos, corner2.text, corner2.pos){
+    pdf(paste("graphs/modelruns/paramdiffs/", runname, figname, "2p.pdf", sep=""),
+        width=5, height=8)
+        par(mfrow=c(2,1))
+        df0 <- subset(df, ncoexist.t2==0)
+        df1 <- subset(df, ncoexist.t2==1)
+        df2 <- subset(df, ncoexist.t2==2)
+        df1.sp1 <- subset(df1, coexist1.t2==1)
+        df1.sp2 <- subset(df1, coexist2.t2==1)
+        plot(unlist(df[colname.x]), unlist(df[colname.y]), type="n", xlab=colname.x,
+           ylab=colname.y, main="survived after stat: colored by non-stat")
+        abline(v=1)
+        abline(h=1)
+        fig_label(text=corner1.text, region="plot", pos=corner1.pos)
+        fig_label(text=corner2.text, region="plot", pos=corner2.pos)
+        points(df0[[colname.x]], unlist(df0[colname.y]),
+           col=coexist3col[1],pch=pch, cex=cex)
+        points(df1[[colname.x]], unlist(df1[colname.y]),
+           col=coexist3col[2],pch=pch, cex=cex)
+        points(df2[[colname.x]], unlist(df2[colname.y]),
+           col=coexist3col[3],pch=pch, cex=cex)
+        legend("topright", leg.txt, pch=pch, col=coexist3col, bty="n")
+        plot(unlist(df[colname.x]), unlist(df[colname.y]), type="n", xlab=colname.x,
+           ylab=colname.y, main="survived after nonstat")
+        abline(v=1)
+        abline(h=1)
+        fig_label(text=corner1.text, region="plot", pos=corner1.pos)
+        fig_label(text=corner2.text, region="plot", pos=corner2.pos)
+        points(df2[[colname.x]], unlist(df2[colname.y]),
+           col=coexistmocol[3], pch=pch, cex=cex)
+        points(df1.sp1[[colname.x]], unlist(df1.sp1[colname.y]),
+           col=coexistmocol[4], pch=pch, cex=cex)
+        points(df1.sp2[[colname.x]], unlist(df1.sp2[colname.y]),
+           col=coexistmocol[5], pch=pch, cex=cex)
+        legend("topright", c("both survived", "sp1 left", "sp2 left"), pch=pch, col=coexistmocol[3:5], bty="n")
+    dev.off()
+}
+    }
+###
+
 plot.paramdiffs.twopanel.fixedxy <- function(df, runname, figname, colname.x, colname.y, cex, pch, xlim, ylim,
     corner1.text, corner1.pos, corner2.text, corner2.pos){
     pdf(paste("graphs/modelruns/paramdiffs/", runname, figname, "2pXY.pdf", sep=""),

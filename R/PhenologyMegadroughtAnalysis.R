@@ -24,14 +24,10 @@ source("sourcefiles/analyses/runanalysisfxsmega.R")
 runshaveheader <- TRUE
 
 # cheap loop over the files for now
-runz <- c("1009960", "1009991", "1010022")
+runz <- c("9014727", "9014765", "9014815")
 
+# c("1009960", "1009991", "1010022") # for these: Runs come in sets of 3, first is low tauI, second is mod tauI, and third is hi tauI
 # c("1008362", "1008404", "1008425") # Zero coexistence!
-
-# Runs come in sets of 3, first is low tauI, second is mod tauI, and third is hi tauI
-seq(1, length(runz), 3) # 1, low tauI
-seq(2, length(runz), 3) # 2, mod tauI
-seq(3, length(runz), 3) # 3, hi tauI
 
 
 #########################################
@@ -199,11 +195,22 @@ pal = colorRampPalette(c("blue", "red"))
 colpalettehere = colorRampPalette(cols)
 
 
+## FIX MAKE DIFFS!
+
+plot.paramdiffs.twopanel(df.all.stat, "newruns.stat", "_stau", "ratio.s.t1",
+    "ratio.tau.t1", cexhere, pchhere, "? wins", "bottomleft", "? wins", "topright")
+
+plot.paramdiffs.twopanel(df.all.plot, "newruns", "_stau", "ratio.s.t1",
+    "ratio.tauI", cexhere, pchhere, "? wins", "bottomleft", "? wins", "topright")
+
+plot.paramdiffs.twopanel(df.all.plot, "newruns", "_stau", "ratio.s",
+    "ratio.tauIP.t1", cexhere, pchhere, "? wins", "bottomleft", "? wins", "topright")
+
+if(FALSE){
 plot.paramdiffs.twopanel(lowtauI.runs.df, "lowtauI.runs", "_sphi", "ratio.s.t1",
     "ratio.phi.t1", cexhere, pchhere, "? wins", "bottomleft", "? wins", "topright")
-
 plot.paramdiffs.twopanel(modtauI.runs.df, "modtauI.runs", "_sphi", "ratio.s.t1",
     "ratio.phi.t1", cexhere, pchhere, "? wins", "bottomleft", "? wins", "topright")
-
 plot.paramdiffs.twopanel(hitauI.runs.df, "hitauI.runs", "_sphi", "ratio.s.t1",
     "ratio.phi.t1", cexhere, pchhere, "? wins", "bottomleft", "? wins", "topright")
+}

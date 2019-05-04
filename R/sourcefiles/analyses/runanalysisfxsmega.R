@@ -22,8 +22,10 @@ makediffs <- function(df){
     dathere <- df
     dathere$diff.s <-  dathere$s1-dathere$s2
     dathere$diff.phi <- dathere$phi1-dathere$phi2
+    dathere$diff.phi <- dathere$tauI1-dathere$tauI2
     dathere$ratio.s <-  dathere$s1/dathere$s2
     dathere$ratio.phi <- dathere$phi1/dathere$phi2
+    dathere$ratio.tauI <- dathere$tauI1/dathere$tauI2
     return(dathere)
     }
 

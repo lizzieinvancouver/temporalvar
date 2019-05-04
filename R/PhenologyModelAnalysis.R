@@ -24,6 +24,9 @@ setwd("~/Documents/git/projects/temporalvar/R")
 source("sourcefiles/analyses/multiplot.R") # used in plot.params
 source("sourcefiles/analyses/runanalysisfxs.R")
 
+writeout.someruns.formegan <- FALSE
+lookatR0runs <- FALSE
+
 runshaveheader <- TRUE
 
 # cheap loop over the files for now
@@ -257,6 +260,14 @@ get.mean.alphavalues(df.all[which(df.all$jobID %in% alphaRstarR0.runs),])
 get.mean.alphavalues.ns(df.all[which(df.all$jobID %in% alphaRstarR0.runs),])
 get.mean.alphavalues.ns(df.all[which(df.all$jobID %in% alphaRstarR0ext.runs),])
 
+if(writeout.someruns.formegan){
+trstat2spp <- subset(tauRstar.stat.runs.df, ncoexist==2)
+trstat2spp.sm <- subset(trstat2spp, select=c("jobID", "taskID", "runID"))
+arstat2spp <- subset(alphaRstar.stat.runs.df, ncoexist==2)
+arstat2spp.sm <- subset(arstat2spp, select=c("jobID", "taskID", "runID"))
+write.csv(trstat2spp.sm, "output/statcoexist.taurstar.csv", row.names=FALSE)
+write.csv(arstat2spp.sm, "output/statcoexist.alpharstar.csv", row.names=FALSE)
+}
 
 ###############
 ## Plotting! ##
@@ -607,7 +618,7 @@ stop(print("stopping here..."))
 ## Pull some of the R0 runs #####
 ## and check that they decline ##
 #################################
-
+if(lookatR0runs){
 folderID <- "933723"
 samplerun <-  read.table(paste("output/OtherOut/envt/", folderID, "/EnvtParms_", folderID,
     "-1.txt", sep=""), header=TRUE) # comment.char = "", 
@@ -632,4 +643,5 @@ par(mfrow=c(3,3))
 for (i in 1:9){
     subby <- subset(runse1, taskrunID==unique(runse1$taskrunID)[i])
     plot(subby$tauP~c(1:nrow(subby)))
+}
 }
