@@ -1,4 +1,4 @@
-nruns	nsp	varRstar	nonsta	tracking	vartauI	megaD	notes
-100	2	-1	"400,400,0"	0	"0.2,0.2"	1	"megadrought runs with low tauI; corr(s,phi)"
-100	2	-1	"400,400,0"	0	"0.5,0.5"	1	"megadrought runs with mod tauI; corr(s,phi)"
-100	2	-1	"400,400,0"	0	"0.8,0.8"	1	"megadrought runs with large tauI; corr(s,phi)"
+nruns	nsp	varRstar	nonsta	tracking	vartauI	rho	xDrought	notes
+100	2	-1	"400,400,0"	0	"0.2,0.2"	-0.7	0.5	"megadrought runs with low tauI; corr(s,phi)"
+100	2	-1	"400,400,0"	0	"0.5,0.5"	-0.7	0.5	"megadrought runs with mod tauI; corr(s,phi)"
+100	2	-1	"400,400,0"	0	"0.8,0.8"	-0.7	0.5	"megadrought runs with large tauI; corr(s,phi)"

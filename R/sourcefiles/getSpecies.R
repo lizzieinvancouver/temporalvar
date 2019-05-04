@@ -11,7 +11,7 @@ h <-  rep(100,nsp)             # max rate of germination decrease following puls
 phi <- rep(0.05,nsp)     # conversion of end-of-season plant biomass to seeds
 
 #megaDrought - tradeoff phi and surv with correlation rho=-0.5
-if (megaD==1) {
+if (megaDflag==1) {
   cmat <- matrix(c(1,rho,rho,1), nrow=2, ncol=2) 
   sphi <- draw.d.variate.uniform(no.row=2,d=2,cov.mat=cmat)
   s <- sphi[,1]*(0.95 - 0.65) + 0.65  #rescale s.t. s ranges from 0.65 to 0.95

@@ -2,8 +2,8 @@
 runflag <- ifelse(localflag==1,1,as.numeric(Sys.getenv("PHEN_RUNNUM")))
 #runflag <- ifelse(localflag==1,101,as.numeric(Sys.getenv("PHEN_RUNNUM"))) #use this for running megaD locally
 print(paste0("runflag is ", runflag))
-megaD <- ifelse(runflag>100,TRUE,FALSE)  #use PHEN_RUNNUM as a flag for megaD runs
-inputline <- ifelse(megaD==1,runflag - 100, runflag)
+megaDflag <- ifelse(runflag>100,TRUE,FALSE)  #use PHEN_RUNNUM as a flag for megaD runs
+inputline <- ifelse(megaDflag==1,runflag - 100, runflag)
 
 #jobID: if batch, then jobID & taskID from slurm; if local, randomly gen 999XXXX
 if(localflag==1) {
@@ -18,7 +18,7 @@ print(paste0(c(Sys.getenv("SLURM_ARRAY_JOB_ID"),Sys.getenv("SLURM_ARRAY_TASK_ID"
 print(paste0("jobID = ", jobID))
 
 #GET INPUT PARMS FOR THIS RUN
-inputfile <- ifelse(megaD==1,paste0(locIN,"/getInputParms_megaD.txt"),paste0(locIN,"/getInputParms.txt"))
+inputfile <- ifelse(megaDflag==1,paste0(locIN,"/getInputParms_megaD.txt"),paste0(locIN,"/getInputParms.txt"))
 inputs <- as.data.frame(read.table(file=inputfile,
                                    header=TRUE,stringsAsFactors=FALSE,sep="\t"))
 nruns <- inputs$nruns[inputline]
@@ -36,10 +36,10 @@ if (is.character(inputs$vartauI[inputline])) {
 }
 
 nsp <- inputs$nsp[inputline]
-rho <- inputs$megaD[inputline]  #rho is the value of the megaD in getInputParms and is corr(s,phi)
+rho <- inputs$rho[inputline]  #rho is the value of the megaD in getInputParms and is corr(s,phi)
 if (is.null(rho)) rho <- 0
-if (rho==1) rho <- -0.5 #if megaD is treated as a flag (0/1) in the input file, then give rho standard value of -0.5
-if (localflag==1 && !(rho==0)) megaD <-1   #local is special case: megaD is indicated only by getInputParms.
+if (rho==1) rho <- -0.5 #if rho is treated as a flag (0/1) in the input file, then give rho standard value of -0.5
+xDrought <- inputs$xDrought[inputline] #megaD dry periods are multiplied by megaDX to make them more exteme
 
 nyrs <- sum(nonsta)  # number of yrs to run if nonsta=0 or for initial period if nonsta>0
 yrs <- c(1:nyrs)
@@ -49,7 +49,7 @@ dt <- 0.005 # within yr timestep
 tsteps <- ndays/dt
 
 runparms <- matrix(data= c(jobID[1],jobID[2],nruns,nsp,nyrs,nonsta,tracking,varRstar,inputs$vartauI[inputline],
-                           megaD,rho,writeBout,ext,ndays,dt,tsteps),nrow=1)
+                           megaDflag,rho,xDrought,writeBout,ext,ndays,dt,tsteps),nrow=1)
 
 #OUTPUT PARMS & FOLDER LOCATIONS
 suffix <- paste0("_",jobID[1],"-",jobID[2],".txt") #unique for each array in batchfile
@@ -60,14 +60,14 @@ if (localflag==0){
   ##***I think jobID[1] = Sys.getenv("SLURM_ARRAY_JOB_ID) = Sys.getenv("SLURM_JOB_ID")
   locOUT <- paste0("/scratch/wolkovich_lab/temporalvar/",jobID[1],"-",jobID[2])
   #locSAVE is the permanent location to where runs are saved on the storage node
-  locSAVE <- ifelse(megaD==1, 
+  locSAVE <- ifelse(megaDflag==1, 
                     "/n/wolkovich_lab/temporalvar/megadrought/output",
                     "/n/wolkovich_lab/temporalvar/R/output")
   #locMegaD in is the location of megadrought envt files from Ben  
   locMegaD <- "/n/wolkovich_lab/temporalvar/megadrought/fromBen"
 } else {
   locOUT <- paste0("C:/Users/Megan/Documents/scratch")
-  locSAVE <- ifelse(megaD==1, 
+  locSAVE <- ifelse(megaDflag==1, 
                     "C:/Users/Megan/Documents/GitHub/temporalvar/megadrought/output",
                     "C:/Users/Megan/Documents/GitHub/temporalvar/R/output")
   locMegaD <- "C:/Users/Megan/Documents/GitHub/temporalvar/megadrought/fromBen"
@@ -92,7 +92,7 @@ if(!dir.exists(file.path(OtherOut_loc))) dir.create(file.path(OtherOut_loc),recu
                           paste0(rep("nonsta",3),c(1:3)),
                           "tracking",
                           paste0(rep("varRstar",2),c(1:2)),
-                          "vartauI","megaDflag","rho","writeBout","ext","ndays","dt","tsteps")
+                          "vartauI","megaDflag","rho","xDrought","writeBout","ext","ndays","dt","tsteps")
   fileparms <- paste0(OtherOut_loc,"/RunParms_",jobID[1],".txt")
   write.table(runparms,file=fileparms,
               col.names = col.names.runparms, row.names = FALSE,
