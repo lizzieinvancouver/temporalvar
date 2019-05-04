@@ -10,22 +10,23 @@ gmax <-  rep(0.5,nsp)     # max germination fraction
 h <-  rep(100,nsp)             # max rate of germination decrease following pulse
 phi <- rep(0.05,nsp)     # conversion of end-of-season plant biomass to seeds
 
-#megaDrought - tradeoff phi and surv with correlation rho=-0.5
+#megaDrought - tradeoff tauI and surv with correlation rho
 if (megaDflag==1) {
   cmat <- matrix(c(1,rho,rho,1), nrow=2, ncol=2) 
-  sphi <- draw.d.variate.uniform(no.row=2,d=2,cov.mat=cmat)
-  s <- sphi[,1]*(0.95 - 0.65) + 0.65  #rescale s.t. s ranges from 0.65 to 0.95
-  phi <- sphi[,2]*(0.1-0.01) + 0.01
+  stauI <- draw.d.variate.uniform(no.row=2,d=2,cov.mat=cmat)
+  s <- stauI[,1]*(0.98 - 0.8) + 0.8  #rescale s.t. s ranges from 0.65 to 0.95
+  tauI <- stauI[,2]*(0.55-0.45) + 0.45
 }
   
-
 #germination: tau I and alpha below; tauI is the time of max germ for sp i
-if (length(vartauI)>1) {  #if vartauI is a vector, then it is giving particular values for each species
-  tauI = vartauI
-} else if (vartauI == 0) {  #if vartauI is 0, then give all species the same randomly selected tauI
-  tauI <-rep(runif(1,0.1,0.9),nsp)
-} else {                     #if vartauI is 1, then give random values for tauI for each species
-  tauI <-runif(nsp,0.1,0.9)  
+if (megaDflag==0){
+  if (length(vartauI)>1) {  #if vartauI is a vector, then it is giving particular values for each species
+    tauI = vartauI
+  } else if (vartauI == 0) {  #if vartauI is 0, then give all species the same randomly selected tauI
+    tauI <-rep(runif(1,0.1,0.9),nsp)
+  } else {                     #if vartauI is 1, then give random values for tauI for each species
+    tauI <-runif(nsp,0.1,0.9)  
+  }
 }
 
 #tracking
