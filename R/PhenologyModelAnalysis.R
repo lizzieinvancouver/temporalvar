@@ -31,7 +31,9 @@ runz <- c("858179", "858221", "858241", "858262", "858282",
           "888288", "888338", "888369", "888380", "888430",
           "888600", "888602", "888605", "888607", "888608",
           "933059", "933107", "933156", "933215", "933272",
-          "933566", "933600", "933630", "933682", "933723")
+          "933566", "933600", "933630", "933682", "933723",
+          "8995922", "8995924")
+# declining R0 runs with BIGGER declines: 8995922, 8995924 (see alphaRstarR0ext below)
 
 # Remember to update below under plotting-related formatting ...
 seq(1, length(runz), 5) # 1, are varying everything
@@ -187,8 +189,8 @@ tauRstar.runs <- runz[seq(3, length(runz), 5)] # NOT varying tracking: tauI and 
 alphaRstar.runs <- runz[seq(2, length(runz), 5)] # NOT varying tauI: tracking and Rstar tradeoff
 taualpha.runs <- runz[seq(4, length(runz), 5)] # keeps R* the same across species pairs
 taualphaRstar.runs <- runz[seq(1, length(runz), 5)] # varying everything (tauI, alpha, Rstar)
-alphaRstarR0.runs <- runz[seq(5, length(runz), 5)] # NOT varying tauI: tracking and Rstar tradeoff,
-# add in declining R0
+alphaRstarR0.runs <- runz[seq(5, length(runz), 5)] # NOT varying tauI: tracking and Rstar tradeoff, add in declining R0!
+alphaRstarR0ext.runs <- c("8995922", "8995924")
 
 ## Grab just the stationary period
 df.all.stat <- subset(df.all, period==1)
@@ -205,6 +207,7 @@ sum(taualpha.stat.runs.df$diff.Rstar) # must equal zero!
 taualphaRstar.stat.runs.df <- df.all.stat[which(df.all.stat$jobID %in% taualphaRstar.runs),]
 # add in declining R0
 alphaRstarR0.stat.runs.df <- df.all.stat[which(df.all.stat$jobID %in% alphaRstarR0.runs),]
+alphaRstarR0ext.stat.runs.df <- df.all.stat[which(df.all.stat$jobID %in% alphaRstarR0ext.runs),]
 sum(alphaRstarR0.stat.runs.df$diff.tauI) # must equal zero!
 
 ## Grab the stationary coexisting runs and the non-stationary period
@@ -221,6 +224,8 @@ sum(taualpha.runs.df$diff.Rstar) # must equal zero!
 taualphaRstar.runs.df <- df.all.plot[which(df.all.plot$jobID %in% taualphaRstar.runs),]
 # add in declining R0
 alphaRstarR0.runs.df <- df.all.plot[which(df.all.plot$jobID %in% alphaRstarR0.runs),]
+alphaRstarR0ext.runs.df <- df.all.plot[which(df.all.plot$jobID %in% alphaRstarR0ext.runs),]
+
 
 ## Do some counts
 # How many coexist of stat period 
@@ -233,12 +238,14 @@ sum(alphaRstar.runs.df$ncoexist.t2)/sum(alphaRstar.stat.runs.df$ncoexist)
 sum(taualpha.runs.df$ncoexist.t2)/sum(taualpha.stat.runs.df$ncoexist)
 sum(taualphaRstar.runs.df$ncoexist.t2)/sum(taualphaRstar.stat.runs.df$ncoexist)
 sum(alphaRstarR0.runs.df$ncoexist.t2)/sum(alphaRstarR0.stat.runs.df$ncoexist)
+sum(alphaRstarR0ext.runs.df$ncoexist.t2)/sum(alphaRstarR0ext.stat.runs.df$ncoexist)
 # Second: (# spp left at end of non-stat)/(# of co-existing spp left at end of stat)
 sum(tauRstar.runs.df$ncoexist.t2)/sum(tauRstar.runs.df$ncoexist.t1) 
 sum(alphaRstar.runs.df$ncoexist.t2)/sum(alphaRstar.runs.df$ncoexist.t1)
 sum(taualpha.runs.df$ncoexist.t2)/sum(taualpha.runs.df$ncoexist.t1)
 sum(taualphaRstar.runs.df$ncoexist.t2)/sum(taualphaRstar.runs.df$ncoexist.t1)
 sum(alphaRstarR0.runs.df$ncoexist.t2)/sum(alphaRstarR0.runs.df$ncoexist.t1)
+sum(alphaRstarR0ext.runs.df$ncoexist.t2)/sum(alphaRstarR0ext.runs.df$ncoexist.t1)
 # What is average alpha before and after stat?
 get.mean.alphavalues(df.all[which(df.all$jobID %in% alphaRstar.runs),])
 get.mean.alphavalues.ns(df.all[which(df.all$jobID %in% alphaRstar.runs),])
@@ -248,6 +255,7 @@ get.mean.alphavalues(df.all[which(df.all$jobID %in% taualphaRstar.runs),])
 get.mean.alphavalues.ns(df.all[which(df.all$jobID %in% taualphaRstar.runs),])
 get.mean.alphavalues(df.all[which(df.all$jobID %in% alphaRstarR0.runs),])
 get.mean.alphavalues.ns(df.all[which(df.all$jobID %in% alphaRstarR0.runs),])
+get.mean.alphavalues.ns(df.all[which(df.all$jobID %in% alphaRstarR0ext.runs),])
 
 
 ###############
@@ -526,6 +534,16 @@ hist(alphaRstarR0.runs.df$RstarR0sp2.t1)
 hist(alphaRstarR0.runs.df$RstarR0sp1.t2)
 hist(alphaRstarR0.runs.df$RstarR0sp2.t2)
 # Okay, so it seems like all the species R* values are still okay
+# ... and for the extreme R0 declines
+alphaRstarR0ext.runs.df$RstarR0sp1.t1 <- alphaRstarR0ext.runs.df$R0_median.t1 - alphaRstarR0ext.runs.df$Rstar1
+alphaRstarR0ext.runs.df$RstarR0sp2.t1 <- alphaRstarR0ext.runs.df$R0_median.t1 - alphaRstarR0ext.runs.df$Rstar2
+alphaRstarR0ext.runs.df$RstarR0sp1.t2 <- alphaRstarR0ext.runs.df$R0_median.t2 - alphaRstarR0ext.runs.df$Rstar1 
+alphaRstarR0ext.runs.df$RstarR0sp2.t2 <- alphaRstarR0ext.runs.df$R0_median.t2 - alphaRstarR0ext.runs.df$Rstar2
+par(mfrow=c(2,2))
+hist(alphaRstarR0ext.runs.df$RstarR0sp1.t1)
+hist(alphaRstarR0ext.runs.df$RstarR0sp2.t1)
+hist(alphaRstarR0ext.runs.df$RstarR0sp1.t2)
+hist(alphaRstarR0ext.runs.df$RstarR0sp2.t2)
 
 ###
 # Next let's look at who is left after non-stationary period....
@@ -545,11 +563,21 @@ alphaRstar.calc.df$alpha1[which(alphaRstar.calc.df$coexist1==0)] <- NA
 alphaRstar.calc.df$alpha2[which(alphaRstar.calc.df$coexist2==0)] <- NA
 alphaRstar.calc.df$Rstar1[which(alphaRstar.calc.df$coexist1==0)] <- NA
 alphaRstar.calc.df$Rstar2[which(alphaRstar.calc.df$coexist2==0)] <- NA
+# and the extrreme R0 declines
+alphaRstarR0ext.calc.df.start <- df.all.long[which(df.all.long$jobID %in% alphaRstarR0ext.runs),]
+alphaRstarR0ext.calc.df <- subset(alphaRstarR0ext.calc.df.start, period==2 & ncoexist>0)
+# replace non-coexisting species' alpha and rstar values with NA
+alphaRstarR0ext.calc.df$alpha1[which(alphaRstarR0ext.calc.df$coexist1==0)] <- NA
+alphaRstarR0ext.calc.df$alpha2[which(alphaRstarR0ext.calc.df$coexist2==0)] <- NA
+alphaRstarR0ext.calc.df$Rstar1[which(alphaRstarR0ext.calc.df$coexist1==0)] <- NA
+alphaRstarR0ext.calc.df$Rstar2[which(alphaRstarR0ext.calc.df$coexist2==0)] <- NA
 
 mean(c(alphaRstar.calc.df$Rstar1, alphaRstar.calc.df$Rstar2), na.rm=TRUE)
 mean(c(alphaRstarR0.calc.df$Rstar1, alphaRstarR0.calc.df$Rstar2), na.rm=TRUE)
+mean(c(alphaRstarR0ext.calc.df$Rstar1, alphaRstarR0ext.calc.df$Rstar2), na.rm=TRUE)
 mean(c(alphaRstar.calc.df$alpha1, alphaRstar.calc.df$alpha2), na.rm=TRUE)
 mean(c(alphaRstarR0.calc.df$alpha1, alphaRstarR0.calc.df$alpha2), na.rm=TRUE)
+mean(c(alphaRstarR0ext.calc.df$alpha1, alphaRstarR0ext.calc.df$alpha2), na.rm=TRUE)
 
 # We think tracking will be favored less as it makes the tracker use seedbank each year and thus
 # it will 'blow through its seedbank' (Megan's words) in all those low R0 years
@@ -560,6 +588,15 @@ plot.paramdiffs.twopanel(alphaRstarR0.runs.df, "alphaRstarR0.runs", "_alpha.rsta
 plot.paramdiffs.manypanel.bfin(alphaRstarR0.runs.df, "alphaRstarR0.runs", "_alpha.rstar", "ratio.alpha",
     "ratio.rstar", cexhere, pchhere, "sp1 wins", "bottomright", "sp2 wins", "topleft", colpalettehere)
 plot.paramdiffs.onesp.bfin(alphaRstarR0.runs.df, "alphaRstarR0.runs", "_alpha.rstar", "ratio.alpha",
+    "ratio.rstar", cexhere, pchhere, "sp1 wins", "bottomright", "sp2 wins", "topleft", colpalettehere)
+# and for the extreme ...
+plot.paramdiffs.onepanel(alphaRstarR0ext.runs.df, "alphaRstarR0ext.runs", "_alpha.rstar", "ratio.alpha",
+    "ratio.rstar", cexhere, pchhere, "sp1 wins", "bottomright", "sp2 wins", "topleft")
+plot.paramdiffs.twopanel(alphaRstarR0ext.runs.df, "alphaRstarR0ext.runs", "_alpha.rstar", "ratio.alpha",
+    "ratio.rstar", cexhere, pchhere, "sp1 wins", "bottomright", "sp2 wins", "topleft")
+plot.paramdiffs.manypanel.bfin(alphaRstarR0ext.runs.df, "alphaRstarR0ext.runs", "_alpha.rstar", "ratio.alpha",
+    "ratio.rstar", cexhere, pchhere, "sp1 wins", "bottomright", "sp2 wins", "topleft", colpalettehere)
+plot.paramdiffs.onesp.bfin(alphaRstarR0ext.runs.df, "alphaRstarR0ext.runs", "_alpha.rstar", "ratio.alpha",
     "ratio.rstar", cexhere, pchhere, "sp1 wins", "bottomright", "sp2 wins", "topleft", colpalettehere)
 
 
