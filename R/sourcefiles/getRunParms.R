@@ -1,6 +1,6 @@
 #Get run parameters; 
-runflag <- ifelse(localflag==1,1,as.numeric(Sys.getenv("PHEN_RUNNUM")))
-#runflag <- ifelse(localflag==1,101,as.numeric(Sys.getenv("PHEN_RUNNUM"))) #use this for running megaD locally
+#runflag <- ifelse(localflag==1,1,as.numeric(Sys.getenv("PHEN_RUNNUM")))
+runflag <- ifelse(localflag==1,101,as.numeric(Sys.getenv("PHEN_RUNNUM"))) #use this for running megaD locally
 print(paste0("runflag is ", runflag))
 megaDflag <- ifelse(runflag>100,TRUE,FALSE)  #use PHEN_RUNNUM as a flag for megaD runs
 inputline <- ifelse(megaDflag==1,runflag - 100, runflag)
@@ -41,6 +41,8 @@ if (is.null(rho)) rho <- 0
 if (rho==1) rho <- -0.5 #if rho is treated as a flag (0/1) in the input file, then give rho standard value of -0.5
 xDrought <- inputs$xDrought[inputline] #megaD dry periods are multiplied by megaDX to make them more exteme
 
+if (is.null(R0ns_flag)) R0ns_flag <- NA
+
 nyrs <- sum(nonsta)  # number of yrs to run if nonsta=0 or for initial period if nonsta>0
 yrs <- c(1:nyrs)
 ext <- 1/10000  #Extinction Threshold:  1 seed/ha (assuming that initial density is 10 seeds per meter)
@@ -49,7 +51,7 @@ dt <- 0.005 # within yr timestep
 tsteps <- ndays/dt
 
 runparms <- matrix(data= c(jobID[1],jobID[2],nruns,nsp,nyrs,nonsta,tracking,varRstar,inputs$vartauI[inputline],
-                           megaDflag,rho,xDrought,writeBout,ext,ndays,dt,tsteps),nrow=1)
+                           R0ns_flag,megaDflag,rho,xDrought,writeBout,ext,ndays,dt,tsteps),nrow=1)
 
 #OUTPUT PARMS & FOLDER LOCATIONS
 suffix <- paste0("_",jobID[1],"-",jobID[2],".txt") #unique for each array in batchfile
@@ -92,7 +94,7 @@ if(!dir.exists(file.path(OtherOut_loc))) dir.create(file.path(OtherOut_loc),recu
                           paste0(rep("nonsta",3),c(1:3)),
                           "tracking",
                           paste0(rep("varRstar",2),c(1:2)),
-                          "vartauI","megaDflag","rho","xDrought","writeBout","ext","ndays","dt","tsteps")
+                          "vartauI","R0ns_flag","megaDflag","rho","xDrought","writeBout","ext","ndays","dt","tsteps")
   fileparms <- paste0(OtherOut_loc,"/RunParms_",jobID[1],".txt")
   write.table(runparms,file=fileparms,
               col.names = col.names.runparms, row.names = FALSE,
