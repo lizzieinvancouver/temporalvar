@@ -25,7 +25,7 @@ source("sourcefiles/analyses/multiplot.R") # used in plot.params
 source("sourcefiles/analyses/runanalysisfxs.R")
 
 writeout.someruns.formegan <- FALSE
-lookatR0runs <- FALSE
+lookdeeplyatR0runs <- FALSE
 
 runshaveheader <- TRUE
 
@@ -249,6 +249,8 @@ sum(taualpha.runs.df$ncoexist.t2)/sum(taualpha.runs.df$ncoexist.t1)
 sum(taualphaRstar.runs.df$ncoexist.t2)/sum(taualphaRstar.runs.df$ncoexist.t1)
 sum(alphaRstarR0.runs.df$ncoexist.t2)/sum(alphaRstarR0.runs.df$ncoexist.t1)
 sum(alphaRstarR0ext.runs.df$ncoexist.t2)/sum(alphaRstarR0ext.runs.df$ncoexist.t1)
+# From above ... do you see more extinctions after/before non-stat with declining R0?
+
 # What is average alpha before and after stat?
 get.mean.alphavalues(df.all[which(df.all$jobID %in% alphaRstar.runs),])
 get.mean.alphavalues.ns(df.all[which(df.all$jobID %in% alphaRstar.runs),])
@@ -592,24 +594,26 @@ mean(c(alphaRstarR0ext.calc.df$alpha1, alphaRstarR0ext.calc.df$alpha2), na.rm=TR
 
 # We think tracking will be favored less as it makes the tracker use seedbank each year and thus
 # it will 'blow through its seedbank' (Megan's words) in all those low R0 years
-plot.paramdiffs.onepanel(alphaRstarR0.runs.df, "alphaRstarR0.runs", "_alpha.rstar", "ratio.alpha",
+plot.paramdiffs.onepanel(alphaRstarR0.runs.df, "decliningR0/alphaRstarR0.runs", "_alpha.rstar", "ratio.alpha",
     "ratio.rstar", cexhere, pchhere, "sp1 wins", "bottomright", "sp2 wins", "topleft")
-plot.paramdiffs.twopanel(alphaRstarR0.runs.df, "alphaRstarR0.runs", "_alpha.rstar", "ratio.alpha",
+plot.paramdiffs.twopanel(alphaRstarR0.runs.df, "decliningR0/alphaRstarR0.runs", "_alpha.rstar", "ratio.alpha",
     "ratio.rstar", cexhere, pchhere, "sp1 wins", "bottomright", "sp2 wins", "topleft")
-plot.paramdiffs.manypanel.bfin(alphaRstarR0.runs.df, "alphaRstarR0.runs", "_alpha.rstar", "ratio.alpha",
+plot.paramdiffs.manypanel.bfin(alphaRstarR0.runs.df, "decliningR0/alphaRstarR0.runs", "_alpha.rstar", "ratio.alpha",
     "ratio.rstar", cexhere, pchhere, "sp1 wins", "bottomright", "sp2 wins", "topleft", colpalettehere)
-plot.paramdiffs.onesp.bfin(alphaRstarR0.runs.df, "alphaRstarR0.runs", "_alpha.rstar", "ratio.alpha",
+plot.paramdiffs.onesp.bfin(alphaRstarR0.runs.df, "decliningR0/alphaRstarR0.runs", "_alpha.rstar", "ratio.alpha",
     "ratio.rstar", cexhere, pchhere, "sp1 wins", "bottomright", "sp2 wins", "topleft", colpalettehere)
 # and for the extreme ...
-plot.paramdiffs.onepanel(alphaRstarR0ext.runs.df, "alphaRstarR0ext.runs", "_alpha.rstar", "ratio.alpha",
+plot.paramdiffs.onepanel(alphaRstarR0ext.runs.df, "decliningR0/alphaRstarR0ext.runs", "_alpha.rstar", "ratio.alpha",
     "ratio.rstar", cexhere, pchhere, "sp1 wins", "bottomright", "sp2 wins", "topleft")
-plot.paramdiffs.twopanel(alphaRstarR0ext.runs.df, "alphaRstarR0ext.runs", "_alpha.rstar", "ratio.alpha",
+plot.paramdiffs.twopanel(alphaRstarR0ext.runs.df, "decliningR0/alphaRstarR0ext.runs", "_alpha.rstar", "ratio.alpha",
     "ratio.rstar", cexhere, pchhere, "sp1 wins", "bottomright", "sp2 wins", "topleft")
-plot.paramdiffs.manypanel.bfin(alphaRstarR0ext.runs.df, "alphaRstarR0ext.runs", "_alpha.rstar", "ratio.alpha",
+plot.paramdiffs.manypanel.bfin(alphaRstarR0ext.runs.df, "decliningR0/alphaRstarR0ext.runs", "_alpha.rstar", "ratio.alpha",
     "ratio.rstar", cexhere, pchhere, "sp1 wins", "bottomright", "sp2 wins", "topleft", colpalettehere)
-plot.paramdiffs.onesp.bfin(alphaRstarR0ext.runs.df, "alphaRstarR0ext.runs", "_alpha.rstar", "ratio.alpha",
+plot.paramdiffs.onesp.bfin(alphaRstarR0ext.runs.df, "decliningR0/alphaRstarR0ext.runs", "_alpha.rstar", "ratio.alpha",
     "ratio.rstar", cexhere, pchhere, "sp1 wins", "bottomright", "sp2 wins", "topleft", colpalettehere)
-
+plot.paramdiffs.tworuntypes(alphaRstar.runs.df, alphaRstarR0ext.runs.df,
+    "alphaRstar.runs", "alphaRstarR0ext.runs", "decliningR0/alphaRstar", "_comp.alpha.rstar", "ratio.alpha", "ratio.rstar", 
+    cexhere, pchhere, "sp1 wins", "bottomright", "sp2 wins", "topleft")
 
 
 stop(print("stopping here..."))
@@ -618,7 +622,7 @@ stop(print("stopping here..."))
 ## Pull some of the R0 runs #####
 ## and check that they decline ##
 #################################
-if(lookatR0runs){
+if(lookdeeplyatR0runs){
 folderID <- "933723"
 samplerun <-  read.table(paste("output/OtherOut/envt/", folderID, "/EnvtParms_", folderID,
     "-1.txt", sep=""), header=TRUE) # comment.char = "", 
