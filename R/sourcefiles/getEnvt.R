@@ -12,7 +12,7 @@ if (megaDflag==1) {
   R0id <- c(trunc(runif(1,0,1)*10000),trunc(runif(1,0,1)*10000))
   R0wet <- scan(file=paste0(locMegaD,"/data_wetresamp.csv"),skip=(1+R0id[1]),nlines=1,sep=",",quiet=TRUE)
   R0dry <- scan(file=paste0(locMegaD,"/data_dryresamp.csv"),skip=(1+R0id[2]),nlines=1,sep=",",quiet=TRUE)
-  R0 <- c(rep(R0wet[2:length(R0wet)],nonsta[1]),c(rep(xDrought*R0dry[2:length(R0dry)],nonsta[2])))
+  R0 <- c(rep(R0wet[2:length(R0wet)],length.out=nonsta[1]),c(rep(xDrought*R0dry[2:length(R0dry)],length.out=nonsta[2])))
 } else {
   R0id <- c(0,0)
 }
