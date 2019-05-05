@@ -22,11 +22,20 @@ setwd("~/Documents/git/projects/temporalvar/R")
 source("sourcefiles/analyses/runanalysisfxsmega.R")
 
 runshaveheader <- TRUE
+oldruns.sphi <- FALSE
 
 # cheap loop over the files for now
+if(!oldruns.sphi){
 runz <- c("9014727", "9014765", "9014815")
+}
 
-# c("1009960", "1009991", "1010022") # for these: Runs come in sets of 3, first is low tauI, second is mod tauI, and third is hi tauI
+if(oldruns.sphi){
+runz <- c("1009960", "1009991", "1010022") # these runs come in sets of 3, first is low tauI, second is mod tauI, and third is hi tauI
+seq(1, length(runz), 3) # 1, low tauI
+seq(2, length(runz), 3) # 2, mod tauI
+seq(3, length(runz), 3) # 3, hi tauI
+}
+
 # c("1008362", "1008404", "1008425") # Zero coexistence!
 
 
@@ -67,6 +76,7 @@ if(!runshaveheader){
 ## Data formatting to compare species pairs
 ##
 df <- makediffs(runs1)
+df <- calcsp.biggerslopeBfin(df)
 df.coexist <- subset(df, ncoexist==2)
 print(paste("the current folder ID is", folderID, "the total rows are:", nrow(df), 
     "and the total coexisting rows are:", nrow(df.coexist), sep=" "))
@@ -92,7 +102,9 @@ df.plot <- merge(df.coexist1, df.t2, by=c("jobID", "taskID", "runID", "taskrunID
 df.all.coexist1 <- subset(df.all, ncoexist==2 & period==1)
 df.all.t2 <- subset(df.all, period==2)
 df.all.t2 <- subset(df.all.t2, select=c("jobID", "taskID", "runID", "ncoexist",
-    "coexist1", "coexist2",  "R0_mean", "R0_median", "R0_autocor", "taskrunID", "ratio.s", "ratio.phi"))
+    "coexist1", "coexist2",  "R0_mean", "R0_median", "R0_autocor", "taskrunID",
+    "slopeBfin1", "slopeBfin2", "diff.bfinslopes", "minslopeBfin",
+    "ratio.s", "ratio.phi", "ratio.tauI", "ratio.tauIP"))
 df.all.plot <- merge(df.all.coexist1, df.all.t2, by=c("jobID", "taskID", "runID", "taskrunID"),
     all.x=TRUE, all.y=FALSE, suffixes=c(".t1", ".t2"))
 
@@ -115,17 +127,15 @@ df.all.long.exist <- subset(df.all.long, coexist1==1 | coexist2==1)
 df.all.long.noexist <- subset(df.all.long, coexist1==0 | coexist2==0)
 }
 
+df.all.stat <- subset(df.all, period==1)
 
-
-##
+if(oldruns.sphi){
 ## Group the runs by what type they are 
-##
 lowtauI.runs <- runz[seq(1, length(runz), 3)]
 modtauI.runs <- runz[seq(2, length(runz), 3)]
 hitauI.runs <- runz[seq(3, length(runz), 3)]
 
 ## Grab just the wet period
-df.all.stat <- subset(df.all, period==1)
 lowtauI.stat.runs.df <- df.all.stat[which(df.all.stat$jobID %in% lowtauI.runs),]
 modtauI.stat.runs.df <- df.all.stat[which(df.all.stat$jobID %in% modtauI.runs),]
 hitauI.stat.runs.df <- df.all.stat[which(df.all.stat$jobID %in% hitauI.runs),]
@@ -173,7 +183,7 @@ median(per1$R0_median)
 median(per2$R0_median)
 median(per1$R0_autocor)
 median(per2$R0_autocor) # seems odd that megadrought period is negatively autocorrelated.
-
+}
 
 
 # Some plotting needs ... (probably more than we need)
@@ -191,26 +201,30 @@ library(RColorBrewer)
 cols = brewer.pal(4, "RdBu")
 # Define colour pallete
 pal = colorRampPalette(c("blue", "red"))
-# Use the following line with RColorBrewer
 colpalettehere = colorRampPalette(cols)
+# or, better
+library(viridis)
+colpalettehere=viridis
 
 
-## FIX MAKE DIFFS!
+if(!oldruns.sphi){
+plot.paramdiffs.twopanel(df.all.plot, "tauIsruns", "_stauI", "ratio.s.t1",
+    "ratio.tauI.t1", cexhere, pchhere, "", "bottomright", "", "topleft")
+plot.paramdiffs.twopanel(df.all.plot, "tauIsruns", "_stauIP", "ratio.s.t1",
+    "ratio.tauIP.t1", cexhere, pchhere, "sp 1 wins", "bottomright", "sp 2 wins", "topleft")
+plot.paramdiffs.stat.bfin(df.all.plot, "tauIsruns", "_tauIP.s.t1", "ratio.s.t1",
+    "ratio.tauIP.t1", cexhere, pchhere,  "sp 1 wins", "bottomright", "sp 2 wins", "topleft",
+    colpalettehere)
+plot.paramdiffs.manypanel.bfin(df.all.plot, "tauIsruns", "_tauIP.s.t1", "ratio.s.t1",
+    "ratio.tauIP.t1", cexhere, pchhere,  "sp 1 wins", "bottomright", "sp 2 wins", "topleft",
+    colpalettehere)
+}
 
-plot.paramdiffs.twopanel(df.all.stat, "newruns.stat", "_stau", "ratio.s.t1",
-    "ratio.tau.t1", cexhere, pchhere, "? wins", "bottomleft", "? wins", "topright")
-
-plot.paramdiffs.twopanel(df.all.plot, "newruns", "_stau", "ratio.s.t1",
-    "ratio.tauI", cexhere, pchhere, "? wins", "bottomleft", "? wins", "topright")
-
-plot.paramdiffs.twopanel(df.all.plot, "newruns", "_stau", "ratio.s",
-    "ratio.tauIP.t1", cexhere, pchhere, "? wins", "bottomleft", "? wins", "topright")
-
-if(FALSE){
-plot.paramdiffs.twopanel(lowtauI.runs.df, "lowtauI.runs", "_sphi", "ratio.s.t1",
-    "ratio.phi.t1", cexhere, pchhere, "? wins", "bottomleft", "? wins", "topright")
-plot.paramdiffs.twopanel(modtauI.runs.df, "modtauI.runs", "_sphi", "ratio.s.t1",
-    "ratio.phi.t1", cexhere, pchhere, "? wins", "bottomleft", "? wins", "topright")
+if(oldruns.sphi){
+# plot.paramdiffs.twopanel(lowtauI.runs.df, "lowtauI.runs", "_sphi", "ratio.s.t1",
+#    "ratio.phi.t1", cexhere, pchhere, "? wins", "bottomleft", "? wins", "topright")
+# plot.paramdiffs.twopanel(modtauI.runs.df, "modtauI.runs", "_sphi", "ratio.s.t1",
+#    "ratio.phi.t1", cexhere, pchhere, "? wins", "bottomleft", "? wins", "topright")
 plot.paramdiffs.twopanel(hitauI.runs.df, "hitauI.runs", "_sphi", "ratio.s.t1",
     "ratio.phi.t1", cexhere, pchhere, "? wins", "bottomleft", "? wins", "topright")
 }

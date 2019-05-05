@@ -281,49 +281,54 @@ plot.paramdiffs.twopanel <- function(df, runname, figname, colname.x, colname.y,
 }
 
 
-
-###
-if(FALSE){ # START HERE NEXT!!!!
-plot.paramdiffs.tworuntypes.twopanel <- function(df1, df2, runname, figname, colname.x, colname.y, cex, pch,
-    corner1.text, corner1.pos, corner2.text, corner2.pos){
-    pdf(paste("graphs/modelruns/paramdiffs/", runname, figname, "2p.pdf", sep=""),
-        width=5, height=8)
-        par(mfrow=c(2,1))
-        df0 <- subset(df, ncoexist.t2==0)
-        df1 <- subset(df, ncoexist.t2==1)
-        df2 <- subset(df, ncoexist.t2==2)
-        df1.sp1 <- subset(df1, coexist1.t2==1)
-        df1.sp2 <- subset(df1, coexist2.t2==1)
+plot.paramdiffs.tworuntypes <- function(df1, df2, runname1, runname2, filename, figname,
+    colname.x, colname.y, cex, pch,corner1.text, corner1.pos, corner2.text, corner2.pos){
+    pdf(paste("graphs/modelruns/paramdiffs/", filename, figname, "runtypes.pdf", sep=""),
+        width=5, height=10)
+        par(mfrow=c(3,1))
+        df1.0spp <- subset(df1, ncoexist.t2==0)
+        df2.0spp <- subset(df2, ncoexist.t2==0)
+        df1.1spp <- subset(df1, ncoexist.t2==1)
+        df2.1spp <- subset(df2, ncoexist.t2==1)
+        df1.2spp <- subset(df1, ncoexist.t2==2)
+        df2.2spp <- subset(df2, ncoexist.t2==2)
+        # First plot
         plot(unlist(df[colname.x]), unlist(df[colname.y]), type="n", xlab=colname.x,
-           ylab=colname.y, main="survived after stat: colored by non-stat")
+           ylab=colname.y, main="No species survived after stat: compare run types")
         abline(v=1)
         abline(h=1)
         fig_label(text=corner1.text, region="plot", pos=corner1.pos)
         fig_label(text=corner2.text, region="plot", pos=corner2.pos)
-        points(df0[[colname.x]], unlist(df0[colname.y]),
+        points(df1.0spp[[colname.x]], unlist(df1.0spp[colname.y]),
            col=coexist3col[1],pch=pch, cex=cex)
-        points(df1[[colname.x]], unlist(df1[colname.y]),
+        points(df2.0spp[[colname.x]], unlist(df2.0spp[colname.y]),
            col=coexist3col[2],pch=pch, cex=cex)
-        points(df2[[colname.x]], unlist(df2[colname.y]),
-           col=coexist3col[3],pch=pch, cex=cex)
-        legend("topright", leg.txt, pch=pch, col=coexist3col, bty="n")
+        # Second plot
         plot(unlist(df[colname.x]), unlist(df[colname.y]), type="n", xlab=colname.x,
-           ylab=colname.y, main="survived after nonstat")
+           ylab=colname.y, main="One species survived after stat: compare run types")
         abline(v=1)
         abline(h=1)
         fig_label(text=corner1.text, region="plot", pos=corner1.pos)
         fig_label(text=corner2.text, region="plot", pos=corner2.pos)
-        points(df2[[colname.x]], unlist(df2[colname.y]),
-           col=coexistmocol[3], pch=pch, cex=cex)
-        points(df1.sp1[[colname.x]], unlist(df1.sp1[colname.y]),
-           col=coexistmocol[4], pch=pch, cex=cex)
-        points(df1.sp2[[colname.x]], unlist(df1.sp2[colname.y]),
-           col=coexistmocol[5], pch=pch, cex=cex)
-        legend("topright", c("both survived", "sp1 left", "sp2 left"), pch=pch, col=coexistmocol[3:5], bty="n")
+        points(df1.1spp[[colname.x]], unlist(df1.1spp[colname.y]),
+           col=coexist3col[1],pch=pch, cex=cex)
+        points(df2.1spp[[colname.x]], unlist(df2.1spp[colname.y]),
+           col=coexist3col[2],pch=pch, cex=cex)
+        # Third plot
+        plot(unlist(df[colname.x]), unlist(df[colname.y]), type="n", xlab=colname.x,
+           ylab=colname.y, main="Two species survived after stat: compare run types")
+        abline(v=1)
+        abline(h=1)
+        fig_label(text=corner1.text, region="plot", pos=corner1.pos)
+        fig_label(text=corner2.text, region="plot", pos=corner2.pos)
+        points(df1.2spp[[colname.x]], unlist(df1.2spp[colname.y]),
+           col=coexist3col[1],pch=pch, cex=cex)
+        points(df2.2spp[[colname.x]], unlist(df2.2spp[colname.y]),
+           col=coexist3col[2],pch=pch, cex=cex)
+        legend("topright", c(runname1, runname2), pch=pch, col=coexistmocol[1:2], bty="n")
     dev.off()
 }
-    }
-###
+
 
 plot.paramdiffs.twopanel.fixedxy <- function(df, runname, figname, colname.x, colname.y, cex, pch, xlim, ylim,
     corner1.text, corner1.pos, corner2.text, corner2.pos){
