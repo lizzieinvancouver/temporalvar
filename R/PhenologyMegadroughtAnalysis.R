@@ -201,8 +201,10 @@ library(RColorBrewer)
 cols = brewer.pal(4, "RdBu")
 # Define colour pallete
 pal = colorRampPalette(c("blue", "red"))
-# Use the following line with RColorBrewer
 colpalettehere = colorRampPalette(cols)
+# or, better
+library(viridis)
+colpalettehere=viridis
 
 
 if(!oldruns.sphi){
