@@ -22,12 +22,30 @@ makediffs <- function(df){
     dathere <- df
     dathere$diff.s <-  dathere$s1-dathere$s2
     dathere$diff.phi <- dathere$phi1-dathere$phi2
-    dathere$diff.phi <- dathere$tauI1-dathere$tauI2
+    dathere$diff.tauI <- dathere$tauI1-dathere$tauI2
+    dathere$diff.tauIP <- dathere$tauIP1-dathere$tauIP2
     dathere$ratio.s <-  dathere$s1/dathere$s2
     dathere$ratio.phi <- dathere$phi1/dathere$phi2
     dathere$ratio.tauI <- dathere$tauI1/dathere$tauI2
+    dathere$ratio.tauIP <- dathere$tauIP1/dathere$tauIP2
+    dathere$diff.bfinslopes <- dathere$slopeBfin1-dathere$slopeBfin2
     return(dathere)
     }
+
+calcsp.biggerslopeBfin <- function(df){
+    dathere <- df
+    dathere.sm <- dathere[c("slopeBfin1", "slopeBfin2")]
+    maxslopeBfin <- colnames(dathere.sm)[max.col(dathere.sm, ties.method="first")] 
+    dathere.minslopeBfin <- dathere[c("slopeBfin1", "slopeBfin2")]
+    dathere.minslopeBfin$minslopeBfin <- NA
+    dathere.minslopeBfin$minslopeBfin[which(maxslopeBfin=="slopeBfin1")] <-
+        dathere$slopeBfin2[which(maxslopeBfin=="slopeBfin1")]
+    dathere.minslopeBfin$minslopeBfin[which(maxslopeBfin=="slopeBfin2")] <-
+        dathere$slopeBfin1[which(maxslopeBfin=="slopeBfin2")]
+    dathere$minslopeBfin <- dathere.minslopeBfin$minslopeBfin
+    return(dathere)
+    }
+
 
 ####################
 ## plotting f(x)s ##
@@ -183,4 +201,200 @@ plot.paramdiffs.twopanel.fixedxy <- function(df, runname, figname, colname.x, co
            col=coexistmocol[5], pch=pch, cex=cex, xlim=xlim, ylim=ylim)
         legend("topright", c("both survived", "sp1 left", "sp2 left"), pch=pch, col=coexistmocol[3:5], bty="n")
     dev.off()
+}
+
+
+plot.paramdiffs.stat.bfin <- function(df, runname, figname, colname.x, colname.y, cex, pch,
+    corner1.text, corner1.pos, corner2.text, corner2.pos, colpalettehere){
+    pdf(paste("graphs/megadroughts/paramdiffs/", runname, figname, "stat.wbfin.pdf", sep=""),
+        width=11, height=8)
+        par(mfrow=c(2,2))
+        df0 <- subset(df, ncoexist.t1==0)
+        df1 <- subset(df, ncoexist.t1==1)
+        df2 <- subset(df, ncoexist.t1==2)
+        df1.sp1 <- subset(df1, coexist1.t1==1)
+        df1.sp2 <- subset(df1, coexist2.t1==1)
+        df2.sp1 <- subset(df2, coexist1.t1==1)
+        df2.sp2 <- subset(df2, coexist2.t1==1)
+        # First plot
+        plot(unlist(df[colname.x]), unlist(df[colname.y]), type="n", xlab=colname.x,
+           ylab=colname.y, main="outcomes at end of stat")
+        abline(v=1)
+        abline(h=1)
+        fig_label(text=corner1.text, region="plot", pos=corner1.pos)
+        fig_label(text=corner2.text, region="plot", pos=corner2.pos)
+        points(df0[[colname.x]], unlist(df0[colname.y]),
+           col=coexist3col[1],pch=pch, cex=cex)
+        points(df1[[colname.x]], unlist(df1[colname.y]),
+           col=coexist3col[2],pch=pch, cex=cex)
+        points(df2[[colname.x]], unlist(df2[colname.y]),
+           col=coexist3col[3],pch=pch, cex=cex)
+        legend("topright", leg.txt, pch=pch, col=coexist3col, bty="n")
+        # Second plot
+        plot(unlist(df[colname.x]), unlist(df[colname.y]), type="n", xlab=colname.x,
+           ylab=colname.y, main="both survived after stat: Slope Bfin1-2")
+        abline(v=1)
+        abline(h=1)
+        fig_label(text=corner1.text, region="plot", pos=corner1.pos)
+        fig_label(text=corner2.text, region="plot", pos=corner2.pos)
+        df2$order = findInterval(df2$diff.bfinslopes.t1, sort(df2$diff.bfinslopes.t1))
+        points(df2[[colname.x]], unlist(df2[colname.y]),
+           col=colpalettehere(nrow(df2))[df2$order], pch=pch, cex=cex)
+        legend("topright", col=colpalettehere(5), pch=19,
+            legend=round(quantile(df2$diff.bfinslopes.t1), 4), bty="n")
+        # OLD (third) plot (commented out to make room for plots)
+        if(FALSE){
+        plot(unlist(df[colname.x]), unlist(df[colname.y]), type="n", xlab=colname.x,
+           ylab=colname.y, main="both survived after stat: min Bfin slope")
+        abline(v=1)
+        abline(h=1)
+        fig_label(text=corner1.text, region="plot", pos=corner1.pos)
+        fig_label(text=corner2.text, region="plot", pos=corner2.pos)
+        # Order points for coloring
+        df2$order = findInterval(df2$minslopeBfin.t1, sort(df2$minslopeBfin.t1))
+        points(df2[[colname.x]], unlist(df2[colname.y]),
+           col=colpalettehere(nrow(df2))[df2$order], pch=pch, cex=cex)
+        legend("topright", col=colpalettehere(5), pch=19,
+            legend=round(quantile(df2$minslopeBfin.t1), 4), bty="n")
+        # Not plotting: Third plot
+        plot(unlist(df[colname.x]), unlist(df[colname.y]), type="n", xlab=colname.x,
+           ylab=colname.y, main="sp 1 survived after stat: Slope of sp1")
+        abline(v=1)
+        abline(h=1)
+        fig_label(text=corner1.text, region="plot", pos=corner1.pos)
+        fig_label(text=corner2.text, region="plot", pos=corner2.pos)
+        df1.sp1$order = findInterval(df1.sp1$slopeBfin1.t1, sort(df1.sp1$slopeBfin1.t1))
+        points(df1.sp1[[colname.x]], unlist(df1.sp1[colname.y]),
+          col=colpalettehere(nrow(df1.sp1))[df1.sp1$order], pch=pch, cex=cex)
+        legend("topright", col=colpalettehere(5), pch=19,
+            legend=round(quantile(df1.sp1$slopeBfin1.t1), 4), bty="n")
+        # Not plotting: Fourth plot
+        plot(unlist(df[colname.x]), unlist(df[colname.y]), type="n", xlab=colname.x,
+           ylab=colname.y, main="sp 2 survived after stat: Slope of sp2")
+        abline(v=1)
+        abline(h=1)
+        fig_label(text=corner1.text, region="plot", pos=corner1.pos)
+        fig_label(text=corner2.text, region="plot", pos=corner2.pos)
+        df1.sp2$order = findInterval(df1.sp2$slopeBfin2.t1, sort(df1.sp2$slopeBfin2.t1))
+        points(df1.sp2[[colname.x]], unlist(df1.sp2[colname.y]),
+          col=colpalettehere(nrow(df1.sp2))[df1.sp2$order], pch=pch, cex=cex)
+        legend("topright", col=colpalettehere(5), pch=19,
+            legend=round(quantile(df1.sp2$slopeBfin2.t1), 4), bty="n")
+        }
+        # Fifth plot
+        plot(unlist(df[colname.x]), unlist(df[colname.y]), type="n", xlab=colname.x,
+           ylab=colname.y, main="Both survived after stat: Slope of sp1")
+        abline(v=1)
+        abline(h=1)
+        fig_label(text=corner1.text, region="plot", pos=corner1.pos)
+        fig_label(text=corner2.text, region="plot", pos=corner2.pos)
+        df2.sp2$order = findInterval(df2.sp2$slopeBfin1.t1, sort(df2.sp2$slopeBfin1.t1))
+        points(df2.sp2[[colname.x]], unlist(df2.sp2[colname.y]),
+          col=colpalettehere(nrow(df2.sp2))[df2.sp2$order], pch=pch, cex=cex)
+        legend("topright", col=colpalettehere(5), pch=19,
+            legend=round(quantile(df2.sp2$slopeBfin1.t1), 4), bty="n")
+        # Sixth plot
+        plot(unlist(df[colname.x]), unlist(df[colname.y]), type="n", xlab=colname.x,
+           ylab=colname.y, main="Both survived after stat: Slope of sp2")
+        abline(v=1)
+        abline(h=1)
+        fig_label(text=corner1.text, region="plot", pos=corner1.pos)
+        fig_label(text=corner2.text, region="plot", pos=corner2.pos)
+        df2.sp1$order = findInterval(df2.sp1$slopeBfin2.t1, sort(df2.sp1$slopeBfin2.t1))
+        points(df2.sp1[[colname.x]], unlist(df2.sp1[colname.y]),
+          col=colpalettehere(nrow(df2.sp1))[df2.sp1$order], pch=pch, cex=cex)
+        legend("topright", col=colpalettehere(5), pch=19,
+            legend=round(quantile(df2.sp1$slopeBfin2.t1), 4), bty="n")
+    dev.off()
+}
+
+
+
+plot.paramdiffs.manypanel.bfin <- function(df, runname, figname, colname.x, colname.y, cex, pch,
+    corner1.text, corner1.pos, corner2.text, corner2.pos, colpalettehere){
+    pdf(paste("graphs/megadroughts/paramdiffs/", runname, figname, "wbfin.pdf", sep=""),
+        width=11, height=8)
+        par(mfrow=c(2,3))
+        df0 <- subset(df, ncoexist.t2==0)
+        df1 <- subset(df, ncoexist.t2==1)
+        df2 <- subset(df, ncoexist.t2==2)
+        df1.sp1 <- subset(df1, coexist1.t2==1)
+        df1.sp2 <- subset(df1, coexist2.t2==1)
+        # First plot
+        plot(unlist(df[colname.x]), unlist(df[colname.y]), type="n", xlab=colname.x,
+           ylab=colname.y, main="survived after stat: colored by non-stat")
+        abline(v=1)
+        abline(h=1)
+        fig_label(text=corner1.text, region="plot", pos=corner1.pos)
+        fig_label(text=corner2.text, region="plot", pos=corner2.pos)
+        points(df0[[colname.x]], unlist(df0[colname.y]),
+           col=coexist3col[1],pch=pch, cex=cex)
+        points(df1[[colname.x]], unlist(df1[colname.y]),
+           col=coexist3col[2],pch=pch, cex=cex)
+        points(df2[[colname.x]], unlist(df2[colname.y]),
+           col=coexist3col[3],pch=pch, cex=cex)
+        legend("topright", leg.txt, pch=pch, col=coexist3col, bty="n")
+        # Second plot
+        plot(unlist(df[colname.x]), unlist(df[colname.y]), type="n", xlab=colname.x,
+           ylab=colname.y, main="both survived after nonstat: Slope Bfin1-2")
+        abline(v=1)
+        abline(h=1)
+        fig_label(text=corner1.text, region="plot", pos=corner1.pos)
+        fig_label(text=corner2.text, region="plot", pos=corner2.pos)
+        df2$order = findInterval(df2$diff.bfinslopes.t2, sort(df2$diff.bfinslopes.t2))
+        points(df2[[colname.x]], unlist(df2[colname.y]),
+           col=colpalettehere(nrow(df2))[df2$order], pch=pch, cex=cex)
+        legend("topright", col=colpalettehere(5), pch=19,
+            legend=round(quantile(df2$diff.bfinslopes.t2), 4), bty="n")
+        # Third plot
+        plot(unlist(df[colname.x]), unlist(df[colname.y]), type="n", xlab=colname.x,
+           ylab=colname.y, main="both survived after nonstat: min Bfin slope")
+        abline(v=1)
+        abline(h=1)
+        fig_label(text=corner1.text, region="plot", pos=corner1.pos)
+        fig_label(text=corner2.text, region="plot", pos=corner2.pos)
+        # Order points for coloring
+        df2$order = findInterval(df2$minslopeBfin.t2, sort(df2$minslopeBfin.t2))
+        points(df2[[colname.x]], unlist(df2[colname.y]),
+           col=colpalettehere(nrow(df2))[df2$order], pch=pch, cex=cex)
+        legend("topright", col=colpalettehere(5), pch=19,
+            legend=round(quantile(df2$minslopeBfin.t2), 4), bty="n")
+        # Fourth plot
+        plot(unlist(df[colname.x]), unlist(df[colname.y]), type="n", xlab=colname.x,
+           ylab=colname.y, main="sp 1 survived after nonstat: Slope of sp1")
+        abline(v=1)
+        abline(h=1)
+        fig_label(text=corner1.text, region="plot", pos=corner1.pos)
+        fig_label(text=corner2.text, region="plot", pos=corner2.pos)
+        df1.sp1$order = findInterval(df1.sp1$slopeBfin1.t2, sort(df1.sp1$slopeBfin1.t2))
+        points(df1.sp1[[colname.x]], unlist(df1.sp1[colname.y]),
+          col=colpalettehere(nrow(df1.sp1))[df1.sp1$order], pch=pch, cex=cex)
+        legend("topright", col=colpalettehere(5), pch=19,
+            legend=round(quantile(df1.sp1$slopeBfin1.t2), 4), bty="n")
+        # Fifth plot
+            plot(unlist(df[colname.x]), unlist(df[colname.y]), type="n", xlab=colname.x,
+           ylab=colname.y, main="sp 2 survived after nonstat: Slope of sp2")
+        abline(v=1)
+        abline(h=1)
+        fig_label(text=corner1.text, region="plot", pos=corner1.pos)
+        fig_label(text=corner2.text, region="plot", pos=corner2.pos)
+        df1.sp2$order = findInterval(df1.sp2$slopeBfin2.t2, sort(df1.sp2$slopeBfin2.t2))
+        points(df1.sp2[[colname.x]], unlist(df1.sp2[colname.y]),
+          col=colpalettehere(nrow(df1.sp2))[df1.sp2$order], pch=pch, cex=cex)
+        legend("topright", col=colpalettehere(5), pch=19,
+            legend=round(quantile(df1.sp2$slopeBfin2.t2), 4), bty="n")
+    dev.off()
+}
+
+
+if(FALSE){
+df <- df.all.plot
+colname.x <- "ratio.s.t1"
+colname.y <- "ratio.tauIP.t1"
+cex=cexhere
+pch=pchhere
+corner2.text <- "? wins"
+corner2.pos <- "topright"
+corner1.text <- "? wins"
+corner1.pos <- "topright"
 }
