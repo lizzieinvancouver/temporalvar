@@ -14,9 +14,9 @@ phi <- rep(0.05,nsp)     # conversion of end-of-season plant biomass to seeds
 if (length(vartauI)>1) {  #if vartauI is a vector, then it is giving particular values for each species
   tauI = vartauI
 } else if (vartauI == 0) {  #if vartauI is 0, then give all species the same randomly selected tauI
-  tauI <-rep(runif(1,0.3,0.7),nsp)
+  tauI <-rep(runif(1,0.1,0.9),nsp)
 } else {                     #if vartauI is 1, then give random values for tauI for each species
-  tauI <-runif(nsp,0.3,0.7)  
+  tauI <-runif(nsp,0.1,0.9)  
 }
 
 #tracking
@@ -48,6 +48,7 @@ if (megaDflag==1) {
     } else {
       alpha <- salpha[,2]  #if tracking is flag, then alpha ranges 0-1
     }
+    tauI <-rep(runif(1,0.4,0.6),nsp)
   }
 }
 
