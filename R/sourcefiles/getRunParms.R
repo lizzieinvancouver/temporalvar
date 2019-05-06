@@ -23,7 +23,11 @@ inputs <- as.data.frame(read.table(file=inputfile,
                                    header=TRUE,stringsAsFactors=FALSE,sep="\t"))
 nruns <- inputs$nruns[inputline]
 nonsta <- as.numeric(unlist(strsplit(inputs$nonsta[inputline],",")))
-tracking <- inputs$tracking[inputline]
+if (is.character(inputs$tracking)) {
+  tracking <- as.numeric(unlist(strsplit(inputs$tracking[inputline],",")))
+} else {
+  as.numeric(inputs$tracking)
+}
 R0ns_flag <- inputs$nsR0[inputline]
 varRstar <- ifelse(is.character(inputs$varRstar),
                    as.numeric(unlist(strsplit(inputs$varRstar[inputline],","))),
