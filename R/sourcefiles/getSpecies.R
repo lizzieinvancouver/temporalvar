@@ -10,30 +10,48 @@ gmax <-  rep(0.5,nsp)     # max germination fraction
 h <-  rep(100,nsp)             # max rate of germination decrease following pulse
 phi <- rep(0.05,nsp)     # conversion of end-of-season plant biomass to seeds
 
-#megaDrought - tradeoff tauI and surv with correlation rho
-if (megaDflag==1) {
-  cmat <- matrix(c(1,rho,rho,1), nrow=2, ncol=2) 
-  stauI <- draw.d.variate.uniform(no.row=2,d=2,cov.mat=cmat)
-  s <- stauI[,1]*(0.98 - 0.8) + 0.8  #rescale s.t. s ranges from 0.65 to 0.95
-  tauI <- stauI[,2]*(0.55-0.45) + 0.45
-}
-  
 #germination: tau I and alpha below; tauI is the time of max germ for sp i
-if (megaDflag==0){
-  if (length(vartauI)>1) {  #if vartauI is a vector, then it is giving particular values for each species
-    tauI = vartauI
-  } else if (vartauI == 0) {  #if vartauI is 0, then give all species the same randomly selected tauI
-    tauI <-rep(runif(1,0.1,0.9),nsp)
-  } else {                     #if vartauI is 1, then give random values for tauI for each species
-    tauI <-runif(nsp,0.1,0.9)  
-  }
+if (length(vartauI)>1) {  #if vartauI is a vector, then it is giving particular values for each species
+  tauI = vartauI
+} else if (vartauI == 0) {  #if vartauI is 0, then give all species the same randomly selected tauI
+  tauI <-rep(runif(1,0.3,0.7),nsp)
+} else {                     #if vartauI is 1, then give random values for tauI for each species
+  tauI <-runif(nsp,0.3,0.7)  
 }
 
 #tracking
-alpha <- rep(0,nsp)
 #add tracking with alpha to create tauIhat
-if (tracking > 0) {
-  alpha <- runif(nsp,0.3, 0.99)
+if (sum(tracking)==0) {                       #tracking default value is 0 (no tracking)
+  alpha <- rep(0,nsp)           
+} else if (length(tracking)==2) {             #tracking takes range defined in input file
+  alpha <- runif(nsp,tracking[1], tracking[2]) 
+} else {                                      #if tracking is just used as a flag, then takes range 0-1
+  alpha <- runif(nsp,0,1)
+}
+
+#megaDrought - two ways: 
+#            vartauI==1 tradeoff tauI and surv with correlation rho
+#            tracking==1 tradeoff alpha and surv with correlation rho
+if (megaDflag==1) {
+  if (vartauI==1) {
+    cmat <- matrix(c(1,rho,rho,1), nrow=2, ncol=2) 
+    stauI <- draw.d.variate.uniform(no.row=2,d=2,cov.mat=cmat)
+    s <- stauI[,1]*(0.98 - 0.5) + 0.5  
+    tauI <- stauI[,2]*(0.6-0.4) + 0.4
+  }
+  if (sum(tracking)>0) {
+    cmat <- matrix(c(1,rho,rho,1), nrow=2, ncol=2) 
+    salpha <- draw.d.variate.uniform(no.row=2,d=2,cov.mat=cmat)
+    s <- salpha[,1]*(0.98 - 0.5) + 0.5  #rescale s.t. s ranges from 0.65 to 0.98
+    if (length(tracking)==2){
+      alpha <- salpha[,2]*(tracking[2]-tracking[1])+tracking[1] #alpha range given by tracking
+    } else {
+      alpha <- salpha[,2]  #if tracking is flag, then alpha ranges 0-1
+    }
+  }
+}
+
+if (sum(tracking) > 0) {
   tauIhat <- matrix(rep(alpha),nyrs,nsp, byrow = TRUE)*tauP+matrix((1-alpha)*tauI, nyrs, nsp, byrow = TRUE)
 } else {
   tauIhat <- matrix(rep(tauI),nyrs,nsp, byrow = TRUE)
