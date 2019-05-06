@@ -1,11 +1,6 @@
 #####  getPlots
 # When doing a few runs locally, plots basic info about each run to a one page pdf
 
-##if this is being called from getOutput, rather than PlotCoexist, need to define IDx's
-if (exists("runIDx")) {
-  jobID<-c(jobIDx,taskIDx)
-  j <- runIDx
-}
 
 pdfplot <- paste0(PlotOut_loc, "/Coexist_",jobID[1],"-",jobID[2],"_",j,".pdf")
 
