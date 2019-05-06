@@ -91,12 +91,15 @@ if(!dir.exists(file.path(SummOut_loc))) dir.create(file.path(SummOut_loc),recurs
 OtherOut_loc <- paste0(locOUT,"/OtherOut/",jobID[1])
 if(!dir.exists(file.path(OtherOut_loc))) dir.create(file.path(OtherOut_loc),recursive=TRUE)
 
+PlotOut_loc <- paste0(locOUT,"/CoexistPlots/",jobID[1])
+if(!dir.exists(file.path(PlotOut_loc))) dir.create(file.path(PlotOut_loc),recursive=TRUE)
+
 #WRITE RUN CONDITIONS TO RUNPARMS
 #  runparms is identical for every run in a job, so every run in the job has the same filename
 #  nonetheless, write this out for every run; it will overwrite, but just in case runs fail
   col.names.runparms <- c("arrayID","taskID","nruns","nsp","nyrs",
                           paste0(rep("nonsta",3),c(1:3)),
-                          "tracking",
+                          paste0(rep("tracking",length(tracking)),c(1:length(tracking))),
                           paste0(rep("varRstar",2),c(1:2)),
                           "vartauI","R0ns_flag","megaDflag","rho","xDrought","writeBout","ext","ndays","dt","tsteps")
   fileparms <- paste0(OtherOut_loc,"/RunParms_",jobID[1],".txt")
