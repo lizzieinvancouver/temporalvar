@@ -15,10 +15,10 @@ col_2=rgb(1,0,0,.5)
 
 ##Print out overlapping histograms of tauIP for sp1 and sp 2 for stationary and nonstationary
 
-h1t1=hist(tauP-tauIhat[seq(1,nonsta[1]),1],plot=FALSE)
-h2t1=hist(tauP-tauIhat[seq(1,nonsta[1]),2],plot=FALSE)
-h1t2=hist(tauP-tauIhat[seq(nonsta[1]+1,sum(nonsta)),1],plot=FALSE)
-h2t2=hist(tauP-tauIhat[seq(nonsta[1]+1,sum(nonsta)),2],plot=FALSE)
+h1t1=hist(tauP[seq(1,nonsta[1])]-tauIhat[seq(1,nonsta[1]),1],plot=FALSE)
+h2t1=hist(tauP[seq(1,nonsta[1])]-tauIhat[seq(1,nonsta[1]),2],plot=FALSE)
+h1t2=hist(tauP[seq(nonsta[1]+1,sum(nonsta))]-tauIhat[seq(nonsta[1]+1,sum(nonsta)),1],plot=FALSE)
+h2t2=hist(tauP[seq(nonsta[1]+1,sum(nonsta))]-tauIhat[seq(nonsta[1]+1,sum(nonsta)),2],plot=FALSE)
 ymax=max(h1t1$counts,h2t1$counts,h1t2$counts,h2t2$counts)
 xmin=min(h1t1$breaks,h2t1$breaks,h1t2$breaks,h2t2$breaks)
 xmax=max(h1t1$breaks,h2t1$breaks,h1t2$breaks,h2t2$breaks)
