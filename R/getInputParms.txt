@@ -1,6 +1,3 @@
 nruns	nsp	varRstar	nonsta	nsR0	tracking	vartauI	notes
-100	2	1	"500,500,0"	0	1	1	"tradeoff R*, tracking, tauI"
-100	2	1	"500,500,0"	0	1	0	tradeoff R* and tracking
-100	2	1	"500,500,0"	0	0	1	tradeoff R* and tauI
-100	2	0	"500,500,0"	0	1	1	"R* equal, tradeoff tracking and tauI"
-100	2	1	"500,500,0"	0.5	1	0	tradeoff R* and tracking with declining R0
+100	2	1	"500,500,0"	0	"0,0.3"	0	tradeoff R* and tracking, fill-in alpha 0-0.3
+100	2	1	"500,500,0"	0	"0,1"	0	tradeoff R* and tracking, full range of alpha
