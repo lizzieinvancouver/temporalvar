@@ -116,6 +116,8 @@ write.table(matrix(data=c(rep(as.numeric(jobID[1]),yout),rep(as.numeric(jobID[2]
             col.names = col.names.BfinN, row.names = FALSE,
             append=TRUE,sep="\t", quote=FALSE)
 
-if (localflag>0) {
+#PLOT TWO SPP THROUGH YEARS + HIST FOR TAUip AND GERMINATION
+#for local runs, always make plots.  For server runs, only plot runs where both species survive the stationary period
+if (localflag>0 | sum(coexist[nonsta[1],]==nsp)) {
   source(paste0(locIN, "/sourcefiles/getPlots.R")) #make some plots when running a small batch locally
 }
