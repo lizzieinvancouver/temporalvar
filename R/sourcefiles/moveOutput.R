@@ -23,3 +23,9 @@ if(!dir.exists(todir)) dir.create(todir,recursive=TRUE)
 to = file.path(paste0(todir),list.files(OtherOut_loc))
 file.copy(from,to)
 
+#CoexistPlots Files
+from = file.path(PlotOut_loc,list.files(PlotOut_loc))
+todir = file.path(paste0(locSAVE,"/CoexistPlots/",jobID[1]))
+if(!dir.exists(todir)) dir.create(todir,recursive=TRUE)
+to = file.path(paste0(todir),list.files(PlotOut_loc))
+file.copy(from,to)
