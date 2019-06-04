@@ -1,3 +1,3 @@
 nruns	nsp	varRstar	nonsta	tracking	vartauI	rho	xDrought	notes
-5	2	-1	"800,400,0"	"0,1"	0	-0.7	0.5	"megadrought runs with low tauI; corr(s,alpha)"
-5	2	-1	"800,400,0"	0	1	-0.7	0.5	"megadrought runs with low tauI; corr(s,tauI)"
+100	2	-1	"800,400,0"	"0,1"	0	-0.7	0.5	"megadrought runs with corr(s,alpha), long stationary period"
+100	2	-1	"800,400,0"	0	1	-0.7	0.5	"megadrought runs corr(s,tauI), long stationary period"
