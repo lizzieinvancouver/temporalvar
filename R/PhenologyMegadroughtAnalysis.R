@@ -23,9 +23,20 @@ source("sourcefiles/analyses/runanalysisfxsmega.R")
 
 runshaveheader <- TRUE
 oldruns.sphi <- FALSE
+oldruns.narrowrange.stauI <- FALSE
+corrsalpha.longstat <- TRUE
+corrstauI.longstat <- FALSE
 
 # cheap loop over the files for now
-if(!oldruns.sphi){
+if(corrsalpha.longstat){
+runz <- c("9270489") # corr(s,alpha), long (800y) stationary period. alpha =U(0,1) and s=0.5-0.98
+}
+
+if(corrstauI.longstat){
+runz <- c("9270555") # corr(s,tauI), long (800 y) stationary period" tauI=U(0.4-0.6)
+}
+
+if(oldruns.narrowrange.stauI){
 runz <- c("9014727", "9014765", "9014815")
 }
 
@@ -103,7 +114,7 @@ df.all.coexist1 <- subset(df.all, ncoexist==2 & period==1)
 df.all.t2 <- subset(df.all, period==2)
 df.all.t2 <- subset(df.all.t2, select=c("jobID", "taskID", "runID", "ncoexist",
     "coexist1", "coexist2",  "R0_mean", "R0_median", "R0_autocor", "taskrunID",
-    "slopeBfin1", "slopeBfin2", "diff.bfinslopes", "minslopeBfin",
+    "slopeBfin1", "slopeBfin2", "diff.bfinslopes", "minslopeBfin", "ratio.alpha",
     "ratio.s", "ratio.phi", "ratio.tauI", "ratio.tauIP"))
 df.all.plot <- merge(df.all.coexist1, df.all.t2, by=c("jobID", "taskID", "runID", "taskrunID"),
     all.x=TRUE, all.y=FALSE, suffixes=c(".t1", ".t2"))
@@ -207,7 +218,7 @@ library(viridis)
 colpalettehere=viridis
 
 
-if(!oldruns.sphi){
+if(oldruns.narrowrange.stauI){
 plot.paramdiffs.twopanel(df.all.plot, "tauIsruns", "_stauI", "ratio.s.t1",
     "ratio.tauI.t1", cexhere, pchhere, "", "bottomright", "", "topleft")
 plot.paramdiffs.twopanel(df.all.plot, "tauIsruns", "_stauIP", "ratio.s.t1",
@@ -219,6 +230,45 @@ plot.paramdiffs.manypanel.bfin(df.all.plot, "tauIsruns", "_tauIP.s.t1", "ratio.s
     "ratio.tauIP.t1", cexhere, pchhere,  "sp 1 wins", "bottomright", "sp 2 wins", "topleft",
     colpalettehere)
 }
+
+
+
+if(corrsalpha.longstat){
+df.all.plot.sm <- subset(df.all.plot, ratio.alpha.t1<50) # removes 2
+plot.paramdiffs.twopanel(df.all.plot.sm, "tauIsruns", "_corrsalpha.stauI", "ratio.s.t1",
+    "ratio.tauI.t1", cexhere, pchhere, "", "bottomleft", "", "topright")
+plot.paramdiffs.twopanel(df.all.plot.sm, "tauIsruns", "_corrsalpha.stauIP", "ratio.s.t1",
+    "ratio.tauIP.t1", cexhere, pchhere, "sp 2 wins", "topleft", "sp 1 wins", "bottomright")
+plot.paramdiffs.manypanel.bfin(df.all.plot.sm, "tauIsruns", "_corrsalpha.alpha.s.t1", "ratio.s.t1",
+    "ratio.alpha.t1", cexhere, pchhere, "sp 2 wins", "bottomleft", "sp 1 wins", "topright", 
+    colpalettehere)
+plot.paramdiffs.stat.bfin(df.all.plot.sm, "tauIsruns", "_corrsalpha.tauIP.s.t1", "ratio.s.t1",
+    "ratio.tauIP.t1", cexhere, pchhere, "sp 2 wins", "topleft", "sp 1 wins", "bottomright", 
+    colpalettehere)
+plot.paramdiffs.manypanel.bfin(df.all.plot.sm, "tauIsruns", "_corrsalpha.tauIP.s.t1", "ratio.s.t1",
+    "ratio.tauIP.t1", cexhere, pchhere, "sp 2 wins", "topleft", "sp 1 wins", "bottomright", 
+    colpalettehere)
+plot.paramdiffs.manypanel.bfin(df.all.plot.sm, "tauIsruns", "_corrsalpha.alpha.s.t1", "ratio.s.t1",
+    "ratio.alpha.t1", cexhere, pchhere, "sp 2 wins", "bottomleft", "sp 1 wins", "topright", 
+    colpalettehere)
+}
+
+if(corrstauI.longstat){
+plot.paramdiffs.twopanel(df.all.plot, "tauIsruns", "_corrstauI.stauI", "ratio.s.t1",
+    "ratio.tauI.t1", cexhere, pchhere, "", "bottomright", "", "topleft")
+plot.paramdiffs.manypanel.bfin(df.all.plot, "tauIsruns", "_corrstauI.tauIP.s.t1", "ratio.s.t1",
+    "ratio.tauIP.t1", cexhere, pchhere,  "sp 1 wins", "bottomright", "sp 2 wins", "topleft",
+    colpalettehere)
+plot.paramdiffs.twopanel(df.all.plot, "tauIsruns", "_corrstauI.stauIP", "ratio.s.t1",
+    "ratio.tauIP.t1", cexhere, pchhere, "sp 1 wins", "bottomright", "sp 2 wins", "topleft")
+plot.paramdiffs.stat.bfin(df.all.plot, "tauIsruns", "_corrstauI.tauIP.s.t1", "ratio.s.t1",
+    "ratio.tauIP.t1", cexhere, pchhere,  "sp 1 wins", "bottomright", "sp 2 wins", "topleft",
+    colpalettehere)
+plot.paramdiffs.manypanel.bfin(df.all.plot, "tauIsruns", "_corrstauI.tauIP.s.t1", "ratio.s.t1",
+    "ratio.tauIP.t1", cexhere, pchhere,  "sp 1 wins", "bottomright", "sp 2 wins", "topleft",
+    colpalettehere)
+}
+
 
 if(oldruns.sphi){
 # plot.paramdiffs.twopanel(lowtauI.runs.df, "lowtauI.runs", "_sphi", "ratio.s.t1",

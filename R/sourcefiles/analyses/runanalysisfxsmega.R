@@ -28,6 +28,7 @@ makediffs <- function(df){
     dathere$ratio.phi <- dathere$phi1/dathere$phi2
     dathere$ratio.tauI <- dathere$tauI1/dathere$tauI2
     dathere$ratio.tauIP <- dathere$tauIP1/dathere$tauIP2
+    dathere$ratio.alpha <-  dathere$alpha1/dathere$alpha2
     dathere$diff.bfinslopes <- dathere$slopeBfin1-dathere$slopeBfin2
     return(dathere)
     }

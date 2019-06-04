@@ -25,7 +25,7 @@ source("sourcefiles/analyses/multiplot.R") # used in plot.params
 source("sourcefiles/analyses/runanalysisfxs.R")
 
 writeout.someruns.formegan <- FALSE
-lookdeeplyatR0runs <- FALSE
+lookdeeplyatR0runs <- TRUE
 
 runshaveheader <- TRUE
 
