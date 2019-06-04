@@ -44,6 +44,7 @@ rho <- inputs$rho[inputline]  #rho is the value of the megaD in getInputParms an
 if (is.null(rho)) rho <- 0
 if (rho==1) rho <- -0.5 #if rho is treated as a flag (0/1) in the input file, then give rho standard value of -0.5
 xDrought <- inputs$xDrought[inputline] #megaD dry periods are multiplied by megaDX to make them more exteme
+if (is.null(xDrought)) xDrought <- NA
 
 if (is.null(R0ns_flag)) R0ns_flag <- NA
 
