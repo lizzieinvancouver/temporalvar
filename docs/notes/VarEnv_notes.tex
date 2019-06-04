@@ -112,13 +112,12 @@ See below (or see other files) for outlines and info on each.
 
 \subsection{Notes from 1-5 May 2019}
 
-We have a few goals:
+We had a few goals:
 \begin{smitemize}
-\item Understand: why so many more 2-spp. coexist after stationary in $\tau_i x R*$ runs versus $\alpha x R*$? And how come the bottleneck in the $\alpha x R*$ and not the $\tau_i x R*$? (Some notes on this in phencc.tex file currently.)
-\item Understand:  why so few 2-spp. coexist after non-stationary in $\tau_i x R*$ runs versus $\alpha x R*$
-\item Lizzie should finish the $R_0$ run estimates.
-
-\item Do a few megadrought runs, maybe enough to get a sense of how big the megadrought versus non-megadrought periods would need to be for our hypothesis to work.
+\item Understand: why so many more 2-spp. coexist after stationary in $\tau_i x R*$ runs versus $\alpha x R*$? And how come the bottleneck in the $\alpha x R*$ and not the $\tau_i x R*$? (Some notes on this in phencc.tex file currently.) {\bf Result:} Seems like the $\alpha x R*$ is speeding up dynamics. But need to dig in further. As we left it Megan was looking at more plots and we had pushed some runs allowing lower $\alpha$ values (current runs do not allow $\alpha$ below 0.3). 
+\item Understand:  why so few 2-spp. coexist after non-stationary in $\tau_i x R*$ runs versus $\alpha x R*$ {\bf Result:} Pretty simple we think -- the best $\tau_i$ for pre-stationary is too far away from a decent $\tau_i$ in the non-stationary.   
+\item Lizzie should finish the $R_0$ run estimates. {\bf Result:} This is done --- we figured out what happens is that $R_0$ runs just speed extinction. See PhenologyModelAnalysis.R for plots, means etc.
+\item Do a few megadrought runs, maybe enough to get a sense of how big the megadrought versus non-megadrought periods would need to be for our hypothesis to work.  {\bf Result:} We did not work too hard through this, though we did wonder if we're again struggling with too many stragglers (species that should go extinct but go slowly extinct in $\tau_i$ runs) so we tried some runs with longer stationary periods and with varying $\alpha.$ These runs were started just as Megan left. 
 \end{smitemize}
 
 

@@ -8,6 +8,14 @@
 ### To do items!!! ###
 ######################
 # https://www.theanalysisfactor.com/r-tutorial-part-12/
+# (1) Add runs from Feb 2019 I somehow missed:
+# 1006570
+# 1006591
+# 1006608
+# 1006628
+# 1006639
+# (2) Make sure the declining R0 runs with BIGGER declines: 8995922, 8995924 are being handled correctly given the way I use seq(XX, length(runz), 5)
+# (3) Double check how I handle the ext. alpha runs
 ######################
 
 ## housekeeping
@@ -25,7 +33,8 @@ source("sourcefiles/analyses/multiplot.R") # used in plot.params
 source("sourcefiles/analyses/runanalysisfxs.R")
 
 writeout.someruns.formegan <- FALSE
-lookdeeplyatR0runs <- TRUE
+lookdeeplyatR0runs <- FALSE
+inclextalpharuns <- TRUE
 
 runshaveheader <- TRUE
 
@@ -37,6 +46,7 @@ runz <- c("858179", "858221", "858241", "858262", "858282",
           "933566", "933600", "933630", "933682", "933723",
           "8995922", "8995924")
 # declining R0 runs with BIGGER declines: 8995922, 8995924 (see alphaRstarR0ext below)
+extalpharuns <- c("12519313", "12519314") # extended alpha runs are 12519313, 12519314: first set fills in the alpha - 0-0.3 range; second set is for the full range of alpha (0-1)
 
 # Remember to update below under plotting-related formatting ...
 seq(1, length(runz), 5) # 1, are varying everything
@@ -62,7 +72,10 @@ seq(5, length(runz), 5) # 5, vary alpha, Rstar, and add in a R0 declines
 #########################################
 ## Do some data reading and formatting ##
 #########################################
-runnow <- runz
+runnow <- c(runz)
+if(inclextalpharuns){ # overwrites above if flagged
+runnow <- c(runz, extalpharuns)
+}
 
 ## Setup for pasting runs together into one df (not sure we permanently want this but I want it now)
 folderID <- runnow[1]
@@ -212,6 +225,10 @@ taualphaRstar.stat.runs.df <- df.all.stat[which(df.all.stat$jobID %in% taualphaR
 alphaRstarR0.stat.runs.df <- df.all.stat[which(df.all.stat$jobID %in% alphaRstarR0.runs),]
 alphaRstarR0ext.stat.runs.df <- df.all.stat[which(df.all.stat$jobID %in% alphaRstarR0ext.runs),]
 sum(alphaRstarR0.stat.runs.df$diff.tauI) # must equal zero!
+# extended alpha runs
+alphaextRstar.stat.runs.df <- df.all.stat[which(df.all.stat$jobID %in% extalpharuns),]
+
+
 
 ## Grab the stationary coexisting runs and the non-stationary period
 # NOT varying tracking
@@ -228,6 +245,8 @@ taualphaRstar.runs.df <- df.all.plot[which(df.all.plot$jobID %in% taualphaRstar.
 # add in declining R0
 alphaRstarR0.runs.df <- df.all.plot[which(df.all.plot$jobID %in% alphaRstarR0.runs),]
 alphaRstarR0ext.runs.df <- df.all.plot[which(df.all.plot$jobID %in% alphaRstarR0ext.runs),]
+# extended alpha runs
+alphaextRstar.runs.df <- df.all.plot[which(df.all.plot$jobID %in% extalpharuns),]
 
 
 ## Do some counts
@@ -250,6 +269,8 @@ sum(taualphaRstar.runs.df$ncoexist.t2)/sum(taualphaRstar.runs.df$ncoexist.t1)
 sum(alphaRstarR0.runs.df$ncoexist.t2)/sum(alphaRstarR0.runs.df$ncoexist.t1)
 sum(alphaRstarR0ext.runs.df$ncoexist.t2)/sum(alphaRstarR0ext.runs.df$ncoexist.t1)
 # From above ... do you see more extinctions after/before non-stat with declining R0?
+sum(alphaextRstar.runs.df$ncoexist.t2)/sum(alphaextRstar.runs.df$ncoexist.t1)
+
 
 # What is average alpha before and after stat?
 get.mean.alphavalues(df.all[which(df.all$jobID %in% alphaRstar.runs),])
@@ -261,6 +282,8 @@ get.mean.alphavalues.ns(df.all[which(df.all$jobID %in% taualphaRstar.runs),])
 get.mean.alphavalues(df.all[which(df.all$jobID %in% alphaRstarR0.runs),])
 get.mean.alphavalues.ns(df.all[which(df.all$jobID %in% alphaRstarR0.runs),])
 get.mean.alphavalues.ns(df.all[which(df.all$jobID %in% alphaRstarR0ext.runs),])
+get.mean.alphavalues.ns(df.all[which(df.all$jobID %in% extalpharuns),])
+
 
 if(writeout.someruns.formegan){
 trstat2spp <- subset(tauRstar.stat.runs.df, ncoexist==2)
@@ -384,6 +407,9 @@ plot.alpha.winnersp.stat.alt(alphaRstar.stat.runs.df, "alphaRstar.runs", "_alpha
 plot.alpha.winnersp.stat.alt(taualpha.stat.runs.df, "taualpha.runs", "_alpha.tauIP",
     "ratio.alpha", "ratio.tauIP", cexhere, pchhere)
 
+plot.alpha.winnersp.stat(alphaextRstar.stat.runs.df, "alphaRextstar.runs", "_alphaext.rstar", "ratio.alpha",
+    "ratio.rstar", cexhere, pchhere)
+
 # Look at bfin at end of stationary for tauRstar and alphaRstar runs, little extra work
 tauRstar.runs.df.alt <- df.all.plot.alt[which(df.all.plot.alt$jobID %in% tauRstar.runs),]
 plot.paramdiffs.stat.bfin(tauRstar.runs.df.alt, "tauRstar.runs", "_tauIP.t1.rstar", "ratio.tauIP.t1",
@@ -393,6 +419,7 @@ plot.paramdiffs.stat.bfin(alphaRstar.runs.df.alt, "alphaRstar.runs", "_tauIP.t1.
     "ratio.rstar", cexhere, pchhere,  "sp1 wins", "bottomleft", "sp2 wins", "topright", colpalettehere)
 plot.paramdiffs.stat.bfin(alphaRstar.runs.df.alt, "alphaRstar.runs", "alpha.rstar", "ratio.alpha",
     "ratio.rstar", cexhere, pchhere,  "sp1 wins", "bottomright", "sp2 wins", "topleft", colpalettehere)
+
 
 ### Now, including the non-stationary period (no longer showing ncoexist=0 or 1 from stat period)
 
@@ -434,6 +461,14 @@ plot.paramdiffs.manypanel.bfin(alphaRstar.runs.df, "alphaRstar.runs", "_alpha.rs
 plot.paramdiffs.onesp.bfin(alphaRstar.runs.df, "alphaRstar.runs", "_alpha.rstar", "ratio.alpha",
     "ratio.rstar", cexhere, pchhere, "sp1 wins", "bottomright", "sp2 wins", "topleft", colpalettehere)
 
+
+# extended alpha runs
+plot.paramdiffs.twopanel(alphaextRstar.runs.df, "alphaextRstar.runs", "_alphaext.rstar", "ratio.alpha",
+    "ratio.rstar", cexhere, pchhere, "sp1 wins", "bottomright", "sp2 wins", "topleft")
+plot.paramdiffs.manypanel.bfin(alphaextRstar.runs.df, "alphaextRstar.runs", "_alphaext.rstar", "ratio.alpha",
+    "ratio.rstar", cexhere, pchhere, "sp1 wins", "bottomright", "sp2 wins", "topleft", colpalettehere)
+plot.paramdiffs.twopanel.fixedxy(alphaextRstar.runs.df, "alphaextRstar.runs", "_tauIP.t1.rstar", "ratio.tauIP.t1",
+    "ratio.rstar", cexhere, pchhere, c(0.5,2), c(0.5,2), "sp1 wins", "bottomleft", "sp2 wins", "topright")
 
 plot.paramdiffs.onepanel(taualpha.runs.df, "taualpha.runs", "_alpha.tauIP.t1.",
     "ratio.alpha", "ratio.tauIP.t1", cexhere, pchhere, "sp1 wins", "bottomright", "sp2 wins", "topleft")
