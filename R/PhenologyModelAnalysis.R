@@ -469,6 +469,8 @@ plot.paramdiffs.manypanel.bfin(alphaextRstar.runs.df, "alphaextRstar.runs", "_al
     "ratio.rstar", cexhere, pchhere, "sp1 wins", "bottomright", "sp2 wins", "topleft", colpalettehere)
 plot.paramdiffs.twopanel.fixedxy(alphaextRstar.runs.df, "alphaextRstar.runs", "_tauIP.t1.rstar", "ratio.tauIP.t1",
     "ratio.rstar", cexhere, pchhere, c(0.5,2), c(0.5,2), "sp1 wins", "bottomleft", "sp2 wins", "topright")
+plot.paramdiffs.manypanel.bfin(alphaextRstar.runs.df, "alphaextRstar.runs", "_tauIP.t1.rstar", "ratio.tauIP.t1",
+    "ratio.rstar", cexhere, pchhere, "sp1 wins", "bottomleft", "sp2 wins", "topright", colpalettehere)
 
 plot.paramdiffs.onepanel(taualpha.runs.df, "taualpha.runs", "_alpha.tauIP.t1.",
     "ratio.alpha", "ratio.tauIP.t1", cexhere, pchhere, "sp1 wins", "bottomright", "sp2 wins", "topleft")
