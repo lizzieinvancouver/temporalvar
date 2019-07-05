@@ -46,40 +46,12 @@ Version dated: \today
 
 % SEE ALSO: genoutline label in VarEnv_notes ... this reviews the three environmental variables. Decide how much of that we want to cover here... Maybe much of this could go in a box in the paper?
 
-\section{Notes from November 2018 meeting}
-\begin{itemize}
-\item Take home messages of paper:
-\begin{itemize}
-\item People think of tracking as a trump card but really it’s part of coexistence theory already, and can be outmatched by other species attributes, but with climate change, will it become more important?
-\item For coexistence of species tracking must trade off with something else, in a stationary environment 
-\item $\tau_i$ and $\alpha$ are both useful ways to deal with stochasticity in a stationary envrionment ... show via stationary co-existing runs of $\tau_i$  x R* and $\alpha$ x R*
-\item Stabilizing mechanisms, like a trade-off with tracking, do not survive (univariate) non-stationarity ... just equalizing mechanisms (and thus slow drift), instead trackers generally win.  {\bf Latter point: How to show?}. 
-\item Maybe say something about additional nonstationarity in other environmental factors
-\end{itemize}
-\item Next steps ...
-\begin{itemize}
-\item Megan makes runs with slope of bfin estimated for each species, so we can better identify equalizing versus stabilizing mechanisms.  {\bf This may work, but species that are super similar may drift slowly}
-\item Lizzie should really start writing as there is no need to wait on non-stationary $\tau_p$ and $R_{0}$ runs. She also should consider whether we need the three traits varying runs (R*, $\tau_i$, $\alpha$) and whether we need the $\tau_i$  x $\alpha$ varying runs ... we may not! Main message to Lizzie: try to get stuck less often, or unstick more quickly
-\item Megan does non-stationary $\tau_p$ and $R_{0}$ runs.
-\item {\bf Lizzie!} Analyze the megaD runs! (Just an aside)
-\end{itemize}
-\item Where to submit? Maybe plan on ELE and do postulates etc..
-\end{itemize}
-
-\section{Smaller to do items (less critical)} % Note from meeting, lab meeting etc
-\begin{itemize}
-\item Check out trade-off figures are intuitive (for example: the trade-off of tracking and R* is intuitively negative but it's positive because a lower R* is better and a higher $\alpha$ is better).
-\item My current plot of three different season resource pulse is too correlated  (change if we decide to use it)
-\end{itemize}
-
-\section{Outline}
 Thinking on submitting as a R \& S to \emph{Ecology Letters}\\
 ``For this section of the journal, we are specifically interested in authoritative syntheses of important (and fast moving) areas of ecology.  These can be quite flexible in terms of content, but typically include a strong quantitative component in the form of theory (simulation or analytical) and/or data synthesis (e.g., meta-analysis), and typically are somewhat broader in scope than a typical analysis for a standard paper.''\\
 
 And I said we would offer: ``The complexity of phenological `tracking' (how well species track environmental change), including the complexity in measuring it and how it may structure communities in stationary and non-stationary systems. We've been working on a version of the storage effect model that gives us some interesting insights via simulations and I think a Review \& Synthesis where we marry these results with some of the long-term and experimental data available now could help advance the field.''\\
 
-
-So ... new structure might follow this ...
+So ... overall structure tries to follow this ...
 \begin{enumerate}
 \item Intro (including why you should care about environmental tracking).
 \item Environmental change ... Scales (within and between seasons, inter-annual variation versus trends), correlations among variables. (Includes answering How is the environment changing?)
@@ -89,14 +61,10 @@ So ... new structure might follow this ...
 \item Major research questions to address now
 \end{enumerate}
 
+\newpage
+\section{Outline}
 
-
-% START HERE! 
-% Quick review of outline here then...  
-% Delete or mv to bottom of document all the other stuff
-% Review one more time (think on how to weave in the modeling terms throughout the paper) and ...
-% Write!
-
+% Write it up
 
 {\bf New outline (as of July 2019)} 
 \begin{enumerate}
@@ -127,7 +95,7 @@ So ... new structure might follow this ...
 \item Snowpack records 
 \item Vernal dams of nutrients
 \end{enumerate}
-\item Discuss how correlations between environmental variables may shift (i.e., shifting snowpacks from snow to rain control could cause shifts in correlations between timing and evaporation). ... Conceptual figure on snowpack and temp and what they mean for modeling (use synch data for temp? Could we do a quick search of ecological studies that look at snowpack?) 
+\item (This could be saved for later, or elaborations of it could come later.) Discuss how correlations between environmental variables may shift (i.e., shifting snowpacks from snow to rain control could cause shifts in correlations between timing and evaporation). ... Conceptual figure on snowpack and temp and what they mean for modeling (use synch data for temp? Could we do a quick search of ecological studies that look at snowpack?) 
 \end{enumerate}
 \item What is tracking? (Includes: How variable is tracking? What predicts the variation?)
 \begin{enumerate}
@@ -146,7 +114,7 @@ percentage of species that track, and the min and max tracking.) Some examples .
 \item Some basic predictions
 \begin{enumerate}
 \item Predictability of environment -- most useful to track when there are predictable cues ... for intra-annual (when does the season start? Investment to avoid tissue-loss) and inter-annual (how good is that year? Investment for getting out lots of offspring) 
-\item And that predictability may vary with generation time ... (Interannual variation in climate versus generation time)
+\item And that predictability may vary with generation time ... (Interannual variation in climate versus generation time, and how humans are bad at thinking about this, esp. ecologists) % evolutionary biologists are better
 \item Otherwise, some amount of bet-hedging may be best (also, consider cost of static timing (cheap) versus tracking (potentially costly))
 \item Even in predictable environments, there may be evolutionary limitations (Singer \& Parmesan) or gene flow may prevent optimum tracking (see plasticity lit at bottom of file)
 \item Or there may be trade-offs in how well to track ... 
@@ -222,10 +190,12 @@ Competition/colonization trade-off.
 \begin{enumerate}
 \item How $\tau_i$ and $\alpha$ matter to coexistence
 \item Somewhere say (perhaps): in temporally variable environments species with $\tau_i$ closer to averae $\tau_{P}$ should always win ... and same for tracking....
+\item Species that is weakly tracking may be out-competed by a species with a better mean $\tau_i$. 
 \begin{enumerate}
 \item {\bf Are these effectively the same trait (so no trade-off possible)?} Right, NO trade-off possible, but it's not so much that they are the same trait, but they are trading off on the same species-response to the environment. ... things that we conceptualize as two different traits in a biological sense are the same mathematically (biologically you can imagine a trade-off between tracking and fixed tauI (and in a broader fitness model, you could put energy in either place), but in this environmental space they both get you to the same space). It's the same niche axis!
 \item  In a stationary environment both are equally useful ways to match to the environment (what matters in the end is the total tauIP). In a stationary environment you can get the same outcome with either. 
 % One rejoinder might be that, it feels like a tracking strategy should be better in a stationary environment ... so we may need a conceptual FIGURE: stationary environment and you can get a certain distance from that mean tauP via two ways: tracking or tauI. 
+\item So naive assumption that trackers will always win is not the case, even in a simple stationary environment.
 \item Having a $\tau_i = \tau_P$ is the same as having tracking=1
 \item So, both can equally trade-off with other niche axes .... 
 \end{enumerate}
@@ -240,9 +210,10 @@ when later pulse users are able to draw down soil moisture to lower levels than 
 \item In \emph{nonstationary environments} ... (need some help with phrasing)
 Under a non-stationary environment of earlier $\tau_P$ how: (1) does this trade-off change and (2) do communities change?
 \begin{enumerate}
+\item If you just vary $\tau_i$ across species) then there is no multispecies temporal niche: with you shift from species $min(\tau_i - \tau_{p.old.world})$ to species with $min(\tau_i - \tau_{p.new.world})$ wins... but if you vary more...
 \item Earlier $\tau_i$ is favored more (R* versus $\tau_i$ runs: previously these coexisted via a higher R* and less ideal $\tau_i$)
 \item Tracking is favored more ... or effective $\tau_i$ is really favored more ($\tau_i$ vs. $\alpha$ runs)
-\item Tracking is favored more ($\alpha$ versus R*)
+\item Tracking is favored more ($\alpha$ versus R*)  .... Tracking can trump $R^*$ ... Look at: cases where tracker outcompetes species with lower $R^*$ in nonstationary simulations.
 \end{enumerate}
 \item But this all assumes that nonstationarity happens on only one dimension of the environment; just like species niches, the environment is multidimensional and nonstationarity in it may be multidimensional also. \emph{Multivariate nonstationary environments}
 \begin{enumerate}
@@ -275,6 +246,10 @@ Under a non-stationary environment of earlier $\tau_P$ how: (1) does this trade-
 \end{enumerate}
 \end{enumerate}
 
+
+
+\section{Stuff to revisit while/after writing to see if we can include}
+
 {\bf Stuff to fit in}
 \begin{enumerate}
 \item Nonstationarity versus transient dynamics. 
@@ -282,28 +257,6 @@ Under a non-stationary environment of earlier $\tau_P$ how: (1) does this trade-
 \item Performance x tracking? Can we add in more data?
 \end{enumerate}
 
-{\bf It would be great to add real data here!} Some options: First, Lizzie may be able to track down information about negative correlations between tracking and competitive abilities (for nutrient resources). This would put some of the trade-off questions in perspective. Next, we could also see  \emph{what we know about climate projections} and from there see how big do the trade-offs have to be with climate change to make non-tracking a feasible strategy strategy (this `feasible' and `dominant' terminology is a little wobbly; I admit that)? % \todo[inline]{Missing from main text currently.}
-
-Random notes on real data we have and could add:
-\begin{enumerate}
-\item We should have the data to estimate the
-percentage of species that track, and the min and max tracking.
-\item Some estimates of shifts in growing season length....
-\item Data showing correlations between tracking and abudance given non-stationary climate (Question: how to think about experiments and non-stationarity)
-\item Do we have data on trade-offs between competition and tracking? 
-\end{enumerate}
-
-\subsection{References to cite}
-\noindent Citation for earlier springs % \href{https://link.springer.com/article/10.1007/s00382-016-3313-2}{`Identifying anomalously early spring onsets in the CESM large ensemble project'.}
-
-\noindent Some key refs we worked with:
-\citep{Chesson:1993gi,Chesson:2000ak,Chesson:2000vd,Chesson:2004eo}. Some
-papers using storage effect model or Armstong and McGhee with field
-data: \citep{Angert:2009,Kuang:2008ri,Kuang:2009rj,Levine:2009ym}.
-
-
-
-\subsection{Stuff to revisit at end of February 2019 meeting}
 \begin{itemize}
 \item Has climate change made tracking more advantageous? Or, how prevalent is tracking in a stationary versus nonstationary system? Basically, one hoped-for outcome (by Lizzie) is to show that with stationary climate tracking strategies and non-tracking strategies may coexist happily, but when you add nonstationarity the world shifts that tracking is so strongly favoured as to make non-tracking rare or to require a very huge trade-off etc.. So we have a bunch of related questions to this:
 \begin{itemize}
@@ -311,7 +264,6 @@ data: \citep{Angert:2009,Kuang:2008ri,Kuang:2009rj,Levine:2009ym}.
 \item Another angle, is tracking the dominant strategy with a shifting environment (distribution) vs. stationary environment distribution?
 \end{itemize}
 \end{itemize}
-
 
 \noindent This tracking angle matches to the `Generalists, specialists and plasticity' section of \citet{Chesson:2004eo}. You could imagine by removing the benefit of trade-offs associated with not being plastic, then nonstationarity could favour generalists (plastic species, that is). Here's the most relevant bit (according to Lizzie):
 \begin{quote}
@@ -326,34 +278,52 @@ generalist is then superior.
 \end{quote}
 
 
-
-
-
-\subsection{Semi-outline to guide runs/plots from May 2017} Naive assumption: Trackers will always win; but not always the case in a stationary or non-stationary world. 
-
-\begin{enumerate} 
-\item In a stationary world (SW):
-\begin{enumerate} 
-\item In a stationary world (SW) with no multispecies temporal niche: species with $min(\tau_i - \tau_{P.one.wold})$ wins. 
-\item  Simple temporal niche: $R^*$ trades off with $\tau_i$ (species with $\tau_i$ further from $\tau_P$ must have lower $R^*$.
-\item Dynamic temporal niche scenario 1: with no difference in $R^*$ among species, then the best tracker ($\alpha$) often wins, with some nuance about $\tau_i$ ... i.e., $\tau_i - \tau_p$ versus $\hat{\tau_i} - \tau_p$ ... something that is weakly tracking may be out-competed by a species with a better mean $\tau_i$. So we need to find cases where tracking does not beat out non-tracker. 
-\item  Dynamic temporal niche scenario 2:  $R^*$ trades off with $\alpha$ ... and the more complex version where $R^*$ trades off with $\alpha$ and $\tau_i$ combo: main point here is that what matter is $\hat{\tau_i}-\tau_P$
-\end{enumerate} 
-\item  In a non-stationary world (NSW):
-\begin{enumerate} 
-\item No multispecies temporal niche (just vary $\tau_i$ across species): with you shift from species $min(\tau_i - \tau_{p.old.world})$ to species with $min(\tau_i - \tau_{p.new.world})$ wins. 
-\item With dynamic temporal niche: consider just varying $\alpha$, then species with $max(\alpha)$ wins. 
-\item What happens to communities that were coexisting via $R*-\alpha$ trade-off? 
+\section{Data we should try to pull...}
 \begin{enumerate}
-\item Perhaps tracking can trump $R^*$ ... Look at: cases where tracker outcompetes species with lower $R^*$ in nonstationary simulations.
-\item Maybe do runs with stationarity, then non-stationarity: this could tell you things like `these species will stop coexisting or X\% of runs now go extinct or this part of parameter space that was coexisting goes away first' ... we could also do runs with same params started non-stationary period and see if combinations become possible. 
-\end{enumerate} 
-\end{enumerate} 
-\end{enumerate} 
+\item Estimates of the percentage of species that track, and the min and max tracking.
+\item Some estimates of shifts in growing season length....
+\item Data showing correlations between tracking and abudance given non-stationary climate (Question: how to think about experiments and non-stationarity? Could we use those data?)
+\item Lit review of traits and tracking (Do we have data on trade-offs between competition and tracking?)
+\item Snowpack and other abiotic shifts
+\end{enumerate}
+
+\section{Notes from November 2018 meeting}
+\begin{itemize}
+\item Take home messages of paper:
+\begin{itemize}
+\item People think of tracking as a trump card but really it’s part of coexistence theory already, and can be outmatched by other species attributes, but with climate change, will it become more important?
+\item For coexistence of species tracking must trade off with something else, in a stationary environment 
+\item $\tau_i$ and $\alpha$ are both useful ways to deal with stochasticity in a stationary envrionment ... show via stationary co-existing runs of $\tau_i$  x R* and $\alpha$ x R*
+\item Stabilizing mechanisms, like a trade-off with tracking, do not survive (univariate) non-stationarity ... just equalizing mechanisms (and thus slow drift), instead trackers generally win.  {\bf Latter point: How to show?}. 
+\item Maybe say something about additional nonstationarity in other environmental factors
+\end{itemize}
+\item Next steps ...
+\begin{itemize}
+\item Megan makes runs with slope of bfin estimated for each species, so we can better identify equalizing versus stabilizing mechanisms.  {\bf This may work, but species that are super similar may drift slowly}
+\item Lizzie should really start writing as there is no need to wait on non-stationary $\tau_p$ and $R_{0}$ runs. She also should consider whether we need the three traits varying runs (R*, $\tau_i$, $\alpha$) and whether we need the $\tau_i$  x $\alpha$ varying runs ... we may not! Main message to Lizzie: try to get stuck less often, or unstick more quickly
+\item Megan does non-stationary $\tau_p$ and $R_{0}$ runs.
+\item {\bf Lizzie!} Analyze the megaD runs! (Just an aside)
+\end{itemize}
+\item Where to submit? Maybe plan on ELE and do postulates etc..
+\end{itemize}
+
+\section{Smaller to do items (less critical)} % Note from meeting, lab meeting etc
+\begin{itemize}
+\item Check out trade-off figures are intuitive (for example: the trade-off of tracking and R* is intuitively negative but it's positive because a lower R* is better and a higher $\alpha$ is better).
+\item My current plot of three different season resource pulse is too correlated  (change if we decide to use it)
+\end{itemize}
+
+\section{References to cite}
+\noindent Citation for earlier springs % \href{https://link.springer.com/article/10.1007/s00382-016-3313-2}{`Identifying anomalously early spring onsets in the CESM large ensemble project'.}
+
+\noindent Some key refs we worked with:
+\citep{Chesson:1993gi,Chesson:2000ak,Chesson:2000vd,Chesson:2004eo}. Some
+papers using storage effect model or Armstong and McGhee with field
+data: \citep{Angert:2009,Kuang:2008ri,Kuang:2009rj,Levine:2009ym}.
 
 
-\newpage
-\section{Figures}
+
+\section{Figures (not sure when last updated)}
 \begin{enumerate}
 \item Real-world data showing stat/non-stationarity in environment (ideally $\tau_{P}$) 
 \item Real-world data showing tracking (and less tracking)
