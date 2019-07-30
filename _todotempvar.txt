@@ -5,6 +5,17 @@ on a ferry to Saturna!
 <><><><><><><><><><><>
 <> What to do next <> 
 <><><><><><><><><><><>
+FIGURES:
+
+(*) Environmental change ... "For example, with climate change, warming has increased mean temperatures over time, with minimum temperatures generally increasing more than maximum—this results in an underlying distribution for daily temperature where the mean i is increasing through time and the variance is decreasing (Stocker et al., 2013; Screen, 2014), despite a growing literatures focused on increasing variance (e.g., Vasseur et al., 2014). [ADD another example: San Diego or Snowpack or Lake Washington?.]"
+
+
+NUMBERS:
+(Empirical) Variation in metrics of tracking highlights that---despite the clear importance of tracking for resource access---not all species appear to track their environments equally well. Some temperate woody species track spring temperatures strongly (give some examples), but other species do not (NUMBERS) and do not appear linked to other major climate variables (CITES). Variability equally exists when examining consumers tracking their prey (NUMBERS). Such variation in tracking across taxa is driven in part by difficulties in measuring tracking (see BOX). Yet other variation may be real, and suggests perfect environmental tracking may either not be possible or optimal for all species. 
+
+
+Say somewhere that static timings are not very common, and static distances between species are probably even less common, then cite Volker as an idiot -- \cite{volkerass}
+
 (1) Get some data on the SOS changing: SOS paper from Ault group?... Here's that paper: https://link.springer.com/article/10.1007/s00382-016-3313-2 Which suggests 2.6 days/decade average in future, see also Fig 16. And from Conclusions "While natural climate variability has been the dominant control on spring onset in the past, our results argue that this could change considerably by mid-century if greenhouse gas emissions continue to go unchecked." 
 (2) Get some pheno-tracking data ... PEP725?
 (3) Get some snowpack data? Not easy to find recent projections; maybe ask Ben? Perhaps only critical if we really want it. Probably can scour for recent stuff in Apr 2018 report: https://www.ioes.ucla.edu/wp-content/uploads/UCLA-CCS-Climate-Change-Sierra-Nevada.pdf
