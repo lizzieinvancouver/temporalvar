@@ -5,16 +5,43 @@ on a ferry to Saturna!
 <><><><><><><><><><><>
 <> What to do next <> 
 <><><><><><><><><><><>
+- Check that c_i *is* what we vary.
+- Say somewhere that static timings are not very common, and static distances between species are probably even less common, then cite Volker as an idiot -- \cite{volkerass}
+
 FIGURES:
 
 (*) Environmental change ... "For example, with climate change, warming has increased mean temperatures over time, with minimum temperatures generally increasing more than maximum—this results in an underlying distribution for daily temperature where the mean i is increasing through time and the variance is decreasing (Stocker et al., 2013; Screen, 2014), despite a growing literatures focused on increasing variance (e.g., Vasseur et al., 2014). [ADD another example: San Diego or Snowpack or Lake Washington?.]"
 
+(*) Model: Add histogram here with tauI and tauP and alpha! Conceptual FIGURE: stationary environment and you can get a certain distance from that mean tauP via two ways: tracking or tauI. 
+
+(*) Model: A simple outcome of this model is that in temporally variable environments where all other species characteristics are identical the species with the effective biological start time closest to the average environmental start time will always win---regardless of whether this effective biological start is due to a fixed intrinsic start time or due to tracking. Put another way, in a stationary environment both tracking and a fixed intrinsic start time are equally useful ways to match to the environment---all that matters is the effective distance between the biological and environmental start of the season. This is because both represent the same niche axis---the temporal niche. 
+
+(*) Model: With this added variation---here we varied species' $R^*$ (via $c_i$)---species can persist together (in two species communities) as long as those species with a temporal niche advantage are also the inferior competition (FIGS).
+
+Sift through this list:
+- Figure for ... The shape of this underlying distribution varies across systems and in how it is measured---the amount of rainfall in semi-arid systems is often highly skewed compared the thermal sum of many temperate growing season
+- With climate change, warming has increased mean temperatures over time, with minimum temperatures generally increasing mre than maximum---this results in an underlying distribution for daily temperature where the mean is both increased through time and the variance is decreasing (Munich garden? Maybe add San Dieg precip example?
+- Real-world data showing stat/non-stationarity in environment (ideally $\tau_{P}$) 
+- Real-world data showing tracking (and less tracking)
+- $\tau_{i}$ vs. R* trade-off and histogram of persisting $\tau_i$ under stat/nonstat $\tau_{P}$ environment
+- alpha vs.$\tau_i$ trade-off and histogram of persisting alpha under stat/nonstat $\tau_{P}$ environment
+- alpha vs. R* trade-off and histogram of persisting alpha under stat/nonstat $\tau_{P}$ environment
+
+ 
 
 NUMBERS:
 (Empirical) Variation in metrics of tracking highlights that---despite the clear importance of tracking for resource access---not all species appear to track their environments equally well. Some temperate woody species track spring temperatures strongly (give some examples), but other species do not (NUMBERS) and do not appear linked to other major climate variables (CITES). Variability equally exists when examining consumers tracking their prey (NUMBERS). Such variation in tracking across taxa is driven in part by difficulties in measuring tracking (see BOX). Yet other variation may be real, and suggests perfect environmental tracking may either not be possible or optimal for all species. 
 
+....
 
-Say somewhere that static timings are not very common, and static distances between species are probably even less common, then cite Volker as an idiot -- \cite{volkerass}
+A shifting environment may fundamentally reshape trade-offs that structure communities. Modern coexistence theory is based mainly on variable, but stationary, environments. As systems shift from stationary to non-stationary the trade-offs on which some communities are based may be transformed. Using our simple germination model we shifted the environment of our two-species communities---that otherwise had experienced a variable but stationary environment---to an earlier start of season by shifting the mean XX over XX years (see Supp). 
+
+In communities where species traded off competitive traits ($R^*$) with a fixed intrinsic start time trait ($\tau_i$), species with earlier start times were clearly favored, generally driving the other species (with a lower $R^*$ and later start time) locally extinct before the end of our XX year time-period. Very few two-species communities persisted through the end of the non-stationary period (X/XX) and those that did were generally persisting via being highly similar...
+
+Persistence of two-species communities via both stabilizing and equalizing mechanisms occurred much more often in communities where species traded off competitive traits ($R^*$) with tracking ($\alpha$). While again, the non-stationary environment favored higher trackers, who in turn drove the extinction of species with lower tracking values from many two-species communities, some two-species communities persisted (XX/XX). 
+
+
+Human modification of climate, the nitrogen cycle and habitat impose complex shifts in the environments of most species. If the environment is altering multiple niche axes---along which species assemble---it may allow trade-offs that structure communities to persist through non-stationary periods. We examined this possibility by again shifting the mean start of season XX earlier over XX years at the same time that we shifted the size of the resource pulse lower (XX over XX years). Thus, our environment favored species with earlier start time and superior competitive abilities (given the decreasing resource). We found little evidence, however, of communities persisting via a maintained trade-off---instead the inherent variability of a system shifting in two dimensions drove species extirpations more quickly (XX, XXX).
 
 (1) Get some data on the SOS changing: SOS paper from Ault group?... Here's that paper: https://link.springer.com/article/10.1007/s00382-016-3313-2 Which suggests 2.6 days/decade average in future, see also Fig 16. And from Conclusions "While natural climate variability has been the dominant control on spring onset in the past, our results argue that this could change considerably by mid-century if greenhouse gas emissions continue to go unchecked." 
 (2) Get some pheno-tracking data ... PEP725?
