@@ -5,7 +5,6 @@ on a ferry to Saturna!
 <><><><><><><><><><><>
 <> What to do next <> 
 <><><><><><><><><><><>
-- Check that c_i *is* what we vary.
 - Say somewhere that static timings are not very common, and static distances between species are probably even less common, then cite Volker as an idiot -- \cite{volkerass}
 
 FIGURES:
@@ -35,6 +34,14 @@ NUMBERS:
 ....
 
 A shifting environment may fundamentally reshape trade-offs that structure communities. Modern coexistence theory is based mainly on variable, but stationary, environments. As systems shift from stationary to non-stationary the trade-offs on which some communities are based may be transformed. Using our simple germination model we shifted the environment of our two-species communities---that otherwise had experienced a variable but stationary environment---to an earlier start of season by shifting the mean XX over XX years (see Supp). 
+
+Shift is 0.5 to 0.25 ideally .... need to ask Megan for more actual mean over the two time periods .... 
+
+tauI x R* runs: 2 two-species pairs left after non-stat out of 446 two-species pairs left after stat (24600 total runs), overall total species at end of stat: 10728 and end of non-stat: 251
+
+alpha x R* runs: 223 two-species pairs left after non-stat out of 1467 two-species pairs left after stat (29100 total runs), overall species at end of stat: 26529, and end of non-stat: 1474
+
+alpha x R* runs with R0: 190 two-species pairs left after non-stat out of 1278 two-species pairs left after stat (25000 total runs), overall species at end of stat: 22879, and end of non-stat: 1258
 
 In communities where species traded off competitive traits ($R^*$) with a fixed intrinsic start time trait ($\tau_i$), species with earlier start times were clearly favored, generally driving the other species (with a lower $R^*$ and later start time) locally extinct before the end of our XX year time-period. Very few two-species communities persisted through the end of the non-stationary period (X/XX) and those that did were generally persisting via being highly similar...
 

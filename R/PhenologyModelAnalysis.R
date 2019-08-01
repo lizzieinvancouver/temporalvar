@@ -250,10 +250,19 @@ alphaextRstar.runs.df <- df.all.plot[which(df.all.plot$jobID %in% extalpharuns),
 
 
 ## Do some counts
-# How many coexist of stat period 
+# How many runs?
+nrow(tauRstar.stat.runs.df)
+nrow(alphaRstar.stat.runs.df)
+nrow(alphaRstarR0.stat.runs.df)
+# How many spp left at of stat period 
 sum(tauRstar.stat.runs.df$ncoexist)/(nrow(tauRstar.stat.runs.df)*2)
 sum(alphaRstar.stat.runs.df$ncoexist)/(nrow(alphaRstar.stat.runs.df)*2)
 sum(alphaRstarR0.stat.runs.df$ncoexist)/(nrow(alphaRstarR0.stat.runs.df)*2)
+# How many coexist of non-stat period compared to stat period
+nrow(subset(tauRstar.runs.df, ncoexist.t2==2))/nrow(tauRstar.runs.df)
+nrow(subset(alphaRstar.runs.df, ncoexist.t2==2))/nrow(alphaRstar.runs.df)
+nrow(subset(alphaRstarR0.runs.df, ncoexist.t2==2))/nrow(alphaRstarR0.runs.df)
+
 # How many species left after non-stat? First: (# spp left at end of non-stat)/(# of spp left at end of stat)
 sum(tauRstar.runs.df$ncoexist.t2)/sum(tauRstar.stat.runs.df$ncoexist) 
 sum(alphaRstar.runs.df$ncoexist.t2)/sum(alphaRstar.stat.runs.df$ncoexist)
@@ -270,7 +279,6 @@ sum(alphaRstarR0.runs.df$ncoexist.t2)/sum(alphaRstarR0.runs.df$ncoexist.t1)
 sum(alphaRstarR0ext.runs.df$ncoexist.t2)/sum(alphaRstarR0ext.runs.df$ncoexist.t1)
 # From above ... do you see more extinctions after/before non-stat with declining R0?
 sum(alphaextRstar.runs.df$ncoexist.t2)/sum(alphaextRstar.runs.df$ncoexist.t1)
-
 
 # What is average alpha before and after stat?
 get.mean.alphavalues(df.all[which(df.all$jobID %in% alphaRstar.runs),])
@@ -320,6 +328,15 @@ library(viridis)
 # https://cran.r-project.org/web/packages/viridis/vignettes/intro-to-viridis.html
 colpalettehere=viridis
 
+
+## Plotting the ideal tauP distributions ...
+x <- seq(0, 1, length = 10000)
+plot.start.tauP <- dbeta(x, 10, 10)
+plot.end.tauP <- dbeta(x, 5, 15)
+plot(plot.start.tauP, type="l", ylab="", xlab="", xaxt="n", yaxt="n", ylim=c(0, 4.25))
+lines(plot.end.tauP, ylab="", xlab="", xaxt="n", yaxt="n", col="blue")
+mean(rbeta(10000, 10, 10))
+mean(rbeta(10000, 5, 15))
 
 ### histograms old code, remove?
 if(FALSE){
