@@ -10,6 +10,8 @@ on a ferry to Saturna!
 FIGURES:
 
 (*) Environmental change ... "For example, with climate change, warming has increased mean temperatures over time, with minimum temperatures generally increasing more than maximum—this results in an underlying distribution for daily temperature where the mean i is increasing through time and the variance is decreasing (Stocker et al., 2013; Screen, 2014), despite a growing literatures focused on increasing variance (e.g., Vasseur et al., 2014). [ADD another example: San Diego or Snowpack or Lake Washington?.]"
+- https://www.pacificclimate.org/data (see also: http://www.env.gov.bc.ca/soe/indicators/climate-change/snow.html)
+
 
 (*) Model: Add histogram here with tauI and tauP and alpha! Conceptual FIGURE: stationary environment and you can get a certain distance from that mean tauP via two ways: tracking or tauI. 
 
@@ -37,15 +39,6 @@ A shifting environment may fundamentally reshape trade-offs that structure commu
 
 Shift is 0.5 to 0.25 ideally .... need to ask Megan for more actual mean over the two time periods .... 
 
-tauI x R* runs: 2 two-species pairs left after non-stat out of 446 two-species pairs left after stat (24600 total runs), overall total species at end of stat: 10728 and end of non-stat: 251
-
-alpha x R* runs: 223 two-species pairs left after non-stat out of 1467 two-species pairs left after stat (29100 total runs), overall species at end of stat: 26529, and end of non-stat: 1474
-
-alpha x R* runs with R0: 190 two-species pairs left after non-stat out of 1278 two-species pairs left after stat (25000 total runs), overall species at end of stat: 22879, and end of non-stat: 1258
-
-In communities where species traded off competitive traits ($R^*$) with a fixed intrinsic start time trait ($\tau_i$), species with earlier start times were clearly favored, generally driving the other species (with a lower $R^*$ and later start time) locally extinct before the end of our XX year time-period. Very few two-species communities persisted through the end of the non-stationary period (X/XX) and those that did were generally persisting via being highly similar...
-
-Persistence of two-species communities via both stabilizing and equalizing mechanisms occurred much more often in communities where species traded off competitive traits ($R^*$) with tracking ($\alpha$). While again, the non-stationary environment favored higher trackers, who in turn drove the extinction of species with lower tracking values from many two-species communities, some two-species communities persisted (XX/XX). 
 
 
 Human modification of climate, the nitrogen cycle and habitat impose complex shifts in the environments of most species. If the environment is altering multiple niche axes---along which species assemble---it may allow trade-offs that structure communities to persist through non-stationary periods. We examined this possibility by again shifting the mean start of season XX earlier over XX years at the same time that we shifted the size of the resource pulse lower (XX over XX years). Thus, our environment favored species with earlier start time and superior competitive abilities (given the decreasing resource). We found little evidence, however, of communities persisting via a maintained trade-off---instead the inherent variability of a system shifting in two dimensions drove species extirpations more quickly (XX, XXX).
