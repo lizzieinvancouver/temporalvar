@@ -329,15 +329,6 @@ library(viridis)
 colpalettehere=viridis
 
 
-## Plotting the ideal tauP distributions ...
-x <- seq(0, 1, length = 10000)
-plot.start.tauP <- dbeta(x, 10, 10)
-plot.end.tauP <- dbeta(x, 5, 15)
-plot(plot.start.tauP, type="l", ylab="", xlab="", xaxt="n", yaxt="n", ylim=c(0, 4.25))
-lines(plot.end.tauP, ylab="", xlab="", xaxt="n", yaxt="n", col="blue")
-mean(rbeta(10000, 10, 10))
-mean(rbeta(10000, 5, 15))
-
 ### histograms old code, remove?
 if(FALSE){
 breaknum <- 20
