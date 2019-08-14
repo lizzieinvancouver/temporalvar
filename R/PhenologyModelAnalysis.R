@@ -658,6 +658,51 @@ plot.paramdiffs.tworuntypes(alphaRstar.runs.df, alphaRstarR0ext.runs.df,
 
 stop(print("stopping here..."))
 
+
+#################################
+### Plots for the manuscript ###
+#################################
+
+library(RColorBrewer)
+coexist.mscolz = brewer.pal(4, "Spectral")
+
+symbolz <- c(8, 2, 0, 16)
+leg.txt <- c("both species extirpated", "species 1 persists", "species 2 persists", "both species persist")
+
+plot.paramdiffs.manuscript <- function(df, runname, figname, colname.x, colname.y, cex, pch,
+        corner1.text, corner1.pos, corner2.text, corner2.pos){
+    pdf(paste("graphs/modelruns/manuscript/", figname, ".pdf", sep=""),
+       width=5, height=8)
+    df0 <- subset(df, ncoexist.t2==0)
+    df1 <- subset(df, ncoexist.t2==1)
+    df2 <- subset(df, ncoexist.t2==2)
+    df1.sp1 <- subset(df1, coexist1.t2==1)
+    df1.sp2 <- subset(df1, coexist2.t2==1)
+    plot(unlist(df[colname.x]), unlist(df[colname.y]), type="n", xlab=colname.x,
+       ylab=colname.y, main="")
+    abline(v=1, col="lightgray")
+    abline(h=1, col="lightgray")
+    fig_label(text=corner1.text, region="plot", pos=corner1.pos, cex=0.75)
+    fig_label(text=corner2.text, region="plot", pos=corner2.pos, cex=0.75)
+    points(df2[[colname.x]], unlist(df2[colname.y]),
+        col=coexist.mscolz [3], pch=pch, cex=cex)
+    points(df0[[colname.x]], unlist(df0[colname.y]),
+        col=coexist.mscolz [1], pch=pch, cex=cex)
+    points(df1.sp1[[colname.x]], unlist(df1.sp1[colname.y]),
+        col=coexist.mscolz [2], pch=pch, cex=cex)
+    points(df1.sp2[[colname.x]], unlist(df1.sp2[colname.y]),
+        col=coexist.mscolz [2], pch=pch, cex=cex)
+    legend("topright", leg.txt, pch=pch, col=coexist3col, bty="n")
+    dev.off()
+}
+
+plot.paramdiffs.manuscript(alphaRstar.runs.df, "alphaRstar.runs", "alpha.rstar", "ratio.alpha",
+    "ratio.rstar", cexhere, symbolz, "sp1 wins", "bottomleft", "sp2 wins", "topright")
+
+plot.paramdiffs.manuscript(tauRstar.runs.df, "tauRstar.runs", "tauI.rstar", "ratio.tauI",
+    "ratio.rstar", cexhere, symbolz, "sp1 wins", "bottomleft", "sp2 wins", "topright")
+
+
 #################################
 ## Pull some of the R0 runs #####
 ## and check that they decline ##
