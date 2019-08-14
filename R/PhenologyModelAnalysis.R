@@ -8,14 +8,8 @@
 ### To do items!!! ###
 ######################
 # https://www.theanalysisfactor.com/r-tutorial-part-12/
-# (1) Add runs from Feb 2019 I somehow missed:
-# 1006570
-# 1006591
-# 1006608
-# 1006628
-# 1006639
-# (2) Make sure the declining R0 runs with BIGGER declines: 8995922, 8995924 are being handled correctly given the way I use seq(XX, length(runz), 5)
-# (3) Double check how I handle the ext. alpha runs
+# (1) Make sure the declining R0 runs with BIGGER declines: 8995922, 8995924 are being handled correctly given the way I use seq(XX, length(runz), 5)
+# (2) Double check how I handle the ext.alpha runs
 ######################
 
 ## housekeeping
@@ -44,6 +38,7 @@ runz <- c("858179", "858221", "858241", "858262", "858282",
           "888600", "888602", "888605", "888607", "888608",
           "933059", "933107", "933156", "933215", "933272",
           "933566", "933600", "933630", "933682", "933723",
+          "1006570", "1006591", "1006608", "1006628", "1006639",
           "8995922", "8995924")
 # declining R0 runs with BIGGER declines: 8995922, 8995924 (see alphaRstarR0ext below)
 extalpharuns <- c("12519313", "12519314") # extended alpha runs are 12519313, 12519314: first set fills in the alpha - 0-0.3 range; second set is for the full range of alpha (0-1)
@@ -249,7 +244,7 @@ alphaRstarR0ext.runs.df <- df.all.plot[which(df.all.plot$jobID %in% alphaRstarR0
 alphaextRstar.runs.df <- df.all.plot[which(df.all.plot$jobID %in% extalpharuns),]
 
 
-## Do some counts
+## Do some counts (these numbers are in manuscript)
 # How many runs?
 nrow(tauRstar.stat.runs.df)
 nrow(alphaRstar.stat.runs.df)
