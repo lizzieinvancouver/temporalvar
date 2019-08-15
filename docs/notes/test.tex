@@ -1,0 +1,41 @@
+\documentclass[11pt,letter]{article}
+\usepackage[top=1.00in, bottom=1.0in, left=1.1in, right=1.1in]{geometry}
+\renewcommand{\baselinestretch}{1.9}
+\usepackage{graphicx}
+\usepackage{natbib}
+\usepackage{amsmath}
+
+\def\labelitemi{--}
+\parindent=0pt
+\begin{document} 
+
+
+
+
+\begin{align*}
+\text{where:}\\
+\frac{\mathrm{d}R}{\mathrm{d}t} & = - \sum_{i=1}^{n}f_{i}(R)B_{i} -\epsilon R
+\\
+\frac{\mathrm{d}B_{i}}{\mathrm{d}t} &  = [c_{i}f_{i}(R) - m_{i}]B_{i} 
+\\
+\text{where:} 
+\\
+g_{i} & = g_{max,i}e^{-h(\tau_{p}-\tau_{i})^2} 
+\\
+f_{i}(R) & = \frac{a_{i}R^{\theta_{i}}}{1+a_{i}u_{i}R^{\theta_{i}}}\\
+\end{align*}
+
+\noindent Adding phenological tracking to model (October 2013 version): \\
+\begin{align*}
+& \alpha \in 0 \rightarrow 1
+\\
+&\hat{\tau_{i}} = \alpha \tau_{p} + (1-\alpha)\tau_{i}\\
+\end{align*}
+\noindent thus:
+\begin{align*}
+\text{when } \alpha = 0: & \hat{\tau_{i}}=\tau_{i}
+\\
+\text{when }  \alpha = 1: & \hat{\tau_{i}}=\tau_{p}
+\end{align*}
+
+\end{document}

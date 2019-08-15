@@ -662,45 +662,81 @@ stop(print("stopping here..."))
 #################################
 ### Plots for the manuscript ###
 #################################
+library(scales)
+coexist.mscolz.prep = c("darkseagreen3", "deepskyblue3", "deepskyblue4", "darkorchid4")
 
-library(RColorBrewer)
-coexist.mscolz = brewer.pal(4, "Spectral")
+coexist.mscolz <-   apply(sapply(coexist.mscolz.prep, col2rgb)/255, 2, 
+    function(x) 
+    rgb(x[1], x[2], x[3], alpha=0.6))
 
 symbolz <- c(8, 2, 0, 16)
 leg.txt <- c("both species extirpated", "species 1 persists", "species 2 persists", "both species persist")
+cexhere <- 0.8
 
 plot.paramdiffs.manuscript <- function(df, runname, figname, colname.x, colname.y, cex, pch,
-        corner1.text, corner1.pos, corner2.text, corner2.pos){
+        corner1.text, corner1.pos, corner2.text, corner2.pos, legwhere, leftarrowtextupper,
+        leftarrowtextlower, bottomarrowtextleft, bottomarrowtextright,
+        leftarrowx, leftarrowupper1, leftarrowupper2, leftarrowlower1,
+        leftarrowlower2, leftarrowtextx, leftarrowtextupperpos, leftarrowtextlowerpos,
+        bottomarrowy, bottomarrowleft1, bottomarrowleft2,
+        bottomarrowright1, bottomarrowright2,
+        bottomarrowtexty, bottomarrowtextupper, bottomarrowtextlower,
+        xlabhere, ylabhere){
     pdf(paste("graphs/modelruns/manuscript/", figname, ".pdf", sep=""),
-       width=5, height=8)
+       width=7, height=6)
     df0 <- subset(df, ncoexist.t2==0)
     df1 <- subset(df, ncoexist.t2==1)
     df2 <- subset(df, ncoexist.t2==2)
     df1.sp1 <- subset(df1, coexist1.t2==1)
     df1.sp2 <- subset(df1, coexist2.t2==1)
-    plot(unlist(df[colname.x]), unlist(df[colname.y]), type="n", xlab=colname.x,
-       ylab=colname.y, main="")
+    plot(unlist(df[colname.x]), unlist(df[colname.y]), type="n", xlab=xlabhere, ylab=ylabhere, main="")
     abline(v=1, col="lightgray")
     abline(h=1, col="lightgray")
-    fig_label(text=corner1.text, region="plot", pos=corner1.pos, cex=0.75)
-    fig_label(text=corner2.text, region="plot", pos=corner2.pos, cex=0.75)
-    points(df2[[colname.x]], unlist(df2[colname.y]),
-        col=coexist.mscolz [3], pch=pch, cex=cex)
+    fig_label(text=corner1.text, region="plot", pos=corner1.pos, cex=0.75, col="lightgray")
+    fig_label(text=corner2.text, region="plot", pos=corner2.pos, cex=0.75, col="lightgray")
     points(df0[[colname.x]], unlist(df0[colname.y]),
-        col=coexist.mscolz [1], pch=pch, cex=cex)
+        col=coexist.mscolz [1], pch=pch[1], cex=cex)
     points(df1.sp1[[colname.x]], unlist(df1.sp1[colname.y]),
-        col=coexist.mscolz [2], pch=pch, cex=cex)
+        col=coexist.mscolz [2], pch=pch[2], cex=cex)
     points(df1.sp2[[colname.x]], unlist(df1.sp2[colname.y]),
-        col=coexist.mscolz [2], pch=pch, cex=cex)
-    legend("topright", leg.txt, pch=pch, col=coexist3col, bty="n")
+        col=coexist.mscolz [3], pch=pch[3], cex=cex)
+    points(df2[[colname.x]], unlist(df2[colname.y]),
+        col=coexist.mscolz [4], pch=pch[4], cex=cex)
+    legend(legwhere, leg.txt, pch=pch, col=coexist.mscolz, bty="n")
+    # arrows
+    par(xpd=NA)
+    # left side arrows
+    arrows(leftarrowx, leftarrowupper1, leftarrowx, leftarrowupper2, len=0.1, col = "black")
+    text(leftarrowtextx, leftarrowtextupperpos, labels=leftarrowtextupper, cex=0.65, srt = 90)
+    arrows(leftarrowx, leftarrowlower1, leftarrowx, leftarrowlower2, len=0.1, col = "black")
+    text(leftarrowtextx, leftarrowtextlowerpos, labels=leftarrowtextlower, cex=0.65, srt = 90)
+    # bottom side arrows
+    arrows(bottomarrowleft1, bottomarrowy, bottomarrowleft2, bottomarrowy, len=0.1, col = "black")
+    text(bottomarrowtextupper, bottomarrowtexty, labels=bottomarrowtextleft, cex=0.65)
+    arrows(bottomarrowright1, bottomarrowy, bottomarrowright2, bottomarrowy, len=0.1, col = "black")
+    text(bottomarrowtextlower, bottomarrowtexty, labels=bottomarrowtextright, cex=0.65)
+    par(xpd=FALSE)
     dev.off()
 }
 
-plot.paramdiffs.manuscript(alphaRstar.runs.df, "alphaRstar.runs", "alpha.rstar", "ratio.alpha",
-    "ratio.rstar", cexhere, symbolz, "sp1 wins", "bottomleft", "sp2 wins", "topright")
+plot.paramdiffs.manuscript(alphaRstar.runs.df, "alphaRstar.runs", "alpharstar", "ratio.alpha",
+    "ratio.rstar", cexhere, symbolz, "", "bottomleft", "", "topright", "topleft",
+    "Species 2 has lower R*", "Species 1 has lower R*", "Species 2 better tracker", "Species 1 better tracker",
+    0.09, 1.05, 2.2, 0.95,  0.6,
+    0.15, 1.3, 0.7,
+    0.3, 0.9, 0.3, 1.1, 3.2,
+    0.35, 0.6, 1.4,
+    "Ratio tracking", "Ratio R*")
 
-plot.paramdiffs.manuscript(tauRstar.runs.df, "tauRstar.runs", "tauI.rstar", "ratio.tauI",
-    "ratio.rstar", cexhere, symbolz, "sp1 wins", "bottomleft", "sp2 wins", "topright")
+
+plot.paramdiffs.manuscript(tauRstar.runs.df, "tauRstar.runs", "tauIPrstart1", "ratio.tauIP.t1",
+    "ratio.rstar", cexhere, symbolz, "", "bottomleft", "", "topright", "topright",
+    "Species 2 has lower R*", "Species 1 has lower R*", "Species 1 better start time", "Species 2 better start time",
+    0.45, 1.05, 1.6, 0.9, 0.55,
+    0.48, 1.2, 0.8,
+    0.45, 0.95, 0.55, 1.05, 1.9,
+    0.48, 0.8, 1.2, 
+    "Ratio effective start time", "Ratio R*")
 
 
 #################################
