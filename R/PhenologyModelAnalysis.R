@@ -669,7 +669,7 @@ coexist.mscolz <-   apply(sapply(coexist.mscolz.prep, col2rgb)/255, 2,
     function(x) 
     rgb(x[1], x[2], x[3], alpha=0.6))
 
-symbolz <- c(8, 2, 0, 16)
+symbolz <- c(1, 2, 0, 16)
 leg.txt <- c("both species extirpated", "species 1 persists", "species 2 persists", "both species persist")
 cexhere <- 0.8
 
