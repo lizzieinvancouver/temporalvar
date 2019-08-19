@@ -1,6 +1,24 @@
 Started 6 April 2018
-Updated 12 October 2018
+Updated 19 August 2019
 on a ferry to Saturna!
+
+
+
+<><><><><><><><><><><><><><><><><><><><><><>
+<> What to do next, if you're named Megan <> 
+<><><><><><><><><><><><><><><><><><><><><><>
+
+(1) Work for PhenologyModelConceptual.R
+- Draw schematic (or code) and send it to Lizzie for alternative conceptfig_tau.jpg
+- Add code for one year g curves.
+
+(2) We need to fill in XX here:
+We examined [how decreasing R0 with earlier start of season] by again shifting the mean start of season XX earlier over XX years at the same time that we shifted the size of the resource pulse lower (XX over 500 years).
+
+(3) Any thoughts on what to put in [insert more understanding here.] below?
+
+Persistence of two-species communities via both stabilizing and equalizing mechanisms occurred more often in communities where species traded off competitive traits ($R^*$) with tracking ($\alpha$). While again, the non-stationary environment favored higher trackers, who in turn drove the extinction of species with lower tracking values from many two-species communities, some two-species communities persisted (223 out of 1467 two-species communities persisting after end of stationary, or 15.2\%). These communities included equalized species, as well as [insert more understanding here.] Taken together, this simple simulations show how non-stationarity can drive local species extinction and reshape the underlying assembly mechanisms of communities.
+
 
 <><><><><><><><><><><>
 <> What to do next <> 
@@ -38,7 +56,7 @@ NUMBERS:
 A shifting environment may fundamentally reshape trade-offs that structure communities. Modern coexistence theory is based mainly on variable, but stationary, environments. As systems shift from stationary to non-stationary the trade-offs on which some communities are based may be transformed. Using our simple germination model we shifted the environment of our two-species communities---that otherwise had experienced a variable but stationary environment---to an earlier start of season by shifting the mean XX over XX years (see Supp). 
 
 Shift is 0.5 to 0.25 ideally .... need to ask Megan for more actual mean over the two time periods .... 
-
+500 years EACH! (stationary and non-stationary)
 
 
 Human modification of climate, the nitrogen cycle and habitat impose complex shifts in the environments of most species. If the environment is altering multiple niche axes---along which species assemble---it may allow trade-offs that structure communities to persist through non-stationary periods. We examined this possibility by again shifting the mean start of season XX earlier over XX years at the same time that we shifted the size of the resource pulse lower (XX over XX years). Thus, our environment favored species with earlier start time and superior competitive abilities (given the decreasing resource). We found little evidence, however, of communities persisting via a maintained trade-off---instead the inherent variability of a system shifting in two dimensions drove species extirpations more quickly (XX, XXX).
