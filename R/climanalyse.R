@@ -2,7 +2,6 @@
 ## Home alone on a gray Saturday in August ##
 
 ## Code to look at climate shifts in timing ... ##
-## TO DO! Re-write the Butte data to require string of 0s depths for 5 or 10 days to count as the snow-free day... ##
 
 # housekeeping
 rm(list=ls()) # remove everything currently held in the R memory
@@ -18,8 +17,8 @@ library(ggplot2)
 
 # What to do ...
 runSanDiego <- FALSE
-runMunich <- FALSE
-runBoston <- FALSE
+runMunich <- TRUE
+runBoston <- TRUE
 runButte <- TRUE
 
 # f(xs)
@@ -167,7 +166,7 @@ ggplot(munuse, aes(x=doy, fill=when)) + geom_histogram(alpha=0.4, aes(y = ..dens
 munusesm <- subset(munuse, year<1919 | year>1979)
 nrow(subset(munusesm, when=="before 1980"))
 nrow(subset(munusesm, when=="after 1980"))
-ggplot(munusesm, aes(x=doy, fill=when)) + geom_density(alpha=0.4)    
+munwhen <- ggplot(munusesm, aes(x=doy, fill=when)) + geom_density(alpha=0.4)    
 }
 
 
@@ -201,7 +200,7 @@ summary(lm(doy~when, bosuse))
 hist(bosuse$doy, breaks=30)
 plot(density(bosuse$doy))
 
-ggplot(bosuse, aes(x=doy, fill=when)) + geom_density(alpha=0.4)
+boswhen <- ggplot(bosuse, aes(x=doy, fill=when)) + geom_density(alpha=0.4)
 ggplot(bosuse, aes(x=doy, fill=when)) + geom_histogram(alpha=0.4, aes(y = ..density..), position = 'identity')
 }
 
@@ -245,17 +244,18 @@ ggplot(butteuse, aes(x=snowdepth, fill=when)) + geom_density(alpha=0.4)
 ggplot(butteuse, aes(x=snowdepth, fill=when)) + geom_histogram(alpha=0.4, aes(y = ..density..), position = 'identity')
 
 # Get only 40 first years
-butteusesm <- subset(butteuse, year<1953 | year>1979)
+butteusesm <- subset(butteuse, year<1954 | year>1979)
 nrow(subset(butteusesm, when=="before 1980"))
 nrow(subset(butteusesm, when=="after 1980"))
-ggplot(butteusesm, aes(x=snowdepth, fill=when)) + geom_density(alpha=0.4)
+buttemaxsnow <- ggplot(butteusesm, aes(x=snowdepth, fill=when)) + geom_density(alpha=0.4)
 ggplot(butteusesm, aes(x=mean, fill=when)) + geom_density(alpha=0.4)
 
 summary(lm(snowdepth~when, butteusesm))
 summary(lm(mean~when, butteusesm))
 
 
-## Now do date of no snow in spring
+## Now do date of no snow in spring ...
+if(FALSE){ # takes first no snow day, better (below, not commented out) takes first day of no snow, followed by 9 days of no snow
 buttenowsnowday <- butte[1,]
 buttenowsnowdaydat <- subset(butte, month>3 & month<8 & snowdepth<5)
 for(j in unique(buttenowsnowdaydat$year)){
@@ -263,7 +263,25 @@ for(j in unique(buttenowsnowdaydat$year)){
     minday <- subby[which(subby$doy==min(subby$doy, na.rm=TRUE)),]
     buttenowsnowday <- rbind(buttenowsnowday, minday)
    }
+buttenowsnowdayorig <- buttenowsnowday[-1,]
+}
+    
+buttenowsnowday <- butte[1,]
+buttenowsnowdaydat <- subset(butte, month>2 & month<8)
+for(j in unique(buttenowsnowdaydat$year)){ # j <- 1981
+    subby <- subset(buttenowsnowdaydat, year==j)
+    subby$snow10d <- NA
+    for(i in c(10:nrow(subby))){
+        subby$snow10d[(i-9)] <- sum(subby$snowdepth[(i-9):i])
+    }
+    subbyzero <- subset(subby, snow10d==0)
+    subbyzero$snow10d <- NULL
+    minday <- subbyzero[which(subbyzero$doy==min(subbyzero$doy, na.rm=TRUE)),]
+    buttenowsnowday <- rbind(buttenowsnowday, minday)
+}
 buttenowsnowday <- buttenowsnowday[-1,]
+buttenowsnowday <- subset(buttenowsnowday, year!=1909) # first year is incomplete data!
+
 
 buttenowsnowday$when <- NA
 butteuse2 <- addwhen(buttenowsnowday)
@@ -281,16 +299,24 @@ ggplot(butteuse2, aes(x=doy, fill=when)) + geom_histogram(alpha=0.4, aes(y = ..d
 butteuse2sm <- subset(butteuse2, year<1951 | year>1979)
 nrow(subset(butteuse2sm, when=="before 1980"))
 nrow(subset(butteuse2sm, when=="after 1980"))
-ggplot(butteuse2sm, aes(x=doy, fill=when)) + geom_density(alpha=0.4)
+buttewhen40yrs <- ggplot(butteuse2sm, aes(x=doy, fill=when)) + geom_density(alpha=0.4)
 
 summary(lm(doy~when, butteuse2sm))
 
 plot(snowdepth~date, subset(butte, year==1990)) # dates look accurate ...
-subset(butteuse2sm, year==1990) 
+subset(butteuse2sm, year==1990)
+    
 # some tricky years ... 
 plot(snowdepth~date, subset(butte, year==1934))
 plot(snowdepth~date, subset(butte, year==1981))
 subset(butteuse2sm, year==1934|year==1981) 
 }
 
-
+if(runMunich==TRUE & runBoston==TRUE & runButte==TRUE){
+print("I think you need to run the below separately for some reason.")
+require(cowplot)
+pdf(paste("graphs/otherdat/climdata.pdf", sep=""), width = 16, height = 10)
+plot_grid(boswhen, munwhen, buttemaxsnow, buttewhen40yrs,
+    labels = c(' (A) Boston: Day of 200 GDD', '(B) Munich: Day of 200 GDD', '(C) Butte: Max snow depth in March', '(D) Butte: Snowfree day'), ncol=2)
+dev.off()
+}
