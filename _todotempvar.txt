@@ -20,9 +20,13 @@ We examined [how decreasing R0 with earlier start of season] by again shifting t
 Persistence of two-species communities via both stabilizing and equalizing mechanisms occurred more often in communities where species traded off competitive traits ($R^*$) with tracking ($\alpha$). While again, the non-stationary environment favored higher trackers, who in turn drove the extinction of species with lower tracking values from many two-species communities, some two-species communities persisted (223 out of 1467 two-species communities persisting after end of stationary, or 15.2\%). These communities included equalized species, as well as [insert more understanding here.] Taken together, this simple simulations show how non-stationarity can drive local species extinction and reshape the underlying assembly mechanisms of communities.
 
 
-<><><><><><><><><><><>
-<> What to do next <> 
-<><><><><><><><><><><>
+<><><><><><><><><><><><><><><><><><><><><><><>
+<> What to do next, if you're named Lizzie <> 
+<><><><><><><><><><><><><><><><><><><><><><><>
+(1) Add in the meta-analysis
+(1a) NEED to review R code etc. with Kelley!
+(2) Review below notes and address/re-organize
+
 - Say somewhere that static timings are not very common, and static distances between species are probably even less common, then cite Volker as an idiot -- \cite{volkerass}
 
 FIGURES:
