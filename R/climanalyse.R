@@ -193,15 +193,17 @@ boswarm <- boswarm[-1,]
 
 boswarm$when <- NA
 bosuse <- addwhen(boswarm)
-nrow(subset(bosuse, when=="before 1980"))
-nrow(subset(bosuse, when=="after 1980"))
-summary(lm(doy~when, bosuse))
+bosusesm <- subset(bosuse, year<1976 | year>1979)
 
-hist(bosuse$doy, breaks=30)
-plot(density(bosuse$doy))
+nrow(subset(bosusesm, when=="before 1980"))
+nrow(subset(bosusesm, when=="after 1980"))
+summary(lm(doy~when, bosusesm))
 
-boswhen <- ggplot(bosuse, aes(x=doy, fill=when)) + geom_density(alpha=0.4)
-ggplot(bosuse, aes(x=doy, fill=when)) + geom_histogram(alpha=0.4, aes(y = ..density..), position = 'identity')
+hist(bosusesm$doy, breaks=30)
+plot(density(bosusesm$doy))
+
+boswhen <- ggplot(bosusesm, aes(x=doy, fill=when)) + geom_density(alpha=0.4)
+ggplot(bosusesm, aes(x=doy, fill=when)) + geom_histogram(alpha=0.4, aes(y = ..density..), position = 'identity')
 }
 
 
@@ -316,7 +318,7 @@ if(runMunich==TRUE & runBoston==TRUE & runButte==TRUE){
 print("I think you need to run the below separately for some reason.")
 require(cowplot)
 pdf(paste("graphs/otherdat/climdata.pdf", sep=""), width = 16, height = 10)
-plot_grid(boswhen, munwhen, buttemaxsnow, buttewhen40yrs,
-    labels = c(' (A) Boston: Day of 200 GDD', '(B) Munich: Day of 200 GDD', '(C) Butte: Max snow depth in March', '(D) Butte: Snowfree day'), ncol=2)
+plot_grid(boswhen, munwhen, buttewhen40yrs, buttemaxsnow,
+    labels = c(' (a) Boston: Day of 200 GDD', '(b) Munich: Day of 200 GDD', '(c) Butte: Snowfree day', '(d) Butte: Max snow depth in March'), ncol=2)
 dev.off()
 }
