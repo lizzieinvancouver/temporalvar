@@ -148,3 +148,7 @@ length(unique(traits4$paperID))
 #
 dat$link_trackingandtrait_rsq
 median(dat$link_trackingandtrait_rsq, na.rm=TRUE) # Damn, that is low
+
+# table we eventually want to build:
+supptable <- data.frame(taxa=character(), trait=character(), phenophase=character(),
+    nstudiespapers=numeric(), linked=numeric(), notlinked=numeric(), nottested=numeric())

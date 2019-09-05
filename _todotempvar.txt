@@ -23,11 +23,20 @@ Persistence of two-species communities via both stabilizing and equalizing mecha
 <><><><><><><><><><><><><><><><><><><><><><><>
 <> What to do next, if you're named Lizzie <> 
 <><><><><><><><><><><><><><><><><><><><><><><>
-Think on ... lots of studies link early to tracking -- this could highlight a fundamental trade-off that early things track (and do everything quick) while later things bet-hedge more and invest longer .... but could also be an artifact.
+Think on ... lots of studies link early to tracking -- this could highlight a fundamental trade-off that early things track (and do everything quick) while later things bet-hedge more and invest longer .... but could also be an artifact. (BOX)
 
-(1) Add in the meta-analysis
+MUST do before sending to Megan ...
+(*) Read through!
+(*) Add Figure from Megan
+(*) Add figure references ...
+
+Also do ...
+(*) Update the meta-analysis
 (1a) NEED to review R code etc. with Kelley!
-(2) Review below notes and address/re-organize
+(2) Write up the box!
+(*) Review below notes and address/re-organize
+(*) Add supp cross-reference (and work on supp)
+(*) Read a few critical papers and get citations in
 
 - Say somewhere that static timings are not very common, and static distances between species are probably even less common, then cite Volker as an idiot -- \cite{volkerass}
 
