@@ -23,6 +23,8 @@ Persistence of two-species communities via both stabilizing and equalizing mecha
 <><><><><><><><><><><><><><><><><><><><><><><>
 <> What to do next, if you're named Lizzie <> 
 <><><><><><><><><><><><><><><><><><><><><><><>
+Think on ... lots of studies link early to tracking -- this could highlight a fundamental trade-off that early things track (and do everything quick) while later things bet-hedge more and invest longer .... but could also be an artifact.
+
 (1) Add in the meta-analysis
 (1a) NEED to review R code etc. with Kelley!
 (2) Review below notes and address/re-organize
