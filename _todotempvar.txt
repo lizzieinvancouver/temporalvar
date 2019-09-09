@@ -25,6 +25,7 @@ Persistence of two-species communities via both stabilizing and equalizing mecha
 <><><><><><><><><><><><><><><><><><><><><><><>
 Think on ... lots of studies link early to tracking -- this could highlight a fundamental trade-off that early things track (and do everything quick) while later things bet-hedge more and invest longer .... but could also be an artifact. (BOX)
 
+
 MUST do before sending to Megan ...
 (*) Read through!
 (*) Add Figure from Megan
@@ -39,6 +40,11 @@ Also do ...
 (*) Read a few critical papers and get citations in
 
 - Say somewhere that static timings are not very common, and static distances between species are probably even less common, then cite Volker as an idiot -- \cite{volkerass}
+
+- Check the outline and any stay text in main text for what to add or move to an obvious to do list!
+- Should probably read the Volker paper and the new Zettlemoyer (2019 ELE)
+
+- Add another example to: Understanding non-stationarity in ecological systems requires first identifying what has shifted in the underlying distribution that produces variation in the transition from stationary to non-stationary, and what remains constant. For example, with climate change, warming has increased mean temperatures over time, with minimum temperatures generally increasing more than maximum—this results in an underlying distribution for daily temperature where the mean is increasing through time and the variance is decreasing (Stocker et al., 2013; Screen, 2014), despite a growing literature on increasing variance in temperature (e.g., Vasseur et al., 2014). [ADD another example: San Diego or Snowpack or Lake Washington?.]
 
 FIGURES:
 
