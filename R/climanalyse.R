@@ -16,6 +16,8 @@ if(length(grep("Lizzie", getwd())>0)) {
 library(ggplot2)
 
 # What to do ...
+runMarseille <- FALSE
+runSantaBarbara <- FALSE
 runSanDiego <- FALSE
 runMunich <- TRUE
 runBoston <- TRUE
@@ -77,10 +79,42 @@ makegdd.data.skipNA <- function(dater, gdd.col, doy.col, startdate, needstartdat
 }
 
 
+if(runMarseille){
+mont <- read.delim("climdata/marseille_precip_ed.txt", sep="\t", header=FALSE)
+names(mont) <- c("year", "month", "day", "precip")
+
+hist(mont$precip, breaks=1000, xlim=c(0,20))
+mont.nonzerorain <- subset(mont, precip>0)
+hist(mont.nonzerorain$precip, breaks=100)
+hist(mont.nonzerorain$precip, breaks=100, xlim=c(0,20))
+
+mont.annualprecip <- aggregate(mont["precip"], mont["year"], FUN=sum)
+plot(density(mont.annualprecip$precip))
+}
+
+
+if(runSantaBarbara){
+sb <- read.delim("climdata/santabarbara_precip_ed.txt", sep="\t", header=FALSE)
+names(sb) <- c("year", "month", "day", "precip")
+
+hist(sb$precip, breaks=1000, xlim=c(0,20))
+sb.nonzerorain <- subset(sb, precip>0)
+hist(sb.nonzerorain$precip, breaks=100)
+hist(sb.nonzerorain$precip, breaks=100, xlim=c(0,20))
+
+sb.annualprecip <- aggregate(sb["precip"], sb["year"], FUN=sum)
+plot(density(sb.annualprecip$precip))
+}
+
+
 if(runSanDiego){
 ## Get the data
 sd <- read.delim("climdata/sandiego_precip_ed.txt", sep="\t", header=FALSE)
 names(sd) <- c("year", "month", "day", "precip")
+    
+sd.annualprecip <- aggregate(sd["precip"], sd["year"], FUN=sum)
+plot(density(sd.annualprecip$precip))
+
 
 # Add in some critical missing dates (onxw nwwsws)
 # sd <- sd[order(sd$year, sd$month, sd$day),]
