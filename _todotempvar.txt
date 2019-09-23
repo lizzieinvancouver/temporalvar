@@ -23,18 +23,18 @@ Persistence of two-species communities via both stabilizing and equalizing mecha
 <><><><><><><><><><><><><><><><><><><><><><><>
 <> What to do next, if you're named Lizzie <> 
 <><><><><><><><><><><><><><><><><><><><><><><>
-Think on ... lots of studies link early to tracking -- this could highlight a fundamental trade-off that early things track (and do everything quick) while later things bet-hedge more and invest longer .... but could also be an artifact. (BOX) Or the late ones just competitive, and the early things are ruderal. 
+Think on ... lots of studies link early to tracking -- this could highlight a fundamental trade-off that early things track (and do everything quick) while later things bet-hedge more and invest longer .... but could also be an artifact. (BOX) Or the late ones just competitive, and the early things are ruderal says Megan. 
 
 
 <><><><><><><><><>><><><><><><><><><>
 MUST DO items before friendly review:
 (*) Update the meta-analysis -- NEED to review R code etc. with Kelley!
 (*) Fix the text in the box
+(*) Work on Megan's comments!
 (*) Adjust the climatedata figure and make sure it's referenced in the correct places (or just change where it's referenced??!)
 
 Also do ...
 (*) Add citations from Ben ... (see below)
-(*) Say somewhere that static timings are not very common, and static distances between species are probably even less common, then cite Volker as an idiot -- \cite{volkerass}
 (*) Review below notes and address/re-organize
 (*) Add supp cross-reference (and work on supp)
 (*) Read a few critical papers and get citations in
@@ -43,11 +43,9 @@ Also do ...
 
 
 Refs to review and see if they should be added?
-- Phillimore paper (photoperiod x temperature)
+- Phillimore paper (photoperiod x temperature): https://onlinelibrary.wiley.com/doi/full/10.1111/gcb.13624 (and here's the bad approach: https://www.journals.uchicago.edu/doi/10.1086/667893?mobileUi=0&)
 - Iler on detrending (maybe?)
 - Get some data on the SOS changing: SOS paper from Ault group?... Here's that paper: https://link.springer.com/article/10.1007/s00382-016-3313-2 Which suggests 2.6 days/decade average in future, see also Fig 16. And from Conclusions "While natural climate variability has been the dominant control on spring onset in the past, our results argue that this could change considerably by mid-century if greenhouse gas emissions continue to go unchecked." 
-- Read Volker paper
-- Read Zettlemoyer (2019 ELE)
 - Any Gothic papers to add to 'Interspecific variation in tracking' ... They probably show intersting variation
 
 
