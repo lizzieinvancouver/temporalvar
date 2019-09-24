@@ -21,7 +21,9 @@ setwd("~/Documents/git/projects/temporalvar/R")
 ###########################################
 
 ## get part of the data
-d <- read.csv("minimeta/accept_or_reject.csv", header=TRUE)
+dall <- read.csv("minimeta/accept_or_reject.csv", header=TRUE)
+dall[220:235,]
+d <- d[1:231,]
 
 # trends over time
 timetrends <- aggregate(d["Author"], d["Publishing.Year"], FUN=length)
@@ -87,7 +89,7 @@ whogotin$allreasons.simple[whogotin$allreasons.simple=="No trait"] <- "no trait 
 whogotin$allreasons.simple[whogotin$allreasons.simple=="no trait measured"] <- "no trait measured or analysed"
 # Single species
 whogotin$allreasons.simple[whogotin$allreasons.simple=="one species - maize"] <- "single species"
-whogotin$allreasons.simple[whogotin$allreasons.simple=="1 species (painted turtle)"] <- "single species"
+whogotin$allreasons.simple[grep("1 species", whogotin$allreasons.simple)] <- "single species"
 
 table(whogotin$allreasons.simple)
 
