@@ -174,7 +174,7 @@ The resource ($R$) itself declines across a growing season due to uptake by all 
 \begin{align}
 \frac{\mathrm{d}R}{\mathrm{d}t} & = - \sum_{i=1}^{n}f_{i}(R)B_{i} -\epsilon R
 \end{align}
-For both species, the proportion of seeds that germinate each year depends the germination traits of each species and on the environment that year. The fraction of seeds germinating each year for a species is determined by the distance between $\tau_i$, a species characteristic, and $\tau_P$, an attribute of the environment, which varies year to year. Germination fraction declines according to a Gaussian distribution as the distance between $\tau_i$ and $\tau_P$ grows (we refer to this distribution as the `germination curve').
+For both species, the proportion of seeds that germinate each year depends the germination traits of each species and on the environment that year. The fraction of seeds germinating each year for a species is determined by the distance between $\tau_i$, a species characteristic, and $\tau_P$, an attribute of the environment, which varies year to year. Germination fraction declines according to a Gaussian as the distance between $\tau_i$ and $\tau_P$ grows (we refer to this distribution as the `germination curve').
 % We conceptualize the distribution from which $\tau_P$ is drawn as the underlying probability distribution that drives variation in the environmental trigger for germination. 
 % tauI in non-tracking is fixed characteristic of when I germinate ... and my success each year is about how far off I was. 
 %[I think we need another conceptual figure here, which I am working on.  Just to show how tauI and tauP are related and lead to germination.  This might be able to be added to Fig 2?  But it might work better as its own panel, at least]
@@ -188,10 +188,10 @@ g_{i} & = g_{max,i}e^{-h(\tau_{p}-\tau_{i})^2}
 \end{align}
 \noindent \emph{Adding phenological tracking to model:}\\
 % tauI as fixed versus flexible or fixed versus tracking
-$\tau_i$ can be considered a fixed characteristic of a species or it may respond to the environment dynamically through what we refer to as environmental tracking. Tracking ($\alpha$, which can vary between 0 to 1) decreases the distance between $\tau_i$ and $\tau_P$ such that a species with higher tracking  will have a higher germination fraction.
+$\tau_i$ is conceptualized as a fixed characteristic of a species, but biological start time may also respond to the environment dynamically through what we refer to as environmental tracking. Tracking ($\alpha$, which can vary between 0 to 1) decreases the distance between $\tau_i$ and $\tau_P$, i.e., moving the intrinsic start time closer to the environmental start time in that year, resulting in a higher germination fraction.
 % maybe use SOS to abstract more ... the model is about timing, and is about the beginning of something asynchronous to something else ... should we use synchrony? 
 \begin{align*}
-\alpha & \in 0 \rightarrow 1  
+\alpha & \in [0, 1]  
 \end{align*}
 \begin{align}
 \hat{\tau_{i}} & = \alpha \tau_{p} + (1-\alpha)\tau_{i}
