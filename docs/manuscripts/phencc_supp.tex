@@ -4,6 +4,8 @@
 \usepackage{graphicx}
 \usepackage{natbib}
 \usepackage{amsmath}
+\usepackage{xr}
+\externaldocument{phencc}
 
 \def\labelitemi{--}
 \parindent=0pt
@@ -17,6 +19,8 @@
 \author{E. M. Wolkovich \& M. J. Donohue}
 \date{} 
 \maketitle  %put the fancy title on
+\renewcommand{\thetable}{S\arabic{table}}
+\renewcommand{\thefigure}{S\arabic{figure}}
 
 \section{Literature review}
 We systematically reviewed the literature for studies examining tracking and other traits. We searched ISI in August 2019 for:
@@ -26,7 +30,7 @@ We systematically reviewed the literature for studies examining tracking and oth
 \item Topic: `phenolog* track*' AND trait* and Title: phenolog*
 \item Topic: `phenolog* sensitiv*' AND trait* and Title: phenolog*
 \end{enumerate}
-which resulted in 227 papers. From here we used the following criteria to determine from which papers we could not extract data: no phenology or phenological change measured (58 papers), no trait(s) measured or analyzed (44 papers), single-species studies focused on intra-specific variation (32 papers), modeling or theory studies without data (8 papers), or papers without new data presented (reviews, etc.: 4 papers), or miscellaneous reasons (1 paper measured a phenological response to grazing, while another ... XX). This left us with only 27 papers including relevant data. 
+which resulted in 231 papers. From here we used the following criteria to determine from which papers we could not extract data: no phenology or phenological change measured (72 papers), no trait(s) measured or analyzed (48 papers), single-species studies focused on intra-specific variation (54 papers), modeling or theory studies without data (12 papers), or papers without new data presented (reviews, etc.: 4 papers), or miscellaneous reasons (1 paper measured a phenological response to grazing). This left us with only 27 papers including relevant data, seven of which did not test for a relationship between tracking and the other studied traits.
 
 % Need to add why my review was not included (no tracking) and not including Brown review ... 
 
@@ -41,7 +45,6 @@ which resulted in 227 papers. From here we used the following criteria to determ
 \newpage 
 \section{Model}
 
-\subsection{Dimensional analysis}
 \begin{center}
 \begin{table}[h!]
 \caption{Table of parameter values, their definitions and lightweight version of their dimensions (i.e., not yet deemed `grams' or such).}
@@ -81,8 +84,8 @@ Parameter & Definition & Unit \\ \hline
 \end{table}
 \end{center}
 
+\end{document}
+
 \section{Model runs}
 
-
 \emph{Analyses}: Ran XX models ...
-\end{document}

@@ -6,6 +6,7 @@
 ## housekeeping
 rm(list=ls()) 
 options(stringsAsFactors = FALSE)
+setwd("~/Documents/git/projects/temporalvar/R")
 
 ## SpA is non-tracking; spB is tracking
 taui.A <- 0.58
@@ -47,10 +48,12 @@ nf<-layout(matrix(c(1,2,3),3,1,byrow=TRUE),widths=2,heights=1)
 layout.show(nf)
 
 ## Plot the ideal tauP distributions ...
+# pdf("graphs/conceptual/TauP_Germination.pdf", width=6, height=9)
+lwdhere <- 1.5
 par(mar=c(1,4,0,0),mgp=c(1.5,1,0))
 plot(x,tauP.NST, type="l", axes=FALSE, bty="o",cex.lab=1.5,
      ylab = expression(paste("PDF(",tau[p],")")),xlab="", 
-     ylim=c(-2, 5),col=tauPcol[2],xaxp=c(0,1,1))
+     ylim=c(-2, 5),col=tauPcol[2],xaxp=c(0,1,1), lwd=lwdhere)
 lines(x,tauP.STA, ylab="", xlab="", yaxt="n", col=tauPcol[1])
 #legend("topright",legend=c("Stationary Period","End of NonStationary Period"), col=c("black","cyan"), cex=.7, lty=1, bty="n")
 #arrows(.5,4.75,.225,4.75,length=0.1,col="black")
@@ -65,8 +68,8 @@ par(mar=c(1,4,2,0),mgp=c(1.5,1,0))
 plot(x,g.A.STA, type="l", col=spcol[[1]][1], 
      ylim=c(-0.6,1.75), axes=FALSE, bty="n", cex.lab=1.5,
      ylab = "Germination Rate",
-     xlab="")
-lines(x,g.B.ntr.STA,  col=spcol[[2]][1],lty=2)
+     xlab="", lwd=lwdhere)
+lines(x,g.B.ntr.STA,  col=spcol[[2]][1],lty=3)
 lines(x,g.B.tr.STA,  col=spcol[[2]][1],lty=1)
 axis(1,at=c(0,1),pos=-0.01)
 axis(2,at=c(0,0.75,1.5),pos=0)
@@ -80,14 +83,17 @@ axis(2,at=c(0,0.75,1.5),pos=0)
 # text(tauihat.B[1],-.25,pos=1,expression(paste(widehat(tau)[i[B]])),cex=1.75,font=3, col = spcol[[2]][1])
 
 par(mar=c(2.5,4,0,0),mgp=c(1.5,1,0))
-plot(x,g.A.NST, type="l", col=spcol[[1]][2],  
+plot(x,g.A.NST, type="l", col=spcol[[1]][1],  
      ylim=c(-0.05,.2), axes=FALSE, bty="n", cex.lab=1.5,
      ylab = "Germination Rate",
-     xlab= expression(paste("Timing of Resource Pulse, ",tau[p])))
-lines(x,g.B.ntr.NST,  col=spcol[[2]][2],lty=2)
-lines(x,g.B.tr.NST,  col=spcol[[2]][2],lty=1)
+     xlab= expression(paste("Timing of Resource Pulse, ",tau[p])), lwd=lwdhere)
+lines(x,g.B.ntr.NST,  col=spcol[[2]][2],lty=, lwd=lwdhere)
+lines(x,g.B.tr.NST,  col=spcol[[2]][2],lty=1, lwd=lwdhere)
 axis(1,at=c(0,1),pos=-0.001)
 axis(2,at=c(0,0.075,.15),pos=0)
+# dev.off()
+
+
 # #tauP arrows
 # arrows(tauP[2],.1,tauP[2],0,length=0.1, col=tauPcol[2])
 # text(tauP[2],.1,pos=3,expression(paste(tau[p[t]])),cex=1.75,font=3, col = tauPcol[2])
