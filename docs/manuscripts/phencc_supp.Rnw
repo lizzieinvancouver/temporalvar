@@ -12,7 +12,7 @@
 \parindent=0pt
 
 \begin{document}
-
+\SweaveOpts{concordance=FALSE}
 \bibliographystyle{/Users/Lizzie/Documents/EndnoteRelated/Bibtex/styles/besjournals}
 \renewcommand{\refname}{\CHead{}}
 
@@ -45,97 +45,14 @@ which resulted in 231 papers. From here we used the following criteria to determ
 \end{figure}
  
  \newpage
-% latex table generated in R 3.5.1 by xtable 1.8-3 package
-% Thu Sep 26 23:05:46 2019
-\begin{table}[ht]
-\centering
-\caption{Summary of traits related to phenological tracking in the literature and whether papers reported statistical evidence that they were linked or not. See Table S2 for an extended version.} 
-\label{tab:meta1}
-\begingroup\footnotesize
-\begin{tabular}{lrr}
-  \hline
-Trait & n linked & n not linked \\ 
-  \hline
-diet traits &   0 &   5 \\ 
-  early/late phenophase &   9 &   3 \\ 
-  habitat traits &   1 &   5 \\ 
-  height &   1 &   0 \\ 
-  hibernation stage &   0 &   4 \\ 
-  leaf/shoot size &   1 &   0 \\ 
-  migration traits &   3 &   3 \\ 
-  mobility &   1 &   3 \\ 
-  nativeness &   1 &   3 \\ 
-  niche breadth &   3 &   2 \\ 
-  other Lepidopteran traits &   3 &   4 \\ 
-  other bird traits &   1 &   1 \\ 
-  other leaf traits &   4 &   3 \\ 
-  other plant traits &   1 &   1 \\ 
-  overwintering &   2 &   1 \\ 
-  range traits &   1 &   3 \\ 
-  root traits &   3 &   0 \\ 
-  seed weight/size/number &   1 &   1 \\ 
-  woody/herbaceous &   1 &   0 \\ 
-   \hline
-\end{tabular}
-\endgroup
-\end{table}% latex table generated in R 3.5.1 by xtable 1.8-3 package
-% Thu Sep 26 23:05:46 2019
-\begin{table}[ht]
-\centering
-\caption{Summary of results from literature on phenological tracking showing which phenophases researchers found were linked to which traits, or not.} 
-\label{tab:meta2}
-\begingroup\footnotesize
-\begin{tabular}{lllrr}
-  \hline
-Taxa & Phenophase & Trait & n linked & n not linked \\ 
-  \hline
-Lepidoptera & activity length & diet traits &  &   1 \\ 
-  Lepidoptera & activity length & habitat traits &  &   1 \\ 
-  Lepidoptera & activity length & hibernation stage &  &   1 \\ 
-  Lepidoptera & activity length & migration traits &  &   1 \\ 
-  Lepidoptera & activity length & other Lepidopteran traits &   1 &  \\ 
-  Lepidoptera & appearance/collection date & diet traits &  &   1 \\ 
-  Lepidoptera & appearance/collection date & early/late phenophase &   2 &  \\ 
-  Lepidoptera & appearance/collection date & habitat traits &  &   2 \\ 
-  Lepidoptera & appearance/collection date & hibernation stage &  &   1 \\ 
-  Lepidoptera & appearance/collection date & migration traits &   1 &  \\ 
-  Lepidoptera & appearance/collection date & mobility &  &   2 \\ 
-  Lepidoptera & appearance/collection date & niche breadth &   2 &   1 \\ 
-  Lepidoptera & appearance/collection date & other Lepidopteran traits &   1 &   2 \\ 
-  Lepidoptera & appearance/collection date & overwintering &   2 &  \\ 
-  Lepidoptera & appearance/collection date & range traits &   1 &   2 \\ 
-  Lepidoptera & flight season timing & early/late phenophase &   1 &   1 \\ 
-  Lepidoptera & flight season timing & mobility &   1 &   1 \\ 
-  Lepidoptera & flight season timing & niche breadth &  &   1 \\ 
-  Lepidoptera & flight season timing & other Lepidopteran traits &  &   1 \\ 
-  Lepidoptera & flight season timing & overwintering &  &   1 \\ 
-  Lepidoptera & flight season timing & range traits &  &   1 \\ 
-  Lepidoptera & last/median emergence dates & diet traits &  &   2 \\ 
-  Lepidoptera & last/median emergence dates & habitat traits &  &   2 \\ 
-  Lepidoptera & last/median emergence dates & hibernation stage &  &   2 \\ 
-  Lepidoptera & last/median emergence dates & migration traits &  &   2 \\ 
-  Lepidoptera & last/median emergence dates & other Lepidopteran traits &   1 &   1 \\ 
-  passerine birds & breeding time & diet traits &  &   1 \\ 
-  passerine birds & breeding time & habitat traits &   1 &  \\ 
-  passerine birds & breeding time & migration traits &   2 &  \\ 
-  passerine birds & breeding time & niche breadth &   1 &  \\ 
-  passerine birds & breeding time & other bird traits &   1 &   1 \\ 
-  plants & budbreak/leafing & early/late phenophase &   3 &   1 \\ 
-  plants & budbreak/leafing & nativeness &  &   1 \\ 
-  plants & budbreak/leafing & other leaf traits &   2 &   1 \\ 
-  plants & flowering/fruiting & early/late phenophase &   3 &   1 \\ 
-  plants & flowering/fruiting & height &   1 &  \\ 
-  plants & flowering/fruiting & leaf/shoot size &   1 &  \\ 
-  plants & flowering/fruiting & nativeness &   1 &   2 \\ 
-  plants & flowering/fruiting & other leaf traits &   2 &   2 \\ 
-  plants & flowering/fruiting & other plant traits &   1 &   1 \\ 
-  plants & flowering/fruiting & root traits &   3 &  \\ 
-  plants & flowering/fruiting & seed weight/size/number &   1 &   1 \\ 
-  plants & flowering/fruiting & woody/herbaceous &   1 &  \\ 
-   \hline
-\end{tabular}
-\endgroup
-\end{table}
+<<label=xtablez, echo=FALSE, results=tex>>=
+library(xtable)
+source("..//..//R/minimetanalyse.R")
+
+print(xtable(traitz, caption = "Summary of traits related to phenological tracking in the literature and whether papers reported statistical evidence that they were linked or not. See Table S2 for an extended version.", label="tab:meta1"), include.rownames=FALSE, size="\\footnotesize", caption.placement="top")
+print(xtable(tableforpaper, caption = "Summary of results from literature on phenological tracking showing which phenophases researchers found were linked to which traits, or not.",  label="tab:meta2"), include.rownames=FALSE, size="\\footnotesize", caption.placement = "top")
+@
+
 \newpage 
 \clearpage
 \section{Model}
