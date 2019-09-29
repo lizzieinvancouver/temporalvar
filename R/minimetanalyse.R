@@ -123,8 +123,7 @@ dat$taxaclean[grep("grasses", dat$taxongroup_studied)] <- "plants"
 dat$taxaclean[grep("poaceae", dat$taxongroup_studied)] <- "plants"
 dat$taxaclean[grep("angiosperms", dat$taxongroup_studied)] <- "plants"
 table(dat$taxaclean)
-
-
+# Papers per taxa grouping... 
 plantshere <- subset(dat, taxaclean=="plants")
 unique(plantshere$paperID) # 17 papers
 butterflies <- subset(dat, taxaclean=="Lepidoptera")
@@ -145,15 +144,12 @@ unique(plantsherelinked$paperID)
 unique(butterflieslinked$paperID)
 unique(birdzlinked$paperID)
 
-# clean up phenophases
+# clean up phenophases: FIX MORE!
 table(dat$phenophase) 
 dat$phenophase.simple <- dat$phenophase
 dat$phenophase.simple[dat$phenophase=="10th percentile collection date"] <- "appearance/collection date"
 dat$phenophase.simple[dat$phenophase=="date of first appearance"] <- "appearance/collection date"
 dat$phenophase.simple[dat$phenophase=="first emergance date"] <- "appearance/collection date"
-
-dat$phenophase.simple[dat$phenophase=="lay date"] <- "breeding time"
-
 dat$phenophase.simple[dat$phenophase=="leaf emergance"] <- "budbreak/leafing"
 dat$phenophase.simple[dat$phenophase=="leafout"] <- "budbreak/leafing"
 dat$phenophase.simple[dat$phenophase=="leaf unfolding"] <- "budbreak/leafing"
@@ -165,7 +161,6 @@ dat$phenophase.simple[dat$phenophase=="days to last flower"] <- "last flowering"
 dat$phenophase.simple[dat$phenophase=="first flowering"] <- "flowering"
 dat$phenophase.simple[dat$phenophase=="flowering"] <- "flowering"
 dat$phenophase.simple[dat$phenophase=="peak flowering"] <- "flowering"
-
 dat$phenophase.simple[dat$phenophase=="flowering onset"] <- "flowering"
 dat$phenophase.simple[dat$phenophase=="flowering time"] <- "flowering"
 dat$phenophase.simple[dat$phenophase=="flowering timing"] <- "flowering"
@@ -174,8 +169,8 @@ dat$phenophase.simple[dat$phenophase=="fruiting time"] <- "fruiting"
 dat$phenophase.simple[dat$phenophase=="days to first fruit"] <- "fruiting"
 dat$phenophase.simple[dat$phenophase=="timing of fruit coloring"] <- "fruiting"
 dat$phenophase.simple[dat$phenophase=="flowering period"] <- "flowering length"
-
-table(dat$phenophase.simple)
+dat$phenophase.simple[dat$phenophase=="lay date"] <- "breeding time"
+table(dat$phenophase.simple) # missing one is Adrian paper that I think we will not include (or at least does not try to link traits and tracking)
 
 # clean up trackwhat ...
 table(dat$track_what) 
@@ -186,10 +181,11 @@ dat$trackwhat.simple[dat$track_what=="monthly rainfall"] <- "precipitation"
 table(dat$trackwhat.simple)
 
 # Clean up traits ...
-# Kelley needs to check -- minnimum spring temperature
+# Note that minnimum spring temperature is '10th quantile of minimum temperature in native range'
 table(dat$trait)
 dat$trait.simple <- dat$trait
-dat$trait.simple[grep("root", dat$trait.simple)] <- "root traits"
+dat$trait.simple[grep("root", dat$trait.simple)] <- "root traits"table(dat$trait)
+
 dat$trait.simple[dat$trait.simple=="early/late flowering"] <- "early/late phenophase"
 dat$trait.simple[dat$trait.simple=="early/late"] <- "early/late phenophase"
 dat$trait.simple[dat$trait.simple=="earyness"] <- "early/late phenophase"
@@ -200,6 +196,7 @@ dat$trait.simple[dat$trait.simple=="breeding season"] <- "early/late phenophase"
 dat$trait.simple[dat$trait.simple=="baseline date first appearance"] <- "early/late phenophase"
 
 dat$trait.simple[(dat$trait.simple=="percentage national 10-km grid cells occupied X U.K. latitudinal extent")] <- "range traits"
+dat$trait.simple[(dat$trait.simple=="minnimum spring temperature")] <- "range traits"
 
 dat$trait.simple[grep("bread", dat$trait.simple)] <- "niche breadth"
 dat$trait.simple[dat$trait.simple=="Host breadth"] <- "niche breadth"
@@ -228,14 +225,12 @@ dat$trait.simple[dat$trait.simple=="C3/C4"] <- "other leaf traits"
 dat$trait.simple[dat$trait.simple=="shade tolerance"] <- "other leaf traits"
 dat$trait.simple[dat$trait.simple=="wood anatomy"] <- "other leaf traits"
 dat$trait.simple[dat$trait.simple=="phylogenetic group"] <- "other leaf traits"
-dat$trait.simple[dat$trait.simple=="minnimum spring temperature"] <- "other leaf traits"
 dat$trait.simple[dat$trait.simple=="wind/insect pollination"] <- "other leaf traits"
 dat$trait.simple[dat$trait.simple=="life form"] <- "other leaf traits"
 dat$trait.simple[dat$trait.simple=="annual/perrenial"] <- "other leaf traits"
 dat$trait.simple[dat$trait.simple=="canopy width"] <- "other leaf traits"
 dat$trait.simple[dat$trait.simple=="fruit type"] <- "other leaf traits"
 dat$trait.simple[dat$trait.simple=="growth habit"] <- "other leaf traits"
-
 
 dat$trait.simple[dat$trait.simple=="leaf water & nitrogen content"] <- "other leaf traits"
 dat$trait.simple[dat$trait.simple=="leaf toughness"] <- "other leaf traits"
@@ -260,20 +255,16 @@ dat$trait.simple[dat$trait.simple=="mean isotherm"] <- "other plant traits"
 dat$trait.simple[dat$trait.simple=="mean spring variability"] <- "other plant traits"
 dat$trait.simple[dat$trait.simple=="polination syndrome (wind or animal)"] <- "other plant traits"
 
-
-
 dat$trait.simple[dat$trait.simple=="mass"] <- "other bird traits"
 dat$trait.simple[dat$trait.simple=="annual brood number"] <- "other bird traits"
-
 dat$trait.simple[dat$trait.simple=="brain mass"] <- "other bird traits"
+
 dat$trait.simple[dat$trait.simple=="food type"] <- "other Lepidopteran traits"
 dat$trait.simple[dat$trait.simple=="average length of flight season"] <- "other Lepidopteran traits"
 dat$trait.simple[dat$trait.simple=="wing size"] <- "other Lepidopteran traits"
-
 dat$trait.simple[dat$trait.simple=="voltinism"] <- "other Lepidopteran traits"
 dat$trait.simple[dat$trait.simple=="Max number generations"] <- "other Lepidopteran traits"
 dat$trait.simple[dat$trait.simple=="average number of generations"] <- "other Lepidopteran traits"
-
 
 dat$trait.simple[dat$trait.simple=="diet"] <- "diet traits"
 dat$trait.simple[dat$trait.simple=="diet breadth"] <- "diet traits"
