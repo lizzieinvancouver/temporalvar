@@ -6,18 +6,13 @@ on a ferry to Saturna!
 <> What to do next, if you're named Megan <> 
 <><><><><><><><><><><><><><><><><><><><><><>
 
-(1) Work for PhenologyModelConceptual.R
-- Draw schematic (or code) and send it to Lizzie for alternative conceptfig_tau.jpg
-- Add code for one year g curves.
+(1) Supp!
+- Where did parameter values come from?
+- Explain how we did the simulations
+- Coexistence versus persistence (maybe?)
+- Please review Geoff's comments! He did a nice job of pointing out missing details. 
 
-(2) We need to fill in XX here:
-We examined [how decreasing R0 with earlier start of season] by again shifting the mean start of season XX earlier over XX years at the same time that we shifted the size of the resource pulse lower (XX over 500 years).
 
-(3) Any thoughts on what to put in [insert more understanding here.] below?
-
-Persistence of two-species communities via both stabilizing and equalizing mechanisms occurred more often in communities where species traded off competitive traits ($R^*$) with tracking ($\alpha$). While again, the non-stationary environment favored higher trackers, who in turn drove the extinction of species with lower tracking values from many two-species communities, some two-species communities persisted (223 out of 1467 two-species communities persisting after end of stationary, or 15.2\%). These communities included equalized species, as well as [insert more understanding here.] Taken together, this simple simulations show how non-stationarity can drive local species extinction and reshape the underlying assembly mechanisms of communities.
-
-(4) Tie to Godoy lit -- in our model niche differences are temporal niche differences and fitness differences are R* differences.
 
 
 <><><><><><><><><><><><><><><><><><><><><><><>
@@ -27,9 +22,17 @@ Think on ... lots of studies link early to tracking -- this could highlight a fu
 
 
 <><><><><><><><><>><><><><><><><><><>
-MUST DO items before friendly review:
+Items to do!
 (*) Update the meta-analysis -- NEED to review R code etc. with Kelley!
-(*) Work on Megan's comments! (Um, and get them!)
+(*) Thank the amazing friendly reviewers.
+(*) Make the lit review a BOX!
+(*) break up the box (stats elsewhere)
+(*) Expand section on evolution (studies of Arabidopsis, Daphnia resurrection, Purple loosestrife, Bouchera), also  ... this section could be expanded and is something that a lot of readers will care about, especially in light of how non-stationarity affects trade-offs and (maybe?) trait variation.
+(*) Make the point: we can learn a lot about how communities are structured if we understand the functional links and tradeoffs there.
+(*) Cite Geoff's cool paper! https://link.springer.com/article/10.1007/s12080-018-0386-z
+(*) Introduce model better: In particular, I had to scan back several times to reconstruct what you guys did with the model - which experiments did you run? How did you analyze the results? I would have liked a paragraph that laid these out before you discussed the results. 
+(*) Focus figures only on coexistence -- see Geoff's comments (Ian said similar, Geoff explained in greater detail)
+(* check figure 2: I found figure 2 a little hard to read because I had to super-impose panel A onto B and C. I was wondering if in panel A it might be more clear if the distributions of tau(i) for each species is shown with a dotted line or if the mean tau(i) for each sps was depicted with a line instead of a point?
 
 Also do ...
 (*) Add citations from Ben ... (see below)
