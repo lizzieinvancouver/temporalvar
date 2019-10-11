@@ -739,6 +739,112 @@ plot.paramdiffs.manuscript(tauRstar.runs.df, "tauRstar.runs", "tauIPrstart1", "r
     "Ratio effective start time", "Ratio R*")
 
 
+
+## Overwrite color and symbol names for new setup ... 
+leg.txt2panel <- c("both species extirpated", "both species persist")
+coexist.mscolz.prep = c("darkseagreen3", "deepskyblue3", "darkorchid4")
+coexist.mscolz1 <-   apply(sapply(coexist.mscolz.prep, col2rgb)/255, 2, 
+    function(x) 
+    rgb(x[1], x[2], x[3], alpha=0.2))
+coexist.mscolz2 <-   apply(sapply(coexist.mscolz.prep, col2rgb)/255, 2, 
+    function(x) 
+    rgb(x[1], x[2], x[3], alpha=0.8))
+coexist.mscolz <- c(coexist.mscolz1[1], coexist.mscolz2[2],  coexist.mscolz1[2], coexist.mscolz2[3])
+symbolz <- c(16, 16, 16) # c(1, 2, 0, 16)
+
+
+plot.paramdiffs.2panel.manuscript <- function(dfstat, dfnonstat, runname, figname, colname.xstat, colname.x, colname.y, cex, pch,
+        corner1.text, corner1.pos, corner2.text, corner2.pos, legwhere, leftarrowtextupper,
+        leftarrowtextlower, bottomarrowtextleft, bottomarrowtextright,
+        leftarrowx, leftarrowupper1, leftarrowupper2, leftarrowlower1,
+        leftarrowlower2, leftarrowtextx, leftarrowtextupperpos, leftarrowtextlowerpos,
+        bottomarrowy, bottomarrowleft1, bottomarrowleft2,
+        bottomarrowright1, bottomarrowright2,
+        bottomarrowtexty, bottomarrowtextupper, bottomarrowtextlower,
+        xlabhere, ylabhere, xlim1add, ylim1add){
+    pdf(paste("graphs/modelruns/manuscript/", figname, ".pdf", sep=""),
+       width=7, height=9)
+    par(mfrow=c(2,1))
+    par(mar=c(2,4,4,4))
+    dfstat2spp <- subset(dfstat, ncoexist==2)
+    plot(unlist(dfstat[colname.xstat]), unlist(dfstat[colname.y]), type="n", xlab=xlabhere, ylab=ylabhere, main="",
+         xlim=c(min(unlist(dfnonstat[colname.x]))+xlim1add, max(unlist(dfnonstat[colname.x]))), ylim=c(min(unlist(dfnonstat[colname.x])),
+         max(unlist(dfnonstat[colname.y])))+ylim1add)
+    abline(v=1, col="lightgray")
+    abline(h=1, col="lightgray")
+    fig_label(text=corner1.text, region="plot", pos=corner1.pos, cex=0.75, col="lightgray")
+    fig_label(text=corner2.text, region="plot", pos=corner2.pos, cex=0.75, col="lightgray")
+    points(dfstat[[colname.xstat]], unlist(dfstat[colname.y]),
+        col=coexist.mscolz[1], pch=pch[1], cex=cex)
+    points(dfstat2spp[[colname.xstat]], unlist(dfstat2spp[colname.y]),
+        col=coexist.mscolz[2], pch=pch[2], cex=cex)
+    legend(legwhere, leg.txt2panel, pch=pch[1:2], col=coexist.mscolz[1:2], bg="white")
+    # arrows
+    par(xpd=NA)
+    # left side arrows
+    arrows(leftarrowx, leftarrowupper1, leftarrowx, leftarrowupper2, len=0.1, col = "black")
+    text(leftarrowtextx, leftarrowtextupperpos, labels=leftarrowtextupper, cex=0.65, srt = 90)
+    arrows(leftarrowx, leftarrowlower1, leftarrowx, leftarrowlower2, len=0.1, col = "black")
+    text(leftarrowtextx, leftarrowtextlowerpos, labels=leftarrowtextlower, cex=0.65, srt = 90)
+    # bottom side arrows
+    arrows(bottomarrowleft1, bottomarrowy, bottomarrowleft2, bottomarrowy, len=0.1, col = "black")
+    text(bottomarrowtextupper, bottomarrowtexty, labels=bottomarrowtextleft, cex=0.65)
+    arrows(bottomarrowright1, bottomarrowy, bottomarrowright2, bottomarrowy, len=0.1, col = "black")
+    text(bottomarrowtextlower, bottomarrowtexty, labels=bottomarrowtextright, cex=0.65)
+    par(xpd=FALSE)
+    df0 <- subset(dfnonstat, ncoexist.t2==0)
+    # df1 <- subset(dfnonstat, ncoexist.t2==1)
+    df2 <- subset(dfnonstat, ncoexist.t2==2)
+    # df1.sp1 <- subset(df1, coexist1.t2==1)
+    # df1.sp2 <- subset(df1, coexist2.t2==1)
+    par(mar=c(4,4,1,4))
+    plot(unlist(dfnonstat[colname.x]), unlist(dfnonstat[colname.y]), type="n", xlab=xlabhere, ylab=ylabhere, main="")
+    abline(v=1, col="lightgray")
+    abline(h=1, col="lightgray")
+    fig_label(text=corner1.text, region="plot", pos=corner1.pos, cex=0.75, col="lightgray")
+    fig_label(text=corner2.text, region="plot", pos=corner2.pos, cex=0.75, col="lightgray")
+    points(df0[[colname.x]], unlist(df0[colname.y]),
+        col=coexist.mscolz[3], pch=pch[1], cex=cex)
+    points(df2[[colname.x]], unlist(df2[colname.y]),
+        col=coexist.mscolz[4], pch=pch[3], cex=cex)
+    legend(legwhere, leg.txt2panel, pch=pch[2:3], col=coexist.mscolz[3:4], bg="white")
+    # arrows
+    par(xpd=NA)
+    # left side arrows
+    arrows(leftarrowx, leftarrowupper1, leftarrowx, leftarrowupper2, len=0.1, col = "black")
+    text(leftarrowtextx, leftarrowtextupperpos, labels=leftarrowtextupper, cex=0.65, srt = 90)
+    arrows(leftarrowx, leftarrowlower1, leftarrowx, leftarrowlower2, len=0.1, col = "black")
+    text(leftarrowtextx, leftarrowtextlowerpos, labels=leftarrowtextlower, cex=0.65, srt = 90)
+    # bottom side arrows
+    arrows(bottomarrowleft1, bottomarrowy, bottomarrowleft2, bottomarrowy, len=0.1, col = "black")
+    text(bottomarrowtextupper, bottomarrowtexty, labels=bottomarrowtextleft, cex=0.65)
+    arrows(bottomarrowright1, bottomarrowy, bottomarrowright2, bottomarrowy, len=0.1, col = "black")
+    text(bottomarrowtextlower, bottomarrowtexty, labels=bottomarrowtextright, cex=0.65)
+    par(xpd=FALSE)
+    dev.off()
+}
+
+
+plot.paramdiffs.2panel.manuscript(tauRstar.stat.runs.df, tauRstar.runs.df, "tauRstar.runs", "tauIPrstart1_2panel","ratio.tauIP",
+    "ratio.tauIP.t1", "ratio.rstar", cexhere, symbolz, "", "bottomleft", "", "topright", "topright",
+    "Species 2 has lower R*", "Species 1 has lower R*", "Species 1 better start time", "Species 2 better start time",
+    0.45, 1.05, 1.6, 0.9, 0.55,
+    0.48, 1.2, 0.8,
+    0.45, 0.95, 0.55, 1.05, 1.9,
+    0.48, 0.8, 1.2, 
+    "Ratio effective start time", "Ratio R*", 0, 0)
+
+
+plot.paramdiffs.2panel.manuscript(alphaRstar.stat.runs.df, alphaRstar.runs.df, "alphaRstar.runs", "alpharstar_2panel",
+    "ratio.alpha", "ratio.alpha",
+    "ratio.rstar", cexhere, symbolz, "", "bottomleft", "", "topright", "topleft",
+    "Species 2 has lower R*", "Species 1 has lower R*", "Species 2 better tracker", "Species 1 better tracker",
+    0.09, 1.05, 2.2, 0.95,  0.6,
+    0.15, 1.3, 0.7,
+    0.3, 0.9, 0.3, 1.1, 3.2,
+    0.35, 0.6, 1.4,
+    "Ratio tracking", "Ratio R*", 0, 0.1)
+
 #################################
 ## Pull some of the R0 runs #####
 ## and check that they decline ##
