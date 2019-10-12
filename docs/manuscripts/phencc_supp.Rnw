@@ -96,6 +96,22 @@ Parameter & Definition & Unit \\ \hline
 \end{table}
 \end{center}
 
+\clearpage
+\begin{figure}[t!]
+\centering
+\includegraphics[width=0.9\textwidth]{..//..//R/graphs/modelruns/manuscript/tauIPrstart1.pdf}
+\caption{How non-stationarity reshapes two-species communities in a simple model where effective start time (X axis: species 1/species 2) trades off with $R^*$ (Y axis: species 1/species 2): each point represents one two-species community that persisted through 500 years of stationary dynamics while the shape and color represent the outcome for that two-species community of 500 years of non-stationarity, where the abiotic start of the season shifts earlier.}
+ \label{fig:tauirstarsupp}
+\end{figure}
+
+
+\begin{figure}[t!]
+\centering
+\includegraphics[width=0.9\textwidth]{..//..//R/graphs/modelruns/manuscript/alpharstar.pdf}
+\caption{How non-stationarity reshapes two-species communities in a simple model where tracking (X axis: species 1/species 2) trades off with $R^*$ (Y axis: species 1/species 2): each point represents one two-species community that persisted through 500 years of stationary dynamics while the shape and color represent the outcome for that two-species community of 500 years of non-stationarity, where the abiotic start of the season shifts earlier.}
+\label{fig:alpharstarsupp}
+\end{figure}
+
 \end{document}
 
 \section{Model runs}

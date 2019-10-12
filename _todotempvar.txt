@@ -30,7 +30,7 @@ Items to do!
 (*) Update the meta-analysis 
 (*) Thank the amazing friendly reviewers.
 (*) Make the lit review a BOX!
-(*) Cite Legault & Melbourne 2019
+(*) Cite Legault & Melbourne 2019 % legault2019
 (*) break up the box (stats elsewhere)
 (*) Expand section on evolution (studies of Arabidopsis, Daphnia resurrection, Purple loosestrife, Bouchera), also  ... this section could be expanded and is something that a lot of readers will care about, especially in light of how non-stationarity affects trade-offs and (maybe?) trait variation.
 (*) Make the point: we can learn a lot about how communities are structured if we understand the functional links and tradeoffs there.
@@ -73,7 +73,11 @@ FIGURES (we have these, see temporalvar/R/graphs/modelruns/histograms and I don'
 - alpha vs.$\tau_i$ trade-off and histogram of persisting alpha under stat/nonstat $\tau_{P}$ environment
 - alpha vs. R* trade-off and histogram of persisting alpha under stat/nonstat $\tau_{P}$ environment
 
-
+<><><><><><><><><><><><><><><><><><><>
+<> Comments from friendly reviewers <>
+<>    ... that I did not do         <> 
+<><><><><><><><><><><><><><><><><><><>
+- Ian found the mention of trade-offs in the abstract out of place (not well introduced)
 
 
 <><><><><><><><><><><><><><><><><>

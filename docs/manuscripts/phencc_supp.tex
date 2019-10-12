@@ -46,7 +46,7 @@ which resulted in 231 papers. From here we used the following criteria to determ
  
  \newpage
 % latex table generated in R 3.5.1 by xtable 1.8-3 package
-% Thu Sep 26 23:05:46 2019
+% Fri Oct 11 13:09:39 2019
 \begin{table}[ht]
 \centering
 \caption{Summary of traits related to phenological tracking in the literature and whether papers reported statistical evidence that they were linked or not. See Table S2 for an extended version.} 
@@ -71,7 +71,7 @@ diet traits &   0 &   5 \\
   other leaf traits &   4 &   3 \\ 
   other plant traits &   1 &   1 \\ 
   overwintering &   2 &   1 \\ 
-  range traits &   1 &   3 \\ 
+  range traits &   1 &   4 \\ 
   root traits &   3 &   0 \\ 
   seed weight/size/number &   1 &   1 \\ 
   woody/herbaceous &   1 &   0 \\ 
@@ -79,7 +79,7 @@ diet traits &   0 &   5 \\
 \end{tabular}
 \endgroup
 \end{table}% latex table generated in R 3.5.1 by xtable 1.8-3 package
-% Thu Sep 26 23:05:46 2019
+% Fri Oct 11 13:09:39 2019
 \begin{table}[ht]
 \centering
 \caption{Summary of results from literature on phenological tracking showing which phenophases researchers found were linked to which traits, or not.} 
@@ -123,6 +123,7 @@ Lepidoptera & activity length & diet traits &  &   1 \\
   plants & budbreak/leafing & early/late phenophase &   3 &   1 \\ 
   plants & budbreak/leafing & nativeness &  &   1 \\ 
   plants & budbreak/leafing & other leaf traits &   2 &   1 \\ 
+  plants & budbreak/leafing & range traits &  &   1 \\ 
   plants & flowering/fruiting & early/late phenophase &   3 &   1 \\ 
   plants & flowering/fruiting & height &   1 &  \\ 
   plants & flowering/fruiting & leaf/shoot size &   1 &  \\ 
@@ -178,6 +179,22 @@ Parameter & Definition & Unit \\ \hline
 \end{tabular}
 \end{table}
 \end{center}
+
+\clearpage
+\begin{figure}[t!]
+\centering
+\includegraphics[width=0.9\textwidth]{..//..//R/graphs/modelruns/manuscript/tauIPrstart1.pdf}
+\caption{How non-stationarity reshapes two-species communities in a simple model where effective start time (X axis: species 1/species 2) trades off with $R^*$ (Y axis: species 1/species 2): each point represents one two-species community that persisted through 500 years of stationary dynamics while the shape and color represent the outcome for that two-species community of 500 years of non-stationarity, where the abiotic start of the season shifts earlier.}
+ \label{fig:tauirstarsupp}
+\end{figure}
+
+
+\begin{figure}[t!]
+\centering
+\includegraphics[width=0.9\textwidth]{..//..//R/graphs/modelruns/manuscript/alpharstar.pdf}
+\caption{How non-stationarity reshapes two-species communities in a simple model where tracking (X axis: species 1/species 2) trades off with $R^*$ (Y axis: species 1/species 2): each point represents one two-species community that persisted through 500 years of stationary dynamics while the shape and color represent the outcome for that two-species community of 500 years of non-stationarity, where the abiotic start of the season shifts earlier.}
+\label{fig:alpharstarsupp}
+\end{figure}
 
 \end{document}
 

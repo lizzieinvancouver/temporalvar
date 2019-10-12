@@ -741,7 +741,7 @@ plot.paramdiffs.manuscript(tauRstar.runs.df, "tauRstar.runs", "tauIPrstart1", "r
 
 
 ## Overwrite color and symbol names for new setup ... 
-leg.txt2panel <- c("both species extirpated", "both species persist")
+leg.txt2panel <- c("species extirpated", "both species persist")
 coexist.mscolz.prep = c("darkseagreen3", "deepskyblue3", "darkorchid4")
 coexist.mscolz1 <-   apply(sapply(coexist.mscolz.prep, col2rgb)/255, 2, 
     function(x) 
@@ -792,7 +792,7 @@ plot.paramdiffs.2panel.manuscript <- function(dfstat, dfnonstat, runname, fignam
     arrows(bottomarrowright1, bottomarrowy, bottomarrowright2, bottomarrowy, len=0.1, col = "black")
     text(bottomarrowtextlower, bottomarrowtexty, labels=bottomarrowtextright, cex=0.65)
     par(xpd=FALSE)
-    df0 <- subset(dfnonstat, ncoexist.t2==0)
+    df01 <- subset(dfnonstat, ncoexist.t2==0|ncoexist.t2==1)
     # df1 <- subset(dfnonstat, ncoexist.t2==1)
     df2 <- subset(dfnonstat, ncoexist.t2==2)
     # df1.sp1 <- subset(df1, coexist1.t2==1)
@@ -803,7 +803,7 @@ plot.paramdiffs.2panel.manuscript <- function(dfstat, dfnonstat, runname, fignam
     abline(h=1, col="lightgray")
     fig_label(text=corner1.text, region="plot", pos=corner1.pos, cex=0.75, col="lightgray")
     fig_label(text=corner2.text, region="plot", pos=corner2.pos, cex=0.75, col="lightgray")
-    points(df0[[colname.x]], unlist(df0[colname.y]),
+    points(df01[[colname.x]], unlist(df01[colname.y]),
         col=coexist.mscolz[3], pch=pch[1], cex=cex)
     points(df2[[colname.x]], unlist(df2[colname.y]),
         col=coexist.mscolz[4], pch=pch[3], cex=cex)

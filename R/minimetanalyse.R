@@ -184,7 +184,8 @@ table(dat$trackwhat.simple)
 # Note that minnimum spring temperature is '10th quantile of minimum temperature in native range'
 table(dat$trait)
 dat$trait.simple <- dat$trait
-dat$trait.simple[grep("root", dat$trait.simple)] <- "root traits"table(dat$trait)
+dat$trait.simple[grep("root", dat$trait.simple)] <- "root traits"
+table(dat$trait)
 
 dat$trait.simple[dat$trait.simple=="early/late flowering"] <- "early/late phenophase"
 dat$trait.simple[dat$trait.simple=="early/late"] <- "early/late phenophase"
