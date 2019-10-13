@@ -381,6 +381,10 @@ traitz <- aggregate(tableforpaper[c("n linked", "n not linked")],
 checkearlylate <- subset(tableforpaper, Trait=="early/late phenophase")
 sum(checkearlylate[,4], na.rm=TRUE)
 sum(checkearlylate[,5], na.rm=TRUE)
+# which studies?
+checkstudies2 <- dat[which(dat$phenophase.simple %in% checkearlylate$Phenophase),]
+checkstudies1 <-  checkstudies2[which(checkstudies2$trait.simple %in% checkearlylate$Trait),]
+checkstudies <- subset(checkstudies1, link_trackingandtrait_yesno=="yes")
 ##
 
 ## Look at some specific plant traits ...

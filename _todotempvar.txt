@@ -28,6 +28,7 @@ maximum of 7500 words and 10 figures, tables or text boxes.
 <><><><><><><><><>><><><><><><><><><>
 Items to do!
 (*) Update the meta-analysis 
+(*) Ian asked before section 1.4: Did you guys have any pre-existing intuition about how non-stationarity might influence coexistence? You’ve got a strong a-priori hypothesis about trait trade-offs, but the stationary vs. non-stationary question seems to be less theory/hypothesis motivated. It would be nice to give readers a sense of what they might expect before wading into the simulation results.
 (*) Thank the amazing friendly reviewers.
 (*) Make the lit review a BOX!
 (*) Cite Legault & Melbourne 2019 % legault2019
