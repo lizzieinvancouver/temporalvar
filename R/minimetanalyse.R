@@ -95,23 +95,19 @@ whogotin$allreasons.simple[whogotin$allreasons.simple=="one species - maize"] <-
 whogotin$allreasons.simple[grep("1 species", whogotin$allreasons.simple)] <- "single species"
 
 table(whogotin$allreasons.simple)
+subset(d, why=="" & accept.reject_2=="" & why_3=="")
+# 'Check, not all data possibly entered' was entered
 
-# Questions for Kelley:
-# (1) What does no data mean (compared to phenological or not trait data)?
-# (2) Any differences between 'model' versus 'theory/model - no data' or 'theoretical model'?
-
-# So many studies excluded!
-nrow(whogotin)-33 # or 27? Seems to be that below ...
 
 
 #############################
 ## Examine extracted data! ##
 #############################
 datall <- read.csv("minimeta/phentrack_meta.csv", header=TRUE)
-dat <- datall[1:207,]
+dat <- datall[1:209,]
 dim(dat)
 
-length(unique(dat$paperID)) # 28 studies (or 27?)
+length(unique(dat$paperID)) # 30 studies 
 unique(dat$study_level) # safety-check
 
 ## clean up taxa
@@ -125,11 +121,16 @@ dat$taxaclean[grep("angiosperms", dat$taxongroup_studied)] <- "plants"
 table(dat$taxaclean)
 # Papers per taxa grouping... 
 plantshere <- subset(dat, taxaclean=="plants")
-unique(plantshere$paperID) # 17 papers
+unique(plantshere$paperID) # 20 papers!
 butterflies <- subset(dat, taxaclean=="Lepidoptera")
 unique(butterflies$paperID) # 5 papers
 birdz <- subset(dat, taxaclean=="passerine birds")
 unique(birdz$paperID) # 3 papers
+aphidz <- subset(dat, taxaclean=="Aphidoidea")
+unique(aphidz$paperID) # 1 paper
+plankton <- subset(dat, taxaclean=="plankton")
+unique(plankton$paperID) # 1 paper
+
 
 # linking traits and tracking ....
 table(dat$link_trackingandtrait_yesno)
@@ -139,10 +140,14 @@ unique(linkedstudiez$paperID)
 plantsherelinked <- subset(plantshere, link_trackingandtrait_yesno=="yes")
 butterflieslinked <- subset(butterflies, link_trackingandtrait_yesno=="yes")
 birdzlinked <- subset(birdz, link_trackingandtrait_yesno=="yes")
+aphizlinked <- subset(aphidz, link_trackingandtrait_yesno=="yes")
+planktonlinked <- subset(plankton, link_trackingandtrait_yesno=="yes")
 
 unique(plantsherelinked$paperID)
 unique(butterflieslinked$paperID)
 unique(birdzlinked$paperID)
+unique(aphizlinked$paperID) # didnottry
+unique(planktonlinked$paperID) # didnottry
 
 # clean up phenophases: FIX MORE!
 table(dat$phenophase) 
@@ -150,6 +155,10 @@ dat$phenophase.simple <- dat$phenophase
 dat$phenophase.simple[dat$phenophase=="10th percentile collection date"] <- "appearance/collection date"
 dat$phenophase.simple[dat$phenophase=="date of first appearance"] <- "appearance/collection date"
 dat$phenophase.simple[dat$phenophase=="first emergance date"] <- "appearance/collection date"
+dat$phenophase.simple[dat$phenophase=="first appearance"] <- "appearance/collection date"
+dat$phenophase.simple[dat$phenophase=="flight season timing"] <- "flight timing"
+dat$phenophase.simple[dat$phenophase=="first flight"] <- "flight timing"
+
 dat$phenophase.simple[dat$phenophase=="leaf emergance"] <- "budbreak/leafing"
 dat$phenophase.simple[dat$phenophase=="leafout"] <- "budbreak/leafing"
 dat$phenophase.simple[dat$phenophase=="leaf unfolding"] <- "budbreak/leafing"
@@ -157,18 +166,22 @@ dat$phenophase.simple[dat$phenophase=="bud break"] <- "budbreak/leafing"
 dat$phenophase.simple[dat$phenophase=="budbreak"] <- "budbreak/leafing"
 dat$phenophase.simple[dat$phenophase=="timing of flowering"] <- "flowering"
 dat$phenophase.simple[dat$phenophase=="days to first flower"] <- "flowering"
-dat$phenophase.simple[dat$phenophase=="days to last flower"] <- "last flowering"
+dat$phenophase.simple[dat$phenophase=="days to last flower"] <- "flowering"
 dat$phenophase.simple[dat$phenophase=="first flowering"] <- "flowering"
 dat$phenophase.simple[dat$phenophase=="flowering"] <- "flowering"
 dat$phenophase.simple[dat$phenophase=="peak flowering"] <- "flowering"
 dat$phenophase.simple[dat$phenophase=="flowering onset"] <- "flowering"
 dat$phenophase.simple[dat$phenophase=="flowering time"] <- "flowering"
 dat$phenophase.simple[dat$phenophase=="flowering timing"] <- "flowering"
+dat$phenophase.simple[dat$phenophase=="first flowering date"] <- "flowering"
+
 dat$phenophase.simple[dat$phenophase=="fruting"] <- "fruiting"
 dat$phenophase.simple[dat$phenophase=="fruiting time"] <- "fruiting"
 dat$phenophase.simple[dat$phenophase=="days to first fruit"] <- "fruiting"
 dat$phenophase.simple[dat$phenophase=="timing of fruit coloring"] <- "fruiting"
 dat$phenophase.simple[dat$phenophase=="flowering period"] <- "flowering length"
+dat$phenophase.simple[dat$phenophase=="flowering duration"] <- "flowering length"
+dat$phenophase.simple[dat$phenophase=="flowring duration"] <- "flowering length"
 dat$phenophase.simple[dat$phenophase=="lay date"] <- "breeding time"
 table(dat$phenophase.simple) # missing one is Adrian paper that I think we will not include (or at least does not try to link traits and tracking)
 
@@ -179,12 +192,45 @@ dat$trackwhat.simple[grep("temperature", dat$track_what)] <- "temperature"
 dat$trackwhat.simple[grep("NAO", dat$track_what)] <- "climate mode"
 dat$trackwhat.simple[dat$track_what=="monthly rainfall"] <- "precipitation"
 table(dat$trackwhat.simple)
+# Munson2017 is the missing one and it's because they did 15 climate metrics mainly temp and precip
+dat$trackwhat.simple[dat$paperID=="Munson2017"][1] <- "temperature"
+dat$trackwhat.simple[dat$paperID=="Munson2017"][2] <- "precipitation"
+table(dat$trackwhat.simple)
+100*(table(dat$trackwhat.simple)/209) # percents
 
+# how many measured multiple climate metrics?
+multiclimmetrics1 <- aggregate(dat["track_what"], dat[c("paperID", "trackwhat.simple")], FUN=length)
+multiclimmetrics <- aggregate(multiclimmetrics1["trackwhat.simple"], multiclimmetrics1["paperID"],
+    FUN=length)
+subset(multiclimmetrics, trackwhat.simple>1) # 4 paper measured 2 metrics
+
+## Before we clean traits and phenophases ...
+## How many did each study measure? (Not exact since for ones with MANY values we didn't always enter all of them)
+# f(x) for mode
+getmode <- function(v) {
+   uniqv <- unique(v)
+   uniqv[which.max(tabulate(match(v, uniqv)))]
+}
+# phenophase
+phenmetrics1 <- aggregate(dat["track_what"], dat[c("paperID", "phenophase")], FUN=length)
+phenmetrics <- aggregate(phenmetrics1["phenophase"], phenmetrics1["paperID"],
+    FUN=length)
+getmode(phenmetrics$phenophase)
+median(phenmetrics$phenophase)
+# traits
+traitmetrics1 <- aggregate(dat["track_what"], dat[c("paperID", "trait")], FUN=length)
+traitmetrics <- aggregate(traitmetrics1["trait"], traitmetrics1["paperID"],
+    FUN=length)
+getmode(traitmetrics$trait)
+median(traitmetrics$trait)
+
+#####
 # Clean up traits ...
 # Note that minnimum spring temperature is '10th quantile of minimum temperature in native range'
 table(dat$trait)
 dat$trait.simple <- dat$trait
 dat$trait.simple[grep("root", dat$trait.simple)] <- "root traits"
+dat$trait.simple[dat$trait.simple=="number of tillers"] <- "root traits"
 table(dat$trait)
 
 dat$trait.simple[dat$trait.simple=="early/late flowering"] <- "early/late phenophase"
@@ -211,6 +257,8 @@ dat$trait.simple[grep("obilit", dat$trait.simple)] <- "mobility"
 dat$trait.simple[grep("dispresal ability", dat$trait.simple)] <- "mobility"
 
 dat$trait.simple[grep("wing", dat$trait.simple)] <- "wing size"
+
+dat$trait.simple[grep("growth speed", dat$trait.simple)] <- "growth speed (plankton)"
 
 dat$trait.simple[grep("leaf size", dat$trait.simple)] <- "leaf/shoot size"
 dat$trait.simple[grep("leaf area", dat$trait.simple)] <- "leaf/shoot size"
@@ -255,6 +303,8 @@ dat$trait.simple[dat$trait.simple=="species type"] <- "other plant traits"
 dat$trait.simple[dat$trait.simple=="mean isotherm"] <- "other plant traits"
 dat$trait.simple[dat$trait.simple=="mean spring variability"] <- "other plant traits"
 dat$trait.simple[dat$trait.simple=="polination syndrome (wind or animal)"] <- "other plant traits"
+dat$trait.simple[dat$trait.simple=="monoecious/heteroecious"] <- "other plant traits"
+
 
 dat$trait.simple[dat$trait.simple=="mass"] <- "other bird traits"
 dat$trait.simple[dat$trait.simple=="annual brood number"] <- "other bird traits"
@@ -276,7 +326,7 @@ dat$trait.simple[grep("range", dat$trait.simple)] <- "range traits"
 
 table(dat$trait.simple)
 
-# Simplify more ... ?
+# Simplify even more ...
 dat$phenophase.supersimple <- dat$phenophase.simple
 dat$phenophase.supersimple[dat$phenophase.simple=="peak flowering"] <- "flowering/fruiting"
 dat$phenophase.supersimple[grep("fruit", dat$phenophase.simple)] <- "flowering/fruiting"
@@ -289,6 +339,12 @@ table(dat$phenophase.supersimple)
 # try to summarize
 dattouse <- subset(dat, link_trackingandtrait_yesno=="yes" | link_trackingandtrait_yesno=="no")
 table(dattouse$trackwhat.simple)
+
+didnottrydat <- subset(dat, link_trackingandtrait_yesno=="didnottry")
+unique(didnottrydat$paperID)
+length(unique(didnottrydat$paperID))
+length(unique(dattouse$paperID)) # good! These numbers add up.
+intersect(didnottrydat$paperID, dattouse$paperID) # two studies linked some traits, but did not try on others
 
 datlinked <- subset(dat, link_trackingandtrait_yesno=="yes")
 datforsummlinked <- subset(datlinked, select=c("paperID", "taxaclean", "phenophase.supersimple",
@@ -327,28 +383,13 @@ sum(checkearlylate[,4], na.rm=TRUE)
 sum(checkearlylate[,5], na.rm=TRUE)
 ##
 
+## Look at some specific plant traits ...
+native <- dat[grep("nativeness", dat$trait.simple),] # basically one study found a link and one did not 
+otherleaf <- dat[grep("other leaf", dat$trait.simple),] # mixed!
 
-if(FALSE){
-## OLD code, CHECK!
-traits1 <- subset(dat, trait.simple=="early/late plant phenophase" | trait.simple=="rooting depth & earlyness")
-length(unique(traits1$paperID))
+rootz1 <- dat[grep("root", dat$trait),]
+rootz2 <- dat[grep("tiller", dat$trait),] # this study did not try to link traits and tracking 
+rootz <- rbind(rootz1, rootz2)
 
-traits2 <- subset(dat, trait.simple=="nativeness")
-length(unique(traits2$paperID))
-
-traits3 <- subset(dat, trait.simple=="early/late migrating" | trait.simple=="Mean of min and max forewing span"|
-   trait.simple=="Mobility score" | trait.simple=="Max number generations"| trait.simple=="niche breadth" |
-   trait.simple=="overwintering stage")
-length(unique(traits3$paperID))
-
-traits4 <- subset(dat, trait.simple=="wind/insect polination")
-length(unique(traits4$paperID))
-
-#
-dat$link_trackingandtrait_rsq
-median(dat$link_trackingandtrait_rsq, na.rm=TRUE) # Damn, that is low
-
-# table we eventually want to build:
-supptable <- data.frame(taxa=character(), trait=character(), phenophase=character(),
-    trackwhat=character(), nstudiespapers=numeric(), linked=numeric(), notlinked=numeric(), nottested=numeric())
-}
+# high SLA is thin leaves that draw down resources quickly but do not last long ... 
+sla <- dat[grep("SLA", dat$trait.simple),] # but wait, all the SLA studies did not try to link ...
