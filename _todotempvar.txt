@@ -22,21 +22,19 @@ Think on ... lots of studies link early to tracking -- this could highlight a fu
 
 
 <><><><><><><><><><><><><><><><><><>
+https://onlinelibrary.wiley.com/page/journal/14610248/homepage/forauthors.html
+
 Limits ...
 maximum of 7500 words and 10 figures, tables or text boxes.
+The maximum number of words indicated above are for the main text only (excluding title page, abstract, acknowledgements, reference list, table/figure/box legends). 
 
 <><><><><><><><><>><><><><><><><><><>
 Items to do!
 (*) Update the meta-analysis 
 (*) Ian asked before section 1.4: Did you guys have any pre-existing intuition about how non-stationarity might influence coexistence? You’ve got a strong a-priori hypothesis about trait trade-offs, but the stationary vs. non-stationary question seems to be less theory/hypothesis motivated. It would be nice to give readers a sense of what they might expect before wading into the simulation results.
-(*) Thank the amazing friendly reviewers.
-(*) Make the lit review a BOX!
-(*) Cite Legault & Melbourne 2019 % legault2019
-(*) break up the box (stats elsewhere)
-(*) Expand section on evolution (studies of Arabidopsis, Daphnia resurrection, Purple loosestrife, Bouchera), also  ... this section could be expanded and is something that a lot of readers will care about, especially in light of how non-stationarity affects trade-offs and (maybe?) trait variation.
-(*) Make the point: we can learn a lot about how communities are structured if we understand the functional links and tradeoffs there.
+(*) Maybe make the point: we can learn a lot about how communities are structured if we understand the functional links and tradeoffs there (this is what Ian said he learned, see his email). He also said: competitive outcomes could change dramatically in non-stationary environments.
+(*) Review Geoff's notes with Megan, and do the typos in Supp that he mentioned!
 (*) Cite Geoff's cool paper! https://link.springer.com/article/10.1007/s12080-018-0386-z
-(*) Introduce model better: In particular, I had to scan back several times to reconstruct what you guys did with the model - which experiments did you run? How did you analyze the results? I would have liked a paragraph that laid these out before you discussed the results. 
 (*) Focus figures only on coexistence -- see Geoff's comments (Ian said similar, Geoff explained in greater detail)
 (* check figure 2: I found figure 2 a little hard to read because I had to super-impose panel A onto B and C. I was wondering if in panel A it might be more clear if the distributions of tau(i) for each species is shown with a dotted line or if the mean tau(i) for each sps was depicted with a line instead of a point?
 

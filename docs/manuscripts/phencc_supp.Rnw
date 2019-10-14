@@ -5,7 +5,7 @@
 \usepackage{graphicx}
 \usepackage{natbib}
 \usepackage{amsmath}
-\usepackage{xr}
+\usepackage{xr-hyper}
 \externaldocument{phencc}
 
 \def\labelitemi{--}
@@ -34,7 +34,7 @@ We systematically reviewed the literature for studies examining tracking and oth
 which resulted in 231 papers (83\% of which were published in 2011 or later, see Fig. \ref{fig:papertrends}). From here we used the following criteria to determine from which papers we could not extract data: no phenology or phenological change measured (73 papers), no trait(s) measured or analyzed (49 papers), single-species studies focused on intra-specific variation (54 papers), modeling or theory studies without data (12 papers), or papers without new data presented (reviews, etc.: 4 papers), or miscellaneous reasons leading to no data relevant to our aims (7 papers). This left us with 30 papers including relevant data \citep{Suzuki:1997gf,Post1999,adrian2006,Xu:2009an,Goodenough2010,Diamond:2011nx,Moussus2011,Szilvia2012,Dorji2013,Ishioka2013,xia2013,Bock2014,kharouba2014,Vegvari2015,bell2015,lasky2016,McDermott2016,Zhu2016BioLetters,brooks2017,du2017,munson2017,arfinkhan2018,zhang2018,Ladwig2019,park2019,sharma2019,Xavier2019,Zettlemoyer2019}, eight of which did not test for a relationship between tracking and the other studied traits \citep{Suzuki:1997gf,adrian2006,Xu:2009an,bell2015,McDermott2016,Sherwood2017,sharma2019,Xavier2019}. We present data from the remaining papers in Tables \ref{tab:meta1}-\ref{tab:meta2}. Most studies examined tracking as how a phenophase related to temperature (86\% of all tracking metrics), followed by precipitation (10\%, includes snow removal), followed by photoperiod (3\%), followed by the climate mode NAO (1\%) and water table depth (0.5\%). Four of the 30 studies examined more than one major climate metric, though some measured many versions of temperature and/or precipitation metrics \citep[e.g., 15 precipitation and/or temperature metrics considered in][]{munson2017}.
 
 % Could add why my review was not included (no tracking) and not including Brown review ... 
-% Should add average number of traits and phenophases in each study. It was a mode of one for both phenophases and traits ... 
+% Average number of traits and phenophases in each study. It was a mode of one for both phenophases and traits ... 
 
 \newpage 
 \clearpage
@@ -57,10 +57,10 @@ Parameter & Definition & Unit \\ \hline
 \(m_{i}\) & maintenance costs of species \(i\) & \(\text{days}^{-1}\) \\ \hline
 \(a_{i}\) & uptake increase as \(R\) increases for species \(i\) & \(\text{days}^{-1}\) \\ \hline
 \(u_{i}\) & max uptake for species \(i\) & \(\frac{(\text{days})(\text{biomass})}{\text{resource}}\) \\ \hline
-\(\phi_{i}\) & converesion of biomass to seedbank for species, includes overwintering of seeds \(i\) & \(\text{biomass}^{-1}\), but conceptually \(\frac{\text{seeds}}{(\text{biomass})(\text{seeds})}\) \\ \hline
+\(\phi_{i}\) & conversion of biomass to seedbank for species, includes overwintering of seeds \(i\) & \(\text{biomass}^{-1}\), but conceptually \(\frac{\text{seeds}}{(\text{biomass})(\text{seeds})}\) \\ \hline
 \(\epsilon\) & abiotic loss of \(R\) &  \(\text{days}^{-1}\) \\ \hline
 \(g_{max,i}\) & max germination of species \(i\) & unitless \\ \hline
-\(h_{i}\) &  controls the the rate at which germination declines as \(\tau_{p}\) deviates from optimum for species \(i\)  & \(\text{days}^{-2}\) \\ \hline
+\(h_{i}\) &  controls the rate at which germination declines as \(\tau_{p}\) deviates from optimum for species \(i\)  & \(\text{days}^{-2}\) \\ \hline
 \(g_{i}\) & germination fraction & unitless \\ \hline
 \(\tau_{p}\) & timing of pulse & days \\ \hline
 \(\tau_{i}\) & timing of max germination of species \(i\) & days \\ \hline
@@ -79,11 +79,13 @@ Parameter & Definition & Unit \\ \hline
 \end{table}
 \end{center}
 
+\section{References}
 \bibliography{/Users/Lizzie/Documents/git/bibtex/LizzieMainMinimal}
 \bibliographystyle{/Users/Lizzie/Documents/git/bibtex/styles/ecolett.bst}
 
-
 \clearpage
+\section{Tables \& figures}
+
 \begin{figure}[t!]
 \centering
 \includegraphics[width=1\textwidth]{..//..//R/graphs/otherdat/papersovertime.pdf}
