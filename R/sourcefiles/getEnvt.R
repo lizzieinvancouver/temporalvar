@@ -3,8 +3,8 @@
 mu <- log(2)  #mean of resource distribution
 sigma <- 0.2  #sd of resource distribution
 R0 <- rlnorm(nyrs, mu, sigma) # intial R in a season
-p <- 10  #first parameter for beta distribution of tau
-q <- 10  #second parameter for beta distribution of tau
+p <- 10  #first parameter for beta distribution of tauP
+q <- 10  #second parameter for beta distribution of tauP
 tauP <- rbeta(nonsta[1], p, q) # change once not doing stationary+nonstationary run
 
 if (megaDflag==1) {
