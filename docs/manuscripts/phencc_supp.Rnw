@@ -123,4 +123,92 @@ print(xtable(tableforpaper, caption = "Summary of results from literature on phe
 
 \section{Model runs}
 
-\emph{Analyses}: Ran XX models ...
+\emph{Analyses}: 
+The two species coexistence model (Equations 1-6) include both interannual variation in the environment and intra-annual resource competiton.  The model was modified from Chesson et al 2004, which was originally conceptualized for annual plants with a seedbank.  Although the model can be conceived of more generally, we use the language of annual plant germination for concreteness.  
+
+Interannual variation occurs in both the timing and the amount of the resource pulse.  The timing of the resource pulse also varies from year to year and is given by \tau_{p}(t)\, which is drawn from a beta distribution. The amount of resource available at the beginning of each season, R0(t), varies from year to year and is drawn from a log-normal distribution.  Each model run is comprised of a 500 year stationary period and a 500 year nonstationary period.  During the stationary period, R0(t) and \tau_{p}(t)\ are each drawn from a stationary distribution.  During the nonstationary period, the timing of the resource pulse, \tau_{p}(t)\, gradually shifts earlier in the season (Figure S1).  For the model runs displayed in Figures 3 and 4, this is the only change in the environment during the nonstationary period.  We also discuss model runs in which both the timing, \tau_{p}(t)\, and the amount, R0(t), of the resource pulse shift during the nonstationary period.  In this case, the distribution of R0(t) also shifts gradually over the nonstationary period (Figure S1).    
+
+\begin{figure}[t!]
+\centering
+<<label=fig_Rt_tauPt, echo=FALSE>>=
+library(RColorBrewer)
+nonsta <- c(500,500,0)
+nyrs <- sum(nonsta)
+megaDflag <- 0
+R0ns_flag <- 0.5
+source("R/sourcefiles/getEnvt.R")
+
+plot(seq(1,nyrs,1),R0,type="n",xlab="year")
+rect(500,0.75,1035,3.75,col='gainsboro', border=NA)
+points(seq(1,nyrs,1),R0,type="l",col="dark gray")
+points(seq(1,nyrs,1),R0,type="p",bty="o",pch=16,
+       col=c(rep(brewer.pal(9,"YlGn")[9],500),rep(rev(brewer.pal(9,"YlGn")),length.out=500, each=56)))
+
+plot(seq(1,nyrs,1),tauP,type="n",xlab="year")
+rect(500,0.09,1035,0.83,col='light gray', border=NA)
+points(seq(1,nyrs,1),tauP,type="l",col="dark gray")
+points(seq(1,nyrs,1),tauP,type="p",bty="o",pch=16,
+       col=c(rep(brewer.pal(9,"Purples")[9],500),rep(rev(brewer.pal(9,"Purples")),length.out=500, each=56)))
+
+x <- seq(0, 1, length = 5000)
+plot(x,dbeta(x, pns[1], qns[1]),type="l", ylim=c(0,4.5), 
+     col= brewer.pal(9,"YlGn")[9],
+     ylab=expression(paste("PDF(",tau[p],")")),
+     xlab=expression(paste("Timing of Resource Pulse, ",tau[p])))
+for (i in seq(1,8,1)) {
+  points(x,dbeta(x,pns[60*i],qns[60*i]),type="l",col=brewer.pal(9,"YlGn")[9-i])
+}
+
+xR <- seq(.5,4,length=10000)
+plot(xR,dlnorm(xR, mu_R0ns[1], sigma),type="l", ylim=c(0,1.5),
+     col= brewer.pal(9,"Purples")[9],
+     ylab=expression(paste("PDF(R0)")),
+     xlab=expression(paste("Amount of Resource Pulse, ",R(0))))
+for (i in seq(1,8,1)){
+  points(xR,dlnorm(xR,mu_R0ns[60*i],sigma),type="l",col=brewer.pal(9,"Purples")[9-i])
+}
+
+@
+\caption{How the environment shifts from the stationary period to the nonstationary period.  The timing of the resource pulse shifts from \tau_{p}\ ~ Beta(10,10) for the 500 year stationary period to \tau_{p}\ ~ Beta(5,15) over the 500 year nonstationary period.  For simulations where the amount of resource is also changing, R(0)~logNormal(log(2), 2) during the 500 year stationary period and shifts to R(0)~logNormal(log(2)/2,2) during the nonstationary period}
+\label{fig:fig_Rt_tauPt}
+\end{figure}
+
+
+\begin{center}
+\begin{table}[h!]
+\caption{Table of parameter values, their definitions and lightweight version of their dimensions (i.e., not yet deemed `grams' or such).}
+\begin{tabular}{ | p{3.0cm} | p{6.0cm} | p{4.0cm} |}
+\hline 
+Parameter & Definition & Unit \\ \hline 
+\end{tabular}
+\begin{tabular}{ | p{3.0cm} | p{6.0cm} | p{4.0cm} |}
+\(N_{i}\) & seedbank of species \(i\) & seeds \\ \hline
+\(s_{i}\) & survival of species \(i\) & unitless \\ \hline
+\(\delta\) (peak biomass) & total length of growing season & days\\ \hline
+\(B_{i}\) & biomass of species \(i\) & biomass \\ \hline
+\(R(t)\) & annually varying resource, R(t) ~ logN(lmu=log(2), sigma = 0.2) & resource\\ \hline
+\(c_{i}\) & conversion of \(R\) uptake to biomass of species \(i\) &  \(\frac{\text{biomass}}{\text{resource}}\) \\ \hline
+\(m_{i}\) & maintenance costs of species \(i\) & \(\text{days}^{-1}\) \\ \hline
+\(a_{i}\) & uptake increase as \(R\) increases for species \(i\) & \(\text{days}^{-1}\) \\ \hline
+\(u_{i}\) & max uptake for species \(i\) & \(\frac{(\text{days})(\text{biomass})}{\text{resource}}\) \\ \hline
+\(\phi_{i}\) & conversion of biomass to seedbank for species, includes overwintering of seeds \(i\) & \(\text{biomass}^{-1}\), but conceptually \(\frac{\text{seeds}}{(\text{biomass})(\text{seeds})}\) \\ \hline
+\(\epsilon\) & abiotic loss of \(R\) &  \(\text{days}^{-1}\) \\ \hline
+\(g_{max,i}\) & max germination of species \(i\) & unitless \\ \hline
+\(h_{i}\) &  controls the the rate at which germination declines as \(\tau_{p}\) deviates from optimum for species \(i\)  & \(\text{days}^{-2}\) \\ \hline
+\(g_{i}\) & germination fraction & unitless \\ \hline
+\(\tau_{p}\) & timing of pulse, \tau_{p}~Beta(10,10) & days \\ \hline
+\(\tau_{i}\) & timing of max germination of species \(i\) & days \\ \hline
+\(\alpha_{i}\) & phenological tracking of species \(i\) & unitless \\ \hline
+\(\theta_{i}\) & shape of uptake for species \(i\) & unitless\\ \hline
+\hline
+\(b_{i}\) & seedling biomass of species \(i\) & \(\frac{\text{biomass}}{\text{seeds}}\) \\ \hline
+\(f_{i}(R)\) & \(R\) uptake \(f(x)\) for species \(i\) & \(\frac{\text{resource}}{(\text{days})(\text{biomass})}\)\\ \hline
+\(d_{i}\) & death rate of species \(i\), used in calculations of lifespan & unitless \\ \hline
+\(t\) & between year time (formerly T) & years \\ \hline
+\(0\) $\rightarrow$ \(\delta\) & within season time (formerly \(\tau\)) & days \\ \hline
+\(b_{0}\) & initial biomass per germinant (seed) & biomass \\ \hline
+\(\xi\) & \(\frac{\text{final biomass}}{\text{initial biomass}}\) & unitless \\ \hline
+\hline
+\end{tabular}
+\end{table}
+\end{center}
