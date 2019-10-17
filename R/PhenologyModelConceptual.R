@@ -42,13 +42,14 @@ g.B.ntr.STA <- g.B.ntr*tauP.STA
 g.B.ntr.NST <- g.B.ntr*tauP.NST
 
 #Set up for three panels (tauP dist, germ sp A, germ sp B)
+pdf("R/graphs/conceptual/TauP_Germination.pdf", width=6, height=9)
 def.par <- par(no.readonly = TRUE) # save default, for resetting...
 #nf<-layout(matrix(c(1,2,3),3,1,byrow=TRUE),widths=2,heights=1)
 #layout.show(nf)
 par(mfrow=c(3,1), oma = c(2, 0, 0, 0))
 
 ## PLOT ONE:  Plot the ideal tauP distributions ...
-# pdf("graphs/conceptual/TauP_Germination.pdf", width=6, height=9)
+
 lwdhere <- 2.5
 par(mar=c(0,4,0,0),mgp=c(1.5,1,0))
 plot(x,tauP.NST, type="l", axes=FALSE, bty="o",cex.lab=1.5,
@@ -119,6 +120,7 @@ text(taui.B,-.025,pos=4,expression(paste(tau[i[B]])),cex=1.75,font=3, col = spco
 #overall x-axis title at bottom
 mtext(expression(paste("Timing of Resource Pulse, ",tau[p])),outer=TRUE,side=1,line=1,cex=1)
 
+dev.off()
 
 # ## Plotting two instances of tau P
 # for (y in c(1,2)) {
