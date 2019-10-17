@@ -131,20 +131,20 @@ We use a simple model that includes dynamics at both the intra- and inter-annual
 
 The model includes a suite of species traits; including (and particularly relevant for our aims) traits controlling species response to the environment via germination each year, traits related to how species may bet-hedge across years (via a seedbank), as well as traits relating to resource competition each year. Within-season dynamics are controlled by resource competition resulting in fitness differences, while interannual variation in the environment provides opportunities for coexistence via fluctuation-dependent mechanisms (i.e., niche differences resulting from different germination functions). 
 
-Across years, for a community of \(n\) species, the seedbank ($N$) of species $i$ at time $t+1$ is determined by the survival ($s_i$) of seeds that did not germinate in season t ($1-g_{i}(t)$) plus new biomass ($B_i$) produced during the length of the  growing season ($\delta$) converted to seeds ($\phi_i$):
+Across years, for a community of \(n\) species, the seedbank ($N$) of species $i$ at time $t+1$ is determined by the survival ($s$) of seeds that did not germinate in season t ($1-g_{i}(t)$) plus new biomass ($B_i$) produced during the length of the growing season ($\delta$) converted to seeds ($\phi$):
 \begin{align}
 N_{i}(t+1) & =
-s_{i}N_{i}(t)(1-g_{i}(t))+\phi_{i}B(t+\delta)
+s N_{i}(t)(1-g_{i}(t))+\phi B_{i}(t+\delta)
 \end{align}
-The production of new biomass each season follows a basic R* competition model: new biomass production depends on its resource uptake ($f_i(R)$ converted into biomass at rate $c_i$) less maintenance costs ($m_i$), with uptake controlled by $a_i$, $u_i$, and $\theta_i$:
-%[I don't think that dB/dt should be a partial differential, but the same as dR/dt]
+The production of new biomass each season follows a basic R* competition model: new biomass production depends on its resource uptake ($f(R)$ converted into biomass at rate $c_i$) less maintenance costs ($m$), with uptake controlled by $a$, $u$, and $\theta$:
+
 \begin{align}
-\frac{\mathrm{d}B_i}{\mathrm{d}t} & = [c_{i}f_{i}(R) - m_{i}]B_{i} \\
-f_{i}(R) & = \frac{a_{i}R^{\theta_{i}}}{1+a_{i}u_{i}R^{\theta_{i}}}
+\frac{\mathrm{d}B_i}{\mathrm{d}t} & = [c_{i}f(R) - m B_{i} \\
+f(R) & = \frac{a R^{\theta}{1+a uR^{\theta}
 \end{align}
 With the initial condition:
 \begin{align}
-B(t+0) & = N_{i}(t)g_{i}(t)b_{0,i}
+B_{i}(t+0) & = N_{i}(t)g_{i}(t)b_{0}
 \end{align}
 where $b_{0}$ is the initial biomass per seed.
 
@@ -155,7 +155,7 @@ The resource ($R$) itself declines across a growing season due to uptake by all 
 Germination depends both on the traits of the species and on the environment that year. The fraction of seeds germinating for a species each year is determined by the distance between $\tau_i$, a species characteristic, and $\tau_P$, an attribute of the environment, which varies year-to-year.  Germination fraction declines according to a Gaussian as the distance between $\tau_i$ and $\tau_P$ grows (we refer to this distribution as the `germination curve').  
 %Need to add figure number!
 \begin{align}
-g_{i} & = g_{max,i}e^{-h(\tau_{p}-\tau_{i})^2} 
+g_{i}(t) & = g_{max}e^{-h(\tau_{p}(t)-\tau_{i})^2} 
 \end{align}
 
 The model is designed for multiple conceptualizations \citep{Chesson:2004eo}; given our focus here, we consider $\tau_P$ to represent the environmental (abiotic) start of the growing season that varies from year-to-year and refer to it as the `environmental start time.'  $\tau_i$ represents the `intrinsic biological start time' for species $i$. How well matched a species is to its environment each year can be measured as $\tau_i$-$\tau_P$, or the distance between the intrinsic (biological) start time and the environmental start time. 
