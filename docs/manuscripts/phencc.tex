@@ -164,15 +164,15 @@ The model is designed for multiple conceptualizations \citep{Chesson:2004eo}; gi
 Biological start time, $\tau_i$, can be considered a fixed characteristic of a species, but it may also respond to the environment dynamically through what we refer to as environmental tracking. Tracking ($\alpha$, which can vary between 0 to 1) decreases the distance between $\tau_i$ and $\tau_P$, i.e., moving the intrinsic start time closer to the environmental start time in that year, resulting in a higher germination fraction (e.g., species B in Fig. \ref{fig:concept}b-c).
 
 \begin{align*}
-\alpha & \in [0, 1]  
+\alpha_{i} & \in [0, 1]  
 \end{align*}
 \begin{align}
-\hat{\tau_{i}} & = \alpha \tau_{p} + (1-\alpha)\tau_{i}
+\hat{\tau_{i}} & = \alpha_{i} \tau_{p} + (1-\alpha_{i})\tau_{i}
 \end{align}
 \noindent Thus, 
 \begin{align*}
-\text{when } \alpha = 0, & \hat{\tau_{i}}=\tau_{i}\\
-\text{when }  \alpha = 1, & \hat{\tau_{i}}=\tau_{p}
+\text{when } \alpha_{i} = 0, & \hat{\tau_{i}}=\tau_{i}\\
+\text{when }  \alpha_{i} = 1, & \hat{\tau_{i}}=\tau_{p}
 \end{align*}
 We refer to $\hat{\tau_{i}}$ as `effective biological start time' for species $i$ (or `effective $\tau_i$'). 
 
