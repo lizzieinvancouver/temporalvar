@@ -30,7 +30,7 @@ timetrends <- aggregate(d["Author"], d["Publishing.Year"], FUN=length)
 names(timetrends)[names(timetrends)=="Author"] <- "n"
 
 pdf("graphs/otherdat/papersovertime.pdf", width=7.5, height=5)
-plot(n~Publishing.Year, data=timetrends)
+plot(n~Publishing.Year, data=timetrends, xlab="Publication year", ylab="n papers")
 lines(n~Publishing.Year, data=timetrends)
 dev.off()
 
@@ -39,7 +39,7 @@ recentpapers <- subset(timetrends, Publishing.Year>2010)
 sum(recentpapers$n)
 
 # Why were things rejected?
-table(d$Accept.Reject) # this has 68 a, but below shows 69 -- WHY?
+table(d$Accept.Reject) 
 table(d$why)
 
 # Now I try to extract info I want
