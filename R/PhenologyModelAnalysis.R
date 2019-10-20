@@ -843,7 +843,7 @@ plot.paramdiffs.2panel.manuscript(alphaRstar.stat.runs.df, alphaRstar.runs.df, "
     0.15, 1.3, 0.7,
     0.3, 0.9, 0.3, 1.1, 3.2,
     0.35, 0.6, 1.4,
-    "Ratio tracking", "Ratio R*", 0, 0.1)
+    "Ratio tracking", "Ratio R*", 0.05, 0.15)
 
 #################################
 ## Pull some of the R0 runs #####

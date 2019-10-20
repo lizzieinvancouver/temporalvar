@@ -200,7 +200,7 @@ ggplot(munuse, aes(x=doy, fill=when)) + geom_histogram(alpha=0.4, aes(y = ..dens
 munusesm <- subset(munuse, year<1919 | year>1979)
 nrow(subset(munusesm, when=="before 1980"))
 nrow(subset(munusesm, when=="after 1980"))
-munwhen <- ggplot(munusesm, aes(x=doy, fill=when)) + geom_density(alpha=0.4)    
+munwhen <- ggplot(munusesm, aes(x=doy, fill=when)) + geom_density(alpha=0.4) + labs(x = "Day of year")   
 }
 
 
@@ -236,7 +236,7 @@ summary(lm(doy~when, bosusesm))
 hist(bosusesm$doy, breaks=30)
 plot(density(bosusesm$doy))
 
-boswhen <- ggplot(bosusesm, aes(x=doy, fill=when)) + geom_density(alpha=0.4)
+boswhen <- ggplot(bosusesm, aes(x=doy, fill=when)) + geom_density(alpha=0.4) + labs(x = "Day of year")
 ggplot(bosusesm, aes(x=doy, fill=when)) + geom_histogram(alpha=0.4, aes(y = ..density..), position = 'identity')
 }
 
@@ -283,7 +283,7 @@ ggplot(butteuse, aes(x=snowdepth, fill=when)) + geom_histogram(alpha=0.4, aes(y 
 butteusesm <- subset(butteuse, year<1954 | year>1979)
 nrow(subset(butteusesm, when=="before 1980"))
 nrow(subset(butteusesm, when=="after 1980"))
-buttemaxsnow <- ggplot(butteusesm, aes(x=snowdepth, fill=when)) + geom_density(alpha=0.4)
+buttemaxsnow <- ggplot(butteusesm, aes(x=snowdepth, fill=when)) + geom_density(alpha=0.4) + labs(x = "Snow depth (mm)")
 ggplot(butteusesm, aes(x=mean, fill=when)) + geom_density(alpha=0.4)
 
 summary(lm(snowdepth~when, butteusesm))
@@ -335,7 +335,7 @@ ggplot(butteuse2, aes(x=doy, fill=when)) + geom_histogram(alpha=0.4, aes(y = ..d
 butteuse2sm <- subset(butteuse2, year<1951 | year>1979)
 nrow(subset(butteuse2sm, when=="before 1980"))
 nrow(subset(butteuse2sm, when=="after 1980"))
-buttewhen40yrs <- ggplot(butteuse2sm, aes(x=doy, fill=when)) + geom_density(alpha=0.4)
+buttewhen40yrs <- ggplot(butteuse2sm, aes(x=doy, fill=when)) + geom_density(alpha=0.4) + labs(x = "Day of year")
 
 summary(lm(doy~when, butteuse2sm))
 
