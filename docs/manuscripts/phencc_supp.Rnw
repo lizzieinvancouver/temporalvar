@@ -23,6 +23,7 @@
 \renewcommand{\thetable}{S\arabic{table}}
 \renewcommand{\thefigure}{S\arabic{figure}}
 
+
 \section{Literature review}
 We systematically reviewed the literature for studies examining tracking and other traits. We searched ISI in August 2019 for:
 \begin{enumerate}
@@ -31,31 +32,41 @@ We systematically reviewed the literature for studies examining tracking and oth
 \item Topic: `phenolog* track*' AND trait* and Title: phenolog*
 \item Topic: `phenolog* sensitiv*' AND trait* and Title: phenolog*
 \end{enumerate}
-which resulted in 231 papers (83\% of which were published in 2011 or later, see Fig. \ref{fig:papertrends}). From here we used the following criteria to determine from which papers we could not extract data: no phenology or phenological change measured (73 papers), no trait(s) measured or analyzed (49 papers), single-species studies focused on intra-specific variation (55 papers), modeling or theory studies without data (12 papers), or papers without new data presented (reviews, etc.: 4 papers), or miscellaneous reasons leading to no data relevant to our aims (7 papers). This left us with 30 papers including relevant data \citep{Suzuki:1997gf,Post1999,adrian2006,Xu:2009an,Goodenough2010,Diamond:2011nx,Moussus2011,Szilvia2012,Dorji2013,Ishioka2013,xia2013,Bock2014,kharouba2014,Vegvari2015,bell2015,jing2016,lasky2016,McDermott2016,Zhu2016BioLetters,brooks2017,du2017,munson2017,arfinkhan2018,zhang2018,Ladwig2019,park2019,sharma2019,Xavier2019,Zettlemoyer2019}, eight of which did not test for a relationship between tracking and the other studied traits \citep{Suzuki:1997gf,adrian2006,Xu:2009an,bell2015,McDermott2016,Sherwood2017,sharma2019,Xavier2019}. We present data from the remaining papers in Tables \ref{tab:meta1}-\ref{tab:meta2}. Most studies examined tracking as how a phenophase related to temperature (86\% of all tracking metrics), followed by precipitation (10\%, includes snow removal), followed by photoperiod (3\%), followed by the climate mode NAO (1\%) and water table depth (0.5\%). Four of the 30 studies examined more than one major climate metric, though some measured many versions of temperature and/or precipitation metrics \citep[e.g., 15 precipitation and/or temperature metrics considered in][]{munson2017}.
+which resulted in 231 papers (83\% of which were published in 2011 or later, see Fig. \ref{fig:papertrends}). From here we used the following criteria to determine from which papers we could not extract data: no phenology or phenological change measured (73 papers), no trait(s) measured or analyzed (49 papers), single-species studies focused on intra-specific variation (55 papers), modeling or theory studies without data (12 papers), or papers without new data presented (reviews, etc.: 4 papers), or miscellaneous reasons leading to no data relevant to our aims (7 papers). This left us with 30 papers including relevant data \citep{Suzuki:1997gf,Post1999,adrian2006,Xu:2009an,Goodenough2010,Diamond:2011nx,Moussus2011,Szilvia2012,Dorji2013,Ishioka2013,xia2013,Bock2014,kharouba2014,Vegvari2015,bell2015,jing2016,lasky2016,McDermott2016,Zhu2016BioLetters,brooks2017,du2017,munson2017,arfinkhan2018,zhang2018,Ladwig2019,park2019,sharma2019,Xavier2019,Zettlemoyer2019}, eight of which did not test for a relationship between tracking and the other studied traits \citep{Suzuki:1997gf,adrian2006,Xu:2009an,bell2015,McDermott2016,Sherwood2017,sharma2019,Xavier2019}. We present data from the remaining papers in Tables \ref{tab:meta1}-\ref{tab:meta2}. \\
+
+Most studies examined tracking as how a phenophase related to temperature (86\% of all tracking metrics), followed by precipitation (10\%, includes snow removal), followed by photoperiod (3\%), followed by the climate mode NAO (1\%) and water table depth (0.5\%). Four of the 30 studies examined more than one major climate metric, though some measured many versions of temperature and/or precipitation metrics \citep[e.g., 15 precipitation and/or temperature metrics considered in][]{munson2017}.
 
 % Could add why my review was not included (no tracking) and not including Brown review ... 
 % Average number of traits and phenophases in each study. It was a mode of one for both phenophases and traits ... 
 
 \newpage 
 \clearpage
-\section{Model runs}
+\section{Model}
 % \emph{Analyses}: 
 The two species coexistence model (Equations 1-6) includes both interannual variation in the environment and intra-annual resource competition.  The model was modified from Chesson et al 2004, which was originally conceptualized for annual plants with a seedbank.  Although the model can be conceived of more generally, we use the language of annual plant germination for concreteness.  \\
 
-In the model, the population census of seeds, $N$, occurs at time $t$ at the end of the growing season (Equation 1).  Seeds survive over winter at rate $s$ and are lost from the population at rate $(1-s)$.  Surviving seeds germinate at rate $g_{i}(\tau_p)$.  Seeds that do not germinate remain in the seed bank until the next census at $t+1$.  Germination rate is a Gaussian function that declines with the distance between $\tau_{i}$, the species-specific preferred germination time, and $\tau_{p}$, the timing of the resource pulse in year $t$, with maximum germination when $\tau_{i} = \tau_{p}$ (Equation 6, Figure 2a,b).  In cases that include tracking, the distance between $\tau_{i}$ and  $\tau_{p}$ can be reduced by tracking, $\alpha_{i}$, resulting in greater germination fraction (Equation 7). \\
+In the model, the population census of seeds, $N$, occurs at time $t$ at the end of the growing season (Equation 1).  Seeds survive over winter at rate $s$ and are lost from the population at rate $(1-s)$.  Surviving seeds germinate at rate $g_{i}(\tau_p)$.  Seeds that do not germinate remain in the seed bank until the next census at $t+1$.  Germination rate is a Gaussian function that declines with the distance between $\tau_{i}$, the species-specific preferred germination time, and $\tau_{p}$, the timing of the resource pulse in year $t$, with maximum germination when $\tau_{i} = \tau_{p}$ (Equation 6, Fig. \ref{fig:concept}a,b).  In cases that include tracking, the distance between $\tau_{i}$ and  $\tau_{p}$ can be reduced by tracking, $\alpha_{i}$, resulting in greater germination fraction (Equation 7). \\
 
-Germinating seeds are converted to seedling biomass at rate $b_{0}$ (Equation 4). Within year dynamics of the two species follows $R^{*}$ competition for a single resource.  The growing season begins with a single resource pule $R(0)$.  Both  species consume the resource at rate $f(R)$ (Equation 3), and the resource undergoes abiotic loss (e.g., evapotranspiration) at rate $\epsilon$ (Equation 5).  Differences in $R^{*}_{i}$ were generated by differences in conversion efficiency, $c_{i}$. Species were otherwise identical in resource update parameters ($a$, $u$, and $theta$) and in metabolic loss ($m$).  Biomass at the end of the season is converted into seeds at rate $\phi$, and the population of seeds in censused at $t+1$. \\
+Germinating seeds are converted to seedling biomass at rate $b_{0}$ (Equation 4). Within year dynamics of the two species follows $R^{*}$ competition for a single resource.  The growing season begins with a single resource pule $R(0)$.  Both  species consume the resource at rate $f(R)$ (Equation 3), and the resource undergoes abiotic loss (e.g., evapotranspiration) at rate $\epsilon$ (Equation 5).  Differences in $R^{*}_{i}$ were generated by differences in conversion efficiency, $c_{i}$. Species were otherwise identical in resource update parameters ($a$, $u$, and $\theta$) and in metabolic loss ($m$).  Biomass at the end of the season is converted into seeds at rate $\phi$, and the population of seeds in censused at $t+1$. \\
 
-Interannual variation occurs in both the timing and the amount of the resource pulse.  The timing of the resource pulse also varies from year to year and is given by $\tau_{p}(t)$, which is drawn from a beta distribution. The amount of resource available at the beginning of each season, $R0(t)$, varies from year to year and is drawn from a log-normal distribution.  Each model run is comprised of a 500 year stationary period and a 500 year nonstationary period.  During the stationary period, R0(t) and $\tau_{p}(t)$ are each drawn from a stationary distribution.  During the nonstationary period, the timing of the resource pulse, $\tau_{p}(t)$, gradually shifts earlier in the season (Figure S1).  For the model runs displayed in Figures 3 and 4, this shift in the timing of the resource pulse is the only change in the environment during the nonstationary period.  We also discuss model runs in which the amount of resource, R0(t), also declines during the nonstationary period (Figure S1).  \\   
+Interannual variation occurs in both the timing and the amount of the resource pulse.  The timing of the resource pulse also varies from year to year and is given by $\tau_{p}(t)$, which is drawn from a beta distribution. The amount of resource available at the beginning of each season, $R0(t)$, varies from year to year and is drawn from a log-normal distribution.  Each model run is comprised of a 500 year stationary period and a 500 year nonstationary period.  During the stationary period, R0(t) and $\tau_{p}(t)$ are each drawn from a stationary distribution.  During the nonstationary period, the timing of the resource pulse, $\tau_{p}(t)$, gradually shifts earlier in the season (Fig. \ref{fig:fig_Rt_tauPt}).  For the model runs displayed in Fig. \ref{fig:tauirstar}-{fig:alpharstar}, this shift in the timing of the resource pulse is the only change in the environment during the nonstationary period.  We also discuss model runs in which the amount of resource, $R0(t)$, also declines during the nonstationary period (Fig. \ref{fig:fig_Rt_tauPt}).  \\   
 
-The competitive dynamics were modeled by simulation.  At the beginning of each run, both species were initialized with a census size of $N(0) = 100$ per unit area and the environment ($R(0)$ and $\tau_{p}$) was generated for the stationary and nonstationary periods. Species-specific parameters ($c_{i}$,$\tau_{i}$, and $\alpha_{i}$ were drawn from uniform random distributions with the ranges given in Table S1.  ll other parameters were identical between species (Table S1).  Within-year $R^{*}$ competition dynamics were solved using an ode solver (\emph{ode} in the R package \emph{deSolve}), and ended when the resource was drawn down to $min(R^{*})$, the $R{*}$ value of the better resources competitor.  This end of season biomass was converted to seeds for census.  At each census, a minimum cutoff was applied to determine extinction from the model.\\
+The competitive dynamics were modeled by simulation.  At the beginning of each run, both species were initialized with a census size of $N(0) = 100$ per unit area and the environment ($R(0)$ and $\tau_{p}$) was generated for the stationary and nonstationary periods. Species-specific parameters ($c_{i}$,$\tau_{i}$, and $\alpha_{i}$ were drawn from uniform random distributions with the ranges given in Table \ref{tab:model}.  All other parameters were identical between species (Table \ref{tab:model}).  Within-year $R^{*}$ competition dynamics were solved using an ode solver (\verb|ode| in the R package \verb|deSolve|), and ended when the resource was drawn down to $min(R^{*})$, the $R{*}$ value of the better resources competitor.  This end of season biomass was converted to seeds for census.  At each census, a minimum cutoff was applied to determine extinction from the model.\\
 
 Note that ``coexistence'' in this model is defined by joint persistence through time and not by low density growth rate. 
+
+\section{References}
+\bibliography{/Users/Lizzie/Documents/git/bibtex/LizzieMainMinimal}
+\bibliographystyle{/Users/Lizzie/Documents/git/bibtex/styles/ecolett.bst}
+
+\clearpage
+\section{Tables \& figures}
+
 
 \begin{center}
 \begin{table}[h!]
 \caption{Table of parameter values, their definitions and lightweight version of their dimensions (i.e., not yet deemed `grams' or such).}
-\begin{tabular}{ | p{2.0cm} | p{4.0cm} | p{5.0cm} | p{4.0cm} |}
+\begin{tabular}{ | p{2.0cm} | p{3.5cm} | p{5.0cm} | p{4.0cm} |}
 \hline 
 Parameter & Value(s) & Definition & Unit \\ \hline 
 \(N_{i}\) & $N_{i}(0) = 100$ & census of seedbank of species \(i\) & seeds per unit area \\ \hline
@@ -84,24 +95,13 @@ Parameter & Value(s) & Definition & Unit \\ \hline
 \(\xi\) & & \(\frac{\text{final biomass}}{\text{initial biomass}}\) & unitless \\ \hline
 \hline
 \end{tabular}
+\label{tab:model}
 \end{table}
 \end{center}
-
-\section{References}
-\bibliography{/Users/Lizzie/Documents/git/bibtex/LizzieMainMinimal}
-\bibliographystyle{/Users/Lizzie/Documents/git/bibtex/styles/ecolett.bst}
-
 \clearpage
-\section{Tables \& figures}
 
-\begin{figure}[t!]
-\centering
-\includegraphics[width=1\textwidth]{..//..//R/graphs/otherdat/papersovertime.pdf}
-\caption{Trends in all papers using search terms over time. Of papers from which we could extract data all 25 of 30 were published in 2011 or onward.}
-  \label{fig:papertrends}
-\end{figure}
  
- \newpage
+\clearpage
 <<label=xtablez, echo=FALSE, results=tex>>=
 library(xtable)
 source("..//..//R/minimetanalyse.R")
@@ -109,6 +109,25 @@ source("..//..//R/minimetanalyse.R")
 print(xtable(traitz, caption = "Summary of traits related to phenological tracking in the literature and whether papers reported statistical evidence that they were linked or not. See Table S2 for an extended version.", label="tab:meta1"), include.rownames=FALSE, size="\\footnotesize", caption.placement="top")
 print(xtable(tableforpaper, caption = "Summary of results from literature on phenological tracking showing which phenophases researchers found were linked to which traits, or not.",  label="tab:meta2"), include.rownames=FALSE, size="\\footnotesize", caption.placement = "top")
 @
+
+
+\clearpage
+\begin{figure}[t!]
+\centering
+\includegraphics[width=1\textwidth]{..//..//R/graphs/otherdat/papersovertime.pdf}
+\caption{Trends in all papers using search terms over time. Of papers from which we could extract data all 25 of 30 were published in 2011 or onward.}
+  \label{fig:papertrends}
+\end{figure}
+
+
+ 
+\clearpage
+\begin{figure}[t!]
+\centering
+\includegraphics[width=1\textwidth]{..//..//R/graphs/modelruns/manuscript/modelsupp.pdf}
+\caption{How the environment shifts from the stationary period to the nonstationary period. The timing of the resource pulse shifts from $\tau_{p} \sim \beta(10,10)$ for the 500 year stationary period to $\tau_{p}$ ~ $\beta(5,15)$ over the 500 year nonstationary period.  For simulations where the amount of resource is also changing, $R(0)\sim logNormal(log(2), 2)$ during the 500 year stationary period and shifts to $R(0) \sim logNormal(log(2)/2,2)$ during the nonstationary period}
+\label{fig:fig_Rt_tauPt}
+\end{figure}
 
 
 \clearpage
@@ -129,10 +148,12 @@ print(xtable(tableforpaper, caption = "Summary of results from literature on phe
 
 \end{document}
 
-\clearpage
-\begin{figure}[t!]
-\centering
-<<label=fig_Rt_tauPt, echo=FALSE>>=
+
+
+
+% All in PhenologyModelFigSupp.R ... not sure why it would not work! Worked if you put it towards top of file. 
+ 
+<<label=modelfig, echo=FALSE, results=hide, fig=TRUE>>=
 library(RColorBrewer)
 nonsta <- c(500,500,0)
 nyrs <- sum(nonsta)
@@ -174,11 +195,6 @@ rect(500,0.75,1035,3.75,col='gainsboro', border=NA)
 points(seq(1,nyrs,1),R0,type="l",col="dark gray")
 points(seq(1,nyrs,1),R0,type="p",bty="o",pch=16,
        col=c(rep(brewer.pal(9,"Purples")[9],500),rep(rev(brewer.pal(9,"Purples")),length.out=500, each=56)))
+  
 @
-\caption{How the environment shifts from the stationary period to the nonstationary period. The timing of the resource pulse shifts from $\tau_{p} \sim \beta(10,10)$ for the 500 year stationary period to $\tau_{p}$ ~ $\beta(5,15)$ over the 500 year nonstationary period.  For simulations where the amount of resource is also changing, R(0)~logNormal(log(2), 2) during the 500 year stationary period and shifts to R(0)~logNormal(log(2)/2,2) during the nonstationary period}
-\label{fig:fig_Rt_tauPt}
-\end{figure}
-
-
-
 
