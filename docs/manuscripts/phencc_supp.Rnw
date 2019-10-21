@@ -61,8 +61,8 @@ Parameter & Value(s) & Definition & Unit \\ \hline
 \(N_{i}\) & $N_{i}(0) = 100$ & census of seedbank of species \(i\) & seeds per unit area \\ \hline
 \(s\) & 0.8 & survival of species \(i\) & unitless \\ \hline
 \(B_{i}\) & & biomass of species \(i\) & biomass \\ \hline
-\(R(0)\) & ~$logN(\mu=log(2), \sigma = 0.2)$ & annually varying initial value of resource at the beginning of the growing season & resource\\ \hline
-\(c_{i}\) & ~unif(8,20) & conversion efficiency of \(R\) to biomass of species \(i\) &  \(\frac{\text{biomass}}{\text{resource}}\) \\ \hline
+\(R(0)\) & $\sim logN(\mu=log(2), \sigma = 0.2)$ & annually varying initial value of resource at the beginning of the growing season & resource\\ \hline
+\(c_{i}\) & $\sim$Unif(8,20) & conversion efficiency of \(R\) to biomass of species \(i\) &  \(\frac{\text{biomass}}{\text{resource}}\) \\ \hline
 \(m\) & 0.05 & maintenance costs during growth season \(i\) & \(\text{days}^{-1}\) \\ \hline
 \(a\) & 20 & uptake increase as \(R\) increases for species \(i\) & \(\text{days}^{-1}\) \\ \hline
 \(u\) & 1 & inverse of max uptake for species \(i\) & \(\frac{(\text{days})(\text{biomass})}{\text{resource}}\) \\ \hline
@@ -72,8 +72,8 @@ Parameter & Value(s) & Definition & Unit \\ \hline
 \(g_{max}\) & 0.5 & max germination rate of species & unitless \\ \hline
 \(h\) & 100 &  controls the the rate at which germination declines as \(\tau_{p}\) deviates from optimum for species \(i\)  & \(\text{days}^{-2}\) \\ \hline
 \(g_{i}\) & Eqn 6 & germination rate & unitless \\ \hline
-\(\tau_{p}\) & ~$\beta(10,10)$ & timing of pulse & days \\ \hline
-\(\tau_{i}\) & ~Unif(0.1,0.9) & timing of max germination of species \(i\) & days \\ \hline
+\(\tau_{p}\) & $\sim \beta(10,10)$ & timing of pulse & days \\ \hline
+\(\tau_{i}\) & $\sim$ Unif(0.1,0.9) & timing of max germination of species \(i\) & days \\ \hline
 \(\alpha_{i}\) & & phenological tracking of species \(i\) & unitless \\ \hline
 \hline
 \(b_{0}\) & 1 & biomass of a seedling & \(\frac{\text{biomass}}{\text{seeds}}\) \\ \hline
@@ -175,7 +175,7 @@ points(seq(1,nyrs,1),R0,type="l",col="dark gray")
 points(seq(1,nyrs,1),R0,type="p",bty="o",pch=16,
        col=c(rep(brewer.pal(9,"Purples")[9],500),rep(rev(brewer.pal(9,"Purples")),length.out=500, each=56)))
 @
-\caption{How the environment shifts from the stationary period to the nonstationary period. The timing of the resource pulse shifts from $\tau_{p}$ ~ $\beta(10,10)$ for the 500 year stationary period to $\tau_{p}$ ~ $\beta(5,15)$ over the 500 year nonstationary period.  For simulations where the amount of resource is also changing, R(0)~logNormal(log(2), 2) during the 500 year stationary period and shifts to R(0)~logNormal(log(2)/2,2) during the nonstationary period}
+\caption{How the environment shifts from the stationary period to the nonstationary period. The timing of the resource pulse shifts from $\tau_{p} \sim \beta(10,10)$ for the 500 year stationary period to $\tau_{p}$ ~ $\beta(5,15)$ over the 500 year nonstationary period.  For simulations where the amount of resource is also changing, R(0)~logNormal(log(2), 2) during the 500 year stationary period and shifts to R(0)~logNormal(log(2)/2,2) during the nonstationary period}
 \label{fig:fig_Rt_tauPt}
 \end{figure}
 

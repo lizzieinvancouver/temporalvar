@@ -61,8 +61,8 @@ Parameter & Value(s) & Definition & Unit \\ \hline
 \(N_{i}\) & $N_{i}(0) = 100$ & census of seedbank of species \(i\) & seeds per unit area \\ \hline
 \(s\) & 0.8 & survival of species \(i\) & unitless \\ \hline
 \(B_{i}\) & & biomass of species \(i\) & biomass \\ \hline
-\(R(0)\) & ~$logN(\mu=log(2), \sigma = 0.2)$ & annually varying initial value of resource at the beginning of the growing season & resource\\ \hline
-\(c_{i}\) & ~unif(8,20) & conversion efficiency of \(R\) to biomass of species \(i\) &  \(\frac{\text{biomass}}{\text{resource}}\) \\ \hline
+\(R(0)\) & $\sim logN(\mu=log(2), \sigma = 0.2)$ & annually varying initial value of resource at the beginning of the growing season & resource\\ \hline
+\(c_{i}\) & $\sim$Unif(8,20) & conversion efficiency of \(R\) to biomass of species \(i\) &  \(\frac{\text{biomass}}{\text{resource}}\) \\ \hline
 \(m\) & 0.05 & maintenance costs during growth season \(i\) & \(\text{days}^{-1}\) \\ \hline
 \(a\) & 20 & uptake increase as \(R\) increases for species \(i\) & \(\text{days}^{-1}\) \\ \hline
 \(u\) & 1 & inverse of max uptake for species \(i\) & \(\frac{(\text{days})(\text{biomass})}{\text{resource}}\) \\ \hline
@@ -72,8 +72,8 @@ Parameter & Value(s) & Definition & Unit \\ \hline
 \(g_{max}\) & 0.5 & max germination rate of species & unitless \\ \hline
 \(h\) & 100 &  controls the the rate at which germination declines as \(\tau_{p}\) deviates from optimum for species \(i\)  & \(\text{days}^{-2}\) \\ \hline
 \(g_{i}\) & Eqn 6 & germination rate & unitless \\ \hline
-\(\tau_{p}\) & ~$\beta(10,10)$ & timing of pulse & days \\ \hline
-\(\tau_{i}\) & ~Unif(0.1,0.9) & timing of max germination of species \(i\) & days \\ \hline
+\(\tau_{p}\) & $\sim \beta(10,10)$ & timing of pulse & days \\ \hline
+\(\tau_{i}\) & $\sim$ Unif(0.1,0.9) & timing of max germination of species \(i\) & days \\ \hline
 \(\alpha_{i}\) & & phenological tracking of species \(i\) & unitless \\ \hline
 \hline
 \(b_{0}\) & 1 & biomass of a seedling & \(\frac{\text{biomass}}{\text{seeds}}\) \\ \hline
@@ -103,7 +103,7 @@ Parameter & Value(s) & Definition & Unit \\ \hline
  
  \newpage
 % latex table generated in R 3.5.1 by xtable 1.8-3 package
-% Sun Oct 20 21:24:05 2019
+% Mon Oct 21 09:23:12 2019
 \begin{table}[ht]
 \centering
 \caption{Summary of traits related to phenological tracking in the literature and whether papers reported statistical evidence that they were linked or not. See Table S2 for an extended version.} 
@@ -136,7 +136,7 @@ diet traits &   0 &   3 \\
 \end{tabular}
 \endgroup
 \end{table}% latex table generated in R 3.5.1 by xtable 1.8-3 package
-% Sun Oct 20 21:24:05 2019
+% Mon Oct 21 09:23:12 2019
 \begin{table}[ht]
 \centering
 \caption{Summary of results from literature on phenological tracking showing which phenophases researchers found were linked to which traits, or not.} 
