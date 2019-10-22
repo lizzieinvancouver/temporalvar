@@ -28,6 +28,14 @@ Limits ...
 maximum of 7500 words and 10 figures, tables or text boxes.
 The maximum number of words indicated above are for the main text only (excluding title page, abstract, acknowledgements, reference list, table/figure/box legends). 
 
+
+
+<><><><><><><><><><><><><><><><><><><>
+Before submitting:
+
+(*) Add Paul Caradonna maybe
+(*) Add data to KNB?
+
 <><><><><><><><><>><><><><><><><><><>
 Items to do!
 (*) Update the meta-analysis 

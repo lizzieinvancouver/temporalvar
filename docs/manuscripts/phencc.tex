@@ -65,7 +65,7 @@ Climate change is reshaping the environments of all species. Predicting how comm
 \noindent \emph{Keywords:} community assembly, global change, climate change, phenology, modern coexistence theory, environmental variability\\
 
 \newpage
-\linenumbers
+% \linenumbers % If you want to add need to add \begin{linenomath} and \end{linenomath} around all eqns (and check they still show up)
 
 \section{Main text}
 Anthropogenic climate change is causing widespread changes in species distributions, with many species shifting in both time and space \citep{IPCC:2014sm}. Reports often focus on species shifting to higher elevations and poleward \citep{Chen2011} and/or shifting their recurring life history events (phenology) earlier as climate warms \citep{Wolkovich:2012n,cohen2018}. Across species, however, there is high variability. A large proportion of species are not shifting at all \citep{Cook:2012pnas}, which has raised concerns about whether these species may be more vulnerable to population declines with continued warming. Such concerns come in part from increasing research that links how well species track climate change---especially through temporal shifts---to shifts in biomass, growth and other metrics related to performance \citep{Cleland:2012}. Tracking may then be a major component to understanding and predicting the indirect effects of climate change, including population declines, with cascading effects on community and ecosystem structure.
@@ -132,47 +132,36 @@ We use a simple model that includes dynamics at both the intra- and inter-annual
 The model includes a suite of species traits, including (and particularly relevant for our aims) traits controlling species response to the environment via germination each year and traits related to how species may bet-hedge across years (via a seedbank), as well as traits relating to resource competition each year. Within-season dynamics are controlled by resource competition resulting in fitness differences, while interannual variation in the environment provides opportunities for coexistence via fluctuation-dependent mechanisms (i.e., niche differences resulting from different germination functions). 
 
 Across years, for a community of \(n\) species, the seedbank ($N$) of species $i$ at time $t+1$ is determined by the survival ($s$) of seeds that did not germinate in last season ($1-g_{i}(t)$) plus new biomass ($B_i$) produced during the length of the growing season ($\delta$) converted to seeds at rate $\phi$:
-\begin{linenomath}
 \begin{align}
 N_{i}(t+1) & =
 s N_{i}(t)(1-g_{i}(t))+\phi B_{i}(t+\delta)
 \end{align}
-\end{linenomath}
 The production of new biomass each season follows a basic R* competition model: new biomass production depends on its resource uptake ($f(R)$ converted into biomass at rate $c_i$) less maintenance costs ($m$), with uptake controlled by $a$, $u$, and $\theta$:
-
-% Equations 2 and 3 aren't showing up in pdf
-\begin{linenomath}
 \begin{align}
 \frac{\mathrm{d}B_i}{\mathrm{d}t} & = c_{i}f(R) - m B_{i} \\
-f(R) & = \frac{a R^{\theta}{1+a uR^{\theta}
+f(R) & = \frac{a R^{\theta}}{1+a uR^{\theta}}
 \end{align}
 With the initial condition:
 \begin{align}
 B_{i}(t+0) & = N_{i}(t)g_{i}(t)b_{0}
 \end{align}
-\end{linenomath}
 where $b_{0}$ is the initial biomass per seed.
 
 The resource ($R$) itself declines across a growing season due to uptake by all species and abiotic loss ($\epsilon$):
-\begin{linenomath}
 \begin{align}
 \frac{\mathrm{d}R}{\mathrm{d}t} & = - \sum_{i=1}^{n}f_{i}(R)B_{i} -\epsilon R
 \end{align}
-\end{linenomath}
 Germination depends both on the traits of the species and on the environment that year. The fraction of seeds germinating for a species each year is determined by the distance between $\tau_i$, a species characteristic, and $\tau_P(t)$, an attribute of the environment, which varies year-to-year.  Germination fraction declines according to a Gaussian as the distance between $\tau_i$ and $\tau_P(t)$ grows (we refer to this distribution as the `germination curve').  
 %Need to add figure number!
-\begin{linenomath}
 \begin{align}
 g_{i}(t) & = g_{max}e^{-h(\tau_{p}(t)-\tau_{i})^2} 
 \end{align}
-\end{linenomath}
 
 The model is designed for multiple conceptualizations \citep{Chesson:2004eo}; given our focus here, we consider $\tau_P(t)$ to represent the environmental (abiotic) start of the growing season that varies from year-to-year and refer to it as the `environmental start time.'  $\tau_i$ represents the `intrinsic biological start time' for species $i$. How well matched a species is to its environment each year can be measured as $\tau_i$-$\tau_P(t)$, or the distance between the intrinsic (biological) start time and the environmental start time. 
 
 \noindent \emph{Adding phenological tracking to model:}\\
 Biological start time, $\tau_i$, can be considered a fixed characteristic of a species, but it may also respond to the environment dynamically through what we refer to as environmental tracking. Tracking ($\alpha$, which can vary between 0 to 1) decreases the distance between $\tau_i$ and $\tau_P(t)$, i.e., moving the intrinsic start time closer to the environmental start time in that year, resulting in a higher germination fraction (e.g., species B in Fig. \ref{fig:concept}b-c).
 
-\begin{linenomath}
 \begin{align*}
 \alpha_{i} & \in [0, 1]  
 \end{align*}
@@ -184,7 +173,6 @@ Biological start time, $\tau_i$, can be considered a fixed characteristic of a s
 \text{when } \alpha_{i} = 0, & \hat{\tau_{i}}=\tau_{i}\\
 \text{when }  \alpha_{i} = 1, & \hat{\tau_{i}}=\tau_{p}(t)
 \end{align*}
-\end{linenomath}
 We refer to $\hat{\tau_{i}}$ as `effective biological start time' for species $i$ (or `effective $\tau_i$'). 
 
 \noindent \emph{Simulations:}\\
@@ -275,7 +263,7 @@ Low power is widespread in ecology, where even `long' time-series may be far too
 
 \section{Box: Trait trade-offs with tracking}
 % Supp figure is still not showing -- comes up with ?? in Figure reference.
-Research on phenological tracking and traits has increased greatly in recent years, with a major uptick in studies after 2010 (see SI Fig. \ref{fig:papertrends}). Most papers examining tracking and other traits across species have focused on plants (20/29), followed by Lepidoptera (4/29), birds (3/29), plankton and aphids (both 1/29). The most studied trait was how early or late a phenophase occurred (e.g., date of flowering of start of migration for a species, termed `earlyness' by some authors), with earlier species tending to track more \citep[studies included both birds and Lepidotera,][]{Diamond:2011nx,Ishioka2013,kharouba2014,jing2016,du2017}. While this is an important link, it is vulnerable to statistical challenges (see Box `Statistical challenges in measuring tracking'). Few studies examined whether tracking correlates with resource acquisition traits; those that did generally found species with higher tracking also had traits associated with lower competitive abilities under low resources \citep[e.g., being shallower or lacking a taproot rooted][]{Dorji2013,lasky2016,Zhu2016BioLetters}. These species were often also early \citep[e.g.,][]{Dorji2013,Zhu2016BioLetters}, suggesting tracking may relate to a syndrome of traits that allow species to be rapid colonizers each season, but poor competitors for resources. Indeed, previous work has documented that species with earlier phenophases tend to have resource acquisition traits associated with lower competitive abilities \citep[e.g., they tend to be of lower height, have shallower roots, narrower diameter vessels, thinner leaves, and grow faster, reviewed in][]{wolkovich2014aob}. 
+Research on phenological tracking and traits has increased greatly in recent years, with a major uptick in studies after 2010 (see SI Fig. \ref{fig:papertrends}). Most papers examining tracking and other traits across species have focused on plants (20/30), followed by birds and Lepidoptera (both 4/30), plankton and aphids (both 1/30). The most studied trait was how early or late a phenophase occurred (e.g., date of flowering of start of migration for a species, termed `earlyness' by some authors), with earlier species tending to track more \citep[studies included both birds and Lepidotera,][]{Diamond:2011nx,Ishioka2013,kharouba2014,jing2016,du2017}. While this is an important link, it is vulnerable to statistical challenges (see Box `Statistical challenges in measuring tracking'). Few studies examined whether tracking correlates with resource acquisition traits; those that did generally found species with higher tracking also had traits associated with lower competitive abilities under low resources \citep[e.g., being shallower or lacking a taproot rooted][]{Dorji2013,lasky2016,Zhu2016BioLetters}. These species were often also early \citep[e.g.,][]{Dorji2013,Zhu2016BioLetters}, suggesting tracking may relate to a syndrome of traits that allow species to be rapid colonizers each season, but poor competitors for resources. Indeed, previous work has documented that species with earlier phenophases tend to have resource acquisition traits associated with lower competitive abilities \citep[e.g., they tend to be of lower height, have shallower roots, narrower diameter vessels, thinner leaves, and grow faster, reviewed in][]{wolkovich2014aob}. 
 % need to add Jing2016 to "studies included both birds and Lepidotera"
 
 %=======================================================================

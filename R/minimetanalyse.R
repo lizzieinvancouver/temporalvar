@@ -104,7 +104,7 @@ subset(d, why=="" & accept.reject_2=="" & why_3=="")
 ## Examine extracted data! ##
 #############################
 datall <- read.csv("minimeta/phentrack_meta.csv", header=TRUE)
-dat <- datall[1:209,]
+dat <- datall[1:210,1:32]
 dim(dat)
 
 length(unique(dat$paperID)) # 30 studies 
@@ -112,20 +112,21 @@ unique(dat$study_level) # safety-check
 
 ## clean up taxa
 table(dat$taxongroup_studied)
-subset(dat, taxongroup_studied=="") # ask Kelley
 dat$taxaclean <- dat$taxongroup_studied
 dat$taxaclean[grep("epidopter", dat$taxongroup_studied)] <- "Lepidoptera"
 dat$taxaclean[grep("grasses", dat$taxongroup_studied)] <- "plants"
 dat$taxaclean[grep("poaceae", dat$taxongroup_studied)] <- "plants"
 dat$taxaclean[grep("angiosperms", dat$taxongroup_studied)] <- "plants"
+dat$taxaclean[grep("warblers", dat$taxongroup_studied)] <- "passerine birds"
+
 table(dat$taxaclean)
 # Papers per taxa grouping... 
 plantshere <- subset(dat, taxaclean=="plants")
 unique(plantshere$paperID) # 20 papers!
 butterflies <- subset(dat, taxaclean=="Lepidoptera")
-unique(butterflies$paperID) # 5 papers
+unique(butterflies$paperID) # 4 papers
 birdz <- subset(dat, taxaclean=="passerine birds")
-unique(birdz$paperID) # 3 papers
+unique(birdz$paperID) # 4 papers
 aphidz <- subset(dat, taxaclean=="Aphidoidea")
 unique(aphidz$paperID) # 1 paper
 plankton <- subset(dat, taxaclean=="plankton")
@@ -149,7 +150,7 @@ unique(birdzlinked$paperID)
 unique(aphizlinked$paperID) # didnottry
 unique(planktonlinked$paperID) # didnottry
 
-# clean up phenophases: FIX MORE!
+# clean up phenophases
 table(dat$phenophase) 
 dat$phenophase.simple <- dat$phenophase
 dat$phenophase.simple[dat$phenophase=="10th percentile collection date"] <- "appearance/collection date"
@@ -158,6 +159,7 @@ dat$phenophase.simple[dat$phenophase=="first emergance date"] <- "appearance/col
 dat$phenophase.simple[dat$phenophase=="first appearance"] <- "appearance/collection date"
 dat$phenophase.simple[dat$phenophase=="flight season timing"] <- "flight timing"
 dat$phenophase.simple[dat$phenophase=="first flight"] <- "flight timing"
+dat$phenophase.simple[dat$phenophase=="spring passing"] <- "flight timing"
 
 dat$phenophase.simple[dat$phenophase=="leaf emergance"] <- "budbreak/leafing"
 dat$phenophase.simple[dat$phenophase=="leafout"] <- "budbreak/leafing"
@@ -183,7 +185,7 @@ dat$phenophase.simple[dat$phenophase=="flowering period"] <- "flowering length"
 dat$phenophase.simple[dat$phenophase=="flowering duration"] <- "flowering length"
 dat$phenophase.simple[dat$phenophase=="flowring duration"] <- "flowering length"
 dat$phenophase.simple[dat$phenophase=="lay date"] <- "breeding time"
-table(dat$phenophase.simple) # missing one is Adrian paper that I think we will not include (or at least does not try to link traits and tracking)
+table(dat$phenophase.simple)
 
 # clean up trackwhat ...
 table(dat$track_what) 
@@ -196,7 +198,7 @@ table(dat$trackwhat.simple)
 dat$trackwhat.simple[dat$paperID=="Munson2017"][1] <- "temperature"
 dat$trackwhat.simple[dat$paperID=="Munson2017"][2] <- "precipitation"
 table(dat$trackwhat.simple)
-100*(table(dat$trackwhat.simple)/209) # percents
+100*(table(dat$trackwhat.simple)/sum(table(dat$trackwhat.simple))) # percents
 
 # how many measured multiple climate metrics?
 multiclimmetrics1 <- aggregate(dat["track_what"], dat[c("paperID", "trackwhat.simple")], FUN=length)
