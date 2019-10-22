@@ -125,7 +125,7 @@ print(xtable(tableforpaper, caption = "Summary of results from literature on phe
 \begin{figure}[t!]
 \centering
 \includegraphics[width=1\textwidth]{..//..//R/graphs/modelruns/manuscript/modelsupp.pdf}
-\caption{How the environment shifts from the stationary period to the nonstationary period. The timing of the resource pulse shifts from $\tau_{p} \sim \beta(10,10)$ for the 500 year stationary period to $\tau_{p}$ ~ $\beta(5,15)$ over the 500 year nonstationary period.  For simulations where the amount of resource is also changing, $R(0)\sim logNormal(log(2), 2)$ during the 500 year stationary period and shifts to $R(0) \sim logNormal(log(2)/2,2)$ during the nonstationary period}
+\caption{How the environment shifts from the stationary period to the nonstationary period. The timing of the resource pulse shifts from $\tau_{p} \sim \beta(10,10)$ for the 500 year stationary period to $\tau_{p}$ \sim $\beta(5,15)$ over the 500 year nonstationary period.  For simulations where the amount of resource is also changing, $R(0)\sim logNormal(log(2), 2)$ during the 500 year stationary period and shifts to $R(0) \sim logNormal(log(2)/2,2)$ during the nonstationary period}
 \label{fig:fig_Rt_tauPt}
 \end{figure}
 
