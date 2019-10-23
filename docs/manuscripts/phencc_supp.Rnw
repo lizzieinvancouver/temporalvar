@@ -66,14 +66,14 @@ To simulate competitive dynamics, both species were initialized with a census si
 
 \begin{center}
 \begin{table}[h!]
-\caption{Table of parameter values, their definitions, and lightweight version of their dimensions (i.e., not yet deemed `grams' or such).}
+\caption{Table of parameter values, definitions, and units.}
 \begin{tabular}{ | p{2.0cm} | p{3.5cm} | p{5.0cm} | p{4.0cm} |}
 \hline 
 Parameter & Value(s) & Definition & Unit \\ \hline 
-\(N_{i}\) & $N_{i}(0) = 100$ & census of seedbank of species \(i\) & seeds per unit area \\ \hline
+\(N_{i}\) &$init cond N_{i}(0) = 100; \n min(N_{i}(t)) = 10^{-4}$ & census of seedbank of species \(i\) & seeds per unit area \\ \hline
 \(s\) & 0.8 & survival of species \(i\) & unitless \\ \hline
 \(B_{i}\) & cf. Eqn 2 & biomass of species \(i\) & biomass \\ \hline
-\(R(0)\) & $\sim logN(\mu=log(2), \sigma = 0.2)$ & annually varying initial value of resource at the beginning of the growing season & resource\\ \hline
+\(R_0\) & $\sim logN(\mu, \sigma)\n mu=log(2),\sigma = 0.2 $ & annually varying initial value of resource at the beginning of the growing season & resource\\ \hline
 \(c_{i}\) & $\sim$Unif(8,20) & conversion efficiency of \(R\) to biomass of species \(i\) &  \(\frac{\text{biomass}}{\text{resource}}\) \\ \hline
 \(m\) & 0.05 & maintenance costs during growth season \(i\) & \(\text{days}^{-1}\) \\ \hline
 \(a\) & 20 & uptake increase as \(R\) increases for species \(i\) & \(\text{days}^{-1}\) \\ \hline
@@ -83,7 +83,7 @@ Parameter & Value(s) & Definition & Unit \\ \hline
 \(\epsilon\) & 1 & abiotic loss of \(R\) &  \(\text{days}^{-1}\) \\ \hline
 \(g_{max}\) & 0.5 & max germination rate of species & unitless \\ \hline
 \(h\) & 100 &  controls the the rate at which germination declines as \(\tau_{p}\) deviates from optimum for species \(i\)  & \(\text{days}^{-2}\) \\ \hline
-\(g_{i}\) & Eqn 6 & germination rate & unitless \\ \hline
+\(g_{i}\) & cf. Eqn 6 & germination rate & unitless \\ \hline
 \(\tau_{p}\) & $\sim \beta(10,10)$ & timing of pulse & days \\ \hline
 \(\tau_{i}\) & $\sim$ Unif(0.1,0.9) & timing of max germination of species \(i\) & days \\ \hline
 \(\alpha_{i}\) & $\sim$ Unif(0,1) & phenological tracking of species \(i\) & unitless \\ \hline
@@ -92,7 +92,7 @@ Parameter & Value(s) & Definition & Unit \\ \hline
 \(f(R)\) & cf. Eqn 3& resource uptake rate for species \(i\) & \(\frac{\text{resource}}{(\text{days})(\text{biomass})}\)\\ \hline
  \hline
 \(t\) & 1 & annual timestep & years \\ \hline
-\(0\) $\rightarrow$ \(\delta\) & variable & within season time, depends on rate of resource drawdown in that season & days \\ \hline
+\(0\) $\rightarrow$ \(\delta\) & determined by rate of resource depletion & time during the growing season & days \\ \hline
 \hline
 \end{tabular}
 \label{tab:model}
