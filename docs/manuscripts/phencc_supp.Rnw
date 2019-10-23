@@ -70,7 +70,7 @@ To simulate competitive dynamics, both species were initialized with a census si
 \begin{tabular}{ | p{2.0cm} | p{3.5cm} | p{5.0cm} | p{4.0cm} |}
 \hline 
 Parameter & Value(s) & Definition & Unit \\ \hline 
-\(N_{i}\) &$init cond N_{i}(0) = 100; \n min(N_{i}(t)) = 10^{-4}$ & census of seedbank of species \(i\) & seeds per unit area \\ \hline
+\(N_{i}\) & init cond $N_{i}(0) = 100; \n min(N_{i}(t)) = 10^{-4}$ & census of seedbank of species \(i\) & seeds per unit area \\ \hline
 \(s\) & 0.8 & survival of species \(i\) & unitless \\ \hline
 \(B_{i}\) & cf. Eqn 2 & biomass of species \(i\) & biomass \\ \hline
 \(R_0\) & $\sim logN(\mu, \sigma)\n mu=log(2),\sigma = 0.2 $ & annually varying initial value of resource at the beginning of the growing season & resource\\ \hline
