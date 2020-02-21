@@ -4,16 +4,27 @@ on a ferry to Saturna!
 
 
 <><><><><><><><><><><><><><><><><><>
+<> Based on lit review we address... <> 
+<><><><><><><><><><><><><><><><><><>
+- How do we predict which species should track?
+- Given there is variation across species in tracking and a directional change in the environment, what are the ecological consequences (especially given a trade-off in tracking and competition)?
+
+
+<><><><><><><><><><><><><><><><><><>
 <> Refs to get, based on reviews <> 
 <><><><><><><><><><><><><><><><><><>
-- Chmura et al. 2019 (or 2018?)
-- Chevin, Lande, Ghalambor and others
-- Block et al 2019. Oikos
-- Yang & Cencer 2019 Ecology (cannot find)
-- Carter et al 2018 Ecol Letters
-- Steer et al 2019 Methods E&E
+- Chmura et al. 2019 -- Lizzie has
+- Chevin, Lande, Ghalambor and others (Lizzie has Chevin et al. 2020: Adaptation, Plasticity, and Extinction in a Changing Environment: Towards a Predictive Theory; Ghalamabor et al, 2007: Adaptive versus non-adaptive phenotypic plasticity and the potential for contemporary adaptation in new environments)
+- Block et al 2019. Oikos (Lizzie has) 
+- Yang & Cenzer 2019 Ecology (Lizzie has) 
+- Carter et al 2018 Ecol Letters (Lizzie has, meh) 
+- Steer et al 2019 Methods E&E (Lizzie has)
 - 'Other phenology models' such as Nakazawa & Doi 2012 (HAVE: A perspective on match/mismatch of phenology in community contexts), Revilla et al 2014 (HAVE: (A bit) Earlier or later is always better: Phenological shifts in consumer–resource interactions) etc. Even Wolkovich & Cleland
 
+
+Megan ...
+Nakazawa & Doi 2012
+Something relevant by Lande?
 
 
 <><><><><><><><><><><><><><><><><><><><><><>
