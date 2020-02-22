@@ -1,6 +1,29 @@
 Started 6 April 2018
-Updated 19 August 2019
-on a ferry to Saturna!
+Updated 21 February 2020 (Twiggs in North Park)
+
+
+<><><><><><><><><><><><><><><><><><><><><><><>
+<> What to do next, if you're named Lizzie <> 
+<><><><><><><><><><><><><><><><><><><><><><><>
+Think on ... lots of studies link early to tracking -- this could highlight a fundamental trade-off that early things track (and do everything quick) while later things bet-hedge more and invest longer .... but could also be an artifact. (BOX) Or the late ones just competitive, and the early things are ruderal says Megan. 
+
+
+(1) Put the model in a box -- top panels of Fig S2 and Figure 4 (tracking x R*) '
+(2) Move the model equations and maybe a little text into supplement (and save extra text)
+(3) Re-do the text! 
+(4) Write a response letter
+
+Send Megan where I get by end of this weekend (24 Feb) 
+
+
+<><><><><><><><><><><><><><><><><><><><><><>
+<> What to do next, if you're named Megan <> 
+<><><><><><><><><><><><><><><><><><><><><><>
+
+Figure drafts: 27 Feb
+
+(1) Make new conceptual figure of when and how much
+(2) Make new conceptual figure of priority effects vs. bet-hedging
 
 
 <><><><><><><><><><><><><><><><><><>
@@ -27,23 +50,6 @@ Nakazawa & Doi 2012
 Something relevant by Lande?
 
 
-<><><><><><><><><><><><><><><><><><><><><><>
-<> What to do next, if you're named Megan <> 
-<><><><><><><><><><><><><><><><><><><><><><>
-
-(1) Supp!
-- Where did parameter values come from?
-- Explain how we did the simulations
-- Coexistence versus persistence (maybe?)
-- Please review Geoff's comments! He did a nice job of pointing out missing details. 
-
-
-
-
-<><><><><><><><><><><><><><><><><><><><><><><>
-<> What to do next, if you're named Lizzie <> 
-<><><><><><><><><><><><><><><><><><><><><><><>
-Think on ... lots of studies link early to tracking -- this could highlight a fundamental trade-off that early things track (and do everything quick) while later things bet-hedge more and invest longer .... but could also be an artifact. (BOX) Or the late ones just competitive, and the early things are ruderal says Megan. 
 
 
 <><><><><><><><><><><><><><><><><><>

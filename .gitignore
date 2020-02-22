@@ -2,6 +2,10 @@
 R/output/
 notposting/
 temporalvar/ModelRuns/
+refs/
+figures/photos/
+whiteboard/
+docs/manuscripts/phencc/comments/
 
 ###R files to ignore
 *.RData
@@ -14,6 +18,15 @@ temporalvar/ModelRuns/
 *.log
 *.synctex.gz
 *.toc
+*.docx
+*.doc
+
+### some misc files to ignore
+docs/notes/2019May5_Megan.jpg
+docs/manuscripts/test.tex
+docs/manuscripts/test.pdf
+refs_fromJD.pdf
+docs/notes/2020JanFeb_RevisionChatsMegan.txt
 
 #################
 ## Eclipse
