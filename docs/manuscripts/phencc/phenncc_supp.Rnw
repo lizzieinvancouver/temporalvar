@@ -41,7 +41,7 @@ Most studies examined tracking as how a phenophase related to temperature (85\% 
 
 \newpage 
 \clearpage
-\section{Model}
+\section{Model} % Need work! Need to condense and remove ALL reference to runs without tracking (tauI runs)
 We used a simple including within- and between-year dynamics to contribute to coexistence. The model includes a suite of species traits, including (and particularly relevant for our aims) traits controlling species response to the environment via germination each year and traits related to how species may bet-hedge across years (via a seedbank), as well as traits relating to resource competition each year. Within-season dynamics are controlled by resource competition resulting in fitness differences, while interannual variation in the environment provides opportunities for coexistence via fluctuation-dependent mechanisms (i.e., niche differences resulting from different germination functions). 
 
 Across years, for a community of \(n\) species, the seedbank ($N$) of species $i$ at time $t+1$ is determined by the survival ($s$) of seeds that did not germinate in last season ($1-g_{i}(t)$) plus new biomass ($B_i$) produced during the length of the growing season ($\delta$) converted to seeds at rate $\phi$:
@@ -172,33 +172,22 @@ print(xtable(tableforpaper, caption = "Summary of results from literature on phe
 \label{fig:concept}
 \end{figure}
 
-%% Figure reference to the supplement isn't working in the caption for Figure 3 or 4!
+\iffalse % tauI figures commented out just now
 \begin{figure}[t!]
 \centering
 \includegraphics[width=0.9\textwidth]{..//..//..//R/graphs/modelruns/manuscript/tauIPrstart1_2panel.pdf}
 \caption{How non-stationarity reshapes two-species communities in a simple model where effective start time (X axis: species 1/species 2) trades off with $R^*$ (Y axis: species 1/species 2): each point represents one two-species community color-coded by whether both species persisted or one or more species was extirpated through 500 years of a stationary environment (top), followed by an additional 500 years of non-stationary environment (bottom), where the abiotic start of the season shifts earlier. Only two-species communities that persisted through the stationary period are shown in the bottom panel. See Fig. \ref{fig:tauirstarsupp} for an alternative version of this figure detailing one-species outcomes.}
  \label{fig:tauirstar}
 \end{figure}
-
-
-\label{fig:concept}
-\end{figure}
-%% Figure reference to the supplement isn't working in the caption for Figure 3 or 4!
-\begin{figure}[t!]
-\centering
-\includegraphics[width=0.9\textwidth]{..//..//..//R/graphs/modelruns/manuscript/tauIPrstart1_2panel.pdf}
-\caption{How non-stationarity reshapes two-species communities in a simple model where effective start time (X axis: species 1/species 2) trades off with $R^*$ (Y axis: species 1/species 2): each point represents one two-species community color-coded by whether both species persisted or one or more species was extirpated through 500 years of a stationary environment (top), followed by an additional 500 years of non-stationary environment (bottom), where the abiotic start of the season shifts earlier. Only two-species communities that persisted through the stationary period are shown in the bottom panel. See Fig. \ref{fig:tauirstarsupp} for an alternative version of this figure detailing one-species outcomes.}
- \label{fig:tauirstar}
-\end{figure}
-
 \clearpage
+
 \begin{figure}[t!]
 \centering
 \includegraphics[width=0.9\textwidth]{..//..//..//R/graphs/modelruns/manuscript/tauIPrstart1.pdf}
 \caption{How non-stationarity reshapes two-species communities in a simple model where effective start time (X axis: species 1/species 2) trades off with $R^*$ (Y axis: species 1/species 2): each point represents one two-species community that persisted through 500 years of stationary dynamics while the shape and color represent the outcome for that two-species community of 500 years of non-stationarity, where the abiotic start of the season shifts earlier.}
  \label{fig:tauirstarsupp}
 \end{figure}
-
+\fi
 
 \begin{figure}[t!]
 \centering
