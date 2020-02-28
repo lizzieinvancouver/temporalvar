@@ -12,7 +12,61 @@
 ## housekeeping
 rm(list=ls()) 
 options(stringsAsFactors = FALSE)
-setwd("~/Documents/git/projects/temporalvar/R")
+#setwd("~/Documents/git/projects/temporalvar/R")
+setwd(paste0(getwd(),"/R"))
+
+
+#Set up calculations for Panels A = Germination v DOY  & B Germination v Year for germination model
+tauP.alpha = 5
+tauP.beta = 15
+yrs <- seq(1,100,1)
+
+## SpA is non-tracking; spB is tracking
+taui.A <- 0.58
+taui.B <- 0.7
+tauP.t <- rbeta(length(yrs), tauP.alpha, tauP.beta)
+spcol <- list(spA =c("darkorange"),spB=c("dodgerblue"))
+
+## tauP in STA and NS; and two draws
+doy.max <- 120
+doy <- seq(0, doy.max, 1)
+x <- doy/doy.max
+tauP <- dbeta(x, tauP.alpha,tauP.beta)
+tauP.col <- c("chartreuse3")
+
+##germination for sp A and B
+gmax <- 0.5
+h <- 100
+#germination conditional on tauP=x
+g.A.cond <- gmax*exp(-h*(x - taui.A)^2)
+g.B.cond <- gmax*exp(-h*(x - taui.B)^2)
+
+#marginal germination = (germination|tauP=X) times P(tauP)
+g.A <- g.A.cond*tauP
+g.B <- g.B.cond*tauP
+
+
+#time series of germination within a year (t=1)
+g.A.doy <- g.A*(x==tauP.t[1])                          
+g.B.doy <- g.B*(x==tauP.t[1])
+g.A.cum <- cumsum(g.A.doy)
+g.B.cum <- cumsum(g.B.doy)
+
+
+#time series of germination between years (t=1:100)
+g.A.yr <- g.A[x==tauP.t]
+
+###PICK UP HERE:  NEED TO FIND AWAY TO LOOKUP VALUES OF g.A such tath the series g.A.yr[t=1] is 
+#   g.A[tauP==tauP.t]
+#for tauP.t[1], find index of tauP s.t. tauP[index-1]<tauP.t[1] AND tauP[index]>= tauP.t[1]
+#g.A[index] is the germibation in t==1
+
+## PLOT ONE:  Plot the ideal tauP distributions ...
+function f1(key,arr,index){
+  #return index of array arr that is closest in value to key
+  for (i in seq(1,length(a)))
+}
+
 
 #Set up for six panels 
 pdf("graphs/conceptual/PriorityEff_BetHedge.pdf", width=6, height=9)
@@ -21,31 +75,7 @@ def.par <- par(no.readonly = TRUE) # save default, for resetting...
 #layout.show(nf)
 par(mfrow=c(3,1), oma = c(2, 0, 0, 0))
 
-## SpA is non-tracking; spB is tracking
-taui.A <- 0.58
-taui.B <- 0.7
-tauP <- c(0.6,0.3)
-spcol <- list(spA =c("darkorange"),spB=c("dodgerblue"))
 
-## tauP in STA and NS; and two draws
-x <- seq(0, 1, length = 10000)
-tauP <- dbeta(x, 10, 10)
-tauP <- dbeta(x, 5, 15)
-tauPcol <- c("chartreuse3")
-
-##germination for sp A and B
-gmax <- 0.5
-h <- 100
-#germination given tauP
-g.A <- gmax*exp(-h*(x -taui.A)^2)
-g.B <- gmax*exp(-h*(x -taui.B)^2)
-
-#germination times P(tauP)
-g.A.doy <- g.A*tauP
-g.B.doy <- g.B*tauP
-
-####PICKUP HERE
-## PLOT ONE:  Plot the ideal tauP distributions ...
 
 lwdhere <- 2.5
 par(mar=c(0,4,0,0),mgp=c(1.5,1,0))
