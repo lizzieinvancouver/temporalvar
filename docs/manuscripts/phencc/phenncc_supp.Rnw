@@ -41,10 +41,57 @@ Most studies examined tracking as how a phenophase related to temperature (85\% 
 
 \newpage 
 \clearpage
-\section{Model}
-% \emph{Analyses}:
-% Equations 3-5 weren't generated in the main text last pdf, so I couldn't check that these Equation numbers were correct, but they should be. 
-The two species coexistence model (see Equations 1-6 in main text) includes both interannual variation in the environment and intra-annual resource competition.  The model was modified from \citet{Chesson:2004eo}, which was originally conceptualized for annual plants with a seedbank.  Although the model can be conceived of more generally, we use the language of annual plant germination for concreteness.  \\
+\section{Model} % Need work! Need to condense and remove ALL reference to runs without tracking (tauI runs)
+We used a simple including within- and between-year dynamics to contribute to coexistence. The model includes a suite of species traits, including (and particularly relevant for our aims) traits controlling species response to the environment via germination each year and traits related to how species may bet-hedge across years (via a seedbank), as well as traits relating to resource competition each year. Within-season dynamics are controlled by resource competition resulting in fitness differences, while interannual variation in the environment provides opportunities for coexistence via fluctuation-dependent mechanisms (i.e., niche differences resulting from different germination functions). 
+
+Across years, for a community of \(n\) species, the seedbank ($N$) of species $i$ at time $t+1$ is determined by the survival ($s$) of seeds that did not germinate in last season ($1-g_{i}(t)$) plus new biomass ($B_i$) produced during the length of the growing season ($\delta$) converted to seeds at rate $\phi$:
+\begin{align}
+N_{i}(t+1) & =
+s N_{i}(t)(1-g_{i}(t))+\phi B_{i}(t+\delta)
+\end{align}
+The production of new biomass each season follows a basic R* competition model: new biomass production depends on its resource uptake ($f(R)$ converted into biomass at rate $c_i$) less maintenance costs ($m$), with uptake controlled by $a$, $u$, and $\theta$:
+\begin{align}
+\frac{\mathrm{d}B_i}{\mathrm{d}t} & = c_{i}f(R) - m B_{i} \\
+f(R) & = \frac{a R^{\theta}}{1+a uR^{\theta}}
+\end{align}
+With the initial condition:
+\begin{align}
+B_{i}(t+0) & = N_{i}(t)g_{i}(t)b_{0}
+\end{align}
+where $b_{0}$ is the initial biomass per seed.
+
+The resource ($R$) itself declines across a growing season due to uptake by all species and abiotic loss ($\epsilon$):
+\begin{align}
+\frac{\mathrm{d}R}{\mathrm{d}t} & = - \sum_{i=1}^{n}f_{i}(R)B_{i} -\epsilon R
+\end{align}
+Germination depends both on the traits of the species and on the environment that year. The fraction of seeds germinating for a species each year is determined by the distance between $\tau_i$, a species characteristic, and $\tau_p(t)$, an attribute of the environment, which varies year-to-year.  Germination fraction declines according to a Gaussian as the distance between $\tau_i$ and $\tau_p(t)$ grows (we refer to this distribution as the `germination curve').  
+%Need to add figure number!
+\begin{align}
+g_{i}(t) & = g_{max}e^{-h(\tau_{p}(t)-\tau_{i})^2} 
+\end{align}
+
+The model is designed for multiple conceptualizations \citep{Chesson:2004eo}; given our focus here, we consider $\tau_p(t)$ to represent the environmental (abiotic) start of the growing season that varies from year-to-year and refer to it as the `environmental start time.'  $\tau_i$ represents the `intrinsic biological start time' for species $i$. How well matched a species is to its environment each year can be measured as $\tau_i$-$\tau_p(t)$, or the distance between the intrinsic (biological) start time and the environmental start time. 
+
+\noindent \emph{Adding phenological tracking to model:}\\
+Biological start time, $\tau_i$, can be considered a fixed characteristic of a species, but it may also respond to the environment dynamically through what we refer to as environmental tracking. Tracking ($\alpha$, which can vary between 0 to 1) decreases the distance between $\tau_i$ and $\tau_p(t)$, i.e., moving the intrinsic start time closer to the environmental start time in that year, resulting in a higher germination fraction (e.g., species B in Fig. \ref{fig:concept}b-c).
+
+\begin{align*}
+\alpha_{i} & \in [0, 1]  
+\end{align*}
+\begin{align}
+\hat{\tau_{i}} & = \alpha_{i} \tau_{p}(t) + (1-\alpha_{i})\tau_{i}
+\end{align}
+\noindent Thus, 
+\begin{align*}
+\text{when } \alpha_{i} = 0, & \hat{\tau_{i}}=\tau_{i}\\
+\text{when }  \alpha_{i} = 1, & \hat{\tau_{i}}=\tau_{p}(t)
+\end{align*}
+We refer to $\hat{\tau_{i}}$ as `effective biological start time' for species $i$ (or `effective $\tau_i$'). 
+
+\noindent \emph{Simulations:}\\
+Using this model framework, we simulated a suite of two-species communities in stationary and non-stationary environments and examined persistence. As our interest is primarily in the role of environmental tracking, we focus on situations where species vary in their match to the environment through both a fixed response ($\tau_i$) or tracking ($\alpha$) and, thus, examined simulations with only non-trackers and simulations where all species had some level of tracking. We also varied species' resource use efficiency (via $c_i$), yielding species with different $R^*$ (where a lower $R^*$ means a species can draw the resource down to a lower level and is thus considered the superior competitor). We focused on resource competition as it has been often linked to environmental tracking (see Box `Trait trade-offs with tracking'). Each simulation was composed of two sequential parts: first, a 500-year stationary period where the underlying distribution of the environment does not change (but is stochastic, yielding year-to-year variation) followed by a 500-year non-stationary period where the underlying distribution of the environment shifts to an earlier start of season. Thus, only species that persisted through the first stationary period continued into the non-stationary period (see Supporting Information, SI, for more details).  % we created two-species communities in a variable but stationary environment and then shifted the environment to an earlier start of season over 500 years (Fig. \ref {fig:concept}a; see Supp for more details).
+
+The two species coexistence model (see Equations 1-6 above) includes both interannual variation in the environment and intra-annual resource competition.  The model was modified from \citet{Chesson:2004eo}, which was originally conceptualized for annual plants with a seedbank.  Although the model can be conceived of more generally, we use the language of annual plant germination for concreteness.  \\
 
 In the model, the population census of seeds, $N$, occurs at time $t$ at the end of the growing season (Equation 1).  Seeds survive over winter at rate $s$ and are lost from the population at rate $(1-s)$.  Surviving seeds germinate at rate $g_{i}(t)$.  Seeds that do not germinate remain in the seed bank until the next census at $t+1$.  Germination rate is a Gaussian function that declines with the distance between $\tau_{i}$, the species-specific preferred germination time, and $\tau_{p}(t)$, the timing of the resource pulse in year $t$, with maximum germination when $\tau_{i} = \tau_{p}(t)$ (Equation 6, Fig. \ref{fig:concept}a,b).  In cases that include tracking, the distance between $\tau_{i}$ and  $\tau_{p(t)}$ can be reduced by tracking, $\alpha_{i}$, resulting in greater germination fraction (Equation 7). \\
 
@@ -53,8 +100,6 @@ Germinating seeds are converted to seedling biomass at rate $b_{0}$ (Equation 4)
 Interannual variation occurs in both the timing and the amount of the resource pulse.  The timing of the resource pulse varies from year to year and is given by $\tau_{p}(t)$, which is drawn from a $\beta$ distribution. The amount of resource available at the beginning of each season, $R_0(t)$, varies from year to year and is drawn from a log-normal distribution.  Each model run is comprised of a 500 year stationary period and a 500 year nonstationary period.  During the stationary period, $R_0(t)$ and $\tau_{p}(t)$ are each drawn from a stationary distribution.  During the nonstationary period, the timing of the resource pulse, $\tau_{p}(t)$, gradually shifts earlier in the season (Fig. \ref{fig:fig_Rt_tauPt}).  For the model runs displayed in Fig. \ref{fig:tauirstar} and Fig. \ref{fig:alpharstar}, this shift in the timing of the resource pulse is the only change in the environment during the nonstationary period.  We also discuss model runs in which the amount of resource, $R_0(t)$,  declines during the nonstationary period along with the shift in timing, $\tau_{p}(t)$ (Fig. \ref{fig:fig_Rt_tauPt}).  \\   
 
 To simulate competitive dynamics, both species were initialized with a census size of $N(0) = 100$ per unit area, and the temporally varying parameters $R_0(t)$ and $\tau_{p}(t)$ were generated for the stationary and nonstationary periods. Species-specific parameters ($c_{i}$,$\tau_{i}$, and $\alpha_{i}$) were drawn from uniform random distributions with the ranges given in Table \ref{tab:model}.  All other parameters were identical between species (Table \ref{tab:model}).  Within-year $R^{*}$ competition dynamics were solved using an ode solver (\verb|ode| in the R package \verb|deSolve|) and ended when the resource was drawn down to $min(R^{*})$, i.e., the $R^{*}$ value of the better resource competitor.  The end of season biomass of each species was converted to seeds, and the populations were censused.  At each census, a minimum cutoff was applied to define extinction from the model.  Note that ``coexistence'' in this model is defined by joint persistence through time and not by low density growth rate. \\
-
-
 
 \section{References}
 \bibliography{/Users/Lizzie/Documents/git/bibtex/LizzieMainMinimal}
@@ -104,7 +149,7 @@ Parameter & Value(s) & Definition & Unit \\ \hline
 \clearpage
 <<label=xtablez, echo=FALSE, results=tex>>=
 library(xtable)
-source("..//..//R/minimetanalyse.R")
+source("..//..//..//R/minimetanalyse.R")
 
 print(xtable(traitz, caption = "Summary of traits related to phenological tracking in the literature and whether papers reported statistical evidence that they were linked or not. See Table S2 for an extended version.", label="tab:meta1"), include.rownames=FALSE, size="\\footnotesize", caption.placement="top")
 print(xtable(tableforpaper, caption = "Summary of results from literature on phenological tracking showing which phenophases researchers found were linked to which traits, or not.",  label="tab:meta2"), include.rownames=FALSE, size="\\footnotesize", caption.placement = "top")
@@ -114,34 +159,39 @@ print(xtable(tableforpaper, caption = "Summary of results from literature on phe
 \clearpage
 \begin{figure}[t!]
 \centering
-\includegraphics[width=1\textwidth]{..//..//R/graphs/otherdat/papersovertime.pdf}
+\includegraphics[width=1\textwidth]{..//..//..//R/graphs/otherdat/papersovertime.pdf}
 \caption{Trends in all papers using search terms over time. Of papers from which we could extract data all 25 of 30 were published in 2011 or onward.}
   \label{fig:papertrends}
 \end{figure}
 
-
- 
-\clearpage
 \begin{figure}[t!]
 \centering
-\includegraphics[width=1\textwidth]{..//..//R/graphs/modelruns/manuscript/modelsupp.pdf}
-\caption{How the environment shifts from the stationary period to the nonstationary period. The timing of the resource pulse shifts from $\tau_{p} \sim \beta(10,10)$ for the 500 year stationary period to $\tau_{p}$ \sim $\beta(5,15)$ over the 500 year nonstationary period.  For simulations where the amount of resource is also changing, $R(0)\sim logNormal(log(2), 2))$ during the 500 year stationary period and shifts to $R(0) \sim logNormal(log(2)/2,2)$ during the nonstationary period.}
-\label{fig:fig_Rt_tauPt}
+\includegraphics[width=0.65\textwidth]{..//..//..//R/graphs/conceptual/TauP_GerminationAdj.png} 
+\caption{The distributions of the environment (a) and species' germination for two sample years (b-c) in our seed germination model. (a) The timing of the resource pulse ($\tau_p(t)$), which defines the environmental start of season, is $\beta$-distributed with parameters $\beta(10,10)$ during the stationary period (dark green) shifting to $\beta (5,15)$ through the nonstationary period (light green). (b) Realized germination rate as a function of $\tau_p(t)$ for two species during the stationary period: the orange line is a non-tracking species A with preferred germination time, $\tau_{iA}$, that is close to the mean of the stationary period; the blue lines show the difference in realized germination rate of a tracking species with a preferred germination time, $\tau_{iB}$, that is further from the mean of the stationary period both without (light blue) and with (dark blue) the effect of tracking; note the shift from $\tau_{iB}$ to $\hat{\tau_{iB}}$. (c) Realized germination rate of species A and species B at the end of the nonstationary period. Note the change in axes from (b) to (c) shows the decline in overall germination rate as the environment moves away from the preferred germination time of both species.} % I'm not sure that "realized germiantion" is the best phrase, but it is the germination rate given tauP times the prob of tauP under that STA or NST period.  So it it he realized germination rate for each species given the environment.  
+% If, in a particular year, $\tau_i$ is close to $\tau_p$, a large fraction of species $i$ seeds will germinate (e.g., Fig. \ref{fig:concept}b) ; if $\tau_i$ is far from $\tau_p$, a small fraction of the seeds will germinate.  Figure \ref{fig:concept} b-c illustrate the germination rate of two species with different $\tau_i$ values under two different environments.   
+\label{fig:concept}
 \end{figure}
 
-
-\clearpage
+\iffalse % tauI figures commented out just now
 \begin{figure}[t!]
 \centering
-\includegraphics[width=0.9\textwidth]{..//..//R/graphs/modelruns/manuscript/tauIPrstart1.pdf}
+\includegraphics[width=0.9\textwidth]{..//..//..//R/graphs/modelruns/manuscript/tauIPrstart1_2panel.pdf}
+\caption{How non-stationarity reshapes two-species communities in a simple model where effective start time (X axis: species 1/species 2) trades off with $R^*$ (Y axis: species 1/species 2): each point represents one two-species community color-coded by whether both species persisted or one or more species was extirpated through 500 years of a stationary environment (top), followed by an additional 500 years of non-stationary environment (bottom), where the abiotic start of the season shifts earlier. Only two-species communities that persisted through the stationary period are shown in the bottom panel. See Fig. \ref{fig:tauirstarsupp} for an alternative version of this figure detailing one-species outcomes.}
+ \label{fig:tauirstar}
+\end{figure}
+\clearpage
+
+\begin{figure}[t!]
+\centering
+\includegraphics[width=0.9\textwidth]{..//..//..//R/graphs/modelruns/manuscript/tauIPrstart1.pdf}
 \caption{How non-stationarity reshapes two-species communities in a simple model where effective start time (X axis: species 1/species 2) trades off with $R^*$ (Y axis: species 1/species 2): each point represents one two-species community that persisted through 500 years of stationary dynamics while the shape and color represent the outcome for that two-species community of 500 years of non-stationarity, where the abiotic start of the season shifts earlier.}
  \label{fig:tauirstarsupp}
 \end{figure}
-
+\fi
 
 \begin{figure}[t!]
 \centering
-\includegraphics[width=0.9\textwidth]{..//..//R/graphs/modelruns/manuscript/alpharstar.pdf}
+\includegraphics[width=0.9\textwidth]{..//..//..//R/graphs/modelruns/manuscript/alpharstar.pdf}
 \caption{How non-stationarity reshapes two-species communities in a simple model where tracking (X axis: species 1/species 2) trades off with $R^*$ (Y axis: species 1/species 2): each point represents one two-species community that persisted through 500 years of stationary dynamics while the shape and color represent the outcome for that two-species community of 500 years of non-stationarity, where the abiotic start of the season shifts earlier.}
 \label{fig:alpharstarsupp}
 \end{figure}

@@ -11,7 +11,8 @@ Think on ... lots of studies link early to tracking -- this could highlight a fu
 (1) Put the model in a box -- top panels of Fig S2 and Figure 4 (tracking x R*) '
 (2) Move the model equations and maybe a little text into supplement (and save extra text)
 (3) Re-do the text! 
-(4) Write a response letter
+(4) Add time-series to figure 1 and consider adding all long time-series in other papers...
+(5) Write a response letter
 
 Send Megan where I get by end of this weekend (24 Feb) 
 
