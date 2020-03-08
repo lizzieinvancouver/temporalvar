@@ -14,7 +14,12 @@ Think on ... lots of studies link early to tracking -- this could highlight a fu
 (4) Add time-series to figure 1 and consider adding all long time-series in other papers...
 (5) Write a response letter
 
-Send Megan where I get by end of this weekend (24 Feb) 
+(*) Don't contrast OC versus bet-hedging/plasticity. Life-history constraints would determine how much you use plasticity versus bet-hedging. [But Megan will try to make these edits.]
+(*) Make clearer break before sentence 'As tracking often relates to the timing of a resource pulse ...' -> SHIFT to new section on multi-species and have subsection of that which is models. 
+(*) Cue quality is a measure of how closely the time of an event predicted by cue(s) and the ideal time of an event (somewhat: fundamental tracking aligns environmental tracking). We should introduce this here: "Many of these models define the environment as a resource (e.g., many seed germination models that begin with a resource pulse each year), and thus generally model something close to fundamental tracking." And try to introduce our model 
+(*) Future directions: How is the environment changing? Is somewhat about ecologists should pay attention to climate modelers ... but here we should focus more on how environmental change filters through to organisms. More on *how the organism's environment is changing.*
+(*) Modeling section -- species produce differentially depending on the environment (not invest, invest suggests a decision).
+(*) Add Fukami ref and Bonamour ref and Dore refs (ISI)
 
 
 <><><><><><><><><><><><><><><><><><><><><><>
@@ -25,6 +30,7 @@ Figure drafts: 27 Feb
 
 (1) Make new conceptual figure of when and how much
 (2) Make new conceptual figure of priority effects vs. bet-hedging
+(3) Read Fukami annual review and correct anything on priority effects
 
 
 <><><><><><><><><><><><><><><><><><>
