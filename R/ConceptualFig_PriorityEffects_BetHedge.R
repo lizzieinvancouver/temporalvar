@@ -62,11 +62,19 @@ g.A.yr <- g.A[x==tauP.t]
 #g.A[index] is the germibation in t==1
 
 ## PLOT ONE:  Plot the ideal tauP distributions ...
+## Percent Germination versus Day of YEAR
+## include tau I distributions above plot
+
 function f1(key,arr,index){
   #return index of array arr that is closest in value to key
   for (i in seq(1,length(a)))
 }
 
+
+##PLOT TWO
+##  %of population germination vw YEAR
+##left panel has no year to year variation in percent of poulation that germinates
+##righ panel has year to year variation in % population that germinates
 
 #Set up for six panels 
 pdf("graphs/conceptual/PriorityEff_BetHedge.pdf", width=6, height=9)
