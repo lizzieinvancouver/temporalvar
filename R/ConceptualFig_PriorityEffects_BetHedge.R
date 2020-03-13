@@ -45,16 +45,17 @@ g.B.cond <- gmax*exp(-h*(x - taui.B)^2)
 g.A <- g.A.cond*tauP
 g.B <- g.B.cond*tauP
 
-
 #time series of germination within a year (t=1)
 g.A.doy <- g.A*(x==tauP.t[1])                          
 g.B.doy <- g.B*(x==tauP.t[1])
 g.A.cum <- cumsum(g.A.doy)
 g.B.cum <- cumsum(g.B.doy)
 
-
 #time series of germination between years (t=1:100)
-g.A.yr <- g.A[x==tauP.t]
+#get g.A for t=1; i.e. get index for x when x~=tauP.t[t], then get g.A at that index
+g.A.yr <- g.A[length(x[x<tauP.t[1]])]
+g.B.yr <- g.B[length(x[x<tauP.t[1]])]
+
 
 ###PICK UP HERE:  NEED TO FIND AWAY TO LOOKUP VALUES OF g.A such tath the series g.A.yr[t=1] is 
 #   g.A[tauP==tauP.t]
@@ -65,9 +66,11 @@ g.A.yr <- g.A[x==tauP.t]
 ## Percent Germination versus Day of YEAR
 ## include tau I distributions above plot
 
-function f1(key,arr,index){
-  #return index of array arr that is closest in value to key
-  for (i in seq(1,length(a)))
+function f1(key,z1,z2){
+  #two arrays of values (z1,z2).  For a value in z1, find the key [index, then use] #return index of ordered array that is closest in value to key
+  length(key[key<])
+    
+  }
 }
 
 
