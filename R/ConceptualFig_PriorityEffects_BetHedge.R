@@ -74,7 +74,6 @@ g.B.yr <- lookup.germ(tauP.t,x,g.B)
 par(mar=c(2,2,2,2))
 yup <- max(c(g.A.doy,g.B.doy))*1.2
 plot(doy,g.A.doy, type="l", lwd=2, lty=3,col=spcol$spA,
-#     ylab = "germination fraction", xlab="day of year",
      axes=FALSE,ylim=c(-0.05,yup+.05))
  axis(1,at=c(0,doy.max),pos=-0.001,labels=FALSE,lty=1,lwd.ticks=0)
  axis(2,at=c(0,yup),pos=0,labels=FALSE,lwd.ticks=0)
@@ -98,6 +97,8 @@ points(doy,g.A/max(g.A)*.05+yup*1.005,type="l",col=spcol$spA, lwd=1)
 points(doy,g.B/max(g.B)*.05+yup*1.005,type="l",col=spcol$spB, lwd=1)
 points(d-1,g.A[d-1]/max(g.A)*.05+yup*1.005,pch=8,col=spcol$spA,cex=0.5)
 points(d-1,g.B[d-1]/max(g.B)*.05+yup*1.005,pch=8,col=spcol$spB,cex=0.5)
+mtext("germination fraction", side=2, line=0)
+mtext("day of year",side=1,line=0)
 
 
 #Middle Right Panel:  Germ Frac v year
