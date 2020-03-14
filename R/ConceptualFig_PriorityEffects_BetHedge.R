@@ -19,43 +19,91 @@ setwd(paste0(getwd(),"/R"))
 #Set up calculations for Panels A = Germination v DOY  & B Germination v Year for germination model
 tauP.alpha = 5
 tauP.beta = 15
-yrs <- seq(1,100,1)
-
-## SpA is non-tracking; spB is tracking
-taui.A <- 0.58
-taui.B <- 0.7
 tauP.t <- rbeta(length(yrs), tauP.alpha, tauP.beta)
-spcol <- list(spA =c("darkorange"),spB=c("dodgerblue"))
+yrs <- seq(1,100,1)
 
 ## tauP in STA and NS; and two draws
 doy.max <- 120
 doy <- seq(0, doy.max, 1)
 x <- doy/doy.max
 tauP <- dbeta(x, tauP.alpha,tauP.beta)
-tauP.col <- c("chartreuse3")
+tauPcol <- "chartreuse3"
 
 ##germination for sp A and B
+taui.A <- 0.22
+taui.B <- 0.35
+spcol <- list(spA =c("darkorange"),spB=c("dodgerblue"))
 gmax <- 0.5
 h <- 100
-#germination conditional on tauP=x
+
+#germination distribution --> germination} tauP=x 
 g.A.cond <- gmax*exp(-h*(x - taui.A)^2)
 g.B.cond <- gmax*exp(-h*(x - taui.B)^2)
 
-#marginal germination = (germination|tauP=X) times P(tauP)
+#marginal germination = (germination|tauP=X) * P(tauP)
+#Expected germination distribution
 g.A <- g.A.cond*tauP
 g.B <- g.B.cond*tauP
 
 #time series of germination within a year (t=1)
-g.A.doy <- g.A*(x==tauP.t[1])                          
-g.B.doy <- g.B*(x==tauP.t[1])
+#germination v time -->  all germination happens on one day, but the amount depends on tauP - tauI
+#need a sequence of zeros with germination on, say, day 20
+
+t=5 #germation year ot plot
+d=20 #day germination happens
+g.A.doy <- c(rep(0,d-1), gmax*exp(-h*(tauP.t[t] - taui.A)^2),rep(0,length(doy)-d))                         
+g.B.doy <- c(rep(0,d-1), gmax*exp(-h*(tauP.t[t] - taui.B)^2),rep(0,length(doy)-d)) 
 g.A.cum <- cumsum(g.A.doy)
 g.B.cum <- cumsum(g.B.doy)
 
 #time series of germination between years (t=1:100)
-#get g.A for t=1; i.e. get index for x when x~=tauP.t[t], then get g.A at that index
-g.A.yr <- g.A[length(x[x<tauP.t[1]])]
-g.B.yr <- g.B[length(x[x<tauP.t[1]])]
+lookup.germ <- function(tauPx,x,g){
+  #for an array of values of x in the tauP distribution, look up the germination rate and return array
+  #x is index for g (i.e., germination at x)
+  #tauPx and x are defined ont he same range (in this case, 0,1) but may be different length arrays
+  ret = NULL
+  for (i in seq(1,length(tauPx))){
+    ret <- c(ret,g[length(x[x<tauPx[i]])])
+  }
+  return(ret)
+}
+g.A.yr <- lookup.germ(tauP.t,x,g.A)
+g.B.yr <- lookup.germ(tauP.t,x,g.B)
 
+#Top Right Panel: Germ Frac & Cumulative v DOY 
+par(mar=c(2,2,2,2))
+yup <- max(c(g.A.doy,g.B.doy))*1.2
+plot(doy,g.A.doy, type="l", lwd=2, lty=3,col=spcol$spA,
+#     ylab = "germination fraction", xlab="day of year",
+     axes=FALSE,ylim=c(-0.05,yup+.05))
+ axis(1,at=c(0,doy.max),pos=-0.001,labels=FALSE,lty=1,lwd.ticks=0)
+ axis(2,at=c(0,yup),pos=0,labels=FALSE,lwd.ticks=0)
+ axis(3,at=c(0,doy.max),pos=yup,labels=FALSE,lty=1,lwd.ticks=0)
+ axis(4,at=c(0.001,yup),pos=doy.max,labels=FALSE,lty=1,lwd.ticks=0)
+ 
+points(doy,g.A.cum, type="l",lwd=2, lty=1, col=spcol$spA,ylab = "germination fraction", xlab="day of year")
+points(doy[d],g.A.doy[d],type="p",pch=19,col=spcol$spA)
+points(doy,g.B.doy, type="l", lty=3,lwd=2,col=spcol$spB,)
+points(doy,g.B.cum, type="l",lty=1, lwd=2,col=spcol$spB)
+points(doy[d],g.B.doy[d],type="p",pch=19,col=spcol$spB)
+legend(x=80,y=yup*.75,
+       legend=c("sp A daily","sp B daily","sp A cumulative","sp cumulative"),
+       col=c(spcol$spA,spcol$spB,spcol$spA,spcol$spB), lty=c(3,3,1,1), lwd=c(2,2,2,2),
+       pch=c(19,19,NA,NA),bty="n",cex=0.8)
+##Add tauP v doy to bottom of panel
+points(doy,-tauP/max(tauP)*.05,type="l",col=tauPcol, lwd=1,bty="n")
+points(d-1,-tauP[d-1]/max(tauP)*.05,pch=8,col=tauPcol,cex=0.5)
+##Add tauI v doy above top of panel
+points(doy,g.A/max(g.A)*.05+yup*1.005,type="l",col=spcol$spA, lwd=1)
+points(doy,g.B/max(g.B)*.05+yup*1.005,type="l",col=spcol$spB, lwd=1)
+points(d-1,g.A[d-1]/max(g.A)*.05+yup*1.005,pch=8,col=spcol$spA,cex=0.5)
+points(d-1,g.B[d-1]/max(g.B)*.05+yup*1.005,pch=8,col=spcol$spB,cex=0.5)
+
+
+#Middle Right Panel:  Germ Frac v year
+plot(yrs,g.A.yr,type="b",pch=20, col=spcol$spA,ylab = "germination fraction", xlab="year")
+points(yrs,g.B.yr,type="b",pch=20, col=spcol$spB)
+legend("topright",legend=c("sp A", "sp B"),col=c(spcol$spA,spcol$spB),lty=1,pch=19,bty="n")
 
 ###PICK UP HERE:  NEED TO FIND AWAY TO LOOKUP VALUES OF g.A such tath the series g.A.yr[t=1] is 
 #   g.A[tauP==tauP.t]
@@ -66,12 +114,7 @@ g.B.yr <- g.B[length(x[x<tauP.t[1]])]
 ## Percent Germination versus Day of YEAR
 ## include tau I distributions above plot
 
-function f1(key,z1,z2){
-  #two arrays of values (z1,z2).  For a value in z1, find the key [index, then use] #return index of ordered array that is closest in value to key
-  length(key[key<])
-    
-  }
-}
+
 
 
 ##PLOT TWO
