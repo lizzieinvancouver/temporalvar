@@ -2,12 +2,15 @@
 ## By Megan ##
 
 ## Working on plot to compare the difference between priority effects and interannual variation in germination##
-##Six Panel Plot (3 rows, 2 cols):
-# Left column:  Priority Effects
-#Right column:  Interannual Variation
-# Top row:  %new germinants v Day of Year
-#Second row:  % of population tat has germinated vs Year
-#Third row:  Priroity effects within year (left panel) and interannual veriation in germiantion (right panel) 
+##Four Panel Plot (2 rows, 2 cols):
+# Left column:  Interannual Variation
+# Right column:  Priority Effects
+# Top row:   germination v Day of Year
+#Second row:  germination by year
+
+##QUESTION:  do we want a synthesis plot, showing interannual variation in germination +
+###           priority effects within year
+
 
 ## housekeeping
 rm(list=ls()) 
@@ -39,6 +42,12 @@ h <- 100
 #germination distribution --> germination} tauP=x 
 g.A.cond <- gmax*exp(-h*(x - taui.A)^2)
 g.B.cond <- gmax*exp(-h*(x - taui.B)^2)
+
+#priority effects -> normalize annual germination to 1
+g.A.priority <-g.A.cond
+g.B.priority <- g.B.cond
+g.A.priority.cum <- cumsum(g.A.priority)/sum(g.A.priority)
+g.B.priority.cum <- cumsum(g.B.priority)/sum(g.B.priority)
 
 #marginal germination = (germination|tauP=X) * P(tauP)
 #Expected germination distribution
@@ -80,7 +89,7 @@ plot(doy,g.A.doy, type="l", lwd=2, lty=3,col=spcol$spA,
  axis(3,at=c(0,doy.max),pos=yup,labels=FALSE,lty=1,lwd.ticks=0)
  axis(4,at=c(0.001,yup),pos=doy.max,labels=FALSE,lty=1,lwd.ticks=0)
  
-points(doy,g.A.cum, type="l",lwd=2, lty=1, col=spcol$spA,ylab = "germination fraction", xlab="day of year")
+points(doy,g.A.cum, type="l",lwd=2, lty=1, col=spcol$spA,ylab = "germination", xlab="day of year")
 points(doy[d],g.A.doy[d],type="p",pch=19,col=spcol$spA)
 points(doy,g.B.doy, type="l", lty=3,lwd=2,col=spcol$spB,)
 points(doy,g.B.cum, type="l",lty=1, lwd=2,col=spcol$spB)
@@ -89,39 +98,66 @@ legend(x=80,y=yup*.75,
        legend=c("sp A daily","sp B daily","sp A cumulative","sp cumulative"),
        col=c(spcol$spA,spcol$spB,spcol$spA,spcol$spB), lty=c(3,3,1,1), lwd=c(2,2,2,2),
        pch=c(19,19,NA,NA),bty="n",cex=0.8)
-##Add tauP v doy to bottom of panel
-points(doy,-tauP/max(tauP)*.05,type="l",col=tauPcol, lwd=1,bty="n")
-points(d-1,-tauP[d-1]/max(tauP)*.05,pch=8,col=tauPcol,cex=0.5)
-##Add tauI v doy above top of panel
-points(doy,g.A/max(g.A)*.05+yup*1.005,type="l",col=spcol$spA, lwd=1)
-points(doy,g.B/max(g.B)*.05+yup*1.005,type="l",col=spcol$spB, lwd=1)
-points(d-1,g.A[d-1]/max(g.A)*.05+yup*1.005,pch=8,col=spcol$spA,cex=0.5)
-points(d-1,g.B[d-1]/max(g.B)*.05+yup*1.005,pch=8,col=spcol$spB,cex=0.5)
-mtext("germination fraction", side=2, line=0)
+##Add tauP v doy to top of panel
+points(doy,tauP/max(tauP)*.05+yup*1.005,type="l",col=tauPcol, lwd=1,bty="n")
+arrows(x0=d-1, x1=d-1,y0=yup*1.005,y1=tauP[d-1]/max(tauP)*.05+yup*1.005,length=.075,col=tauPcol,cex=0.5)
+##Add tauI v doy to bottom of panel
+points(doy,-g.A/max(g.A)*.05,type="l",col=spcol$spA, lwd=1)
+points(doy,-g.B/max(g.B)*.05,type="l",col=spcol$spB, lwd=1)
+points(d-1,-g.A[d-1]/max(g.A)*.05,pch=8,col=spcol$spA,cex=0.5)
+points(d-1,-g.B[d-1]/max(g.B)*.05,pch=8,col=spcol$spB,cex=0.5)
+mtext("germination", side=2, line=0)
 mtext("day of year",side=1,line=0)
 
 
 #Middle Right Panel:  Germ Frac v year
-plot(yrs,g.A.yr,type="b",pch=20, col=spcol$spA,ylab = "germination fraction", xlab="year")
+par(mar=c(2,2,2,2))
+yup <- max(c(g.A.yr,g.B.yr))*1.05
+plot(yrs,g.A.yr,type="b",pch=20, col=spcol$spA,
+     axes=FALSE, ylim=c(0,yup+.3))
 points(yrs,g.B.yr,type="b",pch=20, col=spcol$spB)
-legend("topright",legend=c("sp A", "sp B"),col=c(spcol$spA,spcol$spB),lty=1,pch=19,bty="n")
+#legend("topright",legend=c("sp A", "sp B"),col=c(spcol$spA,spcol$spB),lty=1,pch=19,bty="n")
+axis(1,at=c(0,max(yrs)),pos=-0.01,labels=FALSE,lty=1,lwd.ticks=0)
+axis(2,at=c(0,yup),pos=0,labels=FALSE,lwd.ticks=0)
+axis(3,at=c(0,max(yrs)),pos=yup,labels=FALSE,lty=1,lwd.ticks=0)
+axis(4,at=c(-0.01,yup),pos=max(yrs),labels=FALSE,lty=1,lwd.ticks=0)
+#plot tauP.t above axis
+##Add tauP v y to top of panel
+points(yrs,tauP.t/max(tauP.t)*.25+yup*1.005,pch=19,cex=0.5,col=tauPcol)
+points(yrs,tauP.t/max(tauP.t)*.25+yup*1.005,type="l",col=tauPcol,lty=1, lwd=1)
+mtext("germination",side=2,line=0)
+mtext("year",side=1,line=0)
 
-###PICK UP HERE:  NEED TO FIND AWAY TO LOOKUP VALUES OF g.A such tath the series g.A.yr[t=1] is 
-#   g.A[tauP==tauP.t]
-#for tauP.t[1], find index of tauP s.t. tauP[index-1]<tauP.t[1] AND tauP[index]>= tauP.t[1]
-#g.A[index] is the germibation in t==1
+#PANEL for Priority Effect v doy
+par(mar=c(2,2,2,2))
+yup <- max(c(g.A.priority.cum))*1.05
+plot(doy,g.A.priority,type="l",pch=20, lty=3,lwd=2,col=spcol$spA, ylim=c(0,yup),
+     axes=FALSE)
+points(doy,g.B.priority,type="l",lty=3, lwd=2,col=spcol$spB)
+points(doy,g.A.priority.cum,type="l",lty=1,lwd=2,pch=20, col=spcol$spA)
+points(doy,g.B.priority.cum,type="l",lty=1,lwd=2,pch=20, col=spcol$spB)
 
-## PLOT ONE:  Plot the ideal tauP distributions ...
-## Percent Germination versus Day of YEAR
-## include tau I distributions above plot
+axis(1,at=c(0,doy.max),pos=0,labels=FALSE,lty=1,lwd.ticks=0)
+axis(2,at=c(0,yup),pos=0,labels=FALSE,lwd.ticks=0)
+axis(3,at=c(0,doy.max),pos=yup-.001,labels=FALSE,lty=1,lwd.ticks=0)
+axis(4,at=c(0,yup),pos=doy.max,labels=FALSE,lty=1,lwd.ticks=0)
+mtext("day of year",side=1,line=0)
+mtext("germination fractions",side=2,line=0)
+mtext("total germination",side=4,line=0)
 
-
-
-
-##PLOT TWO
-##  %of population germination vw YEAR
-##left panel has no year to year variation in percent of poulation that germinates
-##righ panel has year to year variation in % population that germinates
+#PANEL for Priority Effectv Year
+par(mar=c(2,2,2,2))
+yup <- max(c(g.A.priority.cum))*1.05
+plot(yrs,rep(max(g.A.priority.cum),length(yrs)),type="l",pch=20, lty=1,lwd=2,col=spcol$spA, ylim=c(0,yup),
+     axes=FALSE)
+points(yrs,rep(max(g.B.priority.cum-.005),length(yrs)),type="l",pch=20, lty=1,lwd=2,col=spcol$spB)
+axis(1,at=c(0,max(yrs)),pos=0,labels=FALSE,lty=1,lwd.ticks=0)
+axis(2,at=c(0,yup),pos=0,labels=FALSE,lwd.ticks=0)
+axis(3,at=c(0,max(yrs)),pos=yup-.001,labels=FALSE,lty=1,lwd.ticks=0)
+axis(4,at=c(0,yup),pos=max(yrs),labels=FALSE,lty=1,lwd.ticks=0)
+mtext("year",side=1,line=0)
+mtext("germination fractions",side=2,line=0)
+mtext("total germination",side=4,line=0)
 
 #Set up for six panels 
 pdf("graphs/conceptual/PriorityEff_BetHedge.pdf", width=6, height=9)
