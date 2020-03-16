@@ -82,25 +82,26 @@ g.B.yr <- lookup.germ(tauP.t,x,g.B)
 pdf("graphs/conceptual/PriorityEff_BetHedge.pdf", width=8, height=6)
 def.par <- par(no.readonly = TRUE) # save default, for resetting...
 nf<-layout(matrix(c(1,2,3,4),2,2,byrow=TRUE))
-layout.show(nf)
+#layout.show(nf)
 par(mfrow=c(2,2), oma = c(2, 0, 0, 0))
 
 #Top Right Panel: Germ Frac & Cumulative v DOY 
 par(mar=c(2,2,2,2))
 yup <- max(c(g.A.doy,g.B.doy))*1.2
-plot(doy,g.A.doy, type="l", lwd=2, lty=3,col=spcol$spA,
+plot(doy,g.A.doy, type="l", lwd=3, lty=3,col=spcol$spA,
      axes=FALSE,ylim=c(-0.05,yup+.05))
  axis(1,at=c(0,doy.max),pos=-0.001,labels=FALSE,lty=1,lwd.ticks=0)
  axis(2,at=c(0,yup),pos=0,labels=FALSE,lwd.ticks=0)
  axis(3,at=c(0,doy.max),pos=yup,labels=FALSE,lty=1,lwd.ticks=0)
  axis(4,at=c(0.001,yup),pos=doy.max,labels=FALSE,lty=1,lwd.ticks=0)
  
-points(doy,g.A.cum, type="l",lwd=2, lty=1, col=spcol$spA,ylab = "germination", xlab="day of year")
+points(doy,g.A.cum, type="l",lwd=2, lty=1, col=spcol$spA,
+       ylab = "germination", xlab="day of year")
 points(doy[d],g.A.doy[d],type="p",pch=20,col=spcol$spA)
-points(doy,g.B.doy, type="l", lty=3,lwd=2,col=spcol$spB,)
+points(doy,g.B.doy, type="l", lty=3,lwd=3,col=spcol$spB,)
 points(doy,g.B.cum, type="l",lty=1, lwd=2,col=spcol$spB)
 points(doy[d],g.B.doy[d],type="p",pch=20,col=spcol$spB)
-legend(x=75,y=yup*.65,
+legend(x=65,y=yup*.65,
        legend=c("sp A daily","sp B daily","sp A cum.","sp cum."),
        col=c(spcol$spA,spcol$spB,spcol$spA,spcol$spB), lty=c(3,3,1,1), lwd=c(2,2,2,2),
        pch=c(20,20,NA,NA),bty="n",cex=0.8)
@@ -136,9 +137,9 @@ mtext("year",side=1,line=0)
 #PANEL for Priority Effect v doy
 par(mar=c(2,2,2,2))
 yup <- max(c(g.A.priority.cum))*1.05
-plot(doy,g.A.priority,type="l",pch=20, lty=3,lwd=2,col=spcol$spA, ylim=c(0,yup),
+plot(doy,g.A.priority,type="l",pch=20, lty=3,lwd=3,col=spcol$spA, ylim=c(0,yup),
      axes=FALSE)
-points(doy,g.B.priority,type="l",lty=3, lwd=2,col=spcol$spB)
+points(doy,g.B.priority,type="l",lty=3, lwd=3,col=spcol$spB)
 points(doy,g.A.priority.cum,type="l",lty=1,lwd=2,pch=20, col=spcol$spA)
 points(doy,g.B.priority.cum,type="l",lty=1,lwd=2,pch=20, col=spcol$spB)
 
@@ -147,8 +148,8 @@ axis(2,at=c(0,yup),pos=0,labels=FALSE,lwd.ticks=0)
 axis(3,at=c(0,doy.max),pos=yup-.001,labels=FALSE,lty=1,lwd.ticks=0)
 axis(4,at=c(0,yup),pos=doy.max,labels=FALSE,lty=1,lwd.ticks=0)
 mtext("day of year",side=1,line=0)
-mtext("germination fractions",side=2,line=0)
-mtext("total germination",side=4,line=0)
+mtext("germination",side=2,line=0)
+mtext("cum. germination",side=4,line=0)
 
 #PANEL for Priority Effect v Year
 par(mar=c(2,2,2,2))
