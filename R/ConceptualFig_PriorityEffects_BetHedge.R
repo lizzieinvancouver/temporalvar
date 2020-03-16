@@ -20,21 +20,22 @@ setwd("C:/Users/Megan/Documents/GitHub/temporalvar/R")
 #Set up calculations for Panels A = Germination v DOY  & B Germination v Year for germination model
 tauP.alpha = 5
 tauP.beta = 15
-yrs <- seq(1,60,1)
+yrs <- seq(1,40,1)
 tauP.t <- rbeta(length(yrs), tauP.alpha, tauP.beta)
 
 ## tauP
 doy.max <- 100
-step=.25
+step=.1
 doy <- seq(0, doy.max, step)
 x <- doy/doy.max
 tauP <- dbeta(x, tauP.alpha,tauP.beta)
 tauPcol <- "chartreuse3"
-d=30/step     #tauP day for figure
+tauP.ex = 0.25
+d=tauP.ex*100/step     #tauP day for figure
 
 ##germination for sp A and B
 taui.A <- 0.27
-taui.B <- 0.40
+taui.B <- 0.32
 spcol <- list(spA =c("darkorange"),spB=c("dodgerblue"))
 gmax <- 0.5
 h <- 100
@@ -43,11 +44,13 @@ h <- 100
 g.A.cond <- gmax*exp(-h*(x - taui.A)^2)
 g.B.cond <- gmax*exp(-h*(x - taui.B)^2)
 
-#priority effects -> normalize annual germination to 1
-g.A.priority <-g.A.cond
+#priority effects
+g.A.priority <-g.A.cond*.7
 g.B.priority <- g.B.cond
-g.A.priority.cum <- cumsum(g.A.priority)/sum(g.A.priority)
+g.A.priority.cum <- cumsum(g.A.priority)/sum(g.B.priority)
 g.B.priority.cum <- cumsum(g.B.priority)/sum(g.B.priority)
+g.A.priority.yr <- rep(g.A.priority.cum[length(x)],length(yrs))
+g.B.priority.yr <- rep(g.B.priority.cum[length(x)],length(yrs))
 
 #marginal germination = (germination|tauP=X) * P(tauP)
 #Expected germination distribution
@@ -80,17 +83,17 @@ g.A.yr <- lookup.germ(tauP.t,x,g.A)
 g.B.yr <- lookup.germ(tauP.t,x,g.B)
 
 #Set up for four panels 
-# pdf("graphs/conceptual/PriorityEff_BetHedge.pdf", width=8, height=6)
-# def.par <- par(no.readonly = TRUE) # save default, for resetting...
-# nf<-layout(matrix(c(1,2,3,4),2,2,byrow=TRUE))
-# #layout.show(nf)
-# par(mfrow=c(2,2), oma = c(2, 0, 0, 0))
+pdf("graphs/conceptual/PriorityEff_BetHedge.pdf", width=8, height=6)
+def.par <- par(no.readonly = TRUE) # save default, for resetting...
+nf<-layout(matrix(c(1,2,3,4),2,2,byrow=TRUE))
+#layout.show(nf)
+par(mfrow=c(2,2), oma = c(2, 0, 0, 0))
 
-#Top Right Panel: Germ Frac & Cumulative v DOY 
+#Top Left Panel: Germ Frac & Cumulative v DOY 
 par(mar=c(2,2,2,2))
 scale <- 0.2
 yup <- max(c(g.A.doy,g.B.doy))*1.2
-plot(doy,g.A.doy, type="l", lwd=3, lty=3,col=spcol$spA,
+plot(doy,g.A.doy, type="l", lwd=3, lty=2,col=spcol$spA,
      axes=FALSE,ylim=c(-scale,yup+scale))
  axis(1,at=c(0,doy.max),pos=-0.001,labels=FALSE,lty=1,lwd.ticks=0)
  axis(2,at=c(0,yup),pos=0,labels=FALSE,lwd.ticks=0)
@@ -100,10 +103,10 @@ plot(doy,g.A.doy, type="l", lwd=3, lty=3,col=spcol$spA,
 points(doy,g.A.cum, type="l",lwd=2, lty=1, col=spcol$spA,
        ylab = "germination", xlab="day of year")
 points(doy[d],g.A.doy[d],type="p",pch=20,col=spcol$spA)
-points(doy,g.B.doy, type="l", lty=3,lwd=3,col=spcol$spB,)
+points(doy,g.B.doy, type="l", lty=3,lwd=2,col=spcol$spB,)
 points(doy,g.B.cum, type="l",lty=1, lwd=2,col=spcol$spB)
 points(doy[d],g.B.doy[d],type="p",pch=20,col=spcol$spB)
-legend(x=65,y=yup*.65,
+legend(x=70,y=yup*.35,
        legend=c("sp A daily","sp B daily","sp A cum.","sp cum."),
        col=c(spcol$spA,spcol$spB,spcol$spA,spcol$spB), lty=c(3,3,1,1), lwd=c(2,2,2,2),
        pch=c(20,20,NA,NA),bty="n",cex=0.8)
@@ -121,7 +124,7 @@ arrows(x0=d*step+step/2,x1=d*step+step/2,y0=-g.B[d]/max(c(g.A,g.B))*scale,y1=0,
 mtext("germination", side=2, line=0)
 mtext("day of year",side=1,line=0)
 
-#Middle Right Panel:  Germ Frac v year
+#Top Right:  Germ Frac v year
 par(mar=c(2,2,2,2))
 yup <- max(c(g.A.yr,g.B.yr))*1.05
 plot(yrs,g.A.yr,type="b",pch=20, col=spcol$spA,
@@ -139,39 +142,45 @@ points(yrs,tauP.t/max(tauP.t)*.25+yup*1.005,type="l",col=tauPcol,lty=1, lwd=1)
 mtext("germination",side=2,line=0)
 mtext("year",side=1,line=0)
 
-#PANEL for Priority Effect v doy
+#Bottom Left: Priority Effect v doy
 par(mar=c(2,2,2,2))
-yup <- max(c(g.A.priority.cum))*1.05
-plot(doy,g.A.priority,type="l",pch=20, lty=3,lwd=3,col=spcol$spA, ylim=c(0,yup),
-     axes=FALSE)
-points(doy,g.B.priority,type="l",lty=3, lwd=3,col=spcol$spB)
+scale=0.1
+sos <- 8
+yup <- max(c(g.B.priority.cum))*1.05
+plot(doy,g.A.priority,type="l",pch=20, lty=2,lwd=3,col=spcol$spA, 
+     ylim=c(0,yup+scale), axes=FALSE)
+points(doy,g.B.priority,type="l",lty=2, lwd=3,col=spcol$spB)
 points(doy,g.A.priority.cum,type="l",lty=1,lwd=2,pch=20, col=spcol$spA)
 points(doy,g.B.priority.cum,type="l",lty=1,lwd=2,pch=20, col=spcol$spB)
-
 axis(1,at=c(0,doy.max),pos=0,labels=FALSE,lty=1,lwd.ticks=0)
 axis(2,at=c(0,yup),pos=0,labels=FALSE,lwd.ticks=0)
 axis(3,at=c(0,doy.max),pos=yup-.001,labels=FALSE,lty=1,lwd.ticks=0)
 axis(4,at=c(0,yup),pos=doy.max,labels=FALSE,lty=1,lwd.ticks=0)
+arrows(x0=sos, x1=sos,y0=scale+yup,y1=yup,
+       length=.075,col=tauPcol,cex=0.5)
 mtext("day of year",side=1,line=0)
 mtext("germination",side=2,line=0)
 mtext("cum. germination",side=4,line=0)
 
-#PANEL for Priority Effect v Year
+#Bottom Right Panel for Priority Effect v Year
+scale=0.1
 par(mar=c(2,2,2,2))
-yup <- max(c(g.B.yr))*1.05
-plot(yrs,g.B.yr*.7,type="b",pch=20, lty=1,lwd=1,col=spcol$spA, ylim=c(0,yup+.25),
+yup <- max(c(g.B.priority.yr))*1.05
+plot(yrs,g.A.priority.yr,type="l", lty=1,lwd=2,col=spcol$spA, ylim=c(0,yup+.25),
      axes=FALSE)
-points(yrs,g.B.yr,type="b",pch=20, lty=1,lwd=1,col=spcol$spB)
-axis(1,at=c(0,max(yrs)),pos=0,labels=FALSE,lty=1,lwd.ticks=0)
+points(yrs,g.B.priority.yr,type="l",lty=1,lwd=2,col=spcol$spB)
+points(yrs,g.A.priority.yr,pch=20,col=spcol$spA)
+points(yrs,g.B.priority.yr,pch=20,col=spcol$spB)
+axis(1,at=c(0,max(yrs)+1),pos=0,labels=FALSE,lty=1,lwd.ticks=0)
 axis(2,at=c(0,yup),pos=0,labels=FALSE,lwd.ticks=0)
-axis(3,at=c(0,max(yrs)),pos=yup-.001,labels=FALSE,lty=1,lwd.ticks=0)
-axis(4,at=c(0,yup),pos=max(yrs),labels=FALSE,lty=1,lwd.ticks=0)
+axis(3,at=c(0,max(yrs)+1),pos=yup-.001,labels=FALSE,lty=1,lwd.ticks=0)
+axis(4,at=c(0,yup),pos=max(yrs)+1,labels=FALSE,lty=1,lwd.ticks=0)
 mtext("year",side=1,line=0)
 mtext("germination",side=2,line=0)
-points(yrs,tauP.t/max(tauP.t)*.2+yup*1.005,pch=20,cex=0.5,col=tauPcol)
-points(yrs,tauP.t/max(tauP.t)*.2+yup*1.005,type="l",col=tauPcol,lty=1, lwd=1)
+points(yrs,rep(tauP.ex,length(yrs))*scale+yup*1.005,pch=20,cex=0.5,col=tauPcol)
+points(yrs,rep(tauP.ex,length(yrs))*scale+yup*1.005,type="l",col=tauPcol,lty=1, lwd=1)
 
-#dev.off()
+dev.off()
 
 
 
