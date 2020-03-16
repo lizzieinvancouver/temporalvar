@@ -196,11 +196,13 @@ plot(density(munuse$doy))
 ggplot(munuse, aes(x=doy, fill=when)) + geom_density(alpha=0.4)
 ggplot(munuse, aes(x=doy, fill=when)) + geom_histogram(alpha=0.4, aes(y = ..density..), position = 'identity')
 
-# Get only 40 first years
+# Get only 40 first yearsggplot(munusesm, aes(x=year, y=doy)) + geom_line(alpha=0.4) + labs(y = "Day of year")  
 munusesm <- subset(munuse, year<1919 | year>1979)
 nrow(subset(munusesm, when=="before 1980"))
 nrow(subset(munusesm, when=="after 1980"))
-munwhen <- ggplot(munusesm, aes(x=doy, fill=when)) + geom_density(alpha=0.4) + labs(x = "Day of year")   
+munwhen <- ggplot(munusesm, aes(x=doy, fill=when)) + geom_density(alpha=0.4) + labs(x = "Day of year")
+munwhents <- ggplot(munuse, aes(x=year, y=doy)) + geom_line(alpha=0.4) + labs(y = "Day of year")   
+
 }
 
 
@@ -238,6 +240,8 @@ plot(density(bosusesm$doy))
 
 boswhen <- ggplot(bosusesm, aes(x=doy, fill=when)) + geom_density(alpha=0.4) + labs(x = "Day of year")
 ggplot(bosusesm, aes(x=doy, fill=when)) + geom_histogram(alpha=0.4, aes(y = ..density..), position = 'identity')
+
+boswhents <- ggplot(bosuse, aes(y=doy, x=year)) + geom_line(alpha=0.4) + labs(y = "Day of year")
 }
 
 
@@ -286,6 +290,8 @@ nrow(subset(butteusesm, when=="after 1980"))
 buttemaxsnow <- ggplot(butteusesm, aes(x=snowdepth, fill=when)) + geom_density(alpha=0.4) + labs(x = "Snow depth (mm)")
 ggplot(butteusesm, aes(x=mean, fill=when)) + geom_density(alpha=0.4)
 
+buttemaxsnowts <- ggplot(butteuse, aes(y=snowdepth, x=year)) + geom_line(alpha=0.4) + labs(y = "Snow depth (mm)")
+    
 summary(lm(snowdepth~when, butteusesm))
 summary(lm(mean~when, butteusesm))
 
@@ -336,6 +342,9 @@ butteuse2sm <- subset(butteuse2, year<1951 | year>1979)
 nrow(subset(butteuse2sm, when=="before 1980"))
 nrow(subset(butteuse2sm, when=="after 1980"))
 buttewhen40yrs <- ggplot(butteuse2sm, aes(x=doy, fill=when)) + geom_density(alpha=0.4) + labs(x = "Day of year")
+
+buttewhen40yrsts <- ggplot(butteuse2, aes(y=doy, x=year)) + geom_line(alpha=0.4) + labs(y = "Day of year")
+
 
 summary(lm(doy~when, butteuse2sm))
 
