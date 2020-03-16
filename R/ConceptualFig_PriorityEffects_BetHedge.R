@@ -23,22 +23,23 @@ tauP.beta = 15
 yrs <- seq(1,60,1)
 tauP.t <- rbeta(length(yrs), tauP.alpha, tauP.beta)
 
-## tauP in STA and NS; and two draws
+## tauP
 doy.max <- 100
 step=.25
 doy <- seq(0, doy.max, step)
 x <- doy/doy.max
 tauP <- dbeta(x, tauP.alpha,tauP.beta)
 tauPcol <- "chartreuse3"
+d=30/step     #tauP day for figure
 
 ##germination for sp A and B
-taui.A <- 0.22
-taui.B <- 0.35
+taui.A <- 0.27
+taui.B <- 0.40
 spcol <- list(spA =c("darkorange"),spB=c("dodgerblue"))
 gmax <- 0.5
 h <- 100
 
-#germination distribution --> germination} tauP=x 
+#germination distribution --> germination| tauP=x 
 g.A.cond <- gmax*exp(-h*(x - taui.A)^2)
 g.B.cond <- gmax*exp(-h*(x - taui.B)^2)
 
@@ -57,10 +58,10 @@ g.B <- g.B.cond*tauP
 #germination v time -->  all germination happens on one day, but the amount depends on tauP - tauI
 #need a sequence of zeros with germination on, say, day 20
 
-t= 10 #germation year ot plot
-d=20/step #day germination happens
-g.A.doy <- c(rep(0,d-1), gmax*exp(-h*(tauP.t[t] - taui.A)^2),rep(0,length(doy)-d))                         
-g.B.doy <- c(rep(0,d-1), gmax*exp(-h*(tauP.t[t] - taui.B)^2),rep(0,length(doy)-d)) 
+g.A.doy <- c(rep(0,d-1), g.A[d],rep(0,length(doy)-d)) 
+g.B.doy <- c(rep(0,d-1), g.B[d],rep(0,length(doy)-d)) 
+# g.A.doy <- c(rep(0,d-1), gmax*exp(-h*(tauP.ex - taui.A)^2),rep(0,length(doy)-d))                         
+# g.B.doy <- c(rep(0,d-1), gmax*exp(-h*(tauP.ex - taui.B)^2),rep(0,length(doy)-d)) 
 g.A.cum <- cumsum(g.A.doy)
 g.B.cum <- cumsum(g.B.doy)
 
@@ -79,17 +80,18 @@ g.A.yr <- lookup.germ(tauP.t,x,g.A)
 g.B.yr <- lookup.germ(tauP.t,x,g.B)
 
 #Set up for four panels 
-pdf("graphs/conceptual/PriorityEff_BetHedge.pdf", width=8, height=6)
-def.par <- par(no.readonly = TRUE) # save default, for resetting...
-nf<-layout(matrix(c(1,2,3,4),2,2,byrow=TRUE))
-#layout.show(nf)
-par(mfrow=c(2,2), oma = c(2, 0, 0, 0))
+# pdf("graphs/conceptual/PriorityEff_BetHedge.pdf", width=8, height=6)
+# def.par <- par(no.readonly = TRUE) # save default, for resetting...
+# nf<-layout(matrix(c(1,2,3,4),2,2,byrow=TRUE))
+# #layout.show(nf)
+# par(mfrow=c(2,2), oma = c(2, 0, 0, 0))
 
 #Top Right Panel: Germ Frac & Cumulative v DOY 
 par(mar=c(2,2,2,2))
+scale <- 0.2
 yup <- max(c(g.A.doy,g.B.doy))*1.2
 plot(doy,g.A.doy, type="l", lwd=3, lty=3,col=spcol$spA,
-     axes=FALSE,ylim=c(-0.05,yup+.05))
+     axes=FALSE,ylim=c(-scale,yup+scale))
  axis(1,at=c(0,doy.max),pos=-0.001,labels=FALSE,lty=1,lwd.ticks=0)
  axis(2,at=c(0,yup),pos=0,labels=FALSE,lwd.ticks=0)
  axis(3,at=c(0,doy.max),pos=yup,labels=FALSE,lty=1,lwd.ticks=0)
@@ -106,13 +108,16 @@ legend(x=65,y=yup*.65,
        col=c(spcol$spA,spcol$spB,spcol$spA,spcol$spB), lty=c(3,3,1,1), lwd=c(2,2,2,2),
        pch=c(20,20,NA,NA),bty="n",cex=0.8)
 ##Add tauP v doy to top of panel
-points(doy,tauP/max(tauP)*.05+yup*1.005,type="l",col=tauPcol, lwd=1,bty="n")
-arrows(x0=d*step-1, x1=d*step-1,y0=yup*1.005,y1=tauP[d-1]/max(tauP)*.05+yup*1.005,length=.075,col=tauPcol,cex=0.5)
+points(doy,tauP/max(tauP)*scale+yup*1.005,type="l",col=tauPcol, lwd=1,bty="n")
+arrows(x0=d*step, x1=d*step,y0=tauP[d]/max(tauP)*scale+yup*1.005,y1=yup*1.005,
+       length=.075,col=tauPcol,cex=0.5)
 ##Add tauI v doy to bottom of panel
-points(doy,-g.A/max(g.A)*.05,type="l",col=spcol$spA, lwd=1)
-points(doy,-g.B/max(g.B)*.05,type="l",col=spcol$spB, lwd=1)
-points(d*step-1,-g.A[d-1]/max(g.A)*.05,pch=8,col=spcol$spA,cex=0.5)
-points(d*step-1,-g.B[d-1]/max(g.B)*.05,pch=8,col=spcol$spB,cex=0.5)
+points(doy,-g.A/max(c(g.A,g.B))*scale,type="l",col=spcol$spA, lwd=1)
+points(doy,-g.B/max(c(g.A,g.B))*scale,type="l",col=spcol$spB, lwd=1)
+arrows(x0=d*step-step/2,x1=d*step-step/2,y0=-g.A[d]/max(c(g.A,g.B))*scale,y1=0,
+       length=.075,col=spcol$spA,cex=0.5)
+arrows(x0=d*step+step/2,x1=d*step+step/2,y0=-g.B[d]/max(c(g.A,g.B))*scale,y1=0,
+       length=.075,col=spcol$spB,cex=0.5)
 mtext("germination", side=2, line=0)
 mtext("day of year",side=1,line=0)
 
@@ -166,7 +171,7 @@ mtext("germination",side=2,line=0)
 points(yrs,tauP.t/max(tauP.t)*.2+yup*1.005,pch=20,cex=0.5,col=tauPcol)
 points(yrs,tauP.t/max(tauP.t)*.2+yup*1.005,type="l",col=tauPcol,lty=1, lwd=1)
 
-dev.off()
+#dev.off()
 
 
 

@@ -7,6 +7,7 @@
 # inset somewhere showing correlation between ideal day of event v predicted day of event = cue quality
 # 
 rm(list=ls())
+library(tidyverse)
 library(dplyr)
 library(lubridate)
 setwd("C:/Users/Megan/Documents/GitHub/temporalvar/R")
@@ -20,8 +21,8 @@ library(rhdf5)
 # Set global option to NOT convert all character variables to factors
 options(stringsAsFactors=F)
 
-#dataproducts:  IR biological temp, PAR, precip, soil water content
-dpIDs <- c("DP1.00005.001","DP1.00024.001","DP1.00006.001","DP1.00094.001") 
+#dataproducts:  IR biological temp, PAR, precip, soil water content, airtemp 
+dpIDs <- c("DP1.00005.001","DP1.00024.001","DP1.00006.001","DP1.00094.001","DP1.00002.001") 
 # IRBT <- loadByProduct(dpIDs[1],site=c("SRER", "JORN", "MOAB"), 
 #                       startdate="2017-07", enddate="2020-02",
 #                       nCores=2)
@@ -34,9 +35,16 @@ dpIDs <- c("DP1.00005.001","DP1.00024.001","DP1.00006.001","DP1.00094.001")
 # swc <- loadByProduct(dpIDs[4],site=c("SRER", "JORN", "MOAB"), 
 #                      startdate="2017-07", enddate="2020-02", avg=30,
 #                      nCores=2)
-# save(irbt, precip,par,swc, file="neondata/neon.Rdata")
+#  airt <- loadByProduct(dpIDs[5],site=c("SRER", "JORN", "MOAB"), 
+#                       startdate="2017-07", enddate="2020-02", 
+#                       nCores=2)
+# save(irbt, precip,par,swc, airt, file="neondata/neon.Rdata")
 load("neondata/neon.Rdata")
 
+irbt %>% 
+  group_by(siteID) %>%
+  group_by()
+  summarise((d.min =min(bioTempMinimum)))
 
 
 #for fitness calc, create threshold values
