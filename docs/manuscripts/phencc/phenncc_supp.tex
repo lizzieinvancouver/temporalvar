@@ -15,7 +15,7 @@
 
 \renewcommand{\refname}{\CHead{}}
 
-\title{Supplemental materials:  How environmental tracking shapes communities in stationary \& non-stationary systems} 
+\title{Supplemental materials:  How environmental tracking shapes species and communities in stationary and non-stationary systems} 
 
 \author{E. M. Wolkovich \& M. J. Donahue}
 \date{} 
@@ -41,8 +41,10 @@ Most studies examined tracking as how a phenophase related to temperature (85\% 
 
 \newpage 
 \clearpage
-\section{Model}
-We used a simple including within- and between-year dynamics to contribute to coexistence. The model includes a suite of species traits, including (and particularly relevant for our aims) traits controlling species response to the environment via germination each year and traits related to how species may bet-hedge across years (via a seedbank), as well as traits relating to resource competition each year. Within-season dynamics are controlled by resource competition resulting in fitness differences, while interannual variation in the environment provides opportunities for coexistence via fluctuation-dependent mechanisms (i.e., niche differences resulting from different germination functions). 
+\section{Model} 
+To give an example of how tracking and non-stationarity may be included in current models we modified a model from \citet{Chesson:2004eo}, which was originally conceptualized for annual plants with a seedbank.  Although the model can be conceived of more generally, we use the language of annual plant germination for concreteness. \\
+
+The model includes a suite of species traits, including (and particularly relevant for our aims) traits controlling species response to the environment via germination each year and traits related to how species may bet-hedge across years (via a seedbank), as well as traits relating to resource competition each year. Within-season dynamics are controlled by resource competition resulting in fitness differences, while interannual variation in the environment provides opportunities for coexistence via fluctuation-dependent mechanisms (i.e., niche differences resulting from different germination functions). \\
 
 Across years, for a community of \(n\) species, the seedbank ($N$) of species $i$ at time $t+1$ is determined by the survival ($s$) of seeds that did not germinate in last season ($1-g_{i}(t)$) plus new biomass ($B_i$) produced during the length of the growing season ($\delta$) converted to seeds at rate $\phi$:
 \begin{align}
@@ -58,7 +60,7 @@ With the initial condition:
 \begin{align}
 B_{i}(t+0) & = N_{i}(t)g_{i}(t)b_{0}
 \end{align}
-where $b_{0}$ is the initial biomass per seed.
+where $b_{0}$ is the initial biomass per seed.\\
 
 The resource ($R$) itself declines across a growing season due to uptake by all species and abiotic loss ($\epsilon$):
 \begin{align}
@@ -70,10 +72,10 @@ Germination depends both on the traits of the species and on the environment tha
 g_{i}(t) & = g_{max}e^{-h(\tau_{p}(t)-\tau_{i})^2} 
 \end{align}
 
-The model is designed for multiple conceptualizations \citep{Chesson:2004eo}; given our focus here, we consider $\tau_p(t)$ to represent the environmental (abiotic) start of the growing season that varies from year-to-year and refer to it as the `environmental start time.'  $\tau_i$ represents the `intrinsic biological start time' for species $i$. How well matched a species is to its environment each year can be measured as $\tau_i$-$\tau_p(t)$, or the distance between the intrinsic (biological) start time and the environmental start time. 
+The model is designed for multiple conceptualizations \citep{Chesson:2004eo}; given our focus here, we consider $\tau_p(t)$ to represent the environmental (abiotic) start of the growing season that varies from year-to-year and refer to it as the `environmental start time.'  $\tau_i$ represents the `intrinsic biological start time' for species $i$. How well matched a species is to its environment each year can be measured as $\tau_i$-$\tau_p(t)$, or the distance between the intrinsic (biological) start time and the environmental start time. \\
 
 \noindent \emph{Adding phenological tracking to model:}\\
-Biological start time, $\tau_i$, can be considered a fixed characteristic of a species, but it may also respond to the environment dynamically through what we refer to as environmental tracking. Tracking ($\alpha$, which can vary between 0 to 1) decreases the distance between $\tau_i$ and $\tau_p(t)$, i.e., moving the intrinsic start time closer to the environmental start time in that year, resulting in a higher germination fraction (e.g., species B in Fig. \ref{fig:concept}b-c).
+We adjust the biological start time, $\tau_i$ so that it can respond to the environment dynamically through what we refer to as tracking. Tracking ($\alpha$, which can vary between 0 to 1) decreases the distance between $\tau_i$ and $\tau_p(t)$, i.e., moving the intrinsic start time closer to the environmental start time in that year, resulting in a higher germination fraction (e.g., species B in Fig. \ref{fig:concept}b-c).
 
 \begin{align*}
 \alpha_{i} & \in [0, 1]  
@@ -86,20 +88,12 @@ Biological start time, $\tau_i$, can be considered a fixed characteristic of a s
 \text{when } \alpha_{i} = 0, & \hat{\tau_{i}}=\tau_{i}\\
 \text{when }  \alpha_{i} = 1, & \hat{\tau_{i}}=\tau_{p}(t)
 \end{align*}
-We refer to $\hat{\tau_{i}}$ as `effective biological start time' for species $i$ (or `effective $\tau_i$'). 
+% We refer to $\hat{\tau_{i}}$ as `effective biological start time' for species $i$ (or `effective $\tau_i$'). \\
 
 \noindent \emph{Simulations:}\\
-Using this model framework, we simulated a suite of two-species communities in stationary and non-stationary environments and examined persistence. As our interest is primarily in the role of environmental tracking, we focus on situations where species vary in their match to the environment through both a fixed response ($\tau_i$) or tracking ($\alpha$) and, thus, examined simulations with only non-trackers and simulations where all species had some level of tracking. We also varied species' resource use efficiency (via $c_i$), yielding species with different $R^*$ (where a lower $R^*$ means a species can draw the resource down to a lower level and is thus considered the superior competitor). We focused on resource competition as it has been often linked to environmental tracking (see Box `Trait trade-offs with tracking'). Each simulation was composed of two sequential parts: first, a 500-year stationary period where the underlying distribution of the environment does not change (but is stochastic, yielding year-to-year variation) followed by a 500-year non-stationary period where the underlying distribution of the environment shifts to an earlier start of season. Thus, only species that persisted through the first stationary period continued into the non-stationary period (see Supporting Information, SI, for more details).  % we created two-species communities in a variable but stationary environment and then shifted the environment to an earlier start of season over 500 years (Fig. \ref {fig:concept}a; see Supp for more details).
+Using this model framework, we simulated a suite of two-species communities in stationary and non-stationary environments and examined persistence. As our interest is primarily in the role of environmental tracking, we focus on situations where species vary in their match to the environment through both the intrinsic biological start time ($\tau_i$) combined with tracking ($\alpha$), examining simulations where all species had some level of tracking. We also varied species' resource use efficiency (via $c_i$), yielding species with different $R^*$ (where a lower $R^*$ means a species can draw the resource down to a lower level and is thus considered the superior competitor). Each simulation was composed of two sequential parts: first, a 500-year stationary period where the underlying distribution of the environment does not change (but is stochastic, yielding year-to-year variation) followed by a 500-year non-stationary period where the underlying distribution of the environment shifts to an earlier start of season (see Fig. \ref{fig:modelfig} in main text). Thus, only species that persisted through the first stationary period continued into the non-stationary period.  \\
 
-The two species coexistence model (see Equations 1-6 above) includes both interannual variation in the environment and intra-annual resource competition.  The model was modified from \citet{Chesson:2004eo}, which was originally conceptualized for annual plants with a seedbank.  Although the model can be conceived of more generally, we use the language of annual plant germination for concreteness.  \\
-
-In the model, the population census of seeds, $N$, occurs at time $t$ at the end of the growing season (Equation 1).  Seeds survive over winter at rate $s$ and are lost from the population at rate $(1-s)$.  Surviving seeds germinate at rate $g_{i}(t)$.  Seeds that do not germinate remain in the seed bank until the next census at $t+1$.  Germination rate is a Gaussian function that declines with the distance between $\tau_{i}$, the species-specific preferred germination time, and $\tau_{p}(t)$, the timing of the resource pulse in year $t$, with maximum germination when $\tau_{i} = \tau_{p}(t)$ (Equation 6, Fig. \ref{fig:concept}a,b).  In cases that include tracking, the distance between $\tau_{i}$ and  $\tau_{p(t)}$ can be reduced by tracking, $\alpha_{i}$, resulting in greater germination fraction (Equation 7). \\
-
-Germinating seeds are converted to seedling biomass at rate $b_{0}$ (Equation 4). Within year dynamics of the two species follows $R^{*}$ competition for a single resource.  The growing season begins with a single resource pulse $R_0(t)$.  Both  species consume the resource at rate $f(R)$ (Equation 3), and the resource undergoes abiotic loss (e.g., evapotranspiration) at rate $\epsilon$ (Equation 5).  Differences in $R^{*}_{i}$ were generated by differences in conversion efficiency, $c_{i}$. Species were otherwise identical in resource update parameters ($a$, $u$, and $\theta$) and in metabolic loss ($m$).  Biomass at the end of the season is converted into seeds at rate $\phi$, and the population of seeds is censused at $t+1$. \\
-
-Interannual variation occurs in both the timing and the amount of the resource pulse.  The timing of the resource pulse varies from year to year and is given by $\tau_{p}(t)$, which is drawn from a $\beta$ distribution. The amount of resource available at the beginning of each season, $R_0(t)$, varies from year to year and is drawn from a log-normal distribution.  Each model run is comprised of a 500 year stationary period and a 500 year nonstationary period.  During the stationary period, $R_0(t)$ and $\tau_{p}(t)$ are each drawn from a stationary distribution.  During the nonstationary period, the timing of the resource pulse, $\tau_{p}(t)$, gradually shifts earlier in the season (Fig. \ref{fig:fig_Rt_tauPt}).  For the model runs displayed in Fig. \ref{fig:tauirstar} and Fig. \ref{fig:alpharstar}, this shift in the timing of the resource pulse is the only change in the environment during the nonstationary period.  We also discuss model runs in which the amount of resource, $R_0(t)$,  declines during the nonstationary period along with the shift in timing, $\tau_{p}(t)$ (Fig. \ref{fig:fig_Rt_tauPt}).  \\   
-
-To simulate competitive dynamics, both species were initialized with a census size of $N(0) = 100$ per unit area, and the temporally varying parameters $R_0(t)$ and $\tau_{p}(t)$ were generated for the stationary and nonstationary periods. Species-specific parameters ($c_{i}$,$\tau_{i}$, and $\alpha_{i}$) were drawn from uniform random distributions with the ranges given in Table \ref{tab:model}.  All other parameters were identical between species (Table \ref{tab:model}).  Within-year $R^{*}$ competition dynamics were solved using an ode solver (\verb|ode| in the R package \verb|deSolve|) and ended when the resource was drawn down to $min(R^{*})$, i.e., the $R^{*}$ value of the better resource competitor.  The end of season biomass of each species was converted to seeds, and the populations were censused.  At each census, a minimum cutoff was applied to define extinction from the model.  Note that ``coexistence'' in this model is defined by joint persistence through time and not by low density growth rate. \\
+To simulate competitive dynamics, both species were initialized with a census size of $N(0) = 100$ per unit area, and the temporally varying parameters $R_0(t)$ and $\tau_{p}(t)$ were generated for the stationary and nonstationary periods. Species-specific parameters ($c_{i}$,$\tau_{i}$, and $\alpha_{i}$) were drawn from uniform random distributions with the ranges given in Table \ref{tab:model}.  All other parameters were identical between species (Table \ref{tab:model}).  Within-year $R^{*}$ competition dynamics were solved using an ode solver (\verb|ode| in the R package \verb|deSolve|) and ended when the resource was drawn down to $min(R^{*})$, i.e., the $R^{*}$ value of the better resource competitor.  The end of season biomass of each species was converted to seeds, and the populations were censused.  At each census, a minimum cutoff was applied to define extinction from the model.  Note that ``coexistence'' in this model is defined by joint persistence through time and not by low density growth rate. 
 
 \section{References}
 \bibliography{/Users/Lizzie/Documents/git/bibtex/LizzieMainMinimal}
@@ -148,7 +142,7 @@ Parameter & Value(s) & Definition & Unit \\ \hline
  
 \clearpage
 % latex table generated in R 3.5.1 by xtable 1.8-3 package
-% Sun Feb 23 12:27:44 2020
+% Sun Mar 15 22:31:58 2020
 \begin{table}[ht]
 \centering
 \caption{Summary of traits related to phenological tracking in the literature and whether papers reported statistical evidence that they were linked or not. See Table S2 for an extended version.} 
@@ -181,7 +175,7 @@ diet traits &   0 &   3 \\
 \end{tabular}
 \endgroup
 \end{table}% latex table generated in R 3.5.1 by xtable 1.8-3 package
-% Sun Feb 23 12:27:44 2020
+% Sun Mar 15 22:31:58 2020
 \begin{table}[ht]
 \centering
 \caption{Summary of results from literature on phenological tracking showing which phenophases researchers found were linked to which traits, or not.} 
