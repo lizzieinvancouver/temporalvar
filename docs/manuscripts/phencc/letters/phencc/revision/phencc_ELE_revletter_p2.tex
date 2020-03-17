@@ -103,7 +103,7 @@ not difference in relative timing per se (say relative to the resource), but ins
  effects with a given year are solely driven by how many germinate in a given year, out of the
 total. So it’s not a question of ``when'', but ``how many''}\\
 
-The reviewer is again generally correct here and highlights an important point we did not discuss in our original submission: the reality that most phenological events are a mix of both `when' and `how much.' Our model asbtracts the `'when' to focus more on the `how much' and thus may be confusing to some readers. To address this we now discuss these intertwined issues (lines XX-XX) and return to them in our community modeling section (lines XX-XX) where we argue many of the current models to address these questions focus on only one or the other issue (`when' versus `how much') and we highlight the need for more work combining these aspects, along with costs to mis-timed events. \\
+The reviewer is again generally correct here and highlights an important point we did not discuss in our original submission: the reality that most phenological events are a mix of both `when' and `how much.' Our model asbtracts the `'when' to focus more on the `how much' and thus may be confusing to some readers. To address this we now discuss these intertwined issues (\lr{whenhow1start}-\lr{whenhow1end}) and return to them in our community modeling section (\lr{whenhow2start}-\lr{whenhow2end}) where we argue many of the current models to address these questions focus on only one or the other issue (`when' versus `how much') and we highlight the need for more work combining these aspects, along with costs to mis-timed events. \\
 
 \emph{-       Overall, this confusion makes it hard to evaluate what the model does. If we stick
 with the one germination event a year, let’s assume both species are identical for sake of
@@ -116,34 +116,35 @@ explicit start time, it’s not. Again, all this is based on not having enough i
 determine how the model really works, but based on the supplemental information I assume all
 populations start at same time within a given year just at different abundances.}\\
 
-All populations do start at the same time, which we have now clarified in our manuscript both in respect to the model (lines XX-XX) and in general in respect to the diverse ways the literature currently studies environmental tracking (lines XX-XX).\\ 
+All populations do start at the same time, which we have now clarified in our manuscript both in respect to the model through a new figure (see Fig. \ref{fig:conceptmodels} and in general in respect to the diverse ways the literature currently studies environmental tracking (\lr{whenhow2start}-\lr{whenhow2end}).\\ 
 
 \emph{This confusion is further increased by not providing information on how ``non-stationary'' is
 modeled in this system. If there is no real timing, does this mean it’s modeled as move from
 environmental to biological timing? So ``shift'' results in decrease in number of individuals
 if biological timing doesn’t shift but environmental timing shifts “earlier”?}\\
 
-We agree this was not sufficiently clear in the original draft; in our current version we have moved a supplemental figure into the main text to show how environmental non-stationarity was modeled. \\
+We agree this was not sufficiently clear in the original draft; in our current version we have moved a supplemental figure into the main text to show how environmental non-stationarity was modeled (see Fig. \ref{fig:modelfig}). \\
 
 \emph{So to summarize I took away these following assumptions:\\
 (1)     Simulations of within season population dynamics start at the same time, there is no
 temporal offset of population dynamics, and no ``escape'' from competition in time. So there is
 no explicit temporal niche modelled}\\
 
-There is no explicit intra-annual temporal niche, but there is a temporal niche inter-annually, which is critical to our aim to model tracking. We have worked to clarify this in the current version. A model with both intra-annual and inter-annual temporal niche dynamics would be an excellent area for future work, but we believe it could be difficult to tackle this at the same time as adding tracking and non-stationarity to a single model. \\
+There is no explicit intra-annual temporal niche, but there is a temporal niche inter-annually, which is critical to our aim to model tracking. We have worked to clarify this in the current version. A model with both intra-annual and inter-annual temporal niche dynamics would be an excellent area for future work, but we believe it could be difficult to tackle this at the same time as adding tracking and non-stationarity to a single model. We now clarify starting on \lr{whenhownewmod} that this is an important area for future work. \\
 
 \emph{S(2)     temporal differences only affect starting densities not temporal dynamics or per
 capita effects. In other words, this is a model where phenological shift only affect
 reproduction (and thus numerical), not interaction effects.}\\
 
-Temporal dynamics affect species interactions through density. Interactions terms are not explicitly altered. We have attempted to clarify this by better contrasting models of the type we presented with those where species parameters are directly tied to the environment \citet{volkerass}, see lines XX-XX, which read:
+Temporal dynamics affect species interactions through density. Interactions terms are not explicitly altered. We have attempted to clarify this by better contrasting models of the type we presented with those where species parameters are directly tied to the environment \citet{volkerass}, see \lr{S2start}-\lr{S2end}, which read:
 \begin{quote}
+Building a changing environment into such models thus requires knowing how environmental shifts filter through to species-level parameters \citep{Tuljapurkar2009}. For example, \citet{volkerass} added the temporal environment to competition models by defining interaction strength as dependent on the temporal distance between species. In other models, the environment is more specifically defined. 
 \end{quote}
 
 \emph{S(3)     There is always an early arriver advantage: which ever is closest to environment
 timing, has higher proportion of seeds emerging and will win (assuming all else equal)}\\
 
-Yes, and we now stress that this is a need across many models related to environmental tracking (lines XX-XX).\\
+Yes, and we now stress that this is a need across many models related to environmental tracking (\lr{whenhow2start}-\lr{whenhow2end}, and Fig. \ref{fig:conceptmodels}).\\
 
 \emph{S(4)     Season ends when resource is depleted to lowest R*. So season is not ended by
 environmental conditions but resource availability, and just a function of competitor
@@ -161,7 +162,7 @@ Given this set of assumption, the generality of the model is strongly limited to
 systems/scenarios (very specific plant system), limiting the general inference that can be
 obtained from it.}\\
 
-The addition of the tracking parameter (which can vary from 0 to 1, which is from low to `perfect' tracking) shifts how well a species matches to its environment each year (where a high match yields to more offspring). This is a modification of a common coexistence model, used by Chesson widely (see CITES), which is commonly applied to plant systems but extends in the simple form we use here to coral reef fish, forest trees and many other organisms (see CHESSON HUNTLY) so we do not believe its inference is limited.\\
+The addition of the tracking parameter (which can vary from 0 to 1, which is from low to `perfect' tracking) shifts how well a species matches to its environment each year (where a high match yields to more offspring). This is a modification of a common coexistence model, used by Chesson widely \citep[][]{Chesson:2000vd,Chesson:2004eo}, which is commonly applied to plant systems but extends in the simple form we use here to coral reef fish, forest trees and many other organisms \citep[see][]{Chesson:1997dz} so we do not believe its inference is limited.\\
 
 We have worked to further highlight where this model fits within the current literature, which measures a mix of tracking of climate data to fundamental tracking (often studied in the trophic mismatch literature). We hope the changes throughout the manuscript relating to this will help clarify the extent to which this, and many other models, may apply.\\
 
@@ -200,7 +201,7 @@ analyses of the literature, since much literature was missed, and largely restri
 systems.  So my main complaint here would be that it felt like it was just touching the
 surface and did not provide enough depth (i.e. go into exiting studies).}\\
 
-We agree that in focusing on the model, we had little room for a more thorough review of the literature. Our revised manuscript draws on literature from vertebrates, corals, plants, arthropods and more to provide a fuller sweep of the literature. In our focus on what may drive variation in tracking, we provide a literature review focused on understanding tracking within a syndrome or traits (see lines XX-XX). \\ 
+We agree that in focusing on the model, we had little room for a more thorough review of the literature. Our revised manuscript draws on literature from vertebrates, corals, plants, arthropods and more to provide a fuller sweep of the literature. In our focus on what may drive variation in tracking, we provide a literature review focused on understanding tracking within a syndrome or traits (see \lr{traittradeoffstart}-\lr{traittradeoffend} and Box `Trait trade-offs with tracking'). \\ 
 
 \emph{Finally, there was very little coverage over theory on phenological shift. The authors
 mention Rudolf 2019 in passing, without discussing any similarities, differences that are
@@ -209,7 +210,7 @@ clearly there. Similarly, they never mention other phenology models, like Nakaza
 authors introduced themselves (Wolkowich \& Cleland 2011) is not discussed (but brings up
 interesting question about ``single'' vs multiple resources approaches).}\\
 
-This is an excellent point. We now have worked to better frame were \citet{volkerass} fits within many ways of introducing phenology into current multi-species models (see lines XX-XX) and we have worked to build in more references to the trophic mismatch literature, where is what Nakazawa \& Doi, 2012, Revilla et al. 2014 focus on (see lines XX-XX). \\
+This is an excellent point. We now have worked to better frame were \citet{volkerass} fits within many ways of introducing phenology into current multi-species models (see \lr{S2start}-lr{S2end}) and we have worked to build in more references to the trophic mismatch literature, where is what Nakazawa \& Doi, 2012, Revilla et al. 2014 focus on (e.g., \lr{tmm1}, \R{tmm2}). \\
 
 \emph{Specific comments:\\
 P 3 L30ff: the notion that earlier spring should favor earlier phenologies relies on the
@@ -217,7 +218,7 @@ assumption that the ``niche'' is empty i.e. no other species are earlier. So thi
 very specific systems (i.e. resources are not available before that time point, so temporary
 resources) and should be clarified.}\\
 
-We have adjusted this text to now read (lines XX-XX):
+We have adjusted this text to now read (starting on \lr{r1sc1start}):
 \begin{quote}
 Considering tracking as a form of plasticity, evolutionary models predict species that track will be favored in novel environmental conditions. Similarly, some models of community assembly suggest that a warming climate should open up new temporal niche space and favor species that can exploit that space \citep{gotelli1996,wolkovich:2010fee,Zettlemoyer2019}.
 \end{quote}
@@ -226,7 +227,7 @@ And we provide a longer discussion of alternative models throughout the manuscri
 \emph{L34-35, there are some studies (and should be cited here), e.g. Block et al 2019 Oikos.
 Showing that phenological plasticity is a poor predictor of performance.}\\
 
-In the current version of the manuscript this sentence no longer exists, but we have added a reference to the study in the same paragraph (lines XX-XX), ``Beyond these simple links, not all studies find the purported link \citep{block2019}, and there has been comparatively little work to formally connect tracking to foundational ecological theory.''\\
+In the current version of the manuscript this sentence no longer exists, but we have added a reference to the study in the same paragraph (starting on \R{r1sc2start}), ``Yet not all studies find the purported link \citep[e.g.,][]{block2019}, and there has been comparatively little work to improve predictions by formally connecting tracking to foundational ecological theory.''\\
 
 \emph{L 50ff: there has been progress, e.g. Rudolf 2019 specifically incorporates non-stationary
 systems and variability to examine how it influences coexistence and communities (since it’s
@@ -252,7 +253,7 @@ increasing discussion of phenotypic plasticity vs let’s call it ``environmenta
 i.e. species that can perform equally well at cold and warm temperatures. So environmental
 generalists.}\\
 
-We now discuss plasticity in depth on lines XX-XX. \\
+We now discuss plasticity in depth on \lr{sectionmutisppstart}-\lr{endplastic}. \\
 
 \emph{Same page, next paragraph (sorry, having not continuous line numbers across pages makes this a bit frustrating). Good examples here would be species where phenologies are correlated
 across season/life stages. In some cases, phenologies in spring are determined by what
@@ -262,7 +263,7 @@ In same context, Yang \& Cencer 2019 Ecology examine ``seasonal windows of oppor
 fits nicely in the context here. They took rigorous approach in finding what constraints
 those windows, which would also determine how shifts in them would change the optimal window.}\\
 
-We thank the reviewer for these examples, we now \citet{yang2020} on line XX and here and throughout the manuscript have worked to discuss in-depth the contraints on tracking (e.g., lines XX-XX and XX-XX). \\
+We thank the reviewer for these examples, we now \citet{yang2020} on \lr{yang2020} and here and throughout the manuscript have worked to discuss in-depth the contraints on tracking (e.g., \lr{constrain1start}-\lr{constrain1end} and \lr{constrain2}). \\
 
 Our apologies about the line numbers, these are the line numbers provided by \emph{Ecology Letters}; we now provide continuous line numbers and refer to those here (though this may mean we end up with two contrasting sets of line numbers, which we apologize for).\\
 
@@ -273,7 +274,7 @@ them!}\\
 strongly increase power as well (e.g. single species: Steer et al 2019 Methods E\&E, or for
 species interactions Carter et al 2018 Ecol Letters)}\\
 
-Good point! We have added these references to lines (XX-XX) and we now also discuss the issue of these events as a distribution on lines XX-XX. (NEED TO ADDRESS)
+Good point! We have added these references to lines (XX-XX) and we now also discuss the issue of these events as a distribution on \lr{whenhow1start}-\lr{enddistrib}. (NEED TO ADDRESS)
 
 
 {\bf Referee 2 comments:} \\
@@ -284,7 +285,7 @@ a.      What is the specific definition of “tracking” applied here? Tracking
 conditions? Does it extend to tracking biotic conditions? Is there a way to quantify the
 relevant set of conditions, and therefore an organism’s ability to track them?}\\
 
-This is an excellent point and we now provide a definition of environmental tracking (lines XX-XX) and a new figure (Fig XX) to help highlight the complexity of defining this. We believe this is an important addition to the literature, where `tracking' is often used but rarely defined. \\
+This is an excellent point and we now provide an extended definition of environmental tracking (see section, `Defining environmental tracking,' \lr{define1start}-lr{define1end}) and a new figure (Fig \ref{fig:defineET}) to help highlight the complexity of defining this. We believe this is an important addition to the literature, where `tracking' is often used but rarely defined. \\
  
 \emph{b.      The second paragraph of the introduction suggests that ``a shift toward earlier spring
 should favor earlier species, especially those that can environmentally track ever-earlier
@@ -302,18 +303,17 @@ theory is generally explanatory rather than specifically predictive, these devia
 been too troublesome. Perhaps the question then is more about how much worse the situation is
 with rapid climate change.}\\
 
-We agree with the author's point. Most systems can appear either stationary or non-stationary depending on the scale and temporal period. We have tried to clarify this on lines XX-XX, where we state:
+We agree with the author's point. Most systems can appear either stationary or non-stationary depending on the scale and temporal period. We have tried to clarify this on \R{nsstart}-\R{nsend} , where we state:
 \begin{quote}
-Understanding the impacts of climate change further requires recognizing that many systems can be considered stationary or non-stationary depending on the timescale and period of study. Thus, predicting the consequences of current non-stationarity in ecological systems benefits from identifying the type and scale of non-stationarity, relative to long-term trends.'' 
+Understanding the impacts of climate change further requires recognizing that many systems can be considered stationary or non-stationary depending on the timescale and period of study. Thus, predicting the consequences of current non-stationarity in ecological systems benefits from identifying the type and scale of non-stationarity, relative to long-term trends.
 \end{quote}
-Further, we have adjusted Figure XX. \\
 
 \emph{2.      Environmental variability and change (1.1)\\
 a.      L21-24: Is there good evidence of historical stationarity? The distinction between
 stationary vs. non-stationary environments seems to be scale-dependent, and thus somewhat
 subjective. Is that a problem?}\\
 
-We believe there is good evidence for climatic stationarity, at least on ecologically relevant (and certainly researcher-relevant) timescales, and have adjusted text on lines XX-XX, XX-XX and in Figure XX to clarify this. \\
+We believe there is good evidence for climatic stationarity, at least on ecologically relevant (and certainly researcher-relevant) timescales, and have adjusted text on lines \R{nsstart}-\R{nsend} and \lr{nsfutstart}-lr{nsfutend} to clarify this. \\
 
 \emph{3.      Environmental tracking in time (1.2)
 a.      Chmura et al (2019) suggest that relatively little is actually known about the
@@ -321,13 +321,13 @@ mechanistic/cueing bases of differences in phenological shifts, either because m
 don’t consider cues per se, or because they very rarely assess alternative mechanisms. If
 this is true, how does this affect the framework described in this section?}\\
 
-This is a great point and we believe an area where this paper can offer some guidance. In our overhaul of the paper we now address this two new sections \emph{Defining environmental tracking} and \emph{Measuring environmental tracking} on lines XX-XX.\\
+This is a great point and we believe an area where this paper can offer some guidance. In our overhaul of the paper we now address this two new sections \emph{Defining environmental tracking} and \emph{Measuring environmental tracking} on \lr{define1start}-\lr{endmeasure}.\\
 
 \emph{b.      The trade-off between plasticity (``tracking'') and bet-hedging has been examined in
 studies by Chevin, Lande, Ghalambor and others. Do those studies provide a useful perspective
 here?}\\
 
-Yes, we now review the plasicity literature on lines XX-XX, including references to these studies. For example, on lines XX-XX, we write: 
+Yes, we now review the plasicity literature on lines \lr{sectionmutisppstart}-\lr{endplastic}, including references to these studies. For example, lr{plasticquotestart}-\lr{plasticquoteend}, we write: 
 \begin{quote}
 Another area of life-history theory, that focused on plasticity, may be primed to provide insights on non-stationarity \citep[or `sustained environmental change,' see][]{chevin2010}. Considering phenology as a trait \citep[as we and others do, e.g.,][]{charm2008,nicotra2010,inouye2019}, environmental tracking is one type of plasticity. Researchers could thus more broadly understand environmental tracking through modeling an organism's reaction norms \citep{pigluicci1998,chmura2019} and understanding how cues and suites of cues---across environments---determine how fundamentally plastic an organism may be in its tracking. For example, multivariate cues should yield higher plasticity in this framework. From here, models of the role of plasticity in novel environments provide an important bridge to understanding the outcomes of non-stationarity, generally predicting non-stationarity should favor highly plastic species. This outcome, however, assumes there are no costs related to plasticity \citep{Ghalambor2007,tufto2015}. 
 \end{quote}
