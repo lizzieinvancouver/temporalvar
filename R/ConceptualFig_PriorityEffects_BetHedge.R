@@ -15,6 +15,7 @@
 ## housekeeping
 rm(list=ls()) 
 options(stringsAsFactors = FALSE)
+library(plotrix)
 setwd("C:/Users/Megan/Documents/GitHub/temporalvar/R")
 
 #Set up calculations for Panels A = Germination v DOY  & B Germination v Year for germination model
@@ -83,33 +84,76 @@ g.A.yr <- lookup.germ(tauP.t,x,g.A)
 g.B.yr <- lookup.germ(tauP.t,x,g.B)
 
 #Set up for four panels 
-pdf("graphs/conceptual/PriorityEff_BetHedge.pdf", width=8, height=6)
+pdf("graphs/conceptual/PriorityEff_BetHedge.pdf", 
+    title="Testing Testing",
+    width=8, height=7)
 def.par <- par(no.readonly = TRUE) # save default, for resetting...
-nf<-layout(matrix(c(1,2,3,4),2,2,byrow=TRUE))
+nf<-layout(matrix(c(1,2,3,4,5,6),3,2,byrow=TRUE),widths=c(4,4),heights=c(2,2,1))
 #layout.show(nf)
-par(mfrow=c(2,2), oma = c(2, 0, 0, 0))
+par(mfrow=c(3,2), oma = c(2, 0, 0, 0))
 
-#Top Left Panel: Germ Frac & Cumulative v DOY 
+#Top Left: Priority Effect v doy
+par(mar=c(2,2,2,2))
+scale=0.1
+sos <- 8
+yup <- max(c(g.B.priority.cum))*1.05
+plot(doy,g.A.priority,type="l",pch=20, lty=2,lwd=3,col=spcol$spA, 
+     ylim=c(-scale,yup+scale), axes=FALSE)
+points(doy,g.B.priority,type="l",lty=2, lwd=3,col=spcol$spB)
+points(doy,g.A.priority.cum,type="l",lty=1,lwd=2,pch=20, col=spcol$spA)
+points(doy,g.B.priority.cum,type="l",lty=1,lwd=2,pch=20, col=spcol$spB)
+axis(1,at=c(0,doy.max),pos=0,labels=FALSE,lty=1,lwd.ticks=0)
+axis(2,at=c(0,yup),pos=0,labels=FALSE,lwd.ticks=0)
+axis(3,at=c(0,doy.max),pos=yup-.001,labels=FALSE,lty=1,lwd.ticks=0)
+axis(4,at=c(0,yup),pos=doy.max,labels=FALSE,lty=1,lwd.ticks=0)
+arrows(x0=sos, x1=sos,y0=scale+yup,y1=yup,
+       length=.075,col=tauPcol,cex=0.5)
+mtext("Day of Year",side=1,line=0)
+mtext("Germination",side=2,line=0)
+mtext("Cum. Germination",side=4,line=0)
+legend(x=65,y=yup*.45,
+       legend=c("Sp1 Daily","Sp2 Daily","Sp1 Cum.","Sp2 Cum."),
+       col=c(spcol$spA,spcol$spB,spcol$spA,spcol$spB), lty=c(3,3,1,1), lwd=c(2,2,2,2),
+       pch=c(20,20,NA,NA),bty="n",cex=0.8)
+text(x=0,y=yup+scale,"A",adj=c(0,0.5),font=2)
+
+
+#Top Right Panel for Priority Effect v Year
+scale=0.1
+par(mar=c(2,2,2,2))
+yup <- max(c(g.B.priority.yr))*1.05
+plot(yrs,g.A.priority.yr,type="l", lty=1,lwd=2,col=spcol$spA, ylim=c(-scale,yup+scale),
+     axes=FALSE)
+points(yrs,g.B.priority.yr,type="l",lty=1,lwd=2,col=spcol$spB)
+points(yrs,g.A.priority.yr,pch=20,col=spcol$spA)
+points(yrs,g.B.priority.yr,pch=20,col=spcol$spB)
+axis(1,at=c(0,max(yrs)+1),pos=0,labels=FALSE,lty=1,lwd.ticks=0)
+axis(2,at=c(0,yup),pos=0,labels=FALSE,lwd.ticks=0)
+axis(3,at=c(0,max(yrs)+1),pos=yup-.001,labels=FALSE,lty=1,lwd.ticks=0)
+axis(4,at=c(0,yup),pos=max(yrs)+1,labels=FALSE,lty=1,lwd.ticks=0)
+mtext("Year",side=1,line=0)
+mtext("Germination",side=2,line=0)
+points(yrs,rep(tauP.ex,length(yrs))*scale+yup*1.005,pch=20,cex=0.5,col=tauPcol)
+points(yrs,rep(tauP.ex,length(yrs))*scale+yup*1.005,type="l",col=tauPcol,lty=1, lwd=1)
+text(x=0,y=yup+scale,"B",adj=c(0,0.5),font=2)
+
+#Bottom Left Panel: Germ Frac & Cumulative v DOY 
 par(mar=c(2,2,2,2))
 scale <- 0.2
 yup <- max(c(g.A.doy,g.B.doy))*1.2
 plot(doy,g.A.doy, type="l", lwd=3, lty=2,col=spcol$spA,
      axes=FALSE,ylim=c(-scale,yup+scale))
- axis(1,at=c(0,doy.max),pos=-0.001,labels=FALSE,lty=1,lwd.ticks=0)
- axis(2,at=c(0,yup),pos=0,labels=FALSE,lwd.ticks=0)
- axis(3,at=c(0,doy.max),pos=yup,labels=FALSE,lty=1,lwd.ticks=0)
- axis(4,at=c(0.001,yup),pos=doy.max,labels=FALSE,lty=1,lwd.ticks=0)
- 
+axis(1,at=c(0,doy.max),pos=-0.001,labels=FALSE,lty=1,lwd.ticks=0)
+axis(2,at=c(0,yup),pos=0,labels=FALSE,lwd.ticks=0)
+axis(3,at=c(0,doy.max),pos=yup,labels=FALSE,lty=1,lwd.ticks=0)
+axis(4,at=c(0.001,yup),pos=doy.max,labels=FALSE,lty=1,lwd.ticks=0)
+mtext("Cum. Germination",side=4,line=0)
 points(doy,g.A.cum, type="l",lwd=2, lty=1, col=spcol$spA,
-       ylab = "germination", xlab="day of year")
+       ylab = "Germination", xlab="Day of Year")
 points(doy[d],g.A.doy[d],type="p",pch=20,col=spcol$spA)
 points(doy,g.B.doy, type="l", lty=3,lwd=2,col=spcol$spB,)
 points(doy,g.B.cum, type="l",lty=1, lwd=2,col=spcol$spB)
 points(doy[d],g.B.doy[d],type="p",pch=20,col=spcol$spB)
-legend(x=70,y=yup*.35,
-       legend=c("sp A daily","sp B daily","sp A cum.","sp cum."),
-       col=c(spcol$spA,spcol$spB,spcol$spA,spcol$spB), lty=c(3,3,1,1), lwd=c(2,2,2,2),
-       pch=c(20,20,NA,NA),bty="n",cex=0.8)
 ##Add tauP v doy to top of panel
 points(doy,tauP/max(tauP)*scale+yup*1.005,type="l",col=tauPcol, lwd=1,bty="n")
 arrows(x0=d*step, x1=d*step,y0=tauP[d]/max(tauP)*scale+yup*1.005,y1=yup*1.005,
@@ -121,14 +165,16 @@ arrows(x0=d*step-step/2,x1=d*step-step/2,y0=-g.A[d]/max(c(g.A,g.B))*scale,y1=0,
        length=.075,col=spcol$spA,cex=0.5)
 arrows(x0=d*step+step/2,x1=d*step+step/2,y0=-g.B[d]/max(c(g.A,g.B))*scale,y1=0,
        length=.075,col=spcol$spB,cex=0.5)
-mtext("germination", side=2, line=0)
-mtext("day of year",side=1,line=0)
+mtext("Germination", side=2, line=0)
+mtext("Day of Year",side=1,line=0)
+text(x=0,y=yup+scale,"C",adj=c(0,0.5),font=2)
 
-#Top Right:  Germ Frac v year
+#Bottom Right:  Germ Frac v year
 par(mar=c(2,2,2,2))
+scale=0.2
 yup <- max(c(g.A.yr,g.B.yr))*1.05
 plot(yrs,g.A.yr,type="b",pch=20, col=spcol$spA,
-     axes=FALSE, ylim=c(0,yup+.3))
+     axes=FALSE, ylim=c(-scale,yup+scale))
 points(yrs,g.B.yr,type="b",pch=20, col=spcol$spB)
 #legend("topright",legend=c("sp A", "sp B"),col=c(spcol$spA,spcol$spB),lty=1,pch=20,bty="n")
 axis(1,at=c(0,max(yrs)),pos=-0.01,labels=FALSE,lty=1,lwd.ticks=0)
@@ -139,46 +185,22 @@ axis(4,at=c(-0.01,yup),pos=max(yrs),labels=FALSE,lty=1,lwd.ticks=0)
 ##Add tauP v y to top of panel
 points(yrs,tauP.t/max(tauP.t)*.25+yup*1.005,pch=20,cex=0.5,col=tauPcol)
 points(yrs,tauP.t/max(tauP.t)*.25+yup*1.005,type="l",col=tauPcol,lty=1, lwd=1)
-mtext("germination",side=2,line=0)
-mtext("year",side=1,line=0)
+mtext("Germination",side=2,line=0)
+mtext("Year",side=1,line=0)
+text(x=0,y=yup+scale,"D",adj=c(0,0.5),font=2)
 
-#Bottom Left: Priority Effect v doy
-par(mar=c(2,2,2,2))
-scale=0.1
-sos <- 8
-yup <- max(c(g.B.priority.cum))*1.05
-plot(doy,g.A.priority,type="l",pch=20, lty=2,lwd=3,col=spcol$spA, 
-     ylim=c(0,yup+scale), axes=FALSE)
-points(doy,g.B.priority,type="l",lty=2, lwd=3,col=spcol$spB)
-points(doy,g.A.priority.cum,type="l",lty=1,lwd=2,pch=20, col=spcol$spA)
-points(doy,g.B.priority.cum,type="l",lty=1,lwd=2,pch=20, col=spcol$spB)
-axis(1,at=c(0,doy.max),pos=0,labels=FALSE,lty=1,lwd.ticks=0)
-axis(2,at=c(0,yup),pos=0,labels=FALSE,lwd.ticks=0)
-axis(3,at=c(0,doy.max),pos=yup-.001,labels=FALSE,lty=1,lwd.ticks=0)
-axis(4,at=c(0,yup),pos=doy.max,labels=FALSE,lty=1,lwd.ticks=0)
-arrows(x0=sos, x1=sos,y0=scale+yup,y1=yup,
-       length=.075,col=tauPcol,cex=0.5)
-mtext("day of year",side=1,line=0)
-mtext("germination",side=2,line=0)
-mtext("cum. germination",side=4,line=0)
-
-#Bottom Right Panel for Priority Effect v Year
-scale=0.1
-par(mar=c(2,2,2,2))
-yup <- max(c(g.B.priority.yr))*1.05
-plot(yrs,g.A.priority.yr,type="l", lty=1,lwd=2,col=spcol$spA, ylim=c(0,yup+.25),
-     axes=FALSE)
-points(yrs,g.B.priority.yr,type="l",lty=1,lwd=2,col=spcol$spB)
-points(yrs,g.A.priority.yr,pch=20,col=spcol$spA)
-points(yrs,g.B.priority.yr,pch=20,col=spcol$spB)
-axis(1,at=c(0,max(yrs)+1),pos=0,labels=FALSE,lty=1,lwd.ticks=0)
-axis(2,at=c(0,yup),pos=0,labels=FALSE,lwd.ticks=0)
-axis(3,at=c(0,max(yrs)+1),pos=yup-.001,labels=FALSE,lty=1,lwd.ticks=0)
-axis(4,at=c(0,yup),pos=max(yrs)+1,labels=FALSE,lty=1,lwd.ticks=0)
-mtext("year",side=1,line=0)
-mtext("germination",side=2,line=0)
-points(yrs,rep(tauP.ex,length(yrs))*scale+yup*1.005,pch=20,cex=0.5,col=tauPcol)
-points(yrs,rep(tauP.ex,length(yrs))*scale+yup*1.005,type="l",col=tauPcol,lty=1, lwd=1)
+##Add caption to bottom of pdf
+plot(c(0,1),c(0,1),type="n",axes=FALSE, xlab="",ylab="")
+textbox(x=c(0,1),y=1,
+     textlist=c("Figure 4. Tracking can be conceptualized as changes in priority effects or changes in storage effects.",
+     "In a priority effect model (A,B), the coexistence mechanism is a within-year tradeoff between",
+     "an early-germinating species that pre-empts resources (sp 1) and late-germinating species that is a superior resource", 
+     "competitor (sp 2) (A, where green arrow indicates the start of season); no between-year variation is required",
+     "to maintain coexistence. In a storage effect model (C,D), variation in the timing of the start of season",
+     "(indicated by the distribution in green, top of C) results results in differential species-response to the environment", 
+     "(illustrated by species-specific germination curves, bottom of C); this interannual variation in", 
+     "species-response to the environment (D) - along with a seedbank or other interannual storage mechanism - can maintain coexistence",
+     "through reduced interspecific competition."),box=FALSE)
 
 dev.off()
 
