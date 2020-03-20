@@ -12,16 +12,21 @@ pdf(paste("graphs/conceptual/normal.pdf", sep=""), width = 7.5, height = 7)
 x <- seq(-12, 12, length=1000)
 hx <- dnorm(x, mean=0, sd=3)
 plot(x, hx, type="l", lwd=2,
-  ylab="Total fitness", xlab="(Event day - ideal day)")
+  ylab="Total fitness", xlab="(Event timing - ideal timing)")
 abline(v=0, lty=2, lwd=2)
 dev.off()
 
 pdf(paste("graphs/conceptual/normalscatter.pdf", sep=""), width = 7.5, height = 7)
 xnew <- seq(0, 30, length=30)
-ynew <- xnew + rnorm(length(xnew), 0, 0.1)
-plot(rev(xnew), ynew, pch=16,
-   xlab="Ideal day", ylab="Event day", cex=1.7)
-abline(lm(rev(xnew)~ynew))
+ynew <- xnew + rnorm(length(xnew), 0, 0.5)
+ynewlow <- xnew + rnorm(length(xnew), 0, 4)
+plot(xnew, ynew, type="n",
+   xlab="Ideal timing", ylab="Event timing")
+points(xnew, ynewlow, pch=16, cex=1.7, col="darkred")
+points(xnew, ynew, pch=16, cex=1.7)
+abline(lm(xnew~ynewlow), col="darkred")
+abline(lm(xnew~ynew))
+# abline(0, 1)
 dev.off()
 
 # Some dead simple scatterplots
