@@ -90,7 +90,7 @@ used in wide range of models). However, there should also be some detailed discu
 systems match these specific conditions, and which don't (e.g. systems where resources don't
 start at max but build up over time, systems where later arrivers have an advantage etc.)}\\
 
-The reviewer is correct that the resource does not renew each season, we now write (see \lr{nonrenew}) ``one dominant (non-renewing) pulse of a limiting resource each season,'' to help clarify this. As we have grossly cut the text devoted to this model we do not go into great details over this now, but we have added discussion about the need for more models that place a cost on early arrivals throughout the manuscript (see \lr{modelcosts1}, \lr{modelcosts2}, \lr{modelcosts3}). \\
+The reviewer is correct that the resource does not renew each season, we now write (see \lr{nonrenew}) ``one dominant (non-renewing) pulse of a limiting resource each season,'' to help clarify this.  As we have grossly cut the text devoted to this model we do not go into great details over this now, but we have added discussion about the need for more models that place a cost on early arrivals throughout the manuscript (see \lr{modelcosts1}, \lr{modelcosts2}, \lr{modelcosts3}). \\
 
 \emph{-       It took me a bit to think through the model formulation to understand how ``timing'' is
 incorporated here, and I'm not sure I'm still totally clear on it. Part of it stems from
@@ -116,21 +116,21 @@ explicit start time, it's not. Again, all this is based on not having enough inf
 determine how the model really works, but based on the supplemental information I assume all
 populations start at same time within a given year just at different abundances.}\\
 
-All populations do start at the same time, which we have now clarified in our manuscript both in respect to the model through a new figure (see Fig. \ref{fig:conceptmodels} and in general in respect to the diverse ways the literature currently studies environmental tracking (\lr{whenhow2start}-\lr{whenhow2end}).\\ 
+In the model, there is one germination event per year that occurs at the same time for both species.  Therefore, the model does not incorporate an explicit early arriver advantage.  Instead, variation in the timing of the resource pulse leads to differential germination of the competing species: when the timing matches the preferred timing of species 1, then species 1 has higher germination, and vice-versa.  We model tracking as the ability of a species to change its preferred timing from year to year to match the timing of the resource pulse.  This model, therefore, focuses on the ``how much'' of tracking rather than ``when''.  In addition to adjusting the language we use to describe the model in Box 3.4 and in the supplement,  we have now clarified this distinction in our manuscript both in respect to the model through a new figure (see Fig. \ref{fig:conceptmodels} and in general in respect to the diverse ways the literature currently studies environmental tracking (\lr{whenhow2start}-\lr{whenhow2end}).\\ 
 
 \emph{This confusion is further increased by not providing information on how ``non-stationary'' is
 modeled in this system. If there is no real timing, does this mean it's modeled as move from
 environmental to biological timing? So ``shift'' results in decrease in number of individuals
 if biological timing doesn't shift but environmental timing shifts “earlier”?}\\
 
-We agree this was not sufficiently clear in the original draft; in our current version we have moved a supplemental figure into the main text to show how environmental non-stationarity was modeled (see Fig. \ref{fig:modelfig}). \\
+We agree this was not sufficiently clear in the original draft.  The reviewer's understanding is correct.  Non-stationarity is modeled as a shift in the mean timing of the resource pulse (see the top panels of Fig. \ref{fig:modelfig}, which we have now moved into the main text).  For each species, this shift in the timing of the resource pulse (\tau_P top left panel in Fig. \ref{fig:modelfig}) moves the resource pulse closer or further from the species' fundamental timing, \tau_I\\, (cf. Panel C of Fig \ref{fig:conceptmodels}).  When \tau_P is closer to a species \tau_I, that species' germination rate is higher; as the mean timing of the resource pulse changes, the mean germination rate of each species changes.  In our model, a non-tracking species has a fixed \tau_I, and a tracking species has the ability to adjust its \tau_I to match (to varying degrees) the changing \tau_P.  
 
 \emph{So to summarize I took away these following assumptions:\\
 (1)     Simulations of within season population dynamics start at the same time, there is no
 temporal offset of population dynamics, and no ``escape'' from competition in time. So there is
 no explicit temporal niche modelled}\\
 
-There is no explicit intra-annual temporal niche, but there is a temporal niche inter-annually, which is critical to our aim to model tracking. We have worked to clarify this in the current version. A model with both intra-annual and inter-annual temporal niche dynamics would be an excellent area for future work, but we believe it could be difficult to tackle this at the same time as adding tracking and non-stationarity to a single model. We now clarify, starting on \lr{whenhownewmod}, that this is an important area for future work. \\
+There is no explicit intra-annual temporal niche, but there is a temporal niche inter-annually, which is critical to our aim to model tracking. We have worked to clarify this distinction this in the current version Fig. \ref{fig:conceptmodels}. A model with both intra-annual and inter-annual temporal niche dynamics would be an excellent area for future work, but we believe it could be difficult to tackle this at the same time as adding tracking and non-stationarity to a single model. We now clarify, starting on \lr{whenhownewmod}, that this is an important area for future work. \\
 
 \emph{S(2)     temporal differences only affect starting densities not temporal dynamics or per
 capita effects. In other words, this is a model where phenological shift only affect
@@ -155,14 +155,14 @@ Each season ends when the $R^*$ value of the better resource competitor is met, 
 \emph{S(5)     Germination function with difference in environmental vs. biological timing is non-
 linear.}\\
 
-Yes. We have aimed to clarify this in the supplement, but as this model is no longer a focus of the paper, we have not addressed these details in the main text.\\
+Yes. We have aimed to clarify this in the supplement, but as this model is no longer a primary focus of the paper, we have not addressed these details in the main text.\\
 
 \emph{S(6)     Tracking parameter is difference between fixed vs. moving biological timing.
 Given this set of assumption, the generality of the model is strongly limited to a few
 systems/scenarios (very specific plant system), limiting the general inference that can be
 obtained from it.}\\
 
-The addition of the tracking parameter (which can vary from 0 to 1, which is from low to `perfect' tracking) shifts how well a species matches to its environment each year (where a high match yields to more offspring). This is a modification of a common coexistence model, used by Chesson widely \citep[][]{Chesson:2000vd,Chesson:2004eo}, which is commonly applied to plant systems but extends in the simple form we use here to coral reef fish, forest trees and many other organisms \citep[see][]{Chesson:1997dz} so we do not believe its inference is strongly limited.
+The addition of the tracking parameter (which can vary from 0 to 1, which is from no tracking to `perfect' tracking) shifts how well a species matches to its environment each year (where a high match yields to more offspring). This is a modification of a common coexistence model, used by Chesson widely \citep[][]{Chesson:2000vd,Chesson:2004eo}, which is commonly applied to plant systems but extends in the simple form we use here to coral reef fish, forest trees and many other organisms \citep[see][]{Chesson:1997dz} so we do not believe its inference is strongly limited.
 
 We have worked to further highlight where this model fits within the current literature, which measures a mix of tracking of climate data to fundamental tracking (often studied in the trophic mismatch literature). We hope the changes throughout the manuscript relating to this will help clarify the extent to which this, and many other models, may apply.\\
 
@@ -247,7 +247,7 @@ We apologize for these omissions, $n$ is the number of species, and each season 
 \emph{P13 L 9: this prediction hinges on the assumption of early arriver advantage and single
 resource competition etc. So as it stands, this is one of the predictions, not the only one.}\\
 
-Agreed, these predictions fail when there are costs to tracking too closely, we now discuss theses costs in detail in multiple places in the modeling section of the manuscript (see \lr{modelcosts1}, \lr{modelcosts2}, \lr{modelcosts3}).\\
+Agreed, these predictions fail when there are costs to tracking too closely, we now discuss these costs in detail in multiple places in the modeling section of the manuscript (see \lr{modelcosts1}, \lr{modelcosts2}, \lr{modelcosts3}).\\
 
 \emph{P15L10ff: what about species that are just very plastic, i.e. can adjust to cope with various
 environmental conditions, and thus take an alternative strategy to shifting. There has been
@@ -265,9 +265,9 @@ In same context, Yang \& Cencer 2019 Ecology examine ``seasonal windows of oppor
 fits nicely in the context here. They took rigorous approach in finding what constraints
 those windows, which would also determine how shifts in them would change the optimal window.}\\
 
-We thank the reviewer for these examples, we now \citet{yang2020} on \lr{yang2020} and here and throughout the manuscript have worked to discuss in-depth the contraints on tracking (e.g., \lr{constrain1start}-\lr{constrain1end} and \lr{constrain2}). 
+We thank the reviewer for these examples, we now cite \citet{yang2020} on \lr{yang2020} and here and throughout the manuscript have worked to discuss in-depth the contraints on tracking (e.g., \lr{constrain1start}-\lr{constrain1end} and \lr{constrain2}). 
 
-Our apologies about the line numbers, these are the line numbers provided by \emph{Ecology Letters}; we now provide continuous line numbers and refer to those here (though this may mean that after \emph{Ecology Letter} adds their own line numbers we end up with two contrasting sets of line numbers, which we apologize for).\\
+Our apologies about the line numbers, these are the line numbers provided by \emph{Ecology Letters}; we now provide continuous line numbers and refer to those here (though this may mean that after \emph{Ecology Letters} adds their own line numbers we end up with two contrasting sets of line numbers, which we apologize for).\\
 
 \emph{P16 L 34-35: very cool, I'll have to look up change-point and hinge models, never heard of
 them!}\\
@@ -384,7 +384,7 @@ of any cues (or with a tracking ability of 0), an organism would consistently st
 same calendar day each year. This seems like a modeling decision that should be explained and
 justified. Are there studies to indicate that this is a reasonable model?}\\
 
-This model is a form of one commonly applied to plant systems but extends in the simple form we use here to coral reef fish, forest trees and many other organisms \citep[see][]{Chesson:1997dz}. Part of why this model can be applied broadly is in its abstraction, which is also why it may be difficult to link neatly to phenological events. The addition of the tracking parameter (which can vary from 0 to 1, which is from low to `perfect' tracking) shifts how well a species matches to its environment each year (where a high match yields to more offspring). 
+This model is a form of one commonly applied to plant systems but extends in the simple form we use here to coral reef fish, forest trees and many other organisms \citep[see][]{Chesson:1997dz}. Part of why this model can be applied broadly is in its abstraction, which is also why it may be difficult to link neatly to phenological events. The addition of the tracking parameter (which can vary from 0 to 1, which is from no tracking to `perfect' tracking) shifts how well a species matches to its environment each year (where a high match yields to more offspring). 
 
 Given both reviewers' concerns regarding the model we have now moved it to a box (`Adding tracking and non-stationarity to a common coexistence model'), which precludes an in-depth discussion of its exact potential conceptualizations. We have, however, worked to stress the varied interpretations of `tracking' throughout the text (e.g., \lr{define1start}-\lr{define1end}), including across different modeling approaches (\lr{startmodels}-\lr{sectionmutisppend}).\\
 
