@@ -107,7 +107,7 @@ axis(2,at=c(0,yup),pos=0,labels=FALSE,lwd.ticks=0)
 axis(3,at=c(0,doy.max),pos=yup-.001,labels=FALSE,lty=1,lwd.ticks=0)
 axis(4,at=c(0,yup),pos=doy.max,labels=FALSE,lty=1,lwd.ticks=0)
 arrows(x0=sos, x1=sos,y0=scale+yup,y1=yup,
-       length=.075,col=tauPcol,cex=0.5)
+       length=.05,col=tauPcol,cex=0.5)
 mtext("Day of Year",side=1,line=0)
 mtext("Germination",side=2,line=0)
 mtext("Cum. Germination",side=4,line=0)
@@ -157,14 +157,14 @@ points(doy[d],g.B.doy[d],type="p",pch=20,col=spcol$spB)
 ##Add tauP v doy to top of panel
 points(doy,tauP/max(tauP)*scale+yup*1.005,type="l",col=tauPcol, lwd=1,bty="n")
 arrows(x0=d*step, x1=d*step,y0=tauP[d]/max(tauP)*scale+yup*1.005,y1=yup*1.005,
-       length=.075,col=tauPcol,cex=0.5)
+       length=.05,col=tauPcol,cex=0.5)
 ##Add tauI v doy to bottom of panel
 points(doy,-g.A/max(c(g.A,g.B))*scale,type="l",col=spcol$spA, lwd=1)
 points(doy,-g.B/max(c(g.A,g.B))*scale,type="l",col=spcol$spB, lwd=1)
 arrows(x0=d*step-step/2,x1=d*step-step/2,y0=-g.A[d]/max(c(g.A,g.B))*scale,y1=0,
-       length=.075,col=spcol$spA,cex=0.5)
+       length=.05,col=spcol$spA,cex=0.5)
 arrows(x0=d*step+step/2,x1=d*step+step/2,y0=-g.B[d]/max(c(g.A,g.B))*scale,y1=0,
-       length=.075,col=spcol$spB,cex=0.5)
+       length=.05,col=spcol$spB,cex=0.5)
 mtext("Germination", side=2, line=0)
 mtext("Day of Year",side=1,line=0)
 text(x=0,y=yup+scale,"C",adj=c(0,0.5),font=2)
@@ -190,17 +190,17 @@ mtext("Year",side=1,line=0)
 text(x=0,y=yup+scale,"D",adj=c(0,0.5),font=2)
 
 ##Add caption to bottom of pdf
-plot(c(0,1),c(0,1),type="n",axes=FALSE, xlab="",ylab="")
-textbox(x=c(0,1),y=1,
-     textlist=c("Figure 4. Tracking can be conceptualized as changes in priority effects or changes in storage effects.",
-     "In a priority effect model (A,B), the coexistence mechanism is a within-year tradeoff between",
-     "an early-germinating species that pre-empts resources (sp 1) and late-germinating species that is a superior resource", 
-     "competitor (sp 2) (A, where green arrow indicates the start of season); no between-year variation is required",
-     "to maintain coexistence. In a storage effect model (C,D), variation in the timing of the start of season",
-     "(indicated by the distribution in green, top of C) results results in differential species-response to the environment", 
-     "(illustrated by species-specific germination curves, bottom of C); this interannual variation in", 
-     "species-response to the environment (D) - along with a seedbank or other interannual storage mechanism - can maintain coexistence",
-     "through reduced interspecific competition."),box=FALSE)
+# plot(c(0,1),c(0,1),type="n",axes=FALSE, xlab="",ylab="")
+# textbox(x=c(0,1),y=1,
+#      textlist=c("Figure 4. Tracking can be conceptualized as changes in priority effects or changes in storage effects.",
+#      "In a priority effect model (A,B), the coexistence mechanism is a within-year tradeoff between",
+#      "an early-germinating species that pre-empts resources (sp 1) and late-germinating species that is a superior resource", 
+#      "competitor (sp 2) (A, where green arrow indicates the start of season); no between-year variation is required",
+#      "to maintain coexistence. In a storage effect model (C,D), variation in the timing of the start of season",
+#      "(indicated by the distribution in green, top of C) results results in differential species-response to the environment", 
+#      "(illustrated by species-specific germination curves, bottom of C); this interannual variation in", 
+#      "species-response to the environment (D) - along with a seedbank or other interannual storage mechanism - can maintain coexistence",
+#      "through reduced interspecific competition."),box=FALSE)
 
 dev.off()
 
