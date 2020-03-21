@@ -93,7 +93,7 @@ We adjust the biological start time, $\tau_i$ so that it can respond to the envi
 \noindent \emph{Simulations:}\\
 Using this model framework, we simulated a suite of two-species communities in stationary and non-stationary environments and examined persistence. As our interest is primarily in the role of environmental tracking, we focus on situations where species vary in their match to the environment through both the intrinsic biological start time ($\tau_i$) combined with tracking ($\alpha$), examining simulations where all species had some level of tracking. We also varied species' resource use efficiency (via $c_i$), yielding species with different $R^*$ (where a lower $R^*$ means a species can draw the resource down to a lower level and is thus considered the superior competitor). Each simulation was composed of two sequential parts: first, a 500-year stationary period where the underlying distribution of the environment does not change (but is stochastic, yielding year-to-year variation) followed by a 500-year non-stationary period where the underlying distribution of the environment shifts to an earlier start of season (see Fig. \ref{fig:modelfig} in main text). Thus, only species that persisted through the first stationary period continued into the non-stationary period.  \\
 
-To simulate competitive dynamics, both species were initialized with a census size of $N(0) = 100$ per unit area, and the temporally varying parameters $R_0(t)$ and $\tau_{p}(t)$ were generated for the stationary and nonstationary periods. Species-specific parameters ($c_{i}$,$\tau_{i}$, and $\alpha_{i}$) were drawn from uniform random distributions with the ranges given in Table \ref{tab:model}.  All other parameters were identical between species (Table \ref{tab:model}).  Within-year $R^{*}$ competition dynamics were solved using an ode solver (\verb|ode| in the R package \verb|deSolve|) and ended when the resource was drawn down to $min(R^{*})$, i.e., the $R^{*}$ value of the better resource competitor.  The end of season biomass of each species was converted to seeds, and the populations were censused.  At each census, a minimum cutoff was applied to define extinction from the model.  Note that ``coexistence'' in this model is defined by joint persistence through time and not by low density growth rate. 
+To simulate competitive dynamics, both species were initialized with a census size of $N(0) = 100$ per unit area, and the temporally varying parameters $R_0(t)$ and $\tau_{p}(t)$ were generated for the stationary and nonstationary periods. Species-specific parameters ($c_{i}$, $\tau_{i}$, and $\alpha_{i}$) were drawn from uniform random distributions with the ranges given in Table \ref{tab:model}.  All other parameters were identical between species (Table \ref{tab:model}).  Within-year $R^{*}$ competition dynamics were solved using an ode solver (\verb|ode| in the R package \verb|deSolve|) and ended when the resource was drawn down to $min(R^{*})$, i.e., the $R^{*}$ value of the better resource competitor.  The end of season biomass of each species was converted to seeds, and the populations were censused.  At each census, a minimum cutoff was applied to define extinction from the model.  Note that ``coexistence'' in this model is defined by joint persistence through time and not by low density growth rate. 
 
 \section{References}
 \bibliography{/Users/Lizzie/Documents/git/bibtex/LizzieMainMinimal}
@@ -142,7 +142,7 @@ Parameter & Value(s) & Definition & Unit \\ \hline
  
 \clearpage
 % latex table generated in R 3.5.1 by xtable 1.8-3 package
-% Thu Mar 19 12:34:53 2020
+% Sat Mar 21 15:23:41 2020
 \begin{table}[ht]
 \centering
 \caption{Summary of traits related to phenological tracking in the literature and whether papers reported statistical evidence that they were linked or not. See Table S2 for an extended version.} 
@@ -175,7 +175,7 @@ diet traits &   0 &   3 \\
 \end{tabular}
 \endgroup
 \end{table}% latex table generated in R 3.5.1 by xtable 1.8-3 package
-% Thu Mar 19 12:34:53 2020
+% Sat Mar 21 15:23:41 2020
 \begin{table}[ht]
 \centering
 \caption{Summary of results from literature on phenological tracking showing which phenophases researchers found were linked to which traits, or not.} 
