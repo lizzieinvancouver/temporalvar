@@ -1,0 +1,60 @@
+Started 18 May 2020
+
+
+(R3 -- Ally)
+
+REF: Amano et al. 2014
+
+Links between plant species’ spatial and temporal responses to a warming climate
+
+Jonathan is not aware of other papers showing this link (his project with Will Pearse was supposed to do this)! Heather Kharouba also had set this up as a postdoc project (with Lauren Buckley), but did not do it. She recommended:
+
+Socolar et al. 2017 -- PNAS which shows (California birds) that phenological shifts 'conserve thermal niches'... they also talk about tracking climate ("to track temperature by shifting thermally constrained life-history events (e.g., nesting in birds) to colder times of year (Fig. 1)"). Does not cite Amano.
+
+Singer et al. 2017 news piece on this says, "Demonstrations of this intimacy between range limits and phenology have been mainly restricted to plants and insects." (This paper does not seem to cite studies finding correlations.)
+
+(i) perennial species, as well as those with weaker or lagged phenological responses to temperature, experienced a greater increase in temperature during flowering (i.e. failed to maintain climatic niche via phenological changes); (ii) species that failed to maintain climatic niche via phenological changes showed greater northward range shifts; and (iii) there was a complementary relationship between the levels of climatic niche conservatism via phenological changes and range shifts. 
+
+Also cite (in contrast) Duputie et al. 2015:
+
+We show that phenological plasticity is not always adaptive and mostly affects fitness at the margins of the species’ distribution and climatic niche. Under current climatic conditions, phenological plasticity constrains the northern range limit of oak and beech and the southern range limit of pine.
+
+REF: Visser & Both 2005
+
+Here, we assume that the shift in the phenology of a species’ food abundance is, by a first approximation, an appropriate yardstick.
+
+
+...
+
+The observed changes in phenology cannot be interpreted without considering the ecological context in which a species lives, and especially how other com- ponents of the ecosystem are affected by climate change. What is needed is some sort of a yardstick: a measure of how much a species should shift to match the change in its environment caused by climate change.
+
+** What is needed is identification of the variables that make-up the important selection pressures on the phenology of a species.... in most of this paper we will assume [food abundance is] the main selection pressure on phenology is food abundance (but see §8).**
+
+Section 8: Although we admit that this ‘single critical activity–single selection agent’ scenario is highly unlikely to be the case, we fear that it is the best possible yardstick at this moment. [Lizzie wonders -- a bad yardstick is worse than no yardstick at all?] ... When we go beyond measuring the shifts in phenology of a single selection agent it becomes more difficult to define a yardstick, as we then need to integrate these different selection pressures
+
+
+
+REF: Chevin_&_Lande_2015 "We model the evolution of linear reaction norms in response to several correlated environmental variables, in a population undergoing stationary environmental fluctuations"
+
+REF: Ghalambor_etal_2007 ... about adaptive and non-adaptive plasticity, "We conclude that adaptive plasticity that places populations close enough to a new phenotypic optimum for directional selection to act is the only plasticity that predictably enhances fitness and is most likely to facilitate adaptive evolution on ecological time- scales in new environments. However, this type of plasticity is likely to be the product of past selection on variation that may have been initially non-adaptive."
+
+REF: Gienapp et al. 2004: Modeling paper on Great tit (for a special issue), "therefore tentatively conclude that micro- evolution, together with plasticity, would rescue only the population from mild rates of climate change"
+
+REF: Tansey et al. 2017: this one has the table of assumptions you must make to separate plasticity and evolution using spatiotemporal data.
+
+REF: Vedder et al. 2013 -- good contrast to Gienapp, seems to say plasticity is the main thing around and that it can allow Great tit to survive, "Using the effect of changes in early spring temperature on temporal synchrony between birds and a critical food resource, we focus in particular on the contribution of phenotypic plasticity to population persistence. Despite using conservative estimates for evoluti onary and reproductive potential, our results suggest little risk of population extinction under projected local temperature change; however, this conclusion relies heavily on the extent to which phenotypic plasticity tracks the changing environment. Extrapolating the model to a broad range of life histories in birds suggests that the importance of phenotypic plasticity for adjustment to projected rates of temperature change increases with slower life histories, owing to lower evolutionary potential."
+
+
+(R1 REFS)
+
+REF: Bonebrake_&_Mastrandrea_2011 (reviewer says "species inhabiting highly variable environments should be tracking, which may equip them with an advantage also in a gradually changing world. This idea has been voiced before in models") -- this just says the old adage that the tropics may change more with climate change than the temperate zone.  .... not sure what to do with this.
+
+
+
+REF: Pake & Venable 1996: "Long-term data collected from permanent plots over a 10-yr period were used to calculate temporal variation in reproductive success for each species. Species with higher temporal variation in reproductive success had lower germination fractions and smaller seeds, consistent with the theory that seed dormancy and large seed size are partially substitutable bet-hedging strategies"
+
+
+REF: Simons 2009, "Here, I report a quantitative test using the timing of seed germination—a model diversification bet-hedging trait—in Lobelia inflata under field conditions. In a phenotypic manipulation study, I find the magnitude of fluctuating selection acting on seed germination timing—across 70 intervals throughout five seasons—to be extreme: fitness functions for survival are complex and multimodal within seasons and significantly dissimilar among seasons. I confirm that the observed magnitude of fluctuating selection is sufficient to account for the degree of diversification behaviour characteristic of individuals of this species."
+
+
+REF: Simons 2011, "Unpredictable natural selection is expected to result in the evolution of bet-hedging strategies, which are adaptations to long-term fluctuating selection.....  The variety and distribution of plausible bet-hedging traits found across 16 phyla in over 100 studies suggest their ubiquity. Thus, bet hedging should be considered a specific mode of response to environmental change." --> Seems a good paper to cite!
