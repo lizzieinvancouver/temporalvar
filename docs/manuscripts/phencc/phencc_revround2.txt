@@ -58,3 +58,32 @@ REF: Simons 2009, "Here, I report a quantitative test using the timing of seed g
 
 
 REF: Simons 2011, "Unpredictable natural selection is expected to result in the evolution of bet-hedging strategies, which are adaptations to long-term fluctuating selection.....  The variety and distribution of plausible bet-hedging traits found across 16 phyla in over 100 studies suggest their ubiquity. Thus, bet hedging should be considered a specific mode of response to environmental change." --> Seems a good paper to cite!
+
+
+
+
+
+<><><><><><><><><>
+<> 1 June 2020 <>
+<><><><><><><><><>
+Chat with Megan about OPT versus plasticity ...
+
+Simple OPT - to go or not (0/1); when things get more complex you end up in plasticity theory ... "your control rules determine your plasticity; they determine what your options are" 
+
+Subsume the OPT into the plasticity language... plasticity theory tells you to track, OPT tells you how to do it. 
+
+plasticity defines the range of possibilities under which an organism can optimize
+
+Plasticity theory says not all traits for all species should be plastic; by extension, not all species should track... 
+
+Phenology and plasticity have a sticky relationship ... 
+
+Plasticity tells us when it would be beneficial in timing to changing environments; when evolution it acts through a cue system which is selected for via OPT. 
+
+Phenology is only plastic when defined in calendar days; but not when defined as thermal sums ... 
+
+Consistent variation in the environment such that cuing can be selected for ... 
+
+
+* Side note: the only paper (one!) that ISI returns for: TOPIC: ("optimal control" AND plastic* AND trait*) 
+is: Resilience, robustness, and plasticity in a terrestrial slug, with particular reference to food quality
