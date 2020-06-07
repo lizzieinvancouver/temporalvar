@@ -1,5 +1,19 @@
 Started 18 May 2020
 
+Megan reads up on plasticity for me?
+	- Simons 2011 -- this one is really good!
+	- Chevin & Lande 2015 -- about cues and plasticity; also I need someone smarter than me to read this (suggested by R3) and adjust/explain our statement of "Similarly, expensive cues, such as complex multivariate ones, are possible given a high pay-off" which R3 doesn't like.
+	- Scheiner 2013 -- about cue reliability
+	- Bonamour et al. 2019: Intro maybe useful? Again on about cues and plasticity
+	
+Refs for 
+
+From Bonamour 2019 "For instance, theory predicts that if cue reliability decreases, plasticity may be selected to decrease [15], or else may drive popu- lations to extinction by increasing the expected load caused by phenotypic mismatch with the optimum in a fluctuating environment [16 – 18]."
+
+
+14. Scheiner SM. 2013 The genetics of phenotypic plasticity: XII: temporal and spatial heterogeneity. Ecol. Evol. 3, 4596 – 4609. (doi:10.1002/ece3.792)
+15. Gavrilets S, Scheiner SM. 1993 The genetics of phenotypic plasticity. V. Evolution of reaction norm shape. J. Evol. Biol. 6, 31 – 48. (doi:10.1046/j.1420- 9101.1993.6010031.x)
+16. Reed TE, Waples RS, Schindler DE, Hard JJ, Kinnison MT. 2010 Phenotypic plasticity and population viability: the importance of environmental predictability. Proc. R. Soc. B. 277, 3391 – 3400. (doi:10.1098/rspb.2010.0771)
 
 (R3 -- Ally)
 
@@ -59,9 +73,16 @@ REF: Simons 2009, "Here, I report a quantitative test using the timing of seed g
 
 REF: Simons 2011, "Unpredictable natural selection is expected to result in the evolution of bet-hedging strategies, which are adaptations to long-term fluctuating selection.....  The variety and distribution of plausible bet-hedging traits found across 16 phyla in over 100 studies suggest their ubiquity. Thus, bet hedging should be considered a specific mode of response to environmental change." --> Seems a good paper to cite!
 
+However, the evolution of plasticity is limited by available genetic variance in norms of reaction, by physiological, developmental and physical constraints, by the costs of plasticity, and is critically dependent on the availability of cues that reliably predict not only the environments in which the plastic trait will be expressed, but that pre- dict the relationship between fitness and phenotype in these environments. Thus, like adaptive tracking, the evolution of adaptive plasticity is seriously constrained, and constraints are difficult to measure [66].
+
+Because plasticity is adaptive only if response to cues is appropriate, there is no a priori reason to expect norms of reaction to novel environmental change to be adaptive [57,58]. .... indicating that the effective- ness of plasticity under changing environments depends on the temporal stability of the particular mechanism underlying the relationship between phenotype and fitness; here, prey phenology [53]. ... Like any trait, adaptive plasticity requires heritable genetic variance (gen- otype-by-environment interaction) for the evolution of appropriate trait expression—i.e. norms of reaction [65].
+
+...rather than adaptation to specific or predictable environmental changes, bet hedging may be thought of as adaptation to unpredictability or to change itself (Simons 2009)'
 
 
+When both predictable and unpredictable environ- mental variance influence fitness, a blend of plasticity and bet hedging is expected to evolve [74,75].
 
+Because bet-hedging traits maximize geometric-mean fitness of their carriers across generations but do not maximize the expected fitness within a generation [37], bet-hedging adaptations appear to be detrimental if observed over short periods of time—even under ‘normal’ or average conditions.
 
 <><><><><><><><><>
 <> 1 June 2020 <>
