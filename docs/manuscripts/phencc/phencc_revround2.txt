@@ -5,10 +5,24 @@ Megan reads up on plasticity for me?
 	- Chevin & Lande 2015 -- about cues and plasticity; also I need someone smarter than me to read this (suggested by R3) and adjust/explain our statement of "Similarly, expensive cues, such as complex multivariate ones, are possible given a high pay-off" which R3 doesn't like.
 	- Scheiner 2013 -- about cue reliability
 	- Bonamour et al. 2019: Intro maybe useful? Again on about cues and plasticity
+
+<<><><><><><><>>
+Megan and I discussed this on 10 June 2020
+- She read Simons 2011
+- Is working through Chevin & Lande 2015: Discussion in Lande paper about indicators ... selection environment is multivariate and so you can see hyper adaptation and maladaptive if viewed on one axis (they also discuss an indicator environment) .... falling off reaction norms is sort of like costs
+- She will read the others ...
+- We define tracking as 'ecological process' and define as plasticity is helpful
+- One thing to mention on line 146-154: you can end up somewhere between tracking and bet-hedging (also, side note, write back to R1 -- we're doing ecological time!)
+- Megan disappointed by Chevin and Lande, acknowledge in last paragraph of intro altered covariance structure due to climate change... but they didn't actually do any non-stationarity... wait they do shift the environment and the species evolves to a new cue -- this is where we're looking at (what happens basically before the evolution)! Anyway, they shift so the cue goes from one environmental variable to the other; thus if you were just looking at the old variable you would think the species is maladaptive (2000+ generations)
+- Chevin and Lande: This factor entails that all other things being equal, an indirect indicator is favored if the sum of the variances of environmental fluctuations and perception error plus the (scaled) cost of plasticity is lower for the indicator than for the causal variable. 
+- Chevin and Lande: They assume polygenic traits with MVN reaction norm, so early or late is equally changing variation... but if it's actually a day of year then we expect non-MVN reaction norm ... that is one side is probably a cliff (go to early, die!) and one side is normal 
+- Chevin and Lande: They have environmental variance and covariance; wiggle around r(x) norm from developmental stochasticity and microenvironmental stochasticity
+<<><><><><><><>>
+
 	
 Refs for 
 
-From Bonamour 2019 "For instance, theory predicts that if cue reliability decreases, plasticity may be selected to decrease [15], or else may drive popu- lations to extinction by increasing the expected load caused by phenotypic mismatch with the optimum in a fluctuating environment [16 – 18]."
+From Bonamour 2019 "For instance, theory predicts that if cue reliability decreases, plasticity may be selected to decrease [15], or else may drive populations to extinction by increasing the expected load caused by phenotypic mismatch with the optimum in a fluctuating environment [16 – 18]."
 
 
 14. Scheiner SM. 2013 The genetics of phenotypic plasticity: XII: temporal and spatial heterogeneity. Ecol. Evol. 3, 4596 – 4609. (doi:10.1002/ece3.792)
