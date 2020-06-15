@@ -5,8 +5,13 @@
 \usepackage{amsmath}
 \usepackage{hyperref}
 \usepackage{todonotes}
+\newcommand{\R}[1]{\label{#1}\linelabel{#1}}
+\newcommand{\lr}[1]{line~\lineref{#1}}
+\externaldocument{phencc}
+
 
 \setlength\parindent{0pt}
+% SUBMITTED draft: https://github.com/lizzieinvancouver/temporalvar/blob/180389acb37d9d5cef07c2095f00fa73f0b789e9/docs/manuscripts/phencc/phencc.pdf
 
 \begin{document}
 Note that reviewer comments are in \emph{italics}, while our responses are in regular text, and all in-text citations generally cross-reference to the main text.\\
@@ -17,7 +22,9 @@ Note that reviewer comments are in \emph{italics}, while our responses are in re
 biggest issue is one of communication. The authors need to focus their arguments much more
 clearly and deliberately.}\\
 
-We appreciate the editor's honest assessment of the state of manuscript and the task of a revision for \emph{Ecology Letters.} We agree this is an important topic and the editor and referee's comments have led us to completely redraft the manuscript with a broader focus (we estimate that only 10-20\% of the originally submitted text remains in the revised manuscript). We believe the revised submission better serves the current state of this field and could help rapidly advance progress in research on evironmental tracking.\\
+We appreciate the editor's comments about clarity of message, and agree it does much to explain many of the reviewers' concerns. To address this, we have overhauled the manuscript, especially sections 1.1-1.3 (now sections 1.1, `Defining \& measuring tracking' and `Tracking in single-species environment') to be more precise and shorter. We have overhauled our figure defining tracking and been more careful in our definition of fundamental versus environmental tracking. Additionally, we have tried to more clearly separate evolutionary and ecological theory, which we believe understandably led to some confusion. We believe the revised submission is much improved and explain our changes in more detail in our point-by-point response to reviewers below.\\
+
+We appreciate 
 
 {\bf Referee 1 comments:} \\
 
@@ -27,7 +34,7 @@ particularly interesting in the context of climate change and earlier onset of s
 northern hemisphere. The topic of phenological shifts is interesting, and I found the
 manuscript overall very well written.}\\
 
-We understand the reviewer's concerns and have worked to completely re-draft the manuscript to provide a more substantial and useful review of the field, while still aiming to be forward-looking. We provide more details on these changes below. \\
+We thank the reviewer for the positive comments on the manuscript's topic and writing style. \\
 
 \emph{I have a few general concerns about the manuscript which I detail below, and some specific
 ones, which I will address later in a chronological order.\\
@@ -39,8 +46,11 @@ not convince me that ecological tracking is fundamentally different from the wid
 phenological shifts. Maybe it is a subset of those, but it is nothing new. Nevertheless, the
 effect of phenological changes on ecological communities is an interesting one.
 }\\
-
-XXX  \\
+\clearpage
+We agree our manuscript's topic is most easily and readily applied to phenological shifts (as Reviewer 4 also noted), but we avoided this term given that phenology is generally defined as `the recurring timing of life history events' (defined on \lr{phendefine1}) and a number of events we review (and to which this manuscript applies) fall outside this definition. We do understand that definition of phenology may be evolving in the literature and have tried to up front about the reasoning for our terminology now, when we define tracking we now state (\lr{phendefineS}-\lr{phendefineE}):  
+\begin{quote}
+Both these definitions are readily applied to phenology---the timing of recurring life history events---though they can also apply to non-recurring life history events (e.g., seed germination), or events not normally defined as part of life history.
+\end{quote}
 
 
 \emph{2) After carefully reading the manuscript, I did not understand what this manuscript actually
@@ -51,7 +61,9 @@ Only very few of those are mentioned, and in the description of their narrow sea
 they end up with only a handful of studies, because it appears that the reviews and the
 studies therein were actively omitted.}\\
 
-XXX\\
+This is a good point, as we were too broad in our previous draft of our aims (e.g., `we review current knowledge on tracking both in empirical data...'), and made it seem we were aiming to review the full literature on phenological shifts. This was not our aim, and we are more specific now (see \lr{aimS}, ``Here, we review the concept of tracking used in the empirical climate change impacts literature and through its related ecological theory.''\\
+
+Regarding the references---we did cite \citep{Menzel:2006xn} and now also cite \citep{Parmesan:2006cr}. As our aim is not a full review of all studies of phenological shifts we did attempted to balance older and newer references, as we wanted to balance a mix of foundational studies with new work that gives up-to-date estimates based on to-date climate change (i.e., studies from the mid 2000s generally use data when global average warming was much lower).\\
 
 \emph{b) It is also not clear to me why they reviewed these papers and not the theoretical
 literature or the physiological literature. Both types of studies were discussed in detail in
@@ -64,7 +76,9 @@ studies in their search, while at the same time relying heavily on theoretical p
 throughout the remaining manuscript to describe several aspects of ecological tracking and
 its consequences for populations and communities. If this was a review, why exclude theory?}\\
 
-XXX\\
+We believe the reviewer is here (and below) referring to the part of the paper regarding a targeted systematic literature review for studies examining tracking and other traits together. This review is only mentioned in the Box `Trait trade-offs with tracking,' and is not meant to be the focus of our paper. For this review we did not exclude physiological studies, though we did exclude modeling and theory studies because they did not have data (only 12 of 231 papers). We have tried to clarify this in our text within the Box and in the supplement (e.g., we have renamed this section `Literature review of studies examining tracking \& traits,' and we now open this section with ``To examine current evidence of what traits may trade-off with tracking''.\\
+
+We completely agree with the reviewer that theory and physiology are quite relevant to our topic and do review a number of relevant studies throughout the main text.\\
 
 \emph{c) It was unclear to me whether they were searching for studies that explicitly talk about
 ‘ecological tracking’ (which are, I believe few), or any study that has ever observed a shift
@@ -73,7 +87,7 @@ given the many reviews we already have. The former is probably not needed, too, 
 ecological tracking is, in my opinion, largely a rebranding of (adaptive) phenological
 shifts.}\\
 
-XXX\\ 
+Again, we believe the reviewer is here referring to the part of the paper regarding a targeted systematic literature review for studies examining tracking and other traits together, which is only mentioned in the main text in the Box `Trait trade-offs with tracking.' We have worked in the supplement to clarify that we are specifically looking for studies that examine tracking and traits at once; our search terms do not require the term tracking (or track*) but do require reference to a trait. Thus many studies that only examine phenological shifts would be excluded, as finding those studies was not the aim of this systematic literature review. \\ 
 
 \emph{d) If I accept it is not a review, then it is possibly an opinion paper or a perspective. I
 understood that the authors mention a whole suite of understudied aspects of ecological
@@ -87,7 +101,8 @@ mechanisms would be changing differently in non-stationary systems compared to s
 tracking and coexistence mechanisms was a main focus of this manuscript – at least this would
 be an interesting topic.}\\
 
-We agree this was not sufficiently clear in the original draft.  The reviewer's understanding is correct.  Non-stationarity is modeled as a shift in the mean timing of the resource pulse (see the top panels of Fig. \ref{fig:modelfig}, which we have now moved into the main text).  For each species, this shift in the timing of the resource pulse ($\tau_P$ top left panel in Fig. \ref{fig:modelfig}) moves the resource pulse closer or further from the species' fundamental timing, $\tau_i$, (cf. panel C of Fig \ref{fig:conceptmodels}).  When $\tau_P$ is closer to a species $\tau_i$, that species' germination rate is higher; as the mean timing of the resource pulse changes, the mean germination rate of each species changes.  In our model, a non-tracking species has a fixed $\tau_i$, and a tracking species has the ability to adjust its $\tau_i$ to match (to varying degrees) the changing $\tau_P$.  
+We appreciate the reviewer's concern and it is in line with Reviewer 4's concerns as well. To address this we worked to focus more on the interaction between tracking and coexistence mechanisms. To do this we have merged two former sections and significantly streamlined the sections before `Tracking in multi-species environments.' We have not completely removed these section as we belive (as did previous reviewers in their comments) that some background is needed before the section on coexistence mechanisms. Additionally, we given an example of a model with a fluctuating environment where stationary and non-stationary outcomes are not the same in the Box `Adding tracking and non-stationarity to a common coexistence model.' Finally, we have updated Figure 2 to clarify why we believe the cues matter. \\
+
 
 \emph{In fact, I would not expect large differences between a classical storage effect model and a
 model where the environment changes gradually and directionally over time, especially as
@@ -113,12 +128,12 @@ much different. It is also possible that the authors had attempted to exactly de
 prediction in their model in the previous version of this manuscript, but I understood that
 they did in fact not produce any surprising results.}\\
 
-XXX\\
+We give an example of a model with a fluctuating environment where stationary and non-stationary outcomes are not the same in the Box `Adding tracking and non-stationarity to a common coexistence model.' \todo[inline]{Help from Megan needed!}\\
 
 \emph{3) I was also not sure what exactly the topic of this manuscript is. From the previous
 reviews and the author’s replies I understood I that this manuscript aimed at coupling
 ecological tracking theory with coexistence theory, which would be an exciting topic.
-However, only approx. 10\% of the manuscript is devoted to this topic. The remaining 90% are
+However, only approx. 10\% of the manuscript is devoted to this topic. The remaining 90\% are
 spread across several different and partly unrelated aspects of ecological tracking. These
 are, to name a few, the lack of physiological evidence for cueing, definitions of ecological
 tracking and measuring it, description of bet hedging as opposed to tracking, a brief note
@@ -127,7 +142,8 @@ tracking ability and competitive ability (why this trade-off and no other one?),
 more. Interestingly, none of these various topics in actually reviewed in detail, which
 brings me back to my initial question of whether or not this is a review.}\\
 
-XXXX\\
+We appreciate the reviewer's concern and have worked to streamline the manuscript so that more of the text is devoted to`Tracking in multi-species environments.' Sections on physiological evidence for cueing, definitions of ecological
+tracking and measuring it, and review of plasticity versus bet-hedging are now shorter, but we have not removed them because we believe they are critical background for examining ecological tracking and coexistence, and highlight areas where we need advances if we hope to better understand tracking and coexistence. Previous reviewer comments also stressed these connection and we think they are important, but we could have done better to present more briefly and as background, which we now do. \\
 
 \emph{In my opinion, the authors do themselves a disservice by evoking expectations about linking
 ecological tracking with coexistence theory, when in the end they spread sometimes thinly
@@ -135,7 +151,7 @@ across several aspects of ecological tracking. The manuscript could thus realty 
 being concise in the selection of aspects discussed and then discuss these aspects
 exhaustively.}\\
 
-XXX\\
+As mentioned above, we have worked to streamline the sections outside of those in tracking in multispecies environments.\\
 
 \emph{4) It is not clear to me why out of all possible biotic interactions, competition is dealt
 with so prominently. I understand that competition is the other side of the coexistence coin,
@@ -152,7 +168,7 @@ other traits that enable fitness homeostasis even if no ecological tracking occu
 relationship is not addressed. However, it could be fundamental if organisms are highly
 plastic in other traits, in which case they may not even need to track.}\\
 
-XXX\\
+We focus on the trade-off between tracking and competitive traits as it is predicted by theory and the most supported by empirical evidence.\\
 
 \emph{5) Ecological tracking is regarded exclusively as a plastic response. However, the (very few)
 solid studies on evolutionary change in response to climate change indicate that phenological
@@ -161,19 +177,19 @@ should be the main mechanism by which species can track, and whether we need thi
 for defining ecological tracking, or whether the definition could also embrace rapid
 evolutionary change.}\\
 
-XX\\
+We understand the reviewers concern that adaptive tracking \citep[\emph{sensu}][]{simons2011} theoretically could equally explain tracking and we understand the concern that there not many enough rigorous studies on evolutionary change in response to climate change. However, most studies we are aware that have estimated plastic versus evolutionary change in phenology find it is mostly due to plasticity and many phenological traits are highly plastic (if the environment is defined in calendar time) thus we have retained our focus on plasticity but now have worked to be clear about this, \lr{itsnotevo}, ``Given our focus on responses to climate change, we consider environmental tracking here as a mainly plastic response \citep{bonamour2019}, though over longer timescales or in certain systems it should be shaped by selection \citep{franks2012}.''\\
 
 \emph{Specific comments (chronological order, line numbers are references given):\\
 Line 1-12: reference to the many studies and reviews about ‘escape in time’ is missing (e.g.
 Parmesan, Menzel, and many more). This leaves the impression that we know nothing about
 ecological tracking, which is, in my opinion, not true.}\\
 
-XXX\\
+We now cite \citet{Menzel:2006xn,Parmesan:2006cr} on \lr{r1ass}.\\
 
 \emph{37ff: Do we need to show that tracking is related to fitness? Isn’t that self-evident and if
 not, why?}\\
 
-XX\\
+We have removed this line, but have worked to address this in section `Defining \& measuring tracking.'\\
 
 \emph{74ff: Is it true that we know nothing about environmental cues? I did not take the time to
 dive deep into the literature but I would think that studies on birds and plants are
@@ -182,13 +198,13 @@ they do exist, e.g. reciprocal transplant studies and not only Arabidopsis), but
 evidence for correlations of e.g. flowering time with e.g. growing degree day units is
 abundant.}\\
 
-XX \\ 
+In streamlining the manuscript we have removed this paragraph. \\ 
 
 \emph{84ff: The advancement in phenology by certain numbers of days has been demonstrated by C.
 Parmesan or A. Menzel (and others) much earlier than what is cited here. I am puzzled why
 their work is not cited.}\\
 
-XXX\\
+We now cite \citet{Menzel:2006xn,Parmesan:2006cr} on \lr{r1ass1}.\\
 
 \emph{93ff: Why is it so crucial to know the exact physiological mechanism of tracking and why the
 cue? For example, if we are mostly interested in the same trophic level and competitive
@@ -197,7 +213,7 @@ of cues. Also, if it is true that we know nothing about the relationship between
 and the cue, this seems a rather bleak perspective and may lead to the conclusion that we
 will never understand ecological tracking. So why is this important?}\\
 
-XXX\\
+We have updated Figure 2 to clarify why we believe understanding the cues is important, but have otherwise worked to shorten this section to address this reviewer and reviewer 4's concerns. \\
 
 \emph{192-194. Some variable environments do provide cues, e.g. in the Sonoran desert annual system
 (see Pake, C. E. and Venable, D. L. 1996. Ecology 77: 1427 – 1435), the amount of the first
@@ -205,14 +221,14 @@ rainfall in a year seems to partly predict the rainfall of the season. Predictiv
 has also been addressed from a theoretical perspective by Cohen (1967) and subsequent
 authors.}\\
 
-XXX\\
+We agree and cite papers by Venable and which build on Cohen's work throughout the manuscript (e.g., \lr{r1ass2}, \lr{r1ass4}).\\
 
 \emph{195ff: One important aspect of the cueing seems to me the reliability of the cue.
 Unfortunately, the authors do not mention this and only focus on benefits and costs. To me,
 this seems a key aspect which is tightly related to the costs (i.e. low reliability, high
 potential costs). The reliability is not touched upon in the cost-benefit discussion.}\\
 
-XXX\\
+We agree cue reliability is important \citep[though we follow][in considering it a constraint]{}, we have updated Figure 2 to clarify this. \\
 
 \emph{208ff: The discussion about bet hedging is too much black and white (i.e. between not
 germinating and germinating). There is also plasticity in germination rates and some of it is
@@ -222,25 +238,25 @@ very strongly because in a fluctuating environment, plants need to respond very 
 to the ever-changing conditions. So the idea that there is either tracking or bet-hedging is
 not plausible for me.}\\
 
-XXX\\
+Agreed, we have re-written the section on bet-hedging (\lr{bhS}-\lr{bhE}), which now includes, ``Environmental variation often includes both predictable and less predictable aspects. In such cases theory predicts organisms may evolve tracking that is a mixed strategy between bet-hedging and plasticity.'' \\
 
 \emph{217-229: This paragraph does not appear to contain much information, so it could be left out.}\\
 
-XXX\\
+We have shortened this into one sentence that we include regarding contraints and plasticity, \lr{r1consS}-\lr{r1consE}.\\
 
 \emph{243ff: I am missing an in-depth discussion about plasticity, i.e. the ability to maintain
 fitness (fitness homeostasis) even when the environment fluctuates strongly. Plasticity is
 expected to evolve under unpredictably varying conditions, and tracking is only one aspect of
 that plasticity. There should be trade-offs among the different types of plasticity.}\\
 
-XXX\\
+We have revamped the section on plasticity (\lr{plasS}-\lr{plasE}) and worked to shorten it. Given this reviewer and reviewer 4's request to focus the paper more we have kept this section short.\\
 
 \emph{1.4: This paragraph is entirely devoted to tracking-competitive ability relationships. It
 seems logical that tracking ability should also trade-off with tolerance to stress (e.g. low
 temperatures if e.g. bud burst is early) which in turn may trade-off with competitive
 ability.}\\
 
-XXX\\
+We believe the reviewer means that tracking could co-vary with stress tolerance, which we agree with and now mention on \lr{r1stress}.\\
 
 \emph{336ff: Isn’t the storage effect the same as tracking only that it is about inter-annual
 variation and not variability in intra-annual timing? So what would then be the fundamental
@@ -252,7 +268,7 @@ different models’ is not very well justified. Here, the main justification is 
 not been done’, but not ‘this is why stationary models are entirely misleading’.
 Unfortunately, the Box remains vague about this.}\\
 
-XXX\\
+\todo[inline]{Megan, can you write something here?}\\
 
 \emph{1.5 I found this section somewhat – if not completely- redundant with the sections before and
 was not sure why it is needed. Much of the discussion here remains somewhat vague. The
@@ -261,7 +277,7 @@ tracking, more looking at trade-offs with selected traits, and more models that 
 from the current ones. Overall, this is not the strongest section of the manuscript. It could
 be merged with the previous sections and made much more concise.}\\
 
-XXX\\
+We appreciate the reviewer's concerns. We have shortened the previous sections so that this section is less redundant.\\
 
 \emph{Box\\
 578-581: Could the finding of early species tracking more simply be due to the fact that
@@ -270,17 +286,18 @@ the late species attain high fitness because they are always in their climatic c
 Whereas the early species experience, during their life or evolutionary history a much larger
 range of temperatures, some of which are clearly decreasing fitness?}\\
 
-XXX\\
+This is an interesting hypothesis and possible, but we are not aware of any formal studies of this.\\
 
 \emph{600ff: Many models and data have been published about within-season timing of (germination)
 events. They could make a valuable contribution to this section (e.g. Simons, A. M. 2009.
 Proc. R. Soc. B 276: 1987 – 1992. Simons, A. M. 2011. Proc. R. Soc. B 278: 1601 – 1609).}\\
 
-XXX\\
+We agree and now cite \lr{simonsref1} in our section on evolutionary theory. This box is focused on one particular model (an ecological model with no evolution) and for clarity we mention only the relevant model in the Box. Throughout the manuscript we have also worked to clarify where we are speaking mainly about evolutionary versus ecological models. \\
 
 \emph{607ff: I believe that a similar storyline could be created with stress tolerance instead of
 competitive ability.}\\
 
+Agreed, we focus here on competitive ability as that is what the literature has found evidence for.\\
 
 {\bf Referee 2 comments:} \\
 
@@ -293,7 +310,7 @@ reviewing the literature on the topic. I specifically like the part about how tr
 trade-off with other traits (e.g. those related with competition) and thereby shape the co-
 existence among species in ecological communities.}\\
 
-XXX\\
+We thank the reviewer for their comments and have worked to retain the better parts of the manuscript while improving the rest of it based on feedback from this and the other reviewers.\\
 
 \emph{I only have one point to criticize: although the authors highlight that “researchers are
 increasingly recognizing the need to consider multiple climate variables” (L 14) this review
@@ -308,13 +325,12 @@ tracking (e.g. via changes in snow cover)? If not, I think this could be highlig
 future directions paragraph more explicitly. Just out of curiosity, would it be possible to
 include such interactive effects of multiple resources in the model?}\\
 
-XXX\\
+We appreciate this comment and completely updated Figure 2 to address it, working to show that both temperature and precipitation are likely critical for many organisms. We also now mention megadroughts and pluvials (\lr{r2precip2}) and have altered our final sentence (\lr{r2precip3}). We mention snowpack in model Box (\lr{r2precip}) and do believe it could be addressed in the model by developing a more complex environment and cue system. On evolutionary timescales this question is addressed somewhat in some models, for \citet{chevin2015}, which we now cite.\\
 
 \emph{L 502 Not only temperature is rising but we already and will face non-homogeneous but
 fundamental differences in the precipitation regime around the globe}\\
 
-XXX\\
-
+Good point, we now write ``in the altered climates of our future'' \lr{r2precip3})\\
 
 
 {\bf Referee 3 comments:} \\
@@ -327,15 +343,14 @@ research avenues for climate change ecology-particularly the phenology research.
 that, I also struggled at various places to grasp the core idea authors were intending to
 communicate. I outline them below.}\\
 
-XXX\\
+We appreciate the reviewer's time and comments to improve our manuscript. We agree that our previous draft was perhaps so loaded with information that the most important and salient points were lost, and we have worked to fix that as we outline below.\\
 
 \emph{I definitely agree with phenology as a trait and tracking as a plasticity of this trait
 (lines 244-246). I also liked how authors relate the idea of subsequent trade-offs in traits
 owing to costs associated with plasticity. I, however, missed examples of which traits and
 plasticity of them are going to trade-off the most with tracking, and how these may differ in
 stationary and non-stationary environment. Can we also say something whether the strength of
-trade-offs may differ in these two environments?
-}\\
+trade-offs may differ in these two environments?}\\
 
 XXX\\
 
@@ -350,36 +365,39 @@ XXX\\
 
 \emph{Line 5 (Abstract): species responses}\\
 
-XXX\\
+We have changed this on \lr{r3misc}, which we hope is the requested change. We have also added line numbers to the abstract to help with identifying the exact change requested.\\
 
 \emph{Line 12 (Abstract): through the lens of which ecological theory? Later, you mention community
 ecology theory. Perhaps, use the latter to be consistent.}\\
 
-XXX\\
+Done, \lr{r3misc1}.\\
 
 \emph{Line 2: Perhaps, use more recent IPCC citation.}\\
 
-XXX\\
+We believe this is is the most recent citation from IPCC Working Group II (`Impacts, Adaptation and Vulnerability') that considers various warming levels and a full report on impacts. We now also cite the more recent report focused on 1.5 C of warming; if the reviewer is referring to another report, please let us know. \\
 
 \emph{Lines 10-12: The "indirect effects of climate change" is not very clear. Why could it not be
 a direct effect of climate change? Please clarify.}\\
 
-XXX\\
+Good point, we have changed to fitness consequences (\lr{r3misc2})\\
 
 \emph{Line 21: Can you elaborate which foundational ecological theory is meant here?}\\
 
-XXX\\
+This was unnecessarily vague; we have changed to `community assembly theory' (\lr{r3misc3}).\\
 
 \emph{Line 43: Which basic community ecology theory? Please be specific when mentioning a theory as
 you did in lines 23-26.}\\
 
-XXX\\
+Done, we now write ``community assembly theory---especially priority effects and modern coexistence theory'' (\lr{r3misc4}).\\
 
 \emph{Lines 237-240: Would not this be a trophic mismatch case still predictable from the
 stationary environment? Or does this imply that trophic mismatch will not occur in the non-
 stationary environment? Please clarify.}\\
 
-XXX\\
+Good point, we have tried to clarify this without adding too much text. \lr{r3birdsS} to \lr{r3birdsE} now reads:
+\begin{quote}
+For example, consider an organism's whose cues evolved based on a correlation between peak prey abundance and daylength: the daylength cue that could be reliable in a stationary environment (generally predicting preak prey abudance based on daylength, with some interannual variation), but would become unreliable if warming advances peak prey abundance. Predicting the outcome of non-stationarity would be possible from the stationary environment in this case given researchers know (1) the full cue system of an organism, (2) how it relates to fundamental tracking, and (3) how both that cue system and the underlying fundamental model shift with non-stationarity.\\
+\end{quote}
 
 \emph{Lines 254-256: But what about the benefit side of the tracking? And which other traits those
 be where trade-off with tracking will be higher?}\\
@@ -388,20 +406,19 @@ XXX\\
 
 \emph{Line 309: two “the”s}\\
 
-XXX\\
+Fixed (\lr{doublethe}).\\
 
 \emph{Lines 386-388: Please use this example as a separate sentence.}\\
 
-XXX\\
+Done (\lr{r3misc5}).\\
 
 \emph{Lines 408: Please provide more example studies when you suggest "many studies".}\\
 
-XXX\\
+Done (\lr{r3misc6}).\\
 
 \emph{Line 416: Here one or two examples will help the readers.}\\
 
-XXX\\
-
+We have added one example and can give more if requested (\lr{r3misc6S}-\lr{r3misc6E}). \\
 
 {\bf Referee 4 (Ally Phillimore) comments:} \\
 
@@ -413,7 +430,7 @@ rather imprecise in its use of terminology and quite verbose. I hope the comment
 useful in revising the ms. I have not really commented on the coexistence theory aspect as I
 am not sufficiently familiar with this literature.}\\
 
-XXX\\
+We are glad the reviewer thinks this piece could make a stimulating contribution, and agree that there was room for streamlining and conciseness, and greater precision in our language. We have worked to address these issues and explain them in more detail below.\\
 
 \emph{My biggest criticism of the ms is that the term “environmental tracking”, which is central to
 the ideas being developed is not clearly defined, despite having a section devoted to its
@@ -434,14 +451,30 @@ environment is shifting, i.e. we need to know something about what is being trac
 concern is that introducing new poorly defined terms will just generate greater confusion in
 the field.}\\
 
-XXX\\
+This was also a concern of Reviewer 1 and something we have struggled with. One thing we struggle with is how broad the definition of phenology needs to be to include the diversity of events we include in the paper and to which we believe the topic of the paper applies. We have tried to clarify this in several ways. We have changed the title to be more specific without (hopefully) jargony and we now try to address this head-on when we define tracking---we now state (\lr{phendefineS}-\lr{phendefineE}):  
+\begin{quote}
+Both these definitions are readily applied to phenology---the timing of recurring life history events---though they can also apply to non-recurring life history events (e.g., seed germination), or events not normally defined as part of life history.
+\end{quote}
+We now provide a new Figure 2 to clarify our definitions and we have overhauled the text where we define environmental tracking (\lr{definetrackS}-\lr{phendefineS}):
+\begin{quote}
+Conceptual and theoretical treatments of tracking often relate how well an organism matches the timing of a life history event to the ideal timing for that event, what we refer to as `fundamental tracking'. In contrast, empirical studies of tracking often focus on estimating a change in the timing of an event per unit change in an environmental variable, something closer to what we refer to as `environmental tracking'---the change in timing of a major biological event due to a species' cue system given change in the environment.
+\end{quote}
+We have then restructured this section to contrast fundamental tracking and `environmental tracking,' which agree with yardsticks (i) and (iii) of the reviewer. We further clarify what we mean by environmental tracking (\lr{moretrackS}-\lr{moretrackE}):
+\begin{quote}
+Environmental tracking dependent on the intersection of the environment's variability---which aspects of the environment vary, how (e.g., temporally each year, spatially at $x$ scale) and how much---and a species' response to the environment via its proximate cues.  If the varying components of the environment are not in the organism's set of cues, then the species may not `track' per this definition. Environmental tracking at the individual-level is a purely plastic response to environmental variation and change; at the population-level tracking may also incorporate evolutionary change in the cue system, depending on both the timescales of study and the species' generation time. \R{itsnotevo}Given our focus on responses to climate change, we consider environmental tracking here as a mainly plastic response \citep{bonamour2019}, though over longer timescales or in certain systems it should be shaped by selection \citep{franks2012}.
+\end{quote}
+We have avoided yadstick (ii) purposefully and attempt to address that in this section as well, when we write (\lr{r4yardstickS}-\lr{r4yardstickE}):
+\begin{quote}
+This is a foundational concept of the trophic mismatch literature \citep{vissergienapp2019}, which often assumes the peak timing of a resource defines the ideal timing for phenological events dependent on that resource \citep[e.g. egg laying dates dependent on caterpillar abundance,][]{Visser:2005bg}. For most phenological events, however, fitness outcomes are likely dependent on a suite of interacting forces---for example, egg laying dates for migratory birds may depend both on the timing of peak caterpillar abundance and the need to leave nesting grounds before winter. 
+\end{quote}
+This is a tricky topic and it's why we believe this paper could be useful to the field, but we appreciate we need to be exact and clear and we hope our updates to the text and Figure have addressed this problem.\\
 
 \emph{The section 1.3 on “understanding variation in environmental tracking” is rather long and
 doesn’t offer up novel perspectives. I think it could be greatly reduced by briefly
 summarising some of the theoretical literature on the evolution of plasticity in response to
 environmental cues.}\\
 
-XXX\\
+Agreed, we have overhauled this section and shortedned it considerably, see \lr{plasS}-\lr{bhE}.\\
 
 \emph{I was surprised to see plasticity really only mentioned half way through the review (around
 line 245), given that along with any shifts in the environmental cues, this is the most
@@ -452,32 +485,32 @@ plasticity at the individual level, adaptation at the population level and speci
 the community level.  In lines 65-66 the mechanism underpinning a plastic response is defined
 and you might draw attention to that.}\\
 
-XXX\\
+Agreed, we now mention plasticity much earlier (\lr{mentionplastic}) and here we discuss also the population level, ``Environmental tracking at the individual-level is a purely plastic\R{mentionplastic} response to environmental variation and change; at the population-level tracking may also incorporate evolutionary change in the cue system, depending on both the timescales of study and the species' generation time.'' We have also overhauled the section on mentioned just above so that it opens with plasticity theory and focuses mainly on this.\\
 
 \emph{I like the section on Tracking in Multi-Species Environments, as this is the first part of
 the ms that introduces some novel perspectives. I think the ms would be improved if the
 preceding components were edited down, so that you get to this point much sooner. In general
 I thought the second half of the ms was more stimulating and well-explained than the first.}\\
 
-XXX\\
+Thanks ... we aimed to do that... XXX\\
 
 \emph{Minor Comments\\
 Environmental tracking: Where this idea is introduced (line 45) I think it might help to
 begin at the population level with a clear evolutionary definition of environmental tracking,
 where |B-b| is small following the equation in Chevin et al. 2010.}\\
 
-XXX\\
+\todo[inline]{I feel like this could add confusion ... Megan, what do you think?}\\
 
 \emph{Line 6. What proportion? The cited paper by Cook et al. is just about phenology so doesn't
 support the general point. A paper by Amano et al. 2014 finds that UK plant species that
 shift less in terms of phenology have a greater tendency to range shift. I think this finding
 has been replicated in other systems but can’t remember the reference.}\\
 
-XXX\\
+We now \citet{amano2014} on line \lr{r4misc.} TO DO ... add some more response here, as there are not that many other papers. \\
 
 \emph{Line 14. And evolutionary theory, particularly Chevin et al. 2010 PLOS Biol.}\\
 
-XXX\\
+We now cite \citet{chevin2010} on \lr{r4misc1}.\\
 
 \emph{Line 15. I think the terminology in this sentence is confusimg. From an evolutionary biology
 perspective plasticity has a clear meaning (a change in genotype’s phenotype in response to
@@ -485,38 +518,38 @@ the environment), but here I think it is being used to more vaguely imply flexib
 think “flexibility” would be a less loaded term. Also note that tracking can involve
 evolution.}\\
 
-XXX\\
+Agreed, we now say ``phenotypic flexibility \citep{Piersma:2003wj}'' on \lr{r4misc2}.\\
 
 \emph{Line 29-36. I agree that climate change has greatly exacerbated the non-stationary aspect of
 climate, but looking at historical records it seems as though climate is often somewhat non-
 stationary.}\\
 
-XXX\\
+Agreed, we discuss this in the Box on `Environmental variability \& change.'\\
 
 \emph{Line 56. I think a more precise/mathematical definition of cue quality could be helpful, e.g., something based on the sum of squares between optimum and actual event timing (RMSE?). Also note that the literature on the evolution of plasticity uses the term “cue reliability”
 to refer to the correlation between the environment of development and the environment of
 selection.}\\
 
-XXX\\
+\todo[inline]{Need to fit in cue reliability! Megan, please add if you can ...}\\
 
 \emph{Line 62. Do you simply mean that in different locations if the individuals have the same
 reaction norms but environment differs then the outcome will differ? This could be explained
 in clearer language.  Also there is a large literature by the likes of Scheiner, Lande,
 Chevin, Tufto, Hadfield on the evolution of cues and plasticity that goes uncited here.}\\
 
-XXX\\
+In streamlining the manuscript we have deleted this sentence.\\
 
 \emph{Line 64-67. Here the definition of tracking seems to be at odds with the evolutionary
 literature. The mechanism described is a plastic response to a cue, whereas in evolutionary
 biology tracking is usually with respect to a fitness optimum. This also seems to be at odds
 with your definition of “fundamental tracking” (line 48-49).}\\
 
-XXX\\
+We have worked on this ... see above and see updated section \lr{r1ass1}-\lr{moretrackE}\\
 
 \emph{Line 67. The organism is only expected to track the optimum proportional to the correlation
 between the environment of development and environment of selection.}\\
 
-XXX\\
+In streamlining the manuscript we have deleted this sentence.\\
 
 \emph{Line 84. Here you outline a series of papers that present information on phenological
 responses to temperature. However there is an absence of information on what the “fundamental
@@ -528,13 +561,13 @@ Gienapp et al. 2013). We also use a space for time approach to estimate tracking
 optimum in plants (Tansey et al. 2017). In terms of environmental tracking another
 interesting perspective is that presented in the Amano et al. paper I mention above.}\\
 
-XXX\\
+We agree this was not clear ... hopefully it is now. XXXX\\
 
 \emph{Line 90-92. With respect to consumers tracking prey is this just the phenological shift
 shown? Here I think there is an opportunity to quantify whether tracking is adaptive (based
 on Ghalambour et al’s 2007 definitions of adaptive plasticity).}\\
 
-XXX\\
+We have tried to address this in the section on `Defining tracking' ... XXX ... \\
 
 \emph{Line 174. See also Reed, T. E., Jenouvrier, S., \& Visser, M. E. (2013). Phenological mismatch
 strongly affects individual fitness but not population demography in a woodland passerine.

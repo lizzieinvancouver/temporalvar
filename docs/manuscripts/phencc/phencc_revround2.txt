@@ -1,5 +1,18 @@
 Started 18 May 2020
 
+
+- Say something about stress?
+- Add IPCC 1.5
+- In Defining tracking, do we want to say it's adaptive? ("With respect to consumers tracking prey is this just the phenological shift
+shown? Here I think there is an opportunity to quantify whether tracking is adaptive (based
+on Ghalambour et al’s 2007 definitions of adaptive plasticity)"
+- Add "Reed, T. E., Jenouvrier, S., \& Visser, M. E. (2013). Phenological mismatch
+strongly affects individual fitness but not population demography in a woodland passerine.
+Journal of Animal Ecology, 82(1), 131-144." in Charmantier/Visser section
+- cite Chevin 205 for "Similarly, expensive cues, such as complex multivariate ones, are possible given a high pay-off."???
+
+
+
 Megan reads up on plasticity for me?
 	- Simons 2011 -- this one is really good!
 	- Chevin & Lande 2015 -- about cues and plasticity; also I need someone smarter than me to read this (suggested by R3) and adjust/explain our statement of "Similarly, expensive cues, such as complex multivariate ones, are possible given a high pay-off" which R3 doesn't like.
