@@ -24,7 +24,7 @@
 \renewcommand{\thefigure}{S\arabic{figure}}
 
 
-\section{Literature review of studies examining tracking \& traits}
+\section{Literature review of studies examining tracking \& other traits}
 To examine current evidence of what traits may trade-off with tracking, we systematically reviewed the literature for studies examining tracking and other traits together. We searched ISI in August 2019 for:
 \begin{enumerate}
 \item Topic: `phenolog* chang*' and Title: phenolog* AND trait*
