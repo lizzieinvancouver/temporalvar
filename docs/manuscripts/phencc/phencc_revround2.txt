@@ -1,6 +1,34 @@
 Started 18 May 2020
 
 
+
+
+Previous section and word counts (incl line numbers) ... 7039
+Intro: 631
+1.1	Defining environmental tracking: 546
+1.2	Measuring environmental tracking: 844
+1.3	Understanding variation in environmental tracking: 1629
+1.4	Tracking in multi-species environments: 1549
+1.5	Future directions: 1525
+1.6	Stationarity in the future: 282
+
+
+Current section and word counts (incl line numbers) ... 5642 (20% reduction in main text)
+Intro: 629
+1.1	Defining & measuring tracking: 1053
+1.2	Tracking in single-species environments: 888
+1.3	Tracking in multi-species environments: 1963 (26% longer)
+1.4	Future directions: 792
+1.5	Stationarity in the future: 294
+
+Current sections 1.1.-1.2 are 35% shorter than previous sections 1.1-1.3.
+Section 1.1 is 24% shorter than 1.1-1.2.
+Future directions is 48% shorter. 
+
+
+<><><><><>
+
+
 - Say something about stress?
 - Add IPCC 1.5
 - In Defining tracking, do we want to say it's adaptive? ("With respect to consumers tracking prey is this just the phenological shift

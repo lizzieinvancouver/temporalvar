@@ -3,28 +3,26 @@
 \usepackage{graphicx}
 \usepackage{natbib}
 \usepackage{amsmath}
-\usepackage{hyperref}
 \usepackage{todonotes}
-\newcommand{\R}[1]{\label{#1}\linelabel{#1}}
+\usepackage{zref-xr}
+\externaldocument{..//..//..//phencc}
 \newcommand{\lr}[1]{line~\lineref{#1}}
-\externaldocument{phencc}
-
+% \usepackage{hyperref}
 
 \setlength\parindent{0pt}
 % SUBMITTED draft: https://github.com/lizzieinvancouver/temporalvar/blob/180389acb37d9d5cef07c2095f00fa73f0b789e9/docs/manuscripts/phencc/phencc.pdf
 
 \begin{document}
+
 Note that reviewer comments are in \emph{italics}, while our responses are in regular text, and all in-text citations generally cross-reference to the main text.\\
 
 {\bf Editor's comments:} \\
 
-\emph{reviewers were quite critical of a number of aspects of the article.  In the end, I think the
+\emph{Reviewers were quite critical of a number of aspects of the article.  In the end, I think the
 biggest issue is one of communication. The authors need to focus their arguments much more
 clearly and deliberately.}\\
 
-We appreciate the editor's comments about clarity of message, and agree it does much to explain many of the reviewers' concerns. To address this, we have overhauled the manuscript, especially sections 1.1-1.3 (now sections 1.1, `Defining \& measuring tracking' and `Tracking in single-species environment') to be more precise and shorter. We have overhauled our figure defining tracking and been more careful in our definition of fundamental versus environmental tracking. Additionally, we have tried to more clearly separate evolutionary and ecological theory, which we believe understandably led to some confusion. We believe the revised submission is much improved and explain our changes in more detail in our point-by-point response to reviewers below.\\
-
-We appreciate 
+We appreciate the editor's comments about clarity of message, and agree that more focused, clear arguments would do much to address the reviewers' concerns. Thus, we have overhauled the manuscript, especially sections 1.1-1.3 (now section 1.1, `Defining \& measuring tracking' and `Tracking in single-species environment') to be more precise and shorter (this material is now covered in sections 1.1-1.2, which present the relevant material, but are 35\% shorter than our in our previous submission), while focusing our arguments around tracking in multispecies competitive environments (this is the one section that is now longer, by approximately 25\%). We have overhauled our figure that defines tracking and been more careful in our definition of fundamental versus environmental tracking throughout the manuscript. Additionally, we have more clearly separated evolutionary and ecological theory, which we believe understandably led to some confusion. We believe the revised submission is much improved (and overall 20\% shorter) and explain our changes in more detail in our point-by-point response to reviewers below.\\
 
 {\bf Referee 1 comments:} \\
 
@@ -46,8 +44,7 @@ not convince me that ecological tracking is fundamentally different from the wid
 phenological shifts. Maybe it is a subset of those, but it is nothing new. Nevertheless, the
 effect of phenological changes on ecological communities is an interesting one.
 }\\
-\clearpage
-We agree our manuscript's topic is most easily and readily applied to phenological shifts (as Reviewer 4 also noted), but we avoided this term given that phenology is generally defined as `the recurring timing of life history events' (defined on \lr{phendefine1}) and a number of events we review (and to which this manuscript applies) fall outside this definition. We do understand that definition of phenology may be evolving in the literature and have tried to up front about the reasoning for our terminology now, when we define tracking we now state (\lr{phendefineS}-\lr{phendefineE}):  
+We agree our manuscript's topic is most easily and readily applied to phenological shifts (as Reviewer 4 also noted), but we avoided this term given that phenology is generally defined as `the recurring timing of life history events' (defined on \lr{phendefine1}) and a number of events we review (and to which this manuscript applies) fall outside this definition. We understand that definition of phenology may be evolving in the literature and have tried to up front about the reasoning for our terminology now, when we define tracking we now state (\lr{phendefineS}-\lr{phendefineE}):  
 \begin{quote}
 Both these definitions are readily applied to phenology---the timing of recurring life history events---though they can also apply to non-recurring life history events (e.g., seed germination), or events not normally defined as part of life history.
 \end{quote}
@@ -607,6 +604,7 @@ Good point, we have clarified this (\lr{r3misc6E}-\lr{r4miscvague}).\\
 photoperiod. This may only be possible for spatiotemporal or experimental studies.}\\
 
 This a good point, which we now make on \lr{citetansey}.\\
+
 
 \newpage
 \bibliography{/Users/Lizzie/Documents/git/bibtex/LizzieMainMinimal}
