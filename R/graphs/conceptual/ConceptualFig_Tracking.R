@@ -27,88 +27,103 @@ options(stringsAsFactors=F)
 
 #dataproducts:  IR biological temp, PAR, precip, soil water content, airtemp, soil temp 
 sites <- c("ABBY","WREF","JORN","MOAB")
-startD <- "2017-04"
-endD <- "2020-04"
-dpIDs <- c("DP1.00005.001",  #biotemp
-           "DP1.00024.001",  #par
-           "DP1.00006.001",  #precip
-           "DP1.00094.001",  #soil water content
-           "DP1.00002.001",  #airtemp
-           "DP1.00041.001")  #soiltemp
-# irbt <- loadByProduct(dpIDs[1],site=sites,
-#                       startdate=startD, enddate=endD,
-#                       nCores=2)
-# par <- loadByProduct(dpIDs[2],site=sites,
-#                      startdate=startD, enddate=endD,
-#                      nCores=2)
-# precip <- loadByProduct(dpIDs[3],site=sites,
-#                         startdate=startD, enddate=endD,
-#                         nCores=2)
-# swc <- loadByProduct(dpIDs[4],site=sites,
-#                      startdate=startD, enddate=endD, avg=30,
-#                      nCores=2)
-# airt <- loadByProduct(dpIDs[5],site=sites,
-#                       startdate=startD, enddate=endD,
-#                       nCores=2)
-# soilt <- loadByProduct(dpIDs[6],site=sites,
-#                       startdate=startD, enddate=endD,
-#                       nCores=2)
 
-stackByTable("neondata/NEON_temp-bio.zip",nCores = 2)
-#stackByTable("neondata/NEON_temp-soil.zip",nCores = 2)
-stackByTable("neondata/NEON_temp-air-single.zip",nCores = 2)
-#stackByTable("neondata/NEON_conc-h2o-soil-salinity.zip",nCores = 2)
-stackByTable("neondata/NEON_precipitation.zip",nCores = 2)
-#soil files don't work with this function, so do by hand later
-
-#precip1 <- read_csv("neondata/NEON_precipitation/stackedFiles/PRIPRE_30min.csv")
-precip2 <- read_csv("neondata/NEON_precipitation/stackedFiles/SECPRE_30min.csv")
-bioT <- read_csv("neondata/NEON_temp-bio/stackedFiles/IRBT_30_minute.csv")
-airT <- read_csv("neondata/NEON_temp-air-single/stackedFiles/SAAT_30min.csv")
-
-save(bioT, precip1, precip2, airT, file="neondata/neon.Rdata")
-#load("neondata/neon.Rdata")
+if(file.exists("neondata/neon.Rdata")) {
+  load("neondata/neon.Rdata")  
+} else {
+  
+  startD <- "2017-04"
+  endD <- "2020-04"
+  dpIDs <- c("DP1.00005.001",  #biotemp
+             "DP1.00024.001",  #par
+             "DP1.00006.001",  #precip
+             "DP1.00094.001",  #soil water content
+             "DP1.00002.001",  #airtemp
+             "DP1.00041.001")  #soiltemp
+  
+  # irbt <- loadByProduct(dpIDs[1],site=sites,
+  #                       startdate=startD, enddate=endD,
+  #                       nCores=2)
+  # par <- loadByProduct(dpIDs[2],site=sites,
+  #                      startdate=startD, enddate=endD,
+  #                      nCores=2)
+  # precip <- loadByProduct(dpIDs[3],site=sites,
+  #                         startdate=startD, enddate=endD,
+  #                         nCores=2)
+  # swc <- loadByProduct(dpIDs[4],site=sites,
+  #                      startdate=startD, enddate=endD, avg=30,
+  #                      nCores=2)
+  # airt <- loadByProduct(dpIDs[5],site=sites,
+  #                       startdate=startD, enddate=endD,
+  #                       nCores=2)
+  # soilt <- loadByProduct(dpIDs[6],site=sites,
+  #                       startdate=startD, enddate=endD,
+  #                       nCores=2)
+  
+  stackByTable("neondata/NEON_temp-bio.zip",nCores = 2)
+  #stackByTable("neondata/NEON_temp-soil.zip",nCores = 2)
+  stackByTable("neondata/NEON_temp-air-single.zip",nCores = 2)
+  #stackByTable("neondata/NEON_conc-h2o-soil-salinity.zip",nCores = 2)
+  stackByTable("neondata/NEON_precipitation.zip",nCores = 2)
+  #soil files don't work with this function, so do by hand later
+  
+  #precip1 <- read_csv("neondata/NEON_precipitation/stackedFiles/PRIPRE_30min.csv")
+  precip2 <- read_csv("neondata/NEON_precipitation/stackedFiles/SECPRE_30min.csv")
+  bioT <- read_csv("neondata/NEON_temp-bio/stackedFiles/IRBT_30_minute.csv")
+  airT <- read_csv("neondata/NEON_temp-air-single/stackedFiles/SAAT_30min.csv")
+  
+  save(bioT, precip1, precip2, airT, file="neondata/neon.Rdata")
+}
 
 # Make dataframe ----------------------------------------------------------
+airT.thresh.lo <- 0
+airT.thresh.hi <- 32
+bioT.thresh.lo <- 0
+bioT.thresh.hi <- 32
+
 d <- 
   left_join(
     airT %>% 
       filter(verticalPosition=="010") %>% 
-      mutate(lt0 = if_else(tempSingleMean<0,1,0),
-             gt32 = if_else(tempSingleMean>32,1,0)) %>% 
+      mutate(lt.lo = if_else(tempSingleMean<airT.thresh.lo,1,0),
+             gt.hi = if_else(tempSingleMean>airT.thresh.hi,1,0)) %>% 
       group_by(site = siteID, 
                date = date(startDateTime)) %>%
-      summarise(airT.mean = mean(tempSingleMean),
-                airT.min = mean(tempSingleMinimum),
-                airT.max = mean(tempSingleMaximum),
-                airT.lt0 = sum(lt0)*0.5,
-                airT.gt32 = sum(gt32)*0.5,
-                airT.dhh32 = sum(gt32*0.5*(tempSingleMean-32)),
-                airT.ct = n()) %>% 
-      group_by(site,date) %>% 
-      arrange(site,date) %>% 
-###      mutate(airT.dhh.5d = rollapply(data=airT.dhh32,width=5,FUN=sum,align="right")),
+      summarise(airT.mean = mean(tempSingleMean, na.rm=TRUE),
+                airT.min = ifelse(sum(!is.na(tempSingleMean))>0,min(tempSingleMean,na.rm=TRUE),NA),
+                airT.max = ifelse(sum(!is.na(tempSingleMean))>0,max(tempSingleMean,na.rm=TRUE),NA),
+                airT.lt.lo = ifelse(sum(!is.na(lt.lo))>0, sum(lt.lo, na.rm=TRUE)*0.5,NA),
+                airT.gt.hi = ifelse(sum(!is.na(gt.hi))>0, sum(gt.hi, na.rm=TRUE)*0.5,NA),
+                airT.dch = ifelse(sum(!is.na(lt.lo))>0, sum(lt.lo*0.5 * (airT.thresh.lo - tempSingleMean), na.rm=TRUE),NA),
+                airT.dhh = ifelse(sum(!is.na(gt.hi))>0, sum(gt.hi*0.5 * (tempSingleMean - airT.thresh.hi), na.rm=TRUE),NA),
+                airT.ct = sum(!is.na(tempSingleMean))) %>%  
+      mutate(airT.dhh.5d = rollapplyr(airT.dhh, 5, sum, na.rm=TRUE, fill=NA)) %>% 
+      mutate(airT.dch.90d = rollapplyr(airT.dch, 90, sum, na.rm=TRUE, fill=NA)),
     bioT %>%  
-      filter(verticalPosition=="010") %>% 
-      mutate(lt0 = if_else(bioTempMean<0,1,0),
-             gt32 = if_else(bioTempMean>32,1,0)) %>% 
+      filter(verticalPosition == "010") %>% 
+      mutate(lt.lo = if_else(bioTempMean<bioT.thresh.lo, 1, 0),
+             gt.hi = if_else(bioTempMean>bioT.thresh.hi, 1, 0)) %>% 
       group_by(site = siteID,
                date = date(startDateTime)) %>% 
-      summarise(bioT.mean = mean(bioTempMean),
-              bioT.min = mean(bioTempMinimum),
-              bioT.max = mean(bioTempMaximum),
-              bioT.lt0 = sum(lt0)*0.5,
-              bioT.gt32 = sum(gt32)*0.5,
-              bioT.dhh32 = sum(gt32*0.5*(bioTempMean-32)),
-              bioT.ct = n()) %>%
-###   mutate - make running sum of heating hours in a 10 day window
+      summarise(bioT.mean = mean(bioTempMean, na.rm=TRUE),
+              bioT.min = ifelse(sum(!is.na(bioTempMean))>0,min(bioTempMean,na.rm=TRUE),NA),
+              bioT.max = ifelse(sum(!is.na(bioTempMean))>0,max(bioTempMean,na.rm=TRUE),NA),
+              bioT.lt.lo = ifelse(sum(!is.na(lt.lo))>0, sum(lt.lo, na.rm=TRUE)*0.5,NA),
+              bioT.gt.hi = ifelse(sum(!is.na(gt.hi))>0, sum(gt.hi, na.rm=TRUE)*0.5,NA),
+              bioT.dhh = ifelse(sum(!is.na(lt.lo))>0, sum(gt.hi*0.5*(bioTempMean-bioT.thresh.hi), na.rm=TRUE),NA),
+              bioT.dch = ifelse(sum(!is.na(gt.hi))>0, sum(lt.lo*0.5 *(bioT.thresh.lo - bioTempMean), na.rm=TRUE),NA),
+              bioT.ct = sum(!is.na(bioTempMean))) %>%
+      mutate(bioT.dhh.5d = rollapplyr(bioT.dhh, 5, sum, na.rm=TRUE, fill=NA)) %>% 
+      mutate(bioT.dch.90d = rollapplyr(bioT.dch, 90, sum, na.rm=TRUE, fill=NA)),
     by=c("date","site")) %>% 
   left_join(.,
     precip2 %>%
       group_by(site = siteID, 
                date = date(startDateTime)) %>% 
-      summarise(precip.mean = mean(secPrecipBulk), 
-                precip.cum = sum(secPrecipBulk)),
+      summarise(precip.daily = ifelse(sum(!is.na(secPrecipBulk))>0,sum(secPrecipBulk, na.rm = TRUE),NA),
+                precip.daily.any = any(secPrecipBulk>0)) %>% 
+      mutate(precip.cum.15d = rollapplyr(precip.daily, 15, sum, na.rm=TRUE, fill=NA)) %>% 
+      mutate(precip.cum.30d = rollapplyr(precip.daily, 30, sum, na.rm=TRUE, fill=NA)),
     by=c("date","site")) #%>% 
   # left_join(.,
   #           swc %>% 
@@ -127,29 +142,42 @@ d <-
   #                     soilT.max = mean(soilTempMaximum)),
   #         by=c("date","site"))  
 
+rm(airT,bioT,precip1,precip2)
 
 # basic plots -------------------------------------------------------------
 
 #use grid.arrange
 d %>% 
+  group_by(site) %>% 
   ggplot() +
-  geom_line(aes(x=date,y=precip.cum, color=site)) +
-  labs(x = "Day",y="Precipitation")
+  facet_wrap(vars(site)) +
+  geom_line(aes(x=date,y=precip.daily,color=site)) +
+  labs(x = "Day",y="Daily Precipitation")
 # d %>% 
 #   ggplot() +
 #   geom_line(aes(x=date,y=swc.mean, color=site)) +
 #   labs(x = "Day",y="Soil Moisture")
 d %>% 
+  group_by(site) %>% 
   ggplot() +
-  geom_line(aes(x=date,y=airT.mean, color=site)) +
+  facet_wrap(vars(site)) +
+  geom_line(aes(x=date,y=airT.mean)) +
+  geom_line(aes(x=date,y=airT.min),color="light blue") +
+  geom_line(aes(x=date,y=airT.max),color="pink") +
   labs(x = "Day",y="Air Temperature")
 d %>% 
+  group_by(site) %>% 
   ggplot() +
-  geom_line(aes(x=date, y=bioT.mean, color=site)) +
+  facet_wrap(vars(site)) +
+  geom_line(aes(x=date,y=bioT.mean)) +
+  geom_line(aes(x=date,y=bioT.min),color="light blue") +
+  geom_line(aes(x=date,y=bioT.max),color="pink") +
   labs(x = "Day",y="Bio Temperature")
 d %>% 
+  group_by(site) %>% 
   ggplot() +
-  geom_point(aes(x=bioT.mean,y=airT.mean,color=site))
+  facet_wrap(vars(site)) +
+  geom_point(aes(x=bioT.mean,y=airT.mean))
 
 
 # Fitness -----------------------------------------------------------------
