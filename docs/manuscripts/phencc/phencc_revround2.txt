@@ -1,6 +1,8 @@
 Started 18 May 2020
 
+Maybe check for x-ref: https://tex.stackexchange.com/questions/77774/undefined-control-sequence-when-cross-referencing-with-xr-hyper
 
+https://tex.stackexchange.com/questions/335523/cross-referencing-line-numbers-between-multiple-documents-with-the-pagewise-opti
 
 
 Previous section and word counts (incl line numbers) ... 7039
