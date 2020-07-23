@@ -1,0 +1,114 @@
+Ask Megan
+
+
+
+From 11 May 2020 decision:
+
+Q1:
+
+I could not find anywhere clear predictions about why and how coexistence
+mechanisms would be changing differently in non-stationary systems compared to stationary
+(but fluctuating) ones. This is regrettable because I assumed that the interaction between
+tracking and coexistence mechanisms was a main focus of this manuscript – at least this would
+be an interesting topic.
+
+In fact, I would not expect large differences between a classical storage effect model and a
+model where the environment changes gradually and directionally over time, especially as
+storage effect models also look at environments with different statistical properties.
+Specifically, if say, we have a storage effect model (or a model addressing priority effects)
+where the environment does not fluctuate strongly, species would probably not be selected for
+being able to track, simply because tracking is not needed when the environment is stable.
+However, if we model (as in a classical storage effect scenario, or in a priority effect
+model) the environment as highly variable and unpredictable in time (and space), then species
+inhabiting such an environment must be able to track, because they cannot know what the ideal
+timing would be in any given year, unless there is a good cue (in which case the environment
+would not be unpredictable). Thus, I would expect a similar change from non-tracking to
+tracking when comparing stable with fluctuating (stationary) environments as when comparing a
+stationary with a non-stationary one. In other words, species inhabiting highly variable
+environments should be tracking, which may equip them with an advantage also in a gradually
+changing world. This idea has been voiced before in models (e.g. Bonebrake, T. C. &
+Mastrandrea, M. D. 2010. Proc. Natl. Acad. Sci. USA 107: 12581–12586) but also in
+experimental studies conducted in fluctuating habitats, where no effect of experimentally
+induced climate change was found.
+
+
+Yes, we don't make "clear predictions about why and how coexistence mechanisms would be changing differently in non-stationary systems compared to stationary (but fluctuating) ones." We think this is an important new frontier (maybe we could say that). 
+
+We did the below IN OUR MODEL (so we could push back on that):
+I would not expect large differences between a classical storage effect model and a
+model where the environment changes gradually and directionally over time, especially as
+storage effect models also look at environments with different statistical properties.
+
+Tracking has to be seen as a counterweight to other competitive mechanisms.
+
+This is mostly is an open question and we need to make a better case that this will make a difference.
+
+Confusion here about the environment you're experiencing and the fitness outcome of that environment. Organism experiences highly variable environment and tries to maintain fitness across the variability. So, even with a good cue, it doesn't mean the environment is entirely predictable. 
+
+Is the logic here: Analogy here is in a stable environment, you don't track. In a variable environment, you track and thus stabilize the environment. So the more variable the more you track. So, the more directional, the more you should track. [But the idea here that you're making the environment more homogenous is not correct. Do we need to state that environments just don't work like that? Maybe we go back to the investment versus timing problem here and mention it briefly? We need to reintroduce some of this?]
+
+Chesson's model the environment is already filtered in via E (variation in growth rate) and C (variation in competition each year). If we think of this this way, then changing environment changes the covariance between environment and competition (note to self: pull Chesson and Huntly paper view on stress to address the 'why not stress' question?). 
+
+
+Q2:
+
+Isn’t the storage effect the same as tracking only that it is about inter-annual
+variation and not variability in intra-annual timing? So what would then be the fundamental
+difference between stationary and non-stationary models when, e.g. we start with a storage
+effect model in a randomly fluctuating environment where species must already be able to
+track? I feel it would be crucial to provide clear predictions about what non-stationary
+models may predict in contrast to ‘classical’ models. Without these, the call for ‘more and
+different models’ is not very well justified. Here, the main justification is that ‘it has
+not been done’, but not ‘this is why stationary models are entirely misleading’.
+Unfortunately, the Box remains vague about this.
+
+We could do this better:
+- We expect that the benefit of tracking is higher in non-stationary environments, but this benefit will decline when cue reliability goes down. 
+
+
+Q3: Fix with figure?
+
+One important aspect of the cueing seems to me the reliability of the cue.
+Unfortunately, the authors do not mention this and only focus on benefits and costs. To me,
+this seems a key aspect which is tightly related to the costs (i.e. low reliability, high
+potential costs). The reliability is not touched upon in the cost-benefit discussion.
+
+Q4:
+
+We write: Researchers could thus more broadly understand environmental tracking through modeling an organism’s reaction norms (Pigliucci, 1998; Chmura et al., 2019) and understanding how cues and suites of cues—across environments—determine how fundamentally plastic an organism may be in its tracking. *For example, multivariate cues should yield higher plasticity in this framework.*
+
+R says: Reference for this? I would have thought that the plastic response to each multivariate cue would be lower than the response to a single reliable cue.
+
+
+Do we just need to clarify that we expect a single environmental variable cannot be reliable given that the environment is multivariate?
+
+Chevin & Lande 2015 paper says:
+(1) If you're looking at a species' response to the environment and it looks maladaptive, it may not be, you may not be looking at the right cue.
+(2) There are constraints in evolving multivariate cues. (a) Physiological cue structure, it can be hard to detect stuff when environmental variable, are highly correlated and there are developmental constraints (you have to choose before the point, the decision is before the fitness), (b) ... Paper is about when to use an indirect indicator versus a direct indicator (i.e., do you measure soil moisture or a proxy? If the proxy is cheaper and/or a better predictor you should). 
+
+
+Q: I could reply to this, but I feel you could write a stronger reply. 
+
+It is not clear to me why out of all possible biotic interactions, competition is dealt
+with so prominently. I understand that competition is the other side of the coexistence coin,
+but since coexistence theory is not the core of the manuscript, other biotic interactions
+should have been discussed, too. There could be positive interactions that are decoupled by
+climate change and (as mentioned by the authors) decoupling of interactions among trophic
+levels.
+
+<><><><><>
+Additionally as of 5 July 2020, I want help with:
+
+(a) |B-b| for Ally review. ** To review still **
+
+(b) R3 "I missed examples of which traits and plasticity of them are going to trade-off the most with tracking, and how these may differ in stationary and non-stationary environment. Can we also say something whether the strength of trade-offs may differ in these two environments?"
+
+This is fascinating ... certainly tracking allows species to maintain an environmental niche and should thus allow less plasticity in other traits (if you always track into a warm spring, you can maintain your competitive traits as less plastic, but if you cannot track into that environment you may need to vary your competitive traits). 
+
+This is all based on idea that reason to track is to reduce the experienced variability of the environment. But in the storage effect you still have to experience the climate of the year you germinate ... so there's some disconnect here. 
+
+We could say that if tracking allows you to get the same environment over and over again then it should reduce the plasticity of others traits, and that could work in the non-stationary environment until you are pushed beyond your plasticity and then you need plasticity in those other traits. Talk about bounds for the stationary and non-stationary. Stationarity means a semi-bounded process, non-stationarity doesn't really.... 
+
+Slow red noise is a non-stationary environment ... maybe check into that lit?
+
+Strength of trade-off -- stronger trade-off with tracking in non-stationary environment until its beyond the cue's reliability. 
