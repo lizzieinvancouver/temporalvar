@@ -416,12 +416,23 @@ dd %>%
 Fig.Concept <- grid.arrange(Fig.DailyAirT,
              Fig.PAR7d, 
              Fig.Precip,
-             Fig.EventCue,
              Fig.Measurement,
+             Fig.EventCue,
              Fig.Fitness,
              layout_matrix=cbind(c(1,2,3),c(4,5,6)))
 
-ggsave(filename="graphs/conceptual/Fig_ConceptTrack.pdf",plot=Fig.Concept)
+ggsave(filename="graphs/conceptual/Fig_ConceptTrack.pdf",plot=Fig.Concept, width = 7, height= 7, units="in")
+
+Fig.Concept.RHS <- grid.arrange(Fig.Measurement,
+                                Fig.EventCue,
+                                Fig.Fitness,
+                                layout_matrix=cbind(c(1,2,3)))
+Fig.Concept.LHS <- grid.arrange(Fig.DailyAirT,
+                                Fig.PAR7d, 
+                                Fig.Precip,
+                                layout_matrix=cbind(c(1,2,3)))
+ggsave(filename="graphs/conceptual/Fig_ConceptTrack.RHS.pdf", plot=Fig.Concept.RHS,width = 4.25, height=7,units="in")
+ggsave(filename="graphs/conceptual/Fig_ConceptTrack.LHS.pdf", plot=Fig.Concept.LHS,width = 4.25, height=7,units="in")
 
 
 
