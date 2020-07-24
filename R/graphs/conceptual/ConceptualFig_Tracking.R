@@ -344,6 +344,7 @@ Fig.Fitness.inset <-
     axis.ticks.x = element_blank(),
     legend.position = "none")
 
+
 Fig.Fitness <- Fig.Fitness.main + 
   annotation_custom(
     ggplotGrob(Fig.Fitness.inset),
@@ -463,6 +464,7 @@ Fig.Concept.LHS <- grid.arrange(Fig.DailyAirT,
 ggsave(filename="graphs/conceptual/Fig_ConceptTrack.RHS.pdf", plot=Fig.Concept.RHS,width = 4.25, height=7,units="in")
 ggsave(filename="graphs/conceptual/Fig_ConceptTrack.LHS.pdf", plot=Fig.Concept.LHS,width = 4.25, height=7,units="in")
 
+ggsave(filename="graphs/conceptual/Fig_ConceptTrack.inset_only.pdf", plot=Fig.Fitness.inset,width = 4, height=4,units="in")
 
 
 
