@@ -15,7 +15,7 @@
 
 \renewcommand{\refname}{\CHead{}}
 
-\title{Supplemental materials:  How environmental tracking shapes species and communities in stationary and non-stationary systems} 
+\title{Supplemental materials:  How temporal tracking shapes species and communities in stationary and non-stationary systems} 
 
 \author{E. M. Wolkovich \& M. J. Donahue}
 \date{} 
@@ -35,6 +35,11 @@ To examine current evidence of what traits may trade-off with tracking, we syste
 which resulted in 231 papers (83\% of which were published in 2011 or later, see Fig. \ref{fig:papertrends}). From here we used the following criteria to determine from which papers we could not extract data: no phenology or phenological change measured (73 papers), no trait(s) measured or analyzed (49 papers), single-species studies focused on intra-specific variation (55 papers), modeling or theory studies without data (12 papers), or papers without new data presented (reviews, etc.: 4 papers), or miscellaneous reasons leading to no data relevant to our aims (7 papers). This left us with 30 papers including relevant data \citep{Suzuki:1997gf,Post1999,adrian2006,Xu:2009an,Goodenough2010,Diamond:2011nx,Moussus2011,Szilvia2012,Dorji2013,Ishioka2013,xia2013,Bock2014,kharouba2014,Vegvari2015,bell2015,jing2016,lasky2016,McDermott2016,Zhu2016BioLetters,brooks2017,du2017,munson2017,arfinkhan2018,zhang2018,Ladwig2019,park2019,sharma2019,Xavier2019,Zettlemoyer2019}, nine of which did not test for a relationship between tracking and the other studied traits \citep{Suzuki:1997gf,adrian2006,Xu:2009an,Szilvia2012,bell2015,McDermott2016,Sherwood2017,sharma2019,Xavier2019}. We present data from the remaining papers in Tables \ref{tab:meta1}-\ref{tab:meta2}. \\
 
 Most studies examined tracking as how a phenophase related to temperature (85\% of all tracking metrics), followed by precipitation (10\%, includes snow removal), followed by photoperiod (3\%), the climate mode NAO (1\%), water table depth (0.5\%), and year (0.5\%). Four of the 30 studies examined more than one major climate metric, though some measured many versions of temperature and/or precipitation metrics \citep[e.g., 15 precipitation and/or temperature metrics considered in][]{munson2017}.
+
+\section{Fig. \ref{fig:defineET} methods}
+We used NEON data from two sites to construct filters to model measured environmental tracking (Fig. \ref{fig:defineET}D), environmental tracking (Fig. \ref{fig:defineET}E) and fundamental tracking (Fig. \ref{fig:defineET}F). In this example, we illustrate the contrasting multivariate environment, including (Fig. \ref{fig:defineET}A) air temperature, (Fig. \ref{fig:defineET}B) cumulative photosynthetically active radiation, and (Fig. \ref{fig:defineET}C) precipitation.  Ecologists often use a measurement filter to estimate tracking.  For example, regressing the timing of a phenological event against monthly temperature to identify a threshold is effectively applying a simple, univariate measurement filter that we illustrate in Fig. \ref{fig:defineET}D as the exceedance of a threshold by the 30-day mean daily air temperature exceeds.  The cue system of an organism can also be conceptualized as a filter; for example, the requirement for winter chilling hours, as well as spring warming hours before budburst, is an example of a multivariate cue filter, illustrated in Fig. \ref{fig:defineET}E as a changing probability of event (e.g., budburst) as a function of accumulated degree chilling hours and degree heating hours.  Here, a multivariate cue system is derived from the temperature environment (Fig. \ref{fig:defineET}A).  Environmental tracking by organisms is a change in the timing of a life history event due to a change in the multivariate environment, illustrated in (Fig. \ref{fig:defineET}E) by the shift in event date due to the different environment that organisms experience at each site.   Ultimately, fitness is determined by the joint distribution of many environmental variables through time---a complex fitness filter that ecologists understand in detail for only a few, well-studied organisms.  In (Fig. \ref{fig:defineET}F), we illustrate the end-of-season fitness as a function of the timing a start-of-season life history event, where the fitness filter includes growth as a unimodal function of temperature and a saturating function of PAR and soil moisture and survival as a function of early season frost and summer heat stress.  For this particular year, we see that the organism's cue filter was effective in Site 2, where the 50\% probability of the early season event aligns with the timing of the highest fitness.  However, at Site 1, the organism's cue filter resulted in an early season event that resulted in low fitness.   % Of ultimate value to the organism - especially under a changing climate - is cue reliability (inset in Fig. \ref{fig:defineET}F): the correlation between the timing of the event (Fig. \ref{fig:defineET}E) and the fitness of the organism (F) across years.  
+
+
 
 % Could add why my review was not included (no tracking) and not including Brown review ... 
 % Average number of traits and phenophases in each study. It was a mode of one for both phenophases and traits ... 
@@ -141,8 +146,8 @@ Parameter & Value(s) & Definition & Unit \\ \hline
 
  
 \clearpage
-% latex table generated in R 3.5.1 by xtable 1.8-3 package
-% Thu Jul 23 11:20:59 2020
+% latex table generated in R 3.3.3 by xtable 1.8-2 package
+% Fri Jul 24 15:11:56 2020
 \begin{table}[ht]
 \centering
 \caption{Summary of traits related to phenological tracking in the literature and whether papers reported statistical evidence that they were linked or not. See Table S2 for an extended version.} 
@@ -174,8 +179,8 @@ diet traits &   0 &   3 \\
    \hline
 \end{tabular}
 \endgroup
-\end{table}% latex table generated in R 3.5.1 by xtable 1.8-3 package
-% Thu Jul 23 11:20:59 2020
+\end{table}% latex table generated in R 3.3.3 by xtable 1.8-2 package
+% Fri Jul 24 15:11:56 2020
 \begin{table}[ht]
 \centering
 \caption{Summary of results from literature on phenological tracking showing which phenophases researchers found were linked to which traits, or not.} 
