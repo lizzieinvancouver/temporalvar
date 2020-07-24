@@ -308,7 +308,7 @@ dd<-dd %>%
 
 # Figure - Fitness ----------------------------------------------------------
 
-Fig.Fitness <- 
+Fig.Fitness.main <- 
   dd %>% 
   ggplot(aes(x=date, y=fit.start)) +
   geom_line(aes( color=site),size=1)+
@@ -317,9 +317,38 @@ Fig.Fitness <-
   theme_minimal() +
   theme(axis.ticks.y = element_blank(),
         axis.text.y = element_blank(),
-#        axis.text.x = element_blank(),
+        #        axis.text.x = element_blank(),
         legend.position = "none") +
   scale_x_date(date_labels = xaxL, breaks=xax)
+
+#for inset
+x = rnorm(60,mean=0,1)
+y = x+c(rnorm(30,mean=0,sd=.5),rnorm(30,mean=0,sd=1.7))
+nom <- c(rep(1,30),rep(2,30))
+tt <- data.frame(x=x,y=y,nom=as.factor(nom))
+
+Fig.Fitness.inset <-
+  tt %>% 
+  ggplot(aes(x=x, y=y)) +
+  geom_point(aes(color=nom),size=0.6)+
+  geom_abline(intercept=0,slope=1,color="dark gray",size=1,alpha=0.5)+
+  labs(x="Date of Event", y="Fitness") +
+  scale_color_brewer(palette="Dark2") +
+  theme(panel.grid=element_blank(),
+    panel.background = element_rect(fill="white"),
+    axis.line = element_line(colour = "grey"),
+    axis.title = element_text(size=8),
+    axis.ticks.y = element_blank(),
+    axis.text.y = element_blank(),
+    axis.text.x = element_blank(),
+    axis.ticks.x = element_blank(),
+    legend.position = "none")
+
+Fig.Fitness <- Fig.Fitness.main + 
+  annotation_custom(
+    ggplotGrob(Fig.Fitness.inset),
+    xmin=ymd("2018-06-15"),xmax=ymd("2018-11-15"),ymin=1.5,ymax=3.35)
+
 Fig.Fitness
 
 # Figure - Event Cue ------------------------------------------------------
