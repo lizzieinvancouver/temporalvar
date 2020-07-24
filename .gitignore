@@ -6,6 +6,7 @@ refs/
 figures/photos/
 whiteboard/
 docs/manuscripts/phencc/comments/
+R/neondata/
 
 ###R files to ignore
 *.RData
