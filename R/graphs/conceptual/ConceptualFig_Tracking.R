@@ -399,9 +399,7 @@ dd %>%
   geom_line(aes(x=date,y=swc.mean,color=site)) +
   labs(x="Day of Year",y="Mean Soil Moisture")
 
-
-
-  dd %>% 
+dd %>% 
   ggplot +
   geom_line(aes(x=date,y=precip.cum.15d, color=site))+
   labs(x="Day of Year",y="Cum. Precipitation (15d)")
@@ -418,9 +416,9 @@ dd %>%
 Fig.Concept <- grid.arrange(Fig.DailyAirT,
              Fig.PAR7d, 
              Fig.Precip,
-             Fig.Fitness,
              Fig.EventCue,
              Fig.Measurement,
+             Fig.Fitness,
              layout_matrix=cbind(c(1,2,3),c(4,5,6)))
 
 ggsave(filename="graphs/conceptual/Fig_ConceptTrack.pdf",plot=Fig.Concept)
