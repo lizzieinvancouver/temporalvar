@@ -311,7 +311,7 @@ dd<-dd %>%
 Fig.Fitness <- 
   dd %>% 
   ggplot(aes(x=date, y=fit.start)) +
-  geom_line(aes( color=site),size=1.5)+
+  geom_line(aes( color=site),size=1)+
   labs(x="", y="Fitness") +
   scale_color_brewer(palette="Dark2") +
   theme_minimal() +
@@ -327,7 +327,7 @@ Fig.Fitness
 Fig.EventCue <-
   dd%>%
   ggplot(aes(x=date,y=pEvent.by2, color=site)) +
-  geom_line(size=1.5)+
+  geom_line(size=1)+
   labs(x="", y="P(Event)") +
   theme_minimal() +
   theme(axis.ticks.y = element_blank(),
@@ -344,8 +344,8 @@ Fig.Measurement <-
   dd %>% 
   mutate(airT.exceed = 1*cummax(airT.30d)>12) %>% 
   ggplot(aes(x=date, color=site)) +
-  geom_line(aes(y=airT.30d), size=1,alpha=0.7) +
-  geom_line(aes(y=airT.exceed*25),size=1.5) +
+  geom_line(aes(y=airT.30d), size=1,alpha=0.5) +
+  geom_line(aes(y=airT.exceed*25),size=1.2) +
 #  scale_y_continuous(sec.axis = sec_axis(~./25)) +
   labs(x="", y="Temp > Threshold") +
   theme_minimal() +
