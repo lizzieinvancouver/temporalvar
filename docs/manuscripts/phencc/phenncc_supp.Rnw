@@ -156,12 +156,6 @@ print(xtable(tableforpaper, caption = "Summary of results from literature on phe
 
 
 \clearpage
-\begin{figure}[t!]
-\centering
-\includegraphics[width=1\textwidth]{..//..//..//R/graphs/otherdat/papersovertime.pdf}
-\caption{Trends in all papers using search terms over time. Of papers from which we could extract data all 25 of 30 were published in 2011 or onward.}
-  \label{fig:papertrends}
-\end{figure}
 
 \begin{figure}[t!]
 \centering
