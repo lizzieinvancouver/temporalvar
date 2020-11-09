@@ -6,6 +6,7 @@ refs/
 figures/photos/
 whiteboard/
 docs/manuscripts/phencc/comments/
+docs/manuscripts/phencc/decisions/
 R/neondata/
 
 ###R files to ignore
