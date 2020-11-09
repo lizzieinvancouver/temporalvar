@@ -7,10 +7,43 @@ Updated 2 November 2020
 <><><><><><><><><><><><><><><><><><><><><><><>
 
 WRITING:
+- See my notes below that I lost track of ... (What to change based on ELE notes) do this with the old paper copy by my side and *after* getting feedback from Megan I think.
 
+FIGURES:
+- Discuss with Megan, esp. Figures 2-3 currently.
 
 CITATIONS:
-- Also check for ADDCITES!
+- Check for ADDCITES!
+
+
+<><><><><><><><><><>
+What to change based on ELE notes
+<><><><><><><><><><>
+- Start by JUST READING the damn thing anew (print it out).
+- Make sure we have a super clear point (see 'We'd need to answer' below, this might help I think)
+- Change terminology or add a decoder table ... Call it phenological tracking (Ally said, replacing ecological tracking with “phenological response” and fundamental tracking with “optimal phenological response”). While I think it would be unhelpful to introduce this new terminology, if you disagree then at the very least it would help if you included a table that highlighted terms that have been used synomously with your definitions.
+- Maybe bring back some intro to non-stationarity?
+- Consider making some sections a little longer if they got cut down too far.
+
+- Maybe worth mentioning? I think not though ... Environmental and fundamental tracking: In the evolution literature the environment that determines the optimum is referred to as the environment of selection and the environment that determines plasticity as the environment of development. It is possible that non-stationarity could lead to these two environments becoming less correlated, such that plasticity with respect to the environment of development would be less effective at tracking the optimum. I’m not sure where you should mention this but thought it was worth mentioning.
+
+- Line 87. Change “drive the evolution of organismal cues” to “favour the evolution of cue
+use”.
+
+- Line 144. Rather than selection I think you mean adaptation (or the response to selection) as later in the sentence you talk about standing genetic variation, so I think are referring to the response to selection rather than selection itself.
+
+- Line 160. Gavrilets and Scheiner 1993 should be cited here and at the end of the first
+sentence in thus paragraph. Gavrilets, S. and Scheiner, S.M., 1993. The genetics of
+phenotypic plasticity. V. Evolution of reaction norm shape. Journal of evolutionary biology, 6(1), pp.31-48.
+
+- Line 380. Here you make the challenge sound much simpler than it is. To quantify fundamental tracking as in B one needs to have data on fitness of many individuals across many environments, and that is why it is very rarely estimated. See Chevin, L. M., Visser, M. E., & Tufto, J. (2015). Estimating the variation, autocorrelation, and environmental sensitivity of phenotypic selection. Evolution, 69(9), 2319-2332.
+
+- Line 472. I think this bias is only true if there is a publication bias. Often with phenology many species are studied in a single paper, thereby making species estimates less subject to such biases.
+
+- Fig. 1. Perhaps highlight to the reader which aspects of the figures reveal non-stationarity.
+- Fig. 2. On it's own I couldn’t follow this and suggest it needs some work for it to be a
+useful schematic for readers. In particular I was confused by D and F and the inset to F.
+Most work on phenological tracking/responses uses regression slopes (rather than GDD models) so why not for simplicity use those in D?
 
 
 <><><><><><><><><><><><><><><><><><><><><><><>
