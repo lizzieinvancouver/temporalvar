@@ -386,7 +386,7 @@ Fig.EventCue <-
   geom_line(aes(y=0.8 *airT.dhh.30dL.nAll),size=1, alpha=0.5) +
 #  geom_segment(aes(x=ymd("2018-04-10"),y=0, xend=ymd("2018-04-10"),yend=0.5),color="#1B9E77",alpha=0.5,linetype="dashed")+
 #  geom_segment(aes(x=ymd("2018-03-23"),y=0, xend=ymd("2018-03-23"),yend=0.5),color="#D95F02",alpha=0.5,linetype="dashed")+
-  geom_segment(aes(x=ymd("2018-03-24"),xend=ymd("2018-04-10"),y=0.5,yend=0.5),size=0.7,color="black",arrow=arrow(length = unit(7,"pt"),ends="both"))+
+  geom_segment(aes(x=ymd("2018-03-24"),xend=ymd("2018-04-10"),y=0.5,yend=0.5),size=1.0,color="gray50",arrow=arrow(length = unit(7,"pt"),ends="both"))+
   #geom_line(size=1)+
   labs(x="", y="Probability of Event") +
   theme_minimal() +
@@ -406,11 +406,13 @@ Fig.Measurement <-
   ggplot(aes(x=date, color=site)) +
   geom_line(aes(y=airT.30d), size=1,alpha=0.5) +
   geom_line(aes(y=airT.exceed*25),size=1.2) +
+  geom_segment(aes(x=ymd("2018-04-8"),xend=ymd("2018-04-25"),y=7.5,yend=7.5),size=1.0,color="gray50",arrow=arrow(length = unit(7,"pt"),ends="both"))+
   # geom_line(aes(y=dayL),size=1.2)+
 #  scale_y_continuous(sec.axis = sec_axis(~./25)) +
-  labs(x="", y="30day Average Air Temp exceeds Threshold") +
+  labs(x="", y="Air Temp (30d) exceeds Threshold") +
   theme_minimal() +
   theme(legend.position = "none",
+#        axis.title = element_text(size = 12),
         axis.text.y = element_blank()) +
   scale_x_date(date_labels = xaxL, breaks=xax) +
   scale_color_brewer(palette="Dark2")
@@ -511,7 +513,7 @@ ggsave(filename="graphs/conceptual/Fig_ConceptTrack.LHS.pdf", plot=Fig.Concept.L
 #png for each panel
 ggsave(filename="graphs/conceptual/Fig_ConceptTrack.LHS.png", plot=Fig.Concept.LHS,width = 6, height=12,units="in")
 ggsave(filename="graphs/conceptual/Fig_ConceptTrack.Fitness.main.png", plot=Fig.Fitness.main,width = 6, height=4,units="in")
-ggsave(filename="graphs/conceptual/Fig_ConceptTrack.Fitness.inset.png", plot=Fig.Fitness.inset,width = 4, height=4,units="in")
+ggsave(filename="graphs/conceptual/Fig_ConceptTrack.Fitness.inset.png", plot=Fig.Fitness.inset,width = 6, height=4,units="in")
 ggsave(filename="graphs/conceptual/Fig_ConceptTrack.Fitness.png", plot=Fig.Fitness,width = 6, height=4,units="in")
 ggsave(filename="graphs/conceptual/Fig_ConceptTrack.EventCue.png", plot=Fig.EventCue,width = 6, height=4,units="in")
 ggsave(filename="graphs/conceptual/Fig_ConceptTrack.Measurement.png", plot=Fig.Measurement,width = 6, height=4,units="in")
