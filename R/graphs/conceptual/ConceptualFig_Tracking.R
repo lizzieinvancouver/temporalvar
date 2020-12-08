@@ -19,6 +19,7 @@ library(raster)
 library(rhdf5)
 library(gridExtra)
 library(RColorBrewer)
+library(insol)
 options(stringsAsFactors=F)
 setwd("C:/Users/Megan/Documents/GitHub/temporalvar/R")
 
@@ -26,6 +27,9 @@ setwd("C:/Users/Megan/Documents/GitHub/temporalvar/R")
 
 #dataproducts:  IR biological temp, PAR, precip, soil water content, airtemp, soil temp 
 sites <- c("ABBY","WREF","JORN","MOAB")
+sitelist <- data.frame(name = sites,
+                       latitude = c(45.76244,45.82049,32.59069,38.24828),
+                       longitude = c(-122.33032,-121.95191,-106.84254,-109.38827))
 
 if(file.exists("neondata/neon.Rdata")) {
   load("neondata/neon.Rdata")  
@@ -155,6 +159,12 @@ d <-
                 swc.ct = sum(!is.na(VSWCMeanH))),
     by=c("date","site"))
 
+d <- left_join(d,sitelist,by=c("site"="name"))
+d <- d %>% mutate(airT.dch.90d.nAll = airT.dch.90d/max(airT.dch.90d,na.rm="TRUE"),
+                  airT.dhh.30dL.nAll = airT.dhh.30dL/max(airT.dhh.30dL,na.rm="TRUE"))
+d <- mutate(d,jdate = yday(date))
+d <- d %>% rowwise() %>% mutate(dayL = daylength(latitude,longitude,jdate,1)[3]) #use rowwise bc functio is not vectorized
+
 rm(airT,bioT,precip1,precip2,swc,par)
 
 # basic plots -------------------------------------------------------------
@@ -179,7 +189,9 @@ xax <- c(mdy("11/1/2017"),
 #          mdy("7/1/2018"),
 #          mdy("9/1/2018"))
 xaxL <-c("N","D","J","F","M","A","M","J","J","A","S","O")
-  
+
+site.color.dk <- c("#1b9e77","#d95f02")
+site.color.lt <- c("#b3e2cd","#fdcdac")
 
 d %>% 
   group_by(site) %>% 
@@ -231,6 +243,11 @@ d %>%
   ggplot() +
   facet_wrap(vars(site)) +
   geom_point(aes(x=swc.mean,y=precip.cum.30d))
+d %>% 
+  group_by(site) %>% 
+  ggplot() +
+  facet_wrap(vars(site)) +
+  geom_point(aes(x=date,y=dayL))
 
 # Add Growth, Survival, Fitness -----------------------------------------------------------------
 #gives fitness at each date as a function of:
@@ -248,10 +265,11 @@ gr.swcB <- 120
 #survival depends on cumulative cold or heat stress
 s.LTa <- 0.45  #rate of decline of surv with increase hours below freezing
 s.HTa <- 0.07  #rate of decline of surv with increase DHH>35 in 5d
-season = 30
+season = 15
 
 dd<- d %>%
-  filter(date%within%interval(ymd("2018-1-01"),ymd("2018-10-31")) , site =="ABBY"|site=="MOAB") %>%
+#  filter(date%within%interval(ymd("2018-1-01"),ymd("2018-10-31")) , site =="ABBY"|site=="MOAB") %>%
+  filter(date%within%interval(ymd("2018-1-01"),ymd("2018-07-31")) , site =="ABBY"|site=="MOAB") %>%
   mutate(growth.T = ifelse(between(bioT.mean,15,35),gr.Taa*bioT.mean*(bioT.mean-gr.Tmin)*(gr.Tmax-bioT.mean)^(1/2),0),
          growth.PAR = (1-exp(-gr.PARb*par.cum)),
          growth.SWC = (1/(1 + gr.swcA*exp(-gr.swcB*swc.mean))),
@@ -262,13 +280,13 @@ dd<- d %>%
   group_by(site) %>% 
   mutate(surv.start=rollapply(surv, season, prod, na.rm=TRUE, fill=NA, align="left"),
          growth.start = rollapply(growth.day,season,sum,na.rm=TRUE,fill=NA,align="left"),
-         fit.start = surv.start*growth.start,
+         fit.start = ifelse(surv.start*growth.start<1e-30,0,surv.start*growth.start),
          fit.start.n = fit.start/max(fit.start,na.rm=TRUE))
 # Add Cue Function -----------------------------------------------------
 
 #Degree chilling hours over 90 days - airT.dch.90d
 #Degree heating hours avobe freezing over 30 days - airT.dhh.30dL
-# Need cheating hours to come *after* chilling hour threshold is met
+# Need heating hours to come *after* chilling hour threshold is met
 
 dd %>% 
   ggplot(aes(x=date,y=airT.dch.90d, color=site)) +
@@ -291,6 +309,7 @@ dc.b = 15 #scale by thousands of cooling hours
 dd<-dd %>%
   group_by(site) %>% 
   mutate(airT.dch.90d.n = airT.dch.90d/max(airT.dch.90d,na.rm=TRUE),
+         airT.dhh.30dL.n = airT.dhh.30dL/max(airT.dhh.30dL,na.rm=TRUE),
          pEvent.dc = 1/(1 + dc.a*exp(-dc.b*airT.dch.90d.n)),
          pEvent.dh = 1/(1 + dh.a*exp(-dh.b*airT.dhh.30dL)),
          pEvent.day = (pEvent.dc)*pEvent.dh,
@@ -308,10 +327,13 @@ dd<-dd %>%
 
 # Figure - Fitness ----------------------------------------------------------
 
+
 Fig.Fitness.main <- 
   dd %>% 
-  ggplot(aes(x=date, y=fit.start)) +
-  geom_line(aes( color=site),size=1)+
+  ggplot(aes(x=date,color=site)) +
+  geom_line(aes(y=fit.start, color=site),size=1.5)+
+  # geom_line(aes(y=surv.start, color=site),size=1,linetype="dashed")+
+  # geom_line(aes(y=growth.start, color=site),size=1,linetype="dotted")+
   labs(x="", y="Fitness") +
   scale_color_brewer(palette="Dark2") +
   theme_minimal() +
@@ -326,39 +348,47 @@ x = rnorm(60,mean=0,1)
 y = x+c(rnorm(30,mean=0,sd=.5),rnorm(30,mean=0,sd=1.7))
 nom <- c(rep(1,30),rep(2,30))
 tt <- data.frame(x=x,y=y,nom=as.factor(nom))
+ymax.inset = 0.99*max(dd$fit.start,na.rm="TRUE")
+ymin.inset = 0.5*max(dd$fit.start,na.rm="TRUE")
 
 Fig.Fitness.inset <-
   tt %>% 
   ggplot(aes(x=x, y=y)) +
-  geom_point(aes(color=nom),size=0.6)+
+  geom_point(aes(color=nom),size=1)+
   geom_abline(intercept=0,slope=1,color="dark gray",size=1,alpha=0.5)+
   labs(x="Date of Event", y="Fitness") +
   scale_color_brewer(palette="Dark2") +
   theme(panel.grid=element_blank(),
     panel.background = element_rect(fill="white"),
     axis.line = element_line(colour = "grey"),
-    axis.title = element_text(size=8),
+    axis.title = element_text(size=9),
     axis.ticks.y = element_blank(),
     axis.text.y = element_blank(),
     axis.text.x = element_blank(),
     axis.ticks.x = element_blank(),
     legend.position = "none")
-
+Fig.Fitness.inset
 
 Fig.Fitness <- Fig.Fitness.main + 
   annotation_custom(
     ggplotGrob(Fig.Fitness.inset),
-    xmin=ymd("2018-06-15"),xmax=ymd("2018-11-15"),ymin=1.5,ymax=3.35)
+    xmin=ymd("2018-01-01"),xmax=ymd("2018-03-31"),ymin=ymin.inset,ymax=ymax.inset)
 
 Fig.Fitness
 
 # Figure - Event Cue ------------------------------------------------------
-
+# geom_line(data = mdt[name == "A"], col = "#ff5a32", size = 2) 
 Fig.EventCue <-
-  dd%>%
-  ggplot(aes(x=date,y=pEvent.by2, color=site)) +
-  geom_line(size=1)+
-  labs(x="", y="P(Event)") +
+  dd %>%
+  ggplot(aes(x=date,color=site)) +
+  geom_line(aes(y=pEvent.by2), size=1.5) +
+  geom_line(aes(y=0.8*airT.dch.90d.nAll),size=1, alpha=0.5,linetype="dashed") +
+  geom_line(aes(y=0.8 *airT.dhh.30dL.nAll),size=1, alpha=0.5) +
+#  geom_segment(aes(x=ymd("2018-04-10"),y=0, xend=ymd("2018-04-10"),yend=0.5),color="#1B9E77",alpha=0.5,linetype="dashed")+
+#  geom_segment(aes(x=ymd("2018-03-23"),y=0, xend=ymd("2018-03-23"),yend=0.5),color="#D95F02",alpha=0.5,linetype="dashed")+
+  geom_segment(aes(x=ymd("2018-03-24"),xend=ymd("2018-04-10"),y=0.5,yend=0.5),size=0.7,color="black",arrow=arrow(length = unit(7,"pt"),ends="both"))+
+  #geom_line(size=1)+
+  labs(x="", y="Probability of Event") +
   theme_minimal() +
   theme(axis.ticks.y = element_blank(),
         axis.text.y = element_blank(),
@@ -372,12 +402,13 @@ Fig.EventCue
 
 Fig.Measurement <-
   dd %>% 
-  mutate(airT.exceed = 1*cummax(airT.30d)>12) %>% 
+  mutate(airT.exceed = 1*cummax(airT.30d)>7.5) %>% 
   ggplot(aes(x=date, color=site)) +
   geom_line(aes(y=airT.30d), size=1,alpha=0.5) +
   geom_line(aes(y=airT.exceed*25),size=1.2) +
+  # geom_line(aes(y=dayL),size=1.2)+
 #  scale_y_continuous(sec.axis = sec_axis(~./25)) +
-  labs(x="", y="Temp > Threshold") +
+  labs(x="", y="30day Average Air Temp exceeds Threshold") +
   theme_minimal() +
   theme(legend.position = "none",
         axis.text.y = element_blank()) +
@@ -424,6 +455,18 @@ Fig.Precip <-
   scale_color_brewer(palette="Dark2")
 Fig.Precip
 
+Fig.Daylength <-
+  dd %>% 
+  ggplot(aes(x=date, y=dayL,color=site)) +
+  geom_line(size=1)+
+  labs(x="", y="Day Length") +
+  theme_minimal() +
+  theme(axis.text.y = element_blank()) +
+  theme(legend.position = "none") +
+  scale_x_date(date_labels = xaxL, breaks=xax) +
+  scale_color_brewer(palette="Dark2")
+Fig.Daylength
+
 dd %>% 
   ggplot +
   geom_line(aes(x=date,y=swc.mean,color=site)) +
@@ -464,9 +507,14 @@ Fig.Concept.LHS <- grid.arrange(Fig.DailyAirT,
 ggsave(filename="graphs/conceptual/Fig_ConceptTrack.RHS.pdf", plot=Fig.Concept.RHS,width = 4.25, height=7,units="in")
 ggsave(filename="graphs/conceptual/Fig_ConceptTrack.LHS.pdf", plot=Fig.Concept.LHS,width = 4.25, height=7,units="in")
 
-ggsave(filename="graphs/conceptual/Fig_ConceptTrack.inset_only.pdf", plot=Fig.Fitness.inset,width = 4, height=4,units="in")
 
-
+#png for each panel
+ggsave(filename="graphs/conceptual/Fig_ConceptTrack.LHS.png", plot=Fig.Concept.LHS,width = 6, height=12,units="in")
+ggsave(filename="graphs/conceptual/Fig_ConceptTrack.Fitness.main.png", plot=Fig.Fitness.main,width = 6, height=4,units="in")
+ggsave(filename="graphs/conceptual/Fig_ConceptTrack.Fitness.inset.png", plot=Fig.Fitness.inset,width = 4, height=4,units="in")
+ggsave(filename="graphs/conceptual/Fig_ConceptTrack.Fitness.png", plot=Fig.Fitness,width = 6, height=4,units="in")
+ggsave(filename="graphs/conceptual/Fig_ConceptTrack.EventCue.png", plot=Fig.EventCue,width = 6, height=4,units="in")
+ggsave(filename="graphs/conceptual/Fig_ConceptTrack.Measurement.png", plot=Fig.Measurement,width = 6, height=4,units="in")
 
 
 
