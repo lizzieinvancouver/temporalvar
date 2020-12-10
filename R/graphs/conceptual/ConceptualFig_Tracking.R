@@ -20,6 +20,7 @@ library(rhdf5)
 library(gridExtra)
 library(RColorBrewer)
 library(insol)
+library(svglite)
 options(stringsAsFactors=F)
 setwd("C:/Users/Megan/Documents/GitHub/temporalvar/R")
 
@@ -190,8 +191,6 @@ xax <- c(mdy("11/1/2017"),
 #          mdy("9/1/2018"))
 xaxL <-c("N","D","J","F","M","A","M","J","J","A","S","O")
 
-site.color.dk <- c("#1b9e77","#d95f02")
-site.color.lt <- c("#b3e2cd","#fdcdac")
 
 d %>% 
   group_by(site) %>% 
@@ -325,31 +324,54 @@ dd<-dd %>%
   mutate(airT.30d = rollapply(airT.mean,30,mean,na.rm=TRUE, partial=TRUE,align="right"),
          airT.max.30d = cummax(airT.30d)) 
 
+# Figure parameters
+
+q <- brewer.pal(n=12,name="Paired")
+site.color.12 <- q[3:4] #c("tan3","chocolate4") #c("sienna1","sienna4")
+site.color.precip <- q[1:2] #c("skyblue1","royalblue4")
+site.color.PAR <- q[7:8] #c("gold","orange")#c("darkgoldenrod3","darkgoldenrod1")
+site.color.airT <- q[5:6] #c("pink1","red3")#c("lightpink","maroon")
+site.names12 <- c("Site 1", "Site 2")
+
+theme_fig3 <-   theme_minimal() +
+                theme(axis.ticks.y = element_blank(),
+                  axis.text.y = element_blank(),
+                  axis.text.x = element_text(size=8),
+#                  axis.text.x = element_text(margin=margin(t=-10)),
+                  axis.title = element_text(size=9),
+                  legend.position = c(0.15,0.8),
+                  legend.text = element_text(size=8),
+                  legend.title = element_blank(),
+#                  legend.direction = "horizontal",
+                  panel.grid = element_line(color="white"),
+                  panel.grid.major = element_line(size=0.25),
+                  panel.grid.minor = element_line(size=0.25),
+                  panel.background = element_rect(fill = "transparent",colour = NA),
+                  plot.background = element_rect(fill = "transparent",colour = NA))
+
+
 # Figure - Fitness ----------------------------------------------------------
 
 
 Fig.Fitness.main <- 
   dd %>% 
   ggplot(aes(x=date,color=site)) +
-  geom_line(aes(y=fit.start, color=site),size=1.5)+
+  geom_line(aes(y=fit.start, color=site),size=1.2) +
   # geom_line(aes(y=surv.start, color=site),size=1,linetype="dashed")+
   # geom_line(aes(y=growth.start, color=site),size=1,linetype="dotted")+
   labs(x="", y="Fitness") +
-  scale_color_brewer(palette="Dark2") +
-  theme_minimal() +
-  theme(axis.ticks.y = element_blank(),
-        axis.text.y = element_blank(),
-        #        axis.text.x = element_blank(),
-        legend.position = "none") +
-  scale_x_date(date_labels = xaxL, breaks=xax)
+  scale_x_date(date_labels = xaxL, breaks=xax)+
+  scale_color_manual(values=site.color.12, labels = site.names12)+
+  theme_fig3
+Fig.Fitness.main
 
 #for inset
 x = rnorm(60,mean=0,1)
 y = x+c(rnorm(30,mean=0,sd=.5),rnorm(30,mean=0,sd=1.7))
 nom <- c(rep(1,30),rep(2,30))
 tt <- data.frame(x=x,y=y,nom=as.factor(nom))
-ymax.inset = 0.99*max(dd$fit.start,na.rm="TRUE")
-ymin.inset = 0.5*max(dd$fit.start,na.rm="TRUE")
+ymax.inset = 0.9*max(dd$fit.start,na.rm="TRUE")
+ymin.inset = 0.4*max(dd$fit.start,na.rm="TRUE")
 
 Fig.Fitness.inset <-
   tt %>% 
@@ -357,16 +379,10 @@ Fig.Fitness.inset <-
   geom_point(aes(color=nom),size=1)+
   geom_abline(intercept=0,slope=1,color="dark gray",size=1,alpha=0.5)+
   labs(x="Date of Event", y="Fitness") +
-  scale_color_brewer(palette="Dark2") +
-  theme(panel.grid=element_blank(),
-    panel.background = element_rect(fill="white"),
-    axis.line = element_line(colour = "grey"),
-    axis.title = element_text(size=9),
-    axis.ticks.y = element_blank(),
-    axis.text.y = element_blank(),
-    axis.text.x = element_blank(),
-    axis.ticks.x = element_blank(),
-    legend.position = "none")
+  scale_color_manual(values=site.color.12, labels = site.names12) +
+  theme_fig3 +
+  theme(legend.position = "none",
+        axis.text.x = element_blank())
 Fig.Fitness.inset
 
 Fig.Fitness <- Fig.Fitness.main + 
@@ -381,21 +397,15 @@ Fig.Fitness
 Fig.EventCue <-
   dd %>%
   ggplot(aes(x=date,color=site)) +
-  geom_line(aes(y=pEvent.by2), size=1.5) +
-  geom_line(aes(y=0.8*airT.dch.90d.nAll),size=1, alpha=0.5,linetype="dashed") +
-  geom_line(aes(y=0.8 *airT.dhh.30dL.nAll),size=1, alpha=0.5) +
-#  geom_segment(aes(x=ymd("2018-04-10"),y=0, xend=ymd("2018-04-10"),yend=0.5),color="#1B9E77",alpha=0.5,linetype="dashed")+
-#  geom_segment(aes(x=ymd("2018-03-23"),y=0, xend=ymd("2018-03-23"),yend=0.5),color="#D95F02",alpha=0.5,linetype="dashed")+
-  geom_segment(aes(x=ymd("2018-03-24"),xend=ymd("2018-04-10"),y=0.5,yend=0.5),size=1.0,color="gray50",arrow=arrow(length = unit(7,"pt"),ends="both"))+
+  geom_line(aes(y=pEvent.by2), size=1.2) +
+  geom_line(aes(y=0.8*airT.dch.90d.nAll),size=1.2, alpha=0.35,linetype="dashed") +
+  geom_line(aes(y=0.8 *airT.dhh.30dL.nAll),size=1.2, alpha=0.35) +
+  geom_segment(aes(x=ymd("2018-03-24"),xend=ymd("2018-04-10"),y=0.5,yend=0.5),size=0.7,color="gray40",arrow=arrow(length = unit(7,"pt"),ends="both"))+
   #geom_line(size=1)+
   labs(x="", y="Probability of Event") +
-  theme_minimal() +
-  theme(axis.ticks.y = element_blank(),
-        axis.text.y = element_blank(),
-#        axis.text.x = element_blank(),
-        legend.position = "none") +
+  theme_fig3+
   scale_x_date(date_labels = xaxL, breaks=xax) +
-  scale_color_brewer(palette="Dark2")
+  scale_color_manual(values=site.color.12, labels = site.names12)
 Fig.EventCue
 
 # Figure - Measurement Filter ---------------------------------------------
@@ -404,45 +414,38 @@ Fig.Measurement <-
   dd %>% 
   mutate(airT.exceed = 1*cummax(airT.30d)>7.5) %>% 
   ggplot(aes(x=date, color=site)) +
-  geom_line(aes(y=airT.30d), size=1,alpha=0.5) +
+  geom_line(aes(y=airT.30d), size=1.2,alpha=0.35) +
   geom_line(aes(y=airT.exceed*25),size=1.2) +
-  geom_segment(aes(x=ymd("2018-04-8"),xend=ymd("2018-04-25"),y=7.5,yend=7.5),size=1.0,color="gray50",arrow=arrow(length = unit(7,"pt"),ends="both"))+
+  geom_segment(aes(x=ymd("2018-04-8"),xend=ymd("2018-04-25"),y=7.5,yend=7.5),size=0.7,color="gray40",arrow=arrow(length = unit(7,"pt"),ends="both"))+
   # geom_line(aes(y=dayL),size=1.2)+
 #  scale_y_continuous(sec.axis = sec_axis(~./25)) +
-  labs(x="", y="Air Temp (30d) exceeds Threshold") +
-  theme_minimal() +
-  theme(legend.position = "none",
-#        axis.title = element_text(size = 12),
-        axis.text.y = element_blank()) +
+  labs(x="", y="Air Temperature (30-day) > Threshold") +
+  theme_fig3 +
   scale_x_date(date_labels = xaxL, breaks=xax) +
-  scale_color_brewer(palette="Dark2")
+  scale_color_manual(values=site.color.12, labels = site.names12)
 Fig.Measurement
 
 # #Plots of Environment in focal year ---------------------------------------------------
+
 
 Fig.DailyAirT <-
   dd %>% 
   ggplot(aes(x=date, y=airT.mean,color=site)) +
   geom_line(size=1)+
   labs(x="",y="Temperature") +
-  theme_minimal() +
-  theme(legend.position = "none",
-#        axis.text.x = element_blank(),
-        axis.text.y = element_blank()) +
+  theme_fig3 +
   scale_x_date(date_labels = xaxL, breaks=xax) +
-  scale_color_brewer(palette="Dark2")
+  scale_color_manual(values=site.color.airT, labels = site.names12)
 Fig.DailyAirT
 
 Fig.PAR7d <-
   dd %>% 
   ggplot(aes(x=date,y=par.7d,color=site)) +
-  theme_minimal()+
-  scale_color_brewer(palette="Dark2") +
   geom_line(size=1) +
   labs(x="", y="PAR") +
-  theme(legend.position = "none") +
-  theme(axis.text.y = element_blank()) +
-  scale_x_date(date_labels = xaxL, breaks=xax)
+  theme_fig3 +
+  scale_x_date(date_labels = xaxL, breaks=xax) +
+  scale_color_manual(values=site.color.PAR, labels = site.names12)
 Fig.PAR7d
 
 Fig.Precip <-
@@ -450,11 +453,9 @@ Fig.Precip <-
   ggplot(aes(x=date, y=precip.daily,color=site)) +
   geom_line(size=1)+
   labs(x="", y="Precipitation") +
-  theme_minimal() +
-  theme(axis.text.y = element_blank()) +
-  theme(legend.position = "none") +
+  theme_fig3 +
   scale_x_date(date_labels = xaxL, breaks=xax) +
-  scale_color_brewer(palette="Dark2")
+  scale_color_manual(values=site.color.precip, labels = site.names12)
 Fig.Precip
 
 Fig.Daylength <-
@@ -511,12 +512,15 @@ ggsave(filename="graphs/conceptual/Fig_ConceptTrack.LHS.pdf", plot=Fig.Concept.L
 
 
 #png for each panel
-ggsave(filename="graphs/conceptual/Fig_ConceptTrack.LHS.png", plot=Fig.Concept.LHS,width = 6, height=12,units="in")
-ggsave(filename="graphs/conceptual/Fig_ConceptTrack.Fitness.main.png", plot=Fig.Fitness.main,width = 6, height=4,units="in")
-ggsave(filename="graphs/conceptual/Fig_ConceptTrack.Fitness.inset.png", plot=Fig.Fitness.inset,width = 6, height=4,units="in")
-ggsave(filename="graphs/conceptual/Fig_ConceptTrack.Fitness.png", plot=Fig.Fitness,width = 6, height=4,units="in")
-ggsave(filename="graphs/conceptual/Fig_ConceptTrack.EventCue.png", plot=Fig.EventCue,width = 6, height=4,units="in")
-ggsave(filename="graphs/conceptual/Fig_ConceptTrack.Measurement.png", plot=Fig.Measurement,width = 6, height=4,units="in")
+ggsave(filename="graphs/conceptual/Fig_ConceptTrack.LHS.svg", plot=Fig.Concept.LHS,width = 61, height=141,units="mm",bg="transparent")
+ggsave(filename="graphs/conceptual/Fig_ConceptTrack.Fitness.main.svg", plot=Fig.Fitness.main,width = 100, height=70,units="mm",bg="transparent")
+ggsave(filename="graphs/conceptual/Fig_ConceptTrack.Fitness.inset.svg", plot=Fig.Fitness.inset,width = 42, height=32,units="mm",bg="transparent")
+ggsave(filename="graphs/conceptual/Fig_ConceptTrack.Fitness.svg", plot=Fig.Fitness,width = 100, height=70,units="mm",bg="transparent")
+ggsave(filename="graphs/conceptual/Fig_ConceptTrack.EventCue.svg", plot=Fig.EventCue,width = 100, height=70,units="mm",bg="transparent")
+ggsave(filename="graphs/conceptual/Fig_ConceptTrack.Measurement.svg", plot=Fig.Measurement,width = 100, height=70,units="mm",bg="transparent")
+ggsave(filename="graphs/conceptual/Fig_ConceptTrack.airT.svg", plot=Fig.DailyAirT,width = 61, height=55,units="mm",bg="transparent")
+ggsave(filename="graphs/conceptual/Fig_ConceptTrack.precip.svg", plot=Fig.Precip,width = 61, height=55,units="mm",bg="transparent")
+ggsave(filename="graphs/conceptual/Fig_ConceptTrack.PAR.svg", plot=Fig.PAR7d,width = 61, height=55,units="mm",bg="transparent")
 
 
 
