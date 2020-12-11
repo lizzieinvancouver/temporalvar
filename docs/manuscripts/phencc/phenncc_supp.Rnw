@@ -15,7 +15,7 @@
 \SweaveOpts{concordance=FALSE}
 \renewcommand{\refname}{\CHead{}}
 
-\title{Supplemental materials:  How temporal tracking shapes species and communities in stationary and non-stationary systems} 
+\title{Supplemental materials: How phenological tracking shapes species and communities in non-stationary environments} 
 
 \author{E. M. Wolkovich \& M. J. Donahue}
 \date{} 

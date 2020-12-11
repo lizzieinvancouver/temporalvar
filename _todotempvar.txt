@@ -7,43 +7,14 @@ Updated 2 November 2020
 <><><><><><><><><><><><><><><><><><><><><><><>
 
 WRITING:
-- See my notes below that I lost track of ... (What to change based on ELE notes) do this with the old paper copy by my side and *after* getting feedback from Megan I think.
+- Done.
 
 FIGURES:
-- Discuss with Megan, esp. Figures 2-3 currently.
+- Done
 
 CITATIONS:
-- Check for ADDCITES!
+- Done
 
-
-<><><><><><><><><><>
-What to change based on ELE notes
-<><><><><><><><><><>
-- Start by JUST READING the damn thing anew (print it out).
-- Make sure we have a super clear point (see 'We'd need to answer' below, this might help I think)
-- Change terminology or add a decoder table ... Call it phenological tracking (Ally said, replacing ecological tracking with “phenological response” and fundamental tracking with “optimal phenological response”). While I think it would be unhelpful to introduce this new terminology, if you disagree then at the very least it would help if you included a table that highlighted terms that have been used synomously with your definitions.
-- Maybe bring back some intro to non-stationarity?
-- Consider making some sections a little longer if they got cut down too far.
-
-- Maybe worth mentioning? I think not though ... Environmental and fundamental tracking: In the evolution literature the environment that determines the optimum is referred to as the environment of selection and the environment that determines plasticity as the environment of development. It is possible that non-stationarity could lead to these two environments becoming less correlated, such that plasticity with respect to the environment of development would be less effective at tracking the optimum. I’m not sure where you should mention this but thought it was worth mentioning.
-
-- Line 87. Change “drive the evolution of organismal cues” to “favour the evolution of cue
-use”.
-
-- Line 144. Rather than selection I think you mean adaptation (or the response to selection) as later in the sentence you talk about standing genetic variation, so I think are referring to the response to selection rather than selection itself.
-
-- Line 160. Gavrilets and Scheiner 1993 should be cited here and at the end of the first
-sentence in thus paragraph. Gavrilets, S. and Scheiner, S.M., 1993. The genetics of
-phenotypic plasticity. V. Evolution of reaction norm shape. Journal of evolutionary biology, 6(1), pp.31-48.
-
-- Line 380. Here you make the challenge sound much simpler than it is. To quantify fundamental tracking as in B one needs to have data on fitness of many individuals across many environments, and that is why it is very rarely estimated. See Chevin, L. M., Visser, M. E., & Tufto, J. (2015). Estimating the variation, autocorrelation, and environmental sensitivity of phenotypic selection. Evolution, 69(9), 2319-2332.
-
-- Line 472. I think this bias is only true if there is a publication bias. Often with phenology many species are studied in a single paper, thereby making species estimates less subject to such biases.
-
-- Fig. 1. Perhaps highlight to the reader which aspects of the figures reveal non-stationarity.
-- Fig. 2. On it's own I couldn’t follow this and suggest it needs some work for it to be a
-useful schematic for readers. In particular I was confused by D and F and the inset to F.
-Most work on phenological tracking/responses uses regression slopes (rather than GDD models) so why not for simplicity use those in D?
 
 
 <><><><><><><><><><><><><><><><><><><><><><><>
@@ -51,30 +22,15 @@ Most work on phenological tracking/responses uses regression slopes (rather than
 <><><><><><><><><><><><><><><><><><><><><><><>
 Think on ... lots of studies link early to tracking -- this could highlight a fundamental trade-off that early things track (and do everything quick) while later things bet-hedge more and invest longer .... but could also be an artifact. (BOX) Or the late ones just competitive, and the early things are ruderal says Megan. 
 
+(*) Add time-series to figure 1 and consider adding all long time-series in other papers...
 
-(1) Put the model in a box -- top panels of Fig S2 and Figure 4 (tracking x R*) '
-(2) Move the model equations and maybe a little text into supplement (and save extra text)
-(3) Re-do the text! 
-(4) Add time-series to figure 1 and consider adding all long time-series in other papers...
-(5) Write a response letter
-
-(*) Don't contrast OC versus bet-hedging/plasticity. Life-history constraints would determine how much you use plasticity versus bet-hedging. [But Megan will try to make these edits.]
-(*) Make clearer break before sentence 'As tracking often relates to the timing of a resource pulse ...' -> SHIFT to new section on multi-species and have subsection of that which is models. 
-(*) Cue quality is a measure of how closely the time of an event predicted by cue(s) and the ideal time of an event (somewhat: fundamental tracking aligns environmental tracking). We should introduce this here: "Many of these models define the environment as a resource (e.g., many seed germination models that begin with a resource pulse each year), and thus generally model something close to fundamental tracking." And try to introduce our model 
-(*) Future directions: How is the environment changing? Is somewhat about ecologists should pay attention to climate modelers ... but here we should focus more on how environmental change filters through to organisms. More on *how the organism's environment is changing.*
-(*) Modeling section -- species produce differentially depending on the environment (not invest, invest suggests a decision).
-(*) Add Fukami ref and Bonamour ref and Dore refs (ISI)
 
 
 <><><><><><><><><><><><><><><><><><><><><><>
 <> What to do next, if you're named Megan <> 
 <><><><><><><><><><><><><><><><><><><><><><>
 
-Figure drafts: 27 Feb
 
-(1) Make new conceptual figure of when and how much
-(2) Make new conceptual figure of priority effects vs. bet-hedging
-(3) Read Fukami annual review and correct anything on priority effects
 
 
 <><><><><><><><><><><><><><><><><><>
@@ -87,19 +43,6 @@ Figure drafts: 27 Feb
 <><><><><><><><><><><><><><><><><><>
 <> Refs to get, based on reviews <> 
 <><><><><><><><><><><><><><><><><><>
-- Chmura et al. 2019 -- Lizzie has
-- Chevin, Lande, Ghalambor and others (Lizzie has Chevin et al. 2020: Adaptation, Plasticity, and Extinction in a Changing Environment: Towards a Predictive Theory; Ghalamabor et al, 2007: Adaptive versus non-adaptive phenotypic plasticity and the potential for contemporary adaptation in new environments)
-- Block et al 2019. Oikos (Lizzie has) 
-- Yang & Cenzer 2019 Ecology (Lizzie has) 
-- Carter et al 2018 Ecol Letters (Lizzie has, meh) 
-- Steer et al 2019 Methods E&E (Lizzie has)
-- 'Other phenology models' such as Nakazawa & Doi 2012 (HAVE: A perspective on match/mismatch of phenology in community contexts), Revilla et al 2014 (HAVE: (A bit) Earlier or later is always better: Phenological shifts in consumer–resource interactions) etc. Even Wolkovich & Cleland
-
-
-Megan ...
-Nakazawa & Doi 2012
-Something relevant by Lande?
-
 
 
 
