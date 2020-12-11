@@ -378,7 +378,7 @@ Fig.Fitness.inset <-
   ggplot(aes(x=x, y=y)) +
   geom_point(aes(color=nom),size=1)+
   geom_abline(intercept=0,slope=1,color="dark gray",size=1,alpha=0.5)+
-  labs(x="Date of Event", y="Fitness") +
+  labs(x="Fitness|Ideal Timing", y="Fitness|Actual Timing") +
   scale_color_manual(values=site.color.12, labels = site.names12) +
   theme_fig3 +
   theme(legend.position = "none",
