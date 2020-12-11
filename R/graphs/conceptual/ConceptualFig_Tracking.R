@@ -382,7 +382,8 @@ Fig.Fitness.inset <-
   scale_color_manual(values=site.color.12, labels = site.names12) +
   theme_fig3 +
   theme(legend.position = "none",
-        axis.text.x = element_blank())
+        axis.text.x = element_blank(),
+        axis.title = element_text(size=7))
 Fig.Fitness.inset
 
 Fig.Fitness <- Fig.Fitness.main + 
