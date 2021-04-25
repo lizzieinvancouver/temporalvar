@@ -15,6 +15,9 @@ FIGURES:
 CITATIONS:
 - Done
 
+Some new citations (Feb 2021):
+- Edwards_&_Yang_2021cues.pdf 'Evolved Phenological Cueing Strategies Show Variable Responses to Climate Change'
+- Meideros_etal_2021.pdf 'Observed Ecological Communities Are Formed by Species Combinations That Are among the Most Likely to Persist under Changing Environments'
 
 
 <><><><><><><><><><><><><><><><><><><><><><><>
