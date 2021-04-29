@@ -1,0 +1,46 @@
+This is BibTeX, Version 0.99d (TeX Live 2015)
+Capacity: max_strings=35307, hash_size=35307, hash_prime=30011
+The top-level auxiliary file: phencc_brv_p2.aux
+The style file: /Users/Lizzie/Documents/git/bibtex/styles/ecolett.bst.bst
+Database file #1: /Users/Lizzie/Documents/git/bibtex/LizzieMainMinimal.bib
+You've used 2 entries,
+            2997 wiz_defined-function locations,
+            642 strings with 4741 characters,
+and the built_in function-call counts, 945 in all, are:
+= -- 80
+> -- 20
+< -- 2
++ -- 8
+- -- 6
+* -- 58
+:= -- 164
+add.period$ -- 6
+call.type$ -- 2
+change.case$ -- 12
+chr.to.int$ -- 2
+cite$ -- 2
+duplicate$ -- 68
+empty$ -- 79
+format.name$ -- 8
+if$ -- 185
+int.to.chr$ -- 1
+int.to.str$ -- 1
+missing$ -- 14
+newline$ -- 14
+num.names$ -- 8
+pop$ -- 18
+preamble$ -- 1
+purify$ -- 10
+quote$ -- 0
+skip$ -- 25
+stack$ -- 0
+substring$ -- 64
+swap$ -- 32
+text.length$ -- 0
+text.prefix$ -- 0
+top$ -- 0
+type$ -- 18
+warning$ -- 0
+while$ -- 8
+width$ -- 0
+write$ -- 29
