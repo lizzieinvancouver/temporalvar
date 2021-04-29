@@ -17,6 +17,19 @@ phencc_v3.tex -- July 2020 version (third submission, aka second resubmission to
 <> What to do just now ...  <> 
 <><><><><><><><><><><><><><>
 
+that paragraph is environmental tracking.. 
+ideal timing instead fundamental tracking?
+switch all glossary definitions to NOT use phenology 
+
+unpredictable — replace in text with 
+cut phenological cues 
+
+environmental tracking is a product of an organism’s cue system, to date major cue systems seem related to photoperiod, temperature, moisture. Environmental tracking is not directly related to nutrients, but it is correlated with it. Cue system is tuned to maximizing nutrient availability but it’s not responding directly to it. 
+
+the relationship between fitness and the difference between ideal and event timings, … this is typically presented in an idealized way (Fig. 2)  but may more complicated in multivariate system (Fig. 3)
+
+send Megan a DIFF file with comments — BY MONDAY morning…
+
 April 2021 
 
 Ideally in this order ...
