@@ -17,10 +17,6 @@ phencc_v3.tex -- July 2020 version (third submission, aka second resubmission to
 <> What to do just now ...  <> 
 <><><><><><><><><><><><><><>
 
-environmental tracking is a product of an organism’s cue system, to date major cue systems seem related to photoperiod, temperature, moisture. Environmental tracking is not directly related to nutrients, but it is correlated with it. Cue system is tuned to maximizing nutrient availability but it’s not responding directly to it. 
-
-send Megan a DIFF file with comments — BY MONDAY morning…
-
 April 2021 
 
 Ideally in this order ...
