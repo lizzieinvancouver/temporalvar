@@ -13,12 +13,6 @@ phencc_v2.tex -- March 2020 version (second submission, aka first resubmission t
 phencc_v3.tex -- July 2020 version (third submission, aka second resubmission to ELE)
 
 
-<><><><><><><><><><><><><><>
-<> What to do just now ...  <> 
-<><><><><><><><><><><><><><>
-
-(*) Review Alison's additional comments on PDF
-
 
 
 
