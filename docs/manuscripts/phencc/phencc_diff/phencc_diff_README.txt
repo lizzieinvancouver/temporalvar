@@ -16,4 +16,4 @@ latexdiff phencc_old.tex phencc.tex > phencc_diff.tex
 
 (3) You can then just open phencc_diff.tex and compile, bib text it, compile it again in Aquamacs or some other latex programs. 
 
-* To get the ref lines not to wrap I just manually added breaks (//) as needed. Not pretty but worked. 
+* This all worked well on the first round but was upset on the second -- it somehow really did see an issue on line 128 that it stopped it compiling. I used texshop (better line numbering) to confirm and ended up pasting in the old code for that tiny chunk from git.* 
