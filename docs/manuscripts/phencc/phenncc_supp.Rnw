@@ -6,7 +6,7 @@
 \usepackage{natbib}
 \usepackage{amsmath}
 \usepackage{xr-hyper}
-\externaldocument{phencc}
+\externaldocument{phencc_brv}
 
 \def\labelitemi{--}
 \parindent=0pt
@@ -102,7 +102,7 @@ To simulate competitive dynamics, both species were initialized with a census si
 
 \section{References}
 \bibliography{/Users/Lizzie/Documents/git/bibtex/LizzieMainMinimal}
-\bibliographystyle{/Users/Lizzie/Documents/git/bibtex/styles/ecolett.bst}
+\bibliographystyle{/Users/Lizzie/Documents/git/bibtex/styles/besjournals.bst}
 
 \clearpage
 \section{Tables \& figures}

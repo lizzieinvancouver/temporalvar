@@ -6,7 +6,7 @@
 \usepackage{natbib}
 \usepackage{amsmath}
 \usepackage{xr-hyper}
-\externaldocument{phencc}
+\externaldocument{phencc_brv}
 
 \def\labelitemi{--}
 \parindent=0pt
@@ -102,7 +102,7 @@ To simulate competitive dynamics, both species were initialized with a census si
 
 \section{References}
 \bibliography{/Users/Lizzie/Documents/git/bibtex/LizzieMainMinimal}
-\bibliographystyle{/Users/Lizzie/Documents/git/bibtex/styles/ecolett.bst}
+\bibliographystyle{/Users/Lizzie/Documents/git/bibtex/styles/besjournals.bst}
 
 \clearpage
 \section{Tables \& figures}
@@ -147,7 +147,7 @@ Parameter & Value(s) & Definition & Unit \\ \hline
  
 \clearpage
 % latex table generated in R 3.5.1 by xtable 1.8-3 package
-% Tue Dec 15 17:42:42 2020
+% Mon Jun 14 10:15:24 2021
 \begin{table}[ht]
 \centering
 \caption{Summary of traits related to phenological tracking in the literature and whether papers reported statistical evidence that they were linked or not. See Table S2 for an extended version.} 
@@ -180,7 +180,7 @@ diet traits &   0 &   3 \\
 \end{tabular}
 \endgroup
 \end{table}% latex table generated in R 3.5.1 by xtable 1.8-3 package
-% Tue Dec 15 17:42:42 2020
+% Mon Jun 14 10:15:24 2021
 \begin{table}[ht]
 \centering
 \caption{Summary of results from literature on phenological tracking showing which phenophases researchers found were linked to which traits, or not.} 
@@ -246,23 +246,6 @@ Lepidoptera & activity length & hibernation stage &  &   1 \\
 % If, in a particular year, $\tau_i$ is close to $\tau_p$, a large fraction of species $i$ seeds will germinate (e.g., Fig. \ref{fig:concept}b) ; if $\tau_i$ is far from $\tau_p$, a small fraction of the seeds will germinate.  Figure \ref{fig:concept} b-c illustrate the germination rate of two species with different $\tau_i$ values under two different environments.   
 \label{fig:concept}
 \end{figure}
-
-\iffalse % tauI figures commented out just now
-\begin{figure}[t!]
-\centering
-\includegraphics[width=0.9\textwidth]{..//..//..//R/graphs/modelruns/manuscript/tauIPrstart1_2panel.pdf}
-\caption{How non-stationarity reshapes two-species communities in a simple model where effective start time (X axis: species 1/species 2) trades off with $R^*$ (Y axis: species 1/species 2): each point represents one two-species community color-coded by whether both species persisted or one or more species was extirpated through 500 years of a stationary environment (top), followed by an additional 500 years of non-stationary environment (bottom), where the abiotic start of the season shifts earlier. Only two-species communities that persisted through the stationary period are shown in the bottom panel. See Fig. \ref{fig:tauirstarsupp} for an alternative version of this figure detailing one-species outcomes.}
- \label{fig:tauirstar}
-\end{figure}
-\clearpage
-
-\begin{figure}[t!]
-\centering
-\includegraphics[width=0.9\textwidth]{..//..//..//R/graphs/modelruns/manuscript/tauIPrstart1.pdf}
-\caption{How non-stationarity reshapes two-species communities in a simple model where effective start time (X axis: species 1/species 2) trades off with $R^*$ (Y axis: species 1/species 2): each point represents one two-species community that persisted through 500 years of stationary dynamics while the shape and color represent the outcome for that two-species community of 500 years of non-stationarity, where the abiotic start of the season shifts earlier.}
- \label{fig:tauirstarsupp}
-\end{figure}
-\fi
 
 \begin{figure}[t!]
 \centering
