@@ -15,7 +15,7 @@
 \SweaveOpts{concordance=FALSE}
 \renewcommand{\refname}{\CHead{}}
 
-\title{Supplemental materials: How phenological tracking shapes species and communities in non-stationary environments} 
+\title{How phenological tracking shapes species and communities in non-stationary environments} 
 
 \author{E. M. Wolkovich \& M. J. Donahue}
 \date{} 
@@ -23,16 +23,17 @@
 \renewcommand{\thetable}{S\arabic{table}}
 \renewcommand{\thefigure}{S\arabic{figure}}
 
+Appendix S1: Additional methods and results for: literature review (traits and tracking), Figure 3, and model with tracking presented in Section IV.
 
-\section{Literature review of studies examining tracking \& other traits}
-To examine current evidence of what traits may trade-off with tracking, we systematically reviewed the literature for studies examining tracking and other traits together. We searched ISI in August 2019 for:
+\section{Literature review of studies examining tracking and other traits}
+To examine current evidence of what traits may trade off with tracking, we systematically reviewed the literature for studies examining tracking and other traits together. We searched ISI in August 2019 for:
 \begin{enumerate}
 \item Topic: `phenolog* chang*' and Title: phenolog* AND trait*
 \item Topic: `warming shift*' AND trait* and Title: phenolog*
 \item Topic: `phenolog* track*' AND trait* and Title: phenolog*
 \item Topic: `phenolog* sensitiv*' AND trait* and Title: phenolog*
 \end{enumerate}
-which resulted in 231 papers (83\% of which were published in 2011 or later, see Fig. \ref{fig:papertrends}). From here we used the following criteria to determine from which papers we could not extract data: no phenology or phenological change measured (73 papers), no trait(s) measured or analyzed (49 papers), single-species studies focused on intra-specific variation (55 papers), modeling or theory studies without data (12 papers), or papers without new data presented (reviews, etc.: 4 papers), or miscellaneous reasons leading to no data relevant to our aims (7 papers). This left us with 30 papers including relevant data \citep{Suzuki:1997gf,Post1999,adrian2006,Xu:2009an,Goodenough2010,Diamond:2011nx,Moussus2011,Szilvia2012,Dorji2013,Ishioka2013,xia2013,Bock2014,kharouba2014,Vegvari2015,bell2015,jing2016,lasky2016,McDermott2016,Zhu2016BioLetters,brooks2017,du2017,munson2017,arfinkhan2018,zhang2018,Ladwig2019,park2019,sharma2019,Xavier2019,Zettlemoyer2019}, nine of which did not test for a relationship between tracking and the other studied traits \citep{Suzuki:1997gf,adrian2006,Xu:2009an,Szilvia2012,bell2015,McDermott2016,Sherwood2017,sharma2019,Xavier2019}. We present data from the remaining papers in Tables \ref{tab:meta1}-\ref{tab:meta2}. \\
+which resulted in 231 papers (83\% of which were published in 2011 or later, see Fig. \ref{fig:papertrends}). From here we used the following criteria to determine from which papers we could not extract data: no phenology or phenological change measured (73 papers), no trait(s) measured or analyzed (48 papers), single-species studies focused on intra-specific variation (55 papers), modeling or theory studies without data (12 papers), or papers without new data presented (reviews, etc.: 4 papers), or miscellaneous reasons leading to no data relevant to our aims (7 papers). This left us with 32 papers including relevant data \citep{Suzuki:1997gf,Post1999,adrian2006,Xu:2009an,Goodenough2010,Diamond:2011nx,Moussus2011,Szilvia2012,Dorji2013,Ishioka2013,xia2013,Bock2014,kharouba2014,Vegvari2015,bell2015,jing2016,lasky2016,McDermott2016,Zhu2016BioLetters,brooks2017,du2017,munson2017,arfinkhan2018,zhang2018,Ladwig2019,park2019,sharma2019,Xavier2019,Zettlemoyer2019}, nine of which did not test for a relationship between tracking and the other studied traits \citep{Suzuki:1997gf,adrian2006,Xu:2009an,Szilvia2012,bell2015,McDermott2016,Sherwood2017,sharma2019,Xavier2019}. We present data from the remaining papers in Tables \ref{tab:meta1} and \ref{tab:meta2}. \\
 
 Most studies examined tracking as how a phenophase related to temperature (85\% of all tracking metrics), followed by precipitation (10\%, includes snow removal), followed by photoperiod (3\%), the climate mode NAO (1\%), water table depth (0.5\%), and year (0.5\%). Four of the 30 studies examined more than one major climate metric, though some measured many versions of temperature and/or precipitation metrics \citep[e.g., 15 precipitation and/or temperature metrics considered in][]{munson2017}.
 
@@ -100,13 +101,16 @@ Using this model framework, we simulated a suite of two-species communities in s
 
 To simulate competitive dynamics, both species were initialized with a census size of $N(0) = 100$ per unit area, and the temporally varying parameters $R_0(t)$ and $\tau_{p}(t)$ were generated for the stationary and nonstationary periods. Species-specific parameters ($c_{i}$, $\tau_{i}$, and $\alpha_{i}$) were drawn from uniform random distributions with the ranges given in Table \ref{tab:model}.  All other parameters were identical between species (Table \ref{tab:model}).  Within-year $R^{*}$ competition dynamics were solved using an ode solver (\verb|ode| in the R package \verb|deSolve|) and ended when the resource was drawn down to $min(R^{*})$, i.e., the $R^{*}$ value of the better resource competitor.  The end of season biomass of each species was converted to seeds, and the populations were censused.  At each census, a minimum cutoff was applied to define extinction from the model.  Note that ``coexistence'' in this model is defined by joint persistence through time and not by low density growth rate. 
 
-\section{References}
-\bibliography{/Users/Lizzie/Documents/git/bibtex/LizzieMainMinimal}
-\bibliographystyle{/Users/Lizzie/Documents/git/bibtex/styles/besjournals.bst}
-
 \clearpage
-\section{Tables \& figures}
+\section{Tables and figures}
 
+<<label=xtablez, echo=FALSE, results=tex>>=
+library(xtable)
+source("..//..//..//R/minimetanalyse.R")
+
+print(xtable(traitz, caption = "Summary of traits related to phenological tracking in the literature and whether papers reported statistical evidence that they were linked or not. See Table S2 for an extended version.", label="tab:meta1"), include.rownames=FALSE, size="\\footnotesize", caption.placement="top")
+print(xtable(tableforpaper, caption = "Summary of results from literature on phenological tracking showing which phenophases researchers found were linked to which traits, or not.",  label="tab:meta2"), include.rownames=FALSE, size="\\footnotesize", caption.placement = "top")
+@
 
 \begin{center}
 \begin{table}[h!]
@@ -142,19 +146,6 @@ Parameter & Value(s) & Definition & Unit \\ \hline
 \label{tab:model}
 \end{table}
 \end{center}
-\clearpage
-
- 
-\clearpage
-<<label=xtablez, echo=FALSE, results=tex>>=
-library(xtable)
-source("..//..//..//R/minimetanalyse.R")
-
-print(xtable(traitz, caption = "Summary of traits related to phenological tracking in the literature and whether papers reported statistical evidence that they were linked or not. See Table S2 for an extended version.", label="tab:meta1"), include.rownames=FALSE, size="\\footnotesize", caption.placement="top")
-print(xtable(tableforpaper, caption = "Summary of results from literature on phenological tracking showing which phenophases researchers found were linked to which traits, or not.",  label="tab:meta2"), include.rownames=FALSE, size="\\footnotesize", caption.placement = "top")
-@
-
-
 \clearpage
 
 \begin{figure}[t!]

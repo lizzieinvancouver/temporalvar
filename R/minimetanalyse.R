@@ -39,11 +39,13 @@ recentpapers <- subset(timetrends, Publishing.Year>2010)
 sum(recentpapers$n)
 
 # Why were things rejected?
-table(d$Accept.Reject) 
-table(d$why)
+d$acceptrejectcomb <- d$Accept.Reject
+d$acceptrejectcomb[which(d$accept.reject_2=="r")] <- "r"
+d$acceptrejectcomb[which(!d$why_3=="")] <- "r"
+table(d$acceptrejectcomb) 
 
 # Now I try to extract info I want
-whogotin <- data.frame(why1=d$why, why2=d$accept.reject_2, why3=d$why_3)
+whogotin <- data.frame(id=paste(d$Author, d$Publishing.Year), why1=d$why, why2=d$accept.reject_2, why3=d$why_3)
 whogotin$why2[whogotin$why2=="a"] <- ""
 whogotin$why2[whogotin$why2=="r"] <- "single species"
 
@@ -53,6 +55,8 @@ whogotin$allreasons <- paste(whogotin$why1, whogotin$why2, whogotin$why3, sep=""
 whogotin$allreasons.simple <- whogotin$allreasons
 sort(unique(whogotin$allreasons.simple))
 
+# Actually an accepted paper (Bock 2014, and main data appears entered)
+whogotin$allreasons.simple[whogotin$allreasons.simple=="Check, not all data possibly entered"] <- ""
 # No phenology data 
 whogotin$allreasons.simple[whogotin$allreasons.simple=="Did not measure any phenological tracking"] <- "no phentracking"
 whogotin$allreasons.simple[whogotin$allreasons.simple=="No phenological shift data"] <- "no phentracking"
@@ -94,11 +98,9 @@ whogotin$allreasons.simple[whogotin$allreasons.simple=="no trait measured"] <- "
 whogotin$allreasons.simple[whogotin$allreasons.simple=="one species - maize"] <- "single species"
 whogotin$allreasons.simple[grep("1 species", whogotin$allreasons.simple)] <- "single species"
 
-table(whogotin$allreasons.simple)
+reasonstable <- as.data.frame(table(whogotin$allreasons.simple))
+sum(reasonstable$Freq) # should be 231
 subset(d, why=="" & accept.reject_2=="" & why_3=="")
-# 'Check, not all data possibly entered' was entered
-
-
 
 #############################
 ## Examine extracted data! ##
