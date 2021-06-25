@@ -1,0 +1,88 @@
+\documentclass[11pt,letter]{article}
+\usepackage[top=1.00in, bottom=1.0in, left=1.1in, right=1.1in]{geometry}
+\renewcommand{\baselinestretch}{1.1}
+\usepackage{graphicx}
+\usepackage{natbib}
+\usepackage{amsmath}
+
+\def\labelitemi{--}
+\parindent=0pt
+
+\begin{document}
+\bibliographystyle{/Users/Lizzie/Documents/EndnoteRelated/Bibtex/styles/besjournals}
+\renewcommand{\refname}{\CHead{}}
+
+% Next steps!
+% Lizzie writes up notes a little
+% Then Lizzie plays around with cleaning up the code
+% Megan works on ResCompN.R 
+
+{\bf How to implement:} Use a two-stage ODE, solve for the first species and resource for fixed days, then use that as the initial conditions for the second stage, where you add the other species 
+
+Last time we assumed tau_i was fixed and moved around tau_p (and what mattered was the distance); now we assume tau_p is fixed and move species around depending on chilling. Do we need this? Yes, because we need germination to not be instanteous with tau_p. Also it's nice as it's more equivalent to there being a biological start of the season and that there are `early' and `late' species relative to that.
+
+g_i = g_{max, i}e^{(-\xi)^2/h}\\
+tau_c = f(\xi) [could just be linear with threshold, or exponential etc.]
+
+
+Define the following for each species:
+
+
+Define the following for all species:
+- g_max (this could vary for species, with later species likely having lower g_max, but we think best to skip this for now and keep constant across all species) 
+- h
+
+Define the following for the environment:
+
+
+
+Stuff we do not need:
+- tracking
+- tau_i
+
+Trade-offs inherent in the model:
+- R* vs. \tau_g_i
+- R* vs. \tau_c_i
+
+Chilling (\xi) ... 
+
+{\bf How it compares to previous model:} 
+In our previous model when the $\delta T = 0$ (both species start at the same time), now we will explicitly include the time-lag (but we may be able to make that within year part an equivalence) and the difference with tracking is that $\alpha$ becomes a f(x) of heating and chilling (and it’s not really $\alpha$ … it’s a new type of environmental response, the mechanism) and how that connects to resource pulse (so how the cues connect to the resource pulse timing).
+
+In our previous model tracking put you closer to pulse and you germinated more, here you can have a priority effect and get a big benefit without using so many seeds. 
+
+{\bf Next steps …}
+
+- Adding in two-step ODE (Megan says this is very straightforward)
+- Build an environment with heating, cooling and resource pulse — and relate back to $\tau_i$
+	- Try species with same germination fraction no matter the environment
+	- Try species with increasing fraction with more chilling 
+- Think on two strategies versus continuous (or is continuous low warming).
+- Stick with our old parameters? 
+
+\\
+covar(pulse size, chill units) -- discussed in relation to what happens in years when one species is early and draws down the resource below later species' R* (we think that they still go but hopefully they don't germinate too much) or change covar(epsilon, chill units)
+
+\\
+Probably there is trade-off where early species are poorer competitors
+
+\end{document}
+
+
+\begin{align}
+N_{i}(t+1) & =
+s_{i}(N_{i}(t)(1-g_{i}(t))+\phi_{i}B(t+\delta)
+\end{align}
+The production of new biomass each season follows a basic R* competition model: new biomass production depends on its resource uptake ($f_i(R)$ converted into biomass at rate $c_i$) less maintenance costs ($m_i$), with uptake controlled by $a_i$ and $u_i$:
+\begin{align}
+\frac{\partial B_{i}}{\partial t} &  = [c_{i}f_{i}(R) - m_{i}]B_{i} \\
+f_{i}(R) & = \frac{a_{i}R^{\theta_{i}}}{1+a_{i}u_{i}R^{\theta_{i}}}
+\end{align}
+With the initial condition:
+\begin{align}
+B(t+0) & = N_{i}(t)g_{i}(t)b_{0,i}
+\end{align}
+The resource ($R$) itself declines across a growing season due to uptake by all species and abiotic loss ($\epsilon$):
+\begin{align}
+\frac{\mathrm{d}R}{\mathrm{d}t} & = - \sum_{i=1}^{n}f_{i}(R)B_{i} -\epsilon R
+\end{align}

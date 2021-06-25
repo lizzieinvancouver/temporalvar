@@ -1,3 +1,11 @@
+# To do...
+# tau_{g,i} which varies by species
+# chilling hours threshold (varies by species with some species always going the same no matter the chill hours) -- Lizzie could start with simple linear f(x)?
+# calculate \hat(tau_g_i) -- for each species given chilling
+# g_max constant for all species (currently) -- leave as is
+# s, h, phi -- also leave as is
+# Rstar etc. stuff -- also leave as is
+
 #getSpecies characteristics
 #write out Species Parms and Envt Parms
 

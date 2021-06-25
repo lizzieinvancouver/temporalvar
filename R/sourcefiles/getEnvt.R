@@ -1,3 +1,11 @@
+## To do ...
+# Generate chilling hours (need to decide on distribution) 
+# Generate pulse size (we alreaday have this, see R_0) 
+# Eventually allow these to covary?
+# Generate evapotranspration (could alternatively covary with chilling hours)
+# Remove \tau_p (start times always the same now)
+
+
 #Resource parameters
 #time varying
 mu <- log(2)  #mean of resource distribution
