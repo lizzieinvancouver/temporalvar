@@ -1,0 +1,31 @@
+Started 12 August 2019
+Met-analysis (quick one) phenological tracking
+
+<><><><><><>
+Search terms, from Kelley Slimon on 6 August 2019:
+
+I think I have a good bunch of search terms, it gives me 176 papers and includes the paper that you linked. I combined 4 different searches:
+
+1. Topic: 'phenolog* chang*' and Title: phenolog* AND trait*
+
+2. Topic: 'warming shift*' AND trait* and Title: phenolog*
+
+3. Topic: 'phenolog* track*' AND trait* and Title: phenolog*
+
+4. Topic: 'phenolog* sensitiv*' AND trait* and Title: phenolog*
+
+I found that making key words a necessary part of the title and more specific terms part of the topic gave me the best results. I played around with the terms 'long term' and 'climate change' but they either didn't add anything or added way too much.
+
+
+<><><><><><>
+Questions, from Kelley Slimon on 9 August 2019:
+
+I've completed the initial review of my list of papers, I accepted 72 and rejected 104. I was pretty lenient with my accepting criteria and probably need to narrow it down a bit more. I have a few questions to help me do that. 
+
+1. For the traits they measured, should I include categorical traits such as being an 'early' or 'late' flowering/nesting species, being male or female, being invasive or native etc. ?
+
+2. Should I only accept papers that measured phenological change in response to warming - there are some that measured change in response to altered photoperiod and also rainfall. 
+
+3. There were also traits measured that changed with induced warming or altered phenology such as specific leaf area or egg size, should I count papers that only measured these?
+
+4. And finally, I found a few meta-analysis papers that were investigating similar things as us, could we extract data from those, or if not should I go find the papers they used to add to our list? 
