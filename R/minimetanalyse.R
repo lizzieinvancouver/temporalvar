@@ -98,7 +98,7 @@ whogotin$allreasons.simple[whogotin$allreasons.simple=="no trait measured"] <- "
 whogotin$allreasons.simple[whogotin$allreasons.simple=="one species - maize"] <- "single species"
 whogotin$allreasons.simple[grep("1 species", whogotin$allreasons.simple)] <- "single species"
 
-reasonstable <- as.data.frame(table(whogotin$allreasons.simple))
+reasonstable <- as.data.frame(table(whogotin$allreasons.simple)) # numbers in supp
 sum(reasonstable$Freq) # should be 231
 subset(d, why=="" & accept.reject_2=="" & why_3=="")
 
@@ -115,7 +115,7 @@ unique(dat$study_level) # safety-check
 ## clean up taxa
 table(dat$taxongroup_studied)
 dat$taxaclean <- dat$taxongroup_studied
-dat$taxaclean[grep("epidopter", dat$taxongroup_studied)] <- "Lepidoptera"
+dat$taxaclean[grep("epidopter", dat$taxongroup_studied)] <- "lepidoptera"
 dat$taxaclean[grep("grasses", dat$taxongroup_studied)] <- "plants"
 dat$taxaclean[grep("poaceae", dat$taxongroup_studied)] <- "plants"
 dat$taxaclean[grep("angiosperms", dat$taxongroup_studied)] <- "plants"
@@ -125,7 +125,7 @@ table(dat$taxaclean)
 # Papers per taxa grouping... 
 plantshere <- subset(dat, taxaclean=="plants")
 unique(plantshere$paperID) # 20 papers!
-butterflies <- subset(dat, taxaclean=="Lepidoptera")
+butterflies <- subset(dat, taxaclean=="lepidoptera")
 unique(butterflies$paperID) # 4 papers
 birdz <- subset(dat, taxaclean=="passerine birds")
 unique(birdz$paperID) # 4 papers
@@ -296,7 +296,7 @@ dat$trait.simple[grep("pods", dat$trait.simple)] <- "offspring traits (weight/si
 dat$trait.simple[dat$trait.simple=="number of broods"] <- "offspring traits (weight/size/number)"
 dat$trait.simple[dat$trait.simple=="number of broods"] <- "offspring traits (weight/size/number)"
 
-dat$trait.simple[grep("polin", dat$trait.simple)] <- "seed weight/size/number"
+dat$trait.simple[grep("polin", dat$trait.simple)] <- "seed mass/size/number"
 
 dat$trait.simple[dat$trait.simple=="deciduois/evergreen"] <- "other plant traits"
 dat$trait.simple[dat$trait.simple=="Deciduous/evergreen"] <- "other plant traits"
@@ -314,12 +314,12 @@ dat$trait.simple[dat$trait.simple=="mass"] <- "other bird traits"
 dat$trait.simple[dat$trait.simple=="annual brood number"] <- "other bird traits"
 dat$trait.simple[dat$trait.simple=="brain mass"] <- "other bird traits"
 
-dat$trait.simple[dat$trait.simple=="food type"] <- "other Lepidopteran traits"
-dat$trait.simple[dat$trait.simple=="average length of flight season"] <- "other Lepidopteran traits"
-dat$trait.simple[dat$trait.simple=="wing size"] <- "other Lepidopteran traits"
-dat$trait.simple[dat$trait.simple=="voltinism"] <- "other Lepidopteran traits"
-dat$trait.simple[dat$trait.simple=="Max number generations"] <- "other Lepidopteran traits"
-dat$trait.simple[dat$trait.simple=="average number of generations"] <- "other Lepidopteran traits"
+dat$trait.simple[dat$trait.simple=="food type"] <- "other lepidopteran traits"
+dat$trait.simple[dat$trait.simple=="average length of flight season"] <- "other lepidopteran traits"
+dat$trait.simple[dat$trait.simple=="wing size"] <- "other lepidopteran traits"
+dat$trait.simple[dat$trait.simple=="voltinism"] <- "other lepidopteran traits"
+dat$trait.simple[dat$trait.simple=="Max number generations"] <- "other lepidopteran traits"
+dat$trait.simple[dat$trait.simple=="average number of generations"] <- "other lepidopteran traits"
 
 dat$trait.simple[dat$trait.simple=="diet"] <- "diet traits"
 dat$trait.simple[dat$trait.simple=="diet breadth"] <- "diet traits"
@@ -376,10 +376,10 @@ sum(tableforpaper[,5], na.rm=TRUE)
 
 
 tableforpaper <- tableforpaper[-c(1:2),]
-names(tableforpaper) <- c("Taxa", "Phenophase", "Trait", "n linked", "n not linked")
+names(tableforpaper) <- c("Taxa", "Phenophase", "Trait", "linked", "not linked")
 
 # What traits are most common? And are they linked?
-traitz <- aggregate(tableforpaper[c("n linked", "n not linked")],
+traitz <- aggregate(tableforpaper[c("linked", "not linked")],
     tableforpaper["Trait"], FUN=sum, na.rm=TRUE)
 # traitz <- traitz[sort(traitz$Trait),]
 checkearlylate <- subset(tableforpaper, Trait=="early/late phenophase")
