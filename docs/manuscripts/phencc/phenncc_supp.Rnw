@@ -57,7 +57,7 @@ Across years, for a community of \(n\) species, the seedbank ($N$) of species $i
 N_{i}(t+1) & =
 s N_{i}(t)(1-g_{i}(t))+\phi B_{i}(t+\delta)
 \end{align}
-The production of new biomass each season follows a basic R* competition model: new biomass production depends on its resource uptake ($f(R)$ converted into biomass at rate $c_i$) less maintenance costs ($m$), with uptake controlled by $a$, $u$, and $\theta$:
+The production of new biomass each season follows a basic $R*$ competition model: new biomass production depends on its resource uptake ($f(R)$ converted into biomass at rate $c_i$) less maintenance costs ($m$), with uptake controlled by $a$, $u$, and $\theta$:
 \begin{align}
 \frac{\mathrm{d}B_i}{\mathrm{d}t} & = c_{i}f(R) - m B_{i} \\
 f(R) & = \frac{a R^{\theta}}{1+a uR^{\theta}}

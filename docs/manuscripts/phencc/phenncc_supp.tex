@@ -15,7 +15,7 @@
 
 \renewcommand{\refname}{\CHead{}}
 
-\title{Supplemental materials: How phenological tracking shapes species and communities in non-stationary environments} 
+\title{How phenological tracking shapes species and communities in non-stationary environments} 
 
 \author{E. M. Wolkovich \& M. J. Donahue}
 \date{} 
@@ -23,21 +23,22 @@
 \renewcommand{\thetable}{S\arabic{table}}
 \renewcommand{\thefigure}{S\arabic{figure}}
 
+Appendix S1: Additional methods and results for: literature review (traits and tracking), Figure 3, and model with tracking presented in Section IV.
 
-\section{Literature review of studies examining tracking \& other traits}
-To examine current evidence of what traits may trade-off with tracking, we systematically reviewed the literature for studies examining tracking and other traits together. We searched ISI in August 2019 for:
+\section{Literature review of studies examining tracking and other traits}
+To examine current evidence of what traits may trade off with tracking, we systematically reviewed the literature for studies examining tracking and other traits together. We searched ISI in August 2019 for:
 \begin{enumerate}
 \item Topic: `phenolog* chang*' and Title: phenolog* AND trait*
 \item Topic: `warming shift*' AND trait* and Title: phenolog*
 \item Topic: `phenolog* track*' AND trait* and Title: phenolog*
 \item Topic: `phenolog* sensitiv*' AND trait* and Title: phenolog*
 \end{enumerate}
-which resulted in 231 papers (83\% of which were published in 2011 or later, see Fig. \ref{fig:papertrends}). From here we used the following criteria to determine from which papers we could not extract data: no phenology or phenological change measured (73 papers), no trait(s) measured or analyzed (49 papers), single-species studies focused on intra-specific variation (55 papers), modeling or theory studies without data (12 papers), or papers without new data presented (reviews, etc.: 4 papers), or miscellaneous reasons leading to no data relevant to our aims (7 papers). This left us with 30 papers including relevant data \citep{Suzuki:1997gf,Post1999,adrian2006,Xu:2009an,Goodenough2010,Diamond:2011nx,Moussus2011,Szilvia2012,Dorji2013,Ishioka2013,xia2013,Bock2014,kharouba2014,Vegvari2015,bell2015,jing2016,lasky2016,McDermott2016,Zhu2016BioLetters,brooks2017,du2017,munson2017,arfinkhan2018,zhang2018,Ladwig2019,park2019,sharma2019,Xavier2019,Zettlemoyer2019}, nine of which did not test for a relationship between tracking and the other studied traits \citep{Suzuki:1997gf,adrian2006,Xu:2009an,Szilvia2012,bell2015,McDermott2016,Sherwood2017,sharma2019,Xavier2019}. We present data from the remaining papers in Tables \ref{tab:meta1}-\ref{tab:meta2}. \\
+which resulted in 231 papers (83\% of which were published in 2011 or later, see Fig. \ref{fig:papertrends}). From here we used the following criteria to determine from which papers we could not extract data: no phenology or phenological change measured (73 papers), no trait(s) measured or analyzed (50 papers), single-species studies focused on intra-specific variation (55 papers), modeling or theory studies without data (12 papers), or papers without new data presented (reviews, etc.: 4 papers), or miscellaneous reasons leading to no data relevant to our aims (7 papers). This left us with 32 papers including relevant data \citep{Suzuki:1997gf,Post1999,adrian2006,Xu:2009an,Goodenough2010,Diamond:2011nx,Moussus2011,Szilvia2012,Dorji2013,Ishioka2013,xia2013,Bock2014,kharouba2014,Vegvari2015,bell2015,jing2016,lasky2016,McDermott2016,Zhu2016BioLetters,brooks2017,du2017,munson2017,arfinkhan2018,zhang2018,Ladwig2019,park2019,sharma2019,Xavier2019,Zettlemoyer2019}, nine of which did not test for a relationship between tracking and the other studied traits \citep{Suzuki:1997gf,adrian2006,Xu:2009an,Szilvia2012,bell2015,McDermott2016,Sherwood2017,sharma2019,Xavier2019}. We present data from the remaining papers in Tables \ref{tab:meta1} and \ref{tab:meta2}. \\
 
 Most studies examined tracking as how a phenophase related to temperature (85\% of all tracking metrics), followed by precipitation (10\%, includes snow removal), followed by photoperiod (3\%), the climate mode NAO (1\%), water table depth (0.5\%), and year (0.5\%). Four of the 30 studies examined more than one major climate metric, though some measured many versions of temperature and/or precipitation metrics \citep[e.g., 15 precipitation and/or temperature metrics considered in][]{munson2017}.
 
 \section{Fig. \ref{fig:defineET} methods}
-We used NEON data from two sites (Abbey Road in Washington state, and Moab, Utah---both in USA) to construct filters to model measured environmental tracking, environmental tracking, and fundamental tracking. In this example, we illustrate the contrasting multivariate environment (shown on left side of Fig. \ref{fig:defineET}), including air temperature, cumulative photosynthetically active radiation, and precipitation.  Ecologists often use a measurement filter to estimate tracking.  For example, regressing the timing of a phenological event against monthly temperature to identify a threshold is effectively applying a simple, univariate measurement filter that we illustrate in the `Measured Environmental Tracking' part (right, top) of Fig. \ref{fig:defineET} as the exceedance of a threshold by the 30-day mean daily air temperature exceeds.  The cue system of an organism can also be conceptualized as a filter; for example, the requirement for winter chilling hours, as well as spring warming hours before budburst, is an example of a multivariate cue filter, illustrated in the `Environmental Tracking' part (right, middle) of Fig. \ref{fig:defineET} as a changing probability of event (e.g., budburst) as a function of accumulated degree chilling hours and degree heating hours.   Ultimately, fitness is determined by the joint distribution of many environmental variables through time---a complex fitness filter that ecologists understand in detail for only a few, well-studied organisms.  In `Fundamental tracking' part (bottom) of Fig. \ref{fig:defineET}, we illustrate the end-of-season fitness as a function of the timing a start-of-season life history event, where the fitness filter includes growth as a unimodal function of temperature and a saturating function of PAR and soil moisture and survival as a function of early season frost and summer heat stress.  For this particular year, we see that the organism's cue filter was effective in Site 2, where the 50\% probability of the early season event aligns with the timing of the highest fitness.  However, at Site 1, the organism's cue filter resulted in an early season event that resulted in low fitness.   % Of ultimate value to the organism - especially under a changing climate - is cue reliability (inset in Fig. \ref{fig:defineET}F): the correlation between the timing of the event (Fig. \ref{fig:defineET}E) and the fitness of the organism (F) across years.  
+We used NEON data from two sites (Site 1 -- Abbey Road, Washington, USA and Site 2 -- Moab, Utah, USA) to construct filters to model measured environmental tracking, environmental tracking, and fundamental tracking. In this example, we illustrate the contrasting multivariate environment (shown on left side of Fig. \ref{fig:defineET}), including air temperature, cumulative photosynthetically active radiation (PAR), and precipitation.  Ecologists often use a measurement filter to estimate tracking.  For example, regressing the timing of a phenological event against monthly temperature to identify a threshold is effectively applying a simple, univariate measurement filter that we illustrate on the top right of Fig. \ref{fig:defineET} as the exceedance of a threshold by the 30-day mean daily air temperature.  The cue system of an organism can also be conceptualized as a filter; for example, the requirement for winter chilling hours, as well as spring warming hours before budburst, is an example of a multivariate cue filter, illustrated on the centre right of Fig. \ref{fig:defineET} as a changing probability of an event (e.g. budburst) as a function of accumulated degree chilling hours and degree heating hours. Ultimately, fitness is determined by the joint distribution of many environmental variables through time, a complex fitness filter that ecologists understand in detail for only a few, well-studied organisms.  On the bottom left of Fig. \ref{fig:defineET}, we illustrate the end-of-season fitness as a function of the timing of a start-of-season life-history event, where the fitness filter includes: (i) growth as a unimodal function of temperature, a saturating function of PAR, and a saturating function of soil moisture, and (ii) survival as a function of early-season frost and summer heat stress. % For this particular year, we see that the organism's cue filter was effective in Site 2, where the early-season event aligns with the timing of the highest fitness. However, at Site 1, the organism's cue filter resulted in an early-season event with lower fitness.   % Of ultimate value to the organism - especially under a changing climate - is cue reliability (inset in Fig. \ref{fig:defineET}F): the correlation between the timing of the event (Fig. \ref{fig:defineET}E) and the fitness of the organism (F) across years.  
 % Environmental tracking by organisms is a change in the timing of a life history event due to a change in the multivariate environment, illustrated in (Fig. \ref{fig:defineET}) by the shift in event date due to the different environment that organisms experience at each site.
 
 
@@ -56,7 +57,7 @@ Across years, for a community of \(n\) species, the seedbank ($N$) of species $i
 N_{i}(t+1) & =
 s N_{i}(t)(1-g_{i}(t))+\phi B_{i}(t+\delta)
 \end{align}
-The production of new biomass each season follows a basic R* competition model: new biomass production depends on its resource uptake ($f(R)$ converted into biomass at rate $c_i$) less maintenance costs ($m$), with uptake controlled by $a$, $u$, and $\theta$:
+The production of new biomass each season follows a basic $R*$ competition model: new biomass production depends on its resource uptake ($f(R)$ converted into biomass at rate $c_i$) less maintenance costs ($m$), with uptake controlled by $a$, $u$, and $\theta$:
 \begin{align}
 \frac{\mathrm{d}B_i}{\mathrm{d}t} & = c_{i}f(R) - m B_{i} \\
 f(R) & = \frac{a R^{\theta}}{1+a uR^{\theta}}
@@ -99,15 +100,105 @@ We adjust the biological start time, $\tau_i$ so that it can respond to the envi
 Using this model framework, we simulated a suite of two-species communities in stationary and non-stationary environments and examined persistence. As our interest is primarily in the role of environmental tracking, we focus on situations where species vary in their match to the environment through both the intrinsic biological start time ($\tau_i$) combined with tracking ($\alpha$), examining simulations where all species had some level of tracking. We also varied species' resource use efficiency (via $c_i$), yielding species with different $R^*$ (where a lower $R^*$ means a species can draw the resource down to a lower level and is thus considered the superior competitor). Each simulation was composed of two sequential parts: first, a 500-year stationary period where the underlying distribution of the environment does not change (but is stochastic, yielding year-to-year variation) followed by a 500-year non-stationary period where the underlying distribution of the environment shifts to an earlier start of season (see Fig. \ref{fig:modelfig} in main text). Thus, only species that persisted through the first stationary period continued into the non-stationary period.  \\
 
 To simulate competitive dynamics, both species were initialized with a census size of $N(0) = 100$ per unit area, and the temporally varying parameters $R_0(t)$ and $\tau_{p}(t)$ were generated for the stationary and nonstationary periods. Species-specific parameters ($c_{i}$, $\tau_{i}$, and $\alpha_{i}$) were drawn from uniform random distributions with the ranges given in Table \ref{tab:model}.  All other parameters were identical between species (Table \ref{tab:model}).  Within-year $R^{*}$ competition dynamics were solved using an ode solver (\verb|ode| in the R package \verb|deSolve|) and ended when the resource was drawn down to $min(R^{*})$, i.e., the $R^{*}$ value of the better resource competitor.  The end of season biomass of each species was converted to seeds, and the populations were censused.  At each census, a minimum cutoff was applied to define extinction from the model.  Note that ``coexistence'' in this model is defined by joint persistence through time and not by low density growth rate. 
+\clearpage
 
 \section{References}
 \bibliography{/Users/Lizzie/Documents/git/bibtex/LizzieMainMinimal}
 \bibliographystyle{/Users/Lizzie/Documents/git/bibtex/styles/besjournals.bst}
 
 \clearpage
-\section{Tables \& figures}
+\section{Tables and figures}
 
-
+% latex table generated in R 3.5.1 by xtable 1.8-3 package
+% Fri Jul  2 12:21:34 2021
+\begin{table}[ht]
+\centering
+\caption{Summary of traits related to phenological tracking in the literature and whether papers reported statistical evidence that they were linked or not. See Table S2 for an extended version.} 
+\label{tab:meta1}
+\begingroup\footnotesize
+\begin{tabular}{lrr}
+  \hline
+Trait & linked & not linked \\ 
+  \hline
+diet traits &   0 &   3 \\ 
+  early/late phenophase &  10 &   4 \\ 
+  habitat traits &   1 &   3 \\ 
+  height &   1 &   0 \\ 
+  hibernation stage &   0 &   3 \\ 
+  leaf/shoot size &   1 &   0 \\ 
+  migration traits &   3 &   2 \\ 
+  mobility &   1 &   3 \\ 
+  nativeness &   1 &   3 \\ 
+  niche breadth &   3 &   2 \\ 
+  other bird traits &   1 &   1 \\ 
+  other leaf traits &   4 &   3 \\ 
+  other lepidopteran traits &   3 &   4 \\ 
+  other plant traits &   1 &   1 \\ 
+  overwintering &   2 &   1 \\ 
+  range traits &   1 &   4 \\ 
+  root traits &   3 &   0 \\ 
+  seed mass/size/number &   1 &   2 \\ 
+  woody/herbaceous &   1 &   0 \\ 
+   \hline
+\end{tabular}
+\endgroup
+\end{table}% latex table generated in R 3.5.1 by xtable 1.8-3 package
+% Fri Jul  2 12:21:34 2021
+\begin{table}[ht]
+\centering
+\caption{Summary of results from literature on phenological tracking showing which phenophases researchers found were linked to which traits, or not.} 
+\label{tab:meta2}
+\begingroup\footnotesize
+\begin{tabular}{lllrr}
+  \hline
+Taxa & Phenophase & Trait & linked & not linked \\ 
+  \hline
+lepidoptera & activity length & hibernation stage &  &   1 \\ 
+  lepidoptera & activity length & migration traits &  &   1 \\ 
+  lepidoptera & activity length & other lepidopteran traits &   1 &  \\ 
+  lepidoptera & appearance/collection date & diet traits &  &   1 \\ 
+  lepidoptera & appearance/collection date & early/late phenophase &   2 &  \\ 
+  lepidoptera & appearance/collection date & habitat traits &  &   2 \\ 
+  lepidoptera & appearance/collection date & hibernation stage &  &   1 \\ 
+  lepidoptera & appearance/collection date & migration traits &   1 &  \\ 
+  lepidoptera & appearance/collection date & mobility &  &   2 \\ 
+  lepidoptera & appearance/collection date & niche breadth &   2 &   1 \\ 
+  lepidoptera & appearance/collection date & other lepidopteran traits &   1 &   2 \\ 
+  lepidoptera & appearance/collection date & overwintering &   2 &  \\ 
+  lepidoptera & appearance/collection date & range traits &   1 &   2 \\ 
+  lepidoptera & flight timing & early/late phenophase &   1 &   1 \\ 
+  lepidoptera & flight timing & mobility &   1 &   1 \\ 
+  lepidoptera & flight timing & niche breadth &  &   1 \\ 
+  lepidoptera & flight timing & other lepidopteran traits &  &   1 \\ 
+  lepidoptera & flight timing & overwintering &  &   1 \\ 
+  lepidoptera & flight timing & range traits &  &   1 \\ 
+  lepidoptera & last/median emergence dates & diet traits &  &   1 \\ 
+  lepidoptera & last/median emergence dates & habitat traits &  &   1 \\ 
+  lepidoptera & last/median emergence dates & hibernation stage &  &   1 \\ 
+  lepidoptera & last/median emergence dates & migration traits &  &   1 \\ 
+  lepidoptera & last/median emergence dates & other lepidopteran traits &   1 &   1 \\ 
+  passerine birds & breeding time & diet traits &  &   1 \\ 
+  passerine birds & breeding time & habitat traits &   1 &  \\ 
+  passerine birds & breeding time & migration traits &   2 &  \\ 
+  passerine birds & breeding time & niche breadth &   1 &  \\ 
+  passerine birds & breeding time & other bird traits &   1 &   1 \\ 
+  plants & budbreak/leafing & early/late phenophase &   3 &   1 \\ 
+  plants & budbreak/leafing & nativeness &  &   1 \\ 
+  plants & budbreak/leafing & other leaf traits &   2 &   1 \\ 
+  plants & budbreak/leafing & range traits &  &   1 \\ 
+  plants & flowering/fruiting & early/late phenophase &   4 &   2 \\ 
+  plants & flowering/fruiting & height &   1 &  \\ 
+  plants & flowering/fruiting & leaf/shoot size &   1 &  \\ 
+  plants & flowering/fruiting & nativeness &   1 &   2 \\ 
+  plants & flowering/fruiting & other leaf traits &   2 &   2 \\ 
+  plants & flowering/fruiting & other plant traits &   1 &   1 \\ 
+  plants & flowering/fruiting & root traits &   3 &  \\ 
+  plants & flowering/fruiting & seed mass/size/number &   1 &   2 \\ 
+  plants & flowering/fruiting & woody/herbaceous &   1 &  \\ 
+   \hline
+\end{tabular}
+\endgroup
+\end{table}
 \begin{center}
 \begin{table}[h!]
 \caption{Table of parameter values, definitions, and units.}
@@ -144,101 +235,6 @@ Parameter & Value(s) & Definition & Unit \\ \hline
 \end{center}
 \clearpage
 
- 
-\clearpage
-% latex table generated in R 3.5.1 by xtable 1.8-3 package
-% Mon Jun 14 10:15:24 2021
-\begin{table}[ht]
-\centering
-\caption{Summary of traits related to phenological tracking in the literature and whether papers reported statistical evidence that they were linked or not. See Table S2 for an extended version.} 
-\label{tab:meta1}
-\begingroup\footnotesize
-\begin{tabular}{lrr}
-  \hline
-Trait & n linked & n not linked \\ 
-  \hline
-diet traits &   0 &   3 \\ 
-  early/late phenophase &  10 &   4 \\ 
-  habitat traits &   1 &   3 \\ 
-  height &   1 &   0 \\ 
-  hibernation stage &   0 &   3 \\ 
-  leaf/shoot size &   1 &   0 \\ 
-  migration traits &   3 &   2 \\ 
-  mobility &   1 &   3 \\ 
-  nativeness &   1 &   3 \\ 
-  niche breadth &   3 &   2 \\ 
-  other Lepidopteran traits &   3 &   4 \\ 
-  other bird traits &   1 &   1 \\ 
-  other leaf traits &   4 &   3 \\ 
-  other plant traits &   1 &   1 \\ 
-  overwintering &   2 &   1 \\ 
-  range traits &   1 &   4 \\ 
-  root traits &   3 &   0 \\ 
-  seed weight/size/number &   1 &   2 \\ 
-  woody/herbaceous &   1 &   0 \\ 
-   \hline
-\end{tabular}
-\endgroup
-\end{table}% latex table generated in R 3.5.1 by xtable 1.8-3 package
-% Mon Jun 14 10:15:24 2021
-\begin{table}[ht]
-\centering
-\caption{Summary of results from literature on phenological tracking showing which phenophases researchers found were linked to which traits, or not.} 
-\label{tab:meta2}
-\begingroup\footnotesize
-\begin{tabular}{lllrr}
-  \hline
-Taxa & Phenophase & Trait & n linked & n not linked \\ 
-  \hline
-Lepidoptera & activity length & hibernation stage &  &   1 \\ 
-  Lepidoptera & activity length & migration traits &  &   1 \\ 
-  Lepidoptera & activity length & other Lepidopteran traits &   1 &  \\ 
-  Lepidoptera & appearance/collection date & diet traits &  &   1 \\ 
-  Lepidoptera & appearance/collection date & early/late phenophase &   2 &  \\ 
-  Lepidoptera & appearance/collection date & habitat traits &  &   2 \\ 
-  Lepidoptera & appearance/collection date & hibernation stage &  &   1 \\ 
-  Lepidoptera & appearance/collection date & migration traits &   1 &  \\ 
-  Lepidoptera & appearance/collection date & mobility &  &   2 \\ 
-  Lepidoptera & appearance/collection date & niche breadth &   2 &   1 \\ 
-  Lepidoptera & appearance/collection date & other Lepidopteran traits &   1 &   2 \\ 
-  Lepidoptera & appearance/collection date & overwintering &   2 &  \\ 
-  Lepidoptera & appearance/collection date & range traits &   1 &   2 \\ 
-  Lepidoptera & flight timing & early/late phenophase &   1 &   1 \\ 
-  Lepidoptera & flight timing & mobility &   1 &   1 \\ 
-  Lepidoptera & flight timing & niche breadth &  &   1 \\ 
-  Lepidoptera & flight timing & other Lepidopteran traits &  &   1 \\ 
-  Lepidoptera & flight timing & overwintering &  &   1 \\ 
-  Lepidoptera & flight timing & range traits &  &   1 \\ 
-  Lepidoptera & last/median emergence dates & diet traits &  &   1 \\ 
-  Lepidoptera & last/median emergence dates & habitat traits &  &   1 \\ 
-  Lepidoptera & last/median emergence dates & hibernation stage &  &   1 \\ 
-  Lepidoptera & last/median emergence dates & migration traits &  &   1 \\ 
-  Lepidoptera & last/median emergence dates & other Lepidopteran traits &   1 &   1 \\ 
-  passerine birds & breeding time & diet traits &  &   1 \\ 
-  passerine birds & breeding time & habitat traits &   1 &  \\ 
-  passerine birds & breeding time & migration traits &   2 &  \\ 
-  passerine birds & breeding time & niche breadth &   1 &  \\ 
-  passerine birds & breeding time & other bird traits &   1 &   1 \\ 
-  plants & budbreak/leafing & early/late phenophase &   3 &   1 \\ 
-  plants & budbreak/leafing & nativeness &  &   1 \\ 
-  plants & budbreak/leafing & other leaf traits &   2 &   1 \\ 
-  plants & budbreak/leafing & range traits &  &   1 \\ 
-  plants & flowering/fruiting & early/late phenophase &   4 &   2 \\ 
-  plants & flowering/fruiting & height &   1 &  \\ 
-  plants & flowering/fruiting & leaf/shoot size &   1 &  \\ 
-  plants & flowering/fruiting & nativeness &   1 &   2 \\ 
-  plants & flowering/fruiting & other leaf traits &   2 &   2 \\ 
-  plants & flowering/fruiting & other plant traits &   1 &   1 \\ 
-  plants & flowering/fruiting & root traits &   3 &  \\ 
-  plants & flowering/fruiting & seed weight/size/number &   1 &   2 \\ 
-  plants & flowering/fruiting & woody/herbaceous &   1 &  \\ 
-   \hline
-\end{tabular}
-\endgroup
-\end{table}
-
-\clearpage
-
 \begin{figure}[t!]
 \centering
 \includegraphics[width=0.65\textwidth]{..//..//..//R/graphs/conceptual/TauP_GerminationAdj.png} 
@@ -246,6 +242,23 @@ Lepidoptera & activity length & hibernation stage &  &   1 \\
 % If, in a particular year, $\tau_i$ is close to $\tau_p$, a large fraction of species $i$ seeds will germinate (e.g., Fig. \ref{fig:concept}b) ; if $\tau_i$ is far from $\tau_p$, a small fraction of the seeds will germinate.  Figure \ref{fig:concept} b-c illustrate the germination rate of two species with different $\tau_i$ values under two different environments.   
 \label{fig:concept}
 \end{figure}
+
+\iffalse % tauI figures commented out just now
+\begin{figure}[t!]
+\centering
+\includegraphics[width=0.9\textwidth]{..//..//..//R/graphs/modelruns/manuscript/tauIPrstart1_2panel.pdf}
+\caption{How non-stationarity reshapes two-species communities in a simple model where effective start time (X axis: species 1/species 2) trades off with $R^*$ (Y axis: species 1/species 2): each point represents one two-species community color-coded by whether both species persisted or one or more species was extirpated through 500 years of a stationary environment (top), followed by an additional 500 years of non-stationary environment (bottom), where the abiotic start of the season shifts earlier. Only two-species communities that persisted through the stationary period are shown in the bottom panel. See Fig. \ref{fig:tauirstarsupp} for an alternative version of this figure detailing one-species outcomes.}
+ \label{fig:tauirstar}
+\end{figure}
+\clearpage
+
+\begin{figure}[t!]
+\centering
+\includegraphics[width=0.9\textwidth]{..//..//..//R/graphs/modelruns/manuscript/tauIPrstart1.pdf}
+\caption{How non-stationarity reshapes two-species communities in a simple model where effective start time (X axis: species 1/species 2) trades off with $R^*$ (Y axis: species 1/species 2): each point represents one two-species community that persisted through 500 years of stationary dynamics while the shape and color represent the outcome for that two-species community of 500 years of non-stationarity, where the abiotic start of the season shifts earlier.}
+ \label{fig:tauirstarsupp}
+\end{figure}
+\fi
 
 \begin{figure}[t!]
 \centering
