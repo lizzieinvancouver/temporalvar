@@ -1,0 +1,5 @@
+ALERT!
+
+You are on the MASTER (master) branch.
+
+There's also priorityeff branch. Don't forget this and spend forever looking for your files (I am talking to you Lizzie).
