@@ -1,0 +1,20 @@
+25 June 2021
+Notes on new modeling effort
+To look at priority effects ... and stuff
+
+
+A few notes ...
+- There is still a lot on this branch (and code within files) that we don't need for this project.
+
+
+Files you will need:
+
+In the sourcefiles folders:
+
+getEnvt.R 
+getOutput.R
+getPlots.R 
+getRunParms.R
+getSpecies.R
+moveOutput.R 
+ResCompN.R 
