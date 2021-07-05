@@ -7,6 +7,7 @@ figures/photos/
 whiteboard/
 docs/manuscripts/phencc/comments/
 docs/manuscripts/phencc/decisions/
+docs/manuscripts/phencc/phencc_diff
 R/neondata/
 
 ###R files to ignore
