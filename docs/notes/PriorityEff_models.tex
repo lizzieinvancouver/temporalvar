@@ -22,9 +22,9 @@
 
 Megan and I discussed the changes needed to do simulations for Dan's germination questions. Specifically, Dan is interested in building from the data from his germination trials and competition experiment to do some forecasting of how climate change could shift competitive outcomes due to priority effects.
 
-\section{What needs to change}
+\section{What needs to change?}
 
-We need a model that has priority effects, and to add `chilling' somehow to the model. Specifically we want a model where with maximum chilling you get your maximum germination at the earliest time. This means that lower chilling will have two effects: lower germination, and later germination. \\
+We need a model that has priority effects (where species can switch their order across years), and to add `chilling' somehow to the model. Specifically we want a model where with maximum chilling you get your maximum germination at the earliest time. This means that lower chilling will have two effects: lower germination, and later germination. \\
 
 {\bf How it compares to previous model:} 
 (1) In our previous model both species start at the same time ($\delta T = 0$). Now we will explicitly include the time-lag (but we may be able to make that within year part an equivalence) and now changes in timing become a f(x) of chilling and how that connects to resource pulse (so how the cues connect to the resource pulse timing).\\
@@ -35,12 +35,61 @@ Another way to put this ... last time we assumed $\tau_i$ was fixed and moved ar
 
 One more important outcome of these changes---in our previous model tracking put you closer to pulse and you germinated more, here you can have a priority effect and get a big benefit without using so many seeds (before, with tracking, you germinated at a high fraction every year). 
 
+\section{Some obvious outcomes...}
+... that we discussed.
 
-\section{How to vary germination timing} 
+\begin{enumerate}
+\item If (1) species vary by their start times, (2) all start times occur after the pulse (meaning there is no negative outcome of ever being too early), and (3) species cannot switch their order across years ... then the earliest species will generally win as it's first to the party (the resource party). If you're thinking---wait, maybe we should model a cost to being too early! Then Lizzie (and Megan of years past) replies: that's the main thing you'll model then and it may be more useful in an evolutionary model perhaps. In our current model trade-offs such as between timing and competitiveness represent the ghost of these costs. 
+\item One potential way out of this problem above (earliest wins) is to have the chilling positively correlated with resource, such that lower chilling years are low resource years (smaller pulse). In this case species that delay also germinate less (so they use up less of their seedbank) and if the resource is low maybe this will be a good decision (bet-hedging wins the day?)! However, this means that high resource years are high interspecific competition years (in those years all species germinate early and at max germination---so you get postive $covar(E,C)$) so it still seems unlikely that germinating less and later in low chill years will be a good strategy.
+\item One way out of this is to covary chilling delay species with competitiveness (if you delay, you are also a superior competitor under low resource conditions). This is what Megan and I looked at in our paper. It makes sense, but it may not be the only way to get coexistence, and it may not be what we want to focus on here. 
+\end{enumerate}
+
+
+\section{How to vary germination timing, new!} 
 
 How to vary germination time (relative to pulse) with more chilling? \\
 
-Season starts at resource pulse (that's $t=0$). And we introduce some new parameters...
+This is harder than you think, and makes you realize why abstracting within-season time the way the storage effect model does may be a great idea. We went through several iterations of how to do this. Here's our current thought process:\\
+
+\begin{enumerate}
+\item No trade-off with chilling delay and $R^*$ for now. 
+\item There is variation across species in their `natural start time' (which may be called $\tau_{g,i}$ or $\tau_{i}$)
+\item Chilling does two major things ... 
+\begin{enumerate}
+\item Chilling impacts the delay, and that delay can {\bf switch the order of species} such that some some years species 1 is ahead of species 2 and some years that is reversed.
+\item Chilling also impacts the germination fraction
+\item We set up parameters such that these two effects (delay and germination fraction) to be independent (that is, they don't covary to the point that you cannit separate the impact of each, which is an alternative idea we discussed). 
+\end{enumerate}
+\item The season starts with the first species. So we set the pulse of $R$ to occur at the timing of the first species. Just like empirical ecologists we define the start of the season biotically (not abiotically). 
+\end{enumerate}
+
+\section{Start here.} 
+
+First, read the section just above ... \\
+
+Also, check out pt 2 in `Some obvious outcomes' and make sure I understand it (and wrote it correctly). \\
+
+Now, we need:
+\begin{enumerate}
+\item a firm f(x) to define how chilling impacts delay and ...
+\item how chilling impacts germination fraction and ...
+\item how we model chilling as an environmental parameter (do we model chill units? Or amount of chill below max? Or ...?). 
+\end{enumerate}
+
+Related to this, we also have not answered (have we?):
+\begin{enumerate}
+\item What aspects of chilling response are unique to species. Have we?
+\item Did we decide if all species go at same time with max chilling?
+\item What aspects of the environment will vary in simulations?
+\item What aspects of species will vary in the environment?
+\end{enumerate}
+
+
+\section{How to vary germination timing, old...} 
+
+This is from June 2021 meetings; can likely delete once we finalize new parameters etc. in July 2021 (hopefully will finish in July, we'll see!).\\
+
+Season starts at resource pulse (that's within-season $t=0$). And we introduce some new parameters...
 \begin{itemize}
 \item $\tau_{g,i}$ -- {\bf species-specific germination timing} given maximum chilling (must be after pulse)
 \item $\tau_{g,i}$ can be delayed due to chilling with $\tau_{c,i}$ -- {\bf species-specific delay} given less than maximum chilling
