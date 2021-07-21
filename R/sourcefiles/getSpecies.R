@@ -8,6 +8,8 @@
 # s, h, phi -- also leave as is
 # Rstar etc. stuff -- also leave as is
 
+## Lizzie started editing this on 19 July 2021, but definitely not done ...
+
 #getSpecies characteristics
 #write out Species Parms and Envt Parms
 
@@ -21,6 +23,8 @@ h <-  rep(100,nsp)             # max rate of germination decrease following puls
 phi <- rep(0.05,nsp)     # conversion of end-of-season plant biomass to seeds
 
 #species-specific (ASK MEGAN! about the below onward ...)
+# ... as of meeting on 20 July 2021 may need to revisit edits here ... do we have a tau_c still etc.?
+
 tauc <-runif(nsp,0.01,0.2)
 taug <- runif(nsp,0.1,0.5)
 #okay ... I think ghat needs to be a matrix, similar to tauIhat...

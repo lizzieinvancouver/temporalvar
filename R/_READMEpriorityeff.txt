@@ -13,7 +13,7 @@ In the sourcefiles folders:
 
 getEnvt.R -- EDITED
 getSpecies.R -- WORKING ON it... questions for Megan, see
-#species-specific (ASK MEGAN! about the below onward ...) in getSpecies.R
+#species-specific (ASK MEGAN! about the below onward ...) in getSpecies.R (but basically as of 20 July 2021, we're still mid-discussion what parameters we need. 
 
 getOutput.R
 getPlots.R 

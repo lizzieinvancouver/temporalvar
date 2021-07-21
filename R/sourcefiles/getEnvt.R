@@ -6,7 +6,8 @@
 
 # Have done (July 2021, by Lizzie) 
 # Removed \tau_p (start times always the same now)
-# Removed all the stuff about megadroughts and non-stationarity (I think Dan can do more of an ANOVA set of studies, instead of adding in non-stationarity) 
+# Removed all the stuff about megadroughts and non-stationarity (I think Dan can do more of an ANOVA set of studies, instead of adding in non-stationarity)
+# ... as of meeting on 20 July 2021 may need to revisit edits here
 
 
 #Resource parameters

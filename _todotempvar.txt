@@ -5,6 +5,6 @@ For this priority effects project!
 <> What to do, do, do, do.... <> 
 <><><><><><><><><><><><><><><><><><><><><><><>
 
-Do the tasks in the R/_READMEpriorityeff.txt
+Do the tasks in the R/_READMEpriorityeff.txt ... except first update what we're doing after meeting with Megan 20 July 2021. 
 
 Could always keep cleaning this branch.
