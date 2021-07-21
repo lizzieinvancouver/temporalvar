@@ -1,7 +1,9 @@
 # To do...
-# tau_{g,i} which varies by species
-# chilling hours threshold (varies by species with some species always going the same no matter the chill hours) -- Lizzie could start with simple linear f(x)?
-# calculate \hat(tau_g_i) -- for each species given chilling
+# tau_{g,i} which varies by species (taug)
+# chilling hours threshold (varies by species with some species always going the same no matter the chill hours) -- Lizzie could start with simple linear f(x) -- see below
+# calculate \hat(tau_g_i) -- for each species given chilling (ghat, see below)
+
+# Stuff we did not change ... 
 # g_max constant for all species (currently) -- leave as is
 # s, h, phi -- also leave as is
 # Rstar etc. stuff -- also leave as is
@@ -18,66 +20,12 @@ gmax <-  rep(0.5,nsp)     # max germination fraction
 h <-  rep(100,nsp)             # max rate of germination decrease following pulse
 phi <- rep(0.05,nsp)     # conversion of end-of-season plant biomass to seeds
 
-#germination: tau I and alpha below; tauI is the time of max germ for sp i
-if (length(vartauI)>1) {  #if vartauI is a vector, then it is giving particular values for each species
-  tauI = vartauI
-} else if (vartauI == 0) {  #if vartauI is 0, then give all species the same randomly selected tauI
-  tauI <-rep(runif(1,0.1,0.9),nsp)
-} else {                     #if vartauI is 1, then give random values for tauI for each species
-  tauI <-runif(nsp,0.1,0.9)  
-}
-
-#tracking
-#add tracking with alpha to create tauIhat
-if (sum(tracking)==0) {                       #tracking default value is 0 (no tracking)
-  alpha <- rep(0,nsp)           
-} else if (length(tracking)==2) {             #tracking takes range defined in input file
-  alpha <- runif(nsp,tracking[1], tracking[2]) 
-} else {                                      #if tracking is just used as a flag, then takes range 0-1
-  alpha <- runif(nsp,0,1)
-}
-
-#megaDrought - two ways: 
-#            vartauI==1 tradeoff tauI and surv with correlation rho
-#            tracking==1 tradeoff alpha and surv with correlation rho
-if (megaDflag==1) {
-  if (vartauI==1) {
-    cmat <- matrix(c(1,rho,rho,1), nrow=2, ncol=2) 
-    stauI <- draw.d.variate.uniform(no.row=2,d=2,cov.mat=cmat)
-    s <- stauI[,1]*(0.98 - 0.5) + 0.5  
-    tauI <- stauI[,2]*(0.6-0.4) + 0.4
-  }
-  if (sum(tracking)>0) {
-    cmat <- matrix(c(1,rho,rho,1), nrow=2, ncol=2) 
-    salpha <- draw.d.variate.uniform(no.row=2,d=2,cov.mat=cmat)
-    s <- salpha[,1]*(0.98 - 0.5) + 0.5  #rescale s.t. s ranges from 0.65 to 0.98
-    if (length(tracking)==2){
-      alpha <- salpha[,2]*(tracking[2]-tracking[1])+tracking[1] #alpha range given by tracking
-    } else {
-      alpha <- salpha[,2]  #if tracking is flag, then alpha ranges 0-1
-    }
-    tauI <-rep(runif(1,0.4,0.6),nsp)
-  }
-}
-
-if (sum(tracking) > 0) {
-  tauIhat <- matrix(rep(alpha),nyrs,nsp, byrow = TRUE)*tauP+matrix((1-alpha)*tauI, nyrs, nsp, byrow = TRUE)
-} else {
-  tauIhat <- matrix(rep(tauI),nyrs,nsp, byrow = TRUE)
-} 
-
-#effective tauI (=tauIhat) for initial, nonstationary, and final periods 
-tauIPini <- colMeans(abs(tauP[1:nonsta[1]] - tauIhat[1:nonsta[1],]))
-if (nonsta[2]>0) {
-  tauIPns <- colMeans(abs(tauP[(nonsta[1]+1):(nonsta[1]+nonsta[2])] - tauIhat[(nonsta[1]+1):(nonsta[1]+nonsta[2]),]))
-} else {  
-  tauIPns <-  rep(NA,nsp)
-}
-if (nonsta[3]>0){
-  tauIPfin <- colMeans(abs(tauP[(nonsta[1]+nonsta[2]+1):nyrs] - tauIhat[(nonsta[1]+nonsta[2]+1):nyrs,]))
-} else {
-  tauIPfin <- rep(NA,nsp)
-}
+#species-specific (ASK MEGAN! about the below onward ...)
+tauc <-runif(nsp,0.01,0.2)
+taug <- runif(nsp,0.1,0.5)
+#okay ... I think ghat needs to be a matrix, similar to tauIhat...
+# tauIhat <- matrix(rep(tauI),nyrs,nsp, byrow = TRUE)
+ghat <- taug-tauc*xi
 
 g <- gmax*exp(-h*(matrix(rep(tauP,nsp),nrow=length(tauP),ncol=nsp)-tauIhat)^2)  #germination fraction in year y
 

@@ -54,7 +54,7 @@ This model allows the following trade-offs:
 \end{itemize}
 Constraint: Species that do not delay with chilling should have a higher germination fraction.\\
 
-We'll have a new germination equation, that depends on {\bf chilling} ($\xi$)
+We'll have a new germination equation, that depends on {\bf chilling} ($\xi$):
 $g_i = g_{max, i}e^{(-\xi)^2/h}$\\
 $\tau_c = f(\xi)$ [could just be linear with threshold, or exponential etc.]\\
 
@@ -108,7 +108,7 @@ Use a two-stage ODE: solve for the first species and resource for a fixed number
 % $g_{max}$ (this could vary for species, with later species likely having lower $g_{max}$, but we think best to skip this for now and keep constant across all species) 
 % $h$
 
-Stuff we do no longer need:
+Stuff we do no longer need:\\
 \begin{itemize}
 \item tracking
 \item $\tau_i$

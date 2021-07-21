@@ -7,6 +7,4 @@ For this priority effects project!
 
 Do the tasks in the R/_READMEpriorityeff.txt
 
-And ... look for the START note in PriorityEff_models.tex and finalize the notes for Dan.
-
 Could always keep cleaning this branch.

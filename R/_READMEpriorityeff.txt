@@ -11,10 +11,12 @@ Files you will need:
 
 In the sourcefiles folders:
 
-getEnvt.R 
+getEnvt.R -- EDITED
+getSpecies.R -- WORKING ON it... questions for Megan, see
+#species-specific (ASK MEGAN! about the below onward ...) in getSpecies.R
+
 getOutput.R
 getPlots.R 
 getRunParms.R
-getSpecies.R
 moveOutput.R 
 ResCompN.R 
