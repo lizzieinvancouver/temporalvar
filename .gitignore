@@ -7,7 +7,12 @@ figures/photos/
 whiteboard/
 docs/manuscripts/phencc/comments/
 docs/manuscripts/phencc/decisions/
+docs/manuscripts/phencc/phencc_diff
+docs/manuscripts/phencc/submit
 R/neondata/
+minimeta/Meta2_cites/
+minimeta/Meta2 papers/
+parameternotes/fromSeabloom/received/2017Jan/
 
 ###R files to ignore
 *.RData
@@ -22,6 +27,8 @@ R/neondata/
 *.toc
 *.docx
 *.doc
+*.bbl
+
 
 ### some misc files to ignore
 docs/notes/2019May5_Megan.jpg
@@ -29,6 +36,9 @@ docs/manuscripts/test.tex
 docs/manuscripts/test.pdf
 refs_fromJD.pdf
 docs/notes/2020JanFeb_RevisionChatsMegan.txt
+docs/manuscripts/phencc/_submitextrasphencc.txt
+
+
 
 #################
 ## Eclipse
