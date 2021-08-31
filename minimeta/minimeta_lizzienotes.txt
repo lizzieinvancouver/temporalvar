@@ -1,0 +1,137 @@
+Started 3 September 2019
+Lizzie's notes on mini-meta
+
+<><><><><><><><><>
+27 September 2019
+
+Reviewing the ? papers ...
+
+XAVIER (N): Phenological and reproductive traits and their response
+to environmental variation differ among native and invasive grasses in a Neotropical savanna
+- Looking at variation due to TWO years of data and spatial heterogeneity ... "
+In this study we compared phenological traits and reproductive output among African and native grass species in a Neotropical savanna and assessed if they responded differently to local abiotic variation and inter-annual variation."
+- Fig 4 shows 'tracking' flowering period ~ water table depth for 6 species ... but does not look at tracking across species.
+- Hmm, I think this is effectively a MULTI-species study that is analysed as species by species *so I think we can reject it as single species* (but make a note)
+
+
+MUNSON (Y): Climate drives shifts in grass reproductive phenology across the western USA
+- This paper definitely measured tracking for each species (for many species).
+- It shows the WITHIN species correlations between climate variables (variation both spatial and temporal) and phenology, categorized by annual/perennial and C3/C4 ... 
+- They say stuff like "Annual species, which were expected to show greater plasticity, exhibited a larger (and for C3 species, stronger) relationship with climate through time than their perennial counterparts."
+- I think this line is related ... "When all C4 species were grouped by life history, the flowering time of annual C4 grasses was more accelerated or earlier with increasing mean annual temperature than that of perennial C4 grasses (temporal: F = 7.90; P = 0.005; Fig. 2c; spa- tial: F = 8.64; P = 0.003; Fig. 2d), although differences were less pronounced than between annual and perennial C3 grasses." The next paragraph complicates this.
+- I think we can enter this, but we'll probably struggle to find the stats that go with the statements (and that's okay).
+- The traits are annual/perennial and C3/C4.
+- They measure tracking in a zillion ways -- I would ONLY extract the climate variables where they clearly state if there is a relationship or not.
+
+ZHU (N I think *See my notes*): Interactions between warming and soil moisture increase overlap in reproductive phenology among species in an alpine meadow
+- This one we looked at together! They say stuff like " warming advanced reproductive phenology of P. saundersiana, but not of P. cuneata. The shallow-rooted and mid- flowering species start flowering in the middle of June when the monsoon has started and can avoid strong water stress, which the early-flowering species has to face [2]. In this case, others have also reported advanced [4,5], delayed [6,7] or unchanged [2,8] phenological responses to warming in other species. The deep- rooted and late-flowering species, such as S. purpurea and F. coelestis, start flowering during the monsoon season and are also able to use deeper soil water [2]."
+- But, they don't show any work across species -- I don't think we have entered papers like this, have we? I am not sure how we would. 
+
+BELL (YN): Long-term phenological trends, species accumulation rates, aphid traits and climate: five decades of change in migrating aphids
+- They don't seem to link traits and phenological shifts (just traits and phenology) 
+- They do measure tracking across species I think -- I think their GAMM models are across species. 
+- Do we enter this as Y and then in terms of linking 'didnottry' or does 'didnottry' only count when the authors talk about linking traits and tracking across species? If the later than this paper is a N. 
+- (Though it's really confusing, e.g., from the discussion: "
+In the face of climate change, what determines the rate at which aphids will respond to a warmer world?...Our traits analysis showed that anholocycly promotes significantly earlier first and last flights, shorter flight seasons but smaller annual counts than holocycly.")
+
+
+ADRIAN (N I think *See my notes*): Life-history traits of lake plankton species may govern
+their phenological response to climate warming
+- Seems super similar to ZHU -- they measure tracking, they measure traits -- they correlate tracking and trait variation WITHIN species ... and they make discussion comments about life-history traits across species, but I see no analyses. 
+- So whatever we decide for Zhu, we should do also for this paper!
+
+
+LINTON (N): Spring weather conditions influence breeding phenology and reproductive success in sympatric bat populations
+- Papers seems to have cool data, but only on two species, and they don't do analyses really COMPARING the species in the way we want ... I think this paper can be ruled out for multiple reasons, with maybe the most obvious one being no (real) trait data (the traits that have are really individual level like age, lactation state etc.).
+
+MISSING DATA!
+
+More questions for data_detailed:
+
+trackwhat is missing for rows:
+2-4 (Zettlemoyer -- so I think this should be temperature?)
+42-43 (Munson)
+155 (Adrian)
+202-207 (Bock2014)
+
+trait and link_trackingandtrait_yesno is missing for:
+155 (Adrian)
+
+ 
+
+<><><>
+I SHOULD check for rooting traits ...
+1. Klein JA, Harte J, Zhao XQ. 2008 Decline in medicinal and forage species with warming is mediated by plant traits on the Tibetan Plateau. Ecosystems 11, 775 – 789. (doi:10.1007/s10021-008- 9160-1)
+2. Dorji T, Totland O, Moe SR, Hopping KA, Pan JB, Klein JA. 2013 Plant functional traits mediate reproductive phenology and success in response to experimental warming and snow addition in Tibet. Glob. Change Biol. 19, 459 – 472. (doi:10. 1111/gcb.12059)
+
+More competitive traits papers to review.
+
+<><><><><><><><><>
+3 September 2019
+
+Lizzie reviewing remaining papers (Kelley has not done yet) quickly ...
+
+Adrian, R; Wilhelm, S; Gerten, D (2006)	
+Life-history traits of lake plankton species may govern their phenological response to climate warming
+- Not sure if they show it but they say "Fast- growing plankton in spring (diatoms, Daphnia) showed significant and synchronous forward movements by about 1 month, induced by concurrent earlier ice break-up dates (diatoms) and higher spring water temperature (Daphnia). No such synchrony was observed for slow-growing summer zooplankton species with longer and more complex life cycles (copepods, larvae of the mussel Dreissena polymorpha)."
+* Quick growing species
+
+
+Bolmgren, K; Vanhoenacker, D; Miller-Rushing, AJ (2013)
+One man, 73 years, and 25 species. Evaluating phenological responses using a lifelong study of first flowering dates
+- Cool paper! I think it may mainly highlight the statistical challenges of estimating sensitivities in later flowering species. Need to READ!
+
+
+Diamond, SE; Frame, AM; Martin, RA; Buckley, LB	(2011)
+Species' traits predict phenological responses to climate change in butterflies
+- "We show that species with narrower larval diet breadth and more advanced overwintering stages have experienced relatively greater advances in their date of first appearance. In addition, species with smaller range sizes have experienced greater phenological advancement." SHOULD READ!
+* narrower larval diet breadth and more advanced overwintering stages
+
+
+Dorji, T; Totland, O; Moe, SR; Hopping, KA; Pan, JB; Klein, JA (2013)
+Plant functional traits mediate reproductive phenology and success in response to experimental warming and snow addition in Tibet
+- "Moreover, traits associated with resource acquisition, such as rooting depth and life history (early vs. late flowering), mediate plant phenology, and reproductive responses to changing climatic conditions. Specifically, we found that warming delayed the reproductive phenology and decreased number of inflorescences of Kobresia pygmaea C. B. Clarke, a shallow-rooted, early-flowering plant, which may be mainly constrained by upper-soil moisture availability." But I do NOT think they actually correlate traits and sensitivity. 
+
+
+Goodenough, AE; Hart, AG; Stafford, R (2010)
+Is adjustment of breeding phenology keeping pace with the need for change? Linking observed response in woodland birds to changes in temperature and selection pressure
+- I doubt this study has trait data.
+
+
+Ishioka, R; Muller, O; Hiura, T; Kudo, G (2013)
+Responses of leafing phenology and photosynthesis to soil warming in forest-floor plants
+- Seems to try to link leaf habit (summer green, evergreen, summer deciduous etc.) to phenological response and performance... but most species were summer green (5) and only one species of each other type so it's a another species-by-species hand-wave study.
+
+
+Kharouba, HM; Paquette, SR; Kerr, JT; Vellend, M (2014)
+- Predicting the sensitivity of butterfly phenology to temperature over the past century
+"The timing of the flight season of earlier fliers and less mobile species was more sensitive to temperature than later fliers and more mobile species, demonstrating that ecological traits can account for some of the interspecific variation in species’ phenological sensitivity to temperature."
+* earlier fliers and less mobile species
+
+
+Kovacs, S; Fehervari, P; Krisztina, N; Andrea, H; Tibor, C (2012)
+Changes in migration phenology and biometrical traits of Reed, Marsh and Sedge Warblers
+- Three bird species --- but seems mainly about how traits change within each species I believe ...
+
+
+Moussus, JP; Clavel, J; Jiguet, F; Julliard, R (2011)
+Which are the phenologically flexible species? A case study with common passerine birds
+- Decent study! "Species with the broadest ecological and thermal niches, the shortest mean migration distances and the largest brains were most able to adjust their breeding phenology to temperature variations."
+* Species with the broadest ecological and thermal niches, the shortest mean migration distances and the largest brains were most able to adjust their breeding phenology to temperature variations.
+
+
+Suzuki, S; Kudo, G (2007)
+Short-term effects of simulated environmental change on phenology, leaf traits, and shoot growth of alpine plants on a temperate mountain, northern Japan
+- Another painful 4 species study, "examined phenology and leaf traits of plants in the OTCs and control plots during the first season under artificial warming treatment using two deciduous and three evergreen species. Ledum palustre (evergreen shrub), Vaccinium uliginosum, and Arctous alpinus (deciduous shrubs) showed earlier leaf emergence and/or flowering in the OTCs. Deciduous shrubs had longer indi- vidual leaf longevity and an extended foliage period in the OTCs than in the control plots. There were no significant differences in specific leaf area and leaf size for many species between the OTCs and the control plots. Vaccinium vitis-idaea (evergreen shrub), L. palustre, A. alpinus, and Empetrum nigrum (evergreen shrub) had lower leaf nitrogen concentration in the OTCs than in the control plots, whereas it was higher in V. uliginosum. Only E. nigrum showed larger annual shoot growth in the OTCs. No clear differences in response to the warming effect were detected between evergreen and deciduous species in the first season."
+
+
+Xia, JY; Wan, SQ (2009)
+Independent effects of warming and nitrogen addition on plant phenology in the Inner Mongolian steppe
+- Looks like a nightmare.
+
+
+Xu, ZF; Hu, TX; Wang, KY; Zhang, YB; Xian, JR (2009)
+Short-term responses of phenology, shoot growth and leaf traits of four alpine shrubs in a timberline ecotone to simulated global warming, Eastern Tibetan Plateau, China
+- Measured traits and phenology, but not sure they put them together...
+
+

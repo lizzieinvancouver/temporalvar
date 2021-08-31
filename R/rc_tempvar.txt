@@ -1,0 +1,122 @@
+Trying to run PhenologyModel.R on Odyssey
+12 January 2015
+See also odyssey_notes.txt and rc_notes.txt
+
+Next!
+http://www.r-bloggers.com/including-arguments-in-r-cmd-batch-mode/
+
+Helpful:
+http://airoldilab.github.io/odyssey/
+
+
+++++++++++++++
+++ Start up ++
+++++++++++++++
+
+Start Open-auth
+ssh lizzie@login.rc.fas.harvard.edu
+cd /n/regal/wolkovich_lab/
+
+Note that you should put stuff you want to *keep* in /n/wolkovich_lab
+But that you should run stuff on regal (/n/regal/wolkovich_lab/)
+
+
+++++++++++++++++++++++++
+++ Step 1: Move files ++
+++++++++++++++++++++++++
+
++ Get them on the server +
+scp toOdyssey.zip lizzie@odyssey.rc.fas.harvard.edu:/n/regal/wolkovich_lab/tempvar
+
++ Move them around the server +
+mv toOdyssey.zip tempvar/
+
++ Be sure to set up the model output +
+save(modelruns, file="modelruns.RData")
+
++++++++++++++++++
+++ Step 2: Adjust files ++
++++++++++++++++++
+
+If you need to delete a lot of code: In emacs the command is:
+CTRL+spacebar (to set the mark, should say 'mark set' in bottom of screen)
+(scroll to where you want to delete)
+CTRL+w (to delete)
+
+Get the working directory right!
+setwd("/n/regal/wolkovich_lab/tempvar")
+
++++++++++++++++++++++
+++ Step 3: Write a SLURM file ++
+++++++++++++++++++++
+
+Create a new file (here named phenmodel) and open it in a text editor (or build and scp this too!):
+
+emacs sbatch phenmodel
+
+BEGIN FILE CONTENTS+++++++++++++++
+#!/bin/bash                                                                                               
+
+#SBATCH -n 1 # Number of cores requested (for arrays it’s still per job)                                                                 
+
+#SBATCH -N 1 # Ensure that all cores are on one machine (doesn’t matter for arrays)                                                 
+
+#SBATCH -t 10 # Runtime in minutes                                                                       
+
+#SBATCH -p wolkovich # Partition to submit to (mine!)                                                    
+
+#SBATCH --mem=5000 # Memory per cpu in MB (see also --mem-per-cpu … 3900 should be good, you could ask for 250GB I think… but that would be bad of course)                                       
+
+#SBATCH -o hostname.out # Standard out goes to this file                                                 
+
+#SBATCH -e hostname.err # Standard err goes to this filehostname                                          
+
+source new-modules.sh
+module load R_packages
+
+R CMD BATCH --quiet --no-restore --no-save PhenologyModel.R modelruns.txt
+END FILE CONTENTS+++++++++++++++
+
+NOTE: I have bumped the above to run more runs:
+#SBATCH -n 4 # Number of cores requested, needs to be higher than 1 often                     \
+#SBATCH -t 1000 # Runtime in minutes                                                          \
+##SBATCH --mem=50000 # Memory per cpu in MB (see also --mem-per-cpu)                          \
+
+NOTE! For some reason if you set the output file in your SLURM file to an RData file (for example, we write out modelruns.RData, so imagine changing modelruns.txt to  modelruns.RData) then you get gobbly gook in your RData file and cannot read it. My workaround is the above code! Some random txt file I plan not to use.
+
+++++++++++++++++++++++++
+++ Step 4: Make things executable ++
+++++++++++++++++++++++++
+
+STEP 5: make sure your sbatch and R file are executable! 
+(You want to see -rwxr at the start of the line for the file.)
+
+ls -l 	:check each
+
+chmod u+x PhenologyModel.R
+chmod u+x phenmodel
+
+
+++++++++++++++++++++++
+++ Step 5: Run your SLURM file++
+++++++++++++++++++++++
+
+sbatch phenmodel 
+
+If this worked you should get a JOBID, keep it! Then you can check on your job:
+sacct -j JOBID
+
+And check how much memory it used (these two give totally different answers and I am not sure why):
+sacct -j JOBID -o maxvmsize
+sacct -o MaxRSS -j JOBID
+
+See what you're running:
+squeue
+
+++++++++++++++++++++++++++
+++ Step 6: Move stuff back to laptop ++
+++++++++++++++++++++++++++
+
+This works if you are in ~/Documents/git/projects/temporalvar/R from terminal (I cannot figure how to scp in an Odyssey session, but this works from Terminal).
+
+scp lizzie@odyssey.rc.fas.harvard.edu:/n/regal/wolkovich_lab/tempvar/modelruns.RData output/
