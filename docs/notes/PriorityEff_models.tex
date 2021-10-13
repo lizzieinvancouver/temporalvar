@@ -4,6 +4,8 @@
 \usepackage{graphicx}
 \usepackage{natbib}
 \usepackage{amsmath}
+\usepackage{hyperref}
+
 
 \def\labelitemi{--}
 \parindent=0pt
@@ -70,11 +72,36 @@ Also ... smaller things (SKIP reading for meetings)
 
 \section{Start here.} 
 
-% First, maybe read the section just above ... \\
+{\bf Next meeting:} Look at where the edit the code, look at some non-linear plots from Dan.\\
 
-Update from 22 September 2021: We realized we need to decide how to model germination: is it a germination curve each season (can we do this in the ODE solver? Might be more realistic and similar to data, but not how we want the model to be) or is it an amount you go one day (in which case we can use that info in the initial conditions of the ODE solver)?\\
+\emph{13 October meeting} (\href{https://jamboard.google.com/d/1jvab46saD2Dey8uOg-C_ruWeGzxKyXvdBScyxB5FUCk/viewer?f=0}{jamboard}): 
 
-Update from 7 September 2021: Megan is busy working away in R to look at f(x)al forms of equations (see \verb|R/checks/checkFunctionForms_priorityeffs.R|), ended on discussing integrals of germination curves (an important possible constraint we might impose: have all species go the same amount? Or not, since it varies in the experiment a lot; or at least need to calculate this). One point she stressed (31 Aug 2021): remember that our $g$ equation this time will {\bf not} mean the same thing as it did in our storage effect model; this time it is representing the germination curves within a season (e.g., as we seem them in an experiment). {\bf For the next meeting: keep working on equations and editing R code}\\
+We will have $g$ vary with chilling ($C$ here). $g$ has three parameters, $g_0$ (the amount of germination without chilling), $g_{max}$ and $\gamma$. Do we want all to vary? We discussed:
+
+\begin{itemize}
+\item Maybe $g_{max}$=1 (is always 100\%). Why not! That's how we calculated it in the data, and we could think of this as a model for viable seeds, and all seeds would germinate with enough chilling. But we miss species that seem similar but only differ towards the very extremes of chilling at their $g_{max}$ (Dan said this happens a lot in his data, I think?).
+\item $g_0$ the amount of germination without chilling; this varies by species, since some species germinate without chilling
+\item $\gamma_g$ rate at which germination increases from min to max with chilling
+\end{itemize}
+
+$g=g_0 + (g_{max}-g_0)(1-e^{-\gamma_g*C})$ \\
+
+So maybe best to explore the data and model before deciding? Using some least squares or such non-linear cheap R package (and do some good initial conditions). Lizzie notes: I would just put chilling in as weeks. \\
+
+Other part we need is the delay due to chilling. 
+\begin{itemize}
+\item $\tau_{nc}$ -- delay with no chilling
+\item $\tau_{min}$ -- delay with some minimum chilling (I think)?
+\end{itemize}
+We think the shape could be a linear model (instead of exponential), with some species constant (slope of delay vs. chilling=0), $y$-intercept represents maximum delay with no chilling. If we do linear, we have to build in a stop for cases where you end up with negative delay values (e.g., low intercept, high slope).\\
+
+Then we talked about whether we should switch to a dose-response curve (DRC). Handy in many ways, but does not allow us to separately vary timing from germination in the same way; it does not really estimate delay. We'd have to create one for each level of chilling. \emph{We decided that what we have is simpler and thus better.} \\
+
+\emph{27 September 2021:} We decided to vary only chilling at this meeting. And we decided on instaneous chilling (not trying to have a curve through time).\\
+
+\emph{Update from 22 September 2021:} We realized we need to decide how to model germination: is it a germination curve each season (can we do this in the ODE solver? Might be more realistic and similar to data, but not how we want the model to be) or is it an amount you go one day (in which case we can use that info in the initial conditions of the ODE solver)?\\
+
+\emph{Update from 7 September 2021:} Megan is busy working away in R to look at f(x)al forms of equations (see \verb|R/checks/checkFunctionForms_priorityeffs.R|), ended on discussing integrals of germination curves (an important possible constraint we might impose: have all species go the same amount? Or not, since it varies in the experiment a lot; or at least need to calculate this). One point she stressed (31 Aug 2021): remember that our $g$ equation this time will {\bf not} mean the same thing as it did in our storage effect model; this time it is representing the germination curves within a season (e.g., as we seem them in an experiment). {\bf For the next meeting: keep working on equations and editing R code}\\
 
  {\bf Plan to get Dan up to speed! Meet with him, tell him what we've done (focusing just on this model), and set up some next steps. } \\
 
