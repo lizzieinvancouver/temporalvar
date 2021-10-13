@@ -91,7 +91,7 @@ So maybe best to explore the data and model before deciding? Using some least sq
 Other part we need is the delay due to chilling. 
 \begin{itemize}
 \item $\tau_{nc}$ -- delay with no chilling
-\item $\tau_{min}$ -- delay with some minimum chilling (I think)?
+\item $\tau_{min}$ -- minimium delay with maximum chilling.
 \end{itemize}
 We think the shape could be a linear model (instead of exponential), with some species constant (slope of delay vs. chilling=0), $y$-intercept represents maximum delay with no chilling. If we do linear, we have to build in a stop for cases where you end up with negative delay values (e.g., low intercept, high slope).\\
 
