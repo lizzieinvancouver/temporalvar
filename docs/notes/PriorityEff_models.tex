@@ -72,9 +72,19 @@ Also ... smaller things (SKIP reading for meetings)
 
 \section{Start here.} 
 
-{\bf Next meeting:} We need make a strategic decision about what to vary: with germination parameters, with the environent (changing or not) and then how long are the runs. And, anything else to vary? \\ 
+{\bf Next meeting:} One more meeting on parameter space. Then we should have a meeting that is longer and `tactical' --- figuring out how to edit the code. \\ % Megan says Lizzie does not need to come (but can come!)
 
-After that, we should have a meeting that is longer and `tactical' --- figuring out how to edit the code. \\ % Megan says Lizzie does not need to come (but can come!)
+\emph{12 November 2021 meeting} We need make a strategic decision about what to vary: with germination parameters, with the environent (changing or not) and then how long are the runs. And, anything else to vary?
+
+Dan's interests: (1) all species with no cold stratification requirement; (2) some species have a cold stratification requirement and the other species do not (and this means the germination pulse is both a different max and happens with a different amount of delay); (3) some species have a low cold stratification requirement and the others have high cold stratification (one has a mild response and one has a strong response such that they cross).  And trade-off between competitive effect, so that early-active are competitively inferior. \\ 
+
+Megan says we can do this all continuously.\\
+
+So things that need to vary: max germination, germination delay (and maybe a correlation between the delay and max), competition coefficient, Environment: chilling (is a distribution, that someday we could change, but not now), but maybe the size and time of resource pulse is constant (instead of a distribution).\\
+
+Dan should: (a) think on a distribution of chilling (an environmentally relevant one) to use. We discussed chilling as best done in units of days (or we can do weeks, and factions of weeks). (b) Choose parameters for range of chilling sensitivity `rate at which max germination changes as a f(x) of chilling' ... Megan suggests: look at the range you have, and maybe other literature-based scenarios you're interested in and come up with a range. (c) Delay -- Megan says play around with underlying equations and come up with some parameters that work. And when we say `underlying equatinons' we mean the dose response curve.\\
+
+Long discussion about changing germination equation to be sigmoidal. A sigmoid is a 4-parameter model, we agreed all species go as pulse so steepness of curve is the same (that's one parameter done---the same for all species), we have max germination ($e_{max}$) already, we have discussed delay already ... so we can translate this type of curve to what we're doing, which would be useful for the literature. {\bf Dan seemed to follow this, so I suggest he adds notes here.}\\
 
 \emph{2 November 2021 meeting} We looked at some non-linear plots from Dan. All three parameters vary; so we probably need to build the code to do that, but we can start with the two $g_0$ extremes (also need some $\gamma$ values and $g_{max}$). We started going through the code; I think getSpecies.R could be a good place to start editing.  \\
 
