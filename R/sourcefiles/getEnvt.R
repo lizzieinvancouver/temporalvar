@@ -18,8 +18,9 @@ R0 <- rlnorm(nyrs, Rmu, Rsigma) # intial R in a season
 ximu <- log(2)  #mean of chilling distribution
 xisigma <- 0.2  #sd of chilling distribution
 xi <- rlnorm(nyrs, ximu, xisigma) # chilling accumuulated before each season
+##add a copula for covariance between R0 and xi
 
-#constant (for now)
+#constant (for now) - can use this to extend the timing of the growing season
 eps <- 1              # evaporative stress 
 
 envtvars <- as.data.frame(cbind(R0, xi, eps))
