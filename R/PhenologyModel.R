@@ -61,16 +61,35 @@ for (j in c(1:nruns)){
         break    #if all species have gone extinct, go to next run
       }
     }
-    B0[y,] <- b*g[y,]*N[y,] 
-    #use deSolve for ResCompN
-    R<-R0[y]
-    B<-B0[y,]
-    State<-c(R=R,B=B)
-    Time <- seq(0,ndays,by=dt)
+    B0[y,] <- b*d[y,]*N[y,]   #initial biomass of each species (upon entry)
+    #species enter in order:
+    sp1 <- tau_g[tau_g[y]==min(tau_g[y])]
+    sp2 <- tau_g[tau_g[y]==max(tau_g[y])]
+    #first calculate R at the time of entry of the first species - after initial evapotranspiration
+    #CONSIDER - assumes all species enter AFTER start of resource season (if you came too early, could be a neg tau_g, i.e., before R0)
+    ##oooooo - use EVENTS in deSolve. 
+    ##start ssolver with B1 = B2 = 0.  at time min(tau_g) add biomass to first species
+    ##  at time max(tau_g) add biomass to second species.  
+    ## run until min(Rstar) is met
+    
+    R1<-R0[y]*exp(-eps*min(tau_g))
+    B1<-B0[y,sp1]
+    State<-c(R=R1,B=B1)
+    Time <- seq(0,tau_g[sp2],by=dt)  #check definition of initial condition in solver - min(tau_g) v 0 as initial time?
+    #see how rootfun works - for first species, keep runing until second spp enters
+    rootfun <- function(Time, State, Pars) State[1] -Rstarmin
+    
+    Bout[[y]] <- as.data.frame(ode(func = ResCompN, y = State, parms = Pars, times = Time,
+                                   rootfun=rootfun))   
+    #next start when species 2 enters - after initial evapotranspiration
+    R1<-R0[y]*exp(-eps*min(tau_g))
+    B1<-B0[y,sp1]
+    State<-c(R=R1,B=B1)
+    Time <- seq(,tau_g[sp2],by=dt)
     #set Rstarmin threshold & update rootfun; this accounts for case where the spp with min R* goes extinct
     Rstarmin <- min(Rstar[(N[y,]!=0)])
     rootfun <- function(Time, State, Pars) State[1] -Rstarmin
-
+    
     Bout[[y]] <- as.data.frame(ode(func = ResCompN, y = State, parms = Pars, times = Time,
                                    rootfun=rootfun))
     Bfin[y,] <-  apply(Bout[[y]][3:(2+nsp)],2,FUN=max)  #final biomass
