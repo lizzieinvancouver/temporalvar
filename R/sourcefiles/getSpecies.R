@@ -21,10 +21,19 @@ gmax <- c(runif(1,g0[1],1),
                            #clunky way to code b/c doesn't allow nsp to vary
 gamma_g <- c(runif(nsp,0.2,1.25))  #species-specific rate of decline from max to min germ
 #d is the amount of germination in year y 
-d <- g0 + (gmax-g0)*(1-exp(-gamma_g * xi))  #this needs same matrix fussing (or could figure out the use of %*%)
+d <- matrix(rep(g0,each=nyrs),nrow=nyrs,ncol=nsp) + matrix(rep(gmax-g0,each=nyrs),nrow=nyrs,ncol=nsp)*(1-exp(matrix(rep(-gamma_g,each=nyrs),nrow=nyrs, ncol=nsp)* matrix(rep(xi,nsp),nrow=length(xi),ncol=nsp)))  #this needs same matrix fussing (or could figure out the use of %*%)
 
+if(FALSE){ ##we did this to check that the maxtriz multiplication  for d (above) was doing what we think
+goo<-(1-exp(matrix(rep(-gamma_g,each=nyrs),nrow=nyrs, ncol=nsp)* matrix(rep(xi,nsp),nrow=length(xi),ncol=nsp)))
+goo2<-matrix(rep(gmax-g0,each=nyrs),nrow=nyrs,ncol=nsp)
+
+goo3<-matrix(rep(g0,each=nyrs),nrow=nyrs,ncol=nsp)
 ##NEXT - model of germination g(t) determines time of entry into the model at what level
-          
+head(d,1)
+
+g0[1]+goo2[1,1]*goo[1,1]
+}
+
 ## Lizzie started editing this on 19 July 2021, but definitely not done ...
 
 #getSpecies characteristics
