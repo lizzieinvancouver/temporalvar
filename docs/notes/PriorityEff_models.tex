@@ -20,7 +20,7 @@
 % Megan works on ResCompN.R 
 
 {\bf Notes on germination model for Dan}\\
-\emph{By Lizzie \& Megan so far}\\
+\emph{By Dan, Lizzie \&\ Megan}\\
 
 Megan and I discussed the changes needed to do simulations for Dan's germination questions. Specifically, Dan is interested in building from the data from his germination trials and competition experiment to do some forecasting of how climate change could shift competitive outcomes due to priority effects.
 
@@ -37,12 +37,21 @@ Another way to put this ... last time we assumed $\tau_i$ was fixed and moved ar
 
 One more important outcome of these changes---in our previous model tracking put you closer to pulse and you germinated more, here you can have a priority effect and get a big benefit without using so many seeds (before, with tracking, you germinated at a high fraction every year). 
 
+\section{Questions we want to ask}
+
+\begin{enumerate}
+\item How do species without dormancy (no chill requirement) and dormant species coexist? Dan writes: It seems to me, chilling variation is important for their coexistence. How does this change if the means shift; I assume it favors the non-dormant species?
+\item How much does a priority effect offset a competitive advantage? (Assuming those with less propensity for being first are superior competitors.) Related: Does breaking tradeoff between germ timing and R* break coexistence (ie rapid phenology positively associated with competitive dominacne= invasions). I imagine the answer would have to be yes so it's not so interesting.
+\item What is the relative contribution of temporal priority effect versus germination percentages to coexistence? Maybe hold one constant and vary the other to compare outcomes? Is there a threshold where these effects become pronounced (e.g., if time between species is $<$ a week it doesn't matter but $>$ than a week it does.)
+\item How does a priority effect (within-year advantage) compare to between-year advantages? I think this is sort of related to above: basically, is there some interesting way to compare contribution of priority effect versus max germination versus between-year advantages (do we have those in this model? Is relatively non-linearity or the storage effect still present or not?) ... potentially across a couple different environmental scenarios?
+\end{enumerate}
+
 \section{Some obvious outcomes...}
 ... that we discussed.
 
 \begin{enumerate}
 \item If (1) species vary by their start times, (2) all start times occur after the pulse (meaning there is no negative outcome of ever being too early), and (3) species cannot switch their order across years ... then the earliest species will generally win as it's first to the party (the resource party). If you're thinking---wait, maybe we should model a cost to being too early! Then Lizzie (and Megan of years past) replies: that's the main thing you'll model then and it may be more useful in an evolutionary model perhaps. In our current model trade-offs such as between timing and competitiveness represent the ghost of these costs. 
-\item One potential way out of this problem above (earliest wins) is to have the chilling positively correlated with resource, such that lower chilling years are low resource years (smaller pulse). In this case species that delay also germinate less (so they use up less of their seedbank) and if the resource is low maybe this will be a good decision (bet-hedging wins the day?)! However, this means that high resource years are high interspecific competition years (in those years all species germinate early and at max germination) so you get postive $covar(E,C)$, which is what you need for the storage effect---as then it dampens the benedit any one species could get from a good environmental year.... but it still seems unlikely that germinating less and later in low chill years will be a good strategy.
+\item One potential way out of this problem above (earliest wins) is to have the chilling positively correlated with resource, such that lower chilling years are low resource years (smaller pulse). In this case species that delay also germinate less (so they use up less of their seedbank) and if the resource is low maybe this will be a good decision (bet-hedging wins the day?)! However, this means that high resource years are high interspecific competition years (in those years all species germinate early and at max germination) so you get postive $covar(E,C)$, which is what you need for the storage effect---as then it dampens the benefit any one species could get from a good environmental year.... but it still seems unlikely that germinating less and later in low chill years will be a good strategy.
 \item One way out of this is to covary chilling delay species with competitiveness (if you delay, you are also a superior competitor under low resource conditions). This is what Megan and I looked at in our paper. It makes sense, but it may not be the only way to get coexistence, and it may not be what we want to focus on here. 
 \end{enumerate}
 
@@ -236,8 +245,9 @@ Stuff we do no longer need:\\
 \end{itemize}
 
 \section{Next steps}
+I think this section is from late summer 2021...\\
 
-See \verb|_READMEpriorityeff.txt|
+See \verb|_READMEpriorityeff.txt| 
 
 \begin{itemize}
 \item Adding in two-step ODE (Megan says this is very straightforward)
