@@ -15,7 +15,7 @@ source("/sourcefiles/PriEff_Envt.R")
 source("/sourcefiles/PriEff_Species.R")
 
 #run the model for nyrs
-source("/sourcefiles/PriEff_Comp.R"
+source("/sourcefiles/PriEff_Comp.R")
 source("/sourcefiles/PriEff_Model.R")
 
 

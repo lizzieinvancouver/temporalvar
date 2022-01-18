@@ -9,6 +9,7 @@ RstarComp <- function(Time,State,Pars) {
     return(list(c(dR,dB)))
   })
 }
+
 ##add root function so that the integration stops once (opt1) R is numerically 0 (threshold hh)
 rootfun <- function(Time, State, Pars) State[1] - min(Rstar)
 
