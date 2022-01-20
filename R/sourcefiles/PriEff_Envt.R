@@ -1,12 +1,12 @@
 #Define Environment for this run
 #NOTE 1: the timescale of within year dynamics is determined by the time that R>R*
-#       and depends on the relative values of R0.mu, eps, a,m,u.  Megan adjusted 
-#       species parms so that the season length is reasonable for the range of R0
-#       Adjust eps and R0 to shorten or extend the season
+#       and depends on the relative values of R0.mu, eps, a,m,u.  
+#       Megan adjusted species parms so that the season length is reasonable 
+#       for the range of R0. Adjust eps, R0 to shorten/extend the season
 
 #Growing season
 days <- 120            # length of growing season in days
-dt <- 1             # timestep for within year solver (4x per day)
+dt <- 1                # timestep for within year solver (4x per day)
 
 #Resources in year y growing season
 R0.mu <- log(100)                       # mean of start-of-season resource
