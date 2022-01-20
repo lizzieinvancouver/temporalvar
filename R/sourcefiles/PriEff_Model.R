@@ -3,19 +3,20 @@
 
 for (y in yrs){
   B0[y,] <- N[y,]*s*g[y,]*b        #fall popln * overwinter surv * spring germ rate * convert to seedling biomass
-  R=R0[y]
-  B=c(0,0)
-  State<- c(R=R0[y],B=B0[y,])#c(R=R,B=B)#
+  Bini <- c(0,0)
+  State<- c(R=R0[y],B=Bini)
   Time <- seq(0,days,by=dt) 
   Pars <- c(c=c,a=a,u=u,m=m,theta=theta,eps=eps)
-  tau.index <- c(which(tau_g==min(tau_g)),which(tau_g==max(tau_g)))
-  germdates <- data.frame(var = paste0(rep("B",2),tau.index),
-                          time = tau_g[tau.index],
-                          value = B0[y,tau.index], 
+  germevents <- data.frame(var = c("B1","B2"),
+                          time = tau_g,
+                          value = B0[y,], 
                           method = c("add", "add"))
-  out <- ode(y = State,func = RstarComp,parms = Pars,times = Time)
-#  ,events=list(data=germdates),
-#             rootfun=rootfun)
+  out <- as.data.frame(ode(y = State,
+                           func = RstarComp,
+                           parms = Pars,
+                           times = Time, 
+                           events=list(data=germevents),
+                           rootfun=rootfun))
  plot(out) 
 
   N[y+1] <- N[y]+ Bfin[y]*phi  

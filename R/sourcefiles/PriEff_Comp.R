@@ -4,8 +4,12 @@
 
 RstarComp <- function(Time,State,Pars) {
   with(as.list(c(State,Pars)),{
+    # dR = -eps*R - B1*a*R^theta/(1+a*u*R^theta)- B2*a*R^theta/(1+a*u*R^theta)
+    # dB1 = (c*a*R^theta/(1+a*u*R^theta)-m)*B1
+    # dB2 = (c*a*R^theta/(1+a*u*R^theta)-m)*B2
+    # return(list(c(dR,dB1,dB2)))
     dR = -eps*R - sum(B*a*R^theta/(1+a*u*R^theta))
-    dB = (c*a*R^theta/(1+a*u*R^theta)-m)*B
+    dB1 = (c*a*R^theta/(1+a*u*R^theta)-m)*B
     return(list(c(dR,dB)))
   })
 }

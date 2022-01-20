@@ -9,7 +9,6 @@ nsp <- 2  #this is a 2-species model
 N <- matrix(rep(0), nyrs, nsp)    # number of seeds prior to winter
 N[1,] <- rep(10,nsp)             # initial density of seeds
 B0 <- matrix(rep(0),nyrs,nsp)     # initial biomass in year y
-B <- list()                       # B contains the within season dynamics   
 
 #converting from within-year to between-year dynamics
 s <-  rep(0.8,nsp)      # seedbank survival overwinter
@@ -30,7 +29,8 @@ Rstar <- (m/(a*(c-m*u)))^(1/theta)
 tau_start <- 2              # average start day, poisson
 xi_tau <- runif(nsp,0,4)    # delay sensitivity to chill (up to 4 days per week of chill)
 tau_delay <- xi_tau%*%t(xi) # delay depends on chill
-tau_g <-rpois(nsp,tau_start+tau_delay)
+temp_tau <-rpois(nsp,tau_start+tau_delay)
+tau_g <- temp_tau[order(temp_tau)]   #ensure that species 1 always enters first
 
 #germination fraction g (describes germination rate as a function of chilling)
 #   g increases at rate gamma_g from gmin to gmax, where gmin, gmax, and gamma_g are species-specific
