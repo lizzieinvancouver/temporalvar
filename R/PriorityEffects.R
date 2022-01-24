@@ -1,5 +1,5 @@
 #Priority Effects - main code
-
+rm(list=ls()) 
 #libraries
 library(deSolve)
 require(MultiRNG)

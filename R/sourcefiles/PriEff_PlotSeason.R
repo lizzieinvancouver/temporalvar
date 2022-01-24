@@ -10,15 +10,15 @@ lines(Bout[[y]]$B2~Bout[[y]]$time, type="l",col="blue")
 ###################################################
 ### Dan is bad at lists, make a data frame######
 ###############################################
-runnum <- 1:10 # each run gets a number
-Bout <- mapply(cbind, Bout, "RunID"=runnum, SIMPLIFY=F) #  assign that number
-Bout.df<-do.call(rbind.data.frame, Bout) ### make the list a data frame
+#runnum <- 1:10 # each run gets a number
+#Bout <- mapply(cbind, Bout, "RunID"=runnum, SIMPLIFY=F) #  assign that number
+#Bout.df<-do.call(rbind.data.frame, Bout) ### make the list a data frame
 
-a<-ggplot(Bout.df,aes(time,R))+geom_smooth()+facet_wrap(~as.factor(RunID)) ##plot
+#a<-ggplot(Bout.df,aes(time,R))+geom_smooth()+facet_wrap(~as.factor(RunID)) ##plot
 
-bout2<-tidyr::gather(Bout.df,"species","biomass",3:4) #clean
+#bout2<-tidyr::gather(Bout.df,"species","biomass",3:4) #clean
 
-b<-ggplot(bout2,aes(time,biomass,color=species))+geom_smooth()+facet_wrap(~as.factor(RunID)) #plot2
-jpeg("plots/withinseas_firsttime.jpeg")
-ggpubr::ggarrange(a,b)
-dev.off()
+#b<-ggplot(bout2,aes(time,biomass,color=species))+geom_smooth()+facet_wrap(~as.factor(RunID)) #plot2
+#jpeg("plots/withinseas_firsttime.jpeg")
+#ggpubr::ggarrange(a,b)
+#dev.off()
