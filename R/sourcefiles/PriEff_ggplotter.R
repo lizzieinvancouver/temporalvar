@@ -8,6 +8,6 @@ a<-ggplot(Bout.df,aes(time,R))+geom_smooth()+facet_wrap(~as.factor(RunID)) ##plo
 bout2<-tidyr::gather(Bout.df,"species","biomass",3:4) #clean
 
 b<-ggplot(bout2,aes(time,biomass,color=species))+geom_smooth()+facet_wrap(~as.factor(RunID)) #plot2
-#jpeg("plots/withinseas_firsttime.jpeg")
+jpeg("plots/withinseas_upchillmeansd.jpeg")
 ggpubr::ggarrange(a,b)
-#dev.off()
+dev.off()
