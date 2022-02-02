@@ -16,7 +16,7 @@ eps <- 0.001                              # resource decay rate aside from uptak
 
 #Weeks of chilling prior to growing season in year y
 
-xi.mu <- log(8)                       # mean of chilling distribution ## 
-xi.sigma <- .9                      # sd of chilling distribution
+xi.mu <- log(10)                       # mean of chilling distribution ## 
+xi.sigma <- .3                      # sd of chilling distribution
 xi <- rlnorm(nyrs, xi.mu, xi.sigma)   # chilling accumulated before each season
 # ADD CODE for copula to allow covariance between R0 and xi

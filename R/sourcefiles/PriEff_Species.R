@@ -31,7 +31,7 @@ Rstar <- (m/(a*(c-m*u)))^(1/theta)
 #germination timing tau_g (describes days of delay as a function of weeks of chilling)
 #   tau_g is days of germ delay; avg min delay = 2; max delay ~15, depends on xi 
 tau_start <- 2              # average start day, poisson
-xi_tau <- runif(nsp,0,4)    # delay sensitivity to chill (up to 4 days per week of chill)
+xi_tau <- runif(nsp,0,3)    # delay sensitivity to chill (up to 3 days per week of chill)
 tau_delay <- t(xi_tau%*%t(xi)) # delay depends on chill
 tau_g <-rpois(nsp*nyrs,tau_start+tau_delay)
 dim(tau_g) <- dim(tau_delay)
@@ -39,8 +39,9 @@ dim(tau_g) <- dim(tau_delay)
 #germination fraction g (describes germination rate as a function of chilling)
 #   g increases at rate gamma_g from gmin to gmax, where gmin, gmax, and gamma_g are species-specific
 #   CONSIDER - these values may need more thought - not a lot of variability bt yrs
-gmin.zero <- 0.1                               #prob that g0 is a true zero
+gmin.zero <- 0.2                               #prob that g0 is a true zero
 gmin <- ifelse(runif(nsp,0,1)<gmin.zero,0,1)*runif(nsp,0,1) #min germination with g0.zero true zeros
 gmax <- runif(nsp,gmin,rep(1,nsp))                 #max germination ranges from g0 to 1
-gamma_g <- c(runif(nsp,0.2,1.25))  #species-specific rate of decline from max to min germ
-g <- t(gmin + t(1 - exp(xi %*% t(-gamma_g)))*(gmax-gmin))
+gamma_g <- c(runif(nsp,.2,2.5))  #species-specific rate of decline from max to min germ
+g <- t(gmin + t(1 - exp(xi %*% t(-gamma_g)))*(gmax-gmin)) 
+# DB says I think there problem is here, exp(xi %*% t(-gamma_g))) always seems to equal 1 or 0.99998 no mater how i change gamma g

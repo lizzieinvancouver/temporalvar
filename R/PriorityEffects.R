@@ -7,7 +7,7 @@ library(here)
 here()
 
 #define the run - Consider creating a dataframe with combinations of parms to test
-nyrs <- 10
+nyrs <- 50
 
 #define the environment for this run
 source(here("R","sourcefiles","PriEff_Envt.R"))
