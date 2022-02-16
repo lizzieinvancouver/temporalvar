@@ -39,9 +39,11 @@ dim(tau_g) <- dim(tau_delay)
 #germination fraction g (describes germination rate as a function of chilling)
 #   g increases at rate gamma_g from gmin to gmax, where gmin, gmax, and gamma_g are species-specific
 #   CONSIDER - these values may need more thought - not a lot of variability bt yrs
-gmin.zero <- 0.2                               #prob that g0 is a true zero
-gmin <- ifelse(runif(nsp,0,1)<gmin.zero,0,1)*runif(nsp,0,1) #min germination with g0.zero true zeros
-gmax <- runif(nsp,gmin,rep(1,nsp))                 #max germination ranges from g0 to 1
-gamma_g <- c(runif(nsp,.2,2.5))  #species-specific rate of decline from max to min germ
+gmin.zero <- 0.4                            #prob that g0 is a true zero
+gmin <- ifelse(runif(nsp,0,.5)<gmin.zero,0,1)*runif(nsp,0,.5) #min germination with g0.zero true zeros
+gmax <- runif(nsp,.5,rep(1,nsp))#max germination ranges from g0 to 1
+
+gamma_g <- c(runif(nsp,.05,.5))  #species-specific rate of decline from max to min germ
+
 g <- t(gmin + t(1 - exp(xi %*% t(-gamma_g)))*(gmax-gmin)) 
 # DB says I think there problem is here, exp(xi %*% t(-gamma_g))) always seems to equal 1 or 0.99998 no mater how i change gamma g

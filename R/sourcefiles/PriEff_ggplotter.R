@@ -1,5 +1,5 @@
 library(ggplot2)
-runnum <- 1:10 # each run gets a number
+runnum <- 1:50 # each run gets a number
 Bout <- mapply(cbind, Bout, "RunID"=runnum, SIMPLIFY=F) #  assign that number
 Bout.df<-do.call(rbind.data.frame, Bout) ### make the list a data frame
 
