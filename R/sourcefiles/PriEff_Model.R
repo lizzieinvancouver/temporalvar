@@ -8,7 +8,11 @@
 #  --> count seeds at N[y,]
 
 for (y in seq(1,nyrs)){
-  B0[y,] <- ifelse(y==1, N0*s*g[y,]*b, N[y-1,]*s*g[y,]*b)
+  if(y==1) {
+    B0[y,] <- N0*s*g[y,]*b
+    } else {
+      B0[y,] <- N[y-1,]*s*g[y,]*b
+    }
   R <- R0[y]
   B1 <- 0
   B2 <- 0
