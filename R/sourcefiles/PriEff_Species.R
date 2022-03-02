@@ -40,8 +40,9 @@ dim(tau_g) <- dim(tau_delay)
 #   g increases at rate gamma_g from gmin to gmax, where gmin, gmax, and gamma_g are species-specific
 #   CONSIDER - these values may need more thought - not a lot of variability bt yrs
 gmin.zero <- 0.4                            #prob that g0 is a true zero
-gmin <- ifelse(runif(nsp,0,.5)<gmin.zero,0,1)*runif(nsp,0,.5) #min germination with g0.zero true zeros
-gmax <- runif(nsp,.5,rep(1,nsp))#max germination ranges from g0 to 1
+gmin <- ifelse(rbeta(nsp, 1,8)<gmin.zero,0,1)*rbeta(nsp, 1,8) #min germination with g0.zero true zeros
+gmax <- rbeta(nsp, 8,1)
+gmax<-ifelse(gmax-gmin<0,rbeta(nsp, 8,1),gmax)#max germination ranges from g0 to 1
 
 gamma_g <- c(runif(nsp,.05,.5))  #species-specific rate of decline from max to min germ
 
@@ -54,3 +55,4 @@ g <- t(gmin + t(1 - exp(xi %*% t(-gamma_g)))*(gmax-gmin))
 # reasonalb edge cases.  E.g., rbeta(nsp, 1,8) for min and rbeta (nsp, 8,1) for max
 #  make sure that max  is always greater than min.  This will take a
 # clunky if statement (if max-min<0, try again)
+
