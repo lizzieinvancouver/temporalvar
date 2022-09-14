@@ -47,12 +47,5 @@ gmax<-ifelse(gmax-gmin<0,rbeta(nsp, 8,1),gmax)#max germination ranges from g0 to
 gamma_g <- c(runif(nsp,.05,.5))  #species-specific rate of decline from max to min germ
 
 g <- t(gmin + t(1 - exp(xi %*% t(-gamma_g)))*(gmax-gmin)) 
-# DB says I think there problem is here, exp(xi %*% t(-gamma_g))) always seems to equal 1 or 0.99998 no mater how i change gamma g
-#MD: for our understanding, can you please plot g vs xi (range of 2-25) for a range of
-#  gamma_g values, so we have a sense of the shape of that dependence and get the
-#MD: try using beta distributions for min and max to get max-min ranges 
-#    that is more biologically relevant, but still has outliers that are 
-# reasonalb edge cases.  E.g., rbeta(nsp, 1,8) for min and rbeta (nsp, 8,1) for max
-#  make sure that max  is always greater than min.  This will take a
-# clunky if statement (if max-min<0, try again)
+
 
