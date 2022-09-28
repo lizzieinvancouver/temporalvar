@@ -37,12 +37,15 @@ Another way to put this ... last time we assumed $\tau_i$ was fixed and moved ar
 
 One more important outcome of these changes---in our previous model tracking put you closer to pulse and you germinated more, here you can have a priority effect and get a big benefit without using so many seeds (before, with tracking, you germinated at a high fraction every year). 
 
-\section{Questions we want to ask}
-
+\section{Questions we want to ask (Updated in September 2022)}
 \begin{enumerate}
-\item How do species without dormancy (no chill requirement) and dormant species coexist? Dan writes: It seems to me, chilling variation is important for their coexistence. How does this change if the means shift; I assume it favors the non-dormant species?
-\item How much does a priority effect offset a competitive advantage? (Assuming those with less propensity for being first are superior competitors.) Related: Does breaking tradeoff between germ timing and R* break coexistence (ie rapid phenology positively associated with competitive dominacne= invasions). I imagine the answer would have to be yes so it's not so interesting.
-\item What is the relative contribution of temporal priority effect versus germination percentages to coexistence? Maybe hold one constant and vary the other to compare outcomes? Is there a threshold where these effects become pronounced (e.g., if time between species is $<$ a week it doesn't matter but $>$ than a week it does.)
+\item How do species without dormancy (no chill requirement) and dormant species coexist? [Answer: It depends on how we model it.] Dan writes: It seems to me, chilling variation is important for their coexistence. How does this change if the means shift; I assume it favors the non-dormant species? So how do we model coexistence?
+\begin{enumerate}
+\item Some sort of trade-off [meaning: we allow significant variation in these traits and then run the communities through different environments and see what the trade-off looks like; as Megan said: keep the biology set and run different environments]: such as germination percentage is higher for species with higher chilling. Species with chilling -- they correlate \% germination with chilling and ones without chilling just germinate a set amount -- so basically we'd need to create a trade-off between germination and chilling. 
+\item Or! If you go early you might die ... {\bf we could include this now that we have within-season time in our model by adding a spring freeze. (We're going with this!)} We discussed how this is somewhat a pain because it means adding more variables to play with (timing of freeze; freeze intensity ... how does freeze correlate with chilling), but then we also noted that we don't totally know the survival x chilling correlation we'd need to include frosts without adding a frost date. [You could even dream to use the frost dates and chilling to convert to survival rates.] 
+\end{enumerate}
+\item How much does a priority effect offset a competitive advantage? Yes -- we can do this with delay (though it will be a distribution of delays) between two species and differences in R*. (Assuming those with less propensity for being first are superior competitors.) Related: Does breaking tradeoff between germ timing and R* break coexistence (ie rapid phenology positively associated with competitive dominance= invasions). I imagine the answer would have to be yes so it's not so interesting.
+\item What is the relative contribution of temporal priority effect versus germination percentages to coexistence? (We'll get this.) Maybe hold one constant and vary the other to compare outcomes? Is there a threshold where these effects become pronounced (e.g., if time between species is $<$ a week it doesn't matter but $>$ than a week it does.)
 \item How does a priority effect (within-year advantage) compare to between-year advantages? I think this is sort of related to above: basically, is there some interesting way to compare contribution of priority effect versus max germination versus between-year advantages (do we have those in this model? Is relatively non-linearity or the storage effect still present or not?) ... potentially across a couple different environmental scenarios?
 \end{enumerate}
 
@@ -80,6 +83,15 @@ Also ... smaller things (SKIP reading for meetings)
 \end{enumerate}
 
 \section{Start here.} 
+
+\emph{28 September 2022}
+Lizzie took notes up in 'Questions we want to ask (Updated in September 2022)' and we said we were excited to start on the first two questions in that list (noting that to address some of the further down questions we'd need to think hard about the model output to save). 
+
+We said emphatically: We're varying $R*$, how much you germinate and your chilling requirement (which affects your timing) ... note that how much you germinate x chilling requirement will define the trade-off space of \% germination versus chilling (so we won't impose). 
+
+We'd like frost events to not be 100\% kill events. 
+
+We then remembered that we currently have a model where  for species with chilling -- more chilling means less delay and more germination. 
 
 \emph{14 September 2022}
 We realized we are currently stuck on the ODE solver. Originally we wanted to resource to start followed by sp1 and sp2 all in one season. Instead we may have to do three runs for each year (1 for R, 1 for sp1 and 1 for sp2). This is now a git issues. Order of opporations:
