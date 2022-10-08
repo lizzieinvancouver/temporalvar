@@ -11,7 +11,7 @@ N0 <- rep(100,nsp)             # initial density of seeds
 B0 <- matrix(rep(0),nyrs,nsp)    # initial biomass in year y
 Bfin <- matrix(rep(0),nyrs,nsp)  # end of season biomass in year y
 Bout <- list()                   # holds within season dynamics for each year
-ext <- 0.00001                   # extinction threshold for density
+ext <- 0.0001                   # extinction threshold for density
 
 #converting from within-year to between-year dynamics
 s <-  rep(0.8,nsp)      # seedbank survival overwinter
