@@ -6,7 +6,7 @@ Bout.trim <- Bout[[y]]
 
 for (i in seq(max(ind.Rstar),days+1,dt)) Bout.trim[[i]] <- NA
 
-plot(Bout.trim)
+if (y%%10==3)plot(Bout.trim)
 
 # par(mfrow=c(1,2))
 # plot(Bout[[y]]$R~Bout[[y]]$time, type="l",
