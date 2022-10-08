@@ -21,3 +21,10 @@ source(here("R","sourcefiles","PriEff_Model.R"))
 
 
 
+#plot for testing
+par(mfrow=c(1,1))
+plot(seq(1,nyrs,dt),Bfin[,1],col="blue")
+points(seq(1,nyrs,dt),Bfin[,2],col="red")
+
+
+
