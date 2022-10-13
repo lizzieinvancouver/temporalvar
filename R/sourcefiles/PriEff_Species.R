@@ -24,14 +24,14 @@ a <-  rep(0.8,nsp)                    # slope of species uptake rate with increa
 u <-  rep(5,nsp)                    # inverse of the max uptake rate
 theta <- rep(1,nsp)                  # nonlinearity in resource response
 m <-  rep(0.005,nsp)                 # mortality
-c <- runif(nsp,max(m*u),3*max(m*u))  # conversion of resource to biomass
+c <- runif(nsp,max(m*u),30*max(m*u))  # conversion of resource to biomass
 Rstar <- (m/(a*(c-m*u)))^(1/theta)
 
 
 #germination timing tau_g (describes days of delay as a function of weeks of chilling)
 #   tau_g is days of germ delay; avg min delay = 2; max delay ~15, depends on xi 
 tau_start <- 2              # average start day, poisson
-xi_tau <- runif(nsp,0,3)    # delay sensitivity to chill (up to 3 days per week of chill)
+xi_tau <- runif(nsp,0,2)    # delay sensitivity to chill (up to 3 days per week of chill)
 tau_delay <- t(xi_tau%*%t(xi)) # delay depends on chill
 tau_g <-rpois(nsp*nyrs,tau_start+tau_delay)
 dim(tau_g) <- dim(tau_delay)
@@ -49,7 +49,7 @@ for (yr in c(1:nyrs)){
 #germination fraction g (describes germination rate as a function of chilling)
 #   g increases at rate gamma_g from gmin to gmax, where gmin, gmax, and gamma_g are species-specific
 #   CONSIDER - these values may need more thought - not a lot of variability bt yrs
-gmin.zero <- 0.4                            #prob that g0 is a true zero
+gmin.zero <- 0.1                           #prob that g0 is a true zero this currently make species 2 non-dormant
 gmin <- ifelse(rbeta(nsp, 1,8)<gmin.zero,0,1)*rbeta(nsp, 1,8) #min germination with g0.zero true zeros
 gmax <- rbeta(nsp, 8,1)
 gmax<-ifelse(gmax-gmin<0,rbeta(nsp, 8,1),gmax)#max germination ranges from g0 to 1
