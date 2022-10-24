@@ -37,6 +37,7 @@ tau_g <-rpois(nsp*nyrs,tau_start+tau_delay)
 dim(tau_g) <- dim(tau_delay)
 #  tau_spr is a (days x spp) matrix that spreads the germination over the season
 #          it sums to 1 for each species in each year (first pass has a 1 on one day, 0 elsewhere)
+##Replace this will Hill Eqn for germination in ODE??
 tau_spr <- list()
 for (yr in c(1:nyrs)){
   ts1 <- data.frame(x=seq(0,days,by=dt),y = rep(0,days+1))
@@ -58,3 +59,6 @@ gamma_g <- c(runif(nsp,.05,.5))  #species-specific rate of decline from max to m
 
 #note that g is the proportion of seeds germinating in this year (mulit by N0 to get total num seeds)
 g <- t(gmin + t(1 - exp(xi %*% t(-gamma_g)))*(gmax-gmin)) 
+
+
+#Parameterizing germination as dose-response using Hill Equation
