@@ -9,15 +9,15 @@
 
 for (y in seq(1,nyrs)){
   if(y>1) N0<-N[y-1,]
-  B0[y,] <- N0*s*g[y,]*b
+  B0[y,] <- N0*s*gmax[y,]*b
   R <- R0[y]
   B1 <- 0
   B2 <- 0
   State <- c(R=R,B1=B1,B2=B2)
   Time <- seq(0,days,by=dt)
-  Pars <- c(c=c,a=a,u=u,m=m,theta=theta,eps=eps,s=s, g=g[y,],b=b,N0=N0)
-  Germinate1 <-approxfun(tau_spr[[y]][[1]], method = "constant",rule=2)
-  Germinate2 <-approxfun(tau_spr[[y]][[2]], method = "constant",rule=2)
+  Pars <- c(c=c,a=a,u=u,m=m,theta=theta,eps=eps,s=s, b=b,N0=N0)
+  Germinate1 <-approxfun(g_daily[[y]][[1]], method = "constant",rule=2)
+  Germinate2 <-approxfun(g_daily[[y]][[2]], method = "constant",rule=2)
   Bout[[y]] <- ode(func = RstarComp,
                            y = State,
                            parms = Pars,
@@ -32,7 +32,7 @@ for (y in seq(1,nyrs)){
   #iterate N: seeds that survived but did not germinate + new seeds
   #get Bfin the first step where R<R*min
   Bfin[y,] <- c(Bout[[y]][,"B1"][ind.Rstar[1]],Bout[[y]][,"B2"][ind.Rstar[2]])
-  N[y,] <- Bfin[y,]*phi + ifelse(y==1,N0*s*(1-g[y,]), N[y-1,]*s*(1-g[y,]))  
+  N[y,] <- Bfin[y,]*phi + ifelse(y==1,N0*s*(1-gmax[y,]), N[y-1,]*s*(1-gmax[y,]))  
   N[y,] <- N[y,]*(N[y,] > ext)            # call very low densities true zero
   if(isFALSE(sum(N)>0)) break             # if all species have gone extinct, stop
 }
