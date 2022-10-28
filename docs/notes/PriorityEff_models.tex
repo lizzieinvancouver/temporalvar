@@ -84,6 +84,54 @@ Also ... smaller things (SKIP reading for meetings)
 
 \section{Start here.} 
 
+\emph{28 October 2022: Dan and Lizzie in Somerville!}\\
+
+We have a new model from Megan! Right now $c, xi_{\tau}, gmin, xi_{100}$ vary and {\bf we think you should set $gmin=0$ for both spp.}\\
+
+{\bf Questions we need answered at the next meeting:}
+\begin{enumerate}
+\item How can we separate out timing vs. germination fraction (or decide that we want them only to covary with chilling, as is currently set up)? 
+\item Coding non-dormancy: How to make one species have varying germination ($xi_{\tau}$ and/or $g_{max}$) but have it vary some across years -- and ideally not related to chilling (or very weakly related)? (Not as critical.)
+\item Discuss how to set up nruns that vary parameters and environment and get useful input? (See also below.)
+\end{enumerate}
+
+{\bf To do before next Friday by Dan playing around ... }
+\begin{enumerate}
+\item Set $g_{max}$ identical for both species, then vary $c, xi_{\tau}$ and see if you can get co-existence. (Done.)
+\item How do these runs (in 1.) vary from when $g_{max}$ is varying but not with chilling?
+\item A few runs where $c$ varies, $xi_{\tau}, gmin, xi_{100}$ covary (due to chilling); this is what Megan has set up.
+\item Start with timing: play around with some different static values for dormant species. Does $xi_{\tau}=0$ mean one species always wins? 
+\item Add some empirical data figures to this folder of what happened in the germination studies Dan already ran ... so we can better conceptualize. 
+\end{enumerate}
+{\bf Question:} Does germination fraction depend on $R$? Can a species not reach max germination because $R$ is drawn down as germination happens? (We're pretty sure this is yes.)  \\
+
+{\bf Now thinking of runs to do:}\\
+
+Each set of runs do three ways: (1) Contemporary chill, (2) High chill, (3) Low chill. \\
+
+Always set up 2 species runs, where the same species (1 or 2) is dormant and the other is non-dormant. 
+
+\begin{enumerate}
+\item How do species without dormancy (no chill requirement) and dormant species coexist? 
+\begin{enumerate}
+\item Timing vs. \% germination: Dan thinks usually more chill speeds up percent and timing, but maybe we start there and come back to it? 
+\item Temporal priority effect: Just vary $c, xi_{100}$ ... and also allow $g_{max}$ to vary (but unconnected to chilling)? ... {\bf Question:} If we want to vary $g_{max}$ without it co-varying with chilling, is that okay? What will happen with the model? 
+\item Then we add in covariation between $xi_{\tau}$ and $xi_{100}$ ... and test those two co-varying with $c$ maybe? 
+\end{enumerate}
+\item How much does a priority effect offset a competitive advantage? (Across different environments?) 
+\item What is the relative contribution of temporal priority effect versus germination percent- ages to coexistence?
+\end{enumerate}
+
+
+{\bf Question:} Discuss how to set up nruns that vary parameters and environment and get useful input?  
+
+And what output do we want (minimal):
+\begin{enumerate}
+\item Whatever params varied (e.g., $c, xi_{\tau}$)
+\item Average of last few years of biomass for each species
+\end{enumerate}
+
+
 \emph{24 October 2022}
 
 So, Megan previously got the model running, and Dan ran it! He adjusted it so that both species live, but he was worried it was always the same species lived. So {\bf Megan needs to check this!}... We also discussed switching to a more class model of germination (sort of dose response) now that we have the ODE working. We started on this and need to complete it \emph{next week!}\\
