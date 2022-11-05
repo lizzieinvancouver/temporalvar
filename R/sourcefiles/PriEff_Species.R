@@ -41,39 +41,52 @@ plot(xi,tau_g50[,1], xlim=c(0,ceiling(max(xi))), ylim=c(0,max(tau_g50)),
 points(tau_g50[,2]~xi, col="blue")
 
 #germination fraction g (describes germination rate as a function of chilling)
-#   g increases at rate gamma_g from gmin to gmax, where gmin, gmax, and gamma_g are species-specific
-#2022/10/24 - perhaps we should think of 
-#   gmin as a species char, defined as germ w 0 chilling
-#   max possible germination for a species is 100%, but annual gmax will vary with chill
-#   g_gamma as the sensitivity to chilling calculated from slope when
-#   xi_100 is the chilling hours where species reaches 100% germination
+#2022/11/4 - new parameterization
+#   gmin - germ w 0 weeks chilling; typically 0, but runif(0,1) for %g-chilling-insensitive 
+#   max possible germination for all species is 100%, but annual gmax will vary with chill
+#   xi_0 is chilling weeks required to exceed 0 germination ~rpois(2) 
+#   xi_rng is the number of chilling weeks (range) from xi_0 to xi_100 
+#   xi_100 = xi_0 + xi_rngis the number of chilling until  species reaches 100% germination
+#   gmax is the total germination fraction in year yr with chilling xi[yr]
+#   g_notxi is the proportion of species who are not sensitive to chilling; others germinate at gmin
 
-# gmin.zero is the percent of species that will not germinate if zero chill
-#    [QUESTION: do we care about this?  do we need a separate category here?]
-# gmin is the minimum germination rate of species; 
-# beta(1,8) has mean of 11% germination and 90%-ile of 25% germination
-# gmax is the total germination fraction in year yr with chilling xi[yr]
-gmin.zero <- 0
-gmin <- rbeta(nsp, 1,10) * ifelse(runif(nsp, 0,1)<gmin.zero,0,1)
-xi_100 <- rgamma(nsp,shape=3,scale=5)  #chilling reqd for 100% germ
-gamma_g <- (1-gmin)/xi_100
-gmax <- xi %*% t(gamma_g) + matrix(rep(gmin,nyrs),nrow=nyrs,byrow=TRUE)
-gmax <- pmin(gmax,1)  
+#This is now set up so that some proportion of the runs will have one (proportion g_notxi)
+#   or both species (proportion g_notxi^2) with germination fraction insensitive to chill
+#   Megan thought that this would allow a large set of runs, which are then filtered
+#    to analyze the different cases.  Insensitive species get a germfraction runif (0.5,1)
+
+g_notxi <- 0.3  #proportion of species who are %g-insensitive to chilling
+gmin <- as.numeric(runif(nsp,0,1)<g_notxi) * runif(nsp,0.5,1)  #if insensitive to xi, get gmin between 0.5,1
+
+xi_0 <- rnorm(nsp,2,1)   #weeks of chilling to exceed 0 germination
+while (isFALSE(all(xi_0>0))) xi_0 <- rnorm(nsp,2,1)  #truncates normal to >0
+xi_rng <- rnorm(nsp,6,2) 
+xi_100 <- xi_0 + xi_rng  #chilling weeks required for 100% germ
+gmax <- xi %*% t(1/xi_rng) - matrix(rep(xi_0/xi_rng,nyrs),nrow=nyrs,byrow=TRUE)
+gmax <- pmin(gmax,1)    #max germination fraction is 1
+
+#if species is insensitive, replace gmax with gmin for all years
+if(gmin[1]>0) gmax[,1] <- gmin[1]
+if(gmin[2]>0) gmax[,2] <-gmin[2]
 
 #test plots to show relationship between germ and chill
-plot(x=seq(0,max(xi),length=10), y= seq(1,10), type="n",
-     xlim=c(0,max(xi)),ylim=c(0,1), xaxs="i",yaxs="i",
+#  with the annual chill values on the x
+plot(x=seq(0,max(xi),length=10), y= seq(0,1,length=10), type="n",
+     xlim=c(0,40),ylim=c(0,1), xaxs="i",yaxs="i",
      xlab="chiling",ylab="% germination with xi chilling",
      main = "Annual %Germ ~ Chilling, by species + rug of xi" )
-points(x=xi,y=rep(0,length(xi)),col="cyan",pch=3)
-
-for (i in seq(1,nyrs)){
-  # gmin <- ifelse(runif(nsp, 0,1) < gmin.zero,0,1)*rbeta(nsp, 1,10)
-  # xi_100 <- rgamma(nsp,shape=3,scale=5)
-  # gamma_g <- (1-gmin)/xi_100
-  abline(a=gmin[1],b=gamma_g[1])
-  abline(a=gmin[2],b=gamma_g[2],col="blue")
+points(x=xi,y=rep(0,length(xi)),col="red",pch=3)
+for (i in c(1,nsp)){
+  if (gmin[i]>0) {
+    abline(a=gmin[i],b=0,"green") 
+    }
+  else { 
+    points(x=xi_0[i],y=0,col="green",pch=20)
+    points(x=xi_100[i],y=1,col="green",pch=20)
+    abline(b=1/xi_rng[i],a=-xi_0[i]/xi_rng[i],col="green", lty=1)
+  }
 }
+
 
 #  tau_spr is a (days x spp) matrix that spreads  germination over season 
 #     one version where gmax[yr] is all on day tau_g50
