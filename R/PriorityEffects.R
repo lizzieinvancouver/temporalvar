@@ -7,7 +7,7 @@ library(here)
 here()
 
 #define the run - Consider creating a dataframe with combinations of parms to test
-nruns<-1:100
+nruns<-1:1
 outputy<-data.frame()
 for (n in c(1,nruns)) {
 

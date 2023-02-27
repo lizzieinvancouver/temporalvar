@@ -4,14 +4,14 @@ nsp <- 2  #this is a 2-species model
 
 #create arrays for within and between year dynamics
 N <- matrix(rep(0), nyrs, nsp)   # number of seeds prior to winter
-N0 <- rep(100,nsp)             # initial density of seeds
+N0 <- c(100,0)             # initial density of seeds $THis makes it a one species model
 B0 <- matrix(rep(0),nyrs,nsp)    # initial biomass in year y
 Bfin <- matrix(rep(0),nyrs,nsp)  # end of season biomass in year y
 Bout <- list()                   # holds within season dynamics for each year
 ext <- 0.0001                   # extinction threshold for density
 
 #converting from within-year to between-year dynamics
-s <-  rep(0.8,nsp)      # seedbank survival overwinter
+s <-  rep(0.8,nsp)      # seedbank survival overwinter ti=his makes it one specie
 b <-  rep(1,nsp)        # biomass of seedling per seed
 phi <- rep(0.5,nsp)    # conversion of end-of-season plant biomass to seeds
 
