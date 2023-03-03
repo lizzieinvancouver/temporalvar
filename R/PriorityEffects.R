@@ -1,10 +1,14 @@
 #Priority Effects - main code
 rm(list=ls()) 
-#libraries
+#libraries and working directories, oh my!
 library(deSolve)
 require(MultiRNG)
+if(length(grep("lizzie", getwd())>0)) {
+    setwd("~/Documents/git/projects/temporalvar/R")
+    }
 library(here)
 here()
+
 
 #define the run - Consider creating a dataframe with combinations of parms to test
 nruns<-1:1
