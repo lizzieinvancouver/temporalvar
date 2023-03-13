@@ -35,7 +35,7 @@ dim(tau_g50) <- dim(tau_delay)
 
 #test plot to show relationship between day of 50% germ and chilling (xi)
 plot(xi,tau_g50[,1], xlim=c(0,ceiling(max(xi))), ylim=c(0,max(tau_g50)),
-     xaxs="i",yaxs="i", col=1
+     xaxs="i",yaxs="i", col=1,
      ylab="Day of 50% germination",xlab="chilling (xi)",
      main="Day of 50% Germ ~ Chilling, 2 spp, nyrs")
 points(tau_g50[,2]~xi, col=2)
