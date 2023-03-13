@@ -11,7 +11,7 @@ Bout <- list()                   # holds within season dynamics for each year
 ext <- 0.0001                   # extinction threshold for density
 
 #converting from within-year to between-year dynamics
-s <-  rep(0.8,nsp)      # seedbank survival overwinter ti=his makes it one specie
+s <-  rep(0.8,nsp)      # seedbank survival overwinter 
 b <-  rep(1,nsp)        # biomass of seedling per seed
 phi <- rep(0.5,nsp)    # conversion of end-of-season plant biomass to seeds
 
@@ -35,10 +35,10 @@ dim(tau_g50) <- dim(tau_delay)
 
 #test plot to show relationship between day of 50% germ and chilling (xi)
 plot(xi,tau_g50[,1], xlim=c(0,ceiling(max(xi))), ylim=c(0,max(tau_g50)),
-     xaxs="i",yaxs="i",
+     xaxs="i",yaxs="i", col=1
      ylab="Day of 50% germination",xlab="chilling (xi)",
      main="Day of 50% Germ ~ Chilling, 2 spp, nyrs")
-points(tau_g50[,2]~xi, col="blue")
+points(tau_g50[,2]~xi, col=2)
 
 #germination fraction g (describes germination rate as a function of chilling)
 #2022/11/4 - new parameterization
@@ -64,10 +64,19 @@ xi_rng <- rnorm(nsp,6,2)
 xi_100 <- xi_0 + xi_rng  #chilling weeks required for 100% germ
 gmax <- xi %*% t(1/xi_rng) - matrix(rep(xi_0/xi_rng,nyrs),nrow=nyrs,byrow=TRUE)
 gmax <- pmin(gmax,1)    #max germination fraction is 1
+gmax <- pmax(gmax,0)    #max germination fraction has minimum of 0
 
 #if species is insensitive, replace gmax with gmin for all years
-if(gmin[1]>0) gmax[,1] <- gmin[1]
-if(gmin[2]>0) gmax[,2] <-gmin[2]
+# in the dose-response curve, gmin will be 0 for all species so that
+#  timing remains sensitive to chilling
+if(gmin[1]>0) {
+  gmax[,1] <- gmin[1]
+  gmin[1] <-0
+}
+if(gmin[2]>0) {
+  gmax[,2] <- gmin[2]
+  gmin[2] <-0
+}
 
 #test plots to show relationship between germ and chill
 #  with the annual chill values on the x
@@ -75,15 +84,14 @@ plot(x=seq(0,max(xi),length=10), y= seq(0,1,length=10), type="n",
      xlim=c(0,40),ylim=c(0,1), xaxs="i",yaxs="i",
      xlab="chiling",ylab="% germination with xi chilling",
      main = "Annual %Germ ~ Chilling, by species + rug of xi" )
-points(x=xi,y=rep(0,length(xi)),col="red",pch=3)
+points(x=xi,y=rep(0,length(xi)),col="cyan",pch=3)
 for (i in c(1,nsp)){
-  if (gmin[i]>0) {
-    abline(a=gmin[i],b=0,"green") 
-    }
-  else { 
-    points(x=xi_0[i],y=0,col="green",pch=20)
-    points(x=xi_100[i],y=1,col="green",pch=20)
-    abline(b=1/xi_rng[i],a=-xi_0[i]/xi_rng[i],col="green", lty=1)
+  if ((gmax[2,i] - gmax[1,i])==0) {  #if gmax is constant
+    abline(a=gmax[1,i],b=0,col=i) 
+  } else { 
+    points(x=xi_0[i],y=0,col=i,pch=20,cex=2)
+    points(x=xi_100[i],y=1,col=i,pch=20, cex=2)
+    abline(b=1/xi_rng[i],a=-xi_0[i]/xi_rng[i],col=i, lty=1)
   }
 }
 
@@ -94,7 +102,7 @@ for (i in c(1,nsp)){
 g_daily <- list()
 g_cumulative <- list()
 nH = 5  #Hill constant for germination by Hill Eqn
-maxdailygerm <-0 #use for plotting
+maxdailygerm <- 0 #use for plotting
 
 for (yr in c(1:nyrs)){
   g1_byday <- data.frame(x=seq(0,days,by=dt),y = rep(0,days+1))
@@ -105,12 +113,12 @@ for (yr in c(1:nyrs)){
   ##Version with all germination on one day (tau_g50)
   # ts1[ts1$x==tau_g50[yr,1],2] = gmax[1]
   # ts2[ts2$x==tau_g50[yr,2],2] = gmax[2]
-  #Germination follows a Hill function (Dose-Response)
-  for (d in seq(0,days,by=1)){
-    gc1[d]  <- (gmin[1] + (gmax[yr,1]-gmin[1]) * (d^nH / (tau_g50[yr,1]^nH + d^nH)))*(d!=0)
-    gc2[d]  <- (gmin[2] + (gmax[yr,2]-gmin[2]) * (d^nH / (tau_g50[yr,2]^nH + d^nH)))*(d!=0)
-    g1_byday$y[d] <- ifelse(d==0, 0, gc1[d] - gc1[d-1])
-    g2_byday$y[d] <- ifelse(d==0, 0, gc2[d] - gc2[d-1])
+  #Germination follows a Hill function (Dose-Response) with min = 0
+  for (d in seq(1,days+1,by=1)){
+    gc1[d]  <- ifelse(d==1,0,gmin[1] + (gmax[yr,1]-gmin[1]) * (d^nH / (tau_g50[yr,1]^nH + d^nH)))
+    gc2[d]  <- ifelse(d==1,0,gmin[2] + (gmax[yr,2]-gmin[2]) * (d^nH / (tau_g50[yr,2]^nH + d^nH)))
+    g1_byday$y[d] <- ifelse(d==1, 0, gc1[d] - gc1[d-1])
+    g2_byday$y[d] <- ifelse(d==1, 0, gc2[d] - gc2[d-1])
   }
   maxdailygerm<- max(maxdailygerm,max(g1_byday$y),max(g2_byday$y))
   g_daily[[yr]] <- list(data.frame(g1_byday),data.frame(g2_byday))
@@ -121,19 +129,20 @@ for (yr in c(1:nyrs)){
          xlab="days",ylab="cumulative germination by d",
          xaxs="i",yaxs="i")
   }
-  lines(seq(0,days,1),gc1,type="l",col="black")
-  lines(seq(0,days,1), gc2,type="l",col="blue")
+  lines(seq(0,days,1),gc1,type="l",col=1)
+  lines(seq(0,days,1), gc2,type="l",col=2)
 }
 
-# #Test Plot for daily germination
-# for (yr in seq(1,nyrs,5)){
-#   if (yr==1) {
-#   plot(seq(0,days,1),rep(0,days+1),type="n",ylim=c(0,maxdailygerm+.01),
-#        xlab="days",ylab="germination",main="Daily Germination by sp, yrs",
-#        xaxs="i",yaxs="i")
-#   }
-#   lines(g_daily[[yr]][[1]]$x,g_daily[[yr]][[1]]$y,type="l",col="black")
-#   lines(g_daily[[yr]][[2]]$x,g_daily[[yr]][[2]]$y,type="l",col="blue")
-#   #print(paste("summed daily g sp1 = ", sum(g_daily[[yr]][[1]]$y),"gmax = ",gmax[yr,1]))
-#   #print(paste("summed daily g sp2 = ", sum(g_daily[[yr]][[2]]$y),"gmax = ",gmax[yr,2]))
-# }
+#Test Plot for daily germination
+for (yr in seq(1,nyrs,5)){
+  if (yr==1) {
+  plot(seq(0,days,1),rep(0,days+1),type="n",ylim=c(0,maxdailygerm+.01),
+       xlab="days",ylab="germination",main="Daily Germination by sp, yrs",
+       xaxs="i",yaxs="i")
+  }
+  lines(g_daily[[yr]][[1]]$x,g_daily[[yr]][[1]]$y,type="l",col="black")
+  lines(g_daily[[yr]][[2]]$x,g_daily[[yr]][[2]]$y,type="l",col="blue")
+  #print(paste("summed daily g sp1 = ", sum(g_daily[[yr]][[1]]$y),"gmax = ",gmax[yr,1]))
+  #print(paste("summed daily g sp2 = ", sum(g_daily[[yr]][[2]]$y),"gmax = ",gmax[yr,2]))
+}
+
