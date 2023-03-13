@@ -9,7 +9,7 @@
 
 for (y in seq(1,nyrs)){
   if(y>1) N0<-N[y-1,]
-  B0[y,] <- N0*s*gmax[y,]*b
+#  B0[y,] <- N0*s*gmax[y,]*b  #this conversion is now in the competition model
   R <- R0[y]
   B1 <- 0
   B2 <- 0
