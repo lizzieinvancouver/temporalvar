@@ -27,6 +27,8 @@ Rstar <- (m/(a*(c-m*u)))^(1/theta)
 
 #germination timing tau_g (describes days of delay as a function of weeks of chilling)
 #   tau_g is days of germ delay; avg min delay = 2; max delay ~15, depends on xi 
+#NEED TO UPDATE:  tau_g50 should decrease with increasing xi from 90 days max
+#   delay to 0 dya smin delay, and mean delays between 0 and 30 days
 tau_start <- 2              # average start day, poisson
 xi_tau <- runif(nsp,0,2)    # delay sensitivity to chill (up to 3 days per week of chill)
 tau_delay <- t(xi_tau%*%t(xi)) # delay depends on chill
@@ -54,6 +56,8 @@ points(tau_g50[,2]~xi, col=2)
 #   or both species (proportion g_notxi^2) with germination fraction insensitive to chill
 #   Megan thought that this would allow a large set of runs, which are then filtered
 #    to analyze the different cases.  Insensitive species get a germfraction runif (0.5,1)
+#UPDATE: create a flag (or 25% of runs) where both %g is insensitive for both species
+#   and both same %g_max = 0.8 -- these will allow comparison of timing-only effects 
 
 g_notxi <- 0.3  #proportion of species who are %g-insensitive to chilling
 gmin <- as.numeric(runif(nsp,0,1)<g_notxi) * runif(nsp,0.5,1)  #if insensitive to xi, get gmin between 0.5,1
@@ -94,7 +98,6 @@ for (i in c(1,nsp)){
     abline(b=1/xi_rng[i],a=-xi_0[i]/xi_rng[i],col=i, lty=1)
   }
 }
-
 
 #  tau_spr is a (days x spp) matrix that spreads  germination over season 
 #     one version where gmax[yr] is all on day tau_g50
