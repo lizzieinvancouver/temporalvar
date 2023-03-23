@@ -24,6 +24,8 @@ m <-  rep(0.005,nsp)                 # mortality
 c <- runif(nsp,max(m*u),30*max(m*u))  # conversion of resource to biomass
 Rstar <- (m/(a*(c-m*u)))^(1/theta)
 
+
+# TIMING ------------------------------------------------------------------
 #germination timing tau_g (describes days of delay as a function of weeks of chilling)
 #   maximum mean delay from chilling is 30 days
 #   mean delay decreases exponentially at rate xi_tau with increasing days of chilling, xi
@@ -52,6 +54,8 @@ points(tau_g50[,2]~xi, col=2)
 points(tau_delay[,1]~xi, col=1, pch=20)
 points(tau_delay[,2]~xi, col=2, pch=20)
 
+
+# FRACTION ----------------------------------------------------------------
 #germination fraction g (describes germination rate as a function of chilling)
 #2022/11/4 - new parameterization
 #   gmin - germ w 0 weeks chilling; typically 0, but runif(0,1) for %g-chilling-insensitive 
