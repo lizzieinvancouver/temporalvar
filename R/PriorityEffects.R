@@ -2,6 +2,7 @@
 rm(list=ls()) 
 #libraries and working directories, oh my!
 library(deSolve)
+library(scales)
 require(MultiRNG)
 if(length(grep("lizzie", getwd())>0)) {
     setwd("~/Documents/git/projects/temporalvar/R")
