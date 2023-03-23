@@ -24,23 +24,33 @@ m <-  rep(0.005,nsp)                 # mortality
 c <- runif(nsp,max(m*u),30*max(m*u))  # conversion of resource to biomass
 Rstar <- (m/(a*(c-m*u)))^(1/theta)
 
-
 #germination timing tau_g (describes days of delay as a function of weeks of chilling)
-#   tau_g is days of germ delay; avg min delay = 2; max delay ~15, depends on xi 
-#NEED TO UPDATE:  tau_g50 should decrease with increasing xi from 90 days max
-#   delay to 0 dya smin delay, and mean delays between 0 and 30 days
-tau_start <- 2              # average start day, poisson
-xi_tau <- runif(nsp,0,2)    # delay sensitivity to chill (up to 3 days per week of chill)
-tau_delay <- t(xi_tau%*%t(xi)) # delay depends on chill
-tau_g50 <-rpois(nsp*nyrs,tau_start+tau_delay)  #Day of 50% germination
+#   maximum mean delay from chilling is 30 days
+#   mean delay decreases exponentially at rate xi_tau with increasing days of chilling, xi
+#   cut off max delay at 90 days
+# 
+xi_tau <- runif(nsp,0,1)    # delay sensitivity to chill - exponential rate of decreased delay from 30
+tau_delay <- 30*exp(-t(xi_tau%*%t(xi)))  
+tau_g50 <-rpois(nsp*nyrs,tau_delay)  #Day of 50% germination
+tau_g50 <- pmin(tau_g50,90)          #max delay is 90 days
 dim(tau_g50) <- dim(tau_delay)
 
-#test plot to show relationship between day of 50% germ and chilling (xi)
+#test plots
+#histogram of day of 50% germination
+par(mfrow=c(1,2))
+ax <- seq(0,max(tau_g50),1)
+h1 <- hist(tau_g50[,1],breaks=ax,plot= FALSE)
+h2 <- hist(tau_g50[,2],breaks=ax,plot= FALSE)
+plot(h1,col=alpha(1,0.3))
+plot(h2,col=alpha(2,0.5),add=TRUE)
+#Day of 50% germination versus chilling (xi)
 plot(xi,tau_g50[,1], xlim=c(0,ceiling(max(xi))), ylim=c(0,max(tau_g50)),
      xaxs="i",yaxs="i", col=1,
      ylab="Day of 50% germination",xlab="chilling (xi)",
      main="Day of 50% Germ ~ Chilling, 2 spp, nyrs")
 points(tau_g50[,2]~xi, col=2)
+points(tau_delay[,1]~xi, col=1, pch=20)
+points(tau_delay[,2]~xi, col=2, pch=20)
 
 #germination fraction g (describes germination rate as a function of chilling)
 #2022/11/4 - new parameterization
