@@ -2,6 +2,9 @@
 
 nsp <- 2  #this is a 2-species model
 
+
+# R* COMPETITION parameters -----------------------------------------------
+
 #create arrays for within and between year dynamics
 N <- matrix(rep(0), nyrs, nsp)   # number of seeds prior to winter
 N0 <- c(100,0)             # initial density of seeds $THis makes it a one species model
@@ -39,7 +42,7 @@ dim(tau_g50) <- dim(tau_delay)
 
 #test plots
 #histogram of day of 50% germination
-par(mfrow=c(1,2))
+par(mfrow=c(3,2))
 ax <- seq(0,max(tau_g50),1)
 h1 <- hist(tau_g50[,1],breaks=ax,plot= FALSE)
 h2 <- hist(tau_g50[,2],breaks=ax,plot= FALSE)
@@ -57,62 +60,68 @@ points(tau_delay[,2]~xi, col=2, pch=20)
 
 # FRACTION ----------------------------------------------------------------
 #germination fraction g (describes germination rate as a function of chilling)
-#2022/11/4 - new parameterization
-#   gmin - germ w 0 weeks chilling; typically 0, but runif(0,1) for %g-chilling-insensitive 
-#   max possible germination for all species is 100%, but annual gmax will vary with chill
-#   xi_0 is chilling weeks required to exceed 0 germination ~rpois(2) 
-#   xi_rng is the number of chilling weeks (range) from xi_0 to xi_100 
-#   xi_100 = xi_0 + xi_rngis the number of chilling until  species reaches 100% germination
-#   gmax is the total germination fraction in year yr with chilling xi[yr]
-#   g_notxi is the proportion of species who are not sensitive to chilling; others germinate at gmin
+#   20% of runs have both spp chill-insensitive w.r.t germination fraction; these have gmax = 0.8
+#   in remaining 80% of runs, 20% of species will be insensitive with const gmax that varies between 0.5 and 1
+#   remaining species are chilling sensitive w.r.t. germination fraction
+#     gmin - germ w 0 weeks chilling; 0 for all chilling-sensitive species 
+#     max possible germination for all chilling-sensistive species is 100%, but annual gmax will vary with chill
+#     xi_0 is chilling weeks required to exceed 0 germination ~rpois(2) 
+#     xi_rng is the number of chilling weeks (range) from xi_0 to xi_100 
+#     xi_100 = xi_0 + xi_rngis the number of chilling until  species reaches 100% germination
+#     gmax is the total germination fraction in year yr with chilling xi[yr]
 
-#This is now set up so that some proportion of the runs will have one (proportion g_notxi)
-#   or both species (proportion g_notxi^2) with germination fraction insensitive to chill
-#   Megan thought that this would allow a large set of runs, which are then filtered
-#    to analyze the different cases.  Insensitive species get a germfraction runif (0.5,1)
-#UPDATE: create a flag (or 25% of runs) where both %g is insensitive for both species
-#   and both same %g_max = 0.8 -- these will allow comparison of timing-only effects 
+g_notxi <- 0.2  #proportion of runs where both species are %g- insensitive to chilling
+                 # and proportion of species that are %g-insens in remaining runs
 
-g_notxi <- 0.3  #proportion of species who are %g-insensitive to chilling
-gmin <- as.numeric(runif(nsp,0,1)<g_notxi) * runif(nsp,0.5,1)  #if insensitive to xi, get gmin between 0.5,1
-
-xi_0 <- rnorm(nsp,2,1)   #weeks of chilling to exceed 0 germination
-while (isFALSE(all(xi_0>0))) xi_0 <- rnorm(nsp,2,1)  #truncates normal to >0
-xi_rng <- rnorm(nsp,6,2) 
-xi_100 <- xi_0 + xi_rng  #chilling weeks required for 100% germ
-gmax <- xi %*% t(1/xi_rng) - matrix(rep(xi_0/xi_rng,nyrs),nrow=nyrs,byrow=TRUE)
-gmax <- pmin(gmax,1)    #max germination fraction is 1
-gmax <- pmax(gmax,0)    #max germination fraction has minimum of 0
-
-#if species is insensitive, replace gmax with gmin for all years
-# in the dose-response curve, gmin will be 0 for all species so that
-#  timing remains sensitive to chilling
-if(gmin[1]>0) {
-  gmax[,1] <- gmin[1]
-  gmin[1] <-0
-}
-if(gmin[2]>0) {
-  gmax[,2] <- gmin[2]
-  gmin[2] <-0
+if (runif(1,0,1)<g_notxi) {
+  #25% of runs have both species are chilling insensitive at have gmax=0.8
+  gmin = rep(0,nsp)
+  gmax = matrix(rep(0.8,times=nsp*nyrs),ncol=nsp)
+  print(gmin)
+} else {
+  #remaining 75% of runs have a 25% insensitive species and 75% sensitive species
+  #25% of species are insensitive and get a fixed min germ between 0.5-1, rest are sensitive and get min germ of 0
+  gmin <- as.numeric(runif(nsp,0,1)<g_notxi) * runif(nsp,0.5,1)  #if insensitive to xi, get gmin between 0.5,1
+  xi_0 <- rnorm(nsp,2,1)    #weeks of chilling to exceed 0 germination
+  while (isFALSE(all(xi_0>0))) xi_0 <- rnorm(nsp,2,1)  #truncates normal to >0
+  xi_rng <- rnorm(nsp,6,2) 
+  xi_100 <- xi_0 + xi_rng  #chilling weeks required for 100% germ
+  
+  #max germination for chilling sensitive species
+  gmax <- xi %*% t(1/xi_rng) - matrix(rep(xi_0/xi_rng,nyrs),nrow=nyrs,byrow=TRUE)
+  gmax <- pmin(gmax,1)    #max germination fraction is 1
+  gmax <- pmax(gmax,0)    #max germination fraction has minimum of 0
+  #now, replace gmax with gmin for species that were flagged as chilling insensitive
+  #  and replace gmin for insensitive species with 0 so that gmin will be 0 for all species in the dose-response curve
+  if(gmin[1]>0) {
+    gmax[,1] <- gmin[1]
+    gmin[1] <-0
+  }
+  if(gmin[2]>0) {
+    gmax[,2] <- gmin[2]
+    gmin[2] <-0
+  }
 }
 
 #test plots to show relationship between germ and chill
 #  with the annual chill values on the x
-plot(x=seq(0,max(xi),length=10), y= seq(0,1,length=10), type="n",
-     xlim=c(0,40),ylim=c(0,1), xaxs="i",yaxs="i",
-     xlab="chiling",ylab="% germination with xi chilling",
-     main = "Annual %Germ ~ Chilling, by species + rug of xi" )
-points(x=xi,y=rep(0,length(xi)),col="cyan",pch=3)
 for (i in c(1,nsp)){
-  if ((gmax[2,i] - gmax[1,i])==0) {  #if gmax is constant
-    abline(a=gmax[1,i],b=0,col=i) 
+  plot(x=seq(0,max(xi),length=10), y= seq(0,1,length=10), 
+       type="n", xlim=c(0,40),ylim=c(0,1), xaxs="i",yaxs="i",
+       xlab="chilling",ylab=paste("%g for species", i),
+       main = paste("%g-Chilling Sensitivity for species", i))
+  points(x=xi,y=rep(0,length(xi)),col="black",pch=3,cex=0.8)
+  if (var(gmax[,i])==0) {  #if gmax is constant
+    abline(a=gmax[1,i],b=0,col="blue") 
   } else { 
     points(x=xi_0[i],y=0,col=i,pch=20,cex=2)
     points(x=xi_100[i],y=1,col=i,pch=20, cex=2)
-    abline(b=1/xi_rng[i],a=-xi_0[i]/xi_rng[i],col=i, lty=1)
+    abline(b=1/xi_rng[i],a=-xi_0[i]/xi_rng[i],col="blue", lty=1)
   }
 }
 
+
+# DISTRIBUTE Germination over Days of Season ------------------------------
 #  tau_spr is a (days x spp) matrix that spreads  germination over season 
 #     one version where gmax[yr] is all on day tau_g50
 #     one version where germination is Hill fxn w 50% germ on tau_g50
@@ -142,8 +151,10 @@ for (yr in c(1:nyrs)){
   g_cumulative[[yr]] <- data.frame(gc1,gc2)
   #Test Plot for cumulative germination
   if (yr==1) {
-    plot(seq(0,days,1),rep(0,days+1),type="n",ylim=c(0,1.1),
+    plot(seq(0,days,1),rep(0,days+1),type="n",
+         ylim=c(0,1.1),,xlim= c(0,80),
          xlab="days",ylab="cumulative germination by d",
+         main="Cumulative Germination by sp, yrs",
          xaxs="i",yaxs="i")
   }
   lines(seq(0,days,1),gc1,type="l",col=1)
@@ -153,8 +164,9 @@ for (yr in c(1:nyrs)){
 #Test Plot for daily germination
 for (yr in seq(1,nyrs,5)){
   if (yr==1) {
-  plot(seq(0,days,1),rep(0,days+1),type="n",ylim=c(0,maxdailygerm+.01),
-       xlab="days",ylab="germination",main="Daily Germination by sp, yrs",
+  plot(seq(0,days,1),rep(0,days+1),type="n",
+       ylim=c(0,maxdailygerm+.01),xlim= c(0,80),
+       xlab="days",ylab="germination on d",main="Daily Germination by sp, yrs",
        xaxs="i",yaxs="i")
   }
   lines(g_daily[[yr]][[1]]$x,g_daily[[yr]][[1]]$y,type="l",col="black")
