@@ -61,7 +61,7 @@ outputy$coexistence[which(outputy$sp1.Bfin!=0 & outputy$sp2.Bfin!=0)]<-"coexiste
 outputy$`R2/R1`<-outputy$sp2_Rstar/outputy$sp1_Rstar
 outputy$`sen1/sen2`<-outputy$sp1_sense/outputy$sp2_sense
 outputy$`T1/T2`<-outputy$sp1_t50/outputy$sp2_t50
-
+outputy$`gmax1/gmax2`<-outputy$sp1_gmax/outputy$sp2_gmax
 
 library(ggplot2)
 outputy2<-dplyr::filter(outputy,trial!="both fixed-different fract")
@@ -69,6 +69,13 @@ outputy2<-dplyr::filter(outputy,trial!="both fixed-different fract")
 jpeg("plots/firstrun_plots.jpeg",height=5,width=7, unit="in", res=300)
 ggplot(outputy2,aes(`sen1/sen2`,`R2/R1`))+
   geom_point(aes(color=coexistence),size=1)+ylim(0,10)+xlim(0,10)+
+  facet_wrap(~trial)+geom_hline(yintercept=1)+geom_vline(xintercept=1)+ggthemes::theme_few()+
+  scale_color_viridis_d(option = "C")
+dev.off()
+
+jpeg("plots/firstrun_plotsgmax.jpeg",height=5,width=7, unit="in", res=300)
+ggplot(outputy2,aes(`gmax1/gmax2`,`R2/R1`))+
+  geom_point(aes(color=coexistence),size=1)+ylim(-0,10)+xlim(0,2)+
   facet_wrap(~trial)+geom_hline(yintercept=1)+geom_vline(xintercept=1)+ggthemes::theme_few()+
   scale_color_viridis_d(option = "C")
 dev.off()
