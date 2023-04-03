@@ -53,11 +53,18 @@ outputy$trial[which(outputy$sp1_gmax_sd!=0.0 & outputy$sp2_gmax_sd==0.0)]<-"sp2 
 outputy$trial[which(outputy$sp1_gmax_sd!=0.0 & outputy$sp2_gmax_sd!=0.0)]<-"both sensitive"
 outputy$trial[which(outputy$sp1_gmax_sd==0.0& outputy$sp1_gmax!=0.8 & outputy$sp2_gmax_sd==0.0 & outputy$sp2_gmax!=0.8)]<-"both fixed-different fract"
 
+
 outputy$coexistence<-NA
 outputy$coexistence[which(outputy$sp1.Bfin==0 & outputy$sp2.Bfin==0)]<-"both extinct"
 outputy$coexistence[which(outputy$sp1.Bfin!=0 & outputy$sp2.Bfin==0)]<-"sp1 win"
 outputy$coexistence[which(outputy$sp1.Bfin==0 & outputy$sp2.Bfin!=0)]<-"sp2 win"
 outputy$coexistence[which(outputy$sp1.Bfin!=0 & outputy$sp2.Bfin!=0)]<-"coexistence"
+
+outputy$sp1_fin<-NA
+outputy$sp2_fin<-NA
+outputy$sp1_fin<-ifelse(outputy$sp1.Bfin==0,0,1)
+outputy$sp2_fin<-ifelse(outputy$sp2.Bfin==0,0,1)
+outputy$happy_together<-outputy$sp1_fin+outputy$sp2_fin
 
 outputy$`R1/R2`<-outputy$sp1_Rstar/outputy$sp2_Rstar
 outputy$`sen1/sen2`<-outputy$sp1_sense/outputy$sp2_sense
@@ -74,10 +81,15 @@ outputy2<-dplyr::filter(outputy,trial!="both fixed-different fract")
 
 jpeg("plots/firstrun_plots.jpeg",height=5,width=7, unit="in", res=300)
 ggplot(outputy2,aes(logsens1sens2,logR1R2))+
-  geom_point(aes(color=coexistence),size=1)+#ylim(0,10)+xlim(0,10)+
+  geom_point(aes(color=happy_together),size=1)+#ylim(0,10)+xlim(0,10)+
+  facet_wrap(~trial)+geom_hline(yintercept=0)+geom_vline(xintercept=0)+ggthemes::theme_few()+
+  scale_color_viridis_c(option = "C")
+dev.off()
+
+ggplot(outputy2,aes(logsens1sens2,logR1R2))+
+  geom_point(aes(color=as.factor(happy_together)),size=1)+#ylim(0,10)+xlim(0,10)+
   facet_wrap(~trial)+geom_hline(yintercept=0)+geom_vline(xintercept=0)+ggthemes::theme_few()+
   scale_color_viridis_d(option = "C")
-dev.off()
 
 #ggplot(outputy2,aes(`sen1/sen2`,`R1/R2`))+
  # geom_point(aes(color=coexistence),size=1)+ylim(0,10)+xlim(0,10)+
@@ -87,16 +99,16 @@ dev.off()
 
 jpeg("plots/firstrun_plotsgmax.jpeg",height=5,width=7, unit="in", res=300)
 ggplot(outputy2,aes(loggmax1gmax2,logR1R2))+
-  geom_point(aes(color=coexistence),size=1)+#ylim(-0,10)+xlim(0,2)+
+  geom_point(aes(color=happy_together),size=1)+#ylim(-0,10)+xlim(0,2)+
   facet_wrap(~trial)+geom_hline(yintercept=0)+geom_vline(xintercept=0)+ggthemes::theme_few()+
-  scale_color_viridis_d(option = "C")
+  scale_color_viridis_c(option = "C")
 dev.off()
 
 
 jpeg("plots/firstrun_plots_altview.jpeg",height=5,width=7, unit="in", res=300)
 ggplot(outputy,aes(logsens1sens2,logR1R2))+
-  geom_point(aes(color=coexistence),size=1)+#ylim(0,50)+xlim(0,50)+
-  facet_grid(coexistence~trial)+geom_hline(yintercept=0)+geom_vline(xintercept=0)+ggthemes::theme_few()+
+  geom_point(aes(color=as.factor(happy_together)),size=1)+#ylim(0,50)+xlim(0,50)+
+  facet_grid(happy_together~trial)+geom_hline(yintercept=0)+geom_vline(xintercept=0)+ggthemes::theme_few()+
   scale_color_viridis_d(option = "C")
 dev.off()
 
