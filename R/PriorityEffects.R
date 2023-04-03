@@ -13,7 +13,8 @@ if(length(grep("danielbuonaiuto", getwd())>0)) {
 }
 library(here)
 here()
-
+#2:38 pm7:29 am 
+load("firstrun.Rda")
 
 #define the run - Consider creating a dataframe with combinations of parms to test
 nruns<-1:2000
@@ -58,36 +59,48 @@ outputy$coexistence[which(outputy$sp1.Bfin!=0 & outputy$sp2.Bfin==0)]<-"sp1 win"
 outputy$coexistence[which(outputy$sp1.Bfin==0 & outputy$sp2.Bfin!=0)]<-"sp2 win"
 outputy$coexistence[which(outputy$sp1.Bfin!=0 & outputy$sp2.Bfin!=0)]<-"coexistence"
 
-outputy$`R2/R1`<-outputy$sp2_Rstar/outputy$sp1_Rstar
+outputy$`R1/R2`<-outputy$sp1_Rstar/outputy$sp2_Rstar
 outputy$`sen1/sen2`<-outputy$sp1_sense/outputy$sp2_sense
 outputy$`T1/T2`<-outputy$sp1_t50/outputy$sp2_t50
 outputy$`gmax1/gmax2`<-outputy$sp1_gmax/outputy$sp2_gmax
 
+outputy$logR1R2<-log(outputy$`R1/R2`)
+outputy$logsens1sens2<-log(outputy$`sen1/sen2`)
+outputy$loggmax1gmax2<-log(outputy$`gmax1/gmax2`)
+
 library(ggplot2)
 outputy2<-dplyr::filter(outputy,trial!="both fixed-different fract")
 
+
 jpeg("plots/firstrun_plots.jpeg",height=5,width=7, unit="in", res=300)
-ggplot(outputy2,aes(`sen1/sen2`,`R2/R1`))+
-  geom_point(aes(color=coexistence),size=1)+ylim(0,10)+xlim(0,10)+
-  facet_wrap(~trial)+geom_hline(yintercept=1)+geom_vline(xintercept=1)+ggthemes::theme_few()+
+ggplot(outputy2,aes(logsens1sens2,logR1R2))+
+  geom_point(aes(color=coexistence),size=1)+#ylim(0,10)+xlim(0,10)+
+  facet_wrap(~trial)+geom_hline(yintercept=0)+geom_vline(xintercept=0)+ggthemes::theme_few()+
   scale_color_viridis_d(option = "C")
 dev.off()
+
+#ggplot(outputy2,aes(`sen1/sen2`,`R1/R2`))+
+ # geom_point(aes(color=coexistence),size=1)+ylim(0,10)+xlim(0,10)+
+  #facet_wrap(~trial)+geom_hline(yintercept=1)+geom_vline(xintercept=1)+ggthemes::theme_few()+
+  #scale_color_viridis_d(option = "C")
+#dev.off()
 
 jpeg("plots/firstrun_plotsgmax.jpeg",height=5,width=7, unit="in", res=300)
-ggplot(outputy2,aes(`gmax1/gmax2`,`R2/R1`))+
-  geom_point(aes(color=coexistence),size=1)+ylim(-0,10)+xlim(0,2)+
-  facet_wrap(~trial)+geom_hline(yintercept=1)+geom_vline(xintercept=1)+ggthemes::theme_few()+
+ggplot(outputy2,aes(loggmax1gmax2,logR1R2))+
+  geom_point(aes(color=coexistence),size=1)+#ylim(-0,10)+xlim(0,2)+
+  facet_wrap(~trial)+geom_hline(yintercept=0)+geom_vline(xintercept=0)+ggthemes::theme_few()+
   scale_color_viridis_d(option = "C")
 dev.off()
+
 
 jpeg("plots/firstrun_plots_altview.jpeg",height=5,width=7, unit="in", res=300)
-ggplot(outputy,aes(`sen1/sen2`,`R2/R1`))+
-  geom_point(aes(color=coexistence),size=1)+ylim(0,50)+xlim(0,50)+
-  facet_grid(coexistence~trial)+geom_hline(yintercept=1)+geom_vline(xintercept=1)+ggthemes::theme_few()+
+ggplot(outputy,aes(logsens1sens2,logR1R2))+
+  geom_point(aes(color=coexistence),size=1)+#ylim(0,50)+xlim(0,50)+
+  facet_grid(coexistence~trial)+geom_hline(yintercept=0)+geom_vline(xintercept=0)+ggthemes::theme_few()+
   scale_color_viridis_d(option = "C")
 dev.off()
 
-ggplot(outputy2,aes(`T1/T2`,`R2/R1`))+
+ggplot(outputy2,aes(`T1/T2`,`R1/R2`))+
   geom_point(aes(color=coexistence),size=1)+ylim(0,10)+xlim(0,10)+
   facet_wrap(~trial)+geom_hline(yintercept=1)+geom_vline(xintercept=1)+ggthemes::theme_few()+
   scale_color_viridis_d(option = "C")
