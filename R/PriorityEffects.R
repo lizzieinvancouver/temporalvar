@@ -14,15 +14,16 @@ if(length(grep("danielbuonaiuto", getwd())>0)) {
 library(here)
 here()
 #2:38 pm7:29 am 
-load("firstrun.Rda")
+#load("firstrun.Rda")
 
 #define the run - Consider creating a dataframe with combinations of parms to test
-nruns<-1:2000
+nruns<-1:500
 outputy<-data.frame()
-for (n in c(1,nruns)) {
+outputy2<-data.frame()
+outputy3<-data.frame()
+for (j in c(1,nruns)) {
 
   nyrs <- 500
-  
   #define the environment for this run
   source(here("R","sourcefiles","PriEff_Envt.R"))
   
@@ -34,18 +35,11 @@ for (n in c(1,nruns)) {
   source(here("R","sourcefiles","PriEff_Model.R"))
 
   # #write out the results for this run
-  # source(here("R","sourcefiles","PriEff_Output.R"))
-  mydat<-data.frame(sp1_Rstar=Rstar[1],sp2_Rstar=Rstar[2],
-                    sp1_gmax=mean(gmax[,1]),sp1_gmax_sd=sd(gmax[,1]),
-                    sp2_gmax=mean(gmax[,2]),sp2_gmax_sd=sd(gmax[,2]),
-                    sp1_sense=xi_tau[1],sp2_sense=xi_tau[2],
-                    sp1_t50=mean(tau_g50[,1]),sp1_t50_sd=sd(tau_g50[,1]),
-                    sp2_t50=mean(tau_g50[,2]),sp2_t50_sd=sd(tau_g50[,2]), 
-                    sp1.Bfin=Bfin[500,1],sp2.Bfin=Bfin[500,2])
-  outputy<-rbind(mydat,outputy)
+   source(here("R","sourcefiles","PriEff_Output.R"))
+ 
 }
 #2:38 pm7:29 am 
-save.image("firstrun.Rda")
+#save.image("firstrun.Rda")
 outputy$trial<-NA
 outputy$trial[which(outputy$sp1_gmax==0.8 & outputy$sp2_gmax==0.8)]<-"time only"
 outputy$trial[which(outputy$sp1_gmax_sd==0.0 & outputy$sp2_gmax_sd!=0.0)]<-"sp1 fixed"

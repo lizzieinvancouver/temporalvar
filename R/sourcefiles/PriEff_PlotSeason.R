@@ -18,9 +18,7 @@ if (y%%10==3)plot(Bout.trim)
 ###################################################
 ### Dan is bad at lists, make a data frame######
 ###############################################
-#runnum <- 1:10 # each run gets a number
-#Bout <- mapply(cbind, Bout, "RunID"=runnum, SIMPLIFY=F) #  assign that number
-#Bout.df<-do.call(rbind.data.frame, Bout) ### make the list a data frame
+
 
 #a<-ggplot(Bout.df,aes(time,R))+geom_smooth()+facet_wrap(~as.factor(RunID)) ##plot
 
