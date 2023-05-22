@@ -3,6 +3,7 @@ rm(list=ls())
 #libraries and working directories, oh my!
 library(deSolve)
 library(scales)
+library(dplyr)
 require(MultiRNG)
 if(length(grep("lizzie", getwd())>0)) {
     setwd("~/Documents/git/projects/temporalvar/R")
@@ -23,7 +24,7 @@ outputy2<-data.frame()
 outputy3<-data.frame()
 for (j in c(1,nruns)) {
 
-  nyrs <- 500
+  nyrs <- 1000
   #define the environment for this run
   source(here("R","sourcefiles","PriEff_Envt.R"))
   
@@ -38,8 +39,52 @@ for (j in c(1,nruns)) {
    source(here("R","sourcefiles","PriEff_Output.R"))
  
 }
-#2:38 pm7:29 am 
-#save.image("firstrun.Rda")
+#9:44 am 
+save.image("firstrun.Rda")
+
+#####now plot and work with data
+check<-read.csv("R/output/prieff_params.csv")
+
+
+check2<-read.csv("R/output/prieff_acrossyr_params.csv")
+
+check2$pri<-check2$sp1_g50-check2$sp2_g50
+library(ggplot2)
+jpeg("plots/sensitivity_diffs.jpeg")
+ggpubr::ggarrange(ggplot(check2,aes(sp1_g50))+geom_histogram(bins=18),
+ggplot(check2,aes(sp2_g50))+geom_histogram(bins=18),
+ggplot(check2,aes(pri))+geom_histogram(bins=18))
+dev.off()
+jpeg("plots/xi_vs_t50.jpeg")
+ggpubr::ggarrange(ggplot(check2,aes(xi,sp1_g50))+geom_point(),
+ggplot(check2,aes(xi,sp2_g50))+geom_point(),
+ggplot(check2,aes(xi,pri))+geom_point())
+dev.off()
+check$coexist<-NA
+check$coexist[which(check$sp1_ex==0 & check$sp2_ex==0)]<-"both extinct"
+check$coexist[which(check$sp1_ex!=0 & check$sp2_ex==0)]<-"sp1 win"
+check$coexist[which(check$sp1_ex==0 & check$sp2_ex!=0)]<-"sp2 win"
+check$coexist[which(check$sp1_ex!=0 & check$sp2_ex!=0)]<-"coexist"
+
+
+
+check$`R1/R2`<-check$sp1_Rstar/check$sp2_Rstar
+check$`sen1/sen2`<-check$sp1_xi_tau/check$sp2_xi_tau
+
+
+check$logR1R2<-log(check$`R1/R2`)
+check$logsens1sens2<-log(check$`sen1/sen2`)
+
+jpeg("plots/coEx_prieff.jpeg")
+ggpubr::ggarrange(ggplot(check,aes(logsens1sens2,logR1R2))+
+  geom_point(aes(color=coexist),size=1)+geom_vline(xintercept = 0)+geom_hline(yintercept=0),
+ggplot(check,aes(logsens1sens2,logR1R2))+
+  geom_point(aes(color=coexist),size=1)+geom_vline(xintercept = 0)+geom_hline(yintercept=0)+
+  facet_wrap(~coexist),common.legend=TRUE)
+
+dev.off()
+
+
 outputy$trial<-NA
 outputy$trial[which(outputy$sp1_gmax==0.8 & outputy$sp2_gmax==0.8)]<-"time only"
 outputy$trial[which(outputy$sp1_gmax_sd==0.0 & outputy$sp2_gmax_sd!=0.0)]<-"sp1 fixed"
@@ -48,11 +93,7 @@ outputy$trial[which(outputy$sp1_gmax_sd!=0.0 & outputy$sp2_gmax_sd!=0.0)]<-"both
 outputy$trial[which(outputy$sp1_gmax_sd==0.0& outputy$sp1_gmax!=0.8 & outputy$sp2_gmax_sd==0.0 & outputy$sp2_gmax!=0.8)]<-"both fixed-different fract"
 
 
-outputy$coexistence<-NA
-outputy$coexistence[which(outputy$sp1.Bfin==0 & outputy$sp2.Bfin==0)]<-"both extinct"
-outputy$coexistence[which(outputy$sp1.Bfin!=0 & outputy$sp2.Bfin==0)]<-"sp1 win"
-outputy$coexistence[which(outputy$sp1.Bfin==0 & outputy$sp2.Bfin!=0)]<-"sp2 win"
-outputy$coexistence[which(outputy$sp1.Bfin!=0 & outputy$sp2.Bfin!=0)]<-"coexistence"
+
 
 outputy$sp1_fin<-NA
 outputy$sp2_fin<-NA
