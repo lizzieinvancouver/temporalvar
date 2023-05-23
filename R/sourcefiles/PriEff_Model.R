@@ -27,7 +27,7 @@ for (y in seq(1,nyrs)){
   #step when R went below R* for each species
   ind.Rstar<- c(min(which(Bout[[y]][,"R"]<Rstar[1]),120),min(which(Bout[[y]][,"R"]<Rstar[2]),120))
   #print(ind.Rstar)
-  source(here("R","sourcefiles","PriEff_PlotSeason.R"))
+ # source(here("R","sourcefiles","PriEff_PlotSeason.R"))
 
   #iterate N: seeds that survived but did not germinate + new seeds
   #get Bfin the first step where R<R*min

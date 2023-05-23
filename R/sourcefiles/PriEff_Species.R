@@ -46,9 +46,11 @@ par(mfrow=c(3,2))
 ax <- seq(0,max(tau_g50),1)
 h1 <- hist(tau_g50[,1],breaks=ax,plot= FALSE)
 h2 <- hist(tau_g50[,2],breaks=ax,plot= FALSE)
+if(FALSE){
 plot(h1,col=alpha(1,0.3))
 plot(h2,col=alpha(2,0.5),add=TRUE)
 #Day of 50% germination versus chilling (xi)
+
 plot(xi,tau_g50[,1], xlim=c(0,ceiling(max(xi))), ylim=c(0,max(tau_g50)),
      xaxs="i",yaxs="i", col=1,
      ylab="Day of 50% germination",xlab="chilling (xi)",
@@ -56,7 +58,7 @@ plot(xi,tau_g50[,1], xlim=c(0,ceiling(max(xi))), ylim=c(0,max(tau_g50)),
 points(tau_g50[,2]~xi, col=2)
 points(tau_delay[,1]~xi, col=1, pch=20)
 points(tau_delay[,2]~xi, col=2, pch=20)
-
+}
 
 # FRACTION ----------------------------------------------------------------
 #germination fraction g (describes germination rate as a function of chilling)
@@ -105,6 +107,8 @@ if (runif(1,0,1)<g_notxi) {
 
 #test plots to show relationship between germ and chill
 #  with the annual chill values on the x
+###close plot for speeding computation maybe 
+if(FALSE){
 for (i in c(1,nsp)){
   plot(x=seq(0,max(xi),length=10), y= seq(0,1,length=10), 
        type="n", xlim=c(0,40),ylim=c(0,1), xaxs="i",yaxs="i",
@@ -119,7 +123,7 @@ for (i in c(1,nsp)){
     abline(b=1/xi_rng[i],a=-xi_0[i]/xi_rng[i],col="blue", lty=1)
   }
 }
-
+}
 
 # DISTRIBUTE Germination over Days of Season ------------------------------
 #  tau_spr is a (days x spp) matrix that spreads  germination over season 
@@ -150,7 +154,8 @@ for (yr in c(1:nyrs)){
   g_daily[[yr]] <- list(data.frame(g1_byday),data.frame(g2_byday))
   g_cumulative[[yr]] <- data.frame(gc1,gc2)
   #Test Plot for cumulative germination
-  if (yr==1) {
+ if(FALSE){
+   if (yr==1) {
     plot(seq(0,days,1),rep(0,days+1),type="n",
          ylim=c(0,1.1),,xlim= c(0,80),
          xlab="days",ylab="cumulative germination by d",
@@ -160,8 +165,10 @@ for (yr in c(1:nyrs)){
   lines(seq(0,days,1),gc1,type="l",col=1)
   lines(seq(0,days,1), gc2,type="l",col=2)
 }
+  }
 
 #Test Plot for daily germination
+if(FALSE){
 for (yr in seq(1,nyrs,5)){
   if (yr==1) {
   plot(seq(0,days,1),rep(0,days+1),type="n",
@@ -174,4 +181,4 @@ for (yr in seq(1,nyrs,5)){
   #print(paste("summed daily g sp1 = ", sum(g_daily[[yr]][[1]]$y),"gmax = ",gmax[yr,1]))
   #print(paste("summed daily g sp2 = ", sum(g_daily[[yr]][[2]]$y),"gmax = ",gmax[yr,2]))
 }
-
+}

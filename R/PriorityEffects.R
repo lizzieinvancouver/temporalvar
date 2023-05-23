@@ -18,13 +18,13 @@ here()
 #load("firstrun.Rda")
 
 #define the run - Consider creating a dataframe with combinations of parms to test
-nruns<-1:500
+nruns<-1:1000
 outputy<-data.frame()
-outputy2<-data.frame()
-outputy3<-data.frame()
+#outputy2<-data.frame()
+#outputy3<-data.frame()
 for (j in c(1,nruns)) {
 
-  nyrs <- 1000
+  nyrs <- 300
   #define the environment for this run
   source(here("R","sourcefiles","PriEff_Envt.R"))
   
@@ -44,22 +44,35 @@ save.image("firstrun.Rda")
 
 #####now plot and work with data
 check<-read.csv("R/output/prieff_params.csv")
+colnames(check)
+check$trial<-NA
+check$trial[which(check$sp1_meangmax==0.8 & check$sp2_meangmax==0.8)]<-"time only"
+
+check$trial[which(check$sp1_meangmax!=0.8 & check$sp2_meangmax!=0.8 & check$sp1_SDgmax==0 & check$sp2_SDgmax==0)]<- "both fixed"
+
+check$trial[which(check$sp1_meangmax!=0.8 & check$sp2_meangmax!=0.8 & check$sp1_SDgmax!=0 & check$sp2_SDgmax==0)]<- "sp2 fixed"
+
+check$trial[which(check$sp1_meangmax!=0.8 & check$sp2_meangmax!=0.8 & check$sp1_SDgmax==0 &check$sp2_SDgmax!=0)]<- "sp1 fixed"
+
+check$trial[which(check$sp1_meangmax!=0.8 & check$sp2_meangmax!=0.8
+                  & check$sp1_SDgmax!=0 & check$sp2_SDgmax!=0)]<- "varying"
 
 
-check2<-read.csv("R/output/prieff_acrossyr_params.csv")
 
-check2$pri<-check2$sp1_g50-check2$sp2_g50
+
+
 library(ggplot2)
-jpeg("plots/sensitivity_diffs.jpeg")
-ggpubr::ggarrange(ggplot(check2,aes(sp1_g50))+geom_histogram(bins=18),
-ggplot(check2,aes(sp2_g50))+geom_histogram(bins=18),
-ggplot(check2,aes(pri))+geom_histogram(bins=18))
-dev.off()
-jpeg("plots/xi_vs_t50.jpeg")
-ggpubr::ggarrange(ggplot(check2,aes(xi,sp1_g50))+geom_point(),
-ggplot(check2,aes(xi,sp2_g50))+geom_point(),
-ggplot(check2,aes(xi,pri))+geom_point())
-dev.off()
+
+
+check$dif<-check$sp1_xi_tau-check$sp2_xi_tau
+ggpubr::ggarrange(ggplot(check,aes(sp1_xi_tau))+geom_histogram(bins=30),
+ggplot(check,aes(sp2_xi_tau))+geom_histogram(bins=30),
+ggplot(check,aes(dif))+geom_histogram(bins=30))
+
+
+
+
+
 check$coexist<-NA
 check$coexist[which(check$sp1_ex==0 & check$sp2_ex==0)]<-"both extinct"
 check$coexist[which(check$sp1_ex!=0 & check$sp2_ex==0)]<-"sp1 win"
@@ -75,6 +88,8 @@ check$`sen1/sen2`<-check$sp1_xi_tau/check$sp2_xi_tau
 check$logR1R2<-log(check$`R1/R2`)
 check$logsens1sens2<-log(check$`sen1/sen2`)
 
+
+
 jpeg("plots/coEx_prieff.jpeg")
 ggpubr::ggarrange(ggplot(check,aes(logsens1sens2,logR1R2))+
   geom_point(aes(color=coexist),size=1)+geom_vline(xintercept = 0)+geom_hline(yintercept=0),
@@ -84,100 +99,22 @@ ggplot(check,aes(logsens1sens2,logR1R2))+
 
 dev.off()
 
+head(check)
+ggpubr::ggarrange(ggplot(check,aes(sp1_meangmax))+geom_histogram()+xlim(0,1),
+ggplot(check,aes(sp2_meangmax))+geom_histogram()+xlim(0,1))
 
-outputy$trial<-NA
-outputy$trial[which(outputy$sp1_gmax==0.8 & outputy$sp2_gmax==0.8)]<-"time only"
-outputy$trial[which(outputy$sp1_gmax_sd==0.0 & outputy$sp2_gmax_sd!=0.0)]<-"sp1 fixed"
-outputy$trial[which(outputy$sp1_gmax_sd!=0.0 & outputy$sp2_gmax_sd==0.0)]<-"sp2 fixed"
-outputy$trial[which(outputy$sp1_gmax_sd!=0.0 & outputy$sp2_gmax_sd!=0.0)]<-"both sensitive"
-outputy$trial[which(outputy$sp1_gmax_sd==0.0& outputy$sp1_gmax!=0.8 & outputy$sp2_gmax_sd==0.0 & outputy$sp2_gmax!=0.8)]<-"both fixed-different fract"
+ggpubr::ggarrange(ggplot(check,aes(sp1_mean_tau_g50))+geom_histogram(),
+                  ggplot(check,aes(sp2_mean_tau_g50))+geom_histogram())
 
+ggpubr::ggarrange(ggplot(check,aes(sp1_Rstar))+geom_histogram()+xlim(0,1),
+                  ggplot(check,aes(sp2_Rstar))+geom_histogram()+xlim(0,1))
 
+ggpubr::ggarrange(ggplot(check,aes(sp1_xi100))+geom_histogram()+xlim(0,16),
+                  ggplot(check,aes(sp2_xi100))+geom_histogram()+xlim(0,16))
 
+ggplot(check,aes(logsens1sens2,logR1R2))+
+  geom_point(aes(color=coexist),size=1)+geom_vline(xintercept = 0)+geom_hline(yintercept=0)+
+  facet_grid(trial~coexist)
 
-outputy$sp1_fin<-NA
-outputy$sp2_fin<-NA
-outputy$sp1_fin<-ifelse(outputy$sp1.Bfin==0,0,1)
-outputy$sp2_fin<-ifelse(outputy$sp2.Bfin==0,0,1)
-outputy$happy_together<-outputy$sp1_fin+outputy$sp2_fin
-
-outputy$`R1/R2`<-outputy$sp1_Rstar/outputy$sp2_Rstar
-outputy$`sen1/sen2`<-outputy$sp1_sense/outputy$sp2_sense
-outputy$`T1/T2`<-outputy$sp1_t50/outputy$sp2_t50
-outputy$`gmax1/gmax2`<-outputy$sp1_gmax/outputy$sp2_gmax
-
-outputy$logR1R2<-log(outputy$`R1/R2`)
-outputy$logsens1sens2<-log(outputy$`sen1/sen2`)
-outputy$loggmax1gmax2<-log(outputy$`gmax1/gmax2`)
-
-library(ggplot2)
-outputy2<-dplyr::filter(outputy,trial!="both fixed-different fract")
-
-
-jpeg("plots/firstrun_plots.jpeg",height=5,width=7, unit="in", res=300)
-ggplot(outputy2,aes(logsens1sens2,logR1R2))+
-  geom_point(aes(color=happy_together),size=1)+#ylim(0,10)+xlim(0,10)+
-  facet_wrap(~trial)+geom_hline(yintercept=0)+geom_vline(xintercept=0)+ggthemes::theme_few()+
-  scale_color_viridis_c(option = "C")
-dev.off()
-
-ggplot(outputy2,aes(logsens1sens2,logR1R2))+
-  geom_point(aes(color=as.factor(happy_together)),size=1)+#ylim(0,10)+xlim(0,10)+
-  facet_wrap(~trial)+geom_hline(yintercept=0)+geom_vline(xintercept=0)+ggthemes::theme_few()+
-  scale_color_viridis_d(option = "C")
-
-#ggplot(outputy2,aes(`sen1/sen2`,`R1/R2`))+
- # geom_point(aes(color=coexistence),size=1)+ylim(0,10)+xlim(0,10)+
-  #facet_wrap(~trial)+geom_hline(yintercept=1)+geom_vline(xintercept=1)+ggthemes::theme_few()+
-  #scale_color_viridis_d(option = "C")
-#dev.off()
-
-jpeg("plots/firstrun_plotsgmax.jpeg",height=5,width=7, unit="in", res=300)
-ggplot(outputy2,aes(loggmax1gmax2,logR1R2))+
-  geom_point(aes(color=happy_together),size=1)+#ylim(-0,10)+xlim(0,2)+
-  facet_wrap(~trial)+geom_hline(yintercept=0)+geom_vline(xintercept=0)+ggthemes::theme_few()+
-  scale_color_viridis_c(option = "C")
-dev.off()
-
-
-jpeg("plots/firstrun_plots_altview.jpeg",height=5,width=7, unit="in", res=300)
-ggplot(outputy,aes(logsens1sens2,logR1R2))+
-  geom_point(aes(color=as.factor(happy_together)),size=1)+#ylim(0,50)+xlim(0,50)+
-  facet_grid(happy_together~trial)+geom_hline(yintercept=0)+geom_vline(xintercept=0)+ggthemes::theme_few()+
-  scale_color_viridis_d(option = "C")
-dev.off()
-
-ggplot(outputy2,aes(`T1/T2`,`R1/R2`))+
-  geom_point(aes(color=coexistence),size=1)+ylim(0,10)+xlim(0,10)+
-  facet_wrap(~trial)+geom_hline(yintercept=1)+geom_vline(xintercept=1)+ggthemes::theme_few()+
-  scale_color_viridis_d(option = "C")
-
-ggplot(outputy,aes(`sen1/sen2`,`R2/R1`))+
-  geom_point(aes(color=coexistence,shape=trial),size=1)+ylim(0,10)+xlim(0,10)+
-  geom_hline(yintercept=1)+geom_vline(xintercept=1)+ggthemes::theme_few()+scale_color_viridis_d(option = "C")
-
-ggplot(outputy,aes(`T1/T2`,`R2/R1`))+
-  geom_point(aes(color=coexistence,shape=trial),size=1)+ylim(0,10)+xlim(0,10)+
-  geom_hline(yintercept=1)+geom_vline(xintercept=1)+ggthemes::theme_few()+scale_color_viridis_d(option = "C")
-
-
-ggplot(outputy,aes(sp1_Rstar))+geom_histogram(aes(fill=coexist),bins=100)
-ggplot(outputy,aes(sp2_Rstar))+geom_histogram(aes(fill=coexist),bins=100)
-
-
-outputy2<-dplyr::filter(outputy,sp1_Rstar<1)
-outputy2<-dplyr::filter(outputy2,sp2_Rstar<1)
-outputy2$Rratio<-outputy2$sp1_Rstar/outputy2$sp2_Rstar
-
-outputy2$senratio<-outputy2$sp1_sense/outputy2$sp2_sense
-
-ggplot(outputy2,aes(Rratio))+geom_histogram(aes(fill=coexist),bins=100)
-ggplot(outputy2,aes(senratio))+geom_histogram(aes(fill=coexist),bins=100)
-
-# #plot for testing
-# par(mfrow=c(1,1))
-# plot(seq(1,nyrs,dt),Bfin[,2],col="blue")
-# points(seq(1,nyrs,dt),Bfin[,1],col="red")
-# 
 
 
