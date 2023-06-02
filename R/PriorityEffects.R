@@ -19,7 +19,7 @@ here()
 #load("firstrun.Rda")
 
 #define the run - Consider creating a dataframe with combinations of parms to test
-nruns<-10
+nruns<-1000
 outputy<-data.frame()
 #outputy2<-data.frame()
 #outputy3<-data.frame()
