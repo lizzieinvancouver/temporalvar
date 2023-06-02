@@ -5,6 +5,7 @@ library(deSolve)
 library(scales)
 library(dplyr)
 require(MultiRNG)
+library(ggpubr)
 if(length(grep("lizzie", getwd())>0)) {
     setwd("~/Documents/git/projects/temporalvar/R")
 }
@@ -18,11 +19,11 @@ here()
 #load("firstrun.Rda")
 
 #define the run - Consider creating a dataframe with combinations of parms to test
-nruns<-1:1000
+nruns<-10
 outputy<-data.frame()
 #outputy2<-data.frame()
 #outputy3<-data.frame()
-for (j in c(1,nruns)) {
+for (j in c(1:nruns)) {
 
   nyrs <- 300
   #define the environment for this run
@@ -100,17 +101,17 @@ ggplot(check,aes(logsens1sens2,logR1R2))+
 dev.off()
 
 head(check)
-ggpubr::ggarrange(ggplot(check,aes(sp1_meangmax))+geom_histogram()+xlim(0,1),
-ggplot(check,aes(sp2_meangmax))+geom_histogram()+xlim(0,1))
+ggpubr::ggarrange(ggplot(check,aes(sp1_meangmax))+geom_histogram(),
+ggplot(check,aes(sp2_meangmax))+geom_histogram())
 
 ggpubr::ggarrange(ggplot(check,aes(sp1_mean_tau_g50))+geom_histogram(),
                   ggplot(check,aes(sp2_mean_tau_g50))+geom_histogram())
 
-ggpubr::ggarrange(ggplot(check,aes(sp1_Rstar))+geom_histogram()+xlim(0,1),
-                  ggplot(check,aes(sp2_Rstar))+geom_histogram()+xlim(0,1))
+ggpubr::ggarrange(ggplot(check,aes(sp1_Rstar))+geom_histogram(),
+                  ggplot(check,aes(sp2_Rstar))+geom_histogram())
 
-ggpubr::ggarrange(ggplot(check,aes(sp1_xi100))+geom_histogram()+xlim(0,16),
-                  ggplot(check,aes(sp2_xi100))+geom_histogram()+xlim(0,16))
+ggpubr::ggarrange(ggplot(check,aes(sp1_xi100))+geom_histogram(),
+                  ggplot(check,aes(sp2_xi100))+geom_histogram())
 
 ggplot(check,aes(logsens1sens2,logR1R2))+
   geom_point(aes(color=coexist),size=1)+geom_vline(xintercept = 0)+geom_hline(yintercept=0)+
