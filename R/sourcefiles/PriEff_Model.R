@@ -32,7 +32,7 @@ for (y in seq(1,nyrs)){
   #iterate N: seeds that survived but did not germinate + new seeds
   #get Bfin the first step where R<R*min
   Bfin[y,] <- c(Bout[[y]][,"B1"][ind.Rstar[1]],Bout[[y]][,"B2"][ind.Rstar[2]])
-  N[y,] <- Bfin[y,]*phi + ifelse(y==1,N0*s*(1-gmax[y,]), N[y-1,]*s*(1-gmax[y,]))  
+  N[y,] <- Bfin[y,]*phi + N0*s*(1-gmax[y,])  
   N[y,] <- N[y,]*(N[y,] > ext)            # call very low densities true zero
-  if(isFALSE(sum(N)>0)) break             # if all species have gone extinct, stop
+  if(isFALSE(sum(N[y,])>0)) break             # if all species have gone extinct, stop
 }
