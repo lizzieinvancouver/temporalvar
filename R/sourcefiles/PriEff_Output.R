@@ -9,9 +9,8 @@ mydat<-data.frame(sp1_Rstar=Rstar[1],sp2_Rstar=Rstar[2],
              sp1_mean_tau_g50=mean(tau_g50[,1]),sp1_SD_tau_g50=sd(tau_g50[,1]),
              sp2_mean_tau_g50=mean(tau_g50[,2]),sp2_SD_tau_g50=sd(tau_g50[,2]),
              sp1_ex=N[nyrs,1],sp2_ex=N[nyrs,2],
-                 
-             run=nruns[j])
-                   outputy<-rbind(mydat,outputy)
+             run=j)
+outputy<-rbind(mydat,outputy)
        ###add all paramenters (env too)
                    ##write my dat _run number
 ###across year dynamics   
@@ -42,4 +41,4 @@ mydat<-data.frame(sp1_Rstar=Rstar[1],sp2_Rstar=Rstar[2],
 #head(outputy3)
 write.csv(outputy,"R/output/prieff_params.csv",row.names=FALSE)
 #write.csv(outputy2,"R/output/prieff_acrossyr_params.csv",row.names=FALSE)
-print(paste("done",run=nruns[j]))
+print(paste("done",run=j))
