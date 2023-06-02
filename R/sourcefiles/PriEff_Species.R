@@ -7,7 +7,7 @@ nsp <- 2  #this is a 2-species model
 
 #create arrays for within and between year dynamics
 N <- matrix(rep(0), nyrs, nsp)   # number of seeds prior to winter
-N0 <- c(100,0)             # initial density of seeds $THis makes it a one species model
+N0 <- rep(100,nsp)           # initial density of seeds $THis makes it a one species model
 B0 <- matrix(rep(0),nyrs,nsp)    # initial biomass in year y
 Bfin <- matrix(rep(0),nyrs,nsp)  # end of season biomass in year y
 Bout <- list()                   # holds within season dynamics for each year
@@ -74,12 +74,13 @@ points(tau_delay[,2]~xi, col=2, pch=20)
 
 g_notxi <- 0.2  #proportion of runs where both species are %g- insensitive to chilling
                  # and proportion of species that are %g-insens in remaining runs
+xi_100 <- 0
 
 if (runif(1,0,1)<g_notxi) {
   #25% of runs have both species are chilling insensitive at have gmax=0.8
   gmin = rep(0,nsp)
   gmax = matrix(rep(0.8,times=nsp*nyrs),ncol=nsp)
-  print(gmin)
+  #print(gmin)
 } else {
   #remaining 75% of runs have a 25% insensitive species and 75% sensitive species
   #25% of species are insensitive and get a fixed min germ between 0.5-1, rest are sensitive and get min germ of 0
@@ -87,7 +88,7 @@ if (runif(1,0,1)<g_notxi) {
   xi_0 <- rnorm(nsp,2,1)    #weeks of chilling to exceed 0 germination
   while (isFALSE(all(xi_0>0))) xi_0 <- rnorm(nsp,2,1)  #truncates normal to >0
   xi_rng <- rnorm(nsp,6,2) 
-  xi_100 <- xi_0 + xi_rng  #chilling weeks required for 100% germ
+  xi_100 <- xi_0 + xi_rng  #chilling weeks required for max germ
   
   #max germination for chilling sensitive species
   gmax <- xi %*% t(1/xi_rng) - matrix(rep(xi_0/xi_rng,nyrs),nrow=nyrs,byrow=TRUE)
