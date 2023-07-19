@@ -19,7 +19,7 @@ here()
 #load("firstrun.Rda")
 
 #define the run - Consider creating a dataframe with combinations of parms to test
-nruns<-1000
+nruns<-10000
 outputy<-data.frame()
 #outputy2<-data.frame()
 #outputy3<-data.frame()
@@ -42,7 +42,7 @@ for (j in c(1:nruns)) {
 }
 #9:44 am 
 save.image("firstrun.Rda")
-
+### Thought is the tradeoff about phenology (frost risk) acrually in this model in any way?
 #####now plot and work with data
 check<-read.csv("R/output/prieff_params.csv")
 colnames(check)
@@ -112,10 +112,24 @@ ggpubr::ggarrange(ggplot(check,aes(sp1_Rstar))+geom_histogram(),
 
 ggpubr::ggarrange(ggplot(check,aes(sp1_xi100))+geom_histogram(),
                   ggplot(check,aes(sp2_xi100))+geom_histogram())
+check2<-filter(check,coexist=="coexist")
+check2<-filter(check2,trial %in% c("time only", "varying"))
 
+check2$ave_chill<-ifelse(check2$xi.mu>2,"8.5","4.5")
+jpeg("plots/coexistance_runner.jpeg")
+
+ggplot(check2,aes(logsens1sens2,logR1R2))+
+  geom_point(aes(),size=1)+geom_smooth(method="lm")+geom_vline(xintercept = 0)+geom_hline(yintercept=0)+
+  facet_grid(trial~ave_chill)+ggthemes::theme_base()
+dev.off()
+check2 %>%group_by(trial,ave_chill) %>% count()
+
+unique(check2$xi.mu)
+                         
 ggplot(check,aes(logsens1sens2,logR1R2))+
-  geom_point(aes(color=coexist),size=1)+geom_vline(xintercept = 0)+geom_hline(yintercept=0)+
-  facet_grid(trial~coexist)
+  geom_point(aes(color=coexist),size=1)+geom_smooth(method="lm")+geom_vline(xintercept = 0)+geom_hline(yintercept=0)+
+  facet_grid(trial~xi.mu)
 
 
 
+table(check2$trial,check2$xi.mu)

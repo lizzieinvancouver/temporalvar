@@ -72,19 +72,19 @@ points(tau_delay[,2]~xi, col=2, pch=20)
 #     xi_100 = xi_0 + xi_rngis the number of chilling until  species reaches 100% germination
 #     gmax is the total germination fraction in year yr with chilling xi[yr]
 
-g_notxi <- 0.2  #proportion of runs where both species are %g- insensitive to chilling
+g_notxi <- 0.5  #proportion of runs where both species are %g- insensitive to chilling
                  # and proportion of species that are %g-insens in remaining runs
 xi_100 <- 0
 
 if (runif(1,0,1)<g_notxi) {
-  #25% of runs have both species are chilling insensitive at have gmax=0.8
+  #50% of runs have both species are chilling insensitive at have gmax=0.8
   gmin = rep(0,nsp)
   gmax = matrix(rep(0.8,times=nsp*nyrs),ncol=nsp)
   #print(gmin)
 } else {
   #remaining 75% of runs have a 25% insensitive species and 75% sensitive species
   #25% of species are insensitive and get a fixed min germ between 0.5-1, rest are sensitive and get min germ of 0
-  gmin <- as.numeric(runif(nsp,0,1)<g_notxi) * runif(nsp,0.5,1)  #if insensitive to xi, get gmin between 0.5,1
+  gmin <- rep(0,nsp)#as.numeric(runif(nsp,0,1)<g_notxi) * runif(nsp,0.5,1)  #if insensitive to xi, get gmin between 0.5,1
   xi_0 <- rnorm(nsp,2,1)    #weeks of chilling to exceed 0 germination
   while (isFALSE(all(xi_0>0))) xi_0 <- rnorm(nsp,2,1)  #truncates normal to >0
   xi_rng <- rnorm(nsp,6,2) 

@@ -4,11 +4,11 @@
 mydat<-data.frame(sp1_Rstar=Rstar[1],sp2_Rstar=Rstar[2],
              sp1_meangmax=mean(gmax[,1]),sp1_SDgmax=sd(gmax[,1]),
              sp2_meangmax=mean(gmax[,2]),sp2_SDgmax=sd(gmax[,2]),
-             sp1_xi100=xi_100[1],sp2_xi100=xi_100[2],
+             #sp1_xi100=xi_100[1],sp2_xi100=xi_100[2],
                sp1_xi_tau=xi_tau[1],sp2_xi_tau=xi_tau[2],
              sp1_mean_tau_g50=mean(tau_g50[,1]),sp1_SD_tau_g50=sd(tau_g50[,1]),
              sp2_mean_tau_g50=mean(tau_g50[,2]),sp2_SD_tau_g50=sd(tau_g50[,2]),
-             sp1_ex=N[nyrs,1],sp2_ex=N[nyrs,2],
+             sp1_ex=N[nyrs,1],sp2_ex=N[nyrs,2], xi.mu=xi.mu,
              run=j)
 outputy<-rbind(mydat,outputy)
        ###add all paramenters (env too)
