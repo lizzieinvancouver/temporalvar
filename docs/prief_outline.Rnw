@@ -1,0 +1,70 @@
+\documentclass{article}
+
+\begin{document}
+\SweaveOpts{concordance=TRUE}
+
+\begin{enumerate}
+\item \textbf{Even within local ecological communities there is tremendous diversity in how orgainism respond to environmental varation}
+\item These inter-specific differences in environmental repsonses are key determinants of community intereactions, determining the spectrum of coexistiance to competititve exclusion
+\item The environment is changing, which is likely to disrupt these long standing interactions and restructure communties
+\item forcasting how these communiteis change requires understanding the realtionship between, environment and interaction in both the short and long term.
+\item This is critical for protecting biodviersity
+\end{enumerate}
+
+\begin{enumerate}
+\item \textbf{Germination behavior is an important focal point for this inquiry for serveral reasons}
+\item Regenerationn niche will be limiting with climate
+\item Germination is strongly environmentally determined through dormanct
+\end{enumerate}
+
+
+\begin{enumerate}
+\item \textbf{Dormany temperate response effect interactions in 2 ways}
+\item Within season dynamics- seasonal priority effects, density dependence
+\item Among season dynamics- storage effetc
+\end{enumerate}
+
+\begin{enumerate}
+\item \textbf{These two temporal scale likely interaction in complicated ways and may have varying impacts on long term coexistcne}
+\item seasonal priority effect can improve with seasonal competitive symetry if weaker competor germiantes first, or give a strong comptetive advantage
+\item strong differences in germination fraction may also increase likelihood of competitive exclusion of weaker germinatn, or balanceing it by increasing intraspecific competition amoung the dominant germinants
+\item speed and fraction often positively covary which can amplify the dynamics discused above
+
+\item We don't know how transient these within season effects are
+\item This is, in part, because they can interact in a funny way with among season dynamics
+\item Low germination fraction means more seedbank build up , but less seed bank replenishment
+
+\end{enumerate}
+
+\begin{enumerate}
+\item \textbf{These Environmental responses maybe even more complex for species with phyisological dormancy}
+\item soil moisutre and temperature are major cues.
+\item for species with dormancy its even more complicationed because cold stratification matters
+\item But even species that share dormancy categories, likely have different responses to temerpature.
+\item The temperature response and competive dynamics of these species are understudied,
+
+\end{enumerate}
+
+
+\begin{enumerate}
+\item \textbf{In this study we}
+\item Evaluate the temperautre response for cooccur speices with phyisiological dormancy to give us a foundation expectation for their with and across sesaons dynamics, under varying temperature regimes.
+\item Make a model to understand these dynamics under different climate change scenarios
+\item
+\end{enumerate}
+
+\section{Results}
+Species have really different responses to temperature variation. Under some conditions species had similar germ percentages and rates. Under others same rates but diffrernt times. And yet under some differences in both.
+
+(Figure: some plot from germination trials (See example))
+
+Relationship between R*,Temporal priority effect, and end of season grow difference. Make a figure, will need to run model again and save end of season growth.
+
+Coexistence and Climate change:
+Does the coexistence trade off shift with climate change
+
+
+
+
+
+\end{document}

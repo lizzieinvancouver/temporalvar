@@ -122,6 +122,7 @@ ggplot(check2,aes(logsens1sens2,logR1R2))+
   geom_point(aes(),size=1)+geom_smooth(method="lm")+geom_vline(xintercept = 0)+geom_hline(yintercept=0)+
   facet_grid(trial~ave_chill)+ggthemes::theme_base()
 dev.off()
+
 check2 %>%group_by(trial,ave_chill) %>% count()
 
 unique(check2$xi.mu)
