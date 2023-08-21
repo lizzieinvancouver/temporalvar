@@ -72,7 +72,7 @@ points(tau_delay[,2]~xi, col=2, pch=20)
 #     xi_100 = xi_0 + xi_rngis the number of chilling until  species reaches 100% germination
 #     gmax is the total germination fraction in year yr with chilling xi[yr]
 
-g_notxi <- .5  #proportion of runs where both species are %g- insensitive to chilling
+g_notxi <- 0.5  #proportion of runs where both species are %g- insensitive to chilling
                  # and proportion of species that are %g-insens in remaining runs
 xi_100 <- 0
 
