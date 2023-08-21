@@ -18,8 +18,10 @@ here()
 #2:38 pm7:29 am 
 #load("firstrun.Rda")
 
+dev.off()
+
 #define the run - Consider creating a dataframe with combinations of parms to test
-nruns<-10000
+nruns<-10
 outputy<-data.frame()
 #outputy2<-data.frame()
 #outputy3<-data.frame()
@@ -40,8 +42,11 @@ for (j in c(1:nruns)) {
    source(here("R","sourcefiles","PriEff_Output.R"))
  
 }
+
+
+sapply(g_cumulative, tail, 1) ## Dan think this should be the realized germinaiton fraction
 #9:44 am 
-save.image("firstrun.Rda")
+#save.image("firstrun.Rda")
 ### Thought is the tradeoff about phenology (frost risk) acrually in this model in any way?
 #####now plot and work with data
 check<-read.csv("R/output/prieff_params.csv")
