@@ -35,7 +35,7 @@ Rstar <- (m/(a*(c-m*u)))^(1/theta)
 #   cut off max delay at 90 days
 # 
 xi_tau <- runif(nsp,0,1)    # delay sensitivity to chill - exponential rate of decreased delay from 30
-tau_delay <- 30*exp(-t(xi_tau%*%t(xi)))  
+tau_delay <- 30*exp(-t(xi_tau%*%t(xi)))  #exponential decay from 30 at rate xi_tau
 tau_g50 <-rpois(nsp*nyrs,tau_delay)  #Day of 50% germination
 tau_g50 <- pmin(tau_g50,90)          #max delay is 90 days
 dim(tau_g50) <- dim(tau_delay)
@@ -77,17 +77,18 @@ g_notxi <- 0.5  #proportion of runs where both species are %g- insensitive to ch
 xi_100 <- 0
 
 if (runif(1,0,1)<g_notxi) {
-  #50% of runs have both species are chilling insensitive at have gmax=0.8
+  #g_notxi% of runs have both species are chilling insensitive at have gmax=0.8
   gmin = rep(0,nsp)
   gmax = matrix(rep(0.8,times=nsp*nyrs),ncol=nsp)
   #print(gmin)
 } else {
   #remaining 75% of runs have a 25% insensitive species and 75% sensitive species
   #25% of species are insensitive and get a fixed min germ between 0.5-1, rest are sensitive and get min germ of 0
-  gmin <- rep(0,nsp)#as.numeric(runif(nsp,0,1)<g_notxi) * runif(nsp,0.5,1)  #if insensitive to xi, get gmin between 0.5,1
+  gmin <- rep(0,nsp)  # all species start at 0 germination 
+  #gmin <- as.numeric(runif(nsp,0,1)<g_notxi) * runif(nsp,0.5,1)  #if insensitive to xi, get gmin between 0.5,1
   xi_0 <- rnorm(nsp,2,1)    #weeks of chilling to exceed 0 germination
-  while (isFALSE(all(xi_0>0))) xi_0 <- rnorm(nsp,2,1)  #truncates normal to >0
-  xi_rng <- rnorm(nsp,6,2) 
+    while (isFALSE(all(xi_0>0))) xi_0 <- rnorm(nsp,2,1)  #ensures xi_0>0 by truncating normal to >0
+  xi_rng <- rnorm(nsp,6,2) #sensitivity of species increased chilling above minimum
   xi_100 <- xi_0 + xi_rng  #chilling weeks required for max germ
   
   #max germination for chilling sensitive species
