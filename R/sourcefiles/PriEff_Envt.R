@@ -16,17 +16,17 @@ eps <- 0.001                              # resource decay rate aside from uptak
 
 #Weeks of chilling prior to growing season in year y
 
-c_warm<- 0.5
+#c_warm<- 0.5
 
 if (runif(1,0,1)<c_warm) {
 
 
-xi.mu <- log(10)                       # mean of chilling distribution ## 
+xi.mu <- log(12)                       # mean of chilling distribution ## 
 xi.sigma <- .2                      # sd of chilling distribution
 xi <- rlnorm(nyrs, xi.mu, xi.sigma)
 }else {
   
-  xi.mu <- log(1)                       # mean of chilling distribution ## 
+  xi.mu <- log(6)                       # mean of chilling distribution ## 
   xi.sigma <- .2                   # sd of chilling distribution
   xi <- rlnorm(nyrs, xi.mu, xi.sigma)  
 }# chilling accumulated before each season
