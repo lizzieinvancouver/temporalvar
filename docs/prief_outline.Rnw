@@ -12,6 +12,21 @@
 
 \begin{figure}[h!]
   \centering
+ \includegraphics[width=\textwidth]{..//plots/germ_courses.jpeg}
+    \caption{alternate empirical plot style?}
+    \label{Fig:emp2}
+\end{figure}
+
+\begin{figure}[h!]
+  \centering
+ \includegraphics[width=\textwidth]{..//plots/examp_Ed_andPv.jpeg}
+    \caption{case study to ease in drcs and highlight the compex relationship between time and fraction}
+    \label{Fig:case}
+\end{figure}
+
+
+\begin{figure}[h!]
+  \centering
  \includegraphics[width=\textwidth]{..//plots/coexistance_runner.jpeg}
     \caption{4\% of high chill cases result in coexistence and 3\% of low chill cases. The slope gets steeper in low chill scenario. Overall pretty limited change to coexistence overall, you just need more exteme differences in sensitivity to acheive it. Does this mean we need to tune the parameters?}
     \label{Fig:coexistence}
