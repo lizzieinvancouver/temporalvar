@@ -3,6 +3,13 @@
 \begin{document}
 \SweaveOpts{concordance=TRUE}
 
+\section{Framing}
+\begin{enumerate}
+\item Focus on SPE's. We think they matter but we can't, tell in the long term because of covariation with germination percentage. Use emprical data to show that similar species have different phenological responses to temperature, but their germination fractions differ too. Use our models to isolate priorty effects (only bring the runs where both species germinate to the same fraction)
+\item Lead w/ SPE's. Set up that these are dictated by temperature. But, they aren't the only aspect of germination that is...fraction is too. Or just introduce the idea multple aspects of germination are controlled by environment. They covary (see emprical data). They have similar within year implications (greater diffs result in more biomass for earlier/larger fraction). Different across year ( ie storage effect for germ \% repeated bad years followed by a good year year means super good, but phenology doesn't work that way. Thus climate change might affect the coexistence/competions trade offs differently. Climate change: When chilling is high, chilling is met, so sensitivity differences manifest in smaller realized differences in phenolgoy and fraction, so Rstar really dominates the interaction. when chilling goes down, sensitivity differences generate more pronounced realized pheno fract differences so the shape of the tradeoff changes.)
+\end{enumerate}
+
+
 \begin{figure}[h!]
   \centering
  \includegraphics[width=\textwidth]{..//plots/empricalplots2.jpeg}
