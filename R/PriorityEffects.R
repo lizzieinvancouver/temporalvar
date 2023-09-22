@@ -59,7 +59,6 @@ fracking<-read.csv("R/output/prieff_params_withfractvar.csv")
 
 
 check$g_time_dif<-abs(check$sp1_mean_tau_g50-check$sp2_mean_tau_g50)
-check$g_time_dif
 
 fracking$g_time_dif<-abs(fracking$sp1_mean_tau_g50-fracking$sp2_mean_tau_g50)
 fracking$fracdiff<-abs(fracking$sp1_meangmax-fracking$sp2_meangmax)
@@ -119,7 +118,7 @@ p2<-ggplot(check,aes(logsens1sens2,logt501t502))+geom_point(size=0.2)+facet_wrap
 p3<-ggplot(fracking,aes(fracdiff))+geom_density(aes(fill=ave_chill),position="identity",alpha=0.4)+ggthemes::theme_base()+
   scale_fill_viridis_d()
 
-p4<-ggplot(fracking,aes(`loggmax1/gmax2`,`logxi_rng_1/xi_rng_2`))+geom_point(size=0.2)+facet_wrap(~ave_chill)+
+p4<-ggplot(fracking,aes(`logxi_rng_1/xi_rng_2`,`loggmax1/gmax2`))+geom_point(size=0.2)+facet_wrap(~ave_chill)+
   ggthemes::theme_base()
 jpeg("plots/coexistance_chilldiffs.jpeg")
 ggpubr::ggarrange(p1,p2,p3,p4,ncol=2,nrow=2)
@@ -131,27 +130,27 @@ round(table(fracking2$ave_chill)/table(fracking$ave_chill),2)
 
 lm(check2$logR1R2~check2$logsens1sens2*check2$ave_chill)
 
-jpeg("plots/coexistance_runner.jpeg")
+jpeg("plots/coexistance_runner.jpeg",width = 8,height=10,unit='in',res=200)
 ggpubr::ggarrange(ggplot(check2,aes(logsens1sens2,logR1R2))+
-  geom_point(aes(color=timecat),size=3)+geom_smooth(method="lm",fullrange=TRUE)+geom_vline(xintercept = 0)+geom_hline(yintercept=0)+
+  geom_point(aes(color=g_time_dif),size=3)+geom_smooth(method="lm",fullrange=TRUE)+geom_vline(xintercept = 0)+geom_hline(yintercept=0)+
   facet_wrap(~ave_chill)+ggthemes::theme_base()+scale_color_viridis_c(),
 
 ggplot(fracking2,aes(logsens1sens2,logR1R2))+
-  geom_point(aes(color=timecat),size=3)+geom_smooth(method="lm",fullrange=TRUE)+geom_vline(xintercept = 0)+geom_hline(yintercept=0)+
+  geom_point(aes(color=g_time_dif),size=3)+geom_smooth(method="lm",fullrange=TRUE)+geom_vline(xintercept = 0)+geom_hline(yintercept=0)+
   facet_wrap(~ave_chill)+ggthemes::theme_base()+scale_color_viridis_c(),
 
 ggplot(fracking2,aes(`logxi_rng_1/xi_rng_2`,logR1R2))+
-  geom_point(aes(color=timecat),size=3)+geom_smooth(method="lm",fullrange=TRUE)+geom_vline(xintercept = 0)+geom_hline(yintercept=0)+
+  geom_point(aes(color=g_time_dif),size=3)+geom_smooth(method="lm",fullrange=TRUE)+geom_vline(xintercept = 0)+geom_hline(yintercept=0)+
   facet_wrap(~ave_chill)+ggthemes::theme_base()+scale_color_viridis_c(),
 
 ggplot(fracking2,aes(`logxi0_1/xi0_2`,logR1R2))+
-  geom_point(aes(color=timecat),size=3)+geom_smooth(method="lm",fullrange=TRUE)+geom_vline(xintercept = 0)+geom_hline(yintercept=0)+
+  geom_point(aes(color=g_time_dif),size=3)+geom_smooth(method="lm",fullrange=TRUE)+geom_vline(xintercept = 0)+geom_hline(yintercept=0)+
   facet_wrap(~ave_chill)+ggthemes::theme_base()+scale_color_viridis_c(),
 ggplot(fracking2,aes(`logxi100_1/xi100_2`,logR1R2))+
-  geom_point(aes(color=timecat),size=3)+geom_smooth(method="lm",fullrange=TRUE)+geom_vline(xintercept = 0)+geom_hline(yintercept=0)+
+  geom_point(aes(color=g_time_dif),size=3)+geom_smooth(method="lm",fullrange=TRUE)+geom_vline(xintercept = 0)+geom_hline(yintercept=0)+
   facet_wrap(~ave_chill)+ggthemes::theme_base()+scale_color_viridis_c()
 
-,common.legend = TRUE,nrow=2,ncol=3,labels=c("SPE","SPE+FRACT","SPE+FRACT","SPE+FRACT","SPE+FRACT"))
+,common.legend = TRUE,nrow=3,ncol=2,labels=c("SPE","SPE+FRACT","SPE+FRACT","SPE+FRACT","SPE+FRACT"))
 
 
 dev.off()
@@ -171,12 +170,12 @@ round(table(fracking3$ave_chill)/table(fracking$ave_chill),2)
 jpeg("plots/dominance.jpeg")
 ggpubr::ggarrange(ggplot()+
   geom_point(data=check,aes(x=logsens1sens2,y=logR1R2),size=1,color="grey")+
-  geom_point(data=check3,aes(x=logsens1sens2,y=logR1R2,color=timecat),size=3)+
+  geom_point(data=check3,aes(x=logsens1sens2,y=logR1R2,color=g_time_dif),size=3)+
   facet_wrap(~ave_chill)+ggthemes::theme_base()+
   geom_vline(xintercept = 0)+geom_hline(yintercept=0)+scale_color_viridis_c(),
 ggplot()+
   geom_point(data=fracking,aes(x=logsens1sens2,y=logR1R2),size=1,color="grey")+
-  geom_point(data=fracking3,aes(x=logsens1sens2,y=logR1R2,color=timecat),size=3)+
+  geom_point(data=fracking3,aes(x=logsens1sens2,y=logR1R2,color=g_time_dif),size=3)+
   facet_wrap(~ave_chill)+ggthemes::theme_base()+
   geom_vline(xintercept = 0)+geom_hline(yintercept=0)+scale_color_viridis_c(),common.legend=TRUE,label=c("SPE","SPE+FRACT"))
 dev.off()
