@@ -16,7 +16,7 @@ eps <- 0.001                              # resource decay rate aside from uptak
 
 #Weeks of chilling prior to growing season in year y
 
-#c_warm<- 0.5
+##c_warm<- 0.5
 
 if (runif(1,0,1)<c_warm) {
 

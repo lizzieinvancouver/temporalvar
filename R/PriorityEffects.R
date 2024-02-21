@@ -21,9 +21,10 @@ here()
 dev.off()
 
 #define the run - Consider creating a dataframe with combinations of parms to test
-nruns<-3000
-g_notxi <- 0
+nruns<-300
+g_notxi <- 1
 c_warm<- 0.5
+makeplots <- FALSE
 outputy<-data.frame()
 #outputy2<-data.frame()
 #outputy3<-data.frame()
@@ -44,9 +45,9 @@ for (j in c(1:nruns)) {
   if (g_notxi==1) {
    source(here("R","sourcefiles","PriEff_Output.R"))
  
-}else {
+  }else {
   source(here("R","sourcefiles","PriEff_OutputwFract.R"))
-}
+  }
 }
   
   sapply(g_cumulative, tail, 1) ## Dan think this should be the realized germinaiton fraction

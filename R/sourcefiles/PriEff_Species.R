@@ -2,7 +2,6 @@
 
 nsp <- 2  #this is a 2-species model
 
-
 # R* COMPETITION parameters -----------------------------------------------
 
 #create arrays for within and between year dynamics
@@ -42,7 +41,7 @@ dim(tau_g50) <- dim(tau_delay)
 
 #test plots
 #histogram of day of 50% germination
-if(FALSE){
+if(makeplots == TRUE){
 par(mfrow=c(3,2))
 ax <- seq(0,max(tau_g50),1)
 h1 <- hist(tau_g50[,1],breaks=ax,plot= FALSE)
@@ -73,7 +72,7 @@ points(tau_delay[,2]~xi, col=2, pch=20)
 #     xi_100 = xi_0 + xi_rngis the number of chilling until  species reaches 100% germination
 #     gmax is the total germination fraction in year yr with chilling xi[yr]
 
-#g_notxi <- 0.5  #proportion of runs where both species are %g- insensitive to chilling
+##g_notxi <- 1.0  #proportion of runs where both species are %g- insensitive to chilling
                  # and proportion of species that are %g-insens in remaining runs
 xi_100 <- 0
 
@@ -111,7 +110,7 @@ if (runif(1,0,1)<g_notxi) {
 #test plots to show relationship between germ and chill
 #  with the annual chill values on the x
 ###close plot for speeding computation maybe 
-if(FALSE){
+if(makeplots ==TRUE){
 for (i in c(1,nsp)){
   plot(x=seq(0,max(xi),length=10), y= seq(0,1,length=10), 
        type="n", xlim=c(0,40),ylim=c(0,1), xaxs="i",yaxs="i",
@@ -157,7 +156,7 @@ for (yr in c(1:nyrs)){
   g_daily[[yr]] <- list(data.frame(g1_byday),data.frame(g2_byday))
   g_cumulative[[yr]] <- data.frame(gc1,gc2)
   #Test Plot for cumulative germination
- if(FALSE){
+ if(makeplots==TRUE){
    if (yr==1) {
     plot(seq(0,days,1),rep(0,days+1),type="n",
          ylim=c(0,1.1),,xlim= c(0,80),
@@ -171,7 +170,7 @@ for (yr in c(1:nyrs)){
   }
 
 #Test Plot for daily germination
-if(FALSE){
+if(makeplots == TRUE){
 for (yr in seq(1,nyrs,5)){
   if (yr==1) {
   plot(seq(0,days,1),rep(0,days+1),type="n",
