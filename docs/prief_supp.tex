@@ -19,66 +19,37 @@
 \renewcommand{\thefigure}{S\arabic{figure}}
 
 \section{Model} 
-For our example, we adapt the model from ...  \\
+For our example, we adapt the model from Wolkovich \& Donahue 2020, which is itself an adaptation of a common model of community dynamics, often conceptualized for annual plants with a seedbank (as we do here). A more detailed description of the model can be found in Wolkovich \& Donahue 2020.
 
-[Add an overview of model here. ]\\
-
-% START of quoting from Wolkovich & Donahue 2020
-Across years, for a community of \(n\) species, the seedbank ($N$) of species $i$ at time $t+1$ is determined by the survival ($s$) of seeds that did not germinate in previous season ($1-g_{i}(t)$) plus new biomass ($B_i$) produced during the length of the growing season ($\delta$) converted to seeds at rate $\phi$:
+In this model, a community of \(n\) species, the seedbank ($N$) of species $i$ at time $t+1$ (where $t$ represented interannual time) is determined by the survival ($s$) of ungerminated seeds from the previous season ($1-g_{i}(t)$) plus new biomass ($B_i$) produced during the following growing season ($\delta$), which is converted to seeds at rate $\phi$:
 \begin{align}
 N_{i}(t+1) & =
 s N_{i}(t)(1-g_{i}(t))+\phi B_{i}(t+\delta)
 \end{align}
-The production of new biomass each season follows a basic $R^{*}$ competition model: new biomass production depends on its resource uptake ($f(R)$ converted into biomass at rate $c_i$) less maintenance costs ($m$), with resource uptake controlled by species-level parameters that define how the uptake increases as $R$ increases ($a$), the inverse of the maximum uptake ($u$), and the shape of the uptake ($\theta$):
-% END of quoting from Wolkovich & Donahue 2020
+Basic $R^{*}$ competition controls new biomass each season, depending on species $i$'s resource uptake ($f(R)$ converted into biomass at rate $c_i$) minus maintenance costs ($m$), with resource uptake controlled by species-level parameters that define how the uptake increases as $R$ increases ($a$), the inverse of the maximum uptake ($u$), and the shape of the uptake ($\theta$):
 \begin{align}
 \frac{\mathrm{d}B_i}{\mathrm{d}t} & = (c_{i}f(R) - m)B_{i} + G_{i}(t)\\ % updated (c_{i}f(R) - m)B_{i} (error in previous version)
 f(R) & = \frac{a R^{\theta}}{1+a uR^{\theta}}
 \end{align}
-Where $G_{i}(t)$ is germination as a time dependent forcing function that adds daily biomass to the ODE according to a Hill equation:
+The resource ($R$) itself declines across a growing season due to uptake by all species and abiotic loss ($\epsilon$):
+\begin{align}
+\frac{\mathrm{d}R}{\mathrm{d}t} & = - \sum_{i=1}^{n}f_{i}(R)B_{i} -\epsilon R
+\end{align}
+Our model departs from many similar community models but explicitly modeling germination over the season ($G_{i}(t)$) by modeling more of the physiology of germination---specifically that species may delay germination beyond the start of the season (according to the resource) depending on winter conditions, including what we call `chilling.' Germination thus depends both on the traits of the species and on the environment each year. To achieve this, we modeled $G_{i}(t)$ germination as a time dependent forcing function that adds daily biomass to the ODE according to a Hill equation:
 \begin{align}
 G_{i}(t) & = N_{0}s_{i}b_{i}g_{i}(t)\\
 g_{i}(t) & = g_{max,i}(\frac{\text{within-season-time}^{nH}}{\tau_{g50}^{nH} + \text{within-season-time}^{nH}})
 \end{align}
 where $b_{i}$ is the biomass per seed and where $\tau_{g50}$ is a Poisson random variable for the days of delay due to chilling, $\xi$, according to:   \\
-
 \begin{align}
 \tau_{g50} & \sim \mathrm{Poisson}(\tau_{delay})\\
 \tau_{delay} & = \tau_{max}e^{-\tau_{\xi}\xi}
 \end{align}
 
-% START (again) of quoting from Wolkovich & Donahue 2020
-The resource ($R$) itself declines across a growing season due to uptake by all species and abiotic loss ($\epsilon$):
-\begin{align}
-\frac{\mathrm{d}R}{\mathrm{d}t} & = - \sum_{i=1}^{n}f_{i}(R)B_{i} -\epsilon R
-\end{align}
-Germination depends both on the traits of the species and on the environment that year. The fraction of seeds germinating for a species each year is determined by the distance between $\tau_i$, a species characteristic, and $\tau_p(t)$, an attribute of the environment, which varies year-to-year. Germination fraction declines according to a Gaussian curve as the distance between $\tau_i$ and $\tau_p(t)$ grows, with the rate of decline determined by $h$ (we refer to this distribution as the `germination curve').  
-\begin{align}
-g_{i}(t) & = g_{max}e^{-h(\tau_{p}(t)-\tau_{i})^2} 
-\end{align}
 
-The model is designed for multiple conceptualizations \citep{Chesson:2004eo}; given our focus here, we consider $\tau_p(t)$ to represent the environmental (abiotic) start of the growing season that varies from year-to-year and refer to it as the `environmental start time.'  $\tau_i$ represents the `intrinsic biological start time' for species $i$. How well matched a species is to its environment each year can be measured as $\tau_i$ - $\tau_p(t)$, or the distance between the intrinsic (biological) start time and the environmental start time. \\
-
-\noindent \emph{Adding XXX to model:}\\
-We adjust the biological start time, $\tau_i$ so that it can respond to the environment dynamically through what we refer to as tracking. Tracking ($\alpha$, which can vary between 0 to 1) decreases the distance between $\tau_i$ and $\tau_p(t)$, i.e. moving the intrinsic start time closer to the environmental start time in that year, resulting in a higher germination fraction (e.g. species B in Fig. \ref{fig:concept}B-C).
-
-\begin{align*}
-\alpha_{i} & \in [0, 1]  
-\end{align*}
-\begin{align}
-\hat{\tau_{i}} & = \alpha_{i} \tau_{p}(t) + (1-\alpha_{i})\tau_{i}
-\end{align}
-\noindent Thus, 
-\begin{align*}
-\text{when } \alpha_{i} = 0, \text{ }& \hat{\tau_{i}}=\tau_{i}\\
-\text{when }  \alpha_{i} = 1, \text{ }& \hat{\tau_{i}}=\tau_{p}(t)
-\end{align*}
-% END (again) of quoting from Wolkovich & Donahue 2020
-
-ADD: While explaining the model, will need to reference (and include in figures), the plots that are made in \verb|Prieff_Species.R| to visualize. 
+ADD: While explaining the model, will need to reference (and include in figures), the plots that are made in \verb|Prieff_Species.R| to visualize. \\
 % Species that are less sensitive to chilling usually start earlier and generally start at the SAME time after the start of season (resource pulse). 
-
-We are drawing weeks of chilling from a normal distribution and that distribution is always the same. 
+% We are drawing weeks of chilling from a normal distribution and that distribution is always the same. 
 
 \noindent \emph{Simulations:}\\
 Given an overview of simulations performed, be sure to mention: two-species communities, species vary in \emph{what} and explain a little what that does (for example: We varied species' resource use efficiency (\emph{via} $c_i$), yielding species with different $R^*$ (a metric of resource competition where a lower $R^*$ means a species can draw the resource down to a lower level and is thus considered the superior competitor)) and then state something like ``All other parameters were identical between species (Table \ref{tab:model})." Also need: starting conditions (for example: both species were initialized with a census size of $N(0) = 100$ per unit area, and the temporally varying parameters $R_0(t)$ and $\tau_{p}(t)$ were generated) and then some re-wording of this:
@@ -86,7 +57,7 @@ Given an overview of simulations performed, be sure to mention: two-species comm
 Within-year $R^{*}$ competition dynamics were solved using an ode solver (\verb|ode| in the R package \verb|deSolve|) and ended when the resource was drawn down to $min(R^{*})$, i.e. the $R^{*}$ value of the better resource competitor.  The end-of-season biomass of each species was converted to seeds, and the populations were censused.  At each census, a minimum cutoff was applied to define extinction from the model.  Note that `coexistence' in this model is defined by joint persistence through time and not by low density growth rate. 
 \end{quote}
 
-\begin{center}
+\begin{center} % Lizzie started updating this in Feb 2024, but it is NOT DONE at all (and someone staring at the code more should do it). 
 \begin{table}[h!]
 \caption{Parameter values, definitions, and units.}
 \begin{tabular}{ | p{2.0cm} | p{3.5cm} | p{5.0cm} | p{4.0cm} |}
