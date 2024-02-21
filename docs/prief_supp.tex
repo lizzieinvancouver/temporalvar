@@ -47,6 +47,7 @@ where $b_{i}$ is the biomass per seed and where $\tau_{g50}$ is a Poisson random
 \tau_{delay} & = \tau_{max}e^{-\tau_{\xi}\xi}
 \end{align}
 
+% START (again) of quoting from Wolkovich & Donahue 2020
 The resource ($R$) itself declines across a growing season due to uptake by all species and abiotic loss ($\epsilon$):
 \begin{align}
 \frac{\mathrm{d}R}{\mathrm{d}t} & = - \sum_{i=1}^{n}f_{i}(R)B_{i} -\epsilon R
@@ -72,7 +73,7 @@ We adjust the biological start time, $\tau_i$ so that it can respond to the envi
 \text{when } \alpha_{i} = 0, \text{ }& \hat{\tau_{i}}=\tau_{i}\\
 \text{when }  \alpha_{i} = 1, \text{ }& \hat{\tau_{i}}=\tau_{p}(t)
 \end{align*}
-% END of quoting from Wolkovich & Donahue 2020
+% END (again) of quoting from Wolkovich & Donahue 2020
 
 ADD: While explaining the model, will need to reference (and include in figures), the plots that are made in \verb|Prieff_Species.R| to visualize. 
 % Species that are less sensitive to chilling usually start earlier and generally start at the SAME time after the start of season (resource pulse). 
