@@ -35,7 +35,7 @@ The resource ($R$) itself declines across a growing season due to uptake by all 
 \begin{align}
 \frac{\mathrm{d}R}{\mathrm{d}t} & = - \sum_{i=1}^{n}f_{i}(R)B_{i} -\epsilon R
 \end{align}
-Our model departs from many similar community models but explicitly modeling germination over the season ($G_{i}(t)$) by modeling more of the physiology of germination---specifically that species may delay germination beyond the start of the season (according to the resource) depending on winter conditions, including what we call `chilling.' Germination thus depends both on the traits of the species and on the environment each year. To achieve this, we modeled $G_{i}(t)$ germination as a time dependent forcing function that adds daily biomass to the ODE according to a Hill equation:
+Our model departs from many similar community models but explicitly modeling germination over the season ($G_{i}(t)$) by modeling more of the physiology of germination---specifically that species may delay germination beyond the start of the season (according to the resource) depending on winter conditions, including what we call `chilling.' Germination thus depends both on the traits of the species and on the environment each year. To achieve this, we modeled $G_{i}(t)$ germination as a time dependent forcing function that adds daily biomass to the ODE according to a Hill equation (see IMPT note in comments): % adjust forcing f(x) so that it provides a daily amount of germination, not the cumulative germination. 
 \begin{align}
 G_{i}(t) & = N_{0}s_{i}b_{i}g_{i}(t)\\
 g_{i}(t) & = g_{max,i}(\frac{\text{within-season-time}^{nH}}{\tau_{g50}^{nH} + \text{within-season-time}^{nH}})
