@@ -192,7 +192,7 @@ a<-  ggplot()+
   
   
   jpeg("plots/coexistance_explainer.jpeg",width = 8,height=5,unit='in',res=200)  
-  ggpubr::ggarrange(p1,c,common.legend = TRUE,labels = c("a","b")) 
+  ggpubr::ggarrange(c,p1,common.legend = TRUE,labels = c("a","b")) 
 dev.off()
   
 check3<-filter(check,coexist=="sp1 win" & logR1R2>0|coexist=="sp2 win" & logR1R2<0)
