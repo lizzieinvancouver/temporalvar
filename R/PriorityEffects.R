@@ -113,9 +113,9 @@ check$coexist[which(check$sp1_ex!=0 & check$sp2_ex!=0)]<-"coexist"
 
 #fracking2<-filter(fracking,coexist=="coexist")
 check2<-filter(check,coexist=="coexist")
-
-p1<-ggplot(check,aes(sp1_mean_tau_g50-sp2_mean_tau_g50))+geom_density(aes(fill=ave_chill),position="identity",alpha=0.6)+theme_tidybayes()+
-  scale_fill_grey(name="average chilling period")+ylab("frequency")
+library(tidybayes)
+p1<-ggplot(check,aes(sp1_mean_tau_g50-sp2_mean_tau_g50))+geom_density(aes(fill=ave_chill),position="identity",alpha=0.6)+ggthemes::theme_few()+
+  scale_fill_viridis_d(name="average chilling period",begin=.15,end=.92)+ylab("frequency")+xlab("mean difference in realized phenology \nspecies 1 - species 2")
 
 p2<-ggplot(check,aes(`sp1_xi_tau-sp2_xi_tau`,`sp1_mean_tau_g50-sp2_mean_tau_g50`))+geom_point(size=.2,aes(color=ave_chill))+
   scale_color_viridis_d(name="average chilling period",begin=.15,end=.92)+#facet_wrap(~ave_chill)+
@@ -161,40 +161,56 @@ alta<-ggplot()+
    
 
 b<-ggplot()+
-  geom_point(data=check,aes(x=`sp1_xi_tau-sp2_xi_tau`,y=`sp1_Rstar-sp2_Rstar`,shape=ave_chill),size=.01)+
-  geom_point(data=check2,aes(`sp1_xi_tau-sp2_xi_tau` ,`sp1_Rstar-sp2_Rstar`,shape=ave_chill),size=2)+
-  geom_smooth(data=check2,method="lm",fullrange=TRUE,se=.89,aes(`sp1_xi_tau-sp2_xi_tau`,`sp1_Rstar-sp2_Rstar`,linetype=ave_chill,fill=ave_chill),color="black")+geom_vline(xintercept = 0)+geom_hline(yintercept=0)+
+  geom_point(data=check,aes(x=`sp1_xi_tau-sp2_xi_tau`,y=`sp1_Rstar-sp2_Rstar`,shape=ave_chill,color=ave_chill),size=.01)+
+  geom_point(data=check2,aes(`sp1_xi_tau-sp2_xi_tau` ,`sp1_Rstar-sp2_Rstar`,shape=ave_chill,color=ave_chill),size=2)+
+  geom_smooth(data=check2,method="lm",fullrange=TRUE,se=.5,aes(`sp1_xi_tau-sp2_xi_tau`,`sp1_Rstar-sp2_Rstar`,fill=ave_chill,color=ave_chill))+geom_vline(xintercept = 0)+geom_hline(yintercept=0)+
   coord_cartesian(ylim=c(-0.05,0.05))+
-  theme_tidybayes()+scale_shape_manual(name="average chilling period",values = c(17,15))+scale_fill_grey(name="average chilling period")+scale_linetype_manual(name="average chilling period",values=c("solid","dotdash"))
+ ggthemes::theme_few()+scale_shape_manual(name="average chilling period",values = c(17,15))+
+  scale_color_viridis_d(name="average chilling period",begin=.15,end=.92)+
+  scale_fill_viridis_d(name="average chilling period",begin=.15,end=.92)+
+  ylab("difference in competitive ability \nspecies 1 - species 2")+
+  xlab("difference in phenological sensitivity \nspecies 1 - species 2")
 
-
+b
 
 c<-ggplot()+
-      geom_point(data=check,aes(x=`sp1_xi_tau-sp2_xi_tau`,y=`sp1_mean_tau_g50-sp2_mean_tau_g50`,shape=ave_chill),size=.01)+
-      geom_point(data=check2,aes(`sp1_xi_tau-sp2_xi_tau` ,`sp1_mean_tau_g50-sp2_mean_tau_g50`,shape=ave_chill),size=3)+
-      geom_smooth(data=check2,method="lm",fullrange=TRUE,se=.5,aes(`sp1_xi_tau-sp2_xi_tau`,`sp1_mean_tau_g50-sp2_mean_tau_g50`,linetype=ave_chill,fill=ave_chill),color="black")+
+      geom_point(data=check,aes(x=`sp1_xi_tau-sp2_xi_tau`,y=`sp1_mean_tau_g50-sp2_mean_tau_g50`,shape=ave_chill,color=ave_chill),size=.01)+
+      geom_point(data=check2,aes(`sp1_xi_tau-sp2_xi_tau` ,`sp1_mean_tau_g50-sp2_mean_tau_g50`,shape=ave_chill,color=ave_chill),size=2)+
+      geom_smooth(data=check,method="lm",fullrange=TRUE,se=.5,aes(`sp1_xi_tau-sp2_xi_tau`,`sp1_mean_tau_g50-sp2_mean_tau_g50`,fill=ave_chill,color=ave_chill))+
       geom_vline(xintercept = 0)+geom_hline(yintercept=0)+
       #geom_smooth(data=check,method="lm",fullrange=TRUE,se=FALSE,aes(`sp1_xi_tau-sp2_xi_tau`,`sp1_mean_tau_g50-sp2_mean_tau_g50`,color=ave_chill,fill=ave_chill),linetype="dashed")+
-      theme_tidybayes()+scale_shape_manual(name="average chilling period",values = c(17,15))+scale_fill_grey(name="average chilling period")+scale_linetype_manual(name="average chilling period",values=c("solid","dotdash"))
-    
+      ggthemes::theme_few()+scale_shape_manual(name="average chilling period",values = c(17,15))+scale_color_viridis_d(name="average chilling period",begin=.15,end=.92)+
+  scale_fill_viridis_d(name="average chilling period",begin=.15,end=.92)+
+  ylab("difference in realized phenology \nspecies 1 - species 2")+
+  xlab("difference in phenological sensitivity \nspecies 1 - species 2")
 
-a<-  ggplot()+
-      geom_point(data=check,aes(x=`sp1_mean_tau_g50-sp2_mean_tau_g50`,y=`sp1_Rstar-sp2_Rstar`,shape=ave_chill),size=.01)+
-      geom_point(data=check2,aes(`sp1_mean_tau_g50-sp2_mean_tau_g50` ,`sp1_Rstar-sp2_Rstar`,shape=ave_chill),size=2)+
-      geom_smooth(data=check2,method="lm",fullrange=TRUE,se=.89,aes(`sp1_mean_tau_g50-sp2_mean_tau_g50`,`sp1_Rstar-sp2_Rstar`,linetype=ave_chill),color="black",fill="black")+geom_vline(xintercept = 0)+geom_hline(yintercept=0)+
-      coord_cartesian(ylim=c(-0.05,0.05))+
-    theme_tidybayes()+scale_shape_manual(name="average chilling period",values = c(17,15))+scale_fill_grey(name="average chilling period")+scale_linetype_manual(name="average chilling period",values=c("solid","dotdash"))
-  
     
+c
+a<-  ggplot()+
+      geom_point(data=check,aes(x=`sp1_mean_tau_g50-sp2_mean_tau_g50`,y=`sp1_Rstar-sp2_Rstar`,shape=ave_chill,color=ave_chill),size=.01)+
+      geom_point(data=check2,aes(`sp1_mean_tau_g50-sp2_mean_tau_g50` ,`sp1_Rstar-sp2_Rstar`,shape=ave_chill,color=ave_chill),size=2)+
+      geom_smooth(data=check2,method="lm",fullrange=TRUE,se=.5,aes(`sp1_mean_tau_g50-sp2_mean_tau_g50`,`sp1_Rstar-sp2_Rstar`,color=ave_chill,fill=ave_chill))+geom_vline(xintercept = 0)+geom_hline(yintercept=0)+
+      coord_cartesian(ylim=c(-0.05,0.05))+
+    ggthemes::theme_few()+scale_shape_manual(name="average chilling period",values = c(17,15))+
+  scale_color_viridis_d(name="average chilling period",begin=.15,end=.92)+
+  scale_fill_viridis_d(name="average chilling period",begin=.15,end=.92)+
+  scale_linetype_manual(name="average chilling period",values=c("solid","dotdash"))+
+  ylab("difference in competitive ability \nspecies 1 - species 2")+
+  xlab("difference in realized phenology \nspecies 1 - species 2")
+  
+  a  
   jpeg("plots/coexistance_runner_new.jpeg",width = 8,height=5,unit='in',res=200)
   ggpubr::ggarrange(a,b,common.legend = TRUE,labels = c("a","b"))  
   dev.off()
   
   
   jpeg("plots/coexistance_explainer.jpeg",width = 8,height=5,unit='in',res=200)  
-  ggpubr::ggarrange(c,p1,common.legend = TRUE,labels = c("a","b")) 
+  ggpubr::ggarrange(p1,c,common.legend = TRUE,labels = c("a","b")) 
 dev.off()
-  
+ 
+pdf("plots/modelouts.pdf")  
+ggpubr::ggarrange(a,b,p1,c,common.legend = TRUE,labels = c("a)","b)","c)","d)"))  
+dev.off()
 check3<-filter(check,coexist=="sp1 win" & logR1R2>0|coexist=="sp2 win" & logR1R2<0)
 
 round(table(check3$ave_chill)/table(check$ave_chill),2)

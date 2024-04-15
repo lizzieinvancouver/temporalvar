@@ -157,44 +157,59 @@ Our model is only the beginning, and while it is a noteworthy advance worthy of 
 
 \pagebreak
 \section*{Figures}
-\begin{figure}[h!]
-  \centering
- \includegraphics[width=\textwidth]{..//plots/introprief.png}
-    \caption{Phenological differences between competing species can offset or augment differences in competitive abilitiy strongly influencing patterns of competitive exclusion or coexistence.}
-    \label{Fig:con1}
-\end{figure}
-
 
 \begin{figure}[h!]
   \centering
- \includegraphics[width=\textwidth]{..//plots/prief_meangerm.png}
-    \caption{Average phenological differences in germination between two forest herbs with 6-12 weeks of chilling and their required competitive differences for coexistence. Note, in this example the slope of the reationship is hypothestical.}
-    \label{Fig:means}
+ \includegraphics[width=\textwidth]{..//plots/prief_conception.png}
+    \caption{To do. }
+    \label{Fig:germination}
 \end{figure}
-
 
 \begin{figure}[h!]
   \centering
- \includegraphics[width=\textwidth]{..//plots/prief_sense.png}
-    \caption{Predicted relationship between cold stratification and germination phenology for two forest herbs and the implications for coexistence. Panel a) depicts predicted time to 50\% germination as a function of stratification duration. Sustained shifts in environmental conditions would disrupt the (hypothetical) coexistence of these species by altering the realized phenological differences that are a product of the unique phenological sensitivity to the environment (panel b). This indicates that the balance between phenological sensitivity differences and competitive differences must shift under novel environmental conditions.}
-    \label{Fig:sensy}
+ \includegraphics[width=\textwidth]{..//plots/modelouts-01.png}
+    \caption{To do. }
+    \label{Fig:model}
 \end{figure}
 
+%\begin{figure}[h!]
+ % \centering
+ %\includegraphics[width=\textwidth]{..//plots/introprief.png}
+%    \caption{Phenological differences between competing species can offset or augment differences in competitive abilitiy strongly influencing patterns of competitive exclusion or coexistence.}
+ %   \label{Fig:con1}
+%\end{figure}
 
-\begin{figure}[h!]
-  \centering
- \includegraphics[width=\textwidth]{..//plots/coexistance_runner_new.jpeg}
-    \caption{Trade off between phenological differences and competitive differences a) and phenological sensitivty differences and competitive differences b) under two climate scenarios. The tradeoff between phenology and competition doesn't shift, how ever the trade off between sensitivity and competition does, because larger differences in sensitivity are require to achieve the same phenological differences.}
-    \label{Fig:coexistence}
-\end{figure}
+
+%\begin{figure}[h!]
+ % \centering
+ %\includegraphics[width=\textwidth]{..//plots/prief_meangerm.png}
+%    \caption{Average phenological differences in germination between two forest herbs with 6-12 weeks of chilling and their required competitive differences for coexistence. Note, in this example the slope of the reationship is hypothestical.}
+ %   \label{Fig:means}
+%\end{figure}
 
 
-\begin{figure}[h!]
-  \centering
- \includegraphics[width=\textwidth]{..//plots/coexistance_explainer.jpeg}
-    \caption{The relationship between phenological sensitivty and realized phenology under two climate scenarios,  a) demonstrate the relationship between phenological sensitivity differences and realized phenological differences under 12 and 6 weeks of chilling. b) depicts the average differences in phenology between species in simulations with 12 and 6 weeks of chilling. }
-    \label{Fig:differences}
-\end{figure}
+%\begin{figure}[h!]
+ % \centering
+% \includegraphics[width=\textwidth]{..//plots/prief_sense.png}
+ %   \caption{Predicted relationship between cold stratification and germination phenology for two forest herbs and the implications for coexistence. Panel a) depicts predicted time to 50\% germination as a function of stratification duration. Sustained shifts in environmental conditions would disrupt the (hypothetical) coexistence of these species by altering the realized phenological differences that are a product of the unique phenological sensitivity to the environment (panel b). This indicates that the balance between phenological sensitivity differences and competitive differences must shift under novel environmental conditions.}
+  %  \label{Fig:sensy}
+%\end{figure}
+
+
+%\begin{figure}[h!]
+ % \centering
+ %\includegraphics[width=\textwidth]{..//plots/coexistance_runner_new.jpeg}
+  %  \caption{Trade off between phenological differences and competitive differences a) and phenological sensitivty differences and competitive differences b) under two climate scenarios. The tradeoff between phenology and competition doesn't shift, how ever the trade off between sensitivity and competition does, because larger differences in sensitivity are require to achieve the same phenological differences.}
+   % \label{Fig:coexistence}
+%\end{figure}
+
+
+%\begin{figure}[h!]
+ % \centering
+% \includegraphics[width=\textwidth]{..//plots/coexistance_explainer.jpeg}
+ %   \caption{The relationship between phenological sensitivty and realized phenology under two climate scenarios,  a) demonstrate the relationship between phenological sensitivity differences and realized phenological differences under 12 and 6 weeks of chilling. b) depicts the average differences in phenology between species in simulations with 12 and 6 weeks of chilling. }
+  %  \label{Fig:differences}
+%\end{figure}
 
 
 \end{document}
