@@ -1,0 +1,32 @@
+Started 15 February 2024
+MW Dan and Megan
+
+
+<><><><><><><><>
+22 April 2024 Feedback on new figures.
+
+New figures are overall great! I have basically one major query than a lot of thoughts on tweaking.
+
+(1) Major query: Why is 2d fit to all data and not just the coexisting runs? I think maybe the caption is wrong as the dots are only in the trade-off panels and I think for all runs they would show in all quadrants ... can you check the caption is correct?
+
+(2) And now, lots of smaller ideas to tweak the figures ...
+	a) I really like 1a, but think we should make each species that is not a different color a different symbol (or each a different shade of gray or something to natural remind people that they are different species).  
+	b) I suggest we refer to 'winter chilling' and maybe label the two species images as: Eurybia divaricata (low sensitivity to winter chill) etc.
+	c) Perhaps make the colors (vertical bands) for chilling in 2b go from light to dark blue or such? Or someway that we might carry one of those colors (e.g., 12 weeks is blue) to Fig 2 and then I would make 6 weeks in Fig 2 either a light red (warm!) or such. 
+	d) I would move most stuff like this 'predicted from Bayesian accelerated failure time models, with thick lines representing the mean estimate and lighter lines depict 1000 draws from the posterior distribution to represent uncertainty' into a supplement section called 'Additional methods' and there we can have a subheader for 'additional methods for Figure 1.'
+	e) most of these are ratios so we should adjust axes and somewhere in supp give exactly what parameters/model output we're showing for each simplified term. But I like the simplified terms! And I think you can simplify the axes' labels further to: 'Ratio R*' and 'Ratio realized phenology' and mention species 1 and species 2 in caption. 
+
+
+<><><><><><><><>
+8 April 2024
+Chat with Dan, Megan, me
+
+Notes are in:
+https://github.com/lizzieinvancouver/temporalvar/issues/54
+https://github.com/lizzieinvancouver/temporalvar/issues/57
+
+<><><><><><><><>
+15 February 2024
+Chat with Dan, Megan, me
+
+- What is happening in the model (first model figure): With high chilling (12 weeks), species germinate at the same time (so they coexist via equalized or Rstar diffs)  ... at 6 weeks, for the same species differences you get larger phenological differences. 
