@@ -115,7 +115,7 @@ check$coexist[which(check$sp1_ex!=0 & check$sp2_ex!=0)]<-"coexist"
 check2<-filter(check,coexist=="coexist")
 library(tidybayes)
 p1<-ggplot(check,aes(sp1_mean_tau_g50-sp2_mean_tau_g50))+geom_density(aes(fill=ave_chill),position="identity",alpha=0.6)+ggthemes::theme_few()+
-  scale_fill_viridis_d(name="average chilling period",begin=.15,end=.92)+ylab("frequency")+xlab("mean difference in realized phenology \nspecies 1 - species 2")
+  scale_fill_viridis_d(name="average chilling period",begin=.15,end=.92)+ylab("frequency")+xlab("mean difference in realized phenology")
 
 p2<-ggplot(check,aes(`sp1_xi_tau-sp2_xi_tau`,`sp1_mean_tau_g50-sp2_mean_tau_g50`))+geom_point(size=.2,aes(color=ave_chill))+
   scale_color_viridis_d(name="average chilling period",begin=.15,end=.92)+#facet_wrap(~ave_chill)+
@@ -137,7 +137,7 @@ round(table(check2$ave_chill)/table(check$ave_chill),2)
 summary(lm(check2$logR1R2~check2$logsens1sens2*check2$ave_chill))
 summary(lm(check3$logR1R2~check3$logsens1sens2*check3$ave_chill))
 
-jpeg("plots/coexistance_runner.jpeg",width = 8,height=10,unit='in',res=200)
+#jpeg("plots/coexistance_runner.jpeg",width = 8,height=10,unit='in',res=200)
 
   
   
@@ -160,52 +160,86 @@ alta<-ggplot()+
     ggthemes::theme_few()+scale_colour_gradient2()#scale_color_viridis_d(name="average chilling period",begin=.15,end=.92)+scale_fill_viridis_d(name="average chilling period",begin=.15,end=.92)
    
 
+examples<-read.csv("R/output/casepairs.csv")
+examples$`sp1_Rstar-sp2_Rstar`<-examples$sp1_Rstar-examples$sp2_Rstar
+examples$`sp1_xi_tau-sp2_xi_tau`<-examples$sp1_xi_tau-examples$sp2_xi_tau
+examples$`sp1_mean_tau_g50-sp2_mean_tau_g50`<-examples$sp1_mean_tau_g50-examples$sp2_mean_tau_g50
+examples$ave_chill<-ifelse(examples$xi.mu>2,"12 weeks","6 weeks")
+colnames(examples)
+
+#examples<-filter(examples, !run %in% c(158,476,594,842))
+exco<-filter(examples,cox=="coexistence")
+exno<-filter(examples,cox!="coexistence")
 b<-ggplot()+
   geom_point(data=check,aes(x=`sp1_xi_tau-sp2_xi_tau`,y=`sp1_Rstar-sp2_Rstar`,shape=ave_chill,color=ave_chill),size=.01)+
   geom_point(data=check2,aes(`sp1_xi_tau-sp2_xi_tau` ,`sp1_Rstar-sp2_Rstar`,shape=ave_chill,color=ave_chill),size=2)+
+ # geom_point(data=examples,aes(`sp1_xi_tau-sp2_xi_tau` ,`sp1_Rstar-sp2_Rstar`,shape=ave_chill,color=ave_chill),size=0.1)+
+  
+  #geom_line(data=examples,aes(`sp1_xi_tau-sp2_xi_tau` ,`sp1_Rstar-sp2_Rstar`,group=run),size=.5,,linetype="dashed")+
   geom_smooth(data=check2,method="lm",fullrange=TRUE,se=.5,aes(`sp1_xi_tau-sp2_xi_tau`,`sp1_Rstar-sp2_Rstar`,fill=ave_chill,color=ave_chill))+geom_vline(xintercept = 0)+geom_hline(yintercept=0)+
-  coord_cartesian(ylim=c(-0.05,0.05))+
+  #geom_point(data=exno,aes(`sp1_xi_tau-sp2_xi_tau` ,`sp1_Rstar-sp2_Rstar`,),size=1,shape=1)+
+  #geom_point(data=exco,aes(`sp1_xi_tau-sp2_xi_tau` ,`sp1_Rstar-sp2_Rstar`),size=5,shape=1)+
+  #geom_point(data=exco,aes(`sp1_xi_tau-sp2_xi_tau` ,`sp1_Rstar-sp2_Rstar`,color=ave_chill,shape=ave_chill),size=2)+
+   coord_cartesian(ylim=c(-0.05,0.05))+
  ggthemes::theme_few()+scale_shape_manual(name="average chilling period",values = c(17,15))+
   scale_color_viridis_d(name="average chilling period",begin=.15,end=.92)+
   scale_fill_viridis_d(name="average chilling period",begin=.15,end=.92)+
-  ylab("difference in competitive ability \nspecies 1 - species 2")+
-  xlab("difference in phenological sensitivity \nspecies 1 - species 2")
+  ylab("difference in competitive ability")+
+  xlab("difference in phenological sensitivity")
 
 b
 
 c<-ggplot()+
-      geom_point(data=check,aes(x=`sp1_xi_tau-sp2_xi_tau`,y=`sp1_mean_tau_g50-sp2_mean_tau_g50`,shape=ave_chill,color=ave_chill),size=.01)+
-      geom_point(data=check2,aes(`sp1_xi_tau-sp2_xi_tau` ,`sp1_mean_tau_g50-sp2_mean_tau_g50`,shape=ave_chill,color=ave_chill),size=2)+
+      geom_point(data=check,aes(x=`sp1_xi_tau-sp2_xi_tau`,y=`sp1_mean_tau_g50-sp2_mean_tau_g50`,shape=ave_chill,color=ave_chill),size=.3)+
+      #geom_point(data=check2,aes(`sp1_xi_tau-sp2_xi_tau` ,`sp1_mean_tau_g50-sp2_mean_tau_g50`,shape=ave_chill,color=ave_chill),size=2)+
       geom_smooth(data=check,method="lm",fullrange=TRUE,se=.5,aes(`sp1_xi_tau-sp2_xi_tau`,`sp1_mean_tau_g50-sp2_mean_tau_g50`,fill=ave_chill,color=ave_chill))+
       geom_vline(xintercept = 0)+geom_hline(yintercept=0)+
       #geom_smooth(data=check,method="lm",fullrange=TRUE,se=FALSE,aes(`sp1_xi_tau-sp2_xi_tau`,`sp1_mean_tau_g50-sp2_mean_tau_g50`,color=ave_chill,fill=ave_chill),linetype="dashed")+
       ggthemes::theme_few()+scale_shape_manual(name="average chilling period",values = c(17,15))+scale_color_viridis_d(name="average chilling period",begin=.15,end=.92)+
   scale_fill_viridis_d(name="average chilling period",begin=.15,end=.92)+
-  ylab("difference in realized phenology \nspecies 1 - species 2")+
-  xlab("difference in phenological sensitivity \nspecies 1 - species 2")
+  ylab("difference in realized phenology")+
+  xlab("difference in phenological sensitivity")
 
     
 c
 a<-  ggplot()+
+  geom_point(data=exno,aes(`sp1_mean_tau_g50-sp2_mean_tau_g50` ,`sp1_Rstar-sp2_Rstar`),size=5,shape=1)+
+  geom_point(data=exco,aes(`sp1_mean_tau_g50-sp2_mean_tau_g50` ,`sp1_Rstar-sp2_Rstar`),size=5,shape=1)+
+  geom_point(data=exco,aes(`sp1_mean_tau_g50-sp2_mean_tau_g50` ,`sp1_Rstar-sp2_Rstar`,color=ave_chill,shape=ave_chill),size=3)+
+geom_point(data=examples,aes(`sp1_mean_tau_g50-sp2_mean_tau_g50` ,`sp1_Rstar-sp2_Rstar`,shape=ave_chill,color=ave_chill),size=0.1)+
+  geom_line(data=examples,aes(`sp1_mean_tau_g50-sp2_mean_tau_g50` ,`sp1_Rstar-sp2_Rstar`,group=run),size=.5,linetype="dashed")+    
       geom_point(data=check,aes(x=`sp1_mean_tau_g50-sp2_mean_tau_g50`,y=`sp1_Rstar-sp2_Rstar`,shape=ave_chill,color=ave_chill),size=.01)+
       geom_point(data=check2,aes(`sp1_mean_tau_g50-sp2_mean_tau_g50` ,`sp1_Rstar-sp2_Rstar`,shape=ave_chill,color=ave_chill),size=2)+
-      geom_smooth(data=check2,method="lm",fullrange=TRUE,se=.5,aes(`sp1_mean_tau_g50-sp2_mean_tau_g50`,`sp1_Rstar-sp2_Rstar`,color=ave_chill,fill=ave_chill))+geom_vline(xintercept = 0)+geom_hline(yintercept=0)+
+  
+  
+  
+  geom_smooth(data=check2,method="lm",fullrange=TRUE,se=.5,aes(`sp1_mean_tau_g50-sp2_mean_tau_g50`,`sp1_Rstar-sp2_Rstar`,color=ave_chill,fill=ave_chill))+geom_vline(xintercept = 0)+geom_hline(yintercept=0)+
       coord_cartesian(ylim=c(-0.05,0.05))+
     ggthemes::theme_few()+scale_shape_manual(name="average chilling period",values = c(17,15))+
   scale_color_viridis_d(name="average chilling period",begin=.15,end=.92)+
   scale_fill_viridis_d(name="average chilling period",begin=.15,end=.92)+
   scale_linetype_manual(name="average chilling period",values=c("solid","dotdash"))+
-  ylab("difference in competitive ability \nspecies 1 - species 2")+
-  xlab("difference in realized phenology \nspecies 1 - species 2")
+  ylab("difference in competitive ability")+
+  xlab("difference in realized phenology")
   
   a  
   jpeg("plots/coexistance_runner_new.jpeg",width = 8,height=5,unit='in',res=200)
-  ggpubr::ggarrange(a,b,common.legend = TRUE,labels = c("a","b"))  
+  ggpubr::ggarrange(a,b,common.legend = TRUE,labels = c("a)","b)"))  
   dev.off()
   
-  
-  jpeg("plots/coexistance_explainer.jpeg",width = 8,height=5,unit='in',res=200)  
-  ggpubr::ggarrange(p1,c,common.legend = TRUE,labels = c("a","b")) 
+          
+cold  <- data.frame(`annual.chilling`=rlnorm(90000, log(12), .2),`climate.scenario`=rep("12 weeks",90000))
+warm  <- data.frame(`annual.chilling`=rlnorm(90000, log(6), .2),`climate.scenario`=rep("6 weeks",90000))
+chilling<-rbind(warm,cold)   
+
+explain1<-ggplot(chilling,aes(`annual.chilling`))+geom_histogram(aes(fill=`climate.scenario`),show.legend = FALSE,bins=600,position = "identity",alpha=0.6)+
+  coord_cartesian(xlim=c(0,22))+ggthemes::theme_few()+scale_fill_viridis_d(name="average chilling period",begin=.15,end=.92)+
+  xlab("weeks of chilling per year")
+
+
+explain2<-ggpubr::ggarrange(p1,c,common.legend = TRUE,labels = c("b)","c)")) 
+jpeg("plots/coexistance_explainer.jpeg",width = 8,height=7,unit='in',res=200)  
+ggpubr::ggarrange(explain1, explain2, common.legend = TRUE,ncol=1,heights=c(.2,.6),labels=c("a)","",""))
 dev.off()
  
 pdf("plots/modelouts.pdf")  
