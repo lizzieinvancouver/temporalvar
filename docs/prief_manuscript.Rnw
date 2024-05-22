@@ -1,0 +1,32 @@
+
+\documentclass{article}[12pt]
+%Required: You must have these
+\usepackage{graphicx}
+\usepackage{tabularx}
+\usepackage{natbib}
+%\usepackage{caption}
+%\usepackage{subcaption}
+\usepackage{array}
+\usepackage{amsmath}
+%\usepackage[backend=bibtex]{biblatex}
+\setkeys{Gin}{width=0.8\textwidth}
+%\setlength{\captionmargin}{30pt}
+\setlength{\abovecaptionskip}{10pt}
+\setlength{\belowcaptionskip}{10pt}
+\topmargin -1.5cm 
+\oddsidemargin -0.04cm 
+\evensidemargin -0.04cm 
+\textwidth 16.59cm
+\textheight 23.94cm 
+\parskip 7.2pt 
+\renewcommand{\baselinestretch}{1.1} 	
+\parindent 0pt
+
+\bibliographystyle{refs/styles/newphyto.bst}
+\begin{document}
+\SweaveOpts{concordance=TRUE}
+
+\section*{Introduction}
+
+
+\end{document}
