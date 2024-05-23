@@ -27,6 +27,7 @@
 \SweaveOpts{concordance=TRUE}
 
 \section*{Introduction}
+Each spring, in ecosystems across the temperate zone, ecological communities re-assemble form their period of winter dormancy with the hatching of insects, arrival of migratory birds, the germination of seeds and emergence of new leaves and flowers. The phenology---or seasonal timing---of these re-occurring life cycle events can be quite different, even among closely related organism in a shared habitat \citep{}. There is growing evidence that these phenological differences among taxa play a major role in dictating community interactions and shaping the structure and function of ecological communities \citep{}.
 
-
+Phenological differences among species can generate seasonal priority effects; when earlier active species gain a competitive advantage by accesses limiting resources before their competitors emerge or arrive \citep{}.
 \end{document}
