@@ -78,6 +78,15 @@ Because phenological sensitivity is the mediator between environmental variation
 Paragraph discussing ecological implications? eg. While our simulations are highly simplified version of a real ecological community, we can make some predictions about the kinds of species that will coexist under a novel climate. More phylogenetically distinct. Different life hystory, dormancy types. Maybe this is too hand wavy.
 
 \section{Paths Foward}
+Predicting assembly in an era of global change will require the closer integration of experiments and theory \citep{recent rudolph paper}, and enhancing the biological realism of both. Here, we demonstrate a simple way incorporating a more biological realistic germination frame into assembly models that produced important insights about how the relation between phenological sensitivity  and competitive ability will shift in order the maintain the relationship between realized phenological difference and competitive differences (Figure Figure \ref{Fig:coexistence}). However there are several other import aspects (something) that could be integrated into community assembly experiments and models to increase their relevance to on-the ground biology (say better).
+
+\begin{enumerate}
+\item Phenology is not the only thing that varies with the environment trait and density dependent mechanisms (rudoff paper)/ ie, we vary germination fraction and phenology. (note that our model can do this)
+\item multiple interacting cues
+\item add risk of being early
+\item other life histories, i.e, perennials, trees.
+
+\end{enumerate}
 
 \section*{Figures}
 

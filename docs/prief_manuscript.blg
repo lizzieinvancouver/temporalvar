@@ -6,6 +6,10 @@ I couldn't open style file refs/styles/newphyto.bst.bst
  : \bibstyle{refs/styles/newphyto.bst
  :                                   }
 I'm skipping whatever remains of this command
+White space in argument---line 23 of file prief_manuscript.aux
+ : \citation{recent
+ :                  rudolph paper}
+I'm skipping whatever remains of this command
 I found no \bibdata command---while reading file prief_manuscript.aux
 I found no style file---while reading file prief_manuscript.aux
 You've used 7 entries,
@@ -49,4 +53,4 @@ warning$ -- 0
 while$ -- 0
 width$ -- 0
 write$ -- 0
-(There were 3 error messages)
+(There were 4 error messages)
