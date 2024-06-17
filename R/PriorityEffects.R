@@ -21,10 +21,10 @@ here()
 dev.off()
 
 #define the run - Consider creating a dataframe with combinations of parms to test
-nruns<-300
+nruns<-10
 g_notxi <- 1
 c_warm<- 0.5
-makeplots <- FALSE
+makeplots <- TRUE
 outputy<-data.frame()
 #outputy2<-data.frame()
 #outputy3<-data.frame()

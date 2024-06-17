@@ -39,6 +39,6 @@ outputy<-rbind(mydat,outputy)
 
 #rm(outputy4)
 #head(outputy3)
-write.csv(outputy,"R/output/prieff_params.csv",row.names=FALSE)
+#write.csv(outputy,"R/output/prieff_params.csv",row.names=FALSE) comment if tyou don't want to overwrite the main data file
 #write.csv(outputy2,"R/output/prieff_acrossyr_params.csv",row.names=FALSE)
 print(paste("done",run=j))
