@@ -71,35 +71,58 @@ matricize<-function(x){
   temp<-as.matrix.data.frame(temp)#
 }
 
+d.samp2<-dplyr::select(d,SpCode,NativeStatus,NA_L1NAME,PctCov_100,Plot)
+d.samp2 <-d.samp2%>% group_by(NA_L1NAME,SpCode,NativeStatus) %>%summarize(PctCov_100=mean(PctCov_100,na.rm=TRUE))
+d.samp2<-distinct(d.samp2)
 
-L1<-matricize(d.samp)
+d.samp2$nonnative<-ifelse(d.samp2$NativeStatus=="I",1,0)
+d.samp2$nonnative<-d.samp2$nonnative*d.samp2$PctCov_100
+
+d.samp2<-filter(d.samp2,!is.na(NA_L1NAME))
+
+d.samp2<-dplyr::select(d.samp2,SpCode,nonnative,NA_L1NAME)
+
+temp<-dplyr::select(d.samp2,NA_L1NAME,SpCode,nonnative) ### select useful columns
+
+temp<- tidyr::spread(temp,SpCode,nonnative)
+temp[is.na(temp)] <- 0 
+temp<-as.data.frame(temp)
+rownames(temp)<-temp$NA_L1NAME # convert plot names to row names
+temp<-dplyr::select(temp,-NA_L1NAME)
+#temp[is.na(temp)] <- 0 
+temp<-as.matrix.data.frame(temp)#
+
+
+#L1<-matricize(d.samp)
 
 
 library(caper)
 library(picante)
 #goo.mpd<-mpd(goo, phy.dist)
 #USA.ses.mpd<-ses.mpd(L1, phy.dist, null.model = "taxa.labels", abundance.weighted = FALSE, runs = 9999)
-USA.ses.mntd<-ses.mntd(L1, phy.dist, null.model = "taxa.labels", abundance.weighted = FALSE, runs = 9999)
+#USA.ses.mntd<-ses.mntd(L1, phy.dist, null.model = "taxa.labels", abundance.weighted = FALSE, runs = 9999)
 
-uno<-data.frame(NA_L1NAME=c(rownames(USA.ses.mpd)),Estimate=c(USA.ses.mpd$mpd.rand.mean))
+USA.ses.mntd.abn<-ses.mntd(temp, phy.dist, null.model = "taxa.labels", abundance.weighted = FALSE, runs = 999)
 
-uno$lower<-c(uno$Estimate-USA.ses.mpd$mpd.rand.sd)
-uno$upper<-c(uno$Estimate+USA.ses.mpd$mpd.rand.sd)
-uno$lower2<-c(uno$Estimate-2*USA.ses.mpd$mpd.rand.sd)
-uno$upper2<-c(uno$Estimate+2*USA.ses.mpd$mpd.rand.sd)
+uno<-data.frame(NA_L1NAME=c(rownames(USA.ses.mntd.abn)),Estimate=c(USA.ses.mntd.abn$mntd.rand.mean))
 
-uno$metric<-c("MPD")
-uno$cat<-"randomly generated"
+#uno$lower<-c(uno$Estimate-USA.ses.mpd$mpd.rand.sd)
+#uno$upper<-c(uno$Estimate+USA.ses.mpd$mpd.rand.sd)
+#uno$lower2<-c(uno$Estimate-2*USA.ses.mpd$mpd.rand.sd)
+#uno$upper2<-c(uno$Estimate+2*USA.ses.mpd$mpd.rand.sd)
 
-uno2<-data.frame(NA_L1NAME=c(rownames(USA.ses.mpd)),Estimate=USA.ses.mpd$mpd.obs)
-uno2$lower<-uno2$Estimate
-uno2$upper<-uno2$Estimate
-uno2$lower2<-uno2$Estimate
-uno2$upper2<-uno2$Estimate
-uno2$metric<-c("MPD")
-uno2$cat<-"observed"
-uno<-rbind(uno,uno2)
-uno<-filter(uno,NA_L1NAME!="TROPICAL WET FORESTS")
+#uno$metric<-c("MPD")
+#uno$cat<-"randomly generated"
+
+#uno2<-data.frame(NA_L1NAME=c(rownames(USA.ses.mpd)),Estimate=USA.ses.mpd$mpd.obs)
+#uno2$lower<-uno2$Estimate
+#uno2$upper<-uno2$Estimate
+#uno2$lower2<-uno2$Estimate
+#uno2$upper2<-uno2$Estimate
+#uno2$metric<-c("MPD")
+#uno2$cat<-"observed"
+#uno<-rbind(uno,uno2)
+#uno<-filter(uno,NA_L1NAME!="TROPICAL WET FORESTS")
 
 
 mpd.plot<-ggplot(uno,aes(NA_L1NAME,Estimate))+
@@ -113,17 +136,17 @@ mpd.plot<-ggplot(uno,aes(NA_L1NAME,Estimate))+
   #theme(axis.text.x = element_blank(),axis.ticks.x = element_blank())
 
 
-uno<-data.frame(NA_L1NAME=c(rownames(USA.ses.mntd)),Estimate=c(USA.ses.mntd$mntd.rand.mean))
+uno<-data.frame(NA_L1NAME=c(rownames(USA.ses.mntd.abn)),Estimate=c(USA.ses.mntd.abn$mntd.rand.mean))
 
-uno$lower<-c(uno$Estimate-USA.ses.mntd$mntd.rand.sd)
-uno$upper<-c(uno$Estimate+USA.ses.mntd$mntd.rand.sd)
-uno$lower2<-c(uno$Estimate-2*USA.ses.mntd$mntd.rand.sd)
-uno$upper2<-c(uno$Estimate+2*USA.ses.mntd$mntd.rand.sd)
+uno$lower<-c(uno$Estimate- USA.ses.mntd.abn$mntd.rand.sd)
+uno$upper<-c(uno$Estimate+USA.ses.mntd.abn$mntd.rand.sd)
+uno$lower2<-c(uno$Estimate-2*USA.ses.mntd.abn$mntd.rand.sd)
+uno$upper2<-c(uno$Estimate+2*USA.ses.mntd.abn$mntd.rand.sd)
 
 uno$metric<-c("MNTD")
 uno$cat<-"randomly generated"
 
-uno2<-data.frame(NA_L1NAME=c(rownames(USA.ses.mntd)),Estimate=USA.ses.mntd$mntd.obs)
+uno2<-data.frame(NA_L1NAME=c(rownames(USA.ses.mntd.abn)),Estimate=USA.ses.mntd.abn$mntd.obs)
 uno2$lower<-uno2$Estimate
 uno2$upper<-uno2$Estimate
 uno2$lower2<-uno2$Estimate
