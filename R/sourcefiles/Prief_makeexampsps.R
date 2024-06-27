@@ -127,7 +127,7 @@ dd.e<-filter(dd,cox=="coexistence")
 ggplot(data=dd
        ,aes(x=`sp1_mean_tau_g50-sp2_mean_tau_g50`,y=`sp1_Rstar-sp2_Rstar`))+
   geom_point(aes(shape=ave_chill,color=ave_chill,size=cox))+
-  scale_size_manual(values=c(3,1))+geom_line(aes(group = run),size=0.1)+ylim(-.5,.5)+coord_cartesian(ylim=c(-.1,0.1))+
+  scale_size_manual(values=c(3,1))+geom_line(aes(group = run),size=0.1)+ylim(-.5,.5)+coord_cartesian(ylim=c(-.8,0.8))#+
   geom_smooth(data=dd.e,aes(x=`sp1_mean_tau_g50-sp2_mean_tau_g50`,y=`sp1_Rstar-sp2_Rstar`,color=ave_chill),method="lm",fullrange=TRUE)
 
 
