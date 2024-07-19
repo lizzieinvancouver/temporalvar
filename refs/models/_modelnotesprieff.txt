@@ -1,0 +1,20 @@
+Started 19 July 2024
+
+Godoy and Levine 2014: 
+
+They define low niche overlap as asynchrony (paragraph after eqn. 3). 
+
+kappa[j]/kappa[i] is the combined resource competition difference
+
+They parameterize this model (which is about competition differences) with field data and then compare phenological differences (only info I see on how they calculate this is in caption to Fig 2). 
+
+Their niche overlap is determined by timing.
+
+They find being later is better, but don't have great explanations for it (best is: "We therefore view our results as reflecting the syndrome of traits associated with different phenologies in both native and exotic California annuals.")
+
+Megan says their fig 2b is similar to what we found. If you go earlier you're a worse competitor, if you go later, you're a better competitor (says Megan, who understands this ... this is not an easy paper to read). Here: "In fact, in the three cases where the invader was earlier than the native community, it always possessed an average fitness ratio less than 1, making it an inferior competitor to the native community (Fig. 2B)." 
+
+They never seem to mention a benefit of being early (see second paragraph, right-side page 734 for example), which seems weird! Megan and I thus had a debate about whether this is because they feel phenological differences are INSIDE their estimates of competitive ability or they just found what we found (in our BioReview model) and interpreted it differently. 
+
+
+Levine et al. 2022: 
