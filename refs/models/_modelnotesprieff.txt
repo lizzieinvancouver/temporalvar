@@ -1,5 +1,8 @@
 Started 19 July 2024
+Updated 1 August 2024
 
+
+<><><><><><><><><><><>
 Godoy and Levine 2014: 
 
 They define low niche overlap as asynchrony (paragraph after eqn. 3). 
@@ -17,4 +20,16 @@ Megan says their fig 2b is similar to what we found. If you go earlier you're a 
 They never seem to mention a benefit of being early (see second paragraph, right-side page 734 for example), which seems weird! Megan and I thus had a debate about whether this is because they feel phenological differences are INSIDE their estimates of competitive ability or they just found what we found (in our BioReview model) and interpreted it differently. 
 
 
+<><><><><><><><><><><>
 Levine et al. 2022: 
+
+Difference from Rstar: in the R* growth is proportional to resource availability, in this model growth is constant until you reach R* and then you stop. So there is no competition other than via the growth rate. There is a trade-off between growth rate and water limitation (water limitation stops you growing).
+
+This is NOT that different than our Bioreview model -- it sets up coexistence via how fast you grow and your water R* (we traded off (growth efficiency which creates) differences in R* against ability to track the timing of start of season, which is resource access -- so this is very similar to what they do, we also basically trade-off R* and season length). What can happen in our model that cannot happen in their model is that one species can start ahead and draw down water so the other species cannot germinate at all. 
+
+Levine et al. 2022 have a growth rate and a separate water level (they argue in Box 1 that it is okay to separate these). They model water depletion which depends on total leaf area, so connected to growth (via biomass). So one species cannot prevent another species from germinating because of low water (because all species start at the same time) but it could preclude it from growing much. 
+
+So they have no cues and no risk and everyone germinates at once. 
+
+In our model chilling determines order of arrival, and is not related to water available at the start of each season, we end up with a type of stochasticity in arrival time that is not related to the environmental resource availability. This brings in risk in a way other models don't as well as this interesting priority effect stochasticity, and makes potential environmental correlations more important (e.g., chilling and water availability) -- and plants probably develop cues around such potential environmental correlations so in not thinking about this we may miss important biology. 
+ 
