@@ -33,3 +33,6 @@ So they have no cues and no risk and everyone germinates at once.
 
 In our model chilling determines order of arrival, and is not related to water available at the start of each season, we end up with a type of stochasticity in arrival time that is not related to the environmental resource availability. This brings in risk in a way other models don't as well as this interesting priority effect stochasticity, and makes potential environmental correlations more important (e.g., chilling and water availability) -- and plants probably develop cues around such potential environmental correlations so in not thinking about this we may miss important biology. 
  
+
+<><><><><><><><><><><>
+Rudolf 2019: 
