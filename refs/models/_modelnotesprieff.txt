@@ -1,5 +1,6 @@
 Started 19 July 2024
 Updated 1 August 2024
+Updated 28 August 2024
 
 
 <><><><><><><><><><><>
@@ -36,3 +37,9 @@ In our model chilling determines order of arrival, and is not related to water a
 
 <><><><><><><><><><><>
 Rudolf 2019: 
+
+Our model uses a standard competition model where there are intra- and inter-specific competition effects (through resources, if we skipped this we would have intra- and inter-specific competition coefficients). Rudolf says the per capita effect of species on each other depends on when they arrive (he allows the competition coefficients to vary over time such), so an early-arriving species gets less inter-specific competition by changing the inter-specific competition coefficient (NOT the density); so it's less mechanistic (but more generalizable; and easier to solve). 
+
+Our approach is more focused on the germination part of the problem and more mechanistic. Similar to Levine species always arrive so you cannot preclude the arrival of another species within the season. 
+
+We could (says Lizzie, out-loud to Megan), gloss over this paper as a generalizable approach when time between arrival of interacting species and impacts on competition coefficients is (a priori) known. 
