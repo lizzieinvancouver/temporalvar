@@ -19,14 +19,14 @@
 \renewcommand{\thefigure}{S\arabic{figure}}
 
 \section{Model} 
-For our example, we adapt the model from Wolkovich \& Donahue 2020, which is itself an adaptation of a common model of community dynamics, often conceptualized for annual plants with a seedbank (as we do here). A more detailed description of the model can be found in Wolkovich \& Donahue 2020.
+For our example, we adapt the model from Wolkovich \& Donahue 2020, which is itself an adaptation of a common model of community dynamics, often conceptualized for annual plants with a seedbank. A more detailed description of the model can be found in Wolkovich \& Donahue 2020.
 
-We model a pair of competing species in which the seedbank ($N$) of species $i$ at time $T+1$ (where $T$ represented interannual time) is determined by the survival ($s$) of ungerminated seeds from the previous year ($1-g_{i}(T)$) plus new biomass ($B_i$) produced during the following growing season ($\delta$), which is converted to seeds at rate $\phi$:
+We model a pair of competing species in which the seedbank ($N$) of species $i$ at time $T+1$ (where $T$ is the beginning of an annual  growing season) is determined by the survival ($s$) of ungerminated seeds from the previous year ($1-g_{i}(T)$) plus new biomass ($B_i$) produced during the  growing season ($\delta$), which is converted to seeds at rate $\phi$:
 \begin{align}
 N_{i}(T+1) & =
 s N_{i}(T)(1-g_{i}(T))+\phi B_{i}(T+\delta)
 \end{align}
-Within season dynamics of biomass are modeled as $R^{*}$ competition that begins when resources become available at the beginning of the growing season, $R(t=0) = R_0$, where $t$ indicates within-season time.  For each species, biomass increases through resource uptake ($f(R)$), which is converted into biomass at a species-specific rate $c_i$), less maintenance costs ($m$), plus germination $(G_{i}(t))$ Resource uptake per unit biomass is defined by the change in uptake per unit resource ($a$) and the maximum uptake ($1/u$).
+Within season dynamics of biomass are modeled as $R^{*}$ competition that begins when resources become available at the beginning of the growing season, $R(t=0) = R_0$, where $t$ indicates within-season time.  For each species, biomass increases through germination $(G_{i}(t))$ and resource uptake ($f(R)$), which is converted into biomass at a species-specific rate $c_i$), less maintenance costs ($m$).  Resource uptake per unit biomass is defined by the change in uptake per unit resource ($a$) and the maximum uptake ($1/u$).
 \begin{align}
 \frac{\mathrm{d}B_i}{\mathrm{d}t} & = (c_{i}f(R) - m)B_{i} + G_{i}(t)\\ 
 f(R) & = \frac{aR}{1+auR}
@@ -35,12 +35,15 @@ The resource ($R$) itself declines across a growing season due to uptake by the 
 \begin{align}
 \frac{\mathrm{d}R}{\mathrm{d}t} & = - \sum_{i=1}^{2}f(R)B_{i} -\epsilon R
 \end{align}
-Our model departs from similar community models by explicit modeling of germination phenology as dependent on winter conditions, what we call `chilling'.  The germination fraction in year T, $g_{i}(T), is spread out over the season   ($G_{i}(t)$) by modeling more of the physiology of germination---specifically that  Germination thus depends both on the traits of the species and on the environment each year. To achieve this, we modeled $G_{i}(t)$ germination as a time dependent forcing function that adds daily biomass to the ODE according to a Hill equation (see IMPT note in comments): % adjust forcing f(x) so that it provides a daily amount of germination, not the cumulative germination. 
+Our model departs from similar community models by explicit modeling of within-season germination phenology: germination, ($G_{i}(t)$), is modeled as a time-dependent forcing function that adds daily biomass (germinants) according to a Hill equation.  The timing of 50\%germination depends on overwinter conditions (i.e., days of chilling) and species-specific sensitivity to chilling; that is, germination  depends both on the interaction of a species trait and the environment each year, resulting in year to year variation in the timing of peak germination.  
+
+% adjust forcing f(x) so that it provides a daily amount of germination, not the cumulative germination. 
+%%CHECK:  Hill Eqn models the proportion of germinants entering on each day -- does the simulation appropriately scale to total germinants?
 \begin{align}
 G_{i}(t) & = N_{0}s_{i}b_{i}g_{i}(t)\\
-g_{i}(t) & = g_{max,i}(\frac{\text{within-season-time}^{nH}}{\tau_{g50}^{nH} + \text{within-season-time}^{nH}})
+g_{i}(t) & = g_{max,i}(\frac{\text{t}^{h}}{\tau_{g50}^{h} + \text{within-season-time}^{nH}})
 \end{align}
-where $b_{i}$ is the biomass per seed and where $\tau_{g50}$ is a Poisson random variable for the days of delay due to chilling, $\xi$, according to:   \\
+where $N_{0}$ is the number of overwintering seeds, $s_{i}$ is overwinter seed survival, $b_{i}$ converts germinating seeds into biomass, and $g_{i}(t)$ is is the biomass per seed and where $\tau_{g50}$ is a Poisson random variable for the days of delay due to chilling, $\xi$, according to:   \\
 \begin{align}
 \tau_{g50} & \sim \mathrm{Poisson}(\tau_{delay})\\
 \tau_{delay} & = \tau_{max}e^{-\tau_{\xi}\xi}
