@@ -131,7 +131,7 @@ ggpubr::ggarrange(p1,p2,ncol=2,nrow=1,common.legend=TRUE,labels = c("a)","b)"))
 dev.off()
 
 
-round(table(check2$ave_chill)/table(check$ave_chill),2)
+round(table(check2$ave_chill)/table(check$ave_chill),3)
 #round(table(fracking2$ave_chill)/table(fracking$ave_chill),2)
 
 summary(lm(check2$logR1R2~check2$logsens1sens2*check2$ave_chill))
@@ -245,20 +245,24 @@ dev.off()
 pdf("plots/modelouts.pdf")  
 ggpubr::ggarrange(a,b,p1,c,common.legend = TRUE,labels = c("a)","b)","c)","d)"))  
 dev.off()
-check3<-filter(check,coexist=="sp1 win" & logR1R2>0|coexist=="sp2 win" & logR1R2<0)
+
+
+check3<-filter(check,coexist=="sp1 win" & `sp1_Rstar-sp2_Rstar`>0|coexist=="sp2 win" & `sp1_Rstar-sp2_Rstar`<0)
 
 round(table(check3$ave_chill)/table(check$ave_chill),2)
+
+
 round(table(fracking3$ave_chill)/table(fracking$ave_chill),2)
 
 
 jpeg("plots/dominance.jpeg")
 dom<-ggplot()+
-  geom_point(data=check,aes(x=logsens1sens2,y=logR1R2),size=.01,color="grey")+
-  geom_point(data=check3,aes(x=logsens1sens2,y=logR1R2,color=ave_chill,fill=ave_chill),size=2)+
+  #geom_point(data=check,aes(x=`sp1_xi_tau-sp2_xi_tau`,y=`sp1_Rstar-sp2_Rstar`),size=.01,color="grey")+
+  geom_point(data=check3,aes(x=`sp1_xi_tau-sp2_xi_tau`,y=`sp1_Rstar-sp2_Rstar`,color=ave_chill,fill=ave_chill),size=2)+
   ggthemes::theme_few()+
   geom_vline(xintercept = 0)+geom_hline(yintercept=0)+
-  geom_smooth(data=check3,method="lm",fullrange=TRUE,aes(logsens1sens2,logR1R2,color=ave_chill,fill=ave_chill))+
-  scale_color_viridis_d(name="average chilling period",begin=.15,end=.92)+scale_fill_viridis_d(name="average chilling period",begin=.15,end=.92)+
+  geom_smooth(data=check3,method="lm",fullrange=TRUE,aes(`sp1_xi_tau-sp2_xi_tau`,`sp1_Rstar-sp2_Rstar`,color=ave_chill,fill=ave_chill))+
+  scale_color_viridis_d(name="average chilling period",begin=.15,end=.92)+scale_fill_viridis_d(name="average chilling period",begin=.15,end=.92)
   xlab(bquote(log(sensitivity[sp1]/sensitivity[sp2])))+
   ylab(bquote(log(Rstar[sp1]/Rstar[sp2])))+theme(legend.position = "top")
 
