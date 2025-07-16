@@ -206,7 +206,7 @@ a<-  ggplot()+
   geom_point(data=exno,aes(`sp1_mean_tau_g50-sp2_mean_tau_g50` ,`sp1_Rstar-sp2_Rstar`),size=5,shape=1)+
   geom_point(data=exco,aes(`sp1_mean_tau_g50-sp2_mean_tau_g50` ,`sp1_Rstar-sp2_Rstar`),size=5,shape=1)+
   geom_point(data=exco,aes(`sp1_mean_tau_g50-sp2_mean_tau_g50` ,`sp1_Rstar-sp2_Rstar`,color=ave_chill,shape=ave_chill),size=3)+
-geom_point(data=examples,aes(`sp1_mean_tau_g50-sp2_mean_tau_g50` ,`sp1_Rstar-sp2_Rstar`,shape=ave_chill,color=ave_chill),size=0.1)+
+geom_point(data=examples,aes(`sp1_mean_tau_g50-sp2_mean_tau_g50` ,`sp1_Rstar-sp2_Rstar`,shape=ave_chill,color=ave_chill),size=1.5)+
   geom_line(data=examples,aes(`sp1_mean_tau_g50-sp2_mean_tau_g50` ,`sp1_Rstar-sp2_Rstar`,group=run),size=.5,linetype="dashed")+    
       geom_point(data=check,aes(x=`sp1_mean_tau_g50-sp2_mean_tau_g50`,y=`sp1_Rstar-sp2_Rstar`,shape=ave_chill,color=ave_chill),size=.01)+
       geom_point(data=check2,aes(`sp1_mean_tau_g50-sp2_mean_tau_g50` ,`sp1_Rstar-sp2_Rstar`,shape=ave_chill,color=ave_chill),size=2)+
@@ -223,8 +223,8 @@ geom_point(data=examples,aes(`sp1_mean_tau_g50-sp2_mean_tau_g50` ,`sp1_Rstar-sp2
   xlab("difference in realized phenology")
   
   a  
-  jpeg("plots/coexistance_runner_new.jpeg",width = 8,height=5,unit='in',res=200)
-  ggpubr::ggarrange(a,b,common.legend = TRUE,labels = c("a)","b)"))  
+  jpeg("plots/coexistance_runner_new.jpeg",width = 11,height=4,unit='in',res=180)
+  ggpubr::ggarrange(a,c,b,common.legend = TRUE,labels = c("a)","b)","c)"),nrow=1)  
   dev.off()
   
           
@@ -239,7 +239,7 @@ explain1<-ggplot(chilling,aes(`annual.chilling`))+geom_histogram(aes(fill=`clima
 
 explain2<-ggpubr::ggarrange(p1,c,common.legend = TRUE,labels = c("b)","c)")) 
 jpeg("plots/coexistance_explainer.jpeg",width = 8,height=7,unit='in',res=200)  
-ggpubr::ggarrange(explain1, explain2, common.legend = TRUE,ncol=1,heights=c(.2,.6),labels=c("a)","",""))
+ggpubr::ggarrange(, explain2, common.legend = TRUE,ncol=1,heights=c(.2,.6),labels=c("a)","",""))
 dev.off()
  
 pdf("plots/modelouts.pdf")  
