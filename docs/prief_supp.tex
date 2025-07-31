@@ -31,7 +31,7 @@ Within season dynamics of biomass are modeled as $R^{*}$ competition that begins
 \frac{\mathrm{d}B_i}{\mathrm{d}t} & = (c_{i}f(R) - m)B_{i} + G_{i}(t)\\ 
 f(R) & = \frac{aR}{1+auR}
 \end{align}
-The resource ($R$) itself declines across a growing season due to uptake by the standing biomass of both species and abiotic loss ($\epsilon$):
+The resource ($R$) itself declines across a growing season (Fig:\ref{fig:within}a) due to uptake by the standing biomass of both species and abiotic loss ($\epsilon$):
 \begin{align}
 \frac{\mathrm{d}R}{\mathrm{d}t} & = - \sum_{i=1}^{2}f(R)B_{i} -\epsilon R
 \end{align}
@@ -59,6 +59,23 @@ Given an overview of simulations performed, be sure to mention: two-species comm
 \begin{quote}
 Within-year $R^{*}$ competition dynamics were solved using an ode solver (\verb|ode| in the R package \verb|deSolve|) and ended when the resource was drawn down to $min(R^{*})$, i.e. the $R^{*}$ value of the better resource competitor.  The end-of-season biomass of each species was converted to seeds, and the populations were censused.  At each census, a minimum cutoff was applied to define extinction from the model.  Note that `coexistence' in this model is defined by joint persistence through time and not by low density growth rate. 
 \end{quote}
+
+\begin{figure}[h!]
+  \centering
+ \includegraphics[width=\textwidth]{..//plots/withinseason4supp.pdf}
+    \caption{Caption here}
+    \label{Fig:within}
+\end{figure}
+
+
+\begin{figure}[h!]
+  \centering
+ \includegraphics[width=\textwidth]{..//plots/germination4supp.pdf}
+    \caption{Caption here}
+    \label{Fig:germ}
+\end{figure}
+
+
 
 \begin{center} % Lizzie started updating this in Feb 2024, but it is NOT DONE at all (and someone staring at the code more should do it). 
 \begin{table}[h!]
