@@ -27,6 +27,9 @@
 %\usepackage{xr-hyper}
 \usepackage{hyperref}
 \title{Differences in phenological sensitivity to climate disrupts species' conexistence in a changing environment}
+\title(Phenological sensitivity to climate change disrupts species' coexistence}
+\title{Climate change disrupts species' coexistence through altered phenological priority effects}
+
 \bibliographystyle{..//refs/styles/ecoletters.bst}
 \begin{document}
 \SweaveOpts{concordance=TRUE}
