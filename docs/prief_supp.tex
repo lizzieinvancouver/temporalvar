@@ -26,7 +26,7 @@ We model a pair of competing species in which the seedbank ($N$) of species $i$ 
 N_{i}(T+1) & =
 s N_{i}(T)(1-g_{i}(T))+\phi B_{i}(T+\delta)
 \end{align}
-Within season dynamics of biomass are modeled as $R^{*}$ competition that begins when resources become available at the beginning of the growing season, $R(t=0) = R_0$, where $t$ indicates within-season time.  For each species, biomass increases through germination $(G_{i}(t))$ and resource uptake ($f(R)$), which is converted into biomass at a species-specific rate $c_i$), less maintenance costs ($m$).  Resource uptake per unit biomass is defined by the change in uptake per unit resource ($a$) and the maximum uptake ($1/u$).
+Within season dynamics of biomass are modeled as $R^{*}$ competition that begins when resources become available at the beginning of the growing season, $R(t=0) = R_0$, where $t$ indicates within-season time.  For each species, biomass increases through germination $(G_{i}(t))$ and resource uptake ($f(R)$), which is converted into biomass at a species-specific rate $c_i$), less maintenance costs ($m$) (Fig:\ref{fig:within}b,c).  Resource uptake per unit biomass is defined by the change in uptake per unit resource ($a$) and the maximum uptake ($1/u$).
 \begin{align}
 \frac{\mathrm{d}B_i}{\mathrm{d}t} & = (c_{i}f(R) - m)B_{i} + G_{i}(t)\\ 
 f(R) & = \frac{aR}{1+auR}
@@ -35,20 +35,21 @@ The resource ($R$) itself declines across a growing season (Fig:\ref{fig:within}
 \begin{align}
 \frac{\mathrm{d}R}{\mathrm{d}t} & = - \sum_{i=1}^{2}f(R)B_{i} -\epsilon R
 \end{align}
-Our model departs from similar community models by explicit modeling of within-season germination phenology: germination, ($G_{i}(t)$), is modeled as a time-dependent forcing function that adds daily biomass (germinants) according to a Hill equation.  The timing of 50\%germination depends on overwinter conditions (i.e., days of chilling) and species-specific sensitivity to chilling; that is, germination  depends both on the interaction of a species trait and the environment each year, resulting in year to year variation in the timing of peak germination.  
+Our model departs from similar community models by explicit modeling of within-season germination phenology: germination, ($G_{i}(t)$), is modeled as a time-dependent forcing function that adds daily biomass (germinants) according to a Hill equation where the timing of 50\%germination (\tau_{g50,i}) depends on overwinter conditions (i.e., days of chilling) and species-specific sensitivity to chilling.  
+
+\begin{align}
+G_{i}(t) & = N_{0}s_{i}b_{i}g_{i}(t)\\
+g_{i}(t) & = g_{max}(\frac{\text{t}^{h}}{\tau_{g50,i}^{h} + \text{within-season-time}^{nH}})
+\end{align}
+where $N_{0}$ is the number of overwintering seeds, $s_{i}$ is overwinter seed survival, $b_{i}$ converts germinating seeds into biomass, and $g_{i}(t)$ is the percent germination at time $(t)$ (Fig:\ref{fig:within}e,f).  The Hill Equation defining $g_{i}(t)$ has a fixed Hill coefficient ($h$) and fixed maximum germination ($g_{max}$), and $\tau_{g50,i}$ is a Poisson random variable for the species-specific delay due to chilling (Figure S2a,b)
+\begin{align}
+\tau_{g50,i} & \sim \mathrm{Poisson}(\tau_{delay,i})\\
+\tau_{delay,i} & = \tau_{max}e^{-\tau_{\xi,i}\xi}
+\end{align}
+where $\xi$ is the days of overwinter chilling in year $T$, $\tau_{\xi,i}$ is the species-specific sensitivity to chilling, and \tau_{max} is the mean delay when overwinter chilling is zero.  That is, germination depends on the interaction of a species trait and a varying environment, resulting in year to year variation in the speed of germination (Figure S2e) and the timing of peak germination (Figure S2f).  
 
 % adjust forcing f(x) so that it provides a daily amount of germination, not the cumulative germination. 
 %%CHECK:  Hill Eqn models the proportion of germinants entering on each day -- does the simulation appropriately scale to total germinants?
-\begin{align}
-G_{i}(t) & = N_{0}s_{i}b_{i}g_{i}(t)\\
-g_{i}(t) & = g_{max,i}(\frac{\text{t}^{h}}{\tau_{g50}^{h} + \text{within-season-time}^{nH}})
-\end{align}
-where $N_{0}$ is the number of overwintering seeds, $s_{i}$ is overwinter seed survival, $b_{i}$ converts germinating seeds into biomass, and $g_{i}(t)$ is is the biomass per seed and where $\tau_{g50}$ is a Poisson random variable for the days of delay due to chilling, $\xi$, according to:   \\
-\begin{align}
-\tau_{g50} & \sim \mathrm{Poisson}(\tau_{delay})\\
-\tau_{delay} & = \tau_{max}e^{-\tau_{\xi}\xi}
-\end{align}
-
 
 ADD: While explaining the model, will need to reference (and include in figures), the plots that are made in \verb|Prieff_Species.R| to visualize. \\
 % Species that are less sensitive to chilling usually start earlier and generally start at the SAME time after the start of season (resource pulse). 
