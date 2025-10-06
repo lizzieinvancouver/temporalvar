@@ -49,15 +49,15 @@ where $N_{0}$ is the number of overwintering seeds, $s_{i}$ is overwinter seed s
 where $\xi(T)$ is the weeks of overwinter chilling in year $T$, $\tau_{\xi,i}$ is the species-specific sensitivity to chilling, and \tau_{max} is the expected delay when overwinter chilling is zero.  That is, germination depends on the interaction of a species trait and a varying environment, resulting in year to year variation in the speed of germination (Figure S2e) and the timing of peak germination (Figure S2f).  
 
 \noindent \emph{Simulations:}\\
-Given an overview of simulations performed, be sure to mention: two-species communities, species vary in \emph{what} and explain a little what that does (for example: We varied species' resource use efficiency (\emph{via} $c_i$), yielding species with different $R^*$ (a metric of resource competition where a lower $R^*$ means a species can draw the resource down to a lower level and is thus considered the superior competitor)) and then state something like ``All other parameters were identical between species (Table \ref{tab:model})." Also need: starting conditions (for example: both species were initialized with a census size of $N(0) = 100$ per unit area, and the temporally varying parameters $R_0(t)$ and $\tau_{p}(t)$ were generated) and then some re-wording of this:
-\begin{quote}
-Within-year $R^{*}$ competition dynamics were solved using an ode solver (\verb|ode| in the R package \verb|deSolve|) and ended when the resource was drawn down to $min(R^{*})$, i.e. the $R^{*}$ value of the better resource competitor.  The end-of-season biomass of each species was converted to seeds, and the populations were censused.  At each census, a minimum cutoff was applied to define extinction from the model.  Note that `coexistence' in this model is defined by joint persistence through time and not by low density growth rate. 
-\end{quote}
+To examine species coexistence when the timing of germination depends on annually varying seed stratification, we ran 10000 simulations of two-species communities, where each species randomly varied in resource conversion efficiency ($c_i$) and in sensitivity to chilling ($\tau_{\xi,i}$) (see Table S1 for parameter values). Variation in resource conversion efficiency yields different $R^*$ values, a metric of resource competition where a lower $R^*$ means a species can draw the resource down to a lower level and is thus considered the superior competitor.  Variation in sensitivity to chilling resulted in variation in the distribution of germination within a growing season (Fig S2d).   All other parameters were identical between species (Table S1).  Within-year competitive dynamics were solved using an ode solver (\verb|ode| in the R package \verb|deSolve|) with initial condition $R = R_0(T)$ and $B_{i}(t=0) = 0$, and germination was as a forcing function with germinants for each species added daily in proportion to a Hill Equation (Eqn 6, Fig S2d).  The end-of-season biomass of each species was converted to seeds, and the populations were censused.  At each census, a minimum cutoff was applied to define extinction from the model.  Note that `coexistence' in this model is defined by joint persistence through time and not by low density growth rate. 
+
+In all simulations, the environment varied from year to year in both resource availiability ($R_{0}(T)$) and overwinter chilling ($\xi(T)$); variation in $R_{0}(T)$ and $\xi(T)$ were independent. We compared competitive coexistence in simulations from two different environmental regimes: a low-chill regime and a high-chill regime (Figure 2a, Table S1).  Each species was initialized with a seedbank ($N_{i}(0) = 100$), and simulations were run for 300 years. For species that coexisted in the high-chill regime, we repeated the simulation of two species with the same resource conversion efficiency ($c_i$) and sensitivity to chilling ($\tau_{\xi,i}$) in a low-chill regime.
+
 
 \begin{figure}[h!]
   \centering
  \includegraphics[width=\textwidth]{..//plots/withinseason4supp.pdf}
-    \caption{Caption here}
+    \caption{Within-season dynamics of (a) resources ($R(t)$,Eqn 3), (b,c) biomass of two competing species ($B_{i}(t)$, Eqn 2), and (d,e) the distribution of germination over the growing season for each species ($g_{i}(t)$, Eqn 6)}
     \label{Fig:within}
 \end{figure}
 
@@ -65,7 +65,7 @@ Within-year $R^{*}$ competition dynamics were solved using an ode solver (\verb|
 \begin{figure}[h!]
   \centering
  \includegraphics[width=\textwidth]{..//plots/germination4supp.pdf}
-    \caption{Caption here}
+    \caption{Environmental variation and species-specific responses. (a) Comparison of the distribution in winter chilling in low-chill and high-chill regimes; (b) Species-specific distribution of annual variation in the timing of 50%-germination; (c) Species-specific response to chilling in the timing of 50%-germination; (d) Species-specific patterns in daily germination over the growing season in year T; (e) Species-specific patterns in cumulative germination over the growing season in year T. Panels b and c are plotted for a high-chill regime }
     \label{Fig:germ}
 \end{figure}
 
@@ -78,7 +78,7 @@ Within-year $R^{*}$ competition dynamics were solved using an ode solver (\verb|
 \hline 
 Parameter & Value(s) & Definition & Unit \\ \hline 
 \(R_0(T)\) & $\sim logN(\mu_R, \sigma_R)\n,  \mu_R = log(2),\sigma_R = 0.2 $ & annually varying initial value of resource at the beginning of the growing season & resource\\ \hline
-\(\xi(T)\) & $\sim logN(\mu_\xi, \sigma_\xi)\n,  \mu_\xi = log(6), \sigma_\xi = 0.2 $ & annually varying winter chilling & weeks of chilling\\ \hline
+\(\xi(T)\) & $\sim logN(\mu_\xi, \sigma_\xi)\n,  \mu_\xi_lo = log(6) or \mu_\xi_hi = log(12), \sigma_\xi = 0.2 $ & annually varying winter chilling & weeks of chilling\\ \hline
 \(N_{i}(T)\) & \raggedright{initial conditions $N_{i}(0) = 100; \n min(N_{i}(T)) = 10^{-4}$} & census of seedbank of species \(i\) & seeds per unit area \\ \hline
 \(s\) & 0.8 & overwinter survival of species \(i\) & unitless \\ \hline
 \(\phi\) & 0.05 & conversion of end-of-season biomass to seeds & \(\text{biomass}^{-1}\), but conceptually \(\frac{\text{seeds}}{(\text{biomass})(\text{seeds})}\) \\ \hline
