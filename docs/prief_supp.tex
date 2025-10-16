@@ -65,49 +65,49 @@ In all simulations, the environment varied from year to year in both resource av
 \begin{figure}[h!]
   \centering
  \includegraphics[width=\textwidth]{..//plots/germination4supp.pdf}
-    \caption{Environmental variation and species-specific responses. (a) Comparison of the distribution in winter chilling in low-chill and high-chill regimes; (b) Species-specific distribution of annual variation in the timing of 50%-germination; (c) Species-specific response to chilling in the timing of 50%-germination; (d) Species-specific patterns in daily germination over the growing season in year T; (e) Species-specific patterns in cumulative germination over the growing season in year T. Panels b and c are plotted for a high-chill regime }
+    \caption{Environmental variation and species-specific responses. (a) Comparison of the distribution in winter chilling in low-chill and high-chill regimes; (b) Species-specific distribution of annual variation in the timing of 50\%-germination; (c) Species-specific response to chilling in the timing of 50\%-germination; (d) Species-specific patterns in daily germination over the growing season in year T; (e) Species-specific patterns in cumulative germination over the growing season in year T. Panels b and c are plotted for a high-chill regime }
     \label{Fig:germ}
 \end{figure}
 
 
 
-\begin{center} % Lizzie started updating this in Feb 2024, but it is NOT DONE at all (and someone staring at the code more should do it). 
-\begin{table}[h!]
-\caption{Parameter values, definitions, and units.}
-\begin{tabular}{ | p{2.0cm} | p{3.5cm} | p{5.0cm} | p{4.0cm} |}
-\hline 
-Parameter & Value(s) & Definition & Unit \\ \hline 
-\(R_0(T)\) & $\sim logN(\mu_R, \sigma_R)\n,  \mu_R = log(2),\sigma_R = 0.2 $ & annually varying initial value of resource at the beginning of the growing season & resource\\ \hline
-\(\xi(T)\) & $\sim logN(\mu_\xi, \sigma_\xi)\n,  \mu_\xi_lo = log(6) or \mu_\xi_hi = log(12), \sigma_\xi = 0.2 $ & annually varying winter chilling & weeks of chilling\\ \hline
-\(N_{i}(T)\) & \raggedright{initial conditions $N_{i}(0) = 100; \n min(N_{i}(T)) = 10^{-4}$} & census of seedbank of species \(i\) & seeds per unit area \\ \hline
-\(s\) & 0.8 & overwinter survival of species \(i\) & unitless \\ \hline
-\(\phi\) & 0.05 & conversion of end-of-season biomass to seeds & \(\text{biomass}^{-1}\), but conceptually \(\frac{\text{seeds}}{(\text{biomass})(\text{seeds})}\) \\ \hline
-\(B_{i}(t)\) & \raggedright{B_{i}(t = 0) = 0; \n see Eqn 2 & within-season biomass of species \(i\) & biomass \\ \hline
+%\begin{center} % Lizzie started updating this in Feb 2024, but it is NOT DONE at all (and someone staring at the code more should do it). 
+%\begin{table}[h!]
+%\caption{Parameter values, definitions, and units.}
+%\begin{tabular}{ | p{2.0cm} | p{3.5cm} | p{5.0cm} | p{4.0cm} |}
+%\hline 
+%Parameter & Value(s) & Definition & Unit \\ \hline 
+%\(R_0(T)\) & $\sim logN(\mu_R, \sigma_R)\n,  \mu_R = log(2),\sigma_R = 0.2 $ & annually varying initial value of resource at the beginning of the growing season & resource\\ \hline
+%\(\xi(T)\) & $\sim logN(\mu_\xi, \sigma_\xi)\n,  \mu_\xi_lo = log(6) or \mu_\xi_hi = log(12), \sigma_\xi = 0.2 $ & annually varying winter chilling & weeks of chilling\\ \hline
+%\(N_{i}(T)\) & \raggedright{initial conditions $N_{i}(0) = 100; \n min(N_{i}(T)) = 10^{-4}$} & census of seedbank of species \(i\) & seeds per unit area \\ \hline
+%\(s\) & 0.8 & overwinter survival of species \(i\) & unitless \\ \hline
+%\(\phi\) & 0.05 & conversion of end-of-season biomass to seeds & \(\text{biomass}^{-1}\), but conceptually \(\frac{\text{seeds}}{(\text{biomass})(\text{seeds})}\) \\ \hline
+%\(B_{i}(t)\) & \raggedright{B_{i}(t = 0) = 0; \n see Eqn 2 & within-season biomass of species \(i\) & biomass \\ \hline
 
-\(c_{i}\) & $\sim$Unif(8,20) & conversion efficiency of \(R\) to biomass of species \(i\) &  \(\frac{\text{biomass}}{\text{resource}}\) \\ \hline
-\(m\) & 0.05 & maintenance costs during growth season \(i\) & \(\text{days}^{-1}\) \\ \hline
-\(a\) & 20 & uptake increase as \(R\) increases for species \(i\) & \(\text{days}^{-1}\) \\ \hline
-\(u\) & 1 & inverse of maximum uptake for species \(i\) & \(\frac{(\text{days})(\text{biomass})}{\text{resource}}\) \\ \hline
-\(\theta\) & 1 & shape of uptake for species \(i\) & unitless\\ \hline
+%\(c_{i}\) & $\sim$Unif(8,20) & conversion efficiency of \(R\) to biomass of species \(i\) &  \(\frac{\text{biomass}}{\text{resource}}\) \\ \hline
+%\(m\) & 0.05 & maintenance costs during growth season \(i\) & \(\text{days}^{-1}\) \\ \hline
+%\(a\) & 20 & uptake increase as \(R\) increases for species \(i\) & \(\text{days}^{-1}\) \\ \hline
+%\(u\) & 1 & inverse of maximum uptake for species \(i\) & \(\frac{(\text{days})(\text{biomass})}{\text{resource}}\) \\ \hline
+%\(\theta\) & 1 & shape of uptake for species \(i\) & unitless\\ \hline
 
-\(\epsilon\) & 1 & abiotic loss of \(R\) &  \(\text{days}^{-1}\) \\ \hline
-\(g_{max}\) & 0.5 & maximum germination rate of species & unitless \\ \hline
-\(h\) & 100 &  controls the the rate at which germination declines as \(\tau_{p}\) deviates from optimum for species \(i\)  & \(\text{days}^{-2}\) \\ \hline
-\(g_{i}\) & see Eqn 6 & germination rate & unitless \\ \hline
-\(\tau_{g}\) & $\sim \beta(?,?)$ & days of delay (given on weeks of chilling) & days \\ \hline
-\(\tau_{g_{50}}\) & $\sim \mathrm{Pois}(\tau_{g})$ & ?? & days \\ \hline
-\(\xi_{\tau}\) & $\sim$ ?,? & rate of delay (given weeks of chilling) \(i\) & days/week \\ \hline
-\hline
-\(b_{i}\) & 1 & biomass of a seedling & \(\frac{\text{biomass}}{\text{seeds}}\) \\ \hline
-\(f(R)\) & see Eqn 3& resource uptake rate for species \(i\) & \(\frac{\text{resource}}{(\text{days})(\text{biomass})}\)\\ \hline
- \hline
-\(t\) & 1 & annual timestep & years \\ \hline
-\(0\) $\rightarrow$ \(\delta\) & determined by rate of resource depletion & time during the growing season & days \\ \hline
-\hline
-\end{tabular}
-\label{tab:model}
-\end{table}
-\end{center}
+%\(\epsilon\) & 1 & abiotic loss of \(R\) &  \(\text{days}^{-1}\) \\ \hline
+%\(g_{max}\) & 0.5 & maximum germination rate of species & unitless \\ \hline
+%\(h\) & 100 &  controls the the rate at which germination declines as \(\tau_{p}\) deviates from optimum for species \(i\)  & \(\text{days}^{-2}\) \\ \hline
+%\(g_{i}\) & see Eqn 6 & germination rate & unitless \\ \hline
+%\(\tau_{g}\) & $\sim \beta(?,?)$ & days of delay (given on weeks of chilling) & days \\ \hline
+%\(\tau_{g_{50}}\) & $\sim \mathrm{Pois}(\tau_{g})$ & ?? & days \\ \hline
+%\(\xi_{\tau}\) & $\sim$ ?,? & rate of delay (given weeks of chilling) \(i\) & days/week \\ \hline
+%\hline
+%\(b_{i}\) & 1 & biomass of a seedling & \(\frac{\text{biomass}}{\text{seeds}}\) \\ \hline
+%\(f(R)\) & see Eqn 3& resource uptake rate for species \(i\) & \(\frac{\text{resource}}{(\text{days})(\text{biomass})}\)\\ \hline
+% \hline
+%\(t\) & 1 & annual timestep & years \\ \hline
+%\(0\) $\rightarrow$ \(\delta\) & determined by rate of resource depletion & time during the growing season & days \\ \hline
+%\hline
+%\end{tabular}
+%\label{tab:model}
+%\end{table}
+%\end{center}
 
 \end{document}
 
