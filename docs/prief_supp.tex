@@ -1,4 +1,4 @@
-\documentclass[11pt,letter]{article}
+\documentclass[11pt]{article}
 \usepackage[top=1.00in, bottom=1.0in, left=1.1in, right=1.1in]{geometry}
 \renewcommand{\baselinestretch}{1.1}
 \usepackage{graphicx}
@@ -19,19 +19,19 @@
 \renewcommand{\thefigure}{S\arabic{figure}}
 
 \section{Model} 
-For our example, we adapt the model from Wolkovich \& Donahue 2020, which is itself an adaptation of a common model of community dynamics, often conceptualized for annual plants with a seedbank. A more detailed description of the model can be found in Wolkovich \& Donahue 2020.
+For our example, we adapt the model from Wolkovich \& Donahue 2020, which is itself an adaptation of a common model of community dynamics, often conceptualized for annual plants with a seedbank. A more detailed description of the model can be found in Wolkovich \& Donahue 2020.\\
 
 We model a pair of competing species in which the seedbank $N$ of species $i$ at time $T+1$ (where $T$ is the beginning of an annual  growing season) is determined by the survival ($s$) of ungerminated seeds from the previous year ($1-g_{i}(T)$) plus new biomass ($B_i$) produced during the  growing season (from $T$ to $T + \delta$), which is converted to seeds at rate $\phi$:
 \begin{align}
 N_{i}(T+1) & =
 s N_{i}(T)(1-g_{i}(T))+\phi B_{i}(T+\delta)
 \end{align}
-Within season dynamics of biomass are modeled as $R^{*}$ competition that begins when resources become available at the beginning of the growing season, $R(t=0) = R_0(T)$, where $t$ indicates within-season time and annual initial resource availability.  For each species, biomass increases through germination $G_{i}(t)$ and resource uptake ($f(R)$), which is converted into biomass at a species-specific rate ($c_i$), less maintenance costs ($m$) (Fig S1b,c).  Resource uptake per unit biomass is defined by the change in uptake per unit resource ($a$) and the maximum uptake ($1/u$).
+Within season dynamics of biomass are modeled as $R^{*}$ competition that begins when resources become available at the beginning of the growing season, $R(t=0) = R_0(T)$, where $t$ indicates within-season time and annual initial resource availability.  For each species, biomass increases through germination $G_{i}(t)$ and resource uptake ($f(R)$), which is converted into biomass at a species-specific rate ($c_i$), less maintenance costs ($m$) (Figure \ref{Fig:within}b,c).  Resource uptake per unit biomass is defined by the change in uptake per unit resource ($a$) and the maximum uptake ($1/u$).
 \begin{align}
 \frac{\mathrm{d}B_i}{\mathrm{d}t} & = (c_{i}f(R) - m)B_{i} + G_{i}(t)\\ 
 f(R) & = \frac{aR}{1+auR}
 \end{align}
-The resource ($R$) itself declines across a growing season (Fig:S1a) due to uptake by the standing biomass of both species and abiotic loss ($\epsilon$):
+The resource ($R$) itself declines across a growing season (Figure \ref{Fig:within}a) due to uptake by the standing biomass of both species and abiotic loss ($\epsilon$):
 \begin{align}
 \frac{\mathrm{d}R}{\mathrm{d}t} & = - \sum_{i=1}^{2}f(R)B_{i} -\epsilon R
 \end{align}
@@ -41,21 +41,21 @@ Our model departs from similar community models by explicit modeling of within-s
 G_{i}(t) & = N_{0}s_{i}b_{i}g_{i}(t)\\
 g_{i}(t) & = g_{max}(\frac{\text{t}^{h}}{\tau_{g50,i}^{h} + \text{t}^{h}})
 \end{align}
-where $N_{0}$ is the number of overwintering seeds, $s_{i}$ is overwinter seed survival, $b_{i}$ converts germinating seeds into biomass, and $g_{i}(t)$ is the percent germination at time $(t)$ (Fig S1e,f).  The shape of the Hill Equation defining $g_{i}(t)$ has the same maximum germination ($g_{max}$) and Hill coefficient ($h$) for each species, and $\tau_{g50,i}$ is the species-specific delay due to overwinter chilling (Figure S2a,b).  The number of days of germination delay for species $i$, $\tau_{delay,i}$, declines with chilling, such that
+where $N_{0}$ is the number of overwintering seeds, $s_{i}$ is overwinter seed survival, $b_{i}$ converts germinating seeds into biomass, and $g_{i}(t)$ is the percent germination at time $(t)$ (Figure \ref{Fig:within}e,f).  The shape of the Hill Equation defining $g_{i}(t)$ has the same maximum germination ($g_{max}$) and Hill coefficient ($h$) for each species, and $\tau_{g50,i}$ is the species-specific delay due to overwinter chilling (Figure \ref{Fig:germ}a,b).  The number of days of germination delay for species $i$, $\tau_{delay,i}$, declines with chilling, such that
 
 \begin{align}
-\tau_{delay,i} & = \tau_{max}e^{-\tau_{\xi,i}\xi(T)}
-\tau_{g50,i} & \sim \mathrm{Poisson}(\tau_{delay,i})\\
+\tau_{delay,i} & = \tau_{max}e^{-\tau_{\xi,i}\xi(T)} \\
+\tau_{g50,i} & \sim \mathrm{Poisson}(\tau_{delay,i})
 \end{align}
-where $\xi(T)$ is the weeks of overwinter chilling in year $T$, $\tau_{\xi,i}$ is the species-specific sensitivity to chilling, and $\tau_{max}$ is the expected delay when overwinter chilling is zero.  That is, germination depends on the interaction of a species trait and a varying environment, resulting in year to year variation in the speed of germination (Figure S2e) and the timing of peak germination (Figure S2f). 
+where $\xi(T)$ is the weeks of overwinter chilling in year $T$, $\tau_{\xi,i}$ is the species-specific sensitivity to chilling, and $\tau_{max}$ is the expected delay when overwinter chilling is zero.  That is, germination depends on the interaction of a species trait and a varying environment, resulting in year to year variation in the speed of germination (Figure \ref{Fig:germ}e) and the timing of peak germination (Figure \ref{Fig:germ}f). \\
 
 \noindent \emph{Simulations:}\\
-To examine species coexistence when the timing of germination depends on annually varying seed stratification, we ran 10000 simulations of two-species communities.  Communities were assembled from randomly generated species, where each species varied in resource conversion efficiency ($c_i$) and in sensitivity to chilling ($\tau_{\xi,i}$) (see Table S1 for parameter values). Variation in resource conversion efficiency yields different $R^*$ values, a metric of resource competition where a lower $R^*$ means a species can draw the resource down to a lower level and is thus considered the superior competitor.  Variation in sensitivity to chilling resulted in variation in the distribution of germination within a growing season (Fig S2d).   All other parameters were identical between species (Table S1).  Within-year competitive dynamics were solved using an ode solver (\verb|ode| in the R package \verb|deSolve|) with initial condition $R = R_0(T)$ and $B_{i}(t=0) = 0$, and germination was as a forcing function with germinants for each species added daily in proportion to a Hill Equation (Eqn 6, Fig S2d).  The end-of-season biomass of each species was converted to seeds, and the populations were censused.  At each census, a minimum cutoff was applied to define extinction from the model.  Note that `coexistence' in this model is defined by joint persistence through time and not by low density growth rate. 
+To examine species coexistence when the timing of germination depends on annually varying seed stratification, we ran 10000 simulations of two-species communities.  Communities were assembled from randomly generated species, where each species varied in resource conversion efficiency ($c_i$) and in sensitivity to chilling ($\tau_{\xi,i}$) (see Table S1 for parameter values). Variation in resource conversion efficiency yields different $R^*$ values, a metric of resource competition where a lower $R^*$ means a species can draw the resource down to a lower level and is thus considered the superior competitor.  Variation in sensitivity to chilling resulted in variation in the distribution of germination within a growing season (Figure \ref{Fig:within}d).   All other parameters were identical between species (Table S1).  Within-year competitive dynamics were solved using an ode solver (\verb|ode| in the R package \verb|deSolve|) with initial condition $R = R_0(T)$ and $B_{i}(t=0) = 0$, and germination was as a forcing function with germinants for each species added daily in proportion to a Hill Equation (Eqn 6, Figure \ref{Fig:within}d).  The end-of-season biomass of each species was converted to seeds, and the populations were censused.  At each census, a minimum cutoff was applied to define extinction from the model.  Note that `coexistence' in this model is defined by joint persistence through time and not by low density growth rate. \\
 
-In all simulations, the environment varied from year to year in both resource availiability ($R_{0}(T)$) and overwinter chilling ($\xi(T)$), such that
+In all simulations, the environment varied from year to year in both resource availability ($R_{0}(T)$) and overwinter chilling ($\xi(T)$), such that
 \begin{align}
-\ $R_0(T) \sim logN(\mu_R, \sigma_R)$
-( $\xi(T) \sim logN(\mu_\xi, \sigma_\xi)$) 
+R_0(T) \sim logN(\mu_R, \sigma_R)\\
+(\xi(T) \sim logN(\mu_\xi, \sigma_\xi)) 
 \end{align}
 Variation in $R_{0}(T)$ and $\xi(T)$ were independent. We compared competitive coexistence in simulations from two different environmental regimes: a low-chill regime and a high-chill regime (Figure 2a, Table S1).  Each species was initialized with a seedbank ($N_{i}(0) = 100$), and simulations were run for 300 years. For species that coexisted in the high-chill regime, we repeated the simulation of two species with the same resource conversion efficiency ($c_i$) and sensitivity to chilling ($\tau_{\xi,i}$) in a low-chill regime.
 
