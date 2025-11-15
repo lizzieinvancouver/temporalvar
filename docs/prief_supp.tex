@@ -50,14 +50,14 @@ where $N_{0}$ is the number of overwintering seeds, $s_{i}$ is overwinter seed s
 where $\xi(T)$ is the weeks of overwinter chilling in year $T$, $\tau_{\xi,i}$ is the species-specific sensitivity to chilling, and $\tau_{max}$ is the expected delay when overwinter chilling is zero.  That is, germination depends on the interaction of a species trait and a varying environment, resulting in year to year variation in the speed of germination (Figure \ref{Fig:germ}e) and the timing of peak germination (Figure \ref{Fig:germ}f). \\
 
 \noindent \emph{Simulations:}\\
-To examine species coexistence when the timing of germination depends on annually varying seed stratification, we ran 10000 simulations of two-species communities.  Communities were assembled from randomly generated species, where each species varied in resource conversion efficiency ($c_i$) and in sensitivity to chilling ($\tau_{\xi,i}$) (see Table S1 for parameter values). Variation in resource conversion efficiency yields different $R^*$ values, a metric of resource competition where a lower $R^*$ means a species can draw the resource down to a lower level and is thus considered the superior competitor.  Variation in sensitivity to chilling resulted in variation in the distribution of germination within a growing season (Figure \ref{Fig:within}d).   All other parameters were identical between species (Table S1).  Within-year competitive dynamics were solved using an ode solver (\verb|ode| in the R package \verb|deSolve|) with initial condition $R = R_0(T)$ and $B_{i}(t=0) = 0$, and germination was as a forcing function with germinants for each species added daily in proportion to a Hill Equation (Eqn 6, Figure \ref{Fig:within}d).  The end-of-season biomass of each species was converted to seeds, and the populations were censused.  At each census, a minimum cutoff was applied to define extinction from the model.  Note that `coexistence' in this model is defined by joint persistence through time and not by low density growth rate. \\
+To examine species coexistence when the timing of germination depends on annually varying seed stratification, we ran 10000 simulations of two-species communities.  Communities were assembled from randomly generated species, where each species varied in resource conversion efficiency ($c_i$) and in sensitivity to chilling ($\tau_{\xi,i}$) (see Table \ref{tab:model} for parameter values). Variation in resource conversion efficiency yields different $R^*$ values, a metric of resource competition where a lower $R^*$ means a species can draw the resource down to a lower level and is thus considered the superior competitor.  Variation in sensitivity to chilling resulted in variation in the distribution of germination within a growing season (Figure \ref{Fig:within}d).   All other parameters were identical between species (Table \ref{tab:model}).  Within-year competitive dynamics were solved using an ode solver (\verb|ode| in the R package \verb|deSolve|) with initial condition $R = R_0(T)$ and $B_{i}(t=0) = 0$, and germination was as a forcing function with germinants for each species added daily in proportion to a Hill Equation (Eqn 6, Figure \ref{Fig:within}d).  The end-of-season biomass of each species was converted to seeds, and the populations were censused.  At each census, a minimum cutoff was applied to define extinction from the model.  Note that `coexistence' in this model is defined by joint persistence through time and not by low density growth rate. \\
 
 In all simulations, the environment varied from year to year in both resource availability ($R_{0}(T)$) and overwinter chilling ($\xi(T)$), such that
 \begin{align}
 R_0(T) \sim logN(\mu_R, \sigma_R)\\
 (\xi(T) \sim logN(\mu_\xi, \sigma_\xi)) 
 \end{align}
-Variation in $R_{0}(T)$ and $\xi(T)$ were independent. We compared competitive coexistence in simulations from two different environmental regimes: a low-chill regime and a high-chill regime (Figure 2a, Table S1).  Each species was initialized with a seedbank ($N_{i}(0) = 100$), and simulations were run for 300 years. For species that coexisted in the high-chill regime, we repeated the simulation of two species with the same resource conversion efficiency ($c_i$) and sensitivity to chilling ($\tau_{\xi,i}$) in a low-chill regime.
+Variation in $R_{0}(T)$ and $\xi(T)$ were independent. We compared competitive coexistence in simulations from two different environmental regimes: a low-chill regime and a high-chill regime (Figure 2a, Table \ref{tab:model}).  Each species was initialized with a seedbank ($N_{i}(0) = 100$), and simulations were run for 300 years. For species that coexisted in the high-chill regime, we repeated the simulation of two species with the same resource conversion efficiency ($c_i$) and sensitivity to chilling ($\tau_{\xi,i}$) in a low-chill regime.
 
 \begin{figure}[h!]
   \centering
@@ -75,41 +75,40 @@ Variation in $R_{0}(T)$ and $\xi(T)$ were independent. We compared competitive c
 
 
 
-%\begin{center} % Lizzie started updating this in Feb 2024, but it is NOT DONE at all (and someone staring at the code more should do it). 
-%\begin{table}[h!]
-%\caption{Parameter values, definitions, and units.}
-%\begin{tabular}{ | p{2.0cm} | p{3.5cm} | p{5.0cm} | p{4.0cm} |}
-%\hline 
- %Parameter & Value(s) & Definition & Unit \\ \hline 
- %$R_0(T)$ & \raggedright{$\sim logN(\mu_R, \sigma_R)\n,  \mu_R = log(2),\sigma_R = 0.2 $} & amount of resource at the beginning of the growing season, varies annually & resource\\ \hline
- %$\xi(T)$ & \raggedright{$\sim logN(\mu_\xi, \sigma_\xi)\n,  \mu_{\xi,lo} = log(6), \sigma_\xi = 0.2 \text{ or}\n \mu_{\xi,hi} = log(12), \sigma_\xi = 0.2 $} & annually varying winter chilling & weeks of chilling\\ \hline
- %$N_{i}(T)$ & \raggedright{$N_{i}(T = 0) = 100; \n min(N_{i}(T)) = 10^{-4}$} & census of seedbank of species $i$ & seeds per unit area \\ \hline
- %$s$ & 0.8 & overwinter survival of species $i$ & unitless \\ \hline
- %$\phi$ & 0.05 & conversion of end-of-season biomass to seeds & $\text{biomass}^{-1}$, but conceptually $\frac{\text{seeds}}{(\text{biomass})(\text{seeds})}$ \\ \hline
- %$B_{i}(t) & \raggedright{B_{i}(t = 0) = G_{i}(t = 0); \n see Eqns 2,5 & within-season biomass of species $i$, initiated by germination & biomass \\ \hline
- %$c_{i} & $\sim$Unif(0.025,0.75) & conversion efficiency of $R$ to biomass of species $i$ &  $\frac{\text{biomass}}{\text{resource}}$ \\ \hline
- %$m$ & 0.005 & maintenance costs during growth season for species $i$ & $\text{days}^{-1}$ \\ \hline
- %$a$ & 0.8 & uptake increase as $R$ increases for species $i$ & \text{days}^{-1} \\ \hline
- %$u$ & 5 & inverse of maximum uptake for species $i$ & $\frac{(\text{days})(\text{biomass})}{\text{resource}}$ \\ \hline
- %$\theta$ & 1 & shape of uptake for species $i$ & unitless\\ \hline
- %$\epsilon$ & 1 & abiotic loss of $R$ &  $\text{days}^{-1}$ \\ \hline
-%\(g_{max}\) & 0.5 & maximum germination rate of species & unitless \\ \hline
-%\(h\) & 100 &  controls the the rate at which germination declines as \(\tau_{p}\) deviates from optimum for species \(i\)  & \(\text{days}^{-2}\) \\ \hline
-%\(g_{i}\) & see Eqn 6 & germination rate & unitless \\ \hline
-%\(\tau_{g}\) & $\sim \beta(?,?)$ & days of delay (given on weeks of chilling) & days \\ \hline
-%\(\tau_{g_{50}}\) & $\sim \mathrm{Pois}(\tau_{g})$ & ?? & days \\ \hline
-%(\xi_{\tau}\) & $\sim$ ?,? & rate of delay (given weeks of chilling) \(i\) & days/week \\ \hline
-%\hline
-%\(b_{i}\) & 1 & biomass of a seedling & \(\frac{\text{biomass}}{\text{seeds}}\) \\ \hline
-%\(f(R)\) & see Eqn 3& resource uptake rate for species \(i\) & \(\frac{\text{resource}}{(\text{days})(\text{biomass})}\)\\ \hline
-% \hline
-%\(t\) & 1 & annual timestep & years \\ \hline
-%\(0\) $\rightarrow$ \(\delta\) & determined by rate of resource depletion & time during the growing season & days \\ \hline
-%\hline
-%\end{tabular}
-%\label{tab:model}
-%\end{table}
-%\end{center}
+\begin{center} % Lizzie started updating this in Feb 2024, but it is NOT DONE at all (and someone staring at the code more should do it).
+\begin{table}[h!]
+\caption{Parameter values, definitions, and units.}
+\begin{tabular}{ | p{2.0cm} | p{4.5cm} | p{5.5cm} | p{3.0cm} |}
+\hline
+Parameter & Value(s) & Definition & Unit \\ \hline
+$R_0(T)$ & \raggedright{$\sim logN(\mu_R, \sigma_R)\n,  \mu_R = log(2),\sigma_R = 0.2}$ & amount of resource at the beginning of the growing season, varies annually & resource\\ \hline
+$\xi(T)$ & \raggedright{$\sim logN(\mu_\xi, \sigma_\xi)\n,  \mu_{\xi,lo} = log(6), \sigma_\xi = 0.2 \text{ or}\n \mu_{\xi,hi} = log(12), \sigma_\xi = 0.2 $} & annually varying winter chilling & weeks of chilling\\ \hline
+$N_{i}(T)$ & \raggedright{$N_{i}(T = 0) = 100; \n min(N_{i}(T)) = 10^{-4}$} & census of seedbank of species $i$ & seeds per unit area \\ \hline
+
+$s$ & 0.8 & overwinter survival of species $i$ & unitless \\ \hline
+$\phi$ & 0.05 & conversion of end-of-season biomass to seeds & $\text{biomass}^{-1}$, but conceptually $\frac{\text{seeds}}{(\text{biomass})(\text{seeds})}$ \\ \hline
+$B_{i}(t)$ & $\raggedright{B_{i}(t = 0) = G_{i}(t = 0)$; \n see Eqns 2,5 & within-season biomass of species $i$, initiated by germination & biomass \\ \hline
+
+$c_{i} & $\sim$Unif(0.025,0.75) & conversion efficiency of $R$ to biomass of species $i$ &  $\frac{\text{biomass}}{\text{resource}}$ \\ \hline
+$m$ & 0.005 & maintenance costs during growth season for species $i$ & $\text{days}^{-1}$ \\ \hline
+$a$ & 0.8 & uptake increase as $R$ increases for species $i$ & \text{days}^{-1} \\ \hline
+$u$ & 5 & inverse of maximum uptake for species $i$ & $\frac{(\text{days})(\text{biomass})}{\text{resource}}$ \\ \hline
+$\theta$ & 1 & shape of uptake for species $i$ & unitless\\ \hline
+$\epsilon$ & 1 & abiotic loss of $R$ &  $\text{days}^{-1}$ \\ \hline
+\(g_{max}\) & 0.5 & maximum germination rate of species & unitless \\ \hline
+\(h\) & 100 &  controls the the rate at which germination declines as \(\tau_{p}\) deviates from optimum for species \(i\)  & \(\text{days}^{-2}\) \\ \hline
+\(g_{i}\) & see Eqn 6 & germination rate & unitless \\ \hline
+\(\tau_{g}\) & $\sim \beta(?,?)$ & days of delay (given on weeks of chilling) & days \\ \hline
+\(\tau_{g_{50}}\) & $\sim \mathrm{Pois}(\tau_{g})$ & ?? & days \\ \hline
+$\xi_{\tau}$ & $\sim$ ?,? & rate of delay (given weeks of chilling) \(i\) & days/week \\ \hline
+\(b_{i}\) & 1 & biomass of a seedling & \(\frac{\text{biomass}}{\text{seeds}}\) \\ \hline
+\(f(R)\) & see Eqn 3& resource uptake rate for species \(i\) & \(\frac{\text{resource}}{(\text{days})(\text{biomass})}\)\\ \hline
+\(t\) & 1 & annual timestep & years \\ \hline
+\(0\) $\rightarrow$ \(\delta\) & determined by rate of resource depletion & time during the growing season & days \\ \hline
+\end{tabular}
+\label{tab:model}
+\end{table}
+\end{center}
 
 \end{document}
 
