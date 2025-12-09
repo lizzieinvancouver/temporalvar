@@ -35,13 +35,13 @@ The resource ($R$) itself declines across a growing season (Figure \ref{Fig:with
 \begin{align}
 \frac{\mathrm{d}R}{\mathrm{d}t} & = - \sum_{i=1}^{2}f(R)B_{i} -\epsilon R
 \end{align}
-Our model departs from similar community models by explicit modeling of within-season germination phenology: germination, $g_{i}(t)$, is modeled as a time-dependent forcing function that adds daily biomass (germinants) according to a Hill equation where the timing of 50\%-germination, $\tau_{g50,i}$, is determined by a species-specific response to overwinter chilling.  
+Our model departs from similar community models by explicit modeling of within-season germination phenology: germination, $g_{i}(t)$, is modeled as a time-dependent forcing function that adds daily biomass (germinants) according to a Hill equation, where the speed of germination (i.e., the day of half-germination, $\tau_{g50,i}$) is determined by a species-specific response to overwinter chilling.  
 
 \begin{align}
-g_{i}(t) & = N_{0}(T)s_{i}b_{i}g_{frac,i}(t)\\
-g_{frac,i}(t) & = g_{max}(\frac{\text{t}^{h}}{\tau_{g50,i}^{h} + \text{t}^{h}})
+g_{i}(t) & = N_{0}(T)s_{i} b (g_{cum,i}(t) - g_{cum,i}(t-1))\\
+g_{cum,i}(t) & = g_{max}(\frac{t^h}{\tau_{g50,i}(T)^h + t^h})
 \end{align}
-where $N_{0}(T)$ is the number of overwintering seeds in year $T$, $s_{i}$ is overwinter seed survival, $b_{i}$ converts germinating seeds into biomass, and $g_{frac,i}(t)$ is the fraction of germination on growing-season day $t$ (Figure \ref{Fig:within}e,f).  The shape of the Hill Equation defining $g_{frac,i}(t)$ has the same maximum germination ($g_{max}$) and Hill coefficient ($h$) for each species, and $\tau_{g50,i}$ is the species-specific delay due to overwinter chilling (Figure \ref{Fig:germ}a,b).  The number of days of germination delay for species $i$, $\tau_{delay,i}$, declines with chilling, such that
+where $N_{0}(T)$ is the number of overwintering seeds in year $T$, $s_{i}$ is overwinter seed survival, $b$ converts germinating seeds into biomass, and $g_{cum,i}(t) - g_{cum,i}(t-1)$ is the fraction of species $i$ seeds germinating between day $t-1$ and $t$ in the growing season (Figure \ref{Fig:within}e,f).  The shape of the Hill Equation defining $g_{cum,i}(t)$ has the same maximum germination fraction ($g_{max}$) and Hill coefficient ($h$) for both species, and $\tau_{g50,i}(T)$ is the half-saturation constant for the Hill equation (i.e., the day when germination reaches half of $g_max$), and characterizes the species-specific delay in germination due to overwinter chilling in year T (Figure \ref{Fig:germ}a,b). \tau_{g50,i}(T) is Poisson-distributed and the expected value for germination delay, $\tau_{delay,i}$, declines with chilling, such that
 
 \begin{align}
 \tau_{delay,i} & = \tau_{max}e^{-\tau_{\xi,i}\xi(T)} \\
@@ -71,7 +71,7 @@ Variation in $R_{0}(T)$ and $\xi(T)$ were independent. We compared competitive c
 \begin{figure}[h!]
   \centering
  \includegraphics[width=\textwidth]{..//plots/germination4supp.pdf}
-    \caption{Environmental variation and species-specific responses. (a) Comparison of the distribution in winter chilling in low-chill (teal) and high-chill (purple) regimes; (b) Species-specific distribution of annual variation in the timing of 50\%-germination; (c) Species-specific response to chilling in the timing of 50\%-germination; (d) Species-specific patterns in daily germination over the growing season in year T; (e) Species-specific patterns in cumulative germination over the growing season in year T. Panels b and c are plotted for a high-chill regime }
+    \caption{Environmental variation and species-specific responses. (a) Comparison of the distribution in winter chilling in low-chill (teal) and high-chill (purple) regimes.  For a particular high-chill simulation run, panels (b) - (d) illustrate how two competing species (red vs black lines) respond to annual environmental variation: (b) Annual variation in the day of half-germination for two competing species; (c) Species-specific delay in germination in response to annual variation in the weeks of winter chilling; (d) Annual variation in cumulative germination over the growing season for two competing species; (e) Annual variation in daily germination over the growing season for two competing species. }
     \label{Fig:germ}
 \end{figure}
 
@@ -88,34 +88,28 @@ $t$ & 1 & daily timestep of growing season & days \\ \hline
 $\delta$ & 120 & length of growing season & days \\ \hline
 
 $N_{i}(T)$ & \raggedright{$N_{i}(T = 0) = 100$ \n $extinction threshold: N_{i}(T) < 0.0001$ & annual census of seedbank of species $i$ & seeds per unit area \\ \hline
-$G_{i}(T)$ & $\int_{t=T}^{T+\delta} g_{frac,i}(t) dt = g_max$  & germinated seeds in year T & seeds per unit area \\ \hline
-$s$ & 0.8 & overwinter seedbank survival of species $i$ & unitless \\ \hline
-$B_{i}(T+\delta)$ & $\int_{t=T}^{t=T+\delta} \frac{dB}{dt}$; \n see Eqns 2,5 & end of season biomass of species $i$ from growth of germinated seeds, $G_{i}(T)$ \\ \hline
+$G_{i}(T)$ & $g_max$  & seed germination fraction in year T & unitless \\ \hline
+$s$ & 0.8 & overwinter seedbank survival & unitless \\ \hline
+$B_{i}(T+\delta)$ & $\int_{t=T}^{t=T+\delta} \frac{dB_{i}}{dt}$ & see Eqns 2,5 & end of season biomass of species $i$ from growth of germinated seeds, $G_{i}(T)$ \\ \hline
 $\phi$ & 0.5 & conversion of end-of-season biomass to seeds & $\text{biomass}^{-1}$ \\ \hline
 
 $R_0(T)$ & \raggedright{$\sim logN(\mu_R, \sigma_R)$ \n  $\mu_R = log(100),\sigma_R = log(2) $} & amount of resource at the beginning of the growing season, varies annually & resource\\ \hline
 $\epsilon$ & 0.001 & abiotic loss of $R$, Eqn 4 &  $\text{days}^{-1}$ \\ \hline
-$c_{i} & $\sim$Unif(0.025,0.75) & conversion efficiency of $R$ to biomass of species $i$ &  $\frac{\text{biomass}}{\text{resource}}$ \\ \hline
+$c_{i}$ & $\sim \text{Unif}(0.025,0.75)$ & conversion efficiency of $R$ to biomass of species $i$ &  $\frac{\text{biomass}}{\text{resource}}$ \\ \hline
 $m$ & 0.005 & maintenance costs during growth season for species $i$ & $\text{days}^{-1}$ \\ \hline
 $a$ & 0.8 & uptake increase as $R$ increases for species $i$ & \text{days}^{-1} \\ \hline
 $u$ & 5 & inverse of maximum uptake for species $i$ & $\frac{(\text{days})(\text{biomass})}{\text{resource}}$ \\ \hline
 
 $\xi(T)$ & \raggedright{$\sim logN(\mu_\xi, \sigma_\xi)$ \n  $\mu_{\xi,lo} = log(6), \sigma_\xi = 0.2$ or \n $\mu_{\xi,hi} = log(12), \sigma_\xi = 0.2 $} & annually varying winter chilling & weeks of chilling\\ \hline
-$g_{i}(t)$ & Eqn 5 & biomass of germinants on day $t$ & biomass \\ \hline
-$b_{i}$ & 1 & biomass of a seedling  & $\frac{\text{biomass}}{\text{seeds}}$ \\ \hline
-$g_{frac,i}(t)$ & Eqn 6 & fraction of seeds germinating on day $t$, defined by Hill Equation & unitless \\ \hline
-$g_{max}$ & 0.8 & cumulative germination fraction (max of Hill equation) & unitless \\ \hline
+$g_{i}(t)$ & Eqn 5 & biomass of daily germinants of species $i$ on day $t$ of growing season & biomass \\ \hline
+$b$ & 1 & biomass of a germinant  & $\frac{\text{biomass}}{\text{seeds}}$ \\ \hline
+$g_{cum,i}(t)$ & Eqn 6 & cumulative fraction of seeds germinated by day $t$ & unitless \\ \hline
+$g_{max}$ & 0.8 & maximum germination fraction (max of Hill equation) & unitless \\ \hline
 $h & 5 &  Hill constant for germination fraction & unitless \\ \hline
-$\tau_{g50,i}$ & $\sim \mathrm{Pois}(\tau_{delay,i})$ & day of 50\% germination for species $i$ in Hill Equation & days \\ \hline
-
-%% Megan got to here on 12/8/2025
-
+$\tau_{g50,i}$ & $\sim \mathrm{Pois}(\tau_{delay,i})$ & day of half-germination for species $i$, Eqn 8 & days \\ \hline
 $\tau_{delay,i}$ & Eqn 7 & expected germination delay from overwinter chilling for species $i$ & days \\ \hline
-$\tau_{\xi,i}$ &  ?,? & sensitivity to chilling for species $i$ & days/week \\ \hline
+$\tau_{\xi,i}$ & $\sim \text{Unif}(0,1)$ & sensitivity to chilling for species $i$ & days/week \\ \hline
 
-\(f(R)\) & see Eqn 3& resource uptake rate for species \(i\) & \(\frac{\text{resource}}{(\text{days})(\text{biomass})}\)\\ \hline
-\(t\) & 1 & annual timestep & years \\ \hline
-\(0\) $\rightarrow$ \(\delta\) & determined by rate of resource depletion & time during the growing season & days \\ \hline
 \end{tabular}
 \label{tab:model}
 \end{table}
