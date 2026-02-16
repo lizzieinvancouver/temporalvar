@@ -19,7 +19,7 @@
 \renewcommand{\thefigure}{S\arabic{figure}}
 
 \section{Model} 
-For our example, we adapt the model from Wolkovich \& Donahue 2020, which is itself an adaptation of a common model of community dynamics, often conceptualized for annual plants with a seedbank. A more detailed description of the model can be found in Wolkovich \& Donahue 2020.\\
+For our example, we adapt the model from Wolkovich \& Donahue 2020 (with more details therein), which is itself an adaptation of a common model of community dynamics, often conceptualized for annual plants with a seedbank. \\
 
 We model a pair of competing species in which the seedbank $N$ of species $i$ at time $T+1$ (where $T$ is the beginning of an annual  growing season) is determined by the survival, $s$, of ungerminated seeds from the previous year, $1-G_{i}(T)$, plus new biomass, $B_i$, produced from germinating seeds during the growing season (from $T$ to $T + \delta$), which is converted to seeds at rate $\phi$:
 \begin{align}
@@ -41,7 +41,7 @@ Our model departs from similar community models by explicit modeling of within-s
 g_{i}(t) & = N_{0}(T)s_{i} b (g_{cum,i}(t) - g_{cum,i}(t-1))\\
 g_{cum,i}(t) & = g_{max}(\frac{t^h}{\tau_{g50,i}(T)^h + t^h})
 \end{align}
-where $N_{0}(T)$ is the number of overwintering seeds in year $T$, $s_{i}$ is overwinter seed survival, $b$ converts germinating seeds into biomass, and $g_{cum,i}(t) - g_{cum,i}(t-1)$ is the fraction of species $i$ seeds germinating between day $t-1$ and $t$ in the growing season (Figure \ref{Fig:within}e,f).  The shape of the Hill Equation defining $g_{cum,i}(t)$ has the same maximum germination fraction ($g_{max}$) and Hill coefficient ($h$) for both species, and $\tau_{g50,i}(T)$ is the half-saturation constant for the Hill equation (i.e., the day when germination reaches half of $g_max$), and characterizes the species-specific delay in germination due to overwinter chilling in year T (Figure \ref{Fig:germ}a,b). \tau_{g50,i}(T) is Poisson-distributed and the expected value for germination delay, $\tau_{delay,i}$, declines with chilling, such that
+where $N_{0}(T)$ is the number of overwintering seeds in year $T$, $s_{i}$ is overwinter seed survival, $b$ converts germinating seeds into biomass, and $g_{cum,i}(t) - g_{cum,i}(t-1)$ is the fraction of species $i$ seeds germinating between day $t-1$ and $t$ in the growing season (Figure \ref{Fig:within}e,f).  The shape of the Hill Equation defining $g_{cum,i}(t)$ has the same maximum germination fraction ($g_{max}$) and Hill coefficient ($h$) for both species, and $\tau_{g50,i}(T)$ is the half-saturation constant for the Hill equation (i.e., the day when germination reaches half of $g_max$), and characterizes the species-specific delay in germination due to overwinter chilling in year T (Figure \ref{Fig:germ}a,b). $\tau_{g50,i}(T)$ is Poisson-distributed and the expected value for germination delay, $\tau_{delay,i}$, declines with chilling, such that
 
 \begin{align}
 \tau_{delay,i} & = \tau_{max}e^{-\tau_{\xi,i}\xi(T)} \\
@@ -50,7 +50,7 @@ where $N_{0}(T)$ is the number of overwintering seeds in year $T$, $s_{i}$ is ov
 where $\xi(T)$ is the weeks of overwinter chilling in year $T$, $\tau_{\xi,i}$ is the species-specific sensitivity to chilling, and $\tau_{max}$ is the expected delay when overwinter chilling is zero.  That is, germination depends on the interaction of a species trait and a varying environment, resulting in year to year variation in the speed of germination for each species (Figure \ref{Fig:germ}e) and the timing of peak germination (Figure \ref{Fig:germ}f). \\
 
 \noindent \emph{Simulations:}\\
-To examine species coexistence when the timing of germination depends on annually varying seed stratification, we ran 10000 simulations of two-species communities.  Communities were assembled from randomly generated species, where each species varied in resource conversion efficiency ($c_i$) and in sensitivity to chilling ($\tau_{\xi,i}$) (see Table \ref{tab:model} for parameter values). Variation in resource conversion efficiency yields different $R^*$ values, a metric of resource competition where a lower $R^*$ means a species can draw the resource down to a lower level and is thus considered the superior competitor.  Variation in sensitivity to chilling resulted in variation in the distribution of germination within a growing season (Figure \ref{Fig:within}d).  All other parameters were identical between species (Table \ref{tab:model}).  
+To examine species coexistence when the timing of germination depends on annually varying seed stratification, we ran 10000 simulations of two-species communities.  Communities were assembled from randomly generated species, where each species varied in resource conversion efficiency ($c_i$) and in sensitivity to chilling ($\tau_{\xi,i}$) (see Table \ref{tab:model} for parameter values). Variation in resource conversion efficiency yields different $R^*$ values, a metric of resource competition where a lower $R^*$ means a species can draw the resource down to a lower level and is thus considered the superior competitor.  Variation in sensitivity to chilling resulted in variation in the distribution of germination within a growing season (Figure \ref{Fig:within}d).  All other parameters were identical between species (Table \ref{tab:model}). \\
 
 Within-year competitive dynamics were solved using an ode solver (\verb|ode| in the R package \verb|deSolve|) with initial condition $R = R_0(T)$ and $B_{i}(t=0) = 0$, and germination was as a forcing function with germinants for each species added daily in proportion to a Hill Equation (Eqn 6, Figure \ref{Fig:within}d).  The end-of-season biomass of each species was converted to seeds, added to surviving seeds that did not germinate in year $T$, and the populations were censused.  At each census, a minimum cutoff was applied to define extinction from the model.  Note that `coexistence' in this model is defined by joint persistence through time and not by low density growth rate. \\
 
@@ -64,7 +64,7 @@ Variation in $R_{0}(T)$ and $\xi(T)$ were independent. We compared competitive c
 \begin{figure}[h!]
   \centering
  \includegraphics[width=\textwidth]{..//plots/withinseason4supp.pdf}
-    \caption{Within-season dynamics of (a) resources ($R(t)$,Eqn 3), (b,c) biomass of two competing species ($B_{i}(t)$, Eqn 2), and (d,e) the distribution of germination over the growing season for each species ($g_{i}(t)$, Eqn 6)}
+    \caption{Within-season dynamics of (a) resources ($R(t)$, Eqn 3), (b,c) biomass of two competing species ($B_{i}(t)$, Eqn 2), and (d,e) the distribution of germination over the growing season for each species ($g_{i}(t)$, Eqn 6)}
     \label{Fig:within}
 \end{figure}
 
@@ -77,10 +77,10 @@ Variation in $R_{0}(T)$ and $\xi(T)$ were independent. We compared competitive c
 
 
 
-\begin{center} % Lizzie started updating this in Feb 2024, but it is NOT DONE at all (and someone staring at the code more should do it).
+\begin{center} 
 \begin{table}[h!]
 \caption{Parameter values, definitions, and units.}
-\begin{tabular}{ | p{2.0cm} | p{4.5cm} | p{5.5cm} | p{3.0cm} |}
+\begin{tabular}{ | p{1.6cm} | p{4.5cm} | p{5.5cm} | p{3.25cm} |}
 \hline
 Parameter & Value(s) & Definition & Unit \\ \hline
 $T$ & 1 & annual timestep of population growth & year \\ \hline
@@ -109,7 +109,6 @@ $h & 5 &  Hill constant for germination fraction & unitless \\ \hline
 $\tau_{g50,i}$ & $\sim \mathrm{Pois}(\tau_{delay,i})$ & day of half-germination for species $i$, Eqn 8 & days \\ \hline
 $\tau_{delay,i}$ & Eqn 7 & expected germination delay from overwinter chilling for species $i$ & days \\ \hline
 $\tau_{\xi,i}$ & $\sim \text{Unif}(0,1)$ & sensitivity to chilling for species $i$ & days/week \\ \hline
-
 \end{tabular}
 \label{tab:model}
 \end{table}
