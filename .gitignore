@@ -18,6 +18,7 @@ parameternotes/fromSeabloom/received/2017Jan/
 *.RData
 *.Rdata
 *.Rhistory
+*.Rapp.history
 
 ### tex files to ignore
 *.aux
