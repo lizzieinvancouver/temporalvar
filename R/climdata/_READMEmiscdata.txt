@@ -1,3 +1,0 @@
-Data were downloaded from ...
-KNMI Climate Explorer
-on 5 August 2019
