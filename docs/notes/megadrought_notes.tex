@@ -1,0 +1,77 @@
+\documentclass[11pt]{article}
+\usepackage[top=1.00in, bottom=1.0in, left=1in, right=1in]{geometry}
+\renewcommand{\baselinestretch}{1.1}
+\usepackage{graphicx}
+\usepackage{natbib}
+\usepackage{amsmath}
+\usepackage{parskip}
+
+\usepackage{hyperref}
+
+\usepackage{fancyhdr}
+\pagestyle{fancy}
+\fancyhead[LO]{February 2026}
+\fancyhead[RO]{Megadrought notes}
+
+
+\def\labelitemi{--}
+\parindent=0pt
+
+\begin{document}
+\renewcommand{\refname}{\CHead{}}
+
+\title{Megadrought Notes \\ Seven years later}
+    \author{Wolkovich \& Donahue}
+\date{Last updated: February 2026 (Kan'ehoe) \\ } % Honolulu / Vancouver x 2/North Shore of Oahu/Cambridge/Boulder in the snow/Oahu
+\maketitle 
+
+\tableofcontents
+
+\section{Returning from 2019 ...}
+
+Okay! We're back. We're back to megadroughts. Yesterday, Megan thought hard and made some really good notes \href{https://github.com/lizzieinvancouver/temporalvar/issues/66}{issue \# 66}. And I spent a while trying to recreate what the hell we did (see section `What happened before?'). 
+
+I also spent a smidge of time trying to find out if anyone ever used the Ellner, Snyder \emph{et al.} paper `An expanded modern coexistence theory for empirical applications' which:
+\begin{quote}
+... present[s] a general computational approach that extends our previous solution for the storage effect to all of standard MCT's spatial and temporal coexistence mechanisms, and also process-defined mechanisms amenable to direct study such as resource partitioning, indirect competition, and life history trade-offs.
+\end{quote}
+It's been cited a good bit, but after looking at the top 10-ish articles, I could not find one that actually used it. Has {\bf anyone ever used it?} or do they all just talk about it (especially the Levine group)? For example, Detto, Levine, Pacala's 2022 `Maintenance of high diversity in mechanistic forest dynamics models of competition for light' says: 
+\begin{quote}
+Recent studies by (Ellner et al., 2016, 2019) provide the needed simulation tools for modern coexistence the- ory to test the conjectures we pose here.
+\end{quote}
+
+\section{What happened before?}
+
+\emph{17 February 2026}
+
+Basically, it seems like we were advancing on both the tracking paper and the megadroughts, especially in late 2018 and through 2019. We had model runs etc.. Then in May 2019, Megan pushes more runs and I appear to go mute (see especially \href{https://github.com/lizzieinvancouver/temporalvar/issues/39}{issue 39}. Sometime after this we're pretty sure we focus all efforts on tracking and drop megadroughts (I mean, Covid hit in March 2020); I even recall a call where Megan asked if she could delete out the megadroughts flags in the model run scripts and I said something like 'oh sure.'
+
+When we stopped we were struggling with getting enough single species to survive (and also co-existing species, of course). 
+
+Possibly useful links and timeline info from my poking around the repo in February 2026. 
+\begin{enumerate}
+\item \href{https://github.com/lizzieinvancouver/temporalvar/issues/39}{Issue 39,} which is called check the megadrought runs! 
+\item \verb|docs/notes/megadroughts.txt| is notes I set up in 2018 and was updating that year.
+\item \verb|docs/manuscripts/megadroughts.tex| is a file I set up in 2018 from the main \verb|VarEnv_notes| file (now only on master) when I was trying to pull out all the relevant megadrought info.... this is also mentioned in \href{https://github.com/lizzieinvancouver/temporalvar/issues/15}{issue 15}
+\item In August 2018, I \href{https://github.com/lizzieinvancouver/temporalvar/commit/5edcd038a0268a94cf0b4d31988604154f97b8ce}{updated about concerns we had}, ``Based on our current model, we're not entirely convinced that drought could drive the invaders extinct via a wider (potentially shorter) germination curve. This is because the exotics would still go in many years (and potentially more years than the natives given that they have narrower curves, depending on the parameterization) and even a small amount of biomass could be converted to seed, thus the exotics would not go extinct."
+\item Not sure this is helpful, but here are all the \href{https://github.com/search?q=repo%3Alizzieinvancouver%2Ftemporalvar+megadrought&type=commits}{commits}. I looked at some. They jive with what I write here.
+\item Other issues with megadrought in them are not so helpful 
+\end{enumerate}
+
+
+\citep{ospreebbms}
+
+\bibliographystyle{/Users/Lizzie/Documents/EndnoteRelated/Bibtex/styles/besjournals}
+\bibliography{/Users/Lizzie/Documents/git/bibtex/LizzieMainMinimal}
+
+\clearpage
+\section{Figures}
+
+\begin{figure}[h!]
+\includegraphics[width=0.4\textwidth]{..//..//..//..//Professional/images/ColylusVineFruit2.png}
+\caption{I am a caption.} 
+\label{fig:figname}
+\end{figure}
+
+\end{document}
+
