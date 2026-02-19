@@ -77,7 +77,8 @@ if (localflag==0){
   locSAVE <- ifelse(megaDflag==1, 
                     "C:/Users/Megan/Documents/GitHub/temporalvar/megadrought/output",
                     "C:/Users/Megan/Documents/GitHub/temporalvar/R/output")
-  locMegaD <- "C:/Users/Megan/Documents/GitHub/temporalvar/megadrought/fromBen"
+  locMegaD <- "/Users/lizzie/Documents/git/projects/temporalvar/megadrought/fromBen"
+  # "C:/Users/Megan/Documents/GitHub/temporalvar/megadrought/fromBen"
 }
 if(!dir.exists(file.path(locOUT))) dir.create(file.path(locOUT),recursive=TRUE)
 

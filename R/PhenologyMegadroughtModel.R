@@ -1,17 +1,19 @@
-### Started 10 July 2011 ###
-### By Lizzie & Megan ###
-### This executes a single run of the model and writes out
+## Started 18 February 2026 ##
+## By Lizzie & Megan ##
+## On a windy day in Kane`hoe ##
+
+## Built off PhenologyModel.R, but for megadrought runs!
+## This executes a single run of the model and writes out
 
 rm(list=ls()) 
 options(stringsAsFactors=FALSE, warn=1)
 
-#define run location (PHEN_RUNNUM is only defined for slurm batch jobs)
 localflag <- ifelse(Sys.getenv("PHEN_RUNNUM")=="",1,0)
 locIN <- ifelse(localflag==1,
-                "C:/Users/Megan/Documents/GitHub/temporalvar/R",
+				"/Users/lizzie/Documents/git/projects/temporalvar/R",
                 "/n/wolkovich_lab/temporalvar/R")
+#"C:/Users/Megan/Documents/GitHub/temporalvar/R",
 
-#.libPaths(new=paste0(locIN,"/libs"))
 library(deSolve)
 require(MultiRNG)
 
