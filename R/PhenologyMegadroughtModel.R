@@ -26,7 +26,6 @@ for (j in c(1:nruns)){
   source(paste0(locIN,"/sourcefiles/getEnvt.R"))  #get constant and time-varying envt parms
   source(paste0(locIN,"/sourcefiles/getSpecies.R"))  #get species characteristics and Rstar
   source(paste0(locIN,"/sourcefiles/ResCompN.R")) # define within-season ode solver
-  
   #Define arrays
   #interannual dynamics set-up (R0 is in getEnvt.R)
   N0 <- rep(100,nsp)          # initial number of seeds (per meter square?)
@@ -75,7 +74,9 @@ for (j in c(1:nruns)){
 
     Bout[[y]] <- as.data.frame(ode(func = ResCompN, y = State, parms = Pars, times = Time,
                                    rootfun=rootfun))
-    Bfin[y,] <-  apply(Bout[[y]][3:(2+nsp)],2,FUN=max)  #final biomass
+    Bfin[y,] <-  apply(Bout[[y]][3:(2+nsp)],2,FUN=max)  # final biomass; takes max(biomass) from within year timeseries for sp1 and sp 2 (B1, B2)
+    Bfin[y,] <- Bfin[y,]*c(Rstar[1]<R0[y],Rstar[2]<R0[y]) # this deletes out biomass when R0 is lower than a species Rstar  
+    # Above, we could have alternatively set a minimum for seeds for bfin
   }
   ## modelruns includes the variables that are constant across years in one dataframe...
   # then tauI, tauP and Bfin for each year
