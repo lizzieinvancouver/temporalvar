@@ -29,28 +29,6 @@ if (sum(tracking)==0) {                       #tracking default value is 0 (no t
   alpha <- runif(nsp,0,1)
 }
 
-#megaDrought - two ways: 
-#            vartauI==1 tradeoff tauI and surv with correlation rho
-#            tracking==1 tradeoff alpha and surv with correlation rho
-if (megaDflag==1) {
-  if (vartauI==1) {
-    cmat <- matrix(c(1,rho,rho,1), nrow=2, ncol=2) 
-    stauI <- draw.d.variate.uniform(no.row=2,d=2,cov.mat=cmat)
-    s <- stauI[,1]*(0.98 - 0.5) + 0.5  
-    tauI <- stauI[,2]*(0.6-0.4) + 0.4
-  }
-  if (sum(tracking)>0) {
-    cmat <- matrix(c(1,rho,rho,1), nrow=2, ncol=2) 
-    salpha <- draw.d.variate.uniform(no.row=2,d=2,cov.mat=cmat)
-    s <- salpha[,1]*(0.98 - 0.5) + 0.5  #rescale s.t. s ranges from 0.65 to 0.98
-    if (length(tracking)==2){
-      alpha <- salpha[,2]*(tracking[2]-tracking[1])+tracking[1] #alpha range given by tracking
-    } else {
-      alpha <- salpha[,2]  #if tracking is flag, then alpha ranges 0-1
-    }
-    tauI <-rep(runif(1,0.4,0.6),nsp)
-  }
-}
 
 if (sum(tracking) > 0) {
   tauIhat <- matrix(rep(alpha),nyrs,nsp, byrow = TRUE)*tauP+matrix((1-alpha)*tauI, nyrs, nsp, byrow = TRUE)
