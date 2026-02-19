@@ -75,8 +75,9 @@ if (localflag==0){
 } else {
   locOUT <- paste0("C:/Users/Megan/Documents/scratch")
   locSAVE <- ifelse(megaDflag==1, 
-                    "C:/Users/Megan/Documents/GitHub/temporalvar/megadrought/output",
+                    "/Users/lizzie/Documents/git/projects/temporalvar/R/output/megadrought",
                     "C:/Users/Megan/Documents/GitHub/temporalvar/R/output")
+  # "C:/Users/Megan/Documents/GitHub/temporalvar/megadrought/output"
   locMegaD <- "/Users/lizzie/Documents/git/projects/temporalvar/megadrought/fromBen"
   # "C:/Users/Megan/Documents/GitHub/temporalvar/megadrought/fromBen"
 }

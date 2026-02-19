@@ -66,7 +66,7 @@ legend("top",legend=c("Sp1","Sp2"), col=c(col_1,col_2),lty=1,lwd=2,bty="n")
 #print out interannual variation for both species through time
 
 plot(log(N[,1])~seq(1,sum(nonsta)),col=c(col_1),type="l",ylab="log(Seed Bank)", xlab="Time",lwd=3,
-     main=ttl,ylim=c(0,max(log(N),na.rm=TRUE)))
+     main=ttl,ylim=c(-2,1)) # ylim=c(0,max(log(N),na.rm=TRUE)))
 lines(log(N[,2])~seq(1,sum(nonsta)),col=c(col_2),type="l",lwd=3)
 legend("top",legend=c("Sp1","Sp2"), col=c(col_1,col_2),lty=1,lwd=2,bty="n")
 
