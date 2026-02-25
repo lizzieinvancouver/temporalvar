@@ -77,8 +77,9 @@ Variation in $R_{0}(T)$ and $\xi(T)$ were independent. We compared competitive c
 
 
 
-\begin{center} 
-\begin{table}[h!]
+\begin{table}[ht]
+\centering
+\small
 \caption{Parameter values, definitions, and units.}
 \begin{tabular}{ | p{1.6cm} | p{4.5cm} | p{5.5cm} | p{3.25cm} |}
 \hline
@@ -88,7 +89,7 @@ $t$ & 1 & daily timestep of growing season & days \\ \hline
 $\delta$ & 120 & length of growing season & days \\ \hline
 
 $N_{i}(T)$ & \raggedright{$N_{i}(T = 0) = 100$ \n $extinction threshold: N_{i}(T) < 0.0001$ & annual census of seedbank of species $i$ & seeds per unit area \\ \hline
-$G_{i}(T)$ & $g_max$  & seed germination fraction in year T & unitless \\ \hline
+$G_{i}(T)$ & $g_{max}$  & seed germination fraction in year T & unitless \\ \hline
 $s$ & 0.8 & overwinter seedbank survival & unitless \\ \hline
 $B_{i}(T+\delta)$ & $\int_{t=T}^{t=T+\delta} \frac{dB_{i}}{dt}$ & see Eqns 2,5 & end of season biomass of species $i$ from growth of germinated seeds, $G_{i}(T)$ \\ \hline
 $\phi$ & 0.5 & conversion of end-of-season biomass to seeds & $\text{biomass}^{-1}$ \\ \hline
@@ -112,7 +113,7 @@ $\tau_{\xi,i}$ & $\sim \text{Unif}(0,1)$ & sensitivity to chilling for species $
 \end{tabular}
 \label{tab:model}
 \end{table}
-\end{center}
+
 
 \end{document}
 
