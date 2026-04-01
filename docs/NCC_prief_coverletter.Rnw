@@ -34,7 +34,7 @@
 
 \begin{document}
 \SweaveOpts{concordance=TRUE}
-\bibliographystyle{..//..//sub_projs/refs/styles/besjournals.bst}
+\bibliographystyle{..//..//sub_projs/refs/styles/nature1.bst}
 \def\labelitemi{--}
 \parindent=24pt
 %\noindent\includegraphics[width=0.2\textwidth]{logo.jpg}
@@ -42,9 +42,9 @@
 \\\\
 \noindent{Dear Dr. Wake,}
 
-\noindent Please consider this manuscript ``Phenological sensitivity to climate change disrupts species coexistence" as as Perspective in \emph{Nature Climate Change}.
+\noindent Please consider this manuscript ``Phenological sensitivity to climate change disrupts species coexistence" as a Perspective in \emph{Nature Climate Change}.
 
-Shifts in phenology---the seasonal timing of organisms' life cycle events---are one of the most widespread biological indicators of climate change, yet the strength of these shifts vary substantially among species. These phenological differences among taxa have often been overlooked in ecological theory, but growing evidence suggests that they may play a major role in dictating community interactions and shaping the structure and function of ecological communities \citep{Cleland2024,Blackford_2020,volkerisaj}. While this recognition has spurred advances towards integrating phenology into community assembly models, current frameworks are not designed to capture the dynamic interactions between the physical environment, phenology and competition. As a result research to date has struggled to make inference on how species interactions will shift with climate change.
+Shifts in phenology---the seasonal timing of organisms' life cycle events---are one of the most widespread biological indicators of climate change, yet the strength of these shifts vary substantially among species \citep{Zhang:2022aa,Roslin:2021aa}. These phenological differences among taxa have often been overlooked in ecological theory, but growing evidence suggests that they may play a major role in dictating community interactions and shaping the structure and function of ecological communities \citep{Cleland2024,Alexander:2019aa,volkerisaj}. While this recognition has spurred advances towards integrating phenology into community assembly models, current frameworks are not designed to capture the dynamic interactions between the physical environment, phenology and competition \citep{Loughnan:2024aa}. As a result research to date has struggled to make inference on how species interactions will shift with climate change \citep{Urban:2016aa}.
 
 Here, we highlight a major gap in current approaches that limits progress in both empirical phenological research and community assembly. While most work has focused on phenological differences between species as an inherent attribute, here we show how phenological differences are better defined as the realized product of an interaction between the environment (cues) and species physiologies. This product in turn structures varying competition each year, depending on the environment, and provides a new framework to understand phenology within coexistence theory. Integrating examples from empirical data on seed germination phenology, as well as established community assembly models, we outline how modeling \textbf{differences in species' phenological sensitivity} (i.e., their phenological response or reaction norm to environmental variation) in place of the expressed phenological differences themselves can overcome current limitations. With this subtle, yet essential, adjustment we review how phenologically-mediated patterns of coexistence under historical climate conditions may degrade as climate warms while providing a biologically realistic mechanism to project changes in these species iterations into the future. 
 
