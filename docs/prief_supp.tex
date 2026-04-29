@@ -9,8 +9,9 @@
 \def\labelitemi{--}
 \parindent=0pt
 \title{Supporting Information for: Phenological sensitivity to climate change disrupts species' coexistence}
+\bibliographystyle{..//refs/styles/nature.bst}
+\usepackage{xr}
 
-\usepackage{xr-hyper]
 \externaldocument{prief_manuscript}
 
 \begin{document}
@@ -22,7 +23,24 @@
 \renewcommand{\thetable}{S\arabic{table}}
 \renewcommand{\thefigure}{S\arabic{figure}}
 
-\section{Model} 
+\section*{Empirical data} 
+We obtained data germination data from \citep{Buonaiuto2023data}. To estimate species level sensitivity 
+and forecast phenological priority under alternative climate regimes (Fig. \ref{Fig:eury}), 
+we used a Bayesian mixed-effect accelerated failure time model \citep{ONOFRI:2010tl} using a Weibull distribution for the likelihood function. 
+We included weeks of stratification and incubation temperature as fixed effects and species as a random effect. To estimate species-specific environmental responses, we let both the slopes and intercepts vary by species.  Our model is written:\\
+
+$t_{50[i]} &= t_0 _{[i]}\phi$\\
+
+where $t_{50}$ is time to 50\% germination and corresponds to the germination times of a reference seed lot ($t_0$) multiplied by an ``acceleration factor" ($\phi$). 
+We calculated the acceleration factor based onthe experimental experimental treatments with the equation:\\
+
+$\phi_{[i]} =exp(\beta_{strat_{sp[i]}}X_{strat} &+ \beta_{inc_{sp[i]}}X_{inc})$\\
+
+where $X_{strat}$ and $X_{inc}$ are the stratification and incubation treatment levels and  $\beta_{strat}$, $\beta_{inc}$, are the estimated effects on $\phi$  for adding an additional week or stratification or degree of incubation for each species respectively.  
+
+
+
+\section*{Model} 
 For our example, we adapt the model from Wolkovich \& Donahue 2020 (with more details therein), which is itself an adaptation of a common model of community dynamics, often conceptualized for annual plants with a seedbank. \\
 
 We model a pair of competing species in which the seedbank $N$ of species $i$ at time $T+1$ (where $T$ is the beginning of an annual  growing season) is determined by the survival, $s$, of ungerminated seeds from the previous year, $1-G_{i}(T)$, plus new biomass, $B_i$, produced from germinating seeds during the growing season (from $T$ to $T + \delta$), which is converted to seeds at rate $\phi$:
@@ -64,6 +82,8 @@ R_0(T) \sim logN(\mu_R, \sigma_R)\\
 \xi(T) \sim logN(\mu_\xi, \sigma_\xi)
 \end{align}
 Variation in $R_{0}(T)$ and $\xi(T)$ were independent. We compared competitive coexistence in simulations from two different environmental regimes: a low-chill regime and a high-chill regime (Figure 2a, Table \ref{tab:model}).  Each species was initialized with a seedbank ($N_{i}(0) = 100$), and simulations were run for 300 years. For species that coexisted in the high-chill regime, we repeated the simulation of two species with the same resource conversion efficiency, $c_i$, and sensitivity to chilling, $\tau_{\xi,i}$, in a low-chill regime.
+\clearpage
+\section*{Figures}
 
 \begin{figure}[h!]
   \centering
@@ -78,8 +98,9 @@ Variation in $R_{0}(T)$ and $\xi(T)$ were independent. We compared competitive c
     \caption{Environmental variation and species-specific responses. (a) Comparison of the distribution in winter chilling in low-chill (teal) and high-chill (purple) regimes.  For a particular high-chill simulation run, panels (b) - (d) illustrate how two competing species (red vs black lines) respond to annual environmental variation: (b) Annual variation in the day of half-germination for two competing species; (c) Species-specific delay in germination in response to annual variation in the weeks of winter chilling; (d) Annual variation in cumulative germination over the growing season for two competing species; (e) Annual variation in daily germination over the growing season for two competing species. }
     \label{Fig:germ}
 \end{figure}
+\clearpage
 
-
+\section{Tables}
 
 \begin{table}[ht]
 \centering
@@ -118,6 +139,9 @@ $\tau_{\xi,i}$ & $\sim \text{Unif}(0,1)$ & sensitivity to chilling for species $
 \label{tab:model}
 \end{table}
 
+\clearpage
+
+\bibliography{prief_bibadd.bib}
 
 \end{document}
 

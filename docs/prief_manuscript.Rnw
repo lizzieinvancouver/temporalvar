@@ -23,8 +23,9 @@
 \parindent 0pt
 \usepackage{lineno}
 \linenumbers % for dissertation
-
-\usepackage{xr-hyper}%\usepackage{hyperref}
+\usepackage{xr}
+%\usepackage{xr-hyper}%
+%\usepackage{hyperref}
 \externaldocument{prief_supp}
 
 %\title{Differences in phenological sensitivity to climate disrupts species' coexistence in a changing environment}
@@ -143,7 +144,7 @@ Community assembly modeling could have the flexibility to incorporate many of th
 \begin{figure}[h!]
   \centering
  \includegraphics[width=.8\textwidth]{..//plots/prief_conception.png}
-    \caption{\textbf{Co-occurring species can differ substantially in their phenological sensitivity ($\Delta$ phenological event/$\Delta$ climate) to the environment.} Panel a) estimates the phenological sensitivity of germination timing to winter chilling and spring forcing for eleven herbaceous species of eastern North America. Points represent the mean estimate and thick and thin bars represent the 50 and 95\% uncertainty intervals (with posteriors shown above lines as gray distributions; for details on the model, see the Supporting Information). In b) and c) we highlight the phenological sensitivity to winter chilling of two of these species---\emph{Eurybia divaricata} and \emph{Persicaria virginiana}---that are commonly observed in competition. b) Depicts the sensitivity of each species to winter chilling, with thick lines representing the mean estimate and lighter lines representing modeled uncertainty. Panel c) illustrations how the species' different sensitivities manifest in contrasting realized germination differences under different climate conditions. Points represent the predicted mean number of days to 50\% germination and bars the 95\% uncertainty intervals}. %Under six weeks of chilling \emph{E. divaricata} germinates well before \emph{P. virginiana}. Under nine weeks of chilling the species germination at roughly the same time, and under twelve weeks of chilling \emph{P. virginiana} is the first to germinate.}
+    \caption{\textbf{Co-occurring species can differ substantially in their phenological sensitivity ($\Delta$ phenological event/$\Delta$ climate) to the environment.} Panel a) estimates the phenological sensitivity of germination timing to winter chilling and spring forcing for eleven herbaceous species of eastern North America. Points represent the mean estimate and thick and thin bars represent the 50 and 95\% uncertainty intervals (with posteriors shown above lines as gray distributions; for details on the model, see the Supporting Information). In b) and c) we highlight the phenological sensitivity to winter chilling of two of these species---\emph{Eurybia divaricata} and \emph{Persicaria virginiana}---that are commonly observed in competition. b) Depicts the sensitivity of each species to winter chilling, with thick lines representing the mean estimate and lighter lines representing modeled uncertainty. Panel c) illustrations how the species' different sensitivities manifest in contrasting realized germination differences under different climate conditions.} %Points represent the predicted mean number of days to 50\% germination and bars the 95\% uncertainty intervals}. %Under six weeks of chilling \emph{E. divaricata} germinates well before \emph{P. virginiana}. Under nine weeks of chilling the species germination at roughly the same time, and under twelve weeks of chilling \emph{P. virginiana} is the first to germinate.}
     %EMWApr23: I think you do NOT need the last sentence about the points (right? It's above ... or otherwise I don't know what you refer to) but you do NEED a short section in the supp where you explain the model you show here -- I already added a ref to the supp here, so be sure to add that to the supp! I would also add a link to the KNB data in the supp. 
     \label{Fig:eury}
 \end{figure}
