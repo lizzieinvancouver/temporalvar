@@ -26,17 +26,17 @@
 \section*{Empirical data} 
 We obtained data germination data from \citep{Buonaiuto2023data}. To estimate species level sensitivity 
 and forecast phenological priority under alternative climate regimes (Fig. \ref{Fig:eury}), 
-we used a Bayesian mixed-effect accelerated failure time model \citep{ONOFRI:2010tl} using a Weibull distribution for the likelihood function. 
-We included weeks of stratification and incubation temperature as fixed effects and species as a random effect. To estimate species-specific environmental responses, we let both the slopes and intercepts vary by species.  Our model is written:\\
+we used a Bayesian mixed-effects accelerated failure time model \citep{ONOFRI:2010tl} using a Weibull distribution for the likelihood function. 
+We included weeks of stratification and incubation temperature as fixed effects and species as a random effect. To estimate species-specific environmental responses, we let both the slopes and intercepts vary by species.  Our model for each observation ($i$) is thus:\\
 
-$t_{50[i]} &= t_0 _{[i]}\phi$\\
+$t_{50[i]} &= t_0 _{[i]}\phi$\\ % Do you need to make it \phi_{[i]} ? It is \phi_{[i]} below ... this means you get a \phi for each observation though so check that is true. 
 
-where $t_{50}$ is time to 50\% germination and corresponds to the germination times of a reference seed lot ($t_0$) multiplied by an ``acceleration factor" ($\phi$). 
-We calculated the acceleration factor based onthe experimental experimental treatments with the equation:\\
+where $t_{50}$ is time to 50\% germination and corresponds to the germination time of a reference seed lot ($t_0$) multiplied by an ``acceleration factor" ($\phi$). 
+We calculated the acceleration factor based on the experimental treatments as:\\
 
-$\phi_{[i]} =exp(\beta_{strat_{sp[i]}}X_{strat} &+ \beta_{inc_{sp[i]}}X_{inc})$\\
+$\phi_{[i]} =exp(\beta_{strat_{sp[i]}}X_{strat[i]} &+ \beta_{inc_{sp[i]}}X_{inc[i]})$\\
 
-where $X_{strat}$ and $X_{inc}$ are the stratification and incubation treatment levels and  $\beta_{strat}$, $\beta_{inc}$, are the estimated effects on $\phi$  for adding an additional week or stratification or degree of incubation for each species respectively.  
+where $X_{strat}$ and $X_{inc}$ are the stratification and incubation treatment levels (respectively) and  $\beta_{strat}$, $\beta_{inc}$, are the estimated effects on $\phi$  for adding an additional week or stratification or degree of incubation, estimated for each species ($sp$) respectively.  
 
 
 
