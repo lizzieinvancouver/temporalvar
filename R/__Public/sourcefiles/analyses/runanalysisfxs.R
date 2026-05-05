@@ -1,0 +1,1018 @@
+## Started 19 March 2018 ##
+## f(x)s to read in and plot the temporalvar runs ##
+
+########################################
+## f(x)s for reading and manipulating ##
+########################################
+
+
+getfiles <- function(folderID, file.names, colnameshere){
+    # numhere <- as.numeric(gsub("^[^-]*-([^.]+).*", "\\1", file.names))
+    filepack <- lapply(file.names, function(file.names) {
+    filename <- paste("output/SummaryFiles/", folderID, "/", file.names, sep="")
+    dat <- read.table(filename, skip=1)
+    names(dat) <- colnameshere
+    return(data.frame(dat))
+    })
+    datahere <- do.call("rbind", filepack)
+}
+
+
+getfiles.envt <- function(folderID, file.names, colnameshere){
+    # numhere <- as.numeric(gsub("^[^-]*-([^.]+).*", "\\1", file.names))
+    filepack <- lapply(file.names, function(file.names) {
+    filename <- paste("output/OtherOut/envt/", folderID, "/", file.names, sep="")
+    dat <- read.table(filename, skip=1)
+    # names(dat) <- colnameshere
+    return(data.frame(dat))
+    })
+    datahere <- do.call("rbind", filepack)
+}
+
+
+
+makediffs <- function(df){
+    dathere <- df
+    dathere$tauIPnoalpha.sp1 <- dathere$tauIP1_mean/(1-dathere$alpha1) 
+    dathere$tauIPnoalpha.sp2 <- dathere$tauIP2_mean/(1-dathere$alpha2)
+    dathere$diff.c <-  dathere$c1-dathere$c2
+    dathere$diff.rstar <-  dathere$Rstar1-dathere$Rstar2
+    dathere$diff.tauI <-  dathere$tauI1-dathere$tauI2
+    dathere$diff.tauIP <- dathere$tauIP1_mean-dathere$tauIP2_mean
+    dathere$diff.alpha <-dathere$alpha1-dathere$alpha2
+    dathere$diff.bfinslopes <- dathere$slopeBfin1-dathere$slopeBfin2
+    dathere$diff.g <- dathere$g1mean-dathere$g2mean
+    dathere$ratio.c <-  dathere$c1/dathere$c2
+    dathere$ratio.rstar <-  dathere$Rstar1/dathere$Rstar2
+    dathere$ratio.tauI <-  dathere$tauI1/dathere$tauI2
+    dathere$ratio.tauIP <- dathere$tauIP1_mean/dathere$tauIP2_mean
+    dathere$ratio.tauIPnoalpha <- dathere$tauIPnoalpha.sp1/dathere$tauIPnoalpha.sp2
+    dathere$ratio.g <- dathere$g1mean/dathere$g2mean
+    dathere$ratio.alpha <-dathere$alpha1/dathere$alpha2
+    return(dathere)
+    }
+
+calcbesttauI <- function(df){
+    dathere <- df
+    dathere.sm <- dathere[c("tauIP1_mean", "tauIP2_mean")]
+    bettertauI <- colnames(dathere.sm)[max.col(dathere.sm, ties.method="first")]
+    dathere.tauI <- dathere[c("tauI1", "tauI2")]
+    dathere.tauI$besttauI <- NA
+    dathere.tauI$besttauI[which(bettertauI=="tauIP1_mean")] <-
+        dathere.tauI$tauI2[which(bettertauI=="tauIP1_mean")]
+    dathere.tauI$besttauI[which(bettertauI=="tauIP2_mean")] <-
+        dathere.tauI$tauI1[which(bettertauI=="tauIP2_mean")]
+    dathere$besttauI <- dathere.tauI$besttauI
+    return(dathere)
+    }
+
+
+calcsp.besttauI <- function(df){
+    dathere <- df
+    dathere.sm <- dathere[c("tauIP1_mean", "tauIP2_mean")]
+    bettertauI <- colnames(dathere.sm)[max.col(dathere.sm, ties.method="first")]
+    dathere.tauI <- dathere[c("tauI1", "tauI2")]
+    dathere.tauI$sp.besttauI <- NA
+    dathere.tauI$sp.besttauI[which(bettertauI=="tauIP1_mean")] <-2
+    dathere.tauI$sp.besttauI[which(bettertauI=="tauIP2_mean")] <-1
+    dathere$sp.besttauI <- dathere.tauI$sp.besttauI 
+    return(dathere)
+    }
+
+calcsp.bestrstar <- function(df){
+    dathere <- df
+    dathere.sm <- dathere[c("Rstar1", "Rstar2")]
+    worserstar <- colnames(dathere.sm)[max.col(dathere.sm, ties.method="first")]
+    dathere.tauI <- dathere[c("Rstar1", "Rstar2")]
+    dathere.tauI$sp.bestrstar <- NA
+    dathere.tauI$sp.bestrstar[which(worserstar=="Rstar1")] <-2
+    dathere.tauI$sp.bestrstar[which(worserstar=="Rstar2")] <-1
+    dathere$sp.bestrstar <- dathere.tauI$sp.bestrstar 
+    return(dathere)
+    }
+
+calcsp.bestalpha <- function(df){
+    dathere <- df
+    dathere.sm <- dathere[c("alpha1", "alpha2")]
+    bestalpha <- colnames(dathere.sm)[max.col(dathere.sm, ties.method="first")]
+    dathere.tauI <- dathere[c("alpha1", "alpha2")]
+    dathere.tauI$sp.bestalpha <- NA
+    dathere.tauI$sp.bestalpha[which(bestalpha=="alpha1")] <-1
+    dathere.tauI$sp.bestalpha[which(bestalpha=="alpha2")] <-2
+    dathere$sp.bestalpha <- dathere.tauI$sp.bestalpha 
+    return(dathere)
+    }
+
+
+calcsp.biggerslopeBfin <- function(df){
+    dathere <- df
+    dathere.sm <- dathere[c("slopeBfin1", "slopeBfin2")]
+    maxslopeBfin <- colnames(dathere.sm)[max.col(dathere.sm, ties.method="first")] 
+    dathere.minslopeBfin <- dathere[c("slopeBfin1", "slopeBfin2")]
+    dathere.minslopeBfin$minslopeBfin <- NA
+    dathere.minslopeBfin$minslopeBfin[which(maxslopeBfin=="slopeBfin1")] <-
+        dathere$slopeBfin2[which(maxslopeBfin=="slopeBfin1")]
+    dathere.minslopeBfin$minslopeBfin[which(maxslopeBfin=="slopeBfin2")] <-
+        dathere$slopeBfin1[which(maxslopeBfin=="slopeBfin2")]
+    dathere$minslopeBfin <- dathere.minslopeBfin$minslopeBfin
+    return(dathere)
+    }
+
+
+get.mean.alphavalues <- function(df){
+    dfs <- subset(df, period==1)
+    df1 <- subset(dfs, coexist1==1)
+    df2 <- subset(dfs, coexist2==1)
+    # dfwinners <- rbind(df1, df2)
+    return(mean(c(df1$alpha1, df2$alpha2)))
+    }
+
+
+get.mean.alphavalues.ns <- function(df){
+    dfns <- subset(df, period==2)
+    df1 <- subset(dfns, coexist1==1)
+    df2 <- subset(dfns, coexist2==1)
+    # dfwinners <- rbind(df1, df2)
+    return(mean(c(df1$alpha1, df2$alpha2)))
+    }
+    
+
+####################
+## plotting f(x)s ##
+####################
+
+add.alpha <- function(col, alpha=1){ # Stolen from Mage's blog
+  if(missing(col))
+    stop("Please provide a vector of colours.")
+  apply(sapply(col, col2rgb)/255, 2, 
+                     function(x) 
+                       rgb(x[1], x[2], x[3], alpha=alpha))  
+}
+
+# below taken from:
+# https://logfc.wordpress.com/2017/03/15/adding-figure-labels-a-b-c-in-the-top-left-corner-of-the-plotting-region/
+fig_label <- function(text, region="figure", pos="topleft", cex=NULL, ...) {
+ 
+  region <- match.arg(region, c("figure", "plot", "device"))
+  pos <- match.arg(pos, c("topleft", "top", "topright", 
+                          "left", "center", "right", 
+                          "bottomleft", "bottom", "bottomright"))
+ 
+  if(region %in% c("figure", "device")) {
+    ds <- dev.size("in")
+    # xy coordinates of device corners in user coordinates
+    x <- grconvertX(c(0, ds[1]), from="in", to="user")
+    y <- grconvertY(c(0, ds[2]), from="in", to="user")
+ 
+    # fragment of the device we use to plot
+    if(region == "figure") {
+      # account for the fragment of the device that 
+      # the figure is using
+      fig <- par("fig")
+      dx <- (x[2] - x[1])
+      dy <- (y[2] - y[1])
+      x <- x[1] + dx * fig[1:2]
+      y <- y[1] + dy * fig[3:4]
+    } 
+  }
+ # much simpler if in plotting region
+  if(region == "plot") {
+    u <- par("usr")
+    x <- u[1:2]
+    y <- u[3:4]
+  }
+ 
+  sw <- strwidth(text, cex=cex) * 60/100
+  sh <- strheight(text, cex=cex) * 60/100
+ 
+  x1 <- switch(pos,
+    topleft     =x[1] + sw, 
+    left        =x[1] + sw,
+    bottomleft  =x[1] + sw,
+    top         =(x[1] + x[2])/2,
+    center      =(x[1] + x[2])/2,
+    bottom      =(x[1] + x[2])/2,
+    topright    =x[2] - sw,
+    right       =x[2] - sw,
+    bottomright =x[2] - sw)
+ 
+  y1 <- switch(pos,
+    topleft     =y[2] - sh,
+    top         =y[2] - sh,
+    topright    =y[2] - sh,
+    left        =(y[1] + y[2])/2,
+    center      =(y[1] + y[2])/2,
+    right       =(y[1] + y[2])/2,
+    bottomleft  =y[1] + sh,
+    bottom      =y[1] + sh,
+    bottomright =y[1] + sh)
+    
+  old.par <- par(xpd=NA)
+  on.exit(par(old.par))
+ 
+  text(x1, y1, text, cex=cex, ...)
+  return(invisible(c(x,y)))
+}
+
+
+
+plot.paramdiffs.onepanel <- function(df, runname, figname, colname.x, colname.y, cex, pch,
+    corner1.text, corner1.pos, corner2.text, corner2.pos){
+    pdf(paste("graphs/modelruns/paramdiffs/", runname, figname, "1p.pdf", sep=""),
+        width=5, height=4)
+        par(mfrow=c(1,1))
+        df0 <- subset(df, ncoexist.t2==0)
+        df1 <- subset(df, ncoexist.t2==1)
+        df2 <- subset(df, ncoexist.t2==2)
+        plot(unlist(df[colname.x]), unlist(df[colname.y]), type="n", xlab=colname.x,
+           ylab=colname.y, main="")
+        abline(v=1)
+        abline(h=1)
+        fig_label(text=corner1.text, region="plot", pos=corner1.pos)
+        fig_label(text=corner2.text, region="plot", pos=corner2.pos)
+        points(df0[[colname.x]], unlist(df0[colname.y]),
+           col=coexist3col[1],pch=pch, cex=cex)
+        points(df1[[colname.x]], unlist(df1[colname.y]),
+           col=coexist3col[2],pch=pch, cex=cex)
+        points(df2[[colname.x]], unlist(df2[colname.y]),
+           col=coexist3col[3],pch=pch, cex=cex)
+        legend("topright", leg.txt, pch=pch, col=coexist3col, bty="n")
+    dev.off()
+}
+
+
+plot.paramdiffs.twopanel <- function(df, runname, figname, colname.x, colname.y, cex, pch,
+    corner1.text, corner1.pos, corner2.text, corner2.pos){
+    pdf(paste("graphs/modelruns/paramdiffs/", runname, figname, "2p.pdf", sep=""),
+        width=5, height=8)
+        par(mfrow=c(2,1))
+        df0 <- subset(df, ncoexist.t2==0)
+        df1 <- subset(df, ncoexist.t2==1)
+        df2 <- subset(df, ncoexist.t2==2)
+        df1.sp1 <- subset(df1, coexist1.t2==1)
+        df1.sp2 <- subset(df1, coexist2.t2==1)
+        plot(unlist(df[colname.x]), unlist(df[colname.y]), type="n", xlab=colname.x,
+           ylab=colname.y, main="survived after stat: colored by non-stat")
+        abline(v=1)
+        abline(h=1)
+        fig_label(text=corner1.text, region="plot", pos=corner1.pos)
+        fig_label(text=corner2.text, region="plot", pos=corner2.pos)
+        points(df0[[colname.x]], unlist(df0[colname.y]),
+           col=coexist3col[1],pch=pch, cex=cex)
+        points(df1[[colname.x]], unlist(df1[colname.y]),
+           col=coexist3col[2],pch=pch, cex=cex)
+        points(df2[[colname.x]], unlist(df2[colname.y]),
+           col=coexist3col[3],pch=pch, cex=cex)
+        legend("topright", leg.txt, pch=pch, col=coexist3col, bty="n")
+        plot(unlist(df[colname.x]), unlist(df[colname.y]), type="n", xlab=colname.x,
+           ylab=colname.y, main="survived after nonstat")
+        abline(v=1)
+        abline(h=1)
+        fig_label(text=corner1.text, region="plot", pos=corner1.pos)
+        fig_label(text=corner2.text, region="plot", pos=corner2.pos)
+        points(df2[[colname.x]], unlist(df2[colname.y]),
+           col=coexistmocol[3], pch=pch, cex=cex)
+        points(df1.sp1[[colname.x]], unlist(df1.sp1[colname.y]),
+           col=coexistmocol[4], pch=pch, cex=cex)
+        points(df1.sp2[[colname.x]], unlist(df1.sp2[colname.y]),
+           col=coexistmocol[5], pch=pch, cex=cex)
+        legend("topright", c("both survived", "sp1 left", "sp2 left"), pch=pch, col=coexistmocol[3:5], bty="n")
+    dev.off()
+}
+
+
+plot.paramdiffs.tworuntypes <- function(df1, df2, runname1, runname2, filename, figname,
+    colname.x, colname.y, cex, pch,corner1.text, corner1.pos, corner2.text, corner2.pos){
+    pdf(paste("graphs/modelruns/paramdiffs/", filename, figname, "runtypes.pdf", sep=""),
+        width=5, height=10)
+        par(mfrow=c(3,1))
+        df1.0spp <- subset(df1, ncoexist.t2==0)
+        df2.0spp <- subset(df2, ncoexist.t2==0)
+        df1.1spp <- subset(df1, ncoexist.t2==1)
+        df2.1spp <- subset(df2, ncoexist.t2==1)
+        df1.2spp <- subset(df1, ncoexist.t2==2)
+        df2.2spp <- subset(df2, ncoexist.t2==2)
+        # First plot
+        plot(unlist(df[colname.x]), unlist(df[colname.y]), type="n", xlab=colname.x,
+           ylab=colname.y, main="No species survived after stat: compare run types")
+        abline(v=1)
+        abline(h=1)
+        fig_label(text=corner1.text, region="plot", pos=corner1.pos)
+        fig_label(text=corner2.text, region="plot", pos=corner2.pos)
+        points(df1.0spp[[colname.x]], unlist(df1.0spp[colname.y]),
+           col=coexist3col[1],pch=pch, cex=cex)
+        points(df2.0spp[[colname.x]], unlist(df2.0spp[colname.y]),
+           col=coexist3col[2],pch=pch, cex=cex)
+        # Second plot
+        plot(unlist(df[colname.x]), unlist(df[colname.y]), type="n", xlab=colname.x,
+           ylab=colname.y, main="One species survived after stat: compare run types")
+        abline(v=1)
+        abline(h=1)
+        fig_label(text=corner1.text, region="plot", pos=corner1.pos)
+        fig_label(text=corner2.text, region="plot", pos=corner2.pos)
+        points(df1.1spp[[colname.x]], unlist(df1.1spp[colname.y]),
+           col=coexist3col[1],pch=pch, cex=cex)
+        points(df2.1spp[[colname.x]], unlist(df2.1spp[colname.y]),
+           col=coexist3col[2],pch=pch, cex=cex)
+        # Third plot
+        plot(unlist(df[colname.x]), unlist(df[colname.y]), type="n", xlab=colname.x,
+           ylab=colname.y, main="Two species survived after stat: compare run types")
+        abline(v=1)
+        abline(h=1)
+        fig_label(text=corner1.text, region="plot", pos=corner1.pos)
+        fig_label(text=corner2.text, region="plot", pos=corner2.pos)
+        points(df1.2spp[[colname.x]], unlist(df1.2spp[colname.y]),
+           col=coexist3col[1],pch=pch, cex=cex)
+        points(df2.2spp[[colname.x]], unlist(df2.2spp[colname.y]),
+           col=coexist3col[2],pch=pch, cex=cex)
+        legend("topright", c(runname1, runname2), pch=pch, col=coexistmocol[1:2], bty="n")
+    dev.off()
+}
+
+
+plot.paramdiffs.twopanel.fixedxy <- function(df, runname, figname, colname.x, colname.y, cex, pch, xlim, ylim,
+    corner1.text, corner1.pos, corner2.text, corner2.pos){
+    pdf(paste("graphs/modelruns/paramdiffs/", runname, figname, "2pXY.pdf", sep=""),
+        width=5, height=8)
+        par(mfrow=c(2,1))
+        df0 <- subset(df, ncoexist.t2==0)
+        df1 <- subset(df, ncoexist.t2==1)
+        df2 <- subset(df, ncoexist.t2==2)
+        df1.sp1 <- subset(df1, coexist1.t2==1)
+        df1.sp2 <- subset(df1, coexist2.t2==1)
+        plot(unlist(df[colname.x]), unlist(df[colname.y]), type="n", xlab=colname.x,
+           ylab=colname.y, main="survived after stat: colored by non-stat", xlim=xlim, ylim=ylim)
+        abline(v=1)
+        abline(h=1)
+        fig_label(text=corner1.text, region="plot", pos=corner1.pos)
+        fig_label(text=corner2.text, region="plot", pos=corner2.pos)
+        points(df0[[colname.x]], unlist(df0[colname.y]),
+           col=coexist3col[1],pch=pch, cex=cex, xlim=xlim, ylim=ylim)
+        points(df1[[colname.x]], unlist(df1[colname.y]),
+           col=coexist3col[2],pch=pch, cex=cex, xlim=xlim, ylim=ylim)
+        points(df2[[colname.x]], unlist(df2[colname.y]),
+           col=coexist3col[3],pch=pch, cex=cex, xlim=xlim, ylim=ylim)
+        legend("topright", leg.txt, pch=pch, col=coexist3col, bty="n")
+        plot(unlist(df[colname.x]), unlist(df[colname.y]), type="n", xlab=colname.x,
+           ylab=colname.y, main="survived after nonstat", xlim=xlim, ylim=ylim)
+        abline(v=1)
+        abline(h=1)
+        fig_label(text=corner1.text, region="plot", pos=corner1.pos)
+        fig_label(text=corner2.text, region="plot", pos=corner2.pos)
+        points(df2[[colname.x]], unlist(df2[colname.y]),
+           col=coexistmocol[3], pch=pch, cex=cex, xlim=xlim, ylim=ylim)
+        points(df1.sp1[[colname.x]], unlist(df1.sp1[colname.y]),
+           col=coexistmocol[4], pch=pch, cex=cex, xlim=xlim, ylim=ylim)
+        points(df1.sp2[[colname.x]], unlist(df1.sp2[colname.y]),
+           col=coexistmocol[5], pch=pch, cex=cex, xlim=xlim, ylim=ylim)
+        legend("topright", c("both survived", "sp1 left", "sp2 left"), pch=pch, col=coexistmocol[3:5], bty="n")
+    dev.off()
+}
+
+plot.paramdiffs.fixedxy <- function(dfmultivar, runname, figname, colname.x, colname.y,
+    dfother, cex, pch, corner1.text, corner1.pos, corner2.text, corner2.pos){
+    pdf(paste("graphs/modelruns/paramdiffs/", runname, figname, "4pXY.pdf", sep=""),
+        width=10, height=8)
+        par(mfrow=c(2,2))
+        df0 <- subset(dfmultivar, ncoexist.t2==0)
+        df1 <- subset(dfmultivar, ncoexist.t2==1)
+        df2 <- subset(dfmultivar, ncoexist.t2==2)
+    xlimhere <- c(min(dfmultivar[[colname.x]]), max(dfmultivar[[colname.x]]))
+    ylimhere <- c(min(dfmultivar[[colname.y]]), max(dfmultivar[[colname.y]]))
+    # first type of run
+        plot(unlist(df1[colname.x]), unlist(df1[colname.y]), type="n", xlab=colname.x,
+           ylab=colname.y, main="3 traits vary: survived after stat - color by ns", xlim=xlimhere, ylim=ylimhere)
+        abline(v=1)
+        abline(h=1)
+        fig_label(text=corner1.text, region="plot", pos=corner1.pos)
+        fig_label(text=corner2.text, region="plot", pos=corner2.pos)
+        points(df0[[colname.x]], unlist(df0[colname.y]),
+           col=coexist3col[1], pch=pch, cex=cex, xlim=xlimhere, ylim=ylimhere)
+        points(df1[[colname.x]], unlist(df1[colname.y]),
+           col=coexist3col[2], pch=pch, cex=cex, xlim=xlimhere, ylim=ylimhere)
+        points(df2[[colname.x]], unlist(df2[colname.y]),
+           col=coexist3col[3], pch=pch, cex=cex, xlim=xlimhere, ylim=ylimhere)
+        legend("topright", leg.txt, pch=pch, cex=cex, col=coexist3col, bty="n")
+        plot(unlist(dfmultivar[colname.x]), unlist(dfmultivar[colname.y]), type="n", xlab=colname.x,
+           ylab=colname.y, main="3 traits vary: survived after nonstat", xlim=xlimhere, ylim=ylimhere)
+        abline(v=1)
+        abline(h=1)
+        fig_label(text=corner1.text, region="plot", pos=corner1.pos)
+        fig_label(text=corner2.text, region="plot", pos=corner2.pos)
+        points(df2[[colname.x]], unlist(df2[colname.y]),
+           col=coexist3col[3], pch=pch, xlim=xlimhere, ylim=ylimhere)
+    # second type of run
+        df20 <- subset(dfother, ncoexist.t2==0)
+        df21 <- subset(dfother, ncoexist.t2==1)
+        df22 <- subset(dfother, ncoexist.t2==2)
+        plot(unlist(dfother[colname.x]), unlist(dfother[colname.y]), type="n", xlab=colname.x,
+           ylab=colname.y, main="2 traits vary: survived after stat - color by ns", xlim=xlimhere, ylim=ylimhere)
+        abline(v=1)
+        abline(h=1)
+        fig_label(text=corner1.text, region="plot", pos=corner1.pos)
+        fig_label(text=corner2.text, region="plot", pos=corner2.pos)
+        points(df20[[colname.x]], unlist(df20[colname.y]),
+           col=coexist3col[1], pch=pch, cex=cex, xlim=xlimhere, ylim=ylimhere)
+        points(df21[[colname.x]], unlist(df21[colname.y]),
+           col=coexist3col[2], pch=pch, cex=cex,  xlim=xlimhere, ylim=ylimhere)
+        points(df22[[colname.x]], unlist(df22[colname.y]),
+           col=coexist3col[3], pch=pch, cex=cex, xlim=xlimhere, ylim=ylimhere)
+        legend("topright", leg.txt, pch=pch, col=coexist3col, bty="n")
+        plot(unlist(dfother[colname.x]), unlist(dfother[colname.y]), type="n", xlab=colname.x,
+           ylab=colname.y, main="2 traits vary: survived after nonstat", xlim=xlimhere, ylim=ylimhere)
+        abline(v=1)
+        abline(h=1)
+        fig_label(text=corner1.text, region="plot", pos=corner1.pos)
+        fig_label(text=corner2.text, region="plot", pos=corner2.pos)
+        points(df22[[colname.x]], unlist(df22[colname.y]),
+           col=coexist3col[3], pch=pch, xlim=xlimhere, ylim=ylimhere)
+    dev.off()
+}
+
+   
+plot.paramdiffs.manypanel.bfin <- function(df, runname, figname, colname.x, colname.y, cex, pch,
+    corner1.text, corner1.pos, corner2.text, corner2.pos, colpalettehere){
+    pdf(paste("graphs/modelruns/paramdiffs/", runname, figname, "wbfin.pdf", sep=""),
+        width=11, height=8)
+        par(mfrow=c(2,3))
+        df0 <- subset(df, ncoexist.t2==0)
+        df1 <- subset(df, ncoexist.t2==1)
+        df2 <- subset(df, ncoexist.t2==2)
+        df1.sp1 <- subset(df1, coexist1.t2==1)
+        df1.sp2 <- subset(df1, coexist2.t2==1)
+        # First plot
+        plot(unlist(df[colname.x]), unlist(df[colname.y]), type="n", xlab=colname.x,
+           ylab=colname.y, main="survived after stat: colored by non-stat")
+        abline(v=1)
+        abline(h=1)
+        fig_label(text=corner1.text, region="plot", pos=corner1.pos)
+        fig_label(text=corner2.text, region="plot", pos=corner2.pos)
+        points(df0[[colname.x]], unlist(df0[colname.y]),
+           col=coexist3col[1],pch=pch, cex=cex)
+        points(df1[[colname.x]], unlist(df1[colname.y]),
+           col=coexist3col[2],pch=pch, cex=cex)
+        points(df2[[colname.x]], unlist(df2[colname.y]),
+           col=coexist3col[3],pch=pch, cex=cex)
+        legend("topright", leg.txt, pch=pch, col=coexist3col, bty="n")
+        # Second plot
+        plot(unlist(df[colname.x]), unlist(df[colname.y]), type="n", xlab=colname.x,
+           ylab=colname.y, main="both survived after nonstat: Slope Bfin1-2")
+        abline(v=1)
+        abline(h=1)
+        fig_label(text=corner1.text, region="plot", pos=corner1.pos)
+        fig_label(text=corner2.text, region="plot", pos=corner2.pos)
+        df2$order = findInterval(df2$diff.bfinslopes.t2, sort(df2$diff.bfinslopes.t2))
+        points(df2[[colname.x]], unlist(df2[colname.y]),
+           col=colpalettehere(nrow(df2))[df2$order], pch=pch, cex=cex)
+        legend("topright", col=colpalettehere(5), pch=19,
+            legend=round(quantile(df2$diff.bfinslopes.t2), 4), bty="n")
+        # Third plot
+        plot(unlist(df[colname.x]), unlist(df[colname.y]), type="n", xlab=colname.x,
+           ylab=colname.y, main="both survived after nonstat: min Bfin slope")
+        abline(v=1)
+        abline(h=1)
+        fig_label(text=corner1.text, region="plot", pos=corner1.pos)
+        fig_label(text=corner2.text, region="plot", pos=corner2.pos)
+        # Order points for coloring
+        df2$order = findInterval(df2$minslopeBfin.t2, sort(df2$minslopeBfin.t2))
+        points(df2[[colname.x]], unlist(df2[colname.y]),
+           col=colpalettehere(nrow(df2))[df2$order], pch=pch, cex=cex)
+        legend("topright", col=colpalettehere(5), pch=19,
+            legend=round(quantile(df2$minslopeBfin.t2), 4), bty="n")
+        # Fourth plot
+        plot(unlist(df[colname.x]), unlist(df[colname.y]), type="n", xlab=colname.x,
+           ylab=colname.y, main="sp 1 survived after nonstat: Slope of sp1")
+        abline(v=1)
+        abline(h=1)
+        fig_label(text=corner1.text, region="plot", pos=corner1.pos)
+        fig_label(text=corner2.text, region="plot", pos=corner2.pos)
+        df1.sp1$order = findInterval(df1.sp1$slopeBfin1.t2, sort(df1.sp1$slopeBfin1.t2))
+        points(df1.sp1[[colname.x]], unlist(df1.sp1[colname.y]),
+          col=colpalettehere(nrow(df1.sp1))[df1.sp1$order], pch=pch, cex=cex)
+        legend("topright", col=colpalettehere(5), pch=19,
+            legend=round(quantile(df1.sp1$slopeBfin1.t2), 4), bty="n")
+        # Fifth plot
+            plot(unlist(df[colname.x]), unlist(df[colname.y]), type="n", xlab=colname.x,
+           ylab=colname.y, main="sp 2 survived after nonstat: Slope of sp2")
+        abline(v=1)
+        abline(h=1)
+        fig_label(text=corner1.text, region="plot", pos=corner1.pos)
+        fig_label(text=corner2.text, region="plot", pos=corner2.pos)
+        df1.sp2$order = findInterval(df1.sp2$slopeBfin2.t2, sort(df1.sp2$slopeBfin2.t2))
+        points(df1.sp2[[colname.x]], unlist(df1.sp2[colname.y]),
+          col=colpalettehere(nrow(df1.sp2))[df1.sp2$order], pch=pch, cex=cex)
+        legend("topright", col=colpalettehere(5), pch=19,
+            legend=round(quantile(df1.sp2$slopeBfin2.t2), 4), bty="n")
+    dev.off()
+}
+
+
+plot.paramdiffs.stat.bfin <- function(df, runname, figname, colname.x, colname.y, cex, pch,
+    corner1.text, corner1.pos, corner2.text, corner2.pos, colpalettehere){
+    pdf(paste("graphs/modelruns/paramdiffs/", runname, figname, "stat.wbfin.pdf", sep=""),
+        width=11, height=8)
+        par(mfrow=c(2,3))
+        df0 <- subset(df, ncoexist.t1==0)
+        df1 <- subset(df, ncoexist.t1==1)
+        df2 <- subset(df, ncoexist.t1==2)
+        df1.sp1 <- subset(df1, coexist1.t1==1)
+        df1.sp2 <- subset(df1, coexist2.t1==1)
+        df2.sp1 <- subset(df2, coexist1.t1==1)
+        df2.sp2 <- subset(df2, coexist2.t1==1)
+        # First plot
+        plot(unlist(df[colname.x]), unlist(df[colname.y]), type="n", xlab=colname.x,
+           ylab=colname.y, main="outcomes at end of stat")
+        abline(v=1)
+        abline(h=1)
+        fig_label(text=corner1.text, region="plot", pos=corner1.pos)
+        fig_label(text=corner2.text, region="plot", pos=corner2.pos)
+        points(df0[[colname.x]], unlist(df0[colname.y]),
+           col=coexist3col[1],pch=pch, cex=cex)
+        points(df1[[colname.x]], unlist(df1[colname.y]),
+           col=coexist3col[2],pch=pch, cex=cex)
+        points(df2[[colname.x]], unlist(df2[colname.y]),
+           col=coexist3col[3],pch=pch, cex=cex)
+        legend("topright", leg.txt, pch=pch, col=coexist3col, bty="n")
+        # Second plot
+        plot(unlist(df[colname.x]), unlist(df[colname.y]), type="n", xlab=colname.x,
+           ylab=colname.y, main="both survived after stat: Slope Bfin1-2")
+        abline(v=1)
+        abline(h=1)
+        fig_label(text=corner1.text, region="plot", pos=corner1.pos)
+        fig_label(text=corner2.text, region="plot", pos=corner2.pos)
+        df2$order = findInterval(df2$diff.bfinslopes.t1, sort(df2$diff.bfinslopes.t1))
+        points(df2[[colname.x]], unlist(df2[colname.y]),
+           col=colpalettehere(nrow(df2))[df2$order], pch=pch, cex=cex)
+        legend("topright", col=colpalettehere(5), pch=19,
+            legend=round(quantile(df2$diff.bfinslopes.t1), 4), bty="n")
+        # OLD (third) plot (commented out to make room for plots)
+        if(FALSE){
+        plot(unlist(df[colname.x]), unlist(df[colname.y]), type="n", xlab=colname.x,
+           ylab=colname.y, main="both survived after stat: min Bfin slope")
+        abline(v=1)
+        abline(h=1)
+        fig_label(text=corner1.text, region="plot", pos=corner1.pos)
+        fig_label(text=corner2.text, region="plot", pos=corner2.pos)
+        # Order points for coloring
+        df2$order = findInterval(df2$minslopeBfin.t1, sort(df2$minslopeBfin.t1))
+        points(df2[[colname.x]], unlist(df2[colname.y]),
+           col=colpalettehere(nrow(df2))[df2$order], pch=pch, cex=cex)
+        legend("topright", col=colpalettehere(5), pch=19,
+            legend=round(quantile(df2$minslopeBfin.t1), 4), bty="n")
+        }
+        # Third plot
+        plot(unlist(df[colname.x]), unlist(df[colname.y]), type="n", xlab=colname.x,
+           ylab=colname.y, main="sp 1 survived after stat: Slope of sp1")
+        abline(v=1)
+        abline(h=1)
+        fig_label(text=corner1.text, region="plot", pos=corner1.pos)
+        fig_label(text=corner2.text, region="plot", pos=corner2.pos)
+        df1.sp1$order = findInterval(df1.sp1$slopeBfin1.t1, sort(df1.sp1$slopeBfin1.t1))
+        points(df1.sp1[[colname.x]], unlist(df1.sp1[colname.y]),
+          col=colpalettehere(nrow(df1.sp1))[df1.sp1$order], pch=pch, cex=cex)
+        legend("topright", col=colpalettehere(5), pch=19,
+            legend=round(quantile(df1.sp1$slopeBfin1.t1), 4), bty="n")
+        # Fourth plot
+        plot(unlist(df[colname.x]), unlist(df[colname.y]), type="n", xlab=colname.x,
+           ylab=colname.y, main="sp 2 survived after stat: Slope of sp2")
+        abline(v=1)
+        abline(h=1)
+        fig_label(text=corner1.text, region="plot", pos=corner1.pos)
+        fig_label(text=corner2.text, region="plot", pos=corner2.pos)
+        df1.sp2$order = findInterval(df1.sp2$slopeBfin2.t1, sort(df1.sp2$slopeBfin2.t1))
+        points(df1.sp2[[colname.x]], unlist(df1.sp2[colname.y]),
+          col=colpalettehere(nrow(df1.sp2))[df1.sp2$order], pch=pch, cex=cex)
+        legend("topright", col=colpalettehere(5), pch=19,
+            legend=round(quantile(df1.sp2$slopeBfin2.t1), 4), bty="n")
+        # Fifth plot
+        plot(unlist(df[colname.x]), unlist(df[colname.y]), type="n", xlab=colname.x,
+           ylab=colname.y, main="Both survived after stat: Slope of sp1")
+        abline(v=1)
+        abline(h=1)
+        fig_label(text=corner1.text, region="plot", pos=corner1.pos)
+        fig_label(text=corner2.text, region="plot", pos=corner2.pos)
+        df2.sp2$order = findInterval(df2.sp2$slopeBfin1.t1, sort(df2.sp2$slopeBfin1.t1))
+        points(df2.sp2[[colname.x]], unlist(df2.sp2[colname.y]),
+          col=colpalettehere(nrow(df2.sp2))[df2.sp2$order], pch=pch, cex=cex)
+        legend("topright", col=colpalettehere(5), pch=19,
+            legend=round(quantile(df2.sp2$slopeBfin1.t1), 4), bty="n")
+        # Sixth plot
+        plot(unlist(df[colname.x]), unlist(df[colname.y]), type="n", xlab=colname.x,
+           ylab=colname.y, main="Both survived after stat: Slope of sp2")
+        abline(v=1)
+        abline(h=1)
+        fig_label(text=corner1.text, region="plot", pos=corner1.pos)
+        fig_label(text=corner2.text, region="plot", pos=corner2.pos)
+        df2.sp1$order = findInterval(df2.sp1$slopeBfin2.t1, sort(df2.sp1$slopeBfin2.t1))
+        points(df2.sp1[[colname.x]], unlist(df2.sp1[colname.y]),
+          col=colpalettehere(nrow(df2.sp1))[df2.sp1$order], pch=pch, cex=cex)
+        legend("topright", col=colpalettehere(5), pch=19,
+            legend=round(quantile(df2.sp1$slopeBfin2.t1), 4), bty="n")
+    dev.off()
+}
+
+plot.paramdiffs.onesp.bfin <- function(df, runname, figname, colname.x, colname.y, cex, pch,
+    corner1.text, corner1.pos, corner2.text, corner2.pos, colpalettehere){
+    pdf(paste("graphs/modelruns/paramdiffs/", runname, figname, "onesp.wbfin.pdf", sep=""),
+        width=9, height=8)
+        par(mfrow=c(2,2))
+        df0 <- subset(df, ncoexist.t2==0)
+        df1 <- subset(df, ncoexist.t2==1)
+        df2 <- subset(df, ncoexist.t2==2)
+        df1.sp1 <- subset(df1, coexist1.t2==1)
+        df1.sp2 <- subset(df1, coexist2.t2==1)
+        # First plot
+        plot(unlist(df[colname.x]), unlist(df[colname.y]), type="n", xlab=colname.x,
+           ylab=colname.y, main="sp 1 survived after nonstat: Slope of sp1 at t1")
+        abline(v=1)
+        abline(h=1)
+        fig_label(text=corner1.text, region="plot", pos=corner1.pos)
+        fig_label(text=corner2.text, region="plot", pos=corner2.pos)
+        df1.sp1$order = findInterval(df1.sp1$slopeBfin1.t1, sort(df1.sp1$slopeBfin1.t1))
+        points(df1.sp1[[colname.x]], unlist(df1.sp1[colname.y]),
+          col=colpalettehere(nrow(df1.sp1))[df1.sp1$order], pch=pch, cex=cex)
+        legend("topright", col=colpalettehere(5), pch=19,
+            legend=round(quantile(df1.sp1$slopeBfin1.t1), 4), bty="n")
+        # Second plot
+            plot(unlist(df[colname.x]), unlist(df[colname.y]), type="n", xlab=colname.x,
+           ylab=colname.y, main="sp 2 survived after nonstat: Slope of sp2 at t1")
+        abline(v=1)
+        abline(h=1)
+        fig_label(text=corner1.text, region="plot", pos=corner1.pos)
+        fig_label(text=corner2.text, region="plot", pos=corner2.pos)
+        df1.sp2$order = findInterval(df1.sp2$slopeBfin2.t1, sort(df1.sp2$slopeBfin2.t1))
+        points(df1.sp2[[colname.x]], unlist(df1.sp2[colname.y]),
+          col=colpalettehere(nrow(df1.sp2))[df1.sp2$order], pch=pch, cex=cex)
+        legend("topright", col=colpalettehere(5), pch=19,
+            legend=round(quantile(df1.sp2$slopeBfin2.t1), 4), bty="n")
+        # Third plot
+        plot(unlist(df[colname.x]), unlist(df[colname.y]), type="n", xlab=colname.x,
+           ylab=colname.y, main="sp 1 survived after nonstat: Slope of sp1 at t2")
+        abline(v=1)
+        abline(h=1)
+        fig_label(text=corner1.text, region="plot", pos=corner1.pos)
+        fig_label(text=corner2.text, region="plot", pos=corner2.pos)
+        df1.sp1$order = findInterval(df1.sp1$slopeBfin1.t2, sort(df1.sp1$slopeBfin1.t2))
+        points(df1.sp1[[colname.x]], unlist(df1.sp1[colname.y]),
+          col=colpalettehere(nrow(df1.sp1))[df1.sp1$order], pch=pch, cex=cex)
+        legend("topright", col=colpalettehere(5), pch=19,
+            legend=round(quantile(df1.sp1$slopeBfin1.t2), 4), bty="n")
+        # Fourth plot
+            plot(unlist(df[colname.x]), unlist(df[colname.y]), type="n", xlab=colname.x,
+           ylab=colname.y, main="sp 2 survived after nonstat: Slope of sp2 at t2")
+        abline(v=1)
+        abline(h=1)
+        fig_label(text=corner1.text, region="plot", pos=corner1.pos)
+        fig_label(text=corner2.text, region="plot", pos=corner2.pos)
+        df1.sp2$order = findInterval(df1.sp2$slopeBfin2.t2, sort(df1.sp2$slopeBfin2.t2))
+        points(df1.sp2[[colname.x]], unlist(df1.sp2[colname.y]),
+          col=colpalettehere(nrow(df1.sp2))[df1.sp2$order], pch=pch, cex=cex)
+        legend("topright", col=colpalettehere(5), pch=19,
+            legend=round(quantile(df1.sp2$slopeBfin2.t2), 4), bty="n")
+    dev.off()
+}
+
+
+plot.paramdiffs.colorbyzvar <- function(df, runname, figname, colname.x, colname.y,
+    colname.z, figtitle, midpt, cex, pch){
+    plothere <- ggplot(df, aes(df[[colname.x]], df[[colname.y]])) +
+        geom_point(aes(color=df[[colname.z]])) +
+        scale_colour_gradient2(midpoint = midpt) + 
+        labs(colour = colname.z, x = colname.x, y=colname.y,
+             title=figtitle)
+    # scale_colour_gradient2(low = "white", mid ="white", high = "darkred")
+    ggsave(paste("graphs/modelruns/paramdiffs/", runname, figname, ".zvar.pdf", sep=""),
+        width=10, height=8)
+}
+
+plot.histograms.bothspp <- function(df, figname, colname.x1, colname.x2,
+    collist, varcollist, ylim){
+    df2here <- subset(df, ncoexist.t2==2)
+    pdf(paste("graphs/modelruns/histograms/", figname, "bothspcolorbyzvarp.pdf", sep=""),
+        width=4.5, height=4)
+    plot(nhere, tauPfin, type="l", ylim=ylim, xlab="tauP and trait", ylab="density", main="trait for both spp")
+    polygon(nhere, tauPfin, col=collist[2])
+    polygon(nhere, tauP, col=collist[1])
+    lines(density(c(df[[colname.x1]], df[[colname.x2]])), col=varcollist[1], lwd=2)
+    lines(density(c(df2here[[colname.x1]], df2here[[colname.x2]])), col=varcollist[2], lwd=2)
+    dev.off()
+}
+
+plot.histograms.max <- function(df, figname, colname.x1, colname.x2,
+    collist, varcollist, ylim){
+    df2here <- subset(df, ncoexist.t2==2)
+    pdf(paste("graphs/modelruns/histograms/", figname, "max.pdf", sep=""),
+        width=4.5, height=4)
+    plot(nhere, tauPfin, type="l", ylim=ylim, xlab="tauP and trait", ylab="density",  main="max trait")
+    polygon(nhere, tauPfin, col=collist[2])
+    polygon(nhere, tauP, col=collist[1])
+    lines(density(pmax(df[[colname.x1]], df[[colname.x2]])), col=varcollist[1], lwd=2)
+    lines(density(pmax(df2here[[colname.x1]], df2here[[colname.x2]])), col=varcollist[2], lwd=2)
+    dev.off()
+}
+
+# Not currently using
+plot.histograms.min <- function(df, figname, colname.x1, colname.x2,
+    collist, varcollist, ylim){
+    df2here <- subset(df, ncoexist.t2==2)
+    pdf(paste("graphs/modelruns/histograms/", figname, "min.pdf", sep=""),
+        width=4.5, height=4)
+    plot(nhere, tauPfin, type="l", ylim=ylim, xlab="tauP and trait", ylab="density",  main="min trait")
+    polygon(nhere, tauPfin, col=collist[2])
+    polygon(nhere, tauP, col=collist[1])
+    lines(density(pmin(df[[colname.x1]], df[[colname.x2]])), col=varcollist[1], lwd=2)
+    lines(density(pmin(df2here[[colname.x1]], df2here[[colname.x2]])), col=varcollist[2], lwd=2)
+    dev.off()
+}
+
+plot.histograms.onespp.skipnonstat <- function(df, figname, colname.x,
+    collist, varcollist, ylim=ylim){
+    df2here <- subset(df, ncoexist.t2==2)
+    pdf(paste("graphs/modelruns/histograms/", figname, "best.pdf", sep=""),
+        width=4.5, height=4)
+    plot(nhere, tauPfin, type="l", ylim=ylim, xlab="tauP and trait", ylab="density",  main="best tauI")
+    polygon(nhere, tauPfin, col=collist[2])
+    polygon(nhere, tauP, col=collist[1])
+    lines(density(df[[colname.x]]), col=varcollist[1], lwd=2)
+    # lines(density(df2here[[colname.x]]), col=varcollist[2], lwd=2)
+    dev.off()
+}
+
+
+plot.histograms.onespp <- function(df, figname, colname.x,
+    collist, varcollist, ylim=ylim){
+    df2here <- subset(df, ncoexist.t2==2)
+    pdf(paste("graphs/modelruns/histograms/", figname, "best.pdf", sep=""),
+        width=4.5, height=4)
+    plot(nhere, tauPfin, type="l", ylim=ylim, xlab="tauP and trait", ylab="density",  main="best tauI")
+    polygon(nhere, tauPfin, col=collist[2])
+    polygon(nhere, tauP, col=collist[1])
+    lines(density(df[[colname.x]]), col=varcollist[1], lwd=2)
+    lines(density(df2here[[colname.x]]), col=varcollist[2], lwd=2)
+    dev.off()
+}
+
+
+plot.histograms.bars.onespp.skipnonstat <- function(df, figname, colname.x,
+    collist, varcollist, breaks){
+    df2here <- subset(df, ncoexist.t2==2)
+    pdf(paste("graphs/modelruns/histograms/", figname, "barsbest.pdf", sep=""),
+        width=4.5, height=4)
+    plot(nhere, tauPfin, type="l", xlab="tauP and trait", ylab="density",  main="best tauI")
+    polygon(nhere, tauPfin, col=collist[2])
+    polygon(nhere, tauP, col=collist[1])
+    hist((df[[colname.x]]), col=varcollist[1], breaks=breaks)
+    dev.off()
+}
+
+
+## Plots for just the stationary period ###
+
+plot.paramdiffs.stat.onepanel <- function(df, runname, figname, colname.x, colname.y, cex, pch){
+    pdf(paste("graphs/modelruns/paramdiffs/", runname, figname, ".stat.1p.pdf", sep=""),
+        width=5, height=4)
+        par(mfrow=c(1,1))
+        df0 <- subset(df, ncoexist==0)
+        df1 <- subset(df, ncoexist==1)
+        df2 <- subset(df, ncoexist==2)
+        plot(unlist(df[colname.x]), unlist(df[colname.y]), type="n", xlab=colname.x,
+           ylab=colname.y, main="Stationary period only")
+        points(df0[[colname.x]], unlist(df0[colname.y]),
+           col=coexist3col[1],pch=pch, cex=cex)
+        points(df1[[colname.x]], unlist(df1[colname.y]),
+           col=coexist3col[2],pch=pch, cex=cex)
+        points(df2[[colname.x]], unlist(df2[colname.y]),
+           col=coexist3col[3],pch=pch, cex=cex)
+        legend("topright", leg.txt, pch=pch, col=coexist3col, bty="n")
+    dev.off()
+}
+
+plot.rstar.winnersp.stat <- function(df, runname, figname, colname.x, colname.y, cex, pch){
+    pdf(paste("graphs/modelruns/paramdiffs/", runname, figname, ".Rstar.winnerofstat.1p.pdf", sep=""),
+        width=5, height=4)
+        par(mfrow=c(1,1))
+        df1 <- subset(df, ncoexist==1)
+        df1.sp1wins <- subset(df1, coexist1==1 & sp.bestrstar==1)
+        df1.sp2wins <- subset(df1, coexist2==1 & sp.bestrstar==2)
+        other1 <- subset(df1, coexist1==1 & sp.bestrstar==2)
+        other2 <- subset(df1, coexist2==1 & sp.bestrstar==1)
+        otherdf <- rbind(other1, other2)
+        plot(unlist(df[colname.x]), unlist(df[colname.y]), type="n", xlab=colname.x,
+           ylab=colname.y, main="Stationary period only")
+        points(df1.sp1wins[[colname.x]], unlist(df1.sp1wins[colname.y]),
+           col=coexist3col[1],pch=pch, cex=cex)
+        points(df1.sp2wins[[colname.x]], unlist(df1.sp2wins[colname.y]),
+           col=coexist3col[2],pch=pch, cex=cex)
+         points(otherdf[[colname.x]], unlist(otherdf[colname.y]),
+           col=coexist3col[3],pch=pch, cex=cex)
+        legend("topright", c("sp1 wins and has better Rstar", "sp2 wins and has better Rstar",
+            "other sp wins"), pch=pch, col=coexist3col, bty="n")
+    dev.off()
+}
+
+plot.tauI.winnersp.stat <- function(df, runname, figname, colname.x, colname.y, cex, pch){
+    pdf(paste("graphs/modelruns/paramdiffs/", runname, figname, ".tauI.winnerofstat.1p.pdf", sep=""),
+        width=5, height=4)
+        par(mfrow=c(1,1))
+        df1 <- subset(df, ncoexist==1)
+        df1.sp1wins <- subset(df1, coexist1==1 & sp.besttauI==1)
+        df1.sp2wins <- subset(df1, coexist2==1 & sp.besttauI==2)
+        other1 <- subset(df1, coexist1==1 & sp.besttauI==2)
+        other2 <- subset(df1, coexist2==1 & sp.besttauI==1)
+        otherdf <- rbind(other1, other2)
+        plot(unlist(df[colname.x]), unlist(df[colname.y]), type="n", xlab=colname.x,
+           ylab=colname.y, main="Stationary period only")
+        points(otherdf[[colname.x]], unlist(otherdf[colname.y]),
+           col=coexist3col[3],pch=pch, cex=cex)
+        points(df1.sp1wins[[colname.x]], unlist(df1.sp1wins[colname.y]),
+           col=coexist3col[1],pch=pch, cex=cex)
+        points(df1.sp2wins[[colname.x]], unlist(df1.sp2wins[colname.y]),
+           col=coexist3col[2],pch=pch, cex=cex)
+        legend("topright", c("sp1 wins and has better tauI", "sp2 wins and has better tauI",
+            "other sp wins"), pch=pch, col=coexist3col, bty="n")
+    dev.off()
+}
+
+plot.tauI.winnersp.stat.alt <- function(df, runname,  figname, colname.x, colname.y, cex, pch){
+    pdf(paste("graphs/modelruns/paramdiffs/", runname, figname, ".tauI.winnerofstat.1p.alt.pdf", sep=""),
+        width=5, height=4)
+        par(mfrow=c(1,1))
+        df1 <- subset(df, ncoexist==1)
+        df1.sp1wins <- subset(df1, coexist1==1 & sp.besttauI==1)
+        df1.sp2wins <- subset(df1, coexist2==1 & sp.besttauI==2)
+        other1 <- subset(df1, coexist1==1 & sp.besttauI==2)
+        other2 <- subset(df1, coexist2==1 & sp.besttauI==1)
+        otherdf <- rbind(other1, other2)
+        plot(unlist(df[colname.x]), unlist(df[colname.y]), type="n", xlab=colname.x,
+           ylab=colname.y, main="Stationary period only")
+        points(df1.sp1wins[[colname.x]], unlist(df1.sp1wins[colname.y]),
+           col=coexist3col[1],pch=pch, cex=cex)
+        points(df1.sp2wins[[colname.x]], unlist(df1.sp2wins[colname.y]),
+           col=coexist3col[2],pch=pch, cex=cex)
+        points(otherdf[[colname.x]], unlist(otherdf[colname.y]),
+           col=coexist3col[3],pch=pch, cex=cex)
+        legend("topright", c("sp1 wins and has better tauI", "sp2 wins and has better tauI",
+            "other sp wins"), pch=pch, col=coexist3col, bty="n")
+    dev.off()
+}
+
+plot.alpha.winnersp.stat <- function(df, runname, figname, colname.x, colname.y, cex, pch){
+    pdf(paste("graphs/modelruns/paramdiffs/", runname, figname, ".alpha.winnerofstat.1p.pdf", sep=""),
+        width=5, height=4)
+        par(mfrow=c(1,1))
+        df1 <- subset(df, ncoexist==1)
+        df1.sp1wins <- subset(df1, coexist1==1 & sp.bestalpha==1)
+        df1.sp2wins <- subset(df1, coexist2==1 & sp.bestalpha==2)
+        other1 <- subset(df1, coexist1==1 & sp.bestalpha==2)
+        other2 <- subset(df1, coexist2==1 & sp.bestalpha==1)
+        otherdf <- rbind(other1, other2)
+        plot(unlist(df[colname.x]), unlist(df[colname.y]), type="n", xlab=colname.x,
+           ylab=colname.y, main="Stationary period only")
+        points(df1.sp1wins[[colname.x]], unlist(df1.sp1wins[colname.y]),
+           col=coexist3col[1],pch=pch, cex=cex)
+        points(df1.sp2wins[[colname.x]], unlist(df1.sp2wins[colname.y]),
+           col=coexist3col[2],pch=pch, cex=cex)
+        points(otherdf[[colname.x]], unlist(otherdf[colname.y]),
+           col=coexist3col[3],pch=pch, cex=cex)
+        legend("topright", c("sp1 wins and has better alpha", "sp2 wins and has better alpha",
+            "other sp wins"), pch=pch, col=coexist3col, bty="n")
+    dev.off()
+}
+
+plot.alpha.winnersp.stat.alt <- function(df, runname, figname, colname.x, colname.y, cex, pch){
+    pdf(paste("graphs/modelruns/paramdiffs/", runname, figname, ".alpha.winnerofstat.1p.alt.pdf", sep=""),
+        width=5, height=4)
+        par(mfrow=c(1,1))
+        df1 <- subset(df, ncoexist==1)
+        df1.sp1wins <- subset(df1, coexist1==1 & sp.bestalpha==1)
+        df1.sp2wins <- subset(df1, coexist2==1 & sp.bestalpha==2)
+        other1 <- subset(df1, coexist1==1 & sp.bestalpha==2)
+        other2 <- subset(df1, coexist2==1 & sp.bestalpha==1)
+        otherdf <- rbind(other1, other2)
+        plot(unlist(df[colname.x]), unlist(df[colname.y]), type="n", xlab=colname.x,
+           ylab=colname.y, main="Stationary period only")
+        points(otherdf[[colname.x]], unlist(otherdf[colname.y]),
+           col=coexist3col[3],pch=pch, cex=cex)
+        points(df1.sp1wins[[colname.x]], unlist(df1.sp1wins[colname.y]),
+           col=coexist3col[1],pch=pch, cex=cex)
+        points(df1.sp2wins[[colname.x]], unlist(df1.sp2wins[colname.y]),
+           col=coexist3col[2],pch=pch, cex=cex)
+        legend("topright", c("sp1 wins and has better alpha", "sp2 wins and has better alpha",
+            "other sp wins"), pch=pch, col=coexist3col, bty="n")
+    dev.off()
+}
+
+plot.paramdiffs.stat.onepanel <- function(df, runname, figname, colname.x, colname.y, cex, pch){
+    pdf(paste("graphs/modelruns/paramdiffs/", runname, figname, ".stat.1p.pdf", sep=""),
+        width=5, height=4)
+        par(mfrow=c(1,1))
+        df0 <- subset(df, ncoexist==0)
+        df1 <- subset(df, ncoexist==1)
+        df2 <- subset(df, ncoexist==2)
+        plot(unlist(df[colname.x]), unlist(df[colname.y]), type="n", xlab=colname.x,
+           ylab=colname.y, main="Stationary period only")
+        points(df0[[colname.x]], unlist(df0[colname.y]),
+           col=coexist3col[1],pch=pch, cex=cex)
+        points(df1[[colname.x]], unlist(df1[colname.y]),
+           col=coexist3col[2],pch=pch, cex=cex)
+        points(df2[[colname.x]], unlist(df2[colname.y]),
+           col=coexist3col[3],pch=pch, cex=cex)
+        legend("topright", leg.txt, pch=pch, col=coexist3col, bty="n")
+    dev.off()
+}
+
+
+
+########################################
+## old code (pre August 2018 meeting) ##
+########################################
+
+if(FALSE){
+# This is similar to other plotting code (above)
+    # but was designed to run on each run, now we're generally merging runs more
+plot.histograms.perrun <- function(df1, df2, figname, colname.x1, colname.x2,
+    collist, breaknum, xlim, ylim){
+    pdf(paste("graphs/modelruns/histograms/run_", folderID, figname, ".pdf", sep=""),
+        width=5, height=4)
+        hist(c(unlist(df1[colname.x1]), unlist(df1[colname.x2])), xlim=xlim, ylim=ylim,
+            breaks=breaknum, col=collist[3], main="", xlab=colname.x1)
+        par(new=TRUE)
+        hist(c(unlist(df2[colname.x1]), unlist(df2[colname.x2])), xlim=xlim, ylim=ylim,
+            breaks=breaknum, col=collist[1], main="", xlab="", ylab="") 
+    dev.off()
+}
+    
+plot.paramdiffs.perrun <- function(df, figname, colname.x, colname.y){
+    pdf(paste("graphs/modelruns/paramdiffs/run_", folderID, figname, ".pdf", sep=""),
+        width=5, height=4)
+        df0 <- subset(df, ncoexist.t2==0)
+        df1 <- subset(df, ncoexist.t2==1)
+        df2 <- subset(df, ncoexist.t2==2)
+        plot(unlist(df[colname.x]), unlist(df[colname.y]), type="n", xlab=colname.x,
+           ylab=colname.y, main="")
+        points(df0[[colname.x]], unlist(df0[colname.y]),
+           col=coexist3col[1],pch=pch, cex=cex)
+        points(df1[[colname.x]], unlist(df1[colname.y]),
+           col=coexist3col[2],pch=pch, cex=cex)
+        points(df2[[colname.x]], unlist(df2[colname.y]),
+           col=coexist3col[3],pch=pch, cex=cex)
+        legend("topright", leg.txt, pch=pch, col=coexist3col, bty="n")
+    dev.off()
+}
+
+}
+
+############################################
+## old code (pre April 2018 trip to Oahu) ##
+############################################
+
+if(FALSE){
+    
+getBoutfiles <- function(folderID, filenamestart, numhere, colnameshere){
+    filepack <- lapply(numhere, function(numhere) {
+    filename <- paste("output/", folderID, "/", filenamestart, numhere, ".txt", sep="")
+    dat <- read.table(filename, skip=1)
+    names(dat) <- colnameshere
+    return(data.frame(dat))
+    })
+    datahere <- do.call("rbind", filepack)
+}
+
+# potentially superior to above as you don't need to tell it...
+# ... the numbers to expect, but returns a list
+# aka different format than everything else returns
+getBoutfiles.list <- function(folderID, boutfilenamestart){
+    boutfilenamestart <- 
+    filename <- paste("output/", folderID, "/", "Bout/", "Bout*", ".txt", sep="")
+    dat <- lapply(Sys.glob(filename), function(i) read.table(i, header=TRUE))
+    datahere <- do.call("rbind", dat)
+    return(dat)
+}
+
+    
+makediffs.ns <- function(df){
+    dathere <- df
+    dathere$ratio.rstar <-  dathere$Rstar1/dathere$Rstar2
+    dathere$ratio.tauIini_pre <- dathere$tauIPini1_pre/dathere$tauIPini2_pre
+    dathere$ratio.tauIPns_pre <-dathere$tauIPns1_pre/dathere$tauIPns2_pre
+    dathere$ratio.alpha <- dathere$alpha1/dathere$alpha2
+    return(dathere)
+    }
+
+plot.params <- function(df, df.coexist, colname, colname.sp1, colname.sp2){
+    pdf(paste("graphs/modelruns/params/runs_", folderID, colname, "_compare.pdf", sep=""),
+        width=9, height=4)
+    plot.allruns <- ggplot(data=df, aes(x=df[colname.sp1], y=df[colname.sp2],
+        colour=ncoexist)) +
+        geom_point() +
+        labs(x = colname.sp1, y=colname.sp2)
+    plot.coexistruns <- ggplot(data=df.coexist, aes(x=df.coexist[colname.sp1], 
+        y=df.coexist[colname.sp2], colour=ncoexist)) +
+        geom_point() +
+        labs(x = colname.sp1, y=colname.sp2)
+    multiplot(plot.allruns, plot.coexistruns, cols=2)
+    dev.off()
+}
+}
+
+

@@ -23,7 +23,9 @@
 \parindent 0pt
 \usepackage{lineno}
 \linenumbers % for dissertation
-\usepackage{xr}
+\usepackage{xr-hyper}
+\usepackage{hyperref}
+%\usepackage{xr}
 %\usepackage{xr-hyper}%
 %\usepackage{hyperref}
 \externaldocument{prief_supp}
@@ -67,7 +69,7 @@ The importance of seasonal priority effects in mediating interspecific competiti
 \section{How phenological differences arise}
 Environmental cues such as temperature, light and moisture are the primary triggers that control phenology \citep{Forrest2010}, with many species responding to multiple aspects of cues \citep{Lang:2025wf,Chuine2017}. For example, many temperate plants that rely on temperature as a cue require exposure to both cool winter (0-4$\degree$C, hereafter: winter chilling, which is similar to cold stratification) followed by warm spring temperatures to initiate phenological transitions \citep{Ettinger:2020aa}. Controlled experiments have helped quantify species-specific responses to cues, which---when combined with the exact environmental conditions---drive differences in realized phenology between species. 
 
-Decades of seed germination studies provide reliable examples of how realized phenology can vary across species $\times$ environment \citep[e.g.,][]{ Pascual2021}. We illustrate this by re-analyzing seed phenology data from \citep{Buonaiuto2023data}, see Supporting Information for details), in which 11 species from one habitat were germinated under varying temperature conditions to determine their sensitivities. These co-occurring species showed very different sensitives to the same environmental cues (Figure \ref{Fig:eury}a) that could potentially impact competition. For example, for \emph{Persicaria virginiana} and \emph{Eurybia divaricata}---a pair of woodland herbs that frequently compete in Eastern Temperate Forests---which species germinates first depends on environmental conditions, and the order switches with increasing cue levels (see Figure \ref{Fig:eury}b,c; in this case, chilling duration acts as the cue). This illustrates that the strength of the seasonal priority effect is highly dependent on the environment, yet this is not how most coexistence models approach phenology.
+Decades of seed germination studies provide reliable examples of how realized phenology can vary across species $\times$ environment \citep[e.g.,][]{ Pascual2021}. We illustrate this by re-analyzing seed phenology data from \citep{Buonaiuto2023data} using accelerated failure time models \citep{ONOFRI:2010tl} (see Supporting Information for details), in which 11 species from one habitat were germinated under varying temperature conditions to determine their sensitivities. These co-occurring species showed very different sensitives to the same environmental cues (Figure \ref{Fig:eury}a) that could potentially impact competition. For example, for \emph{Persicaria virginiana} and \emph{Eurybia divaricata}---a pair of woodland herbs that frequently compete in Eastern Temperate Forests---which species germinates first depends on environmental conditions, and the order switches with increasing cue levels (see Figure \ref{Fig:eury}b,c; in this case, chilling duration acts as the cue). This illustrates that the strength of the seasonal priority effect is highly dependent on the environment, yet this is not how most coexistence models approach phenology.
 
 \section{Recent work integrating phenology into assembly models} % Lizzie asks: Do we want to mainly say coexistence models or assembly models or something else? Do we want to discuss `timing' here or use 'phenology' and then say -- but wait, is it phenology? 
 
