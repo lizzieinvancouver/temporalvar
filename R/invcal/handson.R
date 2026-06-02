@@ -1,0 +1,83 @@
+
+
+
+megadrought <-  function(c_cal, locIN, keep = 1:50){
+  
+  source(paste0(locIN, "/invcal/sourcefiles/getRunParms.R"), local=TRUE) #define runtime parameters
+  
+  source(paste0(locIN,"/sourcefiles/getEnvt.R"), local=TRUE)  #get constant and time-varying envt parms
+  source(paste0(locIN,"/invcal/sourcefiles/getSpecies.R"), local=TRUE)  #get species characteristics and Rstar
+  source(paste0(locIN,"/sourcefiles/ResCompN.R"), local=TRUE) # define within-season ode solver
+  
+  
+  #Define arrays
+  #interannual dynamics set-up (R0 is in getEnvt.R)
+  N0 <- rep(100,nsp)          # initial number of seeds (per meter square?)
+  N <- matrix(rep(-1), nyrs, nsp) # number of seeds by yr and spp
+  rcrt <- matrix(rep(-1), nyrs, nsp) # number of rcrts by yr and spp
+  coexist <- matrix(rep(-1),nyrs,nsp)
+  
+  ## Within-season dynamics set-up
+  Bfin <- matrix(rep(0),nyrs,nsp) # biomass at end of year y
+  B0  <- matrix(rep(0),nyrs,nsp) # biomass at beginning of year y
+  Bout <- list() #each year has a dataframe with time,R(t),Bi(t) of dims(2+nsp,tsteps)
+  yout <- NA #nyrs  #last year of output; default is nyrs, unless loop breaks early
+  
+  for (y in yrs){
+    #include a flag for runs with initial and final stationary periods, but no nonstationary period
+    if (y==(nonsta[1]+1) && nonsta[2]==0) N[y,] <- N0 #if no ns period, reset for final stationary period
+    #get initial biomass for year y
+    if (y==1) {
+      N[y,] <- N0
+      rcrt[y,] <- N0
+      coexist[y,] <- (N[y,]>0)*1
+    }else {
+      rcrt[y,] <- phi*Bfin[y-1,]*s  #number of seeds added from last year's growth
+      N[y,]<- N[y-1,]*(1-g[y-1,])*s + rcrt[y,]  #note Bfin already includes N(t) as init cond; USES g here!
+      N[y,] <- N[y,]*(N[y,]>ext)  #if density does not exceed ext, set to zero
+      coexist[y,] <- (N[y,]>0)*1
+      if (!(sum(N[y,]>0))) {
+        #yout <- y  #if break the loop, then y-1 is last year before extinction
+        #give Bout a value for the last iteration
+        Bout[[y]] <- Bout[[y-1]][1,]*0 + c(0,R0[y],b*g[y,]*N[y,]) #get list formatting from prior year
+        Bfin[y,] <- b*g[y,]*N[y,]
+        print(paste("All species have gone extinct in year",y ))
+        break    #if all species have gone extinct, go to next run
+      }
+    }
+    B0[y,] <- b*g[y,]*N[y,] 
+    #use deSolve for ResCompN
+    R<-R0[y]
+    B<-B0[y,]
+    State<-c(R=R,B=B)
+    Time <- seq(0,ndays,by=dt)
+    #set Rstarmin threshold & update rootfun; this accounts for case where the spp with min R* goes extinct
+    Rstarmin <- min(Rstar[(N[y,]!=0)])
+    rootfun <- function(Time, State, Pars) State[1] -Rstarmin
+    
+    Bout[[y]] <- as.data.frame(ode(func = ResCompN, y = State, parms = Pars, times = Time,
+                                   rootfun=rootfun))
+    Bfin[y,] <-  apply(Bout[[y]][3:(2+nsp)],2,FUN=max)  # final biomass; takes max(biomass) from within year timeseries for sp1 and sp 2 (B1, B2)
+    
+    if(nsp == 2){
+      Bfin[y,] <- Bfin[y,]*c(Rstar[1]<R0[y],Rstar[2]<R0[y]) # this deletes out biomass when R0 is lower than a species Rstar 
+    }else if(nsp == 1){
+      Bfin[y,] <- Bfin[y,]*c(Rstar[1]<R0[y])
+    }else{
+      stop()
+    }
+    
+    
+    # Above, we could have alternatively set a minimum for seeds for bfin
+  }
+  
+  rmse <- sqrt(mean((100 - mean(N[keep,1]))^2))
+  cat(paste0("c=", round(c_cal,1),", rmse=", round(rmse,1), '\n'))
+  return(rmse)
+  
+}
+
+
+library(cmaes)
+cma_es(c(50), megadrought, locIN = "/home/victor/projects/temporalvar/R", keep = 1:20, lower = 8, upper = 200)
+
