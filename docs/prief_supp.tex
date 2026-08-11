@@ -9,7 +9,7 @@
 \def\labelitemi{--}
 \parindent=0pt
 \title{Supporting Information for: Phenological sensitivity to climate change disrupts species' coexistence}
-\bibliographystyle{..//refs/styles/amnnat.bst}
+\bibliographystyle{..//refs/styles/gcb.bst}
 \usepackage{xr-hyper}
 \usepackage{hyperref}
 
@@ -25,7 +25,7 @@
 \renewcommand{\thefigure}{S\arabic{figure}}
 
 \section*{Empirical data} 
-We obtained data germination data from (27). To estimate species level sensitivity 
+We obtained data germination data from \citet{Buonaiuto2023data}. To estimate species level sensitivity 
 and forecast phenological priority under alternative climate regimes (Fig. \ref{Fig:eury}), 
 we used a Bayesian mixed-effects accelerated failure time model modified from (28) using a Weibull distribution for the likelihood function. 
 We included weeks of stratification and incubation temperature as fixed effects and species as a random effect.
@@ -42,7 +42,7 @@ To estimate species-specific environmental responses, we let both the slopes and
 %where $X_{strat}$ and $X_{inc}$ are the stratification and incubation treatment levels (respectively) and  $\beta_{strat}$, $\beta_{inc}$, are the estimated effects on $\phi$  for adding an additional week or stratification or degree of incubation, estimated for each species ($sp$) respectively.  
 
 \section*{Model} 
-For our example, we adapt the model from Wolkovich \& Donahue 2020 (with more details therein), which is itself an adaptation of a common model of community dynamics, often conceptualized for annual plants with a seedbank. \\
+For our example, we adapt the model from \citet{wolkovich2021phenological} (with more details therein), which is itself an adaptation of a common model of community dynamics, often conceptualized for annual plants with a seedbank. \\
 
 We model a pair of competing species in which the seedbank $N$ of species $i$ at time $T+1$ (where $T$ is the beginning of an annual  growing season) is determined by the survival, $s$, of ungerminated seeds from the previous year, $1-G_{i}(T)$, plus new biomass, $B_i$, produced from germinating seeds during the growing season (from $T$ to $T + \delta$), which is converted to seeds at rate $\phi$:
 \begin{align}
@@ -70,7 +70,7 @@ where $N_{0}(T)$ is the number of overwintering seeds in year $T$, $s_{i}$ is ov
 \tau_{delay,i} & = \tau_{max}e^{-\tau_{\xi,i}\xi(T)} \\
 \tau_{g50,i} & \sim \mathrm{Poisson}(\tau_{delay,i})
 \end{align}
-where $\xi(T)$ is the weeks of overwinter chilling in year $T$, $\tau_{\xi,i}$ is the species-specific sensitivity to chilling, and $\tau_{max}$ is the expected delay when overwinter chilling is zero.  That is, germination depends on the interaction of a species trait and a varying environment, resulting in year to year variation in the speed of germination for each species (Figure \ref{Fig:germ}e) and the timing of peak germination (Figure \ref{Fig:germ}f). \\
+where $\xi(T)$ is the weeks of overwinter chilling in year $T$, $\tau_{\xi,i}$ is the species-specific sensitivity to chilling, and $\tau_{max}$ is the expected delay when overwinter chilling is zero.  That is, germination depends on the interaction of a species trait and a varying environment, resulting in year to year variation in the speed of germination for each species (Figure \ref{Fig:germ}e) and the timing of peak germination (thus varying intra-annual germination dynamics,Figure \ref{Fig:germ}f). \\
 
 \noindent \emph{Simulations:}\\
 To examine species coexistence when the timing of germination depends on annually varying cold stratification (similar to chilling), we ran 10000 simulations of two-species communities.  Communities were assembled from randomly generated species, where each species varied in resource conversion efficiency ($c_i$) and in sensitivity to chilling ($\tau_{\xi,i}$) (see Table \ref{tab:model} for parameter values). Variation in resource conversion efficiency yields different $R^*$ values, a metric of resource competition where a lower $R^*$ means a species can draw the resource down to a lower level and is thus considered the superior competitor.  Variation in sensitivity to chilling resulted in variation in the distribution of germination within a growing season (Figure \ref{Fig:within}d).  All other parameters were identical between species (Table \ref{tab:model}). \\

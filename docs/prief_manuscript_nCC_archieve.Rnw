@@ -1,0 +1,211 @@
+\documentclass{article}[12pt]
+%Required: You must have these
+\usepackage{graphicx}
+\usepackage{tabularx}
+\usepackage{natbib}
+%\usepackage{caption}
+%\usepackage{subcaption}
+\usepackage{array}
+\usepackage{amsmath}
+\usepackage{gensymb}
+%\usepackage[backend=bibtex]{biblatex}
+\setkeys{Gin}{width=0.8\textwidth}
+%\setlength{\captionmargin}{30pt}
+\setlength{\abovecaptionskip}{1pt}
+\setlength{\belowcaptionskip}{1pt}
+\topmargin -1.5cm 
+\oddsidemargin -0.04cm 
+\evensidemargin -0.04cm 
+\textwidth 16.59cm
+\textheight 23.94cm 
+\parskip 7.2pt 
+\renewcommand{\baselinestretch}{1.5} 	
+\parindent 0pt
+\usepackage{lineno}
+\linenumbers % for dissertation
+\usepackage{xr-hyper}
+\usepackage{hyperref}
+%\usepackage{xr}
+%\usepackage{xr-hyper}%
+%\usepackage{hyperref}
+\externaldocument{prief_supp}
+
+%\title{Differences in phenological sensitivity to climate disrupts species' coexistence in a changing environment}
+\title{Phenological sensitivity to climate change disrupts species' coexistence}
+%\title{Climate change disrupts species' coexistence through altered phenological priority effects}
+
+\author{D.M. Buonaiuto $^{1,2,3,a}$, M. Donahue$^{4}$, E.M. Wolkovich$^{2,3,5}$}
+\bibliographystyle{..//refs/styles/nature1.bst}
+\usepackage{Sweave}
+\begin{document}
+\SweaveOpts{concordance=TRUE}
+\maketitle
+\noindent \emph{Author affiliations:}\\
+\noindent $^1$Department of Plant Science and Landscape Architecture , University of Maryland, College Park, Maryland, USA. ORCID: 0000-0003-4022-2591\\
+\noindent $^2$Arnold Arboretum of Harvard University, Boston, Massachusetts, USA.\\
+$^3$Department of Organismic and Evolutionary Biology, Harvard University, Cambridge, Massachusetts, USA \\
+$^4$Hawai'i Institute of Marine Biology, University of Hawai'i at Manoa, Kan‘eohe, HI, USA.\\
+$^5$Forest \& Conservation Sciences, Faculty of Forestry, University of British Columbia, Vancouver, British Columbia, Canada\\
+$^a$Corresponding author: 617.823.0687; dbuona@umd.edu\\
+
+%June 15 2026 Started reformating for NCC Brief Communication Currently 1595 words
+\section{Abstract} 
+%Species coexistence depends in part on phenology, which has shifted with climate change. While these shifts will likely framework 
+%Differences in phenology %, the seasonal timing of life-cycle events %such as hatching, leafout and germination, 
+%are %recognized as an increasingly 
+%important % component of
+%to species' coexistence. %Observed s
+%Shifts in phenology due to climate change will restructure %phenologically-mediated 
+%species interactions, but current frameworks cannot predict these relationships in a changing environment. %Here, %
+%We re-examine phenology as the outcome of an interaction between the environment and unique physiology, genetic and developmental attributes, 
+%which in turn impacts competition. 
+%This flexible and simple---yet more biologically-accurate approach---could rapidly advance community forecasting with climate change. %71 words
+%emw17Jun: I think given the new format we're submitting to we need to have result in there ... so I tried to find a way to fit the below in ... 
+% Here we show how phenological-mediated patterns of coexistence under a historical climate regime may degrade to competitive exclusion with climate change
+% and see the three options below:
+% 71 words
+Shifts in phenology with climate change are likely to restructure communities by changing species interactions, but current frameworks cannot forecast these impacts. Here we introduce a flexible and simple approach---explicitly considering phenology as the outcome of an interaction between the environment and species' unique physiology---that could rapidly advance community forecasting. Using this approach, we show how phenological-mediated patterns of coexistence under a historical climate regime may degrade to competitive exclusion with climate change.
+% 71 words
+%Shifts in phenology with climate change are likely to restructure communities by changing species interactions, but current frameworks cannot forecast these impacts. Here we re-examine phenology as the outcome of an interaction between the environment and species' unique physiology, 
+%which in turn impacts competition. We show how this flexible and simple---yet more biologically-accurate approach---may shift simple communities from coexistence under a %historical climate regime to competitive exclusion with warming. 
+% 65 words
+%Shifts in phenology with climate change are likely to restructure communities by changing species interactions, but current frameworks are not equipped to forecast these impacts. Here we introduce a flexible and simple---yet more biologically-accurate approach---that could rapidly advance community forecasting. Using this approach, we show how phenological-mediated patterns of coexistence under a historical climate regime may degrade to competitive exclusion with climate change.
+% Drawing on examples from empirical germination studies and common models from modern coexistence theory we outline new approaches to bridge across intra- and inter-annual time, and review how phenological-mediated patterns of coexistence under a historical climate regime may degrade to competitive exclusion with climate change. % and lay out a path forward for modeling multi-dimensional elements of phenologically-mediated species interactions. 
+%Importantly, the biological realism of our framework provides a major step forward towards translating ecological theory into practice and advancing predictive ecology. %169 words our of 200.
+
+% Through this flexible and simple---yet more biologically-accurate approach---we show ...
+% Here, we show how re-examining phenology as the outcome of an interaction between the environment and each species' unique physiology, genetic and developmental attributes that in turn impacts competition could revolutionize forecasting of community assembly with climate change. 
+
+% Ye olde ...
+% Differences in phenology, the seasonal timing of life-cycle events such as hatching, leafout and germination, are recognized as an increasingly important component of species' coexistence. Observed shifts in phenology due to climate change are likely to restructure phenologically-mediated species interactions, but current coexistence frameworks are not equipped to model this relationship in a changing environment. Here, we re-examine phenology as the outcome of an interaction between the environment and each species' unique physiology, genetic and developmental attributes, which in turn impacts competition. We argue that this flexible and simple---yet more biologically-accurate approach---could revolutionize forecasting of community assembly with climate change. Drawing on examples from empirical germination studies and common models from modern coexistence theory we outline new approaches to bridge across intra- and inter-annual time, and review how phenological-mediated patterns of coexistence under a historical climate regime may degrade to competitive exclusion with climate change. % and lay out a path forward for modeling multi-dimensional elements of phenologically-mediated species interactions. 
+
+\section{Main}
+%emw9Aug2025: Good stuff for a cover letter from below: These phenological differences among taxa have often been overlooked in ecological theory, but growinwhatsg evidence suggests that they may play a major role in dictating community interactions and shaping the structure and function of ecological communities \citep{Cleland2024,Blackford_2020,volkerisaj}. 
+Each spring, in ecosystems across the temperate zone, ecological communities re-assemble from their period of dormancy with the hatching of insects, arrival of migratory birds, and emergence of new seedlings, leaves and flowers. The seasonal timing of these life cycle events---their phenology---can be quite different, even among closely related organisms in shared habitats \citep{Ovaskainen2013,An2022}. These phenological differences have often been overlooked in ecological theory outside of plant-pollinator interactions, but growing evidence suggests they may play a major role in shaping interactions and  %the structure and function of 
+ecological communities \citep{Cleland2024,Blackford_2020,volkerisaj}. 
+
+% emw1Jun2025 -- I think you have addressed a lot of the below but leaving it here to be safe .... 
+% emw13Jun2024 -- I would draw out the below paragraph some, maybe a short paragraph on seasonal priority effects, giving empirical examples of how they may structure communities. Then a new paragraph on how this has led to growing interest in the role of seasonal priority effects in coexistence, that focuses on model results and ends on climate change (as you introduce these a little be sure to focus on TIMING or some word that hints at this being different than phenology). Also, I think we'll need more time to walk readers through types of competitive ability more slowly -- if you get in first and draw the resource, then under some scenarios you are the better competitor and a lot of readers will think that, but here we use competitive ability as competitive ability under low resource conditions. I wonder if we could get away with skipping this discussion (and effectively any discussion of the trade-off) until after the 'recent work on models' section below? We could just hint at here then, something like 'growing interest... new models ... many suggest timing as fundamental to coexistence with several suggesting a fundamental trade-off between being early for early, priority access to resources versus being later but competing well under low resource conditions.'
+Experiments show that the order in which species begin their seasonal growth can alter the outcomes of competitive interactions \citep{Dawson-Glass:2025,Buonaiuto:2023wy}. Such phenological differences among species can generate seasonal priority effects where earlier active species gain a competitive advantage \citep{wolkovich2021phenological,levine2022competition}. %This advantage may occur through drawdown of limiting resources before other competitors emerge or arrive, and other ways that modify the environment to the detriment of later emerging species \citep{Fukami2015,Weidlich:2020aa}. 
+Studies in plants \citep{Wainwright_2011,Korner2008}, amphibians \citep{Rudolf:2013tg}, insects \citep{Ekholm2020,Rasmussen2014} and birds \citep{Samplonius:2019wo} have found that apparently small seasonal priority effects, on the order of just a few days, can alter competitive hierarchies in ways that persist across several growing seasons \citep{Vaughn:2015wp}. 
+
+The importance of seasonal priority effects in mediating interspecific competition suggests how phenology may be fundamental to coexistence \citep{Diez_2024, Blackford_2020}, but not how phenological differences between species arise. Functionally, phenology is the realized product of an interaction between the environment (cues) and a species' unique physiology, genetic and developmental attributes \citep{DONOHUE2005}. Differences in how species respond to the same environmental cues are one of the primary mediators of the trade-off between phenology and competition. With environmental cues changing rapidly in response to anthropogenic warming, phenological shifts have become one of the most pronounced indicators of climate change to date.  \citep{ipcc2021}. Understanding the degree to which a species responds to environmental variation, known as phenological sensitivity ($\Delta$ phenology/ $\Delta$ environmental cue), is key to predicting community assembly in an era of global change.% and requires first identifying what cues trigger phenology. %Below we show why integrating phenological sensitivity into community assembly is critical, and outline a path to predict assembly. % in a rapidly changing world. 
+
+%emw17Jun: I added a little above and below to make the transition better now that we lack the subheader, but am not sure it works, feel free to edit/change back. 
+%\section{How phenological differences arise}
+Environmental cues such as temperature, light and moisture control phenology for most species \citep{Forrest2010}, with many responding to multiple aspects of cues \citep{Lang:2025wf,Chuine2017}. For example, temperate plants that rely on temperature as a cue often require exposure to both cool winter (0-4$\degree$C, hereafter: winter chilling, which is similar to cold stratification) followed by warm spring temperatures to initiate phenological transitions \citep{Ettinger:2020aa}. Controlled experiments have helped quantify species-specific responses to cues, which---when combined with the exact environmental conditions---drive differences in realized phenology between species. 
+
+%Decades of seed germination studies provide reliable examples of how 
+%emw17Jun: You could save words by removing whatever is in the caption or supp .... something like (comment this in and comment out the other if it works)
+ Realized phenology can vary widely among species $\times$ environment \citep[e.g.,][]{ Pascual2021}. We illustrate with using germination data from experiments for 11 co-occurring species \citep{Buonaiuto2023data} that show very different sensitives to the same environmental cues (Figure \ref{Fig:eury}a). These differences could impact competition, especially as they can determine which species germinates first depends on environmental conditions, and the order switches with increasing cue levels (for one example pair, see Figure \ref{Fig:eury}b,c). This illustrates that the strength of seasonal priority effects are highly dependent on the environment, yet this is not how most coexistence models approach phenology.
+
+%Realized phenology can vary widely among species $\times$ environment \citep[e.g.,][]{ Pascual2021}. We illustrate this by re-analyzing seed phenology data from \citep{Buonaiuto2023data} using accelerated failure time models \citep{ONOFRI:2010tl} (see Supporting Information for details), in which 11 species from one habitat were germinated under varying temperature conditions to determine their sensitivities. These co-occurring species showed very different sensitives to the same environmental cues (Figure \ref{Fig:eury}a) that could potentially impact competition. For example, for \emph{Persicaria virginiana} and \emph{Eurybia divaricata}---a pair of woodland herbs that frequently compete in Eastern Temperate Forests---which species germinates first depends on environmental conditions, and the order switches with increasing cue levels (see Figure \ref{Fig:eury}b,c). %; in this case, chilling duration acts as the cue). T
+%This illustrates that the strength of the seasonal priority effect is highly dependent on the environment, yet this is not how most coexistence models approach phenology.
+
+%\section{Recent work integrating phenology into assembly models} % Lizzie asks: Do we want to mainly say coexistence models or assembly models or something else? Do we want to discuss `timing' here or use 'phenology' and then say -- but wait, is it phenology? 
+
+% The widespread and obvious shifts in phenology with continued anthropogenic climate change have led to growing interest in how phenology may structure communities, with a number of models positing a correlation between timing and competition \citep{volkerisaj,wolkovich2021phenological,levine2022competition}. These models ...
+
+%emwJun26 -- this transition here is rough we come off "the strength of seasonal priority effects are highly dependent on the environment, yet this is not how most coexistence models approach phenology" then just talk about competition ...  ... Maybe: 
+Recent assembly models have begun to consider phenology \citep{volkerisaj,wolkovich2021phenological,levine2022competition},  including the potential for seasonal priority effects, but do not include realized phenology. Instead these models center on the relationship between timing and competition, generally including a trade-off between the two \citep{volkerisaj,wolkovich2021phenological,levine2022competition}. 
+%emwJun26 -- I would skip SPEs and just write out seasonal priority effects (word limit be damned!) but if you use SPE, then do it consistently. 
+%Growing interest in how phenology may structure communities has led to 
+% Several new assembly models center on the relationship between timing and competition, generally including a trade-off between the two \citep{volkerisaj,wolkovich2021phenological,levine2022competition}.
+% Alternative [replace next 3-4 sentence -- until the sentence that starts `Models have done this through an...' -- with just this one sentence]: 
+%Building off experimental \citep{godoy2014} and observational \citep{wolkovich2013} evidence that earlier species appear to perform better, models have 
+%Superficially, phenological differences may seem to promote coexistence through niche differences---if species can perfectly partition a growing season such that they never compete together. In reality, however, limited resources often confer a fitness advantage to early-species via priority access to resources or otherwise create fitness hierarchies amongst species. Thus, adding phenological variation to species in coexistence models alone is generally destabilizing and requires additional variation that effectively reduces the competition between species to stabilize such communities \citep{mcpeek2022coexistence}.
+This trade-off has been expressed explicitly through a connection of phenological differences to parameters controlling the strength of competition, or implicitly by providing a fitness advantage to earlier species offset by poorer performance under low resource conditions \citep[e.g., $R^*$ in][]{wolkovich2021phenological,levine2022competition}.
+% All models are variations on Lotka-Volterra competition I believe: \citep{wolkovich2021phenological,levine2022competition} is $R^*$ competition while \citep{volkerisaj} is Beverton-Holt. 
+
+Models providing a fitness advantage to earlier species all recognize the importance of environmental variability, %in communities structured in part by phenological differences, 
+generally including interannual variation in the environment that in turn drives differences in phenology. Many models---focused often on grasslands and water competition---have assigned phenology as equivalent to an intrinsic species-level timing (or season length strategy).  Year-to-year variation in the environment then alters absolute differences between species, which  consistently co-varies with resource competition \citep{godoy2014,levine2022competition}. In these approaches the relative orders between species remain fixed, but other models allow species relative orders and timings to vary year-to-year assuming the underlying relationship between pairwise differences in timings and interspecific-competition is known---and static \citep{volkerisaj}. % These models thus fix the relationship between phenology and interspecific-competition.
+Each of these approaches thus fixes one aspect of what is actually a dynamic environment $\times$ phenology $\times$ competition relationship. % (i.e., either through an explicit fixed relationship between phenology and competition or fixing the order of species but allowing the strength of competition to vary). 
+This is an understandable simplification, but one that may make forecasting community shifts with climate change challenging, as the environment becomes more variable.  
+
+Phenological models of community assembly have included environmental variability \citep{volkerisaj,levine2022competition} that assumes an underlying stationary environment (one that varies year-to-year but with an underlying constant distribution), in contrast to the reality of climate change. %Temperature, for example, trends higher in its mean over time \citep[with potential changes to the variance,][]{ipcc2021}---creating a non-stationarity environment. 
+Because environmental variability in assembly models structures what species combinations are stable, shifts in the environment with anthropogenic climate change are likely to reshape communities, but forecasting them requires accurately capturing how the environment affects phenology and competition together in a simple---but still robust---form. This means capturing how  the environment can determine both the absolute (e.g., earlier in the year) and relative (e.g., order of arrival) timings of species, and the how these timings impact coexistence. While current models to date have simplified one aspect of this problem, it may be possible to address it through new approaches. 
+
+% Few studies have included non-stationarity environments as they violate most analytical modeling assumptions \citep{chessonnonstat}, but simulation results suggest an environment shifting to earlier growing seasons could reduce destabilize exiting communities \citep{wolkovich2021phenological}. 
+
+% Most models have ... simplified species phenologies (to ignore the germination kernel? To make phenology inttrinsic?)  % models have all generally treated timing as an intrinsic species trait ...except that \citep{volkerisaj} allows species to flip in order between years. 
+
+%\section{Climate Change, Phenology and Coexistence}
+%emw9Aug2025: I tried to do some stuff below to build more off the last sentence above and maybe reduce jargon ... not sure if it worked. See what you think. DB works for me
+%Leveraging community assembly models to address how shifting phenology with climate change may affect coexistence requires models that work across timescales. 
+% While many coexistence models include inter-annual environmental variability, including it intra-annually as well would allow modeling phenology more physiologically, which would better capture how the competition depends on the environment filtered through species phenological sensitivities. This modeling approach may also show how climate change can alter the stability of trait-based, community trade-offs. %If community assembly depends on species timings, the shifts in environmental cues with climate change could undermine coexistence. 
+%emw17Jun: edits here to sound more like we have results ... 
+We adapt a common coexistence model to address these limitations: including inter- and intra-annual environmental variability then modeling phenology more physiologically to better capture how competition depends on the environment filtered through species phenological sensitivities. Our approach includes phenological sensitivity in its simplest form---two species with differential sensitivity to one environmental cue. This approach is similar to others in varying species intrinsic competitive abilities at the same time we varied phenology, but differed in modeling phenological sensitivities alongside intra-annual environmental variation.
+%  in addition to including trait variability via phenological sensitivity, we also allowed species to vary in competitive ability ($R^*$). 
+Any changes in the environment thus filter through species-specific sensitivities, and transform differences in realized phenology between species (Figure \ref{Fig:differences}b). 
+
+Comparing long-term co-occurrence (which we consider coexistence here) of species pairs under two different climate regimes, we found that no pair coexisting under one climate could coexist under the other (Figure \ref{Fig:differences}a). Thus, for any species that currently coexist due to the tradeoff between relative phenology and intrinsic competitive ability, climate change disrupts this coexistence mechanism. 
+
+These results highlight that improving the predictive power of coexistence models with climate change likely requires rethinking how we measure species phenology. We found that the required tradeoff between differences in realized phenology and competitive differences is stable across a shifting environment (i.e., the same magnitude of phenological differences are required to offset the same level of differences in competitive ability), and thus uninformative on its own for predicting which species pairs can coexist. Instead, it is the tradeoff between phenological sensitivity and competition differences that change in a novel environment (Figure \ref{Fig:differences}b,c). Thus, measuring species phenologies may be far less useful for understanding future community assembly than measuring their phenological sensitivities.
+
+%DMB I am trying to tie back to the ideas two paragraphs ago where we say all other models fix one of these aspects.
+%Species all have this sort of variation, so may use to inherently bet hedge within years and between years in important ways that other models miss. Building in phenology as and then something about the shifting environment and how we need to know that too -- the species cue system and how the environment shifts (this could then hint at the future empirical directions would be nice to interweave with the modeling section here if we can.)
+
+%Building on this physiological basis of what determines realized phenology can help us better understand how communities may shift with climate change. Species with high phenological sensitivities will benefit more from adaptive cue shifts but be more compromised by negative cue shifts than less sensitive species, but the full result depends on what stabilizes the community to begin with. If the community is assembled via some aspect of phenology, then a shifting environment could reshape that. 
+
+%Depending on whether communities encounter and average of 6 or 12 weeks of chilling (Figure \ref{Fig:differences}a), the relationship between phenological sensitivity differences and realized phenological differences shifts (Figure \ref{Fig:differences}c), resulting in different differences (Figure \ref{Fig:differences}b) %reorder. 
+%Because the fundamental tradeoff between realize phenological differences and resource competitive differences does not change in the between environments (Figure \ref{Fig:coexistence}a), the altered expression of phenology under each environments neccisitates you have different communities depending on 6 or 12 weeks (Figure \ref{Fig:coexistence}a, circled example points). (Now feeling not sure if we need figure 3b). 
+
+
+%\subsection{Climate change alters relationship between phenological sensitivity and realized phenology differences}
+
+%First to understand the effects of climate change on realized phenological differences between competing species, we ran our model under two climate change scenarios; one with a mean winter chilling period of 12 weeks and one with a winter chilling period of 6 weeks (Figure \ref{Fig:differences}a). With 12 weeks of winter chilling, the differences in realized germination phenology of compete species was minimized, with realized phenological differences being less than 2 days in approximately 50\% of model runs (Figure \ref{Fig:differences}b). Exposure to only an average 6 week of winter chilling increased the realized phenological differences between competing species with only about 10\% of of model runs producing differences in realized germination phenology of less than 2 days (Figure \ref{Fig:differences}b). % should find better, more quantitative ways to describe these differences, but for now I am just eye balling it.
+
+%The phenological sensitives of species were drawn from the same distribution under each scenario, so the shift in realized phenological differences must be a product of the interaction between cliamte and phenological sensitivty. In fact, we see that the relationship between phenolgical sensitivity differences and realized phenological differences shifts in assoicated with the changed climate, with the slope of the relationship becoming steeper under 6 weeks of chilling (put in parameters here; Figure \ref{Fig:differences}c). Some transition statement or phrase. Next we must consider how this shift affects the tradeoff between phenology and competition.
+
+%\subsection{Climate change alters the tradeoff between phenological sensitivity and competition}
+%Because of the strong dependency on the environment and the observed shift in the relationship between phenological sensitivity and realized phenology under each climate scenario, we would expect that this shifting enviroment would alter aspects of the trade off between phenology and competition, but exactly how is not neccisarily straight forward.
+
+%First, we find the fundamental tradeoff between realize phenological differences and competitive differences does not change in the new environment (Figure \ref{Fig:coexistence}a). This is not surprising, since the degree that phenological can offset competitive differences in fixed (say better). However, while in our models we treat inherant competition differences as fixed, it is important to note that the shift in environment changes the phenological differences of virtually all species pairs in our simulation, which means those that coexisted under one set of environmental conditions cannot coexist in a new environment, as highlighted in the circled points in Figure \ref{Fig:coexistence}a. So while the fundamental relationship between realized phenology and competitive ability doesn't change with climate change, the species that can coexist do (say better).
+
+%Because phenological sensitivity is the mediator between environmental variation and realized phenology, the tradeoff between sensitivity differences and competitive difference must shift in accordence with the environment to maintain the realized phenolgical differences that produce coexistence. In fact we see that under 6 weeks of chilling, the slope of this relationship become steeper (put in slope value here, Figure \ref{Fig:coexistence}b), because larger differences in competitive ability are necessary to maintain the trade off in Figure \ref{Fig:coexistence}a. %% This explanation could use lots of work
+
+% emw13Jun2024 (tweaked comment: emw1Jun2025)  --our model has  a ton of communities co-occurring because they are identical. I would focus more on the idea that traits will change or the interaction between germination timing and spread/fraction]. 
+%Paragraph discussing ecological implications? eg. While our simulations are highly simplified version of a real ecological community, we can make some predictions about the kinds of species that will coexist under a novel climate. More phylogenetically distinct. Different life hystory, dormancy types. Maybe this is too hand wavy.
+
+%\section{Paths Forward}
+Phenological sensitivity is a trait that can be readily measured for real species, providing a link between assembly theory and observed ecological changes. %Yet, effectively leveraging this trade-off between phenological sensitivity and competitive ability to model community assembly under future climates will require major efforts by the modeling and phenology-focused communities. Useful predictions will need the continued development of both novel experimental approaches and more-biologically realistic modeling frameworks. %, but, perhaps most importantly, increased integration between the two.
+%On the experimental side, 
+More studies that quantify species-level phenological sensitivity could thus improve forecasting. Studies that estimate the phenological sensitivity to multiple environmental cues could address how much local adaptation versus plasticity structure phenological sensitivity and competitive traits (e.g. \citep{Lipowsky:2015aa,Liang:2021aa}, but will be most useful for forecasting if they include a greater scope of taxa and lifeforms. While much ecological work has focused on annual plants, herbaceous perennials and woody plants are the dominant functional types in many ecological systems. %For these functional types, phenology-mediated competition occurs between individuals both within- (i.e., seedling vs. seedling or mature plant vs mature plant) and across- (i.e, mature plant vs. seedling) life stages. Studies in woody plants suggest separate phenological phases can respond quite differently to the same environmental cues \citep{Buonaiuto:2021aa} and that juveniles and adults express substantially different phenological patterns in the same environments \citep{Vitasse:2013aa}, yet changes in phenological sensitivity to multiple cues across life stages (i.e., seed germination vs vegetative cues) have not been widely explored. 
+
+%  It's not more complex cues, it's the drivers of those cues -- risk  ... such as late season frost that results in die-back. 
+% On the modeling side, researchers should integrate the environmental drivers of more complex cues to assembly models. Current models---including those conceptualized for seed germination---assume phenology is independent of (or weakly linked to) the environment, but research has repeatedly shown than phenology is determined to multiple, interacting environmental cues. %For seed germination this often includes multiple aspects of temperature (i.e., forcing and chilling), light (daylength or irradiance) and moisture \citep{Baskin2014,Forrest2010}. 
+%emw17Jun: we could cut more below if we need to .... here and/or next paragraph
+%emwJun26 -- I am not sure risk is THE main factor (though I think I wrote this), I think it's risk vs reward ... I made a cheap edit to fix this; not sure it works the best. 
+Improved forecasting will also require assembly models that better incorporate the cues that underlie phenology. 
+Exactly how best to include these cues should likely be determined by one of the main factors that selects for them---environmental risk. For example, leafout of many forest trees relies on cues of winter chilling and/or photoperiod, which could reduce the risk of frost damage in unstable spring environments.  Introducing biologically realistic mortality events into community assembly models that represent important selective forces, such as late-season frosts or early droughts, offers a straightforward approach to assess the importance of this. Ecological models generally subsume such risks into species traits (e.g., increasing maintenance costs), which misses the reality that such risks are also product of timing $\times$ environment. 
+%A changing risk landscape associated with a changing environment may be the underlying driver of observed correlations between the timing and intensity component of life cycle transitions \citep[i.e., germination phenology and total germination percent of a seed cohort, ][]{Baskin2014}. But models will need to explicitly include the environment and phenology to predict this. Further, for plants---and likely other organisms---the timing and fraction of phenological success (e.g., seed germination or leafout) usually covary in nature, which likely has important implications for coexistence. Building models that can isolate these two trade-off axes of coexistence---timing and abundance (fraction)---would allow ways to assess the relative importance of these within- and across season trade-offs.
+%Community assembly modeling could have the flexibility to incorporate many of the ecological aspects we discussed above (multiple cues, environmental risk, within- and across- season bet-hedging). Meaningful predictions will require models that capture underlying physiological processes, and experiments that can readily  inform model parameters and development. 
+Such approaches would translate ecological theory into practice and advance a more predictive ecology than is better equipped to inform ecosystem conservation and management. % In a rapidly changing world. %emwMar15 -- nice ending!
+
+
+\section*{Figures}
+
+\begin{figure}[h!]
+  \centering
+ \includegraphics[width=.8\textwidth]{..//plots/prief_conception.png}
+    \caption{\textbf{Co-occurring species can differ substantially in their phenological sensitivity ($\Delta$ phenological event/$\Delta$ climate) to the environment.} Panel a) estimates the phenological sensitivity of germination timing to winter chilling and spring forcing for eleven herbaceous species of eastern North America. Points represent the mean estimate and thick and thin bars represent the 50 and 95\% uncertainty intervals (with posteriors shown above lines as gray distributions; for details on the model, see the Supporting Information). In b) and c) we highlight the phenological sensitivity to winter chilling of two of these species---\emph{Eurybia divaricata} and \emph{Persicaria virginiana}---that are commonly observed in competition. b) Depicts the sensitivity of each species to winter chilling, with thick lines representing the mean estimate and lighter lines representing modeled uncertainty. Panel c) illustrations how the species' different sensitivities manifest in contrasting realized germination differences under different climate conditions.} %Points represent the predicted mean number of days to 50\% germination and bars the 95\% uncertainty intervals}. %Under six weeks of chilling \emph{E. divaricata} germinates well before \emph{P. virginiana}. Under nine weeks of chilling the species germination at roughly the same time, and under twelve weeks of chilling \emph{P. virginiana} is the first to germinate.}
+    %EMWApr23: I think you do NOT need the last sentence about the points (right? It's above ... or otherwise I don't know what you refer to) but you do NEED a short section in the supp where you explain the model you show here -- I already added a ref to the supp here, so be sure to add that to the supp! I would also add a link to the KNB data in the supp. 
+    \label{Fig:eury}
+\end{figure}
+
+
+
+\begin{figure}[h!]
+  \centering
+ \includegraphics[width=\textwidth]{..//plots/coexistance_runner_new.jpeg}
+    \caption{\textbf{Climate change will alter the relationships between competitive ability, phenological sensitivity, realized phenology and coexistence.} Panel a) depicts the trade-off between differences in realized phenology and differences in competitive abilities (in all panels each point represents a species pair with randomly selected phenological sensitivities and competitive abilities subjected to two climate scenarios---12 and 6 weeks of chilling; species pairs that co-occurred after 300 years are in bold). The trade-off needed to maintain coexistence does not change between climate scenarios, but no species pairs that coexisted under one scenario can coexist under the other scenario, as highlighted by the two sets of species pairs circled in panel a). Panel b) shows the relationship between differences in phenological sensitivity and differences in realized phenology, which depend on the environment. Panel c) depicts the trade-off between differences in phenological sensitivity and differences in competitive ability under the two climate scenarios (see Supporting Information for details).} % emw and MJD 15Feb2026 edited this caption!
+        %EMWApr23: Shouldn't the dots, circles and arrows in panel a be ON TOP the lines? ... or make the lines a little fainter?
+        \label{Fig:differences}
+\end{figure}
+
+\clearpage
+
+\bibliography{prief_bibadd.bib}
+
+
+\end{document}
