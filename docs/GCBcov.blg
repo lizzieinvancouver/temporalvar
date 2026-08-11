@@ -1,0 +1,84 @@
+This is BibTeX, Version 0.99d (TeX Live 2025)
+Capacity: max_strings=200000, hash_size=200000, hash_prime=170003
+The top-level auxiliary file: GCBcov.aux
+The style file: ..//refs/styles/gcb.bst.bst
+Database file #1: prief_bibadd.bib
+Warning--entry type for "Buonaiuto2023data" isn't style-file defined
+--line 376 of file prief_bibadd.bib
+Name 1 in "Baskin, C.C., and Baskin, J.M" has a comma at the end for entry Baskin2014
+while executing---line 1451 of file ..//refs/styles/gcb.bst.bst
+Name 1 in "Baskin, C.C., and Baskin, J.M" has a comma at the end for entry Baskin2014
+while executing---line 1451 of file ..//refs/styles/gcb.bst.bst
+Name 1 in "Donohue, Kathleen, and DORN, LISA and Griffith, Converse, and Kim, Eunsuk, and Aguilera Anna, and Polisetty, Chandra R. and Schmitt Johanna" has a comma at the end for entry DONOHUE2005
+while executing---line 1451 of file ..//refs/styles/gcb.bst.bst
+Name 1 in "Donohue, Kathleen, and DORN, LISA and Griffith, Converse, and Kim, Eunsuk, and Aguilera Anna, and Polisetty, Chandra R. and Schmitt Johanna" has a comma at the end for entry DONOHUE2005
+while executing---line 1451 of file ..//refs/styles/gcb.bst.bst
+Name 3 in "Donohue, Kathleen, and DORN, LISA and Griffith, Converse, and Kim, Eunsuk, and Aguilera Anna, and Polisetty, Chandra R. and Schmitt Johanna" has a comma at the end for entry DONOHUE2005
+while executing---line 1451 of file ..//refs/styles/gcb.bst.bst
+Name 4 in "Donohue, Kathleen, and DORN, LISA and Griffith, Converse, and Kim, Eunsuk, and Aguilera Anna, and Polisetty, Chandra R. and Schmitt Johanna" has a comma at the end for entry DONOHUE2005
+while executing---line 1451 of file ..//refs/styles/gcb.bst.bst
+Name 5 in "Donohue, Kathleen, and DORN, LISA and Griffith, Converse, and Kim, Eunsuk, and Aguilera Anna, and Polisetty, Chandra R. and Schmitt Johanna" has a comma at the end for entry DONOHUE2005
+while executing---line 1451 of file ..//refs/styles/gcb.bst.bst
+Name 1 in "Baskin, C.C., and Baskin, J.M" has a comma at the end for entry Baskin2014
+while executing---line 1528 of file ..//refs/styles/gcb.bst.bst
+Name 1 in "Baskin, C.C., and Baskin, J.M" has a comma at the end for entry Baskin2014
+while executing---line 1528 of file ..//refs/styles/gcb.bst.bst
+Warning--can't use both author and editor fields in ipcc2021
+Name 1 in "Donohue, Kathleen, and DORN, LISA and Griffith, Converse, and Kim, Eunsuk, and Aguilera Anna, and Polisetty, Chandra R. and Schmitt Johanna" has a comma at the end for entry DONOHUE2005
+while executing---line 1528 of file ..//refs/styles/gcb.bst.bst
+Name 3 in "Donohue, Kathleen, and DORN, LISA and Griffith, Converse, and Kim, Eunsuk, and Aguilera Anna, and Polisetty, Chandra R. and Schmitt Johanna" has a comma at the end for entry DONOHUE2005
+while executing---line 1528 of file ..//refs/styles/gcb.bst.bst
+Name 4 in "Donohue, Kathleen, and DORN, LISA and Griffith, Converse, and Kim, Eunsuk, and Aguilera Anna, and Polisetty, Chandra R. and Schmitt Johanna" has a comma at the end for entry DONOHUE2005
+while executing---line 1528 of file ..//refs/styles/gcb.bst.bst
+Name 5 in "Donohue, Kathleen, and DORN, LISA and Griffith, Converse, and Kim, Eunsuk, and Aguilera Anna, and Polisetty, Chandra R. and Schmitt Johanna" has a comma at the end for entry DONOHUE2005
+while executing---line 1528 of file ..//refs/styles/gcb.bst.bst
+Name 1 in "Donohue, Kathleen, and DORN, LISA and Griffith, Converse, and Kim, Eunsuk, and Aguilera Anna, and Polisetty, Chandra R. and Schmitt Johanna" has a comma at the end for entry DONOHUE2005
+while executing---line 1528 of file ..//refs/styles/gcb.bst.bst
+Name 3 in "Donohue, Kathleen, and DORN, LISA and Griffith, Converse, and Kim, Eunsuk, and Aguilera Anna, and Polisetty, Chandra R. and Schmitt Johanna" has a comma at the end for entry DONOHUE2005
+while executing---line 1528 of file ..//refs/styles/gcb.bst.bst
+Name 4 in "Donohue, Kathleen, and DORN, LISA and Griffith, Converse, and Kim, Eunsuk, and Aguilera Anna, and Polisetty, Chandra R. and Schmitt Johanna" has a comma at the end for entry DONOHUE2005
+while executing---line 1528 of file ..//refs/styles/gcb.bst.bst
+Name 5 in "Donohue, Kathleen, and DORN, LISA and Griffith, Converse, and Kim, Eunsuk, and Aguilera Anna, and Polisetty, Chandra R. and Schmitt Johanna" has a comma at the end for entry DONOHUE2005
+while executing---line 1528 of file ..//refs/styles/gcb.bst.bst
+You've used 49 entries,
+            2914 wiz_defined-function locations,
+            1020 strings with 25063 characters,
+and the built_in function-call counts, 47640 in all, are:
+= -- 4414
+> -- 1646
+< -- 23
++ -- 821
+- -- 453
+* -- 4035
+:= -- 6612
+add.period$ -- 167
+call.type$ -- 49
+change.case$ -- 385
+chr.to.int$ -- 48
+cite$ -- 50
+duplicate$ -- 3751
+empty$ -- 3999
+format.name$ -- 622
+if$ -- 9934
+int.to.chr$ -- 2
+int.to.str$ -- 1
+missing$ -- 485
+newline$ -- 274
+num.names$ -- 196
+pop$ -- 1107
+preamble$ -- 1
+purify$ -- 338
+quote$ -- 0
+skip$ -- 998
+stack$ -- 0
+substring$ -- 4521
+swap$ -- 1186
+text.length$ -- 0
+text.prefix$ -- 0
+top$ -- 0
+type$ -- 432
+warning$ -- 1
+while$ -- 361
+width$ -- 0
+write$ -- 728
+(There were 17 error messages)
