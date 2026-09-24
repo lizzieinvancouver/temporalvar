@@ -34,7 +34,7 @@
 \title{Phenological sensitivity to climate change disrupts species' coexistence}
 %\title{Climate change disrupts species' coexistence through altered phenological priority effects}
 
-\author{D.M. Buonaiuto $^{1,2,3,a}$, M. Donahue$^{4}$, E.M. Wolkovich$^{2,3,5}$}
+\author{Daniel M. Buonaiuto $^{1,2,3,a}$, Megan Donahue$^{4}$,  Elizabeth M. Wolkovich$^{2,3,5}$}
 \bibliographystyle{..//refs/styles/gcb.bst}
 \usepackage{Sweave}
 \begin{document}
